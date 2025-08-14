@@ -1,0 +1,208 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  * {
+    @apply border-gray-800;
+  }
+
+  body {
+    @apply bg-cyberpunk-dark text-white font-display antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-cyberpunk-dark;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-cyberpunk-neon rounded-full;
+    box-shadow: 0 0 10px theme('colors.cyberpunk.neon');
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-cyberpunk-pink;
+    box-shadow: 0 0 15px theme('colors.cyberpunk.pink');
+  }
+}
+
+@layer components {
+  .cyberpunk-glow {
+    @apply text-cyberpunk-neon;
+    text-shadow:
+      0 0 10px theme('colors.cyberpunk.neon'),
+      0 0 20px theme('colors.cyberpunk.neon'),
+      0 0 40px theme('colors.cyberpunk.neon');
+  }
+
+  .cyberpunk-border {
+    @apply border-2 border-cyberpunk-neon;
+    box-shadow: 0 0 10px theme('colors.cyberpunk.neon');
+  }
+
+  .glitch-text {
+    position: relative;
+    display: inline-block;
+  }
+
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch-text::before {
+    animation: glitch-1 0.5s infinite;
+    color: theme('colors.cyberpunk.pink');
+    z-index: -1;
+  }
+
+  .glitch-text::after {
+    animation: glitch-2 0.5s infinite;
+    color: theme('colors.cyberpunk.blue');
+    z-index: -2;
+  }
+
+  .scanlines {
+    position: relative;
+  }
+
+  .scanlines::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 255, 255, 0.03) 2px,
+      rgba(0, 255, 255, 0.03) 4px
+    );
+    pointer-events: none;
+    animation: flicker 0.15s linear infinite;
+  }
+}
+
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  .text-shadow-glow-lg {
+    text-shadow:
+      0 0 20px currentColor,
+      0 0 40px currentColor;
+  }
+
+  .bg-gradient-cyberpunk {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a1a1a 100%);
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .cursor-trail {
+    display: none; /* Hide cursor trail on mobile */
+  }
+
+  .scanlines::after {
+    opacity: 0.5; /* Reduce scanlines intensity on mobile */
+  }
+
+  /* Reduce motion for better mobile performance */
+  .parallax-effect {
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Optimize text sizes for mobile */
+  .mobile-text-sm {
+    font-size: 0.875rem;
+  }
+
+  .mobile-text-base {
+    font-size: 1rem;
+  }
+
+  .mobile-text-lg {
+    font-size: 1.125rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Disable hover effects that don't work on touch */
+  .hover-only {
+    display: none;
+  }
+
+  /* Simplify animations for touch devices */
+  .complex-animation {
+    animation: none;
+  }
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .crisp-edges {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .cyberpunk-glow,
+  .cyberpunk-border {
+    color: black !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    border-color: black !important;
+  }
+}
