@@ -125,22 +125,6 @@ function CyberpunkBackground() {
           }}
         />
       ))}
-
-      {/* Glitch scanlines effect */}
-      <motion.div
-        className='absolute inset-0'
-        animate={{
-          opacity: [0, 1, 0],
-        }}
-        transition={{
-          duration: 0.1,
-          repeat: Infinity,
-          repeatDelay: 3 + Math.random() * 5,
-        }}
-      >
-        <div className='absolute top-1/4 left-0 w-full h-0.5 bg-cyan-400' />
-        <div className='absolute top-3/4 left-0 w-full h-0.5 bg-pink-500' />
-      </motion.div>
     </div>
   )
 }
