@@ -1,0 +1,3 @@
+- Always ask about planned file strucutre updates before making large changes to it#
+- Always use descriptive variable names
+- when each task is completed create a commit with git diff and push to origin
