@@ -1,16 +1,17 @@
-# Cyberpunk Hero Section Components
+# 8-Bit Cyberpunk Hero Section Components
 
-A high-impact, animated cyberpunk-themed intro/business card section built with Next.js, Tailwind CSS, and Framer Motion.
+A high-impact, animated 8-bit cyberpunk-themed intro/business card section built with Next.js, Tailwind CSS, and Framer Motion. Features retro pixel art aesthetics mixed with modern cyberpunk elements.
 
 ## Features
 
-- 🎨 **Cyberpunk Background**: Parallax neon skyline, floating particles, glitch scanlines
-- ⚡ **Glitch Name Reveal**: Random character flickering that resolves to final text
-- ⌨️ **Typewriter Animation**: Character-by-character text reveal with blinking cursor
-- 🔘 **Neon CTA Button**: Animated border drawing, glow effects, and ripple interactions
-- 📊 **Audio Visualizer**: Animated bars simulating real-time audio with particle effects
-- 🎬 **Orchestrated Timing**: Smooth sequence of intro animations
-- 📱 **Responsive Design**: Optimized for desktop and mobile devices
+- 🎨 **8-Bit Cyberpunk Background**: Parallax neon skyline, pixel clouds, floating particles, retro dithering effects
+- ⚡ **Glitch Name Reveal**: Random character flickering with 8-bit styling and RGB split effects
+- ⌨️ **Typewriter Animation**: Character-by-character text reveal with pixelated cursor
+- 💳 **Retro Business Card**: Interactive 8-bit business card with LinkedIn and GitHub links
+- 🔘 **Pixel Perfect CTA Button**: 8-bit styled button with neon effects and retro shadows
+- 📊 **8-Bit Audio Visualizer**: Pixelated bars with retro peak indicators and particle effects
+- 🎬 **Orchestrated Timing**: Smooth sequence of intro animations with retro transitions
+- 📱 **Responsive Design**: Optimized for desktop and mobile with pixel-perfect scaling
 
 ## Installation
 
