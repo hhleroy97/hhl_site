@@ -7,6 +7,7 @@ import GlitchNameReveal from './GlitchNameReveal'
 import TypewriterText from './TypewriterText'
 import NeonButton from './NeonButton'
 import AudioVisualizer from './AudioVisualizer'
+import RetroBusinessCard from './RetroBusinessCard'
 
 interface HeroSectionProps {
   onEnterPortfolio?: () => void
@@ -20,7 +21,7 @@ export default function HeroSection({ onEnterPortfolio }: HeroSectionProps) {
   // 1: Glitch flash (1.5s)
   // 2: Name reveal (3.5s)
   // 3: Tagline typewriter (6s)
-  // 4: Button power on + visualizer (7s)
+  // 4: Business card + button + visualizer (7s)
 
   const handleNameRevealComplete = () => {
     setIntroStep(3)
@@ -88,15 +89,28 @@ export default function HeroSection({ onEnterPortfolio }: HeroSectionProps) {
           />
         </motion.div>
 
+        {/* 8-bit Business Card */}
+        <motion.div
+          className='text-center'
+          initial={{ opacity: 0, rotateX: -90 }}
+          animate={{
+            opacity: introStep >= 4 ? 1 : 0,
+            rotateX: introStep >= 4 ? 0 : -90,
+          }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <RetroBusinessCard startDelay={0} />
+        </motion.div>
+
         {/* CTA Button */}
         <motion.div
           className='text-center'
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{
             opacity: introStep >= 4 ? 1 : 0,
-            y: introStep >= 4 ? 0 : 20,
+            y: introStep >= 4 ? 0 : 30,
           }}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
         >
           <NeonButton onClick={handleButtonClick} disabled={introStep < 4}>
             Enter Portfolio

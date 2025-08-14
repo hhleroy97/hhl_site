@@ -53,7 +53,12 @@ export default function NeonButton({
       transition={{ delay: startDelay, duration: 0.5 }}
     >
       <motion.button
-        className='relative px-8 py-4 bg-transparent border-2 border-cyan-400 text-cyan-400 font-mono font-bold text-lg uppercase tracking-wider overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed'
+        className='relative px-8 py-4 bg-black border-4 border-cyan-400 text-cyan-400 font-mono font-bold text-lg uppercase tracking-wider overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed'
+        style={{
+          imageRendering: 'pixelated',
+          borderStyle: 'solid',
+          boxShadow: '4px 4px 0px #ff00ff',
+        }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}

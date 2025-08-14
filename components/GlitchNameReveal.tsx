@@ -70,20 +70,22 @@ export default function GlitchNameReveal({
   return (
     <div className='relative'>
       <motion.h1
-        className='text-6xl md:text-8xl lg:text-9xl font-bold text-center'
+        className='text-5xl md:text-7xl lg:text-8xl font-bold text-center pixel-font'
         style={{
-          fontFamily: 'monospace',
+          fontFamily: 'monospace, "Courier New", monospace',
           textShadow: isComplete
-            ? '0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff'
+            ? '4px 0 0 #ff00ff, -4px 0 0 #00ffff, 0 0 20px #00ffff'
             : 'none',
+          imageRendering: 'pixelated',
+          letterSpacing: '0.1em',
         }}
         animate={
           isComplete
             ? {
                 textShadow: [
-                  '0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff',
-                  '0 0 30px #00ffff, 0 0 50px #00ffff, 0 0 70px #00ffff',
-                  '0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff',
+                  '4px 0 0 #ff00ff, -4px 0 0 #00ffff, 0 0 20px #00ffff',
+                  '6px 0 0 #ff00ff, -6px 0 0 #00ffff, 0 0 30px #00ffff',
+                  '4px 0 0 #ff00ff, -4px 0 0 #00ffff, 0 0 20px #00ffff',
                 ],
               }
             : {}
@@ -94,7 +96,7 @@ export default function GlitchNameReveal({
           ease: 'easeInOut',
         }}
       >
-        <span className='bg-gradient-to-r from-cyan-400 via-cyan-300 to-cyan-400 bg-clip-text text-transparent'>
+        <span className='bg-gradient-to-r from-green-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent'>
           {displayText}
         </span>
       </motion.h1>

@@ -83,9 +83,14 @@ export default function AudioVisualizer({
       {bars.map((bar, index) => (
         <div key={bar.id} className='relative flex-1 max-w-4'>
           <motion.div
-            className='w-full bg-gradient-to-t from-cyan-600 via-cyan-400 to-cyan-300 relative overflow-visible'
+            className='w-full relative overflow-visible'
             style={{
-              boxShadow: isActive ? '0 0 10px rgba(0, 255, 255, 0.5)' : 'none',
+              backgroundColor: '#00ff00',
+              boxShadow: isActive
+                ? '0 0 8px rgba(0, 255, 0, 0.8), inset 0 0 4px rgba(255, 255, 255, 0.3)'
+                : 'none',
+              imageRendering: 'pixelated',
+              border: isActive ? '1px solid #00ffff' : '1px solid #004400',
             }}
             animate={
               isActive
@@ -101,17 +106,22 @@ export default function AudioVisualizer({
               ease: 'easeOut',
             }}
           >
-            {/* Glow effect at the top of taller bars */}
-            {bar.height > 50 && (
+            {/* 8-bit style peak indicator */}
+            {bar.height > 60 && (
               <motion.div
-                className='absolute -top-1 left-0 right-0 h-2 bg-cyan-400 blur-sm'
+                className='absolute -top-1 left-0 right-0 h-1 bg-yellow-400'
+                style={{
+                  imageRendering: 'pixelated',
+                  boxShadow: '0 0 4px #ffff00',
+                }}
                 animate={{
-                  opacity: [0.5, 1, 0.5],
+                  opacity: [0.7, 1, 0.7],
+                  backgroundColor: ['#ffff00', '#ff00ff', '#ffff00'],
                 }}
                 transition={{
-                  duration: 0.5,
+                  duration: 0.3,
                   repeat: Infinity,
-                  ease: 'easeInOut',
+                  ease: 'linear',
                 }}
               />
             )}
@@ -120,8 +130,11 @@ export default function AudioVisualizer({
             {isActive && generateParticle(index, bar.height)}
           </motion.div>
 
-          {/* Base indicator */}
-          <div className='w-full h-1 bg-gray-600 mt-1' />
+          {/* 8-bit base indicator */}
+          <div
+            className='w-full h-1 bg-gray-700 mt-1 border border-gray-500'
+            style={{ imageRendering: 'pixelated' }}
+          />
         </div>
       ))}
 
