@@ -3,6 +3,7 @@ import characterProfile from '../assets/character-profile.png'
 import cloudBadge from '../assets/cloud-badge.png'
 import pythonBadge from '../assets/python-badge.png'
 import databaseBadge from '../assets/database-badge.png'
+import pipeBadge from '../assets/pipe-badge.png'
 
 interface CyberpunkTrainerCardProps {
   trainerName?: string
@@ -330,6 +331,17 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                       />
                       <h4 className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon'>
                         SQL
+                      </h4>
+                    </div>
+                  ) : i === 3 ? (
+                    <div className='flex items-center space-x-1'>
+                      <img
+                        src={pipeBadge}
+                        alt='Pipeline Badge'
+                        className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor]'
+                      />
+                      <h4 className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon'>
+                        STREAM
                       </h4>
                     </div>
                   ) : (
