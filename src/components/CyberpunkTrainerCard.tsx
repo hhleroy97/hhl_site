@@ -1,5 +1,6 @@
 import React from 'react'
 import characterProfile from '../assets/character-profile.png'
+import cloudBadge from '../assets/cloud-badge.png'
 
 interface CyberpunkTrainerCardProps {
   trainerName?: string
@@ -315,13 +316,26 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               >
                 <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                 <div className='text-center z-10'>
-                  <h4
-                    className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
-                    style={{
-                      color:
-                        i === 0
-                          ? '#3b82f6'
-                          : i === 1
+                  {i === 0 ? (
+                    <div className='flex items-center space-x-1'>
+                      <img
+                        src={cloudBadge}
+                        alt='Cloud Badge'
+                        className='w-4 h-4 filter drop-shadow-[0_0_4px_currentColor]'
+                      />
+                      <h4
+                        className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
+                        style={{ color: '#3b82f6' }}
+                      >
+                        AWS
+                      </h4>
+                    </div>
+                  ) : (
+                    <h4
+                      className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
+                      style={{
+                        color:
+                          i === 1
                             ? '#eab308'
                             : i === 2
                               ? '#a855f7'
@@ -334,10 +348,11 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                                     : i === 6
                                       ? '#10b981'
                                       : '#6366f1',
-                    }}
-                  >
-                    {skill.title}
-                  </h4>
+                      }}
+                    >
+                      {skill.title}
+                    </h4>
+                  )}
                 </div>
                 <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
               </div>
