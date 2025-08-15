@@ -8,11 +8,11 @@ const CyberpunkTrainerCardDemo: React.FC = () => {
         {/* Demo Header */}
         <div className='text-center space-y-4'>
           <h1 className='text-4xl font-cyber font-bold cyberpunk-glow'>
-            CYBERPUNK TRAINER CARD
+            CYBERPUNK PROFESSIONAL CARD
           </h1>
           <p className='text-cyberpunk-neon/80 font-mono text-sm'>
-            A futuristic trainer card with cyberpunk aesthetics and modular
-            design
+            Professional card with stacked work experience and achievement
+            sections
           </p>
         </div>
 
@@ -28,55 +28,185 @@ const CyberpunkTrainerCardDemo: React.FC = () => {
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12'>
           <CyberpunkTrainerCard
             trainerName='JANE DOE'
-            professionalCards={[
+            workExperience={[
               {
-                title: 'Frontend Lead',
-                description: 'UI/UX & React specialist',
-                type: 'experience',
+                company: 'Meta',
+                role: 'Frontend Lead',
+                years: '2020-2023',
+                icon: '🚀',
               },
               {
-                title: 'Design System',
-                description: 'Component library architect',
-                type: 'project',
+                company: 'Airbnb',
+                role: 'Senior Engineer',
+                years: '2018-2020',
+                icon: '🏠',
               },
               {
-                title: 'Accessibility Expert',
-                description: 'WCAG compliance champion',
-                type: 'achievement',
+                company: 'Stripe',
+                role: 'Software Engineer',
+                years: '2016-2018',
+                icon: '💳',
+              },
+              {
+                company: 'Startup Co',
+                role: 'Full-Stack Dev',
+                years: '2014-2016',
+                icon: '⚡',
+              },
+              {
+                company: 'Agency X',
+                role: 'Frontend Dev',
+                years: '2012-2014',
+                icon: '🎨',
+              },
+              {
+                company: 'Freelance',
+                role: 'Web Developer',
+                years: '2010-2012',
+                icon: '💻',
               },
             ]}
-            techStack={[
-              { name: 'React', category: 'Frontend', level: 'Expert' },
-              { name: 'CSS', category: 'Styling', level: 'Expert' },
-              { name: 'Figma', category: 'Design', level: 'Advanced' },
-              { name: 'TypeScript', category: 'Language', level: 'Advanced' },
+            achievements={[
+              {
+                title: 'Projects',
+                description: 'Led major initiatives',
+                value: '30+',
+                icon: '🎯',
+              },
+              {
+                title: 'Experience',
+                description: 'Years in frontend',
+                value: '12+',
+                icon: '⏰',
+              },
+              {
+                title: 'Frameworks',
+                description: 'Frontend technologies',
+                value: '8+',
+                icon: '⚛️',
+              },
+              {
+                title: 'Team Lead',
+                description: 'Developers managed',
+                value: '12',
+                icon: '👥',
+              },
+              {
+                title: 'Designs',
+                description: 'UI/UX projects',
+                value: '50+',
+                icon: '🎨',
+              },
+              {
+                title: 'Libraries',
+                description: 'Open source work',
+                value: '25+',
+                icon: '📦',
+              },
+              {
+                title: 'Talks',
+                description: 'Conference speaking',
+                value: '8',
+                icon: '🎤',
+              },
+              {
+                title: 'Mentees',
+                description: 'Developers coached',
+                value: '15+',
+                icon: '📚',
+              },
             ]}
             className='transform scale-90'
           />
           <CyberpunkTrainerCard
             trainerName='ALEX CHEN'
-            professionalCards={[
+            workExperience={[
               {
-                title: 'DevOps Engineer',
-                description: 'Infrastructure & automation',
-                type: 'experience',
+                company: 'Netflix',
+                role: 'DevOps Lead',
+                years: '2021-2023',
+                icon: '🎬',
               },
               {
-                title: 'K8s Migration',
-                description: 'Containerization project',
-                type: 'project',
+                company: 'Uber',
+                role: 'Site Reliability',
+                years: '2019-2021',
+                icon: '🚗',
               },
               {
-                title: 'Zero Downtime',
-                description: '99.99% uptime achievement',
-                type: 'achievement',
+                company: 'Docker',
+                role: 'Platform Engineer',
+                years: '2017-2019',
+                icon: '🐋',
+              },
+              {
+                company: 'Red Hat',
+                role: 'Systems Engineer',
+                years: '2015-2017',
+                icon: '🎩',
+              },
+              {
+                company: 'Startups',
+                role: 'Infrastructure',
+                years: '2013-2015',
+                icon: '🏗️',
+              },
+              {
+                company: 'IBM',
+                role: 'Junior Engineer',
+                years: '2011-2013',
+                icon: '🏢',
               },
             ]}
-            techStack={[
-              { name: 'Kubernetes', category: 'DevOps', level: 'Expert' },
-              { name: 'Docker', category: 'Container', level: 'Expert' },
-              { name: 'AWS', category: 'Cloud', level: 'Advanced' },
-              { name: 'Terraform', category: 'IaC', level: 'Advanced' },
+            achievements={[
+              {
+                title: 'Uptime',
+                description: 'System availability',
+                value: '99.9%',
+                icon: '⚡',
+              },
+              {
+                title: 'Experience',
+                description: 'Years in DevOps',
+                value: '10+',
+                icon: '⏰',
+              },
+              {
+                title: 'Platforms',
+                description: 'Cloud technologies',
+                value: '15+',
+                icon: '☁️',
+              },
+              {
+                title: 'Clusters',
+                description: 'K8s deployments',
+                value: '50+',
+                icon: '🎯',
+              },
+              {
+                title: 'Automation',
+                description: 'Scripts written',
+                value: '200+',
+                icon: '🤖',
+              },
+              {
+                title: 'Migrations',
+                description: 'Cloud transitions',
+                value: '12',
+                icon: '🔄',
+              },
+              {
+                title: 'Incidents',
+                description: 'Critical fixes',
+                value: '100+',
+                icon: '🚨',
+              },
+              {
+                title: 'Training',
+                description: 'Team workshops',
+                value: '25+',
+                icon: '📚',
+              },
             ]}
             className='transform scale-90'
           />
@@ -90,35 +220,31 @@ const CyberpunkTrainerCardDemo: React.FC = () => {
           <ul className='space-y-2 text-cyberpunk-neon/80 font-mono text-sm'>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>
-                Professional name prominently displayed in top left corner
-              </span>
+              <span>Name in top left corner with professional tagline</span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Stacked professional portfolio cards with full width</span>
+              <span>Work experience section - 6 slots in 3x2 grid</span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Tech stack cards with skill level indicators</span>
+              <span>Achievement badges - 8 slots in 4x2 grid with metrics</span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Compact profile image section with circuit patterns</span>
+              <span>Properly stacked sections with full width</span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Dynamic card type icons and status indicators</span>
+              <span>Custom icons for each company and achievement</span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>
-                Color-coded skill levels (Expert, Advanced, Intermediate)
-              </span>
+              <span>Hover effects and neon glow styling</span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Professional tagline and availability status</span>
+              <span>Compact profile section with circuit patterns</span>
             </li>
           </ul>
         </div>
