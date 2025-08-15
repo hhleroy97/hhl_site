@@ -321,7 +321,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                       <img
                         src={cloudBadge}
                         alt='Cloud Badge'
-                        className='w-4 h-4 filter drop-shadow-[0_0_4px_currentColor]'
+                        className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor]'
                       />
                       <h4
                         className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
