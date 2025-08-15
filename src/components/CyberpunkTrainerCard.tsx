@@ -283,64 +283,74 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
             <span>SKILLS & CAPABILITIES</span>
             <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse'></div>
           </h3>
-          <div className='grid grid-cols-4 gap-2'>
+          <div className='grid grid-cols-4 gap-3'>
             {skillsCapabilities.map((skill, i) => (
               <div
                 key={i}
-                className='w-full h-16 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 border border-cyberpunk-neon/50 rounded flex flex-col items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300 p-2'
+                className='w-full h-20 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 border border-cyberpunk-neon/50 rounded flex flex-col items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300 p-3'
                 title={skill.description}
               >
                 <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                 <div className='text-center z-10'>
                   {i === 0 ? (
-                    <div className='flex flex-col items-center space-y-1'>
-                      <img
-                        src={cloudBadge}
-                        alt='Cloud Badge'
-                        className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
-                      />
+                    <div className='flex flex-col items-center space-y-2'>
+                      <div className='flex items-center justify-center h-8'>
+                        <img
+                          src={cloudBadge}
+                          alt='Cloud Badge'
+                          className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
+                        />
+                      </div>
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
                         AWS Cloud Data Services
                       </h4>
                     </div>
                   ) : i === 1 ? (
-                    <div className='flex flex-col items-center space-y-1'>
-                      <img
-                        src={pythonBadge}
-                        alt='Python Badge'
-                        className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
-                      />
+                    <div className='flex flex-col items-center space-y-2'>
+                      <div className='flex items-center justify-center h-8'>
+                        <img
+                          src={pythonBadge}
+                          alt='Python Badge'
+                          className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
+                        />
+                      </div>
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
                         Python Development
                       </h4>
                     </div>
                   ) : i === 2 ? (
-                    <div className='flex flex-col items-center space-y-1'>
-                      <img
-                        src={databaseBadge}
-                        alt='Database Badge'
-                        className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
-                      />
+                    <div className='flex flex-col items-center space-y-2'>
+                      <div className='flex items-center justify-center h-8'>
+                        <img
+                          src={databaseBadge}
+                          alt='Database Badge'
+                          className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
+                        />
+                      </div>
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
                         SQL & Data Modeling
                       </h4>
                     </div>
                   ) : i === 3 ? (
-                    <div className='flex flex-col items-center space-y-1'>
-                      <img
-                        src={pipeBadge}
-                        alt='Pipeline Badge'
-                        className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
-                      />
+                    <div className='flex flex-col items-center space-y-2'>
+                      <div className='flex items-center justify-center h-8'>
+                        <img
+                          src={pipeBadge}
+                          alt='Pipeline Badge'
+                          className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
+                        />
+                      </div>
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
                         Streaming Data Pipelines
                       </h4>
                     </div>
                   ) : (
-                    <div className='flex flex-col items-center space-y-1'>
-                      <span className='text-2xl filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon flex-shrink-0'>
-                        {skill.icon}
-                      </span>
+                    <div className='flex flex-col items-center space-y-2'>
+                      <div className='flex items-center justify-center h-8'>
+                        <span className='text-2xl filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon flex-shrink-0'>
+                          {skill.icon}
+                        </span>
+                      </div>
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
                         {skill.title}
                       </h4>
