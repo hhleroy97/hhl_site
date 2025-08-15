@@ -8,11 +8,10 @@ const CyberpunkTrainerCardDemo: React.FC = () => {
         {/* Demo Header */}
         <div className='text-center space-y-4'>
           <h1 className='text-4xl font-cyber font-bold cyberpunk-glow'>
-            CYBERPUNK PROFESSIONAL CARD
+            PROFESSIONAL IMPACT CARD
           </h1>
           <p className='text-cyberpunk-neon/80 font-mono text-sm'>
-            Professional card with stacked work experience and achievement
-            sections
+            Core services and proof points for maximum visitor engagement
           </p>
         </div>
 
@@ -36,19 +35,25 @@ const CyberpunkTrainerCardDemo: React.FC = () => {
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Work experience section - 6 slots in 3x2 grid</span>
+              <span>Core services section - 6 offerings in 3x2 grid</span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Achievement badges - 8 slots in 4x2 grid with metrics</span>
+              <span>
+                Proof points badges - 8 credibility metrics in 4x2 grid
+              </span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Properly stacked sections with full width</span>
+              <span>
+                Professional status display with availability indicator
+              </span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Custom icons for each company and achievement</span>
+              <span>
+                Service-focused icons optimized for visitor engagement
+              </span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
@@ -56,7 +61,9 @@ const CyberpunkTrainerCardDemo: React.FC = () => {
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Compact profile section with circuit patterns</span>
+              <span>
+                Professional tools display with 'Available for Hire' status
+              </span>
             </li>
           </ul>
         </div>
