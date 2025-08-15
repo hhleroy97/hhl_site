@@ -4,6 +4,7 @@ import cloudBadge from '../assets/cloud-badge.png'
 import pythonBadge from '../assets/python-badge.png'
 import databaseBadge from '../assets/database-badge.png'
 import pipeBadge from '../assets/pipe-badge.png'
+import robotBadge from '../assets/robot-badge.png'
 
 interface CyberpunkTrainerCardProps {
   trainerName?: string
@@ -315,7 +316,9 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         />
                       </div>
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
-                        Python Development
+                        Python
+                        <br />
+                        Development
                       </h4>
                     </div>
                   ) : i === 2 ? (
@@ -347,12 +350,28 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                   ) : (
                     <div className='flex flex-col items-center space-y-2'>
                       <div className='flex items-center justify-center h-8'>
-                        <span className='text-2xl filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon flex-shrink-0'>
-                          {skill.icon}
-                        </span>
+                        {i === 4 ? (
+                          <img
+                            src={robotBadge}
+                            alt='Robot Badge'
+                            className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
+                          />
+                        ) : (
+                          <span className='text-2xl filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon flex-shrink-0'>
+                            {skill.icon}
+                          </span>
+                        )}
                       </div>
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
-                        {skill.title}
+                        {i === 4 ? (
+                          <>
+                            Robotics Data
+                            <br />
+                            Integration
+                          </>
+                        ) : (
+                          skill.title
+                        )}
                       </h4>
                     </div>
                   )}
