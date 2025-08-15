@@ -57,42 +57,50 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
   skillsCapabilities = [
     {
       title: '☁️ AWS',
-      description: 'IoT Core, Kinesis, Firehose, Glue, S3, Athena, Lambda',
+      description:
+        'AWS Cloud Data Services – IoT Core, Kinesis, Firehose, Glue, S3, Athena, Lambda',
       icon: '☁️',
     },
     {
       title: '🐍 PYTHON',
-      description: 'Data pipelines, automation, analytics tooling',
+      description:
+        'Python Development – Data pipelines, automation, analytics tooling',
       icon: '🐍',
     },
     {
       title: '🗃️ SQL',
-      description: 'Querying, transformations, schema design',
+      description:
+        'SQL & Data Modeling – Querying, transformations, schema design',
       icon: '🗃️',
     },
     {
       title: '📊 STREAM',
-      description: 'Real-time ingestion & processing at scale',
+      description:
+        'Streaming Data Pipelines – Real-time ingestion & processing at scale',
       icon: '📊',
     },
     {
       title: '🤖 ROS2',
-      description: 'ROS2, PX4 telemetry, IoT devices',
+      description:
+        'Robotics Data Integration – ROS2, PX4 telemetry, IoT devices',
       icon: '🤖',
     },
     {
       title: '⚙️ ETL',
-      description: 'Building and optimizing ETL workflows',
+      description:
+        'ETL & Data Transformation – Building and optimizing ETL workflows',
       icon: '⚙️',
     },
     {
       title: '🤝 COLLAB',
-      description: 'Bridging hardware, software, and cloud teams',
+      description:
+        'Cross-Disciplinary Collaboration – Bridging hardware, software, and cloud teams',
       icon: '🤝',
     },
     {
       title: '📋 AGILE',
-      description: 'Prioritization, delivery, and stakeholder alignment',
+      description:
+        'Agile Project Management – Prioritization, delivery, and stakeholder alignment',
       icon: '📋',
     },
   ],
@@ -287,6 +295,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               <div
                 key={i}
                 className='w-full h-10 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 border border-cyberpunk-neon/50 rounded flex items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300'
+                title={skill.description}
               >
                 <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                 <div className='text-center z-10'>
