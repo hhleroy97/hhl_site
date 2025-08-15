@@ -8,7 +8,7 @@ interface CyberpunkTrainerCardProps {
     description: string
     icon?: string
   }>
-  proofPoints?: Array<{
+  skillsCapabilities?: Array<{
     title: string
     description: string
     icon?: string
@@ -50,46 +50,46 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
       icon: '🔬',
     },
   ],
-  proofPoints = [
+  skillsCapabilities = [
     {
-      title: '$500K+',
-      description: 'AWS MAP Projects',
-      icon: '💰',
+      title: '☁️ AWS',
+      description: 'IoT Core, Kinesis, Firehose, Glue, S3, Athena, Lambda',
+      icon: '☁️',
     },
     {
-      title: '10+ ⚙️',
-      description: 'Deployed Pipelines',
-      icon: '⚙️',
+      title: '🐍 PYTHON',
+      description: 'Data pipelines, automation, analytics tooling',
+      icon: '🐍',
     },
     {
-      title: '🏢 E2E',
-      description: 'End-to-End Architecture',
-      icon: '🏢',
+      title: '🗃️ SQL',
+      description: 'Querying, transformations, schema design',
+      icon: '🗃️',
     },
     {
-      title: '📱 X-PLAT',
-      description: 'Cross-Platform App Dev',
-      icon: '📱',
-    },
-    {
-      title: '🌐 IoT',
-      description: 'IoT Device Integration',
-      icon: '🌐',
-    },
-    {
-      title: '🚀 AGILE',
-      description: 'Agile Project Leadership',
-      icon: '🚀',
-    },
-    {
-      title: '📊 VIZ',
-      description: 'Data Visualization Expertise',
+      title: '📊 STREAM',
+      description: 'Real-time ingestion & processing at scale',
       icon: '📊',
     },
     {
-      title: '⚡ RAPID',
-      description: 'Rapid Prototyping Speed',
-      icon: '⚡',
+      title: '🤖 ROS2',
+      description: 'ROS2, PX4 telemetry, IoT devices',
+      icon: '🤖',
+    },
+    {
+      title: '💡 PROTO',
+      description: 'From proof-of-concept to production MVP',
+      icon: '💡',
+    },
+    {
+      title: '🤝 COLLAB',
+      description: 'Bridging hardware, software, and cloud',
+      icon: '🤝',
+    },
+    {
+      title: '📋 AGILE',
+      description: 'Prioritization, delivery, and stakeholder alignment',
+      icon: '📋',
     },
   ],
 }) => {
@@ -268,14 +268,14 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
           </div>
         </div>
 
-        {/* Bottom Row - Proof Points Section */}
+        {/* Bottom Row - Skills & Capabilities Section */}
         <div className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-6 rounded-lg'>
           <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider mb-4 flex items-center space-x-2'>
-            <span>PROOF POINTS</span>
+            <span>SKILLS & CAPABILITIES</span>
             <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse'></div>
           </h3>
           <div className='grid grid-cols-8 gap-3'>
-            {proofPoints.map((point, i) => (
+            {skillsCapabilities.map((skill, i) => (
               <div
                 key={i}
                 className='aspect-square bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 border border-cyberpunk-neon/50 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300 p-2'
@@ -283,13 +283,13 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                 <div className='text-center z-10 space-y-1'>
                   <div className='text-xl mb-1'>
-                    {getPlaceholderIcon(point.icon)}
+                    {getPlaceholderIcon(skill.icon)}
                   </div>
                   <h4 className='text-cyberpunk-neon font-cyber text-[10px] font-bold leading-tight'>
-                    {point.title}
+                    {skill.title}
                   </h4>
                   <p className='text-cyberpunk-neon/60 font-mono text-[8px] leading-tight'>
-                    {point.description}
+                    {skill.description}
                   </p>
                 </div>
                 <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
