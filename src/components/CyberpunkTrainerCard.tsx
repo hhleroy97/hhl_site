@@ -1,16 +1,14 @@
 import React from 'react'
-import characterProfile from '../assets/character-profile.png'
 
 interface CyberpunkTrainerCardProps {
   trainerName?: string
   className?: string
-  workExperience?: Array<{
-    company: string
-    role: string
-    years: string
+  coreServices?: Array<{
+    title: string
+    description: string
     icon?: string
   }>
-  skills?: Array<{
+  proofPoints?: Array<{
     title: string
     description: string
     icon?: string
@@ -20,83 +18,77 @@ interface CyberpunkTrainerCardProps {
 const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
   trainerName = 'HARTLEY H. LEROY',
   className = '',
-  workExperience = [
+  coreServices = [
     {
-      company: 'Lucid Bots',
-      role: 'Software Engineer – Robotics Fleet Management',
-      years: '2024–2025',
+      title: 'Cloud & Data',
+      description: 'AWS IoT, Pipelines, Analytics',
+      icon: '☁️',
+    },
+    {
+      title: 'Robotics',
+      description: 'ROS2, PX4, Custom Control',
       icon: '🤖',
     },
     {
-      company: 'Keep It Simple Storage',
-      role: 'Product Manager (Software/Firmware)',
-      years: '2023–2024',
-      icon: '🔐',
+      title: 'Product & FW',
+      description: 'Hardware-Software Synergy',
+      icon: '⚡',
     },
     {
-      company: 'First Turn Innovations',
-      role: 'Prototype Engineer',
-      years: '2023',
-      icon: '🛠',
+      title: 'Blockchain',
+      description: 'Smart Contracts, Tokenomics',
+      icon: '⛓️',
     },
     {
-      company: 'Delphi Digital',
-      role: 'Blockchain Research Analyst',
-      years: '2021–2023',
-      icon: '📊',
+      title: 'Frontend',
+      description: 'React, Vue, Next.js',
+      icon: '💻',
     },
     {
-      company: 'Softhread Inc.',
-      role: 'Software Engineer – Front End',
-      years: '2020–2021',
-      icon: '🖥',
-    },
-    {
-      company: 'FDA – CDRH',
-      role: 'ORISE Fellow',
-      years: '2020–2021',
-      icon: '🛰',
+      title: 'Proto & R&D',
+      description: 'MVP to Production',
+      icon: '🔬',
     },
   ],
-  skills = [
+  proofPoints = [
     {
-      title: 'Cloud & Data Engineering',
-      description: 'AWS IoT Core, Kinesis, Firehose, Glue, S3, Athena, Lambda',
-      icon: '🛰',
+      title: '$500K+',
+      description: 'AWS MAP Projects',
+      icon: '💰',
     },
     {
-      title: 'Robotics & Embedded',
-      description: 'ROS2, PX4, Embedded C',
-      icon: '🤖',
+      title: '10+ ⚙️',
+      description: 'Deployed Pipelines',
+      icon: '⚙️',
     },
     {
-      title: 'Programming',
-      description: 'Python, SQL, JavaScript, TypeScript',
-      icon: '🐍',
+      title: '🏢 E2E',
+      description: 'End-to-End Architecture',
+      icon: '🏢',
     },
     {
-      title: 'Frontend Development',
-      description: 'React, Vue, Next.js',
-      icon: '🖥',
+      title: '📱 X-PLAT',
+      description: 'Cross-Platform App Dev',
+      icon: '📱',
     },
     {
-      title: 'Processes & Methods',
-      description: 'Agile/Scrum, Prototyping, Cross-functional Collaboration',
-      icon: '🛠',
+      title: '🌐 IoT',
+      description: 'IoT Device Integration',
+      icon: '🌐',
     },
     {
-      title: 'Data Pipelines',
-      description: 'Design, ingestion, and real-time telemetry systems',
+      title: '🚀 AGILE',
+      description: 'Agile Project Leadership',
+      icon: '🚀',
+    },
+    {
+      title: '📊 VIZ',
+      description: 'Data Visualization Expertise',
       icon: '📊',
     },
     {
-      title: 'IoT & Smart Devices',
-      description: 'NFC energy harvesting lock integration',
-      icon: '🔐',
-    },
-    {
-      title: 'Full Stack',
-      description: 'End-to-end system architecture and development',
+      title: '⚡ RAPID',
+      description: 'Rapid Prototyping Speed',
       icon: '⚡',
     },
   ],
@@ -140,12 +132,12 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
       {/* Main Content Layout */}
       <div className='w-full space-y-6'>
-        {/* Top Row - Profile and Work Experience */}
+        {/* Top Row - Profile and Core Services */}
         <div className='w-full grid grid-cols-4 gap-6'>
           {/* Profile Section - 1/4 width */}
           <div className='col-span-1'>
             <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider mb-3 flex items-center space-x-2'>
-              <span>PROFILE</span>
+              <span>PROFESSIONAL</span>
               <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse'></div>
             </h3>
             <div className='relative h-80 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 rounded-lg overflow-hidden'>
@@ -217,13 +209,27 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 </div>
               </div>
 
-              {/* Character Image */}
-              <div className='absolute inset-2 flex items-center justify-center'>
-                <img
-                  src={characterProfile}
-                  alt='Character Profile'
-                  className='w-full h-full object-contain object-center rounded-lg'
-                />
+              {/* Professional Status Display */}
+              <div className='absolute inset-4 flex flex-col items-center justify-center space-y-4'>
+                {/* Status Icon */}
+                <div className='w-20 h-20 mx-auto bg-gradient-to-b from-cyberpunk-neon/30 to-cyberpunk-blue/30 rounded-lg mb-2 relative flex items-center justify-center'>
+                  <div className='text-3xl'>🛠️</div>
+                  <div className='absolute top-1 right-1 w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse'></div>
+                </div>
+
+                {/* Status Text */}
+                <div className='text-center space-y-2'>
+                  <div className='text-cyberpunk-green font-cyber text-sm font-bold'>
+                    AVAILABLE FOR HIRE
+                  </div>
+                  <div className='text-cyberpunk-neon/60 font-mono text-xs leading-tight'>
+                    Full-Stack Engineer
+                    <br />
+                    Hardware + Software
+                    <br />
+                    MVP to Production
+                  </div>
+                </div>
               </div>
 
               {/* Scanlines effect */}
@@ -231,14 +237,14 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
             </div>
           </div>
 
-          {/* Work Experience Section - 3/4 width */}
+          {/* Core Services Section - 3/4 width */}
           <div className='col-span-3 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-6 rounded-lg'>
             <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider mb-4 flex items-center space-x-2'>
-              <span>WORK EXPERIENCE</span>
+              <span>CORE SERVICES</span>
               <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse'></div>
             </h3>
             <div className='grid grid-cols-3 gap-3'>
-              {workExperience.map((work, i) => (
+              {coreServices.map((service, i) => (
                 <div
                   key={i}
                   className='aspect-square bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 border border-cyberpunk-neon/40 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300 p-2'
@@ -246,16 +252,13 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                   <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                   <div className='text-center z-10 space-y-1'>
                     <div className='text-2xl mb-1'>
-                      {getPlaceholderIcon(work.icon)}
+                      {getPlaceholderIcon(service.icon)}
                     </div>
                     <h4 className='text-cyberpunk-neon font-cyber text-xs font-bold leading-tight'>
-                      {work.company}
+                      {service.title}
                     </h4>
                     <p className='text-cyberpunk-neon/70 font-mono text-[10px] leading-tight'>
-                      {work.role}
-                    </p>
-                    <p className='text-cyberpunk-neon/50 font-mono text-[9px]'>
-                      {work.years}
+                      {service.description}
                     </p>
                   </div>
                   <div className='absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyberpunk-neon/30 to-transparent'></div>
@@ -265,14 +268,14 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
           </div>
         </div>
 
-        {/* Bottom Row - Skills Section */}
+        {/* Bottom Row - Proof Points Section */}
         <div className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-6 rounded-lg'>
           <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider mb-4 flex items-center space-x-2'>
-            <span>TECHNICAL SKILLS</span>
+            <span>PROOF POINTS</span>
             <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse'></div>
           </h3>
           <div className='grid grid-cols-8 gap-3'>
-            {skills.map((skill, i) => (
+            {proofPoints.map((point, i) => (
               <div
                 key={i}
                 className='aspect-square bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 border border-cyberpunk-neon/50 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300 p-2'
@@ -280,13 +283,13 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                 <div className='text-center z-10 space-y-1'>
                   <div className='text-xl mb-1'>
-                    {getPlaceholderIcon(skill.icon)}
+                    {getPlaceholderIcon(point.icon)}
                   </div>
                   <h4 className='text-cyberpunk-neon font-cyber text-[10px] font-bold leading-tight'>
-                    {skill.title}
+                    {point.title}
                   </h4>
                   <p className='text-cyberpunk-neon/60 font-mono text-[8px] leading-tight'>
-                    {skill.description}
+                    {point.description}
                   </p>
                 </div>
                 <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
@@ -307,10 +310,10 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
         <div className='flex items-center space-x-4'>
           <span className='text-cyberpunk-neon/60 font-mono text-xs'>
-            EXPERIENCE: {workExperience.length} ROLES
+            ENGINEER • BUILDER • CREATIVE TECHNOLOGIST
           </span>
           <span className='text-cyberpunk-neon/60 font-mono text-xs'>
-            SKILLS: {skills.length} TECHNOLOGIES
+            EXP: 10+ YRS
           </span>
         </div>
       </div>
