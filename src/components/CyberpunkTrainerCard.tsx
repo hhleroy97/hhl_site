@@ -1,6 +1,8 @@
 import React from 'react'
 import characterProfile from '../assets/character-profile.png'
 import cloudBadge from '../assets/cloud-badge.png'
+import pythonBadge from '../assets/python-badge.png'
+import databaseBadge from '../assets/database-badge.png'
 
 interface CyberpunkTrainerCardProps {
   trainerName?: string
@@ -330,24 +332,48 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         AWS
                       </h4>
                     </div>
+                  ) : i === 1 ? (
+                    <div className='flex items-center space-x-1'>
+                      <img
+                        src={pythonBadge}
+                        alt='Python Badge'
+                        className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor]'
+                      />
+                      <h4
+                        className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
+                        style={{ color: '#eab308' }}
+                      >
+                        PYTHON
+                      </h4>
+                    </div>
+                  ) : i === 2 ? (
+                    <div className='flex items-center space-x-1'>
+                      <img
+                        src={databaseBadge}
+                        alt='Database Badge'
+                        className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor]'
+                      />
+                      <h4
+                        className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
+                        style={{ color: '#a855f7' }}
+                      >
+                        SQL
+                      </h4>
+                    </div>
                   ) : (
                     <h4
                       className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
                       style={{
                         color:
-                          i === 1
-                            ? '#eab308'
-                            : i === 2
-                              ? '#a855f7'
-                              : i === 3
-                                ? '#06b6d4'
-                                : i === 4
-                                  ? '#fb923c'
-                                  : i === 5
-                                    ? '#14b8a6'
-                                    : i === 6
-                                      ? '#10b981'
-                                      : '#6366f1',
+                          i === 3
+                            ? '#06b6d4'
+                            : i === 4
+                              ? '#fb923c'
+                              : i === 5
+                                ? '#14b8a6'
+                                : i === 6
+                                  ? '#10b981'
+                                  : '#6366f1',
                       }}
                     >
                       {skill.title}
