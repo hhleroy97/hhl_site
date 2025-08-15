@@ -5,6 +5,7 @@ import pythonBadge from '../assets/python-badge.png'
 import databaseBadge from '../assets/database-badge.png'
 import pipeBadge from '../assets/pipe-badge.png'
 import robotBadge from '../assets/robot-badge.png'
+import etlBadge from '../assets/etl-badge.png'
 
 interface CyberpunkTrainerCardProps {
   trainerName?: string
@@ -356,6 +357,12 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             alt='Robot Badge'
                             className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
                           />
+                        ) : i === 5 ? (
+                          <img
+                            src={etlBadge}
+                            alt='ETL Badge'
+                            className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
+                          />
                         ) : (
                           <span className='text-2xl filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon flex-shrink-0'>
                             {skill.icon}
@@ -368,6 +375,12 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             Robotics Data
                             <br />
                             Integration
+                          </>
+                        ) : i === 5 ? (
+                          <>
+                            ETL & Data
+                            <br />
+                            Transformation
                           </>
                         ) : (
                           skill.title
