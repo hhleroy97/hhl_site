@@ -59,7 +59,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
   ],
   skillsCapabilities = [
     {
-      title: 'AWS Cloud Data Services',
+      title: 'AWS Cloud Services',
       description: 'IoT Core, Kinesis, Firehose, Glue, S3, Athena, Lambda',
       icon: '☁️',
     },
@@ -74,7 +74,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
       icon: '🗃️',
     },
     {
-      title: 'Streaming Data Pipelines',
+      title: 'Data Streaming Pipelines',
       description: 'Real-time ingestion & processing at scale',
       icon: '📊',
     },
@@ -304,7 +304,9 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         />
                       </div>
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
-                        AWS Cloud Data Services
+                        AWS Cloud
+                        <br />
+                        Services
                       </h4>
                     </div>
                   ) : i === 1 ? (
@@ -345,7 +347,9 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         />
                       </div>
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
-                        Streaming Data Pipelines
+                        Data Streaming
+                        <br />
+                        Pipelines
                       </h4>
                     </div>
                   ) : (
