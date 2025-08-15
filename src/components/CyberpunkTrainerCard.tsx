@@ -20,33 +20,33 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
   className = '',
   coreServices = [
     {
-      title: 'Cloud & Data',
-      description: 'AWS IoT, Pipelines, Analytics',
+      title: 'Cloud & Data Systems',
+      description: 'AWS IoT Core, Kinesis, Glue, S3, Athena, Lambda',
       icon: '☁️',
     },
     {
-      title: 'Robotics',
-      description: 'ROS2, PX4, Custom Control',
+      title: 'Robotics Integration',
+      description: 'ROS2, PX4, IoT devices, telemetry pipelines',
       icon: '🤖',
     },
     {
-      title: 'Product & FW',
-      description: 'Hardware-Software Synergy',
+      title: 'Product & Firmware',
+      description: 'Hardware-software synergy for connected devices',
       icon: '⚡',
     },
     {
-      title: 'Blockchain',
-      description: 'Smart Contracts, Tokenomics',
-      icon: '⛓️',
+      title: 'Data Visualization',
+      description: 'Dashboards, real-time monitoring, insight delivery',
+      icon: '📊',
     },
     {
-      title: 'Frontend',
-      description: 'React, Vue, Next.js',
+      title: 'Frontend Engineering',
+      description: 'React, Vue, Next.js interfaces for data-rich apps',
       icon: '💻',
     },
     {
-      title: 'Proto & R&D',
-      description: 'MVP to Production',
+      title: 'Prototyping & R&D',
+      description: 'From proof-of-concept to production-ready MVP',
       icon: '🔬',
     },
   ],
@@ -77,13 +77,13 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
       icon: '🤖',
     },
     {
-      title: '💡 PROTO',
-      description: 'From proof-of-concept to production MVP',
-      icon: '💡',
+      title: '⚙️ ETL',
+      description: 'Building and optimizing ETL workflows',
+      icon: '⚙️',
     },
     {
       title: '🤝 COLLAB',
-      description: 'Bridging hardware, software, and cloud',
+      description: 'Bridging hardware, software, and cloud teams',
       icon: '🤝',
     },
     {
@@ -255,15 +255,45 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 >
                   <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                   <div className='text-center z-10 space-y-1'>
-                    <div className='text-2xl mb-1'>
+                    <div
+                      className='text-lg mb-1 filter drop-shadow-[0_0_8px_currentColor]'
+                      style={{
+                        color:
+                          i === 0
+                            ? '#00ffff'
+                            : i === 1
+                              ? '#ff8c00'
+                              : i === 2
+                                ? '#ffff00'
+                                : i === 3
+                                  ? '#a855f7'
+                                  : i === 4
+                                    ? '#22c55e'
+                                    : '#ec4899',
+                      }}
+                    >
                       {getPlaceholderIcon(service.icon)}
                     </div>
-                    <h4 className='text-cyberpunk-neon font-cyber text-xs font-bold leading-tight'>
+                    <h4
+                      className='font-cyber text-xs font-bold leading-tight'
+                      style={{
+                        color:
+                          i === 0
+                            ? '#00ffff'
+                            : i === 1
+                              ? '#ff8c00'
+                              : i === 2
+                                ? '#ffff00'
+                                : i === 3
+                                  ? '#a855f7'
+                                  : i === 4
+                                    ? '#22c55e'
+                                    : '#ec4899',
+                        opacity: 0.9,
+                      }}
+                    >
                       {service.title}
                     </h4>
-                    <p className='text-cyberpunk-neon/70 font-mono text-[10px] leading-tight'>
-                      {service.description}
-                    </p>
                   </div>
                   <div className='absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyberpunk-neon/30 to-transparent'></div>
                 </div>
@@ -286,7 +316,27 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               >
                 <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                 <div className='text-center z-10'>
-                  <h4 className='text-cyberpunk-neon font-mono text-sm font-bold leading-tight'>
+                  <h4
+                    className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
+                    style={{
+                      color:
+                        i === 0
+                          ? '#3b82f6'
+                          : i === 1
+                            ? '#eab308'
+                            : i === 2
+                              ? '#a855f7'
+                              : i === 3
+                                ? '#06b6d4'
+                                : i === 4
+                                  ? '#fb923c'
+                                  : i === 5
+                                    ? '#14b8a6'
+                                    : i === 6
+                                      ? '#10b981'
+                                      : '#6366f1',
+                    }}
+                  >
                     {skill.title}
                   </h4>
                 </div>
