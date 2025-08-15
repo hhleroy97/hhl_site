@@ -58,50 +58,42 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
   skillsCapabilities = [
     {
       title: '☁️ AWS',
-      description:
-        'AWS Cloud Data Services – IoT Core, Kinesis, Firehose, Glue, S3, Athena, Lambda',
+      description: 'IoT Core, Kinesis, Firehose, Glue, S3, Athena, Lambda',
       icon: '☁️',
     },
     {
       title: '🐍 PYTHON',
-      description:
-        'Python Development – Data pipelines, automation, analytics tooling',
+      description: 'Data pipelines, automation, analytics tooling',
       icon: '🐍',
     },
     {
       title: '🗃️ SQL',
-      description:
-        'SQL & Data Modeling – Querying, transformations, schema design',
+      description: 'Querying, transformations, schema design',
       icon: '🗃️',
     },
     {
       title: '📊 STREAM',
-      description:
-        'Streaming Data Pipelines – Real-time ingestion & processing at scale',
+      description: 'Real-time ingestion & processing at scale',
       icon: '📊',
     },
     {
       title: '🤖 ROS2',
-      description:
-        'Robotics Data Integration – ROS2, PX4 telemetry, IoT devices',
+      description: 'ROS2, PX4 telemetry, IoT devices',
       icon: '🤖',
     },
     {
       title: '⚙️ ETL',
-      description:
-        'ETL & Data Transformation – Building and optimizing ETL workflows',
+      description: 'Building and optimizing ETL workflows',
       icon: '⚙️',
     },
     {
       title: '🤝 COLLAB',
-      description:
-        'Cross-Disciplinary Collaboration – Bridging hardware, software, and cloud teams',
+      description: 'Bridging hardware, software, and cloud teams',
       icon: '🤝',
     },
     {
       title: '📋 AGILE',
-      description:
-        'Agile Project Management – Prioritization, delivery, and stakeholder alignment',
+      description: 'Prioritization, delivery, and stakeholder alignment',
       icon: '📋',
     },
   ],
