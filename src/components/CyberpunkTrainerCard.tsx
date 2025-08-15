@@ -257,40 +257,12 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 >
                   <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                   <div className='text-center z-10 space-y-1'>
-                    <div
-                      className='text-lg mb-1 filter drop-shadow-[0_0_8px_currentColor]'
-                      style={{
-                        color:
-                          i === 0
-                            ? '#00ffff'
-                            : i === 1
-                              ? '#ff8c00'
-                              : i === 2
-                                ? '#ffff00'
-                                : i === 3
-                                  ? '#a855f7'
-                                  : i === 4
-                                    ? '#22c55e'
-                                    : '#ec4899',
-                      }}
-                    >
+                    <div className='text-lg mb-1 filter drop-shadow-[0_0_8px_currentColor] text-cyberpunk-neon'>
                       {getPlaceholderIcon(service.icon)}
                     </div>
                     <h4
-                      className='font-cyber text-xs font-bold leading-tight'
+                      className='font-cyber text-xs font-bold leading-tight text-cyberpunk-neon'
                       style={{
-                        color:
-                          i === 0
-                            ? '#00ffff'
-                            : i === 1
-                              ? '#ff8c00'
-                              : i === 2
-                                ? '#ffff00'
-                                : i === 3
-                                  ? '#a855f7'
-                                  : i === 4
-                                    ? '#22c55e'
-                                    : '#ec4899',
                         opacity: 0.9,
                       }}
                     >
@@ -325,10 +297,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         alt='Cloud Badge'
                         className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor]'
                       />
-                      <h4
-                        className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
-                        style={{ color: '#3b82f6' }}
-                      >
+                      <h4 className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon'>
                         AWS
                       </h4>
                     </div>
@@ -339,10 +308,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         alt='Python Badge'
                         className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor]'
                       />
-                      <h4
-                        className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
-                        style={{ color: '#eab308' }}
-                      >
+                      <h4 className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon'>
                         PYTHON
                       </h4>
                     </div>
@@ -353,29 +319,12 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         alt='Database Badge'
                         className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor]'
                       />
-                      <h4
-                        className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
-                        style={{ color: '#a855f7' }}
-                      >
+                      <h4 className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon'>
                         SQL
                       </h4>
                     </div>
                   ) : (
-                    <h4
-                      className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor]'
-                      style={{
-                        color:
-                          i === 3
-                            ? '#06b6d4'
-                            : i === 4
-                              ? '#fb923c'
-                              : i === 5
-                                ? '#14b8a6'
-                                : i === 6
-                                  ? '#10b981'
-                                  : '#6366f1',
-                      }}
-                    >
+                    <h4 className='font-mono text-sm font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon'>
                       {skill.title}
                     </h4>
                   )}
