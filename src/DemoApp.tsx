@@ -2,12 +2,40 @@ import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import EightBitHeroDemo from './components/8BitHeroDemo'
 import PortfolioSection from '@components/PortfolioSection'
+import CyberpunkTrainerCardDemo from '@components/CyberpunkTrainerCardDemo'
 
 export default function DemoApp() {
   const [showDemo, setShowDemo] = useState(true)
+  const [showTrainerCard, setShowTrainerCard] = useState(true) // Show trainer card by default
 
   const toggleDemo = () => {
     setShowDemo(!showDemo)
+  }
+
+  // Show trainer card demo
+  if (showTrainerCard) {
+    return (
+      <div style={{ backgroundColor: '#0a0a0a', minHeight: '100vh' }}>
+        <button
+          onClick={() => setShowTrainerCard(false)}
+          style={{
+            position: 'fixed',
+            top: '10px',
+            right: '10px',
+            padding: '8px 16px',
+            fontSize: '12px',
+            backgroundColor: '#00ffff',
+            color: 'black',
+            border: 'none',
+            cursor: 'pointer',
+            zIndex: 1000,
+          }}
+        >
+          BACK TO ORIGINAL DEMO
+        </button>
+        <CyberpunkTrainerCardDemo />
+      </div>
+    )
   }
 
   return (
