@@ -19,19 +19,65 @@ const CyberpunkTrainerCardDemo: React.FC = () => {
         {/* Main Demo Card */}
         <div className='flex justify-center'>
           <CyberpunkTrainerCard
-            trainerName='HARTLEY'
-            className='max-w-2xl w-full'
+            trainerName='HARTLEY H. LEROY'
+            className='max-w-3xl w-full'
           />
         </div>
 
         {/* Additional Examples */}
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12'>
           <CyberpunkTrainerCard
-            trainerName='PLAYER_01'
+            trainerName='JANE DOE'
+            professionalCards={[
+              {
+                title: 'Frontend Lead',
+                description: 'UI/UX & React specialist',
+                type: 'experience',
+              },
+              {
+                title: 'Design System',
+                description: 'Component library architect',
+                type: 'project',
+              },
+              {
+                title: 'Accessibility Expert',
+                description: 'WCAG compliance champion',
+                type: 'achievement',
+              },
+            ]}
+            techStack={[
+              { name: 'React', category: 'Frontend', level: 'Expert' },
+              { name: 'CSS', category: 'Styling', level: 'Expert' },
+              { name: 'Figma', category: 'Design', level: 'Advanced' },
+              { name: 'TypeScript', category: 'Language', level: 'Advanced' },
+            ]}
             className='transform scale-90'
           />
           <CyberpunkTrainerCard
-            trainerName='CYBER_MASTER'
+            trainerName='ALEX CHEN'
+            professionalCards={[
+              {
+                title: 'DevOps Engineer',
+                description: 'Infrastructure & automation',
+                type: 'experience',
+              },
+              {
+                title: 'K8s Migration',
+                description: 'Containerization project',
+                type: 'project',
+              },
+              {
+                title: 'Zero Downtime',
+                description: '99.99% uptime achievement',
+                type: 'achievement',
+              },
+            ]}
+            techStack={[
+              { name: 'Kubernetes', category: 'DevOps', level: 'Expert' },
+              { name: 'Docker', category: 'Container', level: 'Expert' },
+              { name: 'AWS', category: 'Cloud', level: 'Advanced' },
+              { name: 'Terraform', category: 'IaC', level: 'Advanced' },
+            ]}
             className='transform scale-90'
           />
         </div>
@@ -44,31 +90,35 @@ const CyberpunkTrainerCardDemo: React.FC = () => {
           <ul className='space-y-2 text-cyberpunk-neon/80 font-mono text-sm'>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Six modular Pokémon portrait slots (3x2 grid)</span>
+              <span>
+                Professional name prominently displayed in top left corner
+              </span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Eight badge slots with hover effects</span>
+              <span>Stacked professional portfolio cards with full width</span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Full-body trainer silhouette area</span>
+              <span>Tech stack cards with skill level indicators</span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Animated scanlines and holographic effects</span>
+              <span>Compact profile image section with circuit patterns</span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Neon glow borders and cyberpunk color scheme</span>
+              <span>Dynamic card type icons and status indicators</span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Circuit pattern background textures</span>
+              <span>
+                Color-coded skill levels (Expert, Advanced, Intermediate)
+              </span>
             </li>
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
-              <span>Customizable trainer name</span>
+              <span>Professional tagline and availability status</span>
             </li>
           </ul>
         </div>
