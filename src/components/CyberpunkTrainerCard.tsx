@@ -57,42 +57,42 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
   ],
   skillsCapabilities = [
     {
-      title: '☁️ AWS',
+      title: 'AWS Cloud Data Services',
       description: 'IoT Core, Kinesis, Firehose, Glue, S3, Athena, Lambda',
       icon: '☁️',
     },
     {
-      title: '🐍 PYTHON',
+      title: 'Python Development',
       description: 'Data pipelines, automation, analytics tooling',
       icon: '🐍',
     },
     {
-      title: '🗃️ SQL',
+      title: 'SQL & Data Modeling',
       description: 'Querying, transformations, schema design',
       icon: '🗃️',
     },
     {
-      title: '📊 STREAM',
+      title: 'Streaming Data Pipelines',
       description: 'Real-time ingestion & processing at scale',
       icon: '📊',
     },
     {
-      title: '🤖 ROS2',
+      title: 'Robotics Data Integration',
       description: 'ROS2, PX4 telemetry, IoT devices',
       icon: '🤖',
     },
     {
-      title: '⚙️ ETL',
+      title: 'ETL & Data Transformation',
       description: 'Building and optimizing ETL workflows',
       icon: '⚙️',
     },
     {
-      title: '🤝 COLLAB',
+      title: 'Cross-Disciplinary Collaboration',
       description: 'Bridging hardware, software, and cloud teams',
       icon: '🤝',
     },
     {
-      title: '📋 AGILE',
+      title: 'Agile Project Management',
       description: 'Prioritization, delivery, and stakeholder alignment',
       icon: '📋',
     },
@@ -300,7 +300,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         className='w-6 h-6 filter drop-shadow-[0_0_4px_currentColor]'
                       />
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon'>
-                        AWS
+                        AWS Cloud Data Services
                       </h4>
                     </div>
                   ) : i === 1 ? (
@@ -311,7 +311,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         className='w-6 h-6 filter drop-shadow-[0_0_4px_currentColor]'
                       />
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon'>
-                        PYTHON
+                        Python Development
                       </h4>
                     </div>
                   ) : i === 2 ? (
@@ -322,7 +322,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         className='w-6 h-6 filter drop-shadow-[0_0_4px_currentColor]'
                       />
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon'>
-                        SQL
+                        SQL & Data Modeling
                       </h4>
                     </div>
                   ) : i === 3 ? (
@@ -333,7 +333,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         className='w-6 h-6 filter drop-shadow-[0_0_4px_currentColor]'
                       />
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon'>
-                        STREAM
+                        Streaming Data Pipelines
                       </h4>
                     </div>
                   ) : (
@@ -342,7 +342,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         {skill.icon}
                       </span>
                       <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon'>
-                        {skill.title.replace(/^[^\s]+\s/, '')}
+                        {skill.title}
                       </h4>
                     </div>
                   )}
