@@ -40,7 +40,8 @@ const CyberpunkTrainerCardDemo: React.FC = () => {
             <li className='flex items-center space-x-2'>
               <div className='w-2 h-2 bg-cyberpunk-green rounded-full'></div>
               <span>
-                Proof points badges - 8 credibility metrics in 4x2 grid
+                Skills & capabilities badges - 8 technical competencies in 4x2
+                grid
               </span>
             </li>
             <li className='flex items-center space-x-2'>
