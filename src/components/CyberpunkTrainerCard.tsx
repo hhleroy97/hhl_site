@@ -1,4 +1,5 @@
 import React from 'react'
+import characterProfile from '../assets/character-profile.png'
 
 interface CyberpunkTrainerCardProps {
   trainerName?: string
@@ -212,17 +213,15 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               {/* Character Image with Status */}
               <div className='absolute inset-2 flex items-center justify-center'>
                 <div className='relative w-full h-full'>
-                  {/* Character placeholder/silhouette */}
-                  <div className='absolute inset-0 flex items-center justify-center'>
-                    <div className='w-24 h-32 bg-gradient-to-b from-cyberpunk-neon/30 to-cyberpunk-blue/30 rounded-lg relative'>
-                      {/* Head */}
-                      <div className='absolute top-2 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-cyberpunk-neon/40 rounded-full'></div>
-                      {/* Body */}
-                      <div className='absolute top-12 left-1/2 transform -translate-x-1/2 w-12 h-16 bg-cyberpunk-blue/40 rounded-lg'></div>
-                      {/* Status indicator */}
-                      <div className='absolute -top-1 -right-1 w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse'></div>
-                    </div>
-                  </div>
+                  {/* Character Image */}
+                  <img
+                    src={characterProfile}
+                    alt='Character Profile'
+                    className='w-full h-full object-contain object-center rounded-lg'
+                  />
+
+                  {/* Status indicator */}
+                  <div className='absolute -top-1 -right-1 w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse'></div>
 
                   {/* Status overlay */}
                   <div className='absolute bottom-2 left-0 right-0 text-center'>
