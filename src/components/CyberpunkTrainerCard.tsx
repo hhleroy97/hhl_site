@@ -209,25 +209,29 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 </div>
               </div>
 
-              {/* Professional Status Display */}
-              <div className='absolute inset-4 flex flex-col items-center justify-center space-y-4'>
-                {/* Status Icon */}
-                <div className='w-20 h-20 mx-auto bg-gradient-to-b from-cyberpunk-neon/30 to-cyberpunk-blue/30 rounded-lg mb-2 relative flex items-center justify-center'>
-                  <div className='text-3xl'>🛠️</div>
-                  <div className='absolute top-1 right-1 w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse'></div>
-                </div>
-
-                {/* Status Text */}
-                <div className='text-center space-y-2'>
-                  <div className='text-cyberpunk-green font-cyber text-sm font-bold'>
-                    AVAILABLE FOR HIRE
+              {/* Character Image with Status */}
+              <div className='absolute inset-2 flex items-center justify-center'>
+                <div className='relative w-full h-full'>
+                  {/* Character placeholder/silhouette */}
+                  <div className='absolute inset-0 flex items-center justify-center'>
+                    <div className='w-24 h-32 bg-gradient-to-b from-cyberpunk-neon/30 to-cyberpunk-blue/30 rounded-lg relative'>
+                      {/* Head */}
+                      <div className='absolute top-2 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-cyberpunk-neon/40 rounded-full'></div>
+                      {/* Body */}
+                      <div className='absolute top-12 left-1/2 transform -translate-x-1/2 w-12 h-16 bg-cyberpunk-blue/40 rounded-lg'></div>
+                      {/* Status indicator */}
+                      <div className='absolute -top-1 -right-1 w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse'></div>
+                    </div>
                   </div>
-                  <div className='text-cyberpunk-neon/60 font-mono text-xs leading-tight'>
-                    Full-Stack Engineer
-                    <br />
-                    Hardware + Software
-                    <br />
-                    MVP to Production
+
+                  {/* Status overlay */}
+                  <div className='absolute bottom-2 left-0 right-0 text-center'>
+                    <div className='text-cyberpunk-green font-cyber text-xs font-bold mb-1'>
+                      AVAILABLE FOR HIRE
+                    </div>
+                    <div className='text-cyberpunk-neon/60 font-mono text-[10px] leading-tight'>
+                      Full-Stack Engineer
+                    </div>
                   </div>
                 </div>
               </div>
@@ -243,11 +247,11 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               <span>CORE SERVICES</span>
               <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse'></div>
             </h3>
-            <div className='grid grid-cols-3 gap-3'>
+            <div className='grid grid-cols-3 gap-1'>
               {coreServices.map((service, i) => (
                 <div
                   key={i}
-                  className='aspect-square bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 border border-cyberpunk-neon/40 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300 p-2'
+                  className='aspect-[4/3] bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 border border-cyberpunk-neon/40 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300 p-1'
                 >
                   <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                   <div className='text-center z-10 space-y-1'>
@@ -274,23 +278,17 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
             <span>SKILLS & CAPABILITIES</span>
             <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse'></div>
           </h3>
-          <div className='grid grid-cols-8 gap-3'>
+          <div className='grid grid-cols-4 gap-2'>
             {skillsCapabilities.map((skill, i) => (
               <div
                 key={i}
-                className='aspect-square bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 border border-cyberpunk-neon/50 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300 p-2'
+                className='w-full h-10 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 border border-cyberpunk-neon/50 rounded flex items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300'
               >
                 <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
-                <div className='text-center z-10 space-y-1'>
-                  <div className='text-xl mb-1'>
-                    {getPlaceholderIcon(skill.icon)}
-                  </div>
-                  <h4 className='text-cyberpunk-neon font-cyber text-[10px] font-bold leading-tight'>
+                <div className='text-center z-10'>
+                  <h4 className='text-cyberpunk-neon font-mono text-sm font-bold leading-tight'>
                     {skill.title}
                   </h4>
-                  <p className='text-cyberpunk-neon/60 font-mono text-[8px] leading-tight'>
-                    {skill.description}
-                  </p>
                 </div>
                 <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
               </div>
