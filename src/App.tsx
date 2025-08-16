@@ -43,13 +43,7 @@ export default function App() {
             }}
             transition={{ duration: 0.8 }}
           >
-            <CyberpunkTrainerCardDemo />
-
-            <Navigation
-              onEnterPortfolio={handleEnterPortfolio}
-              showEnterButton={true}
-              className='bottom-8 right-8'
-            />
+            <CyberpunkTrainerCardDemo onEnterPortfolio={handleEnterPortfolio} />
           </motion.div>
         )}
 
