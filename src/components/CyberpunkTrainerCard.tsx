@@ -112,14 +112,14 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
   return (
     <Tilt
       className={className}
-      perspective={400}
-      scale={1.05}
-      transitionSpeed={800}
+      perspective={300}
+      scale={1.1}
+      transitionSpeed={600}
       gyroscope={true}
-      tiltMaxAngleX={25}
-      tiltMaxAngleY={25}
+      tiltMaxAngleX={35}
+      tiltMaxAngleY={35}
       glareEnable={true}
-      glareMaxOpacity={0.3}
+      glareMaxOpacity={0.4}
       glareColor='#60a5fa'
       glarePosition='all'
       glareBorderRadius='2rem'
@@ -140,6 +140,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
           `,
           border: '1px solid rgba(148, 163, 184, 0.2)',
           transformStyle: 'preserve-3d',
+          perspective: '1000px',
         }}
       >
         {/* Credit card texture */}
@@ -214,32 +215,51 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
         <div
           className='flex items-center mb-4 p-3 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-lg border border-cyberpunk-neon/30 relative overflow-hidden shadow-2xl'
           style={{
-            transform: 'translateZ(60px)',
+            transform: 'translateZ(120px)',
             boxShadow:
-              '0 30px 60px rgba(0, 0, 0, 0.3), 0 15px 30px rgba(0, 0, 0, 0.2)',
+              '0 60px 120px rgba(0, 0, 0, 0.4), 0 30px 60px rgba(0, 0, 0, 0.3)',
           }}
         >
           <div className='flex items-center justify-between w-full relative z-10'>
             <div className='flex items-center space-x-3'>
               <div
-                className='w-10 h-10 bg-cyberpunk-neon/20 border border-cyberpunk-neon rounded flex items-center justify-center'
-                style={{ transform: 'translateZ(15px)' }}
+                className='w-10 h-10 bg-cyberpunk-neon/20 border border-cyberpunk-neon rounded flex items-center justify-center shadow-2xl'
+                style={{
+                  transform: 'translateZ(50px)',
+                  boxShadow:
+                    '0 25px 50px rgba(0, 255, 255, 0.3), 0 12px 25px rgba(0, 255, 255, 0.2)',
+                }}
               >
                 <div
-                  className='w-6 h-6 bg-cyberpunk-neon animate-pulse rounded-sm'
-                  style={{ transform: 'translateZ(10px)' }}
+                  className='w-6 h-6 bg-cyberpunk-neon animate-pulse rounded-sm shadow-xl'
+                  style={{
+                    transform: 'translateZ(30px)',
+                    boxShadow: '0 15px 30px rgba(0, 255, 255, 0.5)',
+                  }}
                 />
               </div>
-              <div style={{ transform: 'translateZ(12px)' }}>
+              <div
+                className='shadow-xl'
+                style={{
+                  transform: 'translateZ(40px)',
+                  boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+                }}
+              >
                 <h1
-                  className='text-xl font-cyber font-bold cyberpunk-glow tracking-wider'
-                  style={{ transform: 'translateZ(8px)' }}
+                  className='text-xl font-cyber font-bold cyberpunk-glow tracking-wider shadow-lg'
+                  style={{
+                    transform: 'translateZ(25px)',
+                    textShadow: '0 10px 20px rgba(0, 255, 255, 0.4)',
+                  }}
                 >
                   {_trainerName}
                 </h1>
                 <p
-                  className='text-cyberpunk-neon/60 font-mono text-xs'
-                  style={{ transform: 'translateZ(5px)' }}
+                  className='text-cyberpunk-neon/60 font-mono text-xs shadow-md'
+                  style={{
+                    transform: 'translateZ(15px)',
+                    textShadow: '0 5px 10px rgba(0, 255, 255, 0.3)',
+                  }}
                 >
                   ENGINEER • BUILDER • CREATIVE TECHNOLOGIST
                 </p>
@@ -248,8 +268,11 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
             {/* Social Links */}
             <div
-              className='flex items-center space-x-3 mr-6'
-              style={{ transform: 'translateZ(18px)' }}
+              className='flex items-center space-x-3 mr-6 shadow-2xl'
+              style={{
+                transform: 'translateZ(60px)',
+                boxShadow: '0 30px 60px rgba(0, 255, 255, 0.3)',
+              }}
             >
               <a
                 href='https://github.com/hhleroy97'
@@ -318,9 +341,9 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               <div
                 className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 rounded-lg overflow-hidden shadow-xl'
                 style={{
-                  transform: 'translateZ(30px)',
+                  transform: 'translateZ(100px)',
                   boxShadow:
-                    '0 20px 40px rgba(0, 0, 0, 0.25), 0 10px 20px rgba(0, 0, 0, 0.15)',
+                    '0 50px 100px rgba(0, 0, 0, 0.4), 0 25px 50px rgba(0, 0, 0, 0.3)',
                 }}
               >
                 {/* Character Image with Status */}
