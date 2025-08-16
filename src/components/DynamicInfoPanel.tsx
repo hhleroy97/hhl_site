@@ -35,13 +35,22 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
 
   return (
     <div
-      className={`bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 rounded-[2rem] shadow-2xl border border-slate-600/20 flex flex-col ${className}`}
-      style={style}
+      className={`bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 flex flex-col ${className}`}
+      style={{
+        borderRadius: '0 2rem 2rem 0',
+        border: '1px solid rgba(148, 163, 184, 0.2)',
+        boxShadow:
+          '0 20px 40px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.1), inset 0 -2px 4px rgba(0, 0, 0, 0.2)',
+        ...style,
+      }}
     >
       {/* Holographic overlay */}
-      <div className='absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-500/10 rounded-[2rem] pointer-events-none' />
+      <div
+        className='absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-500/10 pointer-events-none'
+        style={{ borderRadius: '0 2rem 2rem 0' }}
+      />
 
-      <div className='relative z-10 flex-1 flex flex-col justify-between'>
+      <div className='relative z-10 h-full flex flex-col justify-between'>
         {/* Top Section */}
         <div className='space-y-4'>
           {/* Title with glow effect */}
@@ -69,7 +78,7 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
         </div>
 
         {/* Middle Section */}
-        <div className='space-y-4'>
+        <div className='space-y-4 flex-1 flex flex-col justify-center'>
           {/* Tech badges */}
           <div className='space-y-2'>
             <h4 className='text-cyberpunk-neon text-sm font-cyber font-bold'>

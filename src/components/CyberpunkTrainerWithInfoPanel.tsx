@@ -32,7 +32,10 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
   const [hoveredItem, setHoveredItem] = useState<ServiceItem | null>(null)
 
   return (
-    <div className={`flex items-start gap-8 max-w-6xl mx-auto ${className}`}>
+    <div
+      className={`flex items-start gap-2 max-w-6xl mx-auto ${className}`}
+      style={{ transform: 'scale(1.5)', transformOrigin: 'center' }}
+    >
       {/* Trainer Card */}
       <div>
         <CyberpunkTrainerCard
@@ -49,7 +52,9 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
         <DynamicInfoPanel
           hoveredItem={hoveredItem}
           className='w-full overflow-hidden'
-          style={{ height: '485px' }} // Fine-tuned height to match card exactly
+          style={{
+            height: '485px', // Back to the height that was working before
+          }}
         />
       </div>
     </div>

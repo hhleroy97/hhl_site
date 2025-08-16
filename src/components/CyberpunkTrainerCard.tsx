@@ -191,8 +191,9 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
   return (
     <div className={className}>
       <div
-        className={`relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 rounded-[2rem] shadow-2xl`}
+        className={`relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 shadow-2xl`}
         style={{
+          borderRadius: '2rem 0 0 2rem',
           aspectRatio: '3.5 / 2',
           maxWidth: '1000px',
           width: '100%',
@@ -208,7 +209,10 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
         }}
       >
         {/* Holographic overlay */}
-        <div className='absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-500/10 rounded-[2rem] pointer-events-none' />
+        <div
+          className='absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-500/10 pointer-events-none'
+          style={{ borderRadius: '2rem 0 0 2rem' }}
+        />
 
         {/* Top Header with Name and Tagline */}
         <div
