@@ -194,7 +194,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
       <div
         className={`relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 shadow-2xl`}
         style={{
-          borderRadius: '0 2rem 2rem 0',
+          borderRadius: '2rem',
           aspectRatio: '3.5 / 2',
           maxWidth: '1000px',
           width: '100%',
@@ -212,7 +212,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
         {/* Holographic overlay */}
         <div
           className='absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-500/10 pointer-events-none'
-          style={{ borderRadius: '0 2rem 2rem 0' }}
+          style={{ borderRadius: '2rem' }}
         />
 
         {/* Top Header with Name and Tagline */}
@@ -310,23 +310,19 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
         {/* Main Content Layout */}
         <div className='w-full space-y-4 relative z-10'>
+          {/* Core Services Header */}
+          <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider relative z-10 border-b border-cyberpunk-pink/40 pb-2'>
+            <span>CORE SERVICES</span>
+            <div className='absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
+          </h3>
+
           {/* Top Row - Core Services and Profile */}
           <div className='w-full grid grid-cols-4 gap-4'>
             {/* Core Services Section - 3/4 width */}
             <div className='col-span-3 h-64 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden shadow-lg'>
               {/* Vertical separator line */}
               <div className='absolute top-0 -right-2 h-full w-px bg-gradient-to-b from-transparent via-cyberpunk-neon/40 to-transparent'></div>
-              <h3
-                className='text-cyberpunk-pink font-cyber text-xs font-bold tracking-wider mb-3 flex items-center space-x-2 relative z-10'
-                style={{}}
-              >
-                <span>CORE SERVICES</span>
-                <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
-              </h3>
-              <div
-                className='grid grid-cols-3 gap-1'
-                style={{ height: 'calc(100% - 2rem)' }}
-              >
+              <div className='grid grid-cols-3 gap-1 h-full'>
                 {coreServices.map(service => (
                   <motion.div
                     key={service.id}
@@ -416,18 +412,17 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
             </div>
           </div>
 
+          {/* Skills & Capabilities Header */}
+          <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider relative z-10 border-b border-cyberpunk-pink/40 pb-2 mt-6'>
+            <span>SKILLS & CAPABILITIES</span>
+            <div className='absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
+          </h3>
+
           {/* Bottom Row - Skills & Capabilities Section */}
           <div
             className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-4 relative overflow-hidden shadow-md rounded-b-2xl'
             style={{}}
           >
-            <h3
-              className='text-cyberpunk-pink font-cyber text-xs font-bold tracking-wider mb-3 flex items-center space-x-2 relative z-10'
-              style={{}}
-            >
-              <span>SKILLS & CAPABILITIES</span>
-              <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
-            </h3>
             <div className='grid grid-cols-8 gap-2'>
               {skillsCapabilities.map((skill, i) => (
                 <motion.div
