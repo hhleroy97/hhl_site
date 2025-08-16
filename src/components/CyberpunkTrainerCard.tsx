@@ -132,7 +132,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
         {/* Top Header with Name and Tagline */}
         <div
-          className='flex items-center mb-2 px-3 py-1 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-md border border-cyberpunk-neon/30 relative overflow-hidden shadow-2xl'
+          className='flex items-center mb-2 px-3 py-1 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-t-md border border-cyberpunk-neon/30 relative overflow-hidden shadow-2xl'
           style={{
             transform: 'translateZ(120px)',
             boxShadow:
@@ -230,7 +230,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
             {/* Profile Section - 1/4 width */}
             <div className='col-span-1 relative'>
               <div
-                className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 rounded-lg overflow-hidden shadow-xl'
+                className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 overflow-hidden shadow-xl'
                 style={{}}
               >
                 {/* Character Image with Status */}
