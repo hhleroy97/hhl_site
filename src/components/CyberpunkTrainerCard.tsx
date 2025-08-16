@@ -9,97 +9,177 @@ import etlBadge from '../assets/etl-badge.png'
 import collabBadge from '../assets/collab-badge.png'
 import checklistBadge from '../assets/checklist-badge.png'
 
+interface ServiceItem {
+  id: string
+  type: 'service' | 'skill'
+  title: string
+  description: string
+  technologies: string[]
+  highlight: string
+  icon?: string
+}
+
 interface CyberpunkTrainerCardProps {
   trainerName?: string
   className?: string
   onEnterPortfolio?: () => void
-  coreServices?: Array<{
-    title: string
-    description: string
-    icon?: string
-  }>
-  skillsCapabilities?: Array<{
-    title: string
-    description: string
-    icon?: string
-  }>
+  coreServices?: ServiceItem[]
+  skillsCapabilities?: ServiceItem[]
+  onHoverItem?: (item: ServiceItem | null) => void
 }
 
 const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
   trainerName: _trainerName = 'HARTLEY H. LEROY',
   className = '',
   onEnterPortfolio,
+  onHoverItem,
   coreServices = [
     {
+      id: 'cloud-data',
+      type: 'service' as const,
       title: 'Cloud & Data Systems',
-      description: 'AWS IoT Core, Kinesis, Glue, S3, Athena, Lambda',
+      description:
+        'Designing and maintaining cloud-based data pipelines to capture, process, and analyze real-time information.',
+      technologies: ['AWS IoT', 'Kinesis', 'Glue', 'S3'],
+      highlight:
+        'Built scalable telemetry pipelines monitoring 500+ autonomous robots.',
       icon: '☁️',
     },
     {
+      id: 'robotics',
+      type: 'service' as const,
       title: 'Robotics Integration',
-      description: 'ROS2, PX4, IoT devices, telemetry pipelines',
+      description:
+        'Developing interfaces and systems that connect robotics platforms with cloud infrastructure for control and data flow.',
+      technologies: ['ROS2', 'PX4', 'MQTT', 'REST APIs'],
+      highlight:
+        'Led cross-team integration for robotics telemetry and remote updates.',
       icon: '🤖',
     },
     {
+      id: 'firmware',
+      type: 'service' as const,
       title: 'Product & Firmware',
-      description: 'Hardware-software synergy for connected devices',
+      description:
+        'Creating and testing firmware solutions for embedded systems, ensuring reliable hardware-software interaction.',
+      technologies: ['C', 'Embedded Linux', 'Microcontrollers'],
+      highlight:
+        'Delivered production-ready firmware features under tight development cycles.',
       icon: '⚡',
     },
     {
+      id: 'visualization',
+      type: 'service' as const,
       title: 'Data Visualization',
-      description: 'Dashboards, real-time monitoring, insight delivery',
+      description:
+        'Building dashboards and visualization tools that translate complex data into actionable insights.',
+      technologies: ['Grafana', 'Tableau', 'D3.js'],
+      highlight:
+        'Reduced troubleshooting time by 40% with custom monitoring dashboards.',
       icon: '📊',
     },
     {
+      id: 'frontend',
+      type: 'service' as const,
       title: 'Frontend Engineering',
-      description: 'React, Vue, Next.js interfaces for data-rich apps',
+      description:
+        'Developing user-friendly web interfaces for both internal and customer-facing applications.',
+      technologies: ['React', 'Vue', 'Tailwind', 'Flask APIs'],
+      highlight: 'Built fleet management tools used daily by global operators.',
       icon: '💻',
     },
     {
+      id: 'prototyping',
+      type: 'service' as const,
       title: 'Prototyping & R&D',
-      description: 'From proof-of-concept to production-ready MVP',
+      description:
+        'Rapidly experimenting with emerging technologies to create proof-of-concepts and validate new product directions.',
+      technologies: ['Python', 'Arduino', 'TouchDesigner'],
+      highlight:
+        'Produced early prototypes that shaped long-term product strategy.',
       icon: '🔬',
     },
   ],
   skillsCapabilities = [
     {
-      title: 'AWS Cloud Services',
-      description: 'IoT Core, Kinesis, Firehose, Glue, S3, Athena, Lambda',
+      id: 'aws',
+      type: 'skill' as const,
+      title: 'AWS',
+      description:
+        'Deploying and managing scalable cloud infrastructure for IoT and data-driven applications.',
+      technologies: ['EC2', 'Lambda', 'IoT Core', 'CloudFormation'],
+      highlight: 'Managed infrastructure supporting 99.9% uptime',
       icon: '☁️',
     },
     {
-      title: 'Python Development',
-      description: 'Data pipelines, automation, analytics tooling',
+      id: 'python',
+      type: 'skill' as const,
+      title: 'Python',
+      description:
+        'Writing clean, maintainable scripts, services, and ETL workflows for automation and data processing.',
+      technologies: ['FastAPI', 'Pandas', 'NumPy', 'pytest'],
+      highlight:
+        'Built 20+ production data pipelines processing TB-scale datasets',
       icon: '🐍',
     },
     {
-      title: 'SQL & Data Modeling',
-      description: 'Querying, transformations, schema design',
+      id: 'sql',
+      type: 'skill' as const,
+      title: 'SQL',
+      description:
+        'Designing schemas, optimizing queries, and building pipelines for analytics and reporting.',
+      technologies: ['PostgreSQL', 'MySQL', 'Athena', 'BigQuery'],
+      highlight: 'Optimized queries reducing execution time by 60%',
       icon: '🗃️',
     },
     {
-      title: 'Data Streaming Pipelines',
-      description: 'Real-time ingestion & processing at scale',
+      id: 'pipelines',
+      type: 'skill' as const,
+      title: 'Pipelines',
+      description:
+        'Architecting ingestion and ETL workflows to ensure reliable, high-volume data processing.',
+      technologies: ['Apache Airflow', 'Kinesis', 'Kafka', 'Luigi'],
+      highlight: 'Processing 10M+ events daily with 99.5% reliability',
       icon: '📊',
     },
     {
-      title: 'Robotics Data Integration',
-      description: 'ROS2, PX4 telemetry, IoT devices',
+      id: 'robotics',
+      type: 'skill' as const,
+      title: 'Robotics',
+      description:
+        'Integrating cloud systems with robotic platforms to support telemetry, control, and monitoring.',
+      technologies: ['ROS2', 'PX4', 'MAVLINK', 'MQTT'],
+      highlight: 'Deployed telemetry systems across 500+ autonomous vehicles',
       icon: '🤖',
     },
     {
-      title: 'ETL & Data Transformation',
-      description: 'Building and optimizing ETL workflows',
+      id: 'etl',
+      type: 'skill' as const,
+      title: 'ETL',
+      description:
+        'Extracting, transforming, and loading structured and unstructured data into analytics-ready formats.',
+      technologies: ['Glue', 'Spark', 'dbt', 'Fivetran'],
+      highlight: 'Reduced data processing latency from hours to minutes',
       icon: '⚙️',
     },
     {
-      title: 'Cross-Disciplinary Collaboration',
-      description: 'Bridging hardware, software, and cloud teams',
+      id: 'collaboration',
+      type: 'skill' as const,
+      title: 'Collaboration',
+      description:
+        'Coordinating across internal and external teams to align requirements and deliver results.',
+      technologies: ['Slack', 'JIRA', 'Confluence', 'GitHub'],
+      highlight: 'Led 15+ cross-functional projects with 95% on-time delivery',
       icon: '🤝',
     },
     {
-      title: 'Agile Project Management',
-      description: 'Prioritization, delivery, and stakeholder alignment',
+      id: 'agile',
+      type: 'skill' as const,
+      title: 'Agile',
+      description:
+        'Managing workflows through sprint planning, backlog grooming, and iterative delivery.',
+      technologies: ['Scrum', 'Kanban', 'Sprint Planning', 'Retrospectives'],
+      highlight: 'Improved team velocity by 40% through process optimization',
       icon: '📋',
     },
   ],
@@ -288,14 +368,16 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 className='grid grid-cols-3 gap-1'
                 style={{ height: 'calc(100% - 2rem)' }}
               >
-                {coreServices.map((service, i) => (
+                {coreServices.map(service => (
                   <div
-                    key={i}
-                    className='h-full bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group transition-all duration-300 p-1'
+                    key={service.id}
+                    className='h-full bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group transition-all duration-300 p-1 cursor-pointer'
                     style={{
                       clipPath:
                         'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
                     }}
+                    onMouseEnter={() => onHoverItem?.(service)}
+                    onMouseLeave={() => onHoverItem?.(null)}
                   >
                     <div
                       className='absolute inset-0 border border-cyberpunk-neon/40 group-hover:border-cyberpunk-pink/60 transition-colors duration-300'
@@ -339,13 +421,14 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
             <div className='grid grid-cols-8 gap-2'>
               {skillsCapabilities.map((skill, i) => (
                 <div
-                  key={i}
-                  className='w-full h-16 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group transition-all duration-300 p-2'
+                  key={skill.id}
+                  className='w-full h-16 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group transition-all duration-300 p-2 cursor-pointer'
                   style={{
                     clipPath:
                       'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
                   }}
-                  title={skill.description}
+                  onMouseEnter={() => onHoverItem?.(skill)}
+                  onMouseLeave={() => onHoverItem?.(null)}
                 >
                   <div
                     className='absolute inset-0 border border-cyberpunk-neon/50 group-hover:border-cyberpunk-pink/60 transition-colors duration-300'
