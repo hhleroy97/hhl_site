@@ -139,6 +139,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
             radial-gradient(circle at 70% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%)
           `,
           border: '1px solid rgba(148, 163, 184, 0.2)',
+          transformStyle: 'preserve-3d',
         }}
       >
         {/* Credit card texture */}
@@ -210,7 +211,10 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
         />
 
         {/* Top Header with Name and Tagline */}
-        <div className='flex items-center mb-4 p-3 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-lg border border-cyberpunk-neon/30 relative overflow-hidden'>
+        <div
+          className='flex items-center mb-4 p-3 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-lg border border-cyberpunk-neon/30 relative overflow-hidden'
+          style={{ transform: 'translateZ(20px)' }}
+        >
           <div className='flex items-center justify-between w-full relative z-10'>
             <div className='flex items-center space-x-3'>
               <div className='w-10 h-10 bg-cyberpunk-neon/20 border border-cyberpunk-neon rounded flex items-center justify-center'>
@@ -281,12 +285,18 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
         </div>
 
         {/* Main Content Layout */}
-        <div className='w-full space-y-4 relative z-10'>
+        <div
+          className='w-full space-y-4 relative z-10'
+          style={{ transform: 'translateZ(15px)' }}
+        >
           {/* Top Row - Profile and Core Services */}
           <div className='w-full grid grid-cols-4 gap-4'>
             {/* Profile Section - 1/4 width */}
             <div className='col-span-1 relative'>
-              <div className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 rounded-lg overflow-hidden'>
+              <div
+                className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 rounded-lg overflow-hidden'
+                style={{ transform: 'translateZ(10px)' }}
+              >
                 {/* Character Image with Status */}
                 <div className='absolute inset-2 flex items-center justify-center'>
                   <div className='relative w-full h-full'>
@@ -314,7 +324,10 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
             </div>
 
             {/* Core Services Section - 3/4 width */}
-            <div className='col-span-3 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden'>
+            <div
+              className='col-span-3 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden'
+              style={{ transform: 'translateZ(8px)' }}
+            >
               <h3 className='text-cyberpunk-pink font-cyber text-xs font-bold tracking-wider mb-3 flex items-center space-x-2 relative z-10'>
                 <span>CORE SERVICES</span>
                 <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
@@ -347,7 +360,10 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
           </div>
 
           {/* Bottom Row - Skills & Capabilities Section */}
-          <div className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-4 relative overflow-hidden'>
+          <div
+            className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-4 relative overflow-hidden'
+            style={{ transform: 'translateZ(5px)' }}
+          >
             <h3 className='text-cyberpunk-pink font-cyber text-xs font-bold tracking-wider mb-3 flex items-center space-x-2 relative z-10'>
               <span>SKILLS & CAPABILITIES</span>
               <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
@@ -476,6 +492,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
             WebkitMaskComposite: 'xor',
             maskComposite: 'exclude',
+            transform: 'translateZ(25px)',
           }}
         />
       </div>
