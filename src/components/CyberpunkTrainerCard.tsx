@@ -284,11 +284,11 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 <span>CORE SERVICES</span>
                 <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
               </h3>
-              <div className='grid grid-cols-3 gap-1'>
+              <div className='grid grid-cols-3 gap-1 h-full'>
                 {coreServices.map((service, i) => (
                   <div
                     key={i}
-                    className='aspect-[5/3] bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group transition-all duration-300 p-1'
+                    className='h-full bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group transition-all duration-300 p-1'
                     style={{
                       clipPath:
                         'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
