@@ -32,12 +32,9 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
   const [hoveredItem, setHoveredItem] = useState<ServiceItem | null>(null)
 
   return (
-    <div
-      className={`flex gap-8 items-start h-full w-full ${className}`}
-      style={{ alignItems: 'stretch' }}
-    >
-      {/* Trainer Card - 2/3 width */}
-      <div className='flex-[2] flex justify-center'>
+    <div className={`flex items-start gap-8 max-w-6xl mx-auto ${className}`}>
+      {/* Trainer Card */}
+      <div>
         <CyberpunkTrainerCard
           trainerName={trainerName}
           onEnterPortfolio={onEnterPortfolio}
@@ -47,12 +44,12 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
         />
       </div>
 
-      {/* Info Panel - 1/3 width */}
-      <div className='flex-[1] flex items-stretch'>
+      {/* Info Panel */}
+      <div className='w-80 flex-shrink-0'>
         <DynamicInfoPanel
           hoveredItem={hoveredItem}
-          className='w-full h-full'
-          style={{ height: '480px' }} // Adjusted to better match card scaling
+          className='w-full overflow-hidden'
+          style={{ height: '485px' }} // Fine-tuned height to match card exactly
         />
       </div>
     </div>
