@@ -286,7 +286,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               </h3>
               <div
                 className='grid grid-cols-3 gap-1'
-                style={{ height: 'calc(100% - 1rem)' }}
+                style={{ height: 'calc(100% - 4rem)' }}
               >
                 {coreServices.map((service, i) => (
                   <div
