@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import cloudBadge from '../assets/cloud-badge.png'
+import pythonBadge from '../assets/python-badge.png'
+import databaseBadge from '../assets/database-badge.png'
+import pipeBadge from '../assets/pipe-badge.png'
+import robotBadge from '../assets/robot-badge.png'
+import etlBadge from '../assets/etl-badge.png'
+import collabBadge from '../assets/collab-badge.png'
+import checklistBadge from '../assets/checklist-badge.png'
 
 interface ServiceItem {
   id: string
@@ -24,6 +32,21 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
 }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [contentKey, setContentKey] = useState(0)
+
+  // Get skill badge image based on skill ID
+  const getSkillBadge = (skillId: string) => {
+    const skillBadges: { [key: string]: string } = {
+      aws: cloudBadge,
+      python: pythonBadge,
+      sql: databaseBadge,
+      pipelines: pipeBadge,
+      robotics: robotBadge,
+      etl: etlBadge,
+      collaboration: collabBadge,
+      agile: checklistBadge,
+    }
+    return skillBadges[skillId]
+  }
   const defaultContent: ServiceItem = {
     id: 'about',
     type: 'service',
@@ -120,15 +143,27 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
             transition={{ duration: 0.25, ease: 'easeInOut' }}
             className='space-y-4'
           >
-            {/* Title with glow effect */}
-            <motion.h3
-              className='text-cyberpunk-pink font-cyber text-xl font-bold filter drop-shadow-[0_0_8px_currentColor]'
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1, duration: 0.3 }}
-            >
-              {content.title}
-            </motion.h3>
+            {/* Title with glow effect and skill badge */}
+            <div className='flex items-center space-x-3'>
+              {content.type === 'skill' && getSkillBadge(content.id) && (
+                <motion.img
+                  src={getSkillBadge(content.id)}
+                  alt={`${content.title} Badge`}
+                  className='w-12 h-12 flex-shrink-0'
+                  initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.05, duration: 0.4, ease: 'easeOut' }}
+                />
+              )}
+              <motion.h3
+                className='text-cyberpunk-pink font-cyber text-xl font-bold filter drop-shadow-[0_0_8px_currentColor]'
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1, duration: 0.3 }}
+              >
+                {content.title}
+              </motion.h3>
+            </div>
 
             {/* Type badge */}
             <motion.div
