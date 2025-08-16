@@ -1,228 +1,94 @@
 import { useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
-import IntroSection from '@components/IntroSection'
+import { AnimatePresence, motion } from 'framer-motion'
 import PortfolioSection from '@components/PortfolioSection'
-import CursorTrail from '@components/CursorTrail'
-// import CyberpunkTrainerCardDemo from '@components/CyberpunkTrainerCardDemo'
-// import SimpleTest from '@components/SimpleTest'
+import CyberpunkTrainerCardDemo from '@components/CyberpunkTrainerCardDemo'
+import Navigation from '@components/ui/Navigation'
+import LoadingSpinner from '@components/ui/LoadingSpinner'
+
+type AppView = 'trainer-card' | 'portfolio'
 
 export default function App() {
-  const [showPortfolio, setShowPortfolio] = useState(false)
-  const [showTrainerCard] = useState(true) // TEMP: Show trainer card
+  const [currentView, setCurrentView] = useState<AppView>('trainer-card')
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   const handleEnterPortfolio = () => {
-    setShowPortfolio(true)
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentView('portfolio')
+      setIsTransitioning(false)
+    }, 800)
   }
 
-  // ULTRA SIMPLE TEST
-  if (showTrainerCard) {
-    // Add alert to confirm this code is running
-    setTimeout(() => alert('APP.TSX IS RUNNING - SHOWTRAINERCARD IS TRUE'), 100)
-
-    return (
-      <div
-        style={{
-          backgroundColor: 'red',
-          minHeight: '100vh',
-          padding: '20px',
-          border: '10px solid yellow',
-        }}
-      >
-        <h1
-          style={{ color: 'white', fontSize: '48px', backgroundColor: 'blue' }}
-        >
-          🚨 TESTING - IF YOU SEE THIS THE REACT APP IS WORKING 🚨
-        </h1>
-        <div
-          style={{
-            backgroundColor: 'red',
-            padding: '20px',
-            marginBottom: '20px',
-          }}
-        >
-          <h2 style={{ color: 'white' }}>RED HEADER</h2>
-        </div>
-        <div
-          style={{
-            backgroundColor: 'purple',
-            padding: '20px',
-            marginBottom: '20px',
-          }}
-        >
-          <h2 style={{ color: 'white' }}>PURPLE CONTAINER</h2>
-          <div
-            style={{
-              backgroundColor: 'blue',
-              padding: '15px',
-              marginBottom: '10px',
-            }}
-          >
-            <h3 style={{ color: 'white' }}>BLUE WORK EXPERIENCE</h3>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '10px',
-              }}
-            >
-              <div
-                style={{
-                  backgroundColor: 'lightblue',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Box 1
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightblue',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Box 2
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightblue',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Box 3
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightblue',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Box 4
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightblue',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Box 5
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightblue',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Box 6
-              </div>
-            </div>
-          </div>
-          <div style={{ backgroundColor: 'green', padding: '15px' }}>
-            <h3 style={{ color: 'white' }}>GREEN ACHIEVEMENTS</h3>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '10px',
-              }}
-            >
-              <div
-                style={{
-                  backgroundColor: 'lightgreen',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Badge 1
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightgreen',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Badge 2
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightgreen',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Badge 3
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightgreen',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Badge 4
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightgreen',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Badge 5
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightgreen',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Badge 6
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightgreen',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Badge 7
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'lightgreen',
-                  padding: '10px',
-                  color: 'black',
-                }}
-              >
-                Badge 8
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style={{ backgroundColor: 'yellow', padding: '20px' }}>
-          <h2 style={{ color: 'black' }}>YELLOW PROFILE</h2>
-        </div>
-      </div>
-    )
+  const handleBackToTrainerCard = () => {
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentView('trainer-card')
+      setIsTransitioning(false)
+    }, 800)
   }
 
   return (
     <div className='relative min-h-screen bg-cyberpunk-dark overflow-hidden'>
-      <CursorTrail />
-
       <AnimatePresence mode='wait'>
-        {!showPortfolio ? (
-          <IntroSection key='intro' onEnter={handleEnterPortfolio} />
-        ) : (
-          <PortfolioSection key='portfolio' />
+        {currentView === 'trainer-card' && (
+          <motion.div
+            key='trainer-card'
+            className='relative'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{
+              opacity: 0,
+              scale: 0.95,
+              filter: 'blur(10px)',
+            }}
+            transition={{ duration: 0.8 }}
+          >
+            <CyberpunkTrainerCardDemo />
+
+            <Navigation
+              onEnterPortfolio={handleEnterPortfolio}
+              showEnterButton={true}
+              className='bottom-8 right-8'
+            />
+          </motion.div>
+        )}
+
+        {currentView === 'portfolio' && (
+          <motion.div
+            key='portfolio'
+            initial={{ opacity: 0, scale: 1.1, rotateY: 90 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            exit={{
+              opacity: 0,
+              scale: 0.8,
+              rotateY: -90,
+              filter: 'blur(10px)',
+            }}
+            transition={{ duration: 0.8 }}
+          >
+            <PortfolioSection />
+
+            <Navigation
+              onBackToCard={handleBackToTrainerCard}
+              showBackButton={true}
+              className='top-8 left-8'
+            />
+          </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Transition Overlay */}
+      {isTransitioning && (
+        <motion.div
+          className='fixed inset-0 z-[100] bg-cyberpunk-dark flex items-center justify-center'
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <LoadingSpinner size='lg' text='TRANSITIONING...' />
+        </motion.div>
+      )}
     </div>
   )
 }
