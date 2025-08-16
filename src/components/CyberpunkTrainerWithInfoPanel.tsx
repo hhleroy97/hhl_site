@@ -33,7 +33,7 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
 
   return (
     <div
-      className={`grid grid-cols-3 gap-8 items-center h-full w-full ${className}`}
+      className={`grid grid-cols-3 gap-8 items-start h-full w-full ${className}`}
     >
       {/* Trainer Card - 2/3 width */}
       <div className='col-span-2 flex justify-center'>
@@ -52,7 +52,7 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
           hoveredItem={hoveredItem}
           className='w-full'
           style={{
-            height: '857px', // Exact match: 1000px ÷ 3.5 × 2 × 1.5 = 857px
+            height: '400px', // More reasonable height that matches typical card display
           }}
         />
       </div>
