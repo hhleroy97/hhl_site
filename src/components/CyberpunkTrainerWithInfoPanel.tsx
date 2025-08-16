@@ -50,9 +50,9 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
       <div className='col-span-1'>
         <DynamicInfoPanel
           hoveredItem={hoveredItem}
-          className='w-full h-full'
+          className='w-full'
           style={{
-            height: 'calc(400px * 1.5)', // Matching scaled card height
+            height: '857px', // Exact match: 1000px ÷ 3.5 × 2 × 1.5 = 857px
           }}
         />
       </div>
