@@ -476,7 +476,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
         {/* Secondary gradient border */}
         <div
-          className='absolute inset-1 rounded-[1.75rem] pointer-events-none'
+          className='absolute inset-1 rounded-[1.75rem] pointer-events-none shadow-2xl'
           style={{
             border: '2px solid transparent',
             background: `
@@ -492,7 +492,9 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
             WebkitMaskComposite: 'xor',
             maskComposite: 'exclude',
-            transform: 'translateZ(25px)',
+            transform: 'translateZ(80px)',
+            boxShadow:
+              '0 40px 80px rgba(0, 0, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3)',
           }}
         />
       </div>
