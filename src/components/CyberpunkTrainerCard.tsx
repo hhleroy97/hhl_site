@@ -306,7 +306,10 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
         {/* Main Content Layout */}
         <div
           className='w-full space-y-4 relative z-10'
-          style={{ transform: 'translateZ(40px)' }}
+          style={{
+            transform: 'translateZ(80px)',
+            boxShadow: '0 40px 80px rgba(0, 0, 0, 0.25)',
+          }}
         >
           {/* Top Row - Profile and Core Services */}
           <div className='w-full grid grid-cols-4 gap-4'>
@@ -327,15 +330,24 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                       src={characterProfile}
                       alt='Character Profile'
                       className='w-full h-full object-contain object-center rounded-lg'
-                      style={{ transform: 'translateZ(15px)' }}
+                      style={{
+                        transform: 'translateZ(60px)',
+                        filter: 'drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5))',
+                      }}
                     />
                     <div
                       className='absolute -top-1 -right-1 w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse'
-                      style={{ transform: 'translateZ(25px)' }}
+                      style={{
+                        transform: 'translateZ(120px)',
+                        filter: 'drop-shadow(0 30px 60px rgba(0, 255, 0, 0.6))',
+                      }}
                     />
                     <div
                       className='absolute bottom-2 left-0 right-0 text-center'
-                      style={{ transform: 'translateZ(20px)' }}
+                      style={{
+                        transform: 'translateZ(80px)',
+                        filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.4))',
+                      }}
                     >
                       <div
                         className='text-cyberpunk-green font-cyber text-xs font-bold mb-1'
