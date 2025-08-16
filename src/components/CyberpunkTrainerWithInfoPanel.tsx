@@ -33,7 +33,7 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
 
   return (
     <div
-      className={`flex items-start gap-2 max-w-6xl mx-auto ${className}`}
+      className={`flex items-start gap-8 max-w-6xl mx-auto ${className}`}
       style={{ transform: 'scale(1.5)', transformOrigin: 'center' }}
     >
       {/* Trainer Card */}
