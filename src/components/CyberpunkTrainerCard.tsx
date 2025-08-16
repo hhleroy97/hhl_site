@@ -310,52 +310,12 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
         {/* Main Content Layout */}
         <div className='w-full space-y-4 relative z-10'>
-          {/* Top Row - Profile and Core Services */}
+          {/* Top Row - Core Services and Profile */}
           <div className='w-full grid grid-cols-4 gap-4'>
-            {/* Profile Section - 1/4 width */}
-            <div className='col-span-1 relative'>
-              <div className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 overflow-hidden shadow-xl'>
-                {/* Character Image with Status */}
-                <div className='absolute inset-2 flex items-center justify-center'>
-                  <div className='relative w-full h-full'>
-                    <img
-                      src={characterProfile}
-                      alt='Character Profile'
-                      className='w-full h-full object-contain object-center rounded-lg'
-                      style={{}}
-                    />
-                    <div
-                      className='absolute -top-1 -right-1 w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse'
-                      style={{}}
-                    />
-                    <div
-                      className='absolute bottom-2 left-0 right-0 text-center'
-                      style={{}}
-                    >
-                      <div
-                        className='text-cyberpunk-green font-cyber text-xs font-bold mb-1'
-                        style={{}}
-                      >
-                        AVAILABLE FOR HIRE
-                      </div>
-                      <div
-                        className='text-cyberpunk-neon/60 font-mono text-[10px] leading-tight'
-                        style={{ transform: 'translateZ(5px)' }}
-                      >
-                        Full-Stack Engineer
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className='absolute inset-0 scanlines' />
-              </div>
-
-              {/* Vertical separator line */}
-              <div className='absolute top-0 -right-2 h-full w-px bg-gradient-to-b from-transparent via-cyberpunk-neon/40 to-transparent'></div>
-            </div>
-
             {/* Core Services Section - 3/4 width */}
             <div className='col-span-3 h-64 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden shadow-lg'>
+              {/* Vertical separator line */}
+              <div className='absolute top-0 -right-2 h-full w-px bg-gradient-to-b from-transparent via-cyberpunk-neon/40 to-transparent'></div>
               <h3
                 className='text-cyberpunk-pink font-cyber text-xs font-bold tracking-wider mb-3 flex items-center space-x-2 relative z-10'
                 style={{}}
@@ -413,6 +373,45 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                     </div>
                   </motion.div>
                 ))}
+              </div>
+            </div>
+
+            {/* Profile Section - 1/4 width */}
+            <div className='col-span-1 relative'>
+              <div className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 overflow-hidden shadow-xl'>
+                {/* Character Image with Status */}
+                <div className='absolute inset-2 flex items-center justify-center'>
+                  <div className='relative w-full h-full'>
+                    <img
+                      src={characterProfile}
+                      alt='Character Profile'
+                      className='w-full h-full object-contain object-center rounded-lg'
+                      style={{}}
+                    />
+                    <div
+                      className='absolute -top-1 -right-1 w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse'
+                      style={{}}
+                    />
+                    <div
+                      className='absolute bottom-2 left-0 right-0 text-center'
+                      style={{}}
+                    >
+                      <div
+                        className='text-cyberpunk-green font-cyber text-xs font-bold mb-1'
+                        style={{}}
+                      >
+                        AVAILABLE FOR HIRE
+                      </div>
+                      <div
+                        className='text-cyberpunk-neon/60 font-mono text-[10px] leading-tight'
+                        style={{ transform: 'translateZ(5px)' }}
+                      >
+                        Full-Stack Engineer
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='absolute inset-0 scanlines' />
               </div>
             </div>
           </div>
