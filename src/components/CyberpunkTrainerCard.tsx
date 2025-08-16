@@ -6,6 +6,8 @@ import databaseBadge from '../assets/database-badge.png'
 import pipeBadge from '../assets/pipe-badge.png'
 import robotBadge from '../assets/robot-badge.png'
 import etlBadge from '../assets/etl-badge.png'
+import collabBadge from '../assets/collab-badge.png'
+import checklistBadge from '../assets/checklist-badge.png'
 
 interface CyberpunkTrainerCardProps {
   trainerName?: string
@@ -23,7 +25,7 @@ interface CyberpunkTrainerCardProps {
 }
 
 const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
-  trainerName = 'HARTLEY H. LEROY',
+  trainerName: _trainerName = 'HARTLEY H. LEROY',
   className = '',
   coreServices = [
     {
@@ -109,17 +111,64 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
   return (
     <div
-      className={`relative bg-gradient-to-br from-cyberpunk-dark via-cyberpunk-dark-alt to-cyberpunk-dark-cyan rounded-xl p-6 cyberpunk-border transform scale-x-150 ${className}`}
+      className={`relative bg-gradient-to-br from-cyberpunk-dark via-cyberpunk-dark-alt to-cyberpunk-dark-cyan p-8 transform scale-x-150 rounded-lg shadow-2xl ${className}`}
+      style={{
+        boxShadow:
+          '0 0 30px rgba(0, 255, 255, 0.3), 0 0 60px rgba(0, 255, 255, 0.1)',
+      }}
     >
-      {/* Top Banner with Name in Left Corner */}
-      <div className='flex items-center justify-between mb-6 p-4 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-lg border border-cyberpunk-neon/30'>
-        <div className='flex items-center space-x-3'>
+      {/* Background texture */}
+      <div className='absolute inset-0 opacity-20'>
+        <div
+          className='absolute inset-0'
+          style={{
+            backgroundImage: `
+            radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+            radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.1) 1px, transparent 1px),
+            linear-gradient(45deg, transparent 40%, rgba(0, 255, 255, 0.05) 50%, transparent 60%)
+          `,
+            backgroundSize: '50px 50px, 60px 60px, 100px 100px',
+          }}
+        ></div>
+      </div>
+
+      {/* Subtle grid overlay */}
+      <div className='absolute inset-0 opacity-10'>
+        <div
+          className='absolute inset-0'
+          style={{
+            backgroundImage: `
+            linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)
+          `,
+            backgroundSize: '20px 20px',
+          }}
+        ></div>
+      </div>
+
+      {/* Angular border effect */}
+      <div
+        className='absolute inset-0 border-2 border-cyberpunk-neon rounded-lg'
+        style={{
+          boxShadow: 'inset 0 0 20px rgba(0, 255, 255, 0.2)',
+        }}
+      ></div>
+
+      {/* Top Header with Name and Tagline */}
+      <div className='flex items-center justify-between mb-6 p-4 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-lg border border-cyberpunk-neon/30 relative overflow-hidden'>
+        {/* Geometric corner accents */}
+        <div className='absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-cyberpunk-neon opacity-50'></div>
+        <div className='absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-cyberpunk-neon opacity-50'></div>
+        <div className='absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-cyberpunk-neon opacity-50'></div>
+        <div className='absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-cyberpunk-neon opacity-50'></div>
+
+        <div className='flex items-center space-x-3 relative z-10'>
           <div className='w-10 h-10 bg-cyberpunk-neon/20 border border-cyberpunk-neon rounded flex items-center justify-center'>
             <div className='w-6 h-6 bg-cyberpunk-neon animate-pulse rounded-sm'></div>
           </div>
           <div>
             <h1 className='text-xl font-cyber font-bold cyberpunk-glow tracking-wider'>
-              {trainerName}
+              {_trainerName}
             </h1>
             <p className='text-cyberpunk-neon/60 font-mono text-xs'>
               ENGINEER • BUILDER • CREATIVE TECHNOLOGIST
@@ -127,7 +176,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
           </div>
         </div>
 
-        <div className='text-right'>
+        <div className='text-right relative z-10'>
           <div className='text-cyberpunk-pink font-cyber text-sm font-bold'>
             PROFESSIONAL CARD
           </div>
@@ -138,9 +187,9 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
       </div>
 
       {/* Main Content Layout */}
-      <div className='w-full space-y-6'>
+      <div className='w-full space-y-8'>
         {/* Top Row - Profile and Core Services */}
-        <div className='w-full grid grid-cols-4 gap-6'>
+        <div className='w-full grid grid-cols-4 gap-8'>
           {/* Profile Section - 1/4 width */}
           <div className='col-span-1'>
             <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider mb-3 flex items-center space-x-2'>
@@ -247,8 +296,14 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
           </div>
 
           {/* Core Services Section - 3/4 width */}
-          <div className='col-span-3 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-6 rounded-lg'>
-            <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider mb-4 flex items-center space-x-2'>
+          <div className='col-span-3 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-6 relative overflow-hidden'>
+            {/* Geometric corner accents */}
+            <div className='absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-cyberpunk-purple/50'></div>
+            <div className='absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-cyberpunk-purple/50'></div>
+            <div className='absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-cyberpunk-purple/50'></div>
+            <div className='absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-cyberpunk-purple/50'></div>
+
+            <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider mb-4 flex items-center space-x-2 relative z-10'>
               <span>CORE SERVICES</span>
               <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse'></div>
             </h3>
@@ -280,8 +335,14 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
         </div>
 
         {/* Bottom Row - Skills & Capabilities Section */}
-        <div className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-6 rounded-lg'>
-          <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider mb-4 flex items-center space-x-2'>
+        <div className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-6 relative overflow-hidden'>
+          {/* Geometric corner accents */}
+          <div className='absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-cyberpunk-pink/50'></div>
+          <div className='absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-cyberpunk-pink/50'></div>
+          <div className='absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-cyberpunk-pink/50'></div>
+          <div className='absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-cyberpunk-pink/50'></div>
+
+          <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider mb-4 flex items-center space-x-2 relative z-10'>
             <span>SKILLS & CAPABILITIES</span>
             <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse'></div>
           </h3>
@@ -289,91 +350,84 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
             {skillsCapabilities.map((skill, i) => (
               <div
                 key={i}
-                className='w-full h-20 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 border border-cyberpunk-neon/50 rounded flex flex-col items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300 p-3'
+                className='w-full h-28 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group transition-all duration-300 p-4 pt-6 pb-6'
+                style={{
+                  clipPath:
+                    'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                }}
                 title={skill.description}
               >
+                {/* Angular border */}
+                <div
+                  className='absolute inset-0 border border-cyberpunk-neon/50 group-hover:border-cyberpunk-pink/60 transition-colors duration-300'
+                  style={{
+                    clipPath:
+                      'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                  }}
+                ></div>
                 <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                 <div className='text-center z-10'>
                   {i === 0 ? (
                     <div className='flex flex-col items-center space-y-2'>
-                      <div className='flex items-center justify-center h-8'>
-                        <img
-                          src={cloudBadge}
-                          alt='Cloud Badge'
-                          className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
-                        />
-                      </div>
-                      <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
+                      <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center min-h-[2.5rem] flex items-center justify-center'>
                         AWS Cloud
                         <br />
                         Services
                       </h4>
+                      <div className='flex items-center justify-center h-12'>
+                        <img
+                          src={cloudBadge}
+                          alt='Cloud Badge'
+                          className='w-12 h-12 flex-shrink-0'
+                        />
+                      </div>
                     </div>
                   ) : i === 1 ? (
                     <div className='flex flex-col items-center space-y-2'>
-                      <div className='flex items-center justify-center h-8'>
-                        <img
-                          src={pythonBadge}
-                          alt='Python Badge'
-                          className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
-                        />
-                      </div>
-                      <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
+                      <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center min-h-[2.5rem] flex items-center justify-center'>
                         Python
                         <br />
                         Development
                       </h4>
+                      <div className='flex items-center justify-center h-12'>
+                        <img
+                          src={pythonBadge}
+                          alt='Python Badge'
+                          className='w-12 h-12 flex-shrink-0'
+                        />
+                      </div>
                     </div>
                   ) : i === 2 ? (
                     <div className='flex flex-col items-center space-y-2'>
-                      <div className='flex items-center justify-center h-8'>
+                      <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center min-h-[2.5rem] flex items-center justify-center'>
+                        SQL & Data Modeling
+                      </h4>
+                      <div className='flex items-center justify-center h-12'>
                         <img
                           src={databaseBadge}
                           alt='Database Badge'
-                          className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
+                          className='w-12 h-12 flex-shrink-0'
                         />
                       </div>
-                      <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
-                        SQL & Data Modeling
-                      </h4>
                     </div>
                   ) : i === 3 ? (
                     <div className='flex flex-col items-center space-y-2'>
-                      <div className='flex items-center justify-center h-8'>
-                        <img
-                          src={pipeBadge}
-                          alt='Pipeline Badge'
-                          className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
-                        />
-                      </div>
-                      <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
+                      <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center min-h-[2.5rem] flex items-center justify-center'>
                         Data Streaming
                         <br />
                         Pipelines
                       </h4>
+                      <div className='flex items-center justify-center h-12'>
+                        <img
+                          src={pipeBadge}
+                          alt='Pipeline Badge'
+                          className='w-12 h-12 flex-shrink-0'
+                        />
+                      </div>
                     </div>
                   ) : (
                     <div className='flex flex-col items-center space-y-2'>
-                      <div className='flex items-center justify-center h-8'>
-                        {i === 4 ? (
-                          <img
-                            src={robotBadge}
-                            alt='Robot Badge'
-                            className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
-                          />
-                        ) : i === 5 ? (
-                          <img
-                            src={etlBadge}
-                            alt='ETL Badge'
-                            className='w-8 h-8 filter drop-shadow-[0_0_4px_currentColor] flex-shrink-0'
-                          />
-                        ) : (
-                          <span className='text-2xl filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon flex-shrink-0'>
-                            {skill.icon}
-                          </span>
-                        )}
-                      </div>
-                      <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
+                      <h4 className='font-mono text-xs font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center min-h-[2.5rem] flex items-center justify-center'>
                         {i === 4 ? (
                           <>
                             Robotics Data
@@ -386,10 +440,53 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             <br />
                             Transformation
                           </>
+                        ) : i === 6 ? (
+                          <>
+                            Cross-Team
+                            <br />
+                            Communication
+                          </>
+                        ) : i === 7 ? (
+                          <>
+                            Agile Project
+                            <br />
+                            Management
+                          </>
                         ) : (
                           skill.title
                         )}
                       </h4>
+                      <div className='flex items-center justify-center h-12'>
+                        {i === 4 ? (
+                          <img
+                            src={robotBadge}
+                            alt='Robot Badge'
+                            className='w-12 h-12 flex-shrink-0'
+                          />
+                        ) : i === 5 ? (
+                          <img
+                            src={etlBadge}
+                            alt='ETL Badge'
+                            className='w-12 h-12 flex-shrink-0'
+                          />
+                        ) : i === 6 ? (
+                          <img
+                            src={collabBadge}
+                            alt='Collaboration Badge'
+                            className='w-12 h-12 flex-shrink-0'
+                          />
+                        ) : i === 7 ? (
+                          <img
+                            src={checklistBadge}
+                            alt='Agile Badge'
+                            className='w-12 h-12 flex-shrink-0'
+                          />
+                        ) : (
+                          <span className='text-4xl text-cyberpunk-neon flex-shrink-0 w-12 h-12 flex items-center justify-center'>
+                            {skill.icon}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -397,25 +494,6 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               </div>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* Bottom Status Bar */}
-      <div className='mt-6 flex justify-between items-center p-3 bg-gradient-to-r from-cyberpunk-dark via-cyberpunk-purple/10 to-cyberpunk-dark border border-cyberpunk-neon/30 rounded-lg'>
-        <div className='flex items-center space-x-2'>
-          <div className='w-2 h-2 bg-cyberpunk-green rounded-full animate-pulse'></div>
-          <span className='text-cyberpunk-green font-mono text-xs'>
-            AVAILABLE FOR HIRE
-          </span>
-        </div>
-
-        <div className='flex items-center space-x-4'>
-          <span className='text-cyberpunk-neon/60 font-mono text-xs'>
-            ENGINEER • BUILDER • CREATIVE TECHNOLOGIST
-          </span>
-          <span className='text-cyberpunk-neon/60 font-mono text-xs'>
-            EXP: 10+ YRS
-          </span>
         </div>
       </div>
 
