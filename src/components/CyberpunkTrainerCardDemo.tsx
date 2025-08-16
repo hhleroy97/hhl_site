@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import CyberpunkTrainerCard from './CyberpunkTrainerCard'
+import CyberpunkTrainerWithInfoPanel from './CyberpunkTrainerWithInfoPanel'
 
 interface CyberpunkTrainerCardDemoProps {
   onEnterPortfolio?: () => void
@@ -40,7 +40,7 @@ const CyberpunkTrainerCardDemo: React.FC<CyberpunkTrainerCardDemoProps> = ({
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 1.2 }}
           >
-            <CyberpunkTrainerCard
+            <CyberpunkTrainerWithInfoPanel
               trainerName='HARTLEY H. LEROY'
               className='w-full'
               onEnterPortfolio={onEnterPortfolio}
