@@ -288,8 +288,19 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 {coreServices.map((service, i) => (
                   <div
                     key={i}
-                    className='aspect-[5/3] bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 border border-cyberpunk-neon/40 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group hover:border-cyberpunk-pink/60 transition-all duration-300 p-1'
+                    className='aspect-[5/3] bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group transition-all duration-300 p-1'
+                    style={{
+                      clipPath:
+                        'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                    }}
                   >
+                    <div
+                      className='absolute inset-0 border border-cyberpunk-neon/40 group-hover:border-cyberpunk-pink/60 transition-colors duration-300'
+                      style={{
+                        clipPath:
+                          'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                      }}
+                    />
                     <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
                     <div className='text-center z-10 space-y-1'>
                       <div className='text-lg mb-1 filter drop-shadow-[0_0_8px_currentColor] text-cyberpunk-neon'>
@@ -304,7 +315,6 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         {service.title}
                       </h4>
                     </div>
-                    <div className='absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyberpunk-neon/30 to-transparent' />
                   </div>
                 ))}
               </div>
