@@ -110,43 +110,56 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
   return (
     <div
-      className={`relative bg-gradient-to-br from-cyberpunk-dark via-cyberpunk-dark-alt to-cyberpunk-dark-cyan p-6 rounded-3xl shadow-2xl transform scale-150 ${className}`}
+      className={`relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 rounded-[2rem] shadow-2xl transform scale-150 ${className}`}
       style={{
         aspectRatio: '3.5 / 2',
         maxWidth: '1000px',
         width: '100%',
         height: 'auto',
         boxShadow:
-          '0 0 30px rgba(0, 255, 255, 0.3), 0 0 60px rgba(0, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-        backdropFilter: 'blur(10px)',
+          '0 20px 40px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.1), inset 0 -2px 4px rgba(0, 0, 0, 0.2)',
+        background: `
+          linear-gradient(145deg, #1e293b, #0f172a),
+          radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 70% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%)
+        `,
+        border: '1px solid rgba(148, 163, 184, 0.2)',
       }}
     >
-      {/* Card-like background texture */}
-      <div className='absolute inset-0 opacity-15 rounded-3xl overflow-hidden'>
+      {/* Credit card texture */}
+      <div className='absolute inset-0 rounded-[2rem] overflow-hidden'>
         <div
-          className='absolute inset-0'
+          className='absolute inset-0 opacity-30'
           style={{
             backgroundImage: `
-            radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            radial-gradient(circle at 75% 75%, rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(135deg, rgba(255, 255, 255, 0.01) 0%, transparent 20%, transparent 80%, rgba(0, 255, 255, 0.02) 100%),
-            repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.005) 2px, rgba(255, 255, 255, 0.005) 4px),
-            repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0, 255, 255, 0.005) 2px, rgba(0, 255, 255, 0.005) 4px)
+            repeating-linear-gradient(45deg, 
+              rgba(255, 255, 255, 0.02) 0px, 
+              rgba(255, 255, 255, 0.02) 1px, 
+              transparent 1px, 
+              transparent 8px
+            ),
+            repeating-linear-gradient(-45deg, 
+              rgba(255, 255, 255, 0.01) 0px, 
+              rgba(255, 255, 255, 0.01) 1px, 
+              transparent 1px, 
+              transparent 12px
+            )
           `,
-            backgroundSize: '30px 30px, 40px 40px, 100% 100%, 4px 4px, 4px 4px',
+            backgroundSize: '16px 16px, 24px 24px',
           }}
         />
-        {/* Subtle paper-like texture overlay */}
+        {/* Holographic shimmer effect */}
         <div
-          className='absolute inset-0'
+          className='absolute inset-0 opacity-20'
           style={{
-            backgroundImage: `
-            radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.01) 0%, transparent 50%),
-            radial-gradient(circle at 70% 60%, rgba(0, 255, 255, 0.008) 0%, transparent 50%),
-            noise()
+            background: `
+            linear-gradient(120deg, 
+              transparent 30%, 
+              rgba(59, 130, 246, 0.1) 50%, 
+              rgba(16, 185, 129, 0.1) 70%, 
+              transparent 90%
+            )
           `,
-            backgroundSize: '200px 200px, 250px 250px, 1px 1px',
-            mixBlendMode: 'overlay',
           }}
         />
       </div>
@@ -165,12 +178,19 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
         />
       </div>
 
-      {/* Card border effect */}
+      {/* Premium card border */}
       <div
-        className='absolute inset-0 border-2 border-cyberpunk-neon rounded-3xl'
+        className='absolute inset-0 rounded-[2rem]'
         style={{
-          boxShadow:
-            'inset 0 0 20px rgba(0, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+          border: '2px solid transparent',
+          background: `
+            linear-gradient(145deg, rgba(59, 130, 246, 0.3), rgba(16, 185, 129, 0.3)) border-box,
+            linear-gradient(145deg, #1e293b, #0f172a) padding-box
+          `,
+          WebkitMask:
+            'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
+          WebkitMaskComposite: 'xor',
+          maskComposite: 'exclude',
         }}
       />
 
@@ -437,7 +457,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
       </div>
 
       {/* Holographic overlay */}
-      <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/5 via-transparent to-cyberpunk-pink/5 rounded-3xl pointer-events-none' />
+      <div className='absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-500/10 rounded-[2rem] pointer-events-none' />
 
       {/* Corner accents */}
       <div className='absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-cyberpunk-neon' />
