@@ -33,10 +33,11 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
 
   return (
     <div
-      className={`grid grid-cols-3 gap-8 items-start h-full w-full ${className}`}
+      className={`flex gap-8 items-start h-full w-full ${className}`}
+      style={{ alignItems: 'stretch' }}
     >
       {/* Trainer Card - 2/3 width */}
-      <div className='col-span-2 flex justify-center'>
+      <div className='flex-[2] flex justify-center'>
         <CyberpunkTrainerCard
           trainerName={trainerName}
           onEnterPortfolio={onEnterPortfolio}
@@ -47,13 +48,11 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
       </div>
 
       {/* Info Panel - 1/3 width */}
-      <div className='col-span-1'>
+      <div className='flex-[1] flex items-stretch'>
         <DynamicInfoPanel
           hoveredItem={hoveredItem}
-          className='w-full'
-          style={{
-            height: '400px', // More reasonable height that matches typical card display
-          }}
+          className='w-full h-full'
+          style={{ height: '480px' }} // Adjusted to better match card scaling
         />
       </div>
     </div>
