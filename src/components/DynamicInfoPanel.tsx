@@ -13,11 +13,13 @@ interface ServiceItem {
 interface DynamicInfoPanelProps {
   hoveredItem: ServiceItem | null
   className?: string
+  style?: React.CSSProperties
 }
 
 const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
   hoveredItem,
   className = '',
+  style = {},
 }) => {
   const defaultContent: ServiceItem = {
     id: 'about',
@@ -33,53 +35,60 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
 
   return (
     <div
-      className={`bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 rounded-[2rem] shadow-2xl border border-slate-600/20 ${className}`}
+      className={`bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 rounded-[2rem] shadow-2xl border border-slate-600/20 flex flex-col ${className}`}
+      style={style}
     >
       {/* Holographic overlay */}
       <div className='absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-500/10 rounded-[2rem] pointer-events-none' />
 
-      <div className='relative z-10 space-y-4'>
-        {/* Title with glow effect */}
-        <h3 className='text-cyberpunk-pink font-cyber text-xl font-bold filter drop-shadow-[0_0_8px_currentColor] transition-all duration-300'>
-          {content.title}
-        </h3>
+      <div className='relative z-10 flex-1 flex flex-col justify-between'>
+        {/* Top Section */}
+        <div className='space-y-4'>
+          {/* Title with glow effect */}
+          <h3 className='text-cyberpunk-pink font-cyber text-xl font-bold filter drop-shadow-[0_0_8px_currentColor] transition-all duration-300'>
+            {content.title}
+          </h3>
 
-        {/* Type badge */}
-        <div className='inline-block'>
-          <span
-            className={`px-3 py-1 rounded-full text-xs font-cyber font-bold ${
-              content.type === 'service'
-                ? 'bg-cyberpunk-purple/20 text-cyberpunk-purple border border-cyberpunk-purple/40'
-                : 'bg-cyberpunk-blue/20 text-cyberpunk-blue border border-cyberpunk-blue/40'
-            }`}
-          >
-            {content.type.toUpperCase()}
-          </span>
+          {/* Type badge */}
+          <div className='inline-block'>
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-cyber font-bold ${
+                content.type === 'service'
+                  ? 'bg-cyberpunk-purple/20 text-cyberpunk-purple border border-cyberpunk-purple/40'
+                  : 'bg-cyberpunk-blue/20 text-cyberpunk-blue border border-cyberpunk-blue/40'
+              }`}
+            >
+              {content.type.toUpperCase()}
+            </span>
+          </div>
+
+          {/* Description */}
+          <p className='text-cyberpunk-neon/80 text-sm leading-relaxed transition-all duration-300'>
+            {content.description}
+          </p>
         </div>
 
-        {/* Description */}
-        <p className='text-cyberpunk-neon/80 text-sm leading-relaxed transition-all duration-300'>
-          {content.description}
-        </p>
-
-        {/* Tech badges */}
-        <div className='space-y-2'>
-          <h4 className='text-cyberpunk-neon text-sm font-cyber font-bold'>
-            Technologies
-          </h4>
-          <div className='flex flex-wrap gap-2'>
-            {content.technologies.map((tech, i) => (
-              <span
-                key={i}
-                className='px-3 py-1 bg-cyberpunk-neon/20 border border-cyberpunk-neon/40 rounded-lg text-cyberpunk-neon text-sm font-mono transition-all duration-300 hover:bg-cyberpunk-neon/30'
-              >
-                {tech}
-              </span>
-            ))}
+        {/* Middle Section */}
+        <div className='space-y-4'>
+          {/* Tech badges */}
+          <div className='space-y-2'>
+            <h4 className='text-cyberpunk-neon text-sm font-cyber font-bold'>
+              Technologies
+            </h4>
+            <div className='flex flex-wrap gap-2'>
+              {content.technologies.map((tech, i) => (
+                <span
+                  key={i}
+                  className='px-3 py-1 bg-cyberpunk-neon/20 border border-cyberpunk-neon/40 rounded-lg text-cyberpunk-neon text-sm font-mono transition-all duration-300 hover:bg-cyberpunk-neon/30'
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Highlight stat */}
+        {/* Bottom Section */}
         <div className='border-t border-cyberpunk-neon/30 pt-4'>
           <h4 className='text-cyberpunk-green text-sm font-cyber font-bold mb-2'>
             Key Achievement

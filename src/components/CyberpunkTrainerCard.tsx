@@ -191,7 +191,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
   return (
     <div className={className}>
       <div
-        className={`relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 rounded-[2rem] shadow-2xl transform scale-150`}
+        className={`relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 rounded-[2rem] shadow-2xl`}
         style={{
           aspectRatio: '3.5 / 2',
           maxWidth: '1000px',
@@ -304,15 +304,12 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
         </div>
 
         {/* Main Content Layout */}
-        <div className='w-full space-y-4 relative z-10' style={{}}>
+        <div className='w-full space-y-4 relative z-10'>
           {/* Top Row - Profile and Core Services */}
           <div className='w-full grid grid-cols-4 gap-4'>
             {/* Profile Section - 1/4 width */}
             <div className='col-span-1 relative'>
-              <div
-                className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 overflow-hidden shadow-xl'
-                style={{}}
-              >
+              <div className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 overflow-hidden shadow-xl'>
                 {/* Character Image with Status */}
                 <div className='absolute inset-2 flex items-center justify-center'>
                   <div className='relative w-full h-full'>
@@ -353,10 +350,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
             </div>
 
             {/* Core Services Section - 3/4 width */}
-            <div
-              className='col-span-3 h-64 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden shadow-lg'
-              style={{}}
-            >
+            <div className='col-span-3 h-64 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden shadow-lg'>
               <h3
                 className='text-cyberpunk-pink font-cyber text-xs font-bold tracking-wider mb-3 flex items-center space-x-2 relative z-10'
                 style={{}}
