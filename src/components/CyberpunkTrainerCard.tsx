@@ -284,7 +284,10 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 <span>CORE SERVICES</span>
                 <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
               </h3>
-              <div className='grid grid-cols-3 gap-1 h-full'>
+              <div
+                className='grid grid-cols-3 gap-1'
+                style={{ height: 'calc(100% - 1rem)' }}
+              >
                 {coreServices.map((service, i) => (
                   <div
                     key={i}
