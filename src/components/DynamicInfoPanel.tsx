@@ -57,7 +57,7 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
     <div
       className={`relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 flex flex-col overflow-hidden ${className}`}
       style={{
-        borderRadius: '0 2rem 2rem 0',
+        borderRadius: '2rem',
         border: '1px solid rgba(148, 163, 184, 0.2)',
         boxShadow:
           '0 20px 40px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.1), inset 0 -2px 4px rgba(0, 0, 0, 0.2)',
@@ -75,7 +75,7 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
             linear-gradient(90deg, rgba(59, 130, 246, 0.3) 1px, transparent 1px)
           `,
           backgroundSize: '20px 20px',
-          borderRadius: '0 2rem 2rem 0',
+          borderRadius: '2rem',
         }}
         animate={{
           x: mousePosition.x * 0.5,
@@ -87,7 +87,7 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
       {/* Holographic overlay with parallax */}
       <motion.div
         className='absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-500/10 pointer-events-none'
-        style={{ borderRadius: '0 2rem 2rem 0' }}
+        style={{ borderRadius: '2rem' }}
         animate={{
           x: mousePosition.x * -0.3,
           y: mousePosition.y * -0.3,
