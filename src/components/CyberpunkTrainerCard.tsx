@@ -459,11 +459,26 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
       {/* Holographic overlay */}
       <div className='absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-500/10 rounded-[2rem] pointer-events-none' />
 
-      {/* Corner accents */}
-      <div className='absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-cyberpunk-neon' />
-      <div className='absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-cyberpunk-neon' />
-      <div className='absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-cyberpunk-neon' />
-      <div className='absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-cyberpunk-neon' />
+      {/* Secondary gradient border */}
+      <div
+        className='absolute inset-1 rounded-[1.75rem] pointer-events-none'
+        style={{
+          border: '2px solid transparent',
+          background: `
+            linear-gradient(45deg, 
+              rgba(59, 130, 246, 0.6), 
+              rgba(16, 185, 129, 0.6), 
+              rgba(139, 92, 246, 0.6), 
+              rgba(59, 130, 246, 0.6)
+            ) border-box,
+            transparent padding-box
+          `,
+          WebkitMask:
+            'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
+          WebkitMaskComposite: 'xor',
+          maskComposite: 'exclude',
+        }}
+      />
     </div>
   )
 }
