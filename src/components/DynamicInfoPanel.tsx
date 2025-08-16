@@ -139,7 +139,7 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
             key={contentKey}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
             className='space-y-4'
           >
@@ -150,14 +150,14 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
                   src={getSkillBadge(content.id)}
                   alt={`${content.title} Badge`}
                   className='w-12 h-12 flex-shrink-0'
-                  initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  initial={{ opacity: 0, scale: 0.5, x: 20 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
                   transition={{ delay: 0.05, duration: 0.4, ease: 'easeOut' }}
                 />
               )}
               <motion.h3
                 className='text-cyberpunk-pink font-cyber text-xl font-bold filter drop-shadow-[0_0_8px_currentColor]'
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1, duration: 0.3 }}
               >
@@ -186,8 +186,8 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
             {/* Description */}
             <motion.p
               className='text-cyberpunk-neon/80 text-sm leading-relaxed'
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.3 }}
             >
               {content.description}
@@ -209,7 +209,7 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
             <div className='space-y-2'>
               <motion.h4
                 className='text-cyberpunk-neon text-sm font-cyber font-bold'
-                initial={{ opacity: 0, x: -15 }}
+                initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.35, duration: 0.25 }}
               >
@@ -247,13 +247,13 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
             key={`achievement-${contentKey}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            exit={{ opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.3 }}
             className='border-t border-cyberpunk-neon/30 pt-4'
           >
             <motion.h4
               className='text-cyberpunk-green text-sm font-cyber font-bold mb-2'
-              initial={{ opacity: 0, x: -15 }}
+              initial={{ opacity: 0, x: 15 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.55, duration: 0.25 }}
             >
@@ -262,15 +262,15 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
             <div className='flex items-start space-x-2'>
               <motion.span
                 className='text-cyberpunk-green text-lg'
-                initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                initial={{ opacity: 0, scale: 0.5, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.3, ease: 'easeOut' }}
               >
                 ▶
               </motion.span>
               <motion.span
                 className='text-cyberpunk-green text-sm font-bold'
-                initial={{ opacity: 0, x: -10 }}
+                initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.65, duration: 0.3 }}
               >
