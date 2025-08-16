@@ -274,7 +274,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
             {/* Core Services Section - 3/4 width */}
             <div
-              className='col-span-3 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden shadow-lg'
+              className='col-span-3 h-64 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden shadow-lg'
               style={{}}
             >
               <h3
