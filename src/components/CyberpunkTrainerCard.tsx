@@ -181,7 +181,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
           </div>
 
           {/* Social Links */}
-          <div className='flex items-center space-x-3'>
+          <div className='flex items-center space-x-3 mr-6'>
             <a
               href='https://github.com/hhleroy97'
               target='_blank'
