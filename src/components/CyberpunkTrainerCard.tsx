@@ -132,7 +132,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
         {/* Top Header with Name and Tagline */}
         <div
-          className='flex items-center mb-2 px-3 py-1 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-t-md border border-cyberpunk-neon/30 relative overflow-hidden shadow-2xl'
+          className='flex items-center mb-2 px-3 py-1 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-t-2xl border border-cyberpunk-neon/30 relative overflow-hidden shadow-2xl'
           style={{
             transform: 'translateZ(120px)',
             boxShadow:
