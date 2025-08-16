@@ -196,12 +196,6 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
       {/* Top Header with Name and Tagline */}
       <div className='flex items-center mb-4 p-3 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-lg border border-cyberpunk-neon/30 relative overflow-hidden'>
-        {/* Geometric corner accents */}
-        <div className='absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-cyberpunk-neon opacity-50' />
-        <div className='absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-cyberpunk-neon opacity-50' />
-        <div className='absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-cyberpunk-neon opacity-50' />
-        <div className='absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-cyberpunk-neon opacity-50' />
-
         <div className='flex items-center justify-between w-full relative z-10'>
           <div className='flex items-center space-x-3'>
             <div className='w-10 h-10 bg-cyberpunk-neon/20 border border-cyberpunk-neon rounded flex items-center justify-center'>
@@ -306,11 +300,6 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
           {/* Core Services Section - 3/4 width */}
           <div className='col-span-3 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden'>
-            <div className='absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-cyberpunk-purple/50' />
-            <div className='absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-cyberpunk-purple/50' />
-            <div className='absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-cyberpunk-purple/50' />
-            <div className='absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-cyberpunk-purple/50' />
-
             <h3 className='text-cyberpunk-pink font-cyber text-xs font-bold tracking-wider mb-3 flex items-center space-x-2 relative z-10'>
               <span>CORE SERVICES</span>
               <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
@@ -344,11 +333,6 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
         {/* Bottom Row - Skills & Capabilities Section */}
         <div className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-4 relative overflow-hidden'>
-          <div className='absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-cyberpunk-pink/50' />
-          <div className='absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-cyberpunk-pink/50' />
-          <div className='absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-cyberpunk-pink/50' />
-          <div className='absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-cyberpunk-pink/50' />
-
           <h3 className='text-cyberpunk-pink font-cyber text-xs font-bold tracking-wider mb-3 flex items-center space-x-2 relative z-10'>
             <span>SKILLS & CAPABILITIES</span>
             <div className='w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
