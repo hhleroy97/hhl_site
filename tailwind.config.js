@@ -81,6 +81,9 @@ export default {
       screens: {
         xs: '475px',
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
     },
   },
   plugins: [],

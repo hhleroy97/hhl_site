@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 import characterProfile from '../assets/character-profile.png'
 import cloudBadge from '../assets/cloud-badge.png'
 import pythonBadge from '../assets/python-badge.png'
@@ -367,21 +368,33 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 style={{ height: 'calc(100% - 2rem)' }}
               >
                 {coreServices.map(service => (
-                  <div
+                  <motion.div
                     key={service.id}
-                    className='h-full bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group transition-all duration-300 p-1 cursor-pointer'
+                    className='h-full bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group p-1 cursor-pointer'
                     style={{
                       clipPath:
                         'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
                     }}
+                    whileHover={{
+                      scale: 1.02,
+                      transition: { duration: 0.2, ease: 'easeOut' },
+                    }}
                     onMouseEnter={() => onHoverItem?.(service)}
                     onMouseLeave={() => onHoverItem?.(null)}
                   >
-                    <div
-                      className='absolute inset-0 border border-cyberpunk-neon/40 group-hover:border-cyberpunk-pink/60 transition-colors duration-300'
+                    <motion.div
+                      className='absolute inset-0 border border-cyberpunk-neon/40 group-hover:border-cyberpunk-pink/60'
                       style={{
                         clipPath:
                           'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                      }}
+                      whileHover={{
+                        boxShadow: [
+                          '0 0 0 rgba(236, 72, 153, 0)',
+                          '0 0 20px rgba(236, 72, 153, 0.3)',
+                          '0 0 15px rgba(236, 72, 153, 0.2)',
+                        ],
+                        transition: { duration: 0.3 },
                       }}
                     />
                     <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
@@ -398,7 +411,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         {service.title}
                       </h4>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -418,21 +431,33 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
             </h3>
             <div className='grid grid-cols-8 gap-2'>
               {skillsCapabilities.map((skill, i) => (
-                <div
+                <motion.div
                   key={skill.id}
-                  className='w-full h-16 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group transition-all duration-300 p-2 cursor-pointer'
+                  className='w-full h-16 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group p-2 cursor-pointer'
                   style={{
                     clipPath:
                       'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
                   }}
+                  whileHover={{
+                    scale: 1.02,
+                    transition: { duration: 0.2, ease: 'easeOut' },
+                  }}
                   onMouseEnter={() => onHoverItem?.(skill)}
                   onMouseLeave={() => onHoverItem?.(null)}
                 >
-                  <div
-                    className='absolute inset-0 border border-cyberpunk-neon/50 group-hover:border-cyberpunk-pink/60 transition-colors duration-300'
+                  <motion.div
+                    className='absolute inset-0 border border-cyberpunk-neon/50 group-hover:border-cyberpunk-pink/60'
                     style={{
                       clipPath:
                         'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                    }}
+                    whileHover={{
+                      boxShadow: [
+                        '0 0 0 rgba(236, 72, 153, 0)',
+                        '0 0 15px rgba(236, 72, 153, 0.4)',
+                        '0 0 10px rgba(236, 72, 153, 0.3)',
+                      ],
+                      transition: { duration: 0.25 },
                     }}
                   />
                   <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
@@ -514,7 +539,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                       </h4>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
