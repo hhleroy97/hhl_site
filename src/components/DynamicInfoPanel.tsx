@@ -150,14 +150,14 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
                   src={getSkillBadge(content.id)}
                   alt={`${content.title} Badge`}
                   className='w-12 h-12 flex-shrink-0'
-                  initial={{ opacity: 0, scale: 0.8, x: 10 }}
+                  initial={{ opacity: 0, scale: 0.8, x: -10 }}
                   animate={{ opacity: 1, scale: 1, x: 0 }}
                   transition={{ duration: 0.25, ease: 'easeOut' }}
                 />
               )}
               <motion.h3
                 className='text-cyberpunk-pink font-cyber text-xl font-bold filter drop-shadow-[0_0_8px_currentColor]'
-                initial={{ opacity: 0, x: 10 }}
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.25 }}
               >
@@ -209,7 +209,7 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
             <div className='space-y-2'>
               <motion.h4
                 className='text-cyberpunk-neon text-sm font-cyber font-bold'
-                initial={{ opacity: 0, x: 10 }}
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.25 }}
               >
@@ -252,7 +252,7 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
           >
             <motion.h4
               className='text-cyberpunk-green text-sm font-cyber font-bold mb-2'
-              initial={{ opacity: 0, x: 10 }}
+              initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.25 }}
             >
@@ -269,7 +269,7 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
               </motion.span>
               <motion.span
                 className='text-cyberpunk-green text-sm font-bold'
-                initial={{ opacity: 0, x: 5 }}
+                initial={{ opacity: 0, x: -5 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.25 }}
               >
