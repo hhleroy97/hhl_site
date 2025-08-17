@@ -37,22 +37,25 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
 
   return (
     <div
-      className={`flex items-start gap-8 max-w-6xl mx-auto ${className}`}
-      style={{ transform: 'scale(1.5)', transformOrigin: 'center' }}
+      className={`cyberpunk-trainer-container flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-8 max-w-6xl mx-auto px-4 ${className}`}
+      style={{
+        transform: 'scale(0.8)',
+        transformOrigin: 'center',
+      }}
     >
       {/* Info Panel */}
-      <div className='w-80 flex-shrink-0'>
+      <div className='w-full max-w-80 lg:w-80 flex-shrink-0 order-2 lg:order-1'>
         <DynamicInfoPanel
           hoveredItem={hoveredItem}
           className='w-full overflow-hidden'
           style={{
-            height: '485px', // Back to the height that was working before
+            height: '485px',
           }}
         />
       </div>
 
       {/* Trainer Card */}
-      <div>
+      <div className='order-1 lg:order-2'>
         <CyberpunkTrainerCard
           trainerName={trainerName}
           onEnterPortfolio={onEnterPortfolio}
