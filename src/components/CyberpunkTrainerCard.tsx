@@ -254,7 +254,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
   return (
     <div className={className}>
       <div
-        className={`relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 shadow-2xl`}
+        className={`cyberpunk-trainer-card-mobile relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 lg:p-4 shadow-2xl`}
         style={{
           borderRadius: '2rem',
           aspectRatio: '3.5 / 2',
@@ -279,7 +279,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
         {/* Top Header with Name and Tagline */}
         <div
-          className='flex items-center mb-2 px-3 py-1 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-t-2xl border border-cyberpunk-neon/30 relative overflow-hidden shadow-2xl'
+          className='flex items-center mb-2 lg:mb-2 px-3 py-2 lg:py-1 bg-gradient-to-r from-cyberpunk-purple/20 to-cyberpunk-blue/20 rounded-t-2xl border border-cyberpunk-neon/30 relative overflow-hidden shadow-2xl'
           style={{
             transform: 'translateZ(120px)',
             boxShadow:
@@ -299,13 +299,13 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               </div>
               <div className='shadow-xl' style={{}}>
                 <h1
-                  className='text-sm font-cyber font-bold cyberpunk-glow tracking-wider shadow-lg'
+                  className='text-sm lg:text-sm mobile-header-text font-cyber font-bold cyberpunk-glow tracking-wider shadow-lg mobile-high-contrast'
                   style={{}}
                 >
                   {_trainerName}
                 </h1>
                 <p
-                  className='text-cyberpunk-neon/60 font-mono text-[8px] shadow-md'
+                  className='text-cyberpunk-neon/60 font-mono text-xs lg:text-[8px] mobile-subheader-text shadow-md mobile-medium-contrast'
                   style={{}}
                 >
                   ENGINEER • BUILDER • CREATIVE TECHNOLOGIST
@@ -315,17 +315,17 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
 
             {/* Social Links */}
             <div
-              className='flex items-center space-x-1 mr-2 shadow-2xl'
+              className='flex items-center space-x-2 lg:space-x-1 mr-2 shadow-2xl'
               style={{}}
             >
               <a
                 href='https://github.com/hhleroy97'
                 target='_blank'
                 rel='noopener noreferrer'
-                className='group relative w-6 h-6 bg-gradient-to-r from-cyberpunk-green/20 to-cyberpunk-blue/20 text-cyberpunk-green font-cyber font-bold transition-all duration-300 hover:bg-cyberpunk-green/30 hover:shadow-lg hover:shadow-cyberpunk-green/30 hover:scale-105 flex items-center justify-center rounded'
+                className='group relative w-8 h-8 lg:w-6 lg:h-6 mobile-touch-target bg-gradient-to-r from-cyberpunk-green/20 to-cyberpunk-blue/20 text-cyberpunk-green font-cyber font-bold transition-all duration-300 hover:bg-cyberpunk-green/30 hover:shadow-lg hover:shadow-cyberpunk-green/30 hover:scale-105 flex items-center justify-center rounded'
               >
                 <svg
-                  className='w-3 h-3 relative z-10'
+                  className='w-4 h-4 lg:w-3 lg:h-3 relative z-10'
                   fill='currentColor'
                   viewBox='0 0 24 24'
                 >
@@ -338,10 +338,10 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 href='https://linkedin.com/in/hartley-leroy'
                 target='_blank'
                 rel='noopener noreferrer'
-                className='group relative w-6 h-6 bg-gradient-to-r from-cyberpunk-blue/20 to-cyberpunk-purple/20 text-cyberpunk-blue font-cyber font-bold transition-all duration-300 hover:bg-cyberpunk-blue/30 hover:shadow-lg hover:shadow-cyberpunk-blue/30 hover:scale-105 flex items-center justify-center rounded'
+                className='group relative w-8 h-8 lg:w-6 lg:h-6 mobile-touch-target bg-gradient-to-r from-cyberpunk-blue/20 to-cyberpunk-purple/20 text-cyberpunk-blue font-cyber font-bold transition-all duration-300 hover:bg-cyberpunk-blue/30 hover:shadow-lg hover:shadow-cyberpunk-blue/30 hover:scale-105 flex items-center justify-center rounded'
               >
                 <svg
-                  className='w-3 h-3 relative z-10'
+                  className='w-4 h-4 lg:w-3 lg:h-3 relative z-10'
                   fill='currentColor'
                   viewBox='0 0 24 24'
                 >
@@ -354,7 +354,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               {onEnterPortfolio && (
                 <button
                   onClick={onEnterPortfolio}
-                  className='group relative w-6 h-6 bg-gradient-to-r from-cyberpunk-neon/20 to-cyberpunk-pink/20 text-cyberpunk-neon font-cyber font-bold transition-all duration-300 hover:bg-cyberpunk-neon/30 hover:shadow-lg hover:shadow-cyberpunk-neon/30 hover:scale-105 flex items-center justify-center rounded'
+                  className='group relative w-8 h-8 lg:w-6 lg:h-6 mobile-touch-target bg-gradient-to-r from-cyberpunk-neon/20 to-cyberpunk-pink/20 text-cyberpunk-neon font-cyber font-bold transition-all duration-300 hover:bg-cyberpunk-neon/30 hover:shadow-lg hover:shadow-cyberpunk-neon/30 hover:scale-105 flex items-center justify-center rounded'
                 >
                   <svg
                     className='w-3 h-3 relative z-10'
@@ -375,20 +375,20 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
           {/* Top Row - Core Services and Profile */}
           <div className='w-full space-y-1'>
             {/* Core Services Header */}
-            <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider relative z-10'>
+            <h3 className='text-cyberpunk-pink font-cyber text-sm lg:text-sm mobile-section-header font-bold tracking-wider relative z-10'>
               <span>CORE SERVICES</span>
               <div className='absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
             </h3>
-            <div className='w-full grid grid-cols-4 gap-4'>
-              {/* Core Services Section - 3/4 width */}
-              <div className='col-span-3 h-64 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden shadow-lg'>
+            <div className='w-full grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-4 mobile-spacing-normal'>
+              {/* Core Services Section - 3/4 width on desktop, full width on mobile */}
+              <div className='col-span-1 lg:col-span-3 h-auto lg:h-64 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden shadow-lg'>
                 {/* Vertical separator line */}
                 <div className='absolute top-0 -right-2 h-full w-px bg-gradient-to-b from-transparent via-cyberpunk-neon/40 to-transparent'></div>
-                <div className='grid grid-cols-3 gap-1 h-full'>
+                <div className='grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-1 h-full mobile-service-grid'>
                   {coreServices.map(service => (
                     <motion.div
                       key={service.id}
-                      className='h-full bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group p-1 cursor-pointer'
+                      className='h-full lg:h-full mobile-service-card bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 flex flex-col lg:flex-col items-center lg:items-center justify-center relative overflow-hidden group p-3 lg:p-1 cursor-pointer mobile-touch-target'
                       style={{
                         clipPath:
                           'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
@@ -443,7 +443,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                           {getPlaceholderIcon(service.icon)}
                         </motion.div>
                         <motion.h4
-                          className='font-cyber text-xs font-bold leading-tight text-cyberpunk-neon'
+                          className='font-cyber text-sm lg:text-xs mobile-body-text font-bold leading-tight text-cyberpunk-neon mobile-high-contrast'
                           style={{
                             opacity: 0.9,
                           }}
@@ -462,9 +462,9 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                 </div>
               </div>
 
-              {/* Profile Section - 1/4 width */}
-              <div className='col-span-1 relative'>
-                <div className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 overflow-hidden shadow-xl'>
+              {/* Profile Section - 1/4 width on desktop, moved to top on mobile */}
+              <div className='col-span-1 lg:col-span-1 relative mobile-profile-section order-first lg:order-last'>
+                <div className='relative h-48 lg:h-64 mobile-profile-card bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 overflow-hidden shadow-xl'>
                   {/* Character Image with Status */}
                   <div className='absolute inset-2 flex items-center justify-center'>
                     <div className='relative w-full h-full'>
@@ -483,13 +483,13 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         style={{}}
                       >
                         <div
-                          className='text-cyberpunk-green font-cyber text-xs font-bold mb-1'
+                          className='text-cyberpunk-green font-cyber text-sm lg:text-xs mobile-body-text font-bold mb-1 mobile-high-contrast'
                           style={{}}
                         >
                           AVAILABLE FOR HIRE
                         </div>
                         <div
-                          className='text-cyberpunk-neon/60 font-mono text-[10px] leading-tight'
+                          className='text-cyberpunk-neon/60 font-mono text-xs lg:text-[10px] mobile-small-text leading-tight mobile-medium-contrast'
                           style={{ transform: 'translateZ(5px)' }}
                         >
                           Full-Stack Engineer
@@ -506,7 +506,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
           {/* Bottom Row - Skills & Capabilities Section */}
           <div className='w-full space-y-1'>
             {/* Skills & Capabilities Header */}
-            <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider relative z-10'>
+            <h3 className='text-cyberpunk-pink font-cyber text-sm lg:text-sm mobile-section-header font-bold tracking-wider relative z-10'>
               <span>SKILLS & CAPABILITIES</span>
               <div className='absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
             </h3>
@@ -514,11 +514,11 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-4 relative overflow-hidden shadow-md rounded-b-2xl'
               style={{}}
             >
-              <div className='grid grid-cols-8 gap-2'>
+              <div className='flex overflow-x-auto lg:grid lg:grid-cols-8 gap-3 lg:gap-2 mobile-skills-container'>
                 {skillsCapabilities.map((skill, i) => (
                   <motion.div
                     key={skill.id}
-                    className='w-full h-16 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group p-2 cursor-pointer'
+                    className='w-full h-16 lg:h-16 mobile-skill-badge bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group p-3 lg:p-2 cursor-pointer mobile-touch-target'
                     style={{
                       clipPath:
                         'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
@@ -670,7 +670,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             </motion.span>
                           )}
                         </motion.div>
-                        <h4 className='font-mono text-[8px] font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
+                        <h4 className='font-mono text-xs lg:text-[8px] mobile-small-text font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center mobile-high-contrast'>
                           {i === 0
                             ? 'AWS'
                             : i === 1
