@@ -332,40 +332,68 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                           'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
                       }}
                       whileHover={{
-                        scale: 1.02,
-                        transition: { duration: 0.2, ease: 'easeOut' },
+                        scale: 1.05,
+                        y: -5,
+                        transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
                       }}
+                      whileTap={{ scale: 0.98 }}
                       onMouseEnter={() => onHoverItem?.(service)}
                       onMouseLeave={() => onHoverItem?.(null)}
                     >
                       <motion.div
-                        className='absolute inset-0 border border-cyberpunk-neon/40 group-hover:border-cyberpunk-pink/60'
+                        className='absolute inset-0 border border-cyberpunk-neon/40'
                         style={{
                           clipPath:
                             'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
                         }}
                         whileHover={{
+                          borderColor: 'rgba(236, 72, 153, 0.8)',
                           boxShadow: [
                             '0 0 0 rgba(236, 72, 153, 0)',
-                            '0 0 20px rgba(236, 72, 153, 0.3)',
-                            '0 0 15px rgba(236, 72, 153, 0.2)',
+                            '0 0 25px rgba(236, 72, 153, 0.4)',
+                            '0 0 35px rgba(236, 72, 153, 0.2)',
+                            '0 0 15px rgba(59, 130, 246, 0.3)',
                           ],
+                          filter: 'brightness(1.2)',
+                          transition: { duration: 0.3, ease: 'easeOut' },
+                        }}
+                      />
+                      <motion.div
+                        className='absolute inset-0 bg-gradient-to-br from-cyberpunk-pink/0 via-transparent to-cyberpunk-blue/0'
+                        whileHover={{
+                          background:
+                            'linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%)',
                           transition: { duration: 0.3 },
                         }}
                       />
                       <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
                       <div className='text-center z-10 space-y-1'>
-                        <div className='text-lg mb-1 filter drop-shadow-[0_0_8px_currentColor] text-cyberpunk-neon'>
+                        <motion.div
+                          className='text-lg mb-1 filter drop-shadow-[0_0_8px_currentColor] text-cyberpunk-neon'
+                          whileHover={{
+                            scale: 1.2,
+                            rotate: [0, -5, 5, 0],
+                            filter:
+                              'drop-shadow(0 0 12px currentColor) brightness(1.3)',
+                            transition: { duration: 0.3 },
+                          }}
+                        >
                           {getPlaceholderIcon(service.icon)}
-                        </div>
-                        <h4
+                        </motion.div>
+                        <motion.h4
                           className='font-cyber text-xs font-bold leading-tight text-cyberpunk-neon'
                           style={{
                             opacity: 0.9,
                           }}
+                          whileHover={{
+                            opacity: 1,
+                            scale: 1.05,
+                            color: '#ec4899',
+                            transition: { duration: 0.2 },
+                          }}
                         >
                           {service.title}
-                        </h4>
+                        </motion.h4>
                       </div>
                     </motion.div>
                   ))}
@@ -434,85 +462,152 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                         'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
                     }}
                     whileHover={{
-                      scale: 1.02,
-                      transition: { duration: 0.2, ease: 'easeOut' },
+                      scale: 1.08,
+                      y: -3,
+                      transition: { duration: 0.25, ease: [0.4, 0, 0.2, 1] },
                     }}
+                    whileTap={{ scale: 0.95 }}
                     onMouseEnter={() => onHoverItem?.(skill)}
                     onMouseLeave={() => onHoverItem?.(null)}
                   >
                     <motion.div
-                      className='absolute inset-0 border border-cyberpunk-neon/50 group-hover:border-cyberpunk-pink/60'
+                      className='absolute inset-0 border border-cyberpunk-neon/50'
                       style={{
                         clipPath:
                           'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
                       }}
                       whileHover={{
+                        borderColor: 'rgba(59, 130, 246, 0.9)',
                         boxShadow: [
-                          '0 0 0 rgba(236, 72, 153, 0)',
-                          '0 0 15px rgba(236, 72, 153, 0.4)',
-                          '0 0 10px rgba(236, 72, 153, 0.3)',
+                          '0 0 0 rgba(59, 130, 246, 0)',
+                          '0 0 20px rgba(59, 130, 246, 0.5)',
+                          '0 0 30px rgba(59, 130, 246, 0.3)',
+                          '0 0 10px rgba(236, 72, 153, 0.2)',
                         ],
+                        filter: 'brightness(1.3)',
+                        transition: { duration: 0.25, ease: 'easeOut' },
+                      }}
+                    />
+                    <motion.div
+                      className='absolute inset-0 bg-gradient-to-br from-cyberpunk-blue/0 via-transparent to-cyberpunk-neon/0'
+                      whileHover={{
+                        background:
+                          'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%)',
                         transition: { duration: 0.25 },
                       }}
                     />
                     <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
                     <div className='text-center z-10'>
                       <div className='flex flex-col items-center space-y-1'>
-                        <div className='flex items-center justify-center h-8'>
+                        <motion.div
+                          className='flex items-center justify-center h-8'
+                          whileHover={{
+                            scale: 1.15,
+                            rotate: [0, -3, 3, 0],
+                            transition: { duration: 0.25 },
+                          }}
+                        >
                           {i === 0 ? (
-                            <img
+                            <motion.img
                               src={cloudBadge}
                               alt='Cloud Badge'
                               className='w-8 h-8 flex-shrink-0'
+                              whileHover={{
+                                filter:
+                                  'brightness(1.3) drop-shadow(0 0 8px rgba(59, 130, 246, 0.6))',
+                                transition: { duration: 0.2 },
+                              }}
                             />
                           ) : i === 1 ? (
-                            <img
+                            <motion.img
                               src={pythonBadge}
                               alt='Python Badge'
                               className='w-8 h-8 flex-shrink-0'
+                              whileHover={{
+                                filter:
+                                  'brightness(1.3) drop-shadow(0 0 8px rgba(255, 212, 59, 0.6))',
+                                transition: { duration: 0.2 },
+                              }}
                             />
                           ) : i === 2 ? (
-                            <img
+                            <motion.img
                               src={databaseBadge}
                               alt='Database Badge'
                               className='w-8 h-8 flex-shrink-0'
+                              whileHover={{
+                                filter:
+                                  'brightness(1.3) drop-shadow(0 0 8px rgba(16, 185, 129, 0.6))',
+                                transition: { duration: 0.2 },
+                              }}
                             />
                           ) : i === 3 ? (
-                            <img
+                            <motion.img
                               src={pipeBadge}
                               alt='Pipeline Badge'
                               className='w-8 h-8 flex-shrink-0'
+                              whileHover={{
+                                filter:
+                                  'brightness(1.3) drop-shadow(0 0 8px rgba(147, 51, 234, 0.6))',
+                                transition: { duration: 0.2 },
+                              }}
                             />
                           ) : i === 4 ? (
-                            <img
+                            <motion.img
                               src={robotBadge}
                               alt='Robot Badge'
                               className='w-8 h-8 flex-shrink-0'
+                              whileHover={{
+                                filter:
+                                  'brightness(1.3) drop-shadow(0 0 8px rgba(236, 72, 153, 0.6))',
+                                transition: { duration: 0.2 },
+                              }}
                             />
                           ) : i === 5 ? (
-                            <img
+                            <motion.img
                               src={etlBadge}
                               alt='ETL Badge'
                               className='w-8 h-8 flex-shrink-0'
+                              whileHover={{
+                                filter:
+                                  'brightness(1.3) drop-shadow(0 0 8px rgba(59, 130, 246, 0.6))',
+                                transition: { duration: 0.2 },
+                              }}
                             />
                           ) : i === 6 ? (
-                            <img
+                            <motion.img
                               src={collabBadge}
                               alt='Collaboration Badge'
                               className='w-8 h-8 flex-shrink-0'
+                              whileHover={{
+                                filter:
+                                  'brightness(1.3) drop-shadow(0 0 8px rgba(16, 185, 129, 0.6))',
+                                transition: { duration: 0.2 },
+                              }}
                             />
                           ) : i === 7 ? (
-                            <img
+                            <motion.img
                               src={checklistBadge}
                               alt='Agile Badge'
                               className='w-8 h-8 flex-shrink-0'
+                              whileHover={{
+                                filter:
+                                  'brightness(1.3) drop-shadow(0 0 8px rgba(245, 101, 101, 0.6))',
+                                transition: { duration: 0.2 },
+                              }}
                             />
                           ) : (
-                            <span className='text-xl text-cyberpunk-neon flex-shrink-0 w-8 h-8 flex items-center justify-center'>
+                            <motion.span
+                              className='text-xl text-cyberpunk-neon flex-shrink-0 w-8 h-8 flex items-center justify-center'
+                              whileHover={{
+                                filter:
+                                  'brightness(1.3) drop-shadow(0 0 8px currentColor)',
+                                transition: { duration: 0.2 },
+                              }}
+                            >
                               {skill.icon}
-                            </span>
+                            </motion.span>
                           )}
-                        </div>
+                        </motion.div>
                         <h4 className='font-mono text-[8px] font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
                           {i === 0
                             ? 'AWS'
