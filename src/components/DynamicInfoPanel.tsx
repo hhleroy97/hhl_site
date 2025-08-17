@@ -17,6 +17,10 @@ interface ServiceItem {
   technologies: string[]
   highlight: string
   icon?: string
+  deliverables?: string[]
+  timeline?: string
+  category?: string
+  proficiency?: 'Expert' | 'Advanced' | 'Proficient'
 }
 
 interface DynamicInfoPanelProps {
@@ -52,9 +56,16 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
     type: 'service',
     title: 'Welcome',
     description:
-      'Full-stack engineer specializing in robotics, cloud infrastructure, and data systems. Hover over any service or skill to learn more.',
+      'Full-stack engineer specializing in robotics, cloud infrastructure, and data systems. I help startups and companies bridge the gap between hardware and software with proven, production-ready solutions.',
     technologies: ['Problem Solver', 'Team Player', 'Innovation Driver'],
-    highlight: '5+ years building scalable tech solutions',
+    highlight:
+      '$2M+ in infrastructure cost savings and product funding secured',
+    deliverables: [
+      'Production-ready solutions',
+      'Complete documentation',
+      'Knowledge transfer',
+    ],
+    timeline: 'Fast turnaround',
   }
 
   const content = hoveredItem || defaultContent
@@ -297,50 +308,195 @@ const DynamicInfoPanel: React.FC<DynamicInfoPanelProps> = ({
             }}
             className='space-y-4 flex-1 flex flex-col justify-center'
           >
-            {/* Tech badges - Enhanced with divider and staggered animations */}
-            <div className='space-y-3'>
-              <div className='flex items-center space-x-3'>
-                <motion.h4
-                  className='text-cyberpunk-blue text-sm font-cyber font-bold uppercase tracking-wider'
-                  initial={{ opacity: 0, x: -15 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                >
-                  Technologies
-                </motion.h4>
-                <motion.div
-                  className='flex-1 h-px bg-gradient-to-r from-cyberpunk-blue/40 to-transparent'
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.4, delay: 0.2 }}
-                  style={{ transformOrigin: 'left' }}
-                />
-              </div>
-              <div className='flex flex-wrap gap-2'>
-                {content.technologies.map((tech, i) => (
-                  <motion.span
-                    key={`${content.id}-${tech}-${i}`}
-                    initial={{ opacity: 0, y: 15, scale: 0.8 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{
-                      duration: 0.3,
-                      delay: 0.3 + i * 0.1,
-                      ease: 'easeOut',
-                    }}
-                    whileHover={{
-                      scale: 1.05,
-                      backgroundColor: 'rgba(59, 130, 246, 0.25)',
-                      boxShadow: '0 0 15px rgba(59, 130, 246, 0.4)',
-                      y: -2,
-                      transition: { duration: 0.2 },
-                    }}
-                    className='px-3 py-1.5 bg-cyberpunk-neon/15 border border-cyberpunk-neon/40 rounded-full text-cyberpunk-neon text-xs font-mono font-medium cursor-default backdrop-blur-sm'
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
-              </div>
-            </div>
+            {/* Content varies based on service vs skill */}
+            {content.type === 'service' ? (
+              <>
+                {/* Deliverables Section for Services */}
+                {content.deliverables && (
+                  <div className='space-y-3 mb-6'>
+                    <div className='flex items-center space-x-3'>
+                      <motion.h4
+                        className='text-cyberpunk-green text-sm font-cyber font-bold uppercase tracking-wider'
+                        initial={{ opacity: 0, x: -15 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
+                      >
+                        What You Get
+                      </motion.h4>
+                      <motion.div
+                        className='flex-1 h-px bg-gradient-to-r from-cyberpunk-green/40 to-transparent'
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.4, delay: 0.2 }}
+                        style={{ transformOrigin: 'left' }}
+                      />
+                    </div>
+                    <div className='space-y-2'>
+                      {content.deliverables.map((deliverable, i) => (
+                        <motion.div
+                          key={`${content.id}-deliverable-${i}`}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: 0.3 + i * 0.1,
+                            ease: 'easeOut',
+                          }}
+                          className='flex items-center space-x-3'
+                        >
+                          <motion.span
+                            className='text-cyberpunk-green text-sm'
+                            whileHover={{ scale: 1.2 }}
+                          >
+                            ✓
+                          </motion.span>
+                          <span className='text-cyberpunk-neon/80 text-sm'>
+                            {deliverable}
+                          </span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Timeline for Services */}
+                {content.timeline && (
+                  <div className='flex items-center space-x-3 mb-6'>
+                    <div className='px-3 py-2 bg-cyberpunk-purple/20 border border-cyberpunk-purple/40 rounded-lg'>
+                      <div className='flex items-center space-x-2'>
+                        <span className='text-cyberpunk-purple text-xs font-bold'>
+                          ⏱️ TIMELINE
+                        </span>
+                        <span className='text-cyberpunk-purple text-sm font-bold'>
+                          {content.timeline}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Technologies for Services */}
+                <div className='space-y-3'>
+                  <div className='flex items-center space-x-3'>
+                    <motion.h4
+                      className='text-cyberpunk-blue text-sm font-cyber font-bold uppercase tracking-wider'
+                      initial={{ opacity: 0, x: -15 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: 0.1 }}
+                    >
+                      Tech Stack
+                    </motion.h4>
+                    <motion.div
+                      className='flex-1 h-px bg-gradient-to-r from-cyberpunk-blue/40 to-transparent'
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.4, delay: 0.2 }}
+                      style={{ transformOrigin: 'left' }}
+                    />
+                  </div>
+                  <div className='flex flex-wrap gap-2'>
+                    {content.technologies.map((tech, i) => (
+                      <motion.span
+                        key={`${content.id}-${tech}-${i}`}
+                        initial={{ opacity: 0, y: 15, scale: 0.8 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 0.3 + i * 0.1,
+                          ease: 'easeOut',
+                        }}
+                        whileHover={{
+                          scale: 1.05,
+                          backgroundColor: 'rgba(59, 130, 246, 0.25)',
+                          boxShadow: '0 0 15px rgba(59, 130, 246, 0.4)',
+                          y: -2,
+                          transition: { duration: 0.2 },
+                        }}
+                        className='px-3 py-1.5 bg-cyberpunk-neon/15 border border-cyberpunk-neon/40 rounded-full text-cyberpunk-neon text-xs font-mono font-medium cursor-default backdrop-blur-sm'
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Skills display with proficiency and category */}
+                <div className='space-y-4'>
+                  {/* Proficiency and Category for Skills */}
+                  <div className='flex items-center gap-3'>
+                    {content.proficiency && (
+                      <div
+                        className={`px-3 py-1.5 rounded-lg border-2 ${
+                          content.proficiency === 'Expert'
+                            ? 'bg-cyberpunk-green/20 border-cyberpunk-green/50 text-cyberpunk-green'
+                            : content.proficiency === 'Advanced'
+                              ? 'bg-cyberpunk-blue/20 border-cyberpunk-blue/50 text-cyberpunk-blue'
+                              : 'bg-cyberpunk-purple/20 border-cyberpunk-purple/50 text-cyberpunk-purple'
+                        }`}
+                      >
+                        <span className='text-xs font-bold uppercase tracking-wider'>
+                          {content.proficiency}
+                        </span>
+                      </div>
+                    )}
+                    {content.category && (
+                      <div className='px-3 py-1.5 bg-cyberpunk-neon/10 border border-cyberpunk-neon/30 rounded-lg'>
+                        <span className='text-cyberpunk-neon/80 text-xs font-medium'>
+                          {content.category}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Technologies for Skills */}
+                  <div className='space-y-3'>
+                    <div className='flex items-center space-x-3'>
+                      <motion.h4
+                        className='text-cyberpunk-blue text-sm font-cyber font-bold uppercase tracking-wider'
+                        initial={{ opacity: 0, x: -15 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
+                      >
+                        Technologies
+                      </motion.h4>
+                      <motion.div
+                        className='flex-1 h-px bg-gradient-to-r from-cyberpunk-blue/40 to-transparent'
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.4, delay: 0.2 }}
+                        style={{ transformOrigin: 'left' }}
+                      />
+                    </div>
+                    <div className='flex flex-wrap gap-2'>
+                      {content.technologies.map((tech, i) => (
+                        <motion.span
+                          key={`${content.id}-${tech}-${i}`}
+                          initial={{ opacity: 0, y: 15, scale: 0.8 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: 0.3 + i * 0.1,
+                            ease: 'easeOut',
+                          }}
+                          whileHover={{
+                            scale: 1.05,
+                            backgroundColor: 'rgba(59, 130, 246, 0.25)',
+                            boxShadow: '0 0 15px rgba(59, 130, 246, 0.4)',
+                            y: -2,
+                            transition: { duration: 0.2 },
+                          }}
+                          className='px-3 py-1.5 bg-cyberpunk-neon/15 border border-cyberpunk-neon/40 rounded-full text-cyberpunk-neon text-xs font-mono font-medium cursor-default backdrop-blur-sm'
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </motion.div>
         </AnimatePresence>
 

@@ -10,6 +10,10 @@ interface ServiceItem {
   technologies: string[]
   highlight: string
   icon?: string
+  deliverables?: string[]
+  timeline?: string
+  category?: string
+  proficiency?: 'Expert' | 'Advanced' | 'Proficient'
 }
 
 interface CyberpunkTrainerWithInfoPanelProps {
