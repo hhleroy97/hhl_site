@@ -39,7 +39,7 @@ const CyberpunkTrainerWithInfoPanel: React.FC<
     <div
       className={`cyberpunk-trainer-container flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-8 max-w-6xl mx-auto px-4 ${className}`}
       style={{
-        transform: 'scale(0.8)',
+        transform: 'scale(0.65)',
         transformOrigin: 'center',
       }}
     >
