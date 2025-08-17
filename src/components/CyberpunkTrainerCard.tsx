@@ -309,24 +309,126 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
         </div>
 
         {/* Main Content Layout */}
-        <div className='w-full space-y-4 relative z-10'>
-          {/* Core Services Header */}
-          <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider relative z-10 border-b border-cyberpunk-pink/40 pb-2'>
-            <span>CORE SERVICES</span>
-            <div className='absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
-          </h3>
-
+        <div className='w-full space-y-2 relative z-10'>
           {/* Top Row - Core Services and Profile */}
-          <div className='w-full grid grid-cols-4 gap-4'>
-            {/* Core Services Section - 3/4 width */}
-            <div className='col-span-3 h-64 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden shadow-lg'>
-              {/* Vertical separator line */}
-              <div className='absolute top-0 -right-2 h-full w-px bg-gradient-to-b from-transparent via-cyberpunk-neon/40 to-transparent'></div>
-              <div className='grid grid-cols-3 gap-1 h-full'>
-                {coreServices.map(service => (
+          <div className='w-full space-y-1'>
+            {/* Core Services Header */}
+            <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider relative z-10'>
+              <span>CORE SERVICES</span>
+              <div className='absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
+            </h3>
+            <div className='w-full grid grid-cols-4 gap-4'>
+              {/* Core Services Section - 3/4 width */}
+              <div className='col-span-3 h-64 bg-gradient-to-r from-cyberpunk-purple/5 to-cyberpunk-blue/5 border border-cyberpunk-neon/20 p-4 relative overflow-hidden shadow-lg'>
+                {/* Vertical separator line */}
+                <div className='absolute top-0 -right-2 h-full w-px bg-gradient-to-b from-transparent via-cyberpunk-neon/40 to-transparent'></div>
+                <div className='grid grid-cols-3 gap-1 h-full'>
+                  {coreServices.map(service => (
+                    <motion.div
+                      key={service.id}
+                      className='h-full bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group p-1 cursor-pointer'
+                      style={{
+                        clipPath:
+                          'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                      }}
+                      whileHover={{
+                        scale: 1.02,
+                        transition: { duration: 0.2, ease: 'easeOut' },
+                      }}
+                      onMouseEnter={() => onHoverItem?.(service)}
+                      onMouseLeave={() => onHoverItem?.(null)}
+                    >
+                      <motion.div
+                        className='absolute inset-0 border border-cyberpunk-neon/40 group-hover:border-cyberpunk-pink/60'
+                        style={{
+                          clipPath:
+                            'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                        }}
+                        whileHover={{
+                          boxShadow: [
+                            '0 0 0 rgba(236, 72, 153, 0)',
+                            '0 0 20px rgba(236, 72, 153, 0.3)',
+                            '0 0 15px rgba(236, 72, 153, 0.2)',
+                          ],
+                          transition: { duration: 0.3 },
+                        }}
+                      />
+                      <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+                      <div className='text-center z-10 space-y-1'>
+                        <div className='text-lg mb-1 filter drop-shadow-[0_0_8px_currentColor] text-cyberpunk-neon'>
+                          {getPlaceholderIcon(service.icon)}
+                        </div>
+                        <h4
+                          className='font-cyber text-xs font-bold leading-tight text-cyberpunk-neon'
+                          style={{
+                            opacity: 0.9,
+                          }}
+                        >
+                          {service.title}
+                        </h4>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Profile Section - 1/4 width */}
+              <div className='col-span-1 relative'>
+                <div className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 overflow-hidden shadow-xl'>
+                  {/* Character Image with Status */}
+                  <div className='absolute inset-2 flex items-center justify-center'>
+                    <div className='relative w-full h-full'>
+                      <img
+                        src={characterProfile}
+                        alt='Character Profile'
+                        className='w-full h-full object-contain object-center rounded-lg'
+                        style={{}}
+                      />
+                      <div
+                        className='absolute -top-1 -right-1 w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse'
+                        style={{}}
+                      />
+                      <div
+                        className='absolute bottom-2 left-0 right-0 text-center'
+                        style={{}}
+                      >
+                        <div
+                          className='text-cyberpunk-green font-cyber text-xs font-bold mb-1'
+                          style={{}}
+                        >
+                          AVAILABLE FOR HIRE
+                        </div>
+                        <div
+                          className='text-cyberpunk-neon/60 font-mono text-[10px] leading-tight'
+                          style={{ transform: 'translateZ(5px)' }}
+                        >
+                          Full-Stack Engineer
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='absolute inset-0 scanlines' />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Row - Skills & Capabilities Section */}
+          <div className='w-full space-y-1'>
+            {/* Skills & Capabilities Header */}
+            <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider relative z-10'>
+              <span>SKILLS & CAPABILITIES</span>
+              <div className='absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
+            </h3>
+            <div
+              className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-4 relative overflow-hidden shadow-md rounded-b-2xl'
+              style={{}}
+            >
+              <div className='grid grid-cols-8 gap-2'>
+                {skillsCapabilities.map((skill, i) => (
                   <motion.div
-                    key={service.id}
-                    className='h-full bg-gradient-to-br from-cyberpunk-purple/20 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group p-1 cursor-pointer'
+                    key={skill.id}
+                    className='w-full h-16 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group p-2 cursor-pointer'
                     style={{
                       clipPath:
                         'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
@@ -335,11 +437,11 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                       scale: 1.02,
                       transition: { duration: 0.2, ease: 'easeOut' },
                     }}
-                    onMouseEnter={() => onHoverItem?.(service)}
+                    onMouseEnter={() => onHoverItem?.(skill)}
                     onMouseLeave={() => onHoverItem?.(null)}
                   >
                     <motion.div
-                      className='absolute inset-0 border border-cyberpunk-neon/40 group-hover:border-cyberpunk-pink/60'
+                      className='absolute inset-0 border border-cyberpunk-neon/50 group-hover:border-cyberpunk-pink/60'
                       style={{
                         clipPath:
                           'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
@@ -347,194 +449,94 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                       whileHover={{
                         boxShadow: [
                           '0 0 0 rgba(236, 72, 153, 0)',
-                          '0 0 20px rgba(236, 72, 153, 0.3)',
-                          '0 0 15px rgba(236, 72, 153, 0.2)',
+                          '0 0 15px rgba(236, 72, 153, 0.4)',
+                          '0 0 10px rgba(236, 72, 153, 0.3)',
                         ],
-                        transition: { duration: 0.3 },
+                        transition: { duration: 0.25 },
                       }}
                     />
                     <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
-                    <div className='text-center z-10 space-y-1'>
-                      <div className='text-lg mb-1 filter drop-shadow-[0_0_8px_currentColor] text-cyberpunk-neon'>
-                        {getPlaceholderIcon(service.icon)}
+                    <div className='text-center z-10'>
+                      <div className='flex flex-col items-center space-y-1'>
+                        <div className='flex items-center justify-center h-8'>
+                          {i === 0 ? (
+                            <img
+                              src={cloudBadge}
+                              alt='Cloud Badge'
+                              className='w-8 h-8 flex-shrink-0'
+                            />
+                          ) : i === 1 ? (
+                            <img
+                              src={pythonBadge}
+                              alt='Python Badge'
+                              className='w-8 h-8 flex-shrink-0'
+                            />
+                          ) : i === 2 ? (
+                            <img
+                              src={databaseBadge}
+                              alt='Database Badge'
+                              className='w-8 h-8 flex-shrink-0'
+                            />
+                          ) : i === 3 ? (
+                            <img
+                              src={pipeBadge}
+                              alt='Pipeline Badge'
+                              className='w-8 h-8 flex-shrink-0'
+                            />
+                          ) : i === 4 ? (
+                            <img
+                              src={robotBadge}
+                              alt='Robot Badge'
+                              className='w-8 h-8 flex-shrink-0'
+                            />
+                          ) : i === 5 ? (
+                            <img
+                              src={etlBadge}
+                              alt='ETL Badge'
+                              className='w-8 h-8 flex-shrink-0'
+                            />
+                          ) : i === 6 ? (
+                            <img
+                              src={collabBadge}
+                              alt='Collaboration Badge'
+                              className='w-8 h-8 flex-shrink-0'
+                            />
+                          ) : i === 7 ? (
+                            <img
+                              src={checklistBadge}
+                              alt='Agile Badge'
+                              className='w-8 h-8 flex-shrink-0'
+                            />
+                          ) : (
+                            <span className='text-xl text-cyberpunk-neon flex-shrink-0 w-8 h-8 flex items-center justify-center'>
+                              {skill.icon}
+                            </span>
+                          )}
+                        </div>
+                        <h4 className='font-mono text-[8px] font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
+                          {i === 0
+                            ? 'AWS'
+                            : i === 1
+                              ? 'PYTHON'
+                              : i === 2
+                                ? 'SQL'
+                                : i === 3
+                                  ? 'PIPELINES'
+                                  : i === 4
+                                    ? 'ROBOTICS'
+                                    : i === 5
+                                      ? 'ETL'
+                                      : i === 6
+                                        ? 'COLLAB'
+                                        : i === 7
+                                          ? 'AGILE'
+                                          : skill.title.split(' ')[0]}
+                        </h4>
                       </div>
-                      <h4
-                        className='font-cyber text-xs font-bold leading-tight text-cyberpunk-neon'
-                        style={{
-                          opacity: 0.9,
-                        }}
-                      >
-                        {service.title}
-                      </h4>
                     </div>
                   </motion.div>
                 ))}
               </div>
-            </div>
-
-            {/* Profile Section - 1/4 width */}
-            <div className='col-span-1 relative'>
-              <div className='relative h-64 bg-gradient-to-r from-cyberpunk-blue/10 via-cyberpunk-purple/10 to-cyberpunk-dark/20 border border-cyberpunk-neon/40 overflow-hidden shadow-xl'>
-                {/* Character Image with Status */}
-                <div className='absolute inset-2 flex items-center justify-center'>
-                  <div className='relative w-full h-full'>
-                    <img
-                      src={characterProfile}
-                      alt='Character Profile'
-                      className='w-full h-full object-contain object-center rounded-lg'
-                      style={{}}
-                    />
-                    <div
-                      className='absolute -top-1 -right-1 w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse'
-                      style={{}}
-                    />
-                    <div
-                      className='absolute bottom-2 left-0 right-0 text-center'
-                      style={{}}
-                    >
-                      <div
-                        className='text-cyberpunk-green font-cyber text-xs font-bold mb-1'
-                        style={{}}
-                      >
-                        AVAILABLE FOR HIRE
-                      </div>
-                      <div
-                        className='text-cyberpunk-neon/60 font-mono text-[10px] leading-tight'
-                        style={{ transform: 'translateZ(5px)' }}
-                      >
-                        Full-Stack Engineer
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className='absolute inset-0 scanlines' />
-              </div>
-            </div>
-          </div>
-
-          {/* Skills & Capabilities Header */}
-          <h3 className='text-cyberpunk-pink font-cyber text-sm font-bold tracking-wider relative z-10 border-b border-cyberpunk-pink/40 pb-2 mt-6'>
-            <span>SKILLS & CAPABILITIES</span>
-            <div className='absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-cyberpunk-pink rounded-full animate-pulse' />
-          </h3>
-
-          {/* Bottom Row - Skills & Capabilities Section */}
-          <div
-            className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-4 relative overflow-hidden shadow-md rounded-b-2xl'
-            style={{}}
-          >
-            <div className='grid grid-cols-8 gap-2'>
-              {skillsCapabilities.map((skill, i) => (
-                <motion.div
-                  key={skill.id}
-                  className='w-full h-16 bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group p-2 cursor-pointer'
-                  style={{
-                    clipPath:
-                      'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
-                  }}
-                  whileHover={{
-                    scale: 1.02,
-                    transition: { duration: 0.2, ease: 'easeOut' },
-                  }}
-                  onMouseEnter={() => onHoverItem?.(skill)}
-                  onMouseLeave={() => onHoverItem?.(null)}
-                >
-                  <motion.div
-                    className='absolute inset-0 border border-cyberpunk-neon/50 group-hover:border-cyberpunk-pink/60'
-                    style={{
-                      clipPath:
-                        'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
-                    }}
-                    whileHover={{
-                      boxShadow: [
-                        '0 0 0 rgba(236, 72, 153, 0)',
-                        '0 0 15px rgba(236, 72, 153, 0.4)',
-                        '0 0 10px rgba(236, 72, 153, 0.3)',
-                      ],
-                      transition: { duration: 0.25 },
-                    }}
-                  />
-                  <div className='absolute inset-0 bg-gradient-to-br from-transparent via-cyberpunk-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
-                  <div className='text-center z-10'>
-                    <div className='flex flex-col items-center space-y-1'>
-                      <div className='flex items-center justify-center h-8'>
-                        {i === 0 ? (
-                          <img
-                            src={cloudBadge}
-                            alt='Cloud Badge'
-                            className='w-8 h-8 flex-shrink-0'
-                          />
-                        ) : i === 1 ? (
-                          <img
-                            src={pythonBadge}
-                            alt='Python Badge'
-                            className='w-8 h-8 flex-shrink-0'
-                          />
-                        ) : i === 2 ? (
-                          <img
-                            src={databaseBadge}
-                            alt='Database Badge'
-                            className='w-8 h-8 flex-shrink-0'
-                          />
-                        ) : i === 3 ? (
-                          <img
-                            src={pipeBadge}
-                            alt='Pipeline Badge'
-                            className='w-8 h-8 flex-shrink-0'
-                          />
-                        ) : i === 4 ? (
-                          <img
-                            src={robotBadge}
-                            alt='Robot Badge'
-                            className='w-8 h-8 flex-shrink-0'
-                          />
-                        ) : i === 5 ? (
-                          <img
-                            src={etlBadge}
-                            alt='ETL Badge'
-                            className='w-8 h-8 flex-shrink-0'
-                          />
-                        ) : i === 6 ? (
-                          <img
-                            src={collabBadge}
-                            alt='Collaboration Badge'
-                            className='w-8 h-8 flex-shrink-0'
-                          />
-                        ) : i === 7 ? (
-                          <img
-                            src={checklistBadge}
-                            alt='Agile Badge'
-                            className='w-8 h-8 flex-shrink-0'
-                          />
-                        ) : (
-                          <span className='text-xl text-cyberpunk-neon flex-shrink-0 w-8 h-8 flex items-center justify-center'>
-                            {skill.icon}
-                          </span>
-                        )}
-                      </div>
-                      <h4 className='font-mono text-[8px] font-bold leading-tight filter drop-shadow-[0_0_4px_currentColor] text-cyberpunk-neon text-center'>
-                        {i === 0
-                          ? 'AWS'
-                          : i === 1
-                            ? 'PYTHON'
-                            : i === 2
-                              ? 'SQL'
-                              : i === 3
-                                ? 'PIPELINES'
-                                : i === 4
-                                  ? 'ROBOTICS'
-                                  : i === 5
-                                    ? 'ETL'
-                                    : i === 6
-                                      ? 'COLLAB'
-                                      : i === 7
-                                        ? 'AGILE'
-                                        : skill.title.split(' ')[0]}
-                      </h4>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
             </div>
           </div>
         </div>
