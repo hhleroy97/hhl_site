@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import PortfolioSection from '@components/PortfolioSection'
-import CyberpunkTrainerCardDemo from '@components/CyberpunkTrainerCardDemo'
+import GameCharacterSheetDemo from '@components/GameCharacterSheetDemo'
 import Navigation from '@components/ui/Navigation'
 import LoadingSpinner from '@components/ui/LoadingSpinner'
 
@@ -43,7 +43,7 @@ export default function App() {
             }}
             transition={{ duration: 0.8 }}
           >
-            <CyberpunkTrainerCardDemo onEnterPortfolio={handleEnterPortfolio} />
+            <GameCharacterSheetDemo onEnterPortfolio={handleEnterPortfolio} />
           </motion.div>
         )}
 
