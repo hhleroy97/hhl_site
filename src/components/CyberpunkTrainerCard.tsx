@@ -514,11 +514,11 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
               className='w-full bg-gradient-to-r from-cyberpunk-blue/5 to-cyberpunk-purple/5 border border-cyberpunk-neon/30 p-4 relative overflow-hidden shadow-md rounded-b-2xl'
               style={{}}
             >
-              <div className='flex overflow-x-auto lg:grid lg:grid-cols-8 gap-3 lg:gap-2 mobile-skills-container'>
+              <div className='grid grid-cols-4 lg:grid-cols-8 gap-2 lg:gap-2 mobile-skills-container'>
                 {skillsCapabilities.map((skill, i) => (
                   <motion.div
                     key={skill.id}
-                    className='w-full h-16 lg:h-16 mobile-skill-badge bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group p-3 lg:p-2 cursor-pointer mobile-touch-target'
+                    className='w-full h-14 lg:w-full lg:h-16 mobile-skill-badge bg-gradient-to-br from-cyberpunk-neon/10 to-cyberpunk-blue/20 flex flex-col items-center justify-center relative overflow-hidden group p-1 lg:p-2 cursor-pointer mobile-touch-target'
                     style={{
                       clipPath:
                         'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
@@ -573,7 +573,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             <motion.img
                               src={cloudBadge}
                               alt='Cloud Badge'
-                              className='w-8 h-8 flex-shrink-0'
+                              className='w-6 h-6 lg:w-8 lg:h-8 flex-shrink-0'
                               whileHover={{
                                 filter:
                                   'brightness(1.3) drop-shadow(0 0 8px rgba(59, 130, 246, 0.6))',
@@ -584,7 +584,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             <motion.img
                               src={pythonBadge}
                               alt='Python Badge'
-                              className='w-8 h-8 flex-shrink-0'
+                              className='w-6 h-6 lg:w-8 lg:h-8 flex-shrink-0'
                               whileHover={{
                                 filter:
                                   'brightness(1.3) drop-shadow(0 0 8px rgba(255, 212, 59, 0.6))',
@@ -595,7 +595,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             <motion.img
                               src={databaseBadge}
                               alt='Database Badge'
-                              className='w-8 h-8 flex-shrink-0'
+                              className='w-6 h-6 lg:w-8 lg:h-8 flex-shrink-0'
                               whileHover={{
                                 filter:
                                   'brightness(1.3) drop-shadow(0 0 8px rgba(16, 185, 129, 0.6))',
@@ -606,7 +606,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             <motion.img
                               src={pipeBadge}
                               alt='Pipeline Badge'
-                              className='w-8 h-8 flex-shrink-0'
+                              className='w-6 h-6 lg:w-8 lg:h-8 flex-shrink-0'
                               whileHover={{
                                 filter:
                                   'brightness(1.3) drop-shadow(0 0 8px rgba(147, 51, 234, 0.6))',
@@ -617,7 +617,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             <motion.img
                               src={robotBadge}
                               alt='Robot Badge'
-                              className='w-8 h-8 flex-shrink-0'
+                              className='w-6 h-6 lg:w-8 lg:h-8 flex-shrink-0'
                               whileHover={{
                                 filter:
                                   'brightness(1.3) drop-shadow(0 0 8px rgba(236, 72, 153, 0.6))',
@@ -628,7 +628,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             <motion.img
                               src={etlBadge}
                               alt='ETL Badge'
-                              className='w-8 h-8 flex-shrink-0'
+                              className='w-6 h-6 lg:w-8 lg:h-8 flex-shrink-0'
                               whileHover={{
                                 filter:
                                   'brightness(1.3) drop-shadow(0 0 8px rgba(59, 130, 246, 0.6))',
@@ -639,7 +639,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             <motion.img
                               src={collabBadge}
                               alt='Collaboration Badge'
-                              className='w-8 h-8 flex-shrink-0'
+                              className='w-6 h-6 lg:w-8 lg:h-8 flex-shrink-0'
                               whileHover={{
                                 filter:
                                   'brightness(1.3) drop-shadow(0 0 8px rgba(16, 185, 129, 0.6))',
@@ -650,7 +650,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             <motion.img
                               src={checklistBadge}
                               alt='Agile Badge'
-                              className='w-8 h-8 flex-shrink-0'
+                              className='w-6 h-6 lg:w-8 lg:h-8 flex-shrink-0'
                               whileHover={{
                                 filter:
                                   'brightness(1.3) drop-shadow(0 0 8px rgba(245, 101, 101, 0.6))',
@@ -659,7 +659,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                             />
                           ) : (
                             <motion.span
-                              className='text-xl text-cyberpunk-neon flex-shrink-0 w-8 h-8 flex items-center justify-center'
+                              className='text-lg lg:text-xl text-cyberpunk-neon flex-shrink-0 w-6 h-6 lg:w-8 lg:h-8 flex items-center justify-center'
                               whileHover={{
                                 filter:
                                   'brightness(1.3) drop-shadow(0 0 8px currentColor)',
