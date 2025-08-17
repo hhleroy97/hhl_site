@@ -10,7 +10,7 @@ const CyberpunkTrainerCardDemo: React.FC<CyberpunkTrainerCardDemoProps> = ({
   onEnterPortfolio,
 }) => {
   return (
-    <div className='min-h-screen bg-cyberpunk-dark p-8 relative overflow-hidden'>
+    <div className='min-h-screen bg-cyberpunk-dark p-4 lg:p-8 relative overflow-hidden'>
       {/* Animated Background Grid */}
       <div className='absolute inset-0 opacity-5'>
         <div
@@ -32,10 +32,10 @@ const CyberpunkTrainerCardDemo: React.FC<CyberpunkTrainerCardDemoProps> = ({
       </div>
 
       <div className='flex items-center justify-center min-h-screen relative z-10'>
-        <div className='flex flex-col items-center space-y-8'>
+        <div className='flex flex-col items-center space-y-4 lg:space-y-8 w-full'>
           {/* Main Demo Card */}
           <motion.div
-            className='flex justify-center'
+            className='flex justify-center w-full'
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 1.2 }}
