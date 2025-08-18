@@ -12,7 +12,8 @@ import {
   Award,
   Globe,
 } from 'lucide-react'
-import profPic from '../assets/prof-pic.png'
+// import profPic from '../assets/prof-pic.png'
+const profPic = '/src/assets/character-profile.png' // Using existing character profile image
 
 interface Service {
   id: string
@@ -290,7 +291,9 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
 
   return (
     <div className='w-full max-w-7xl mx-auto relative'>
-      <motion.div
+      <motion.main
+        role='main'
+        aria-label='Professional profile and skills showcase'
         className='relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border border-white/10 rounded-3xl shadow-xl overflow-hidden'
         style={{
           boxShadow:
@@ -450,13 +453,23 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                       {services.map((service, index) => (
                         <motion.button
                           key={service.id}
-                          className={`group w-full text-left relative p-3 cursor-pointer transition-all duration-200 rounded-lg border ${
+                          type='button'
+                          role='tab'
+                          aria-selected={
+                            selectedItem === `service-${service.id}`
+                          }
+                          aria-describedby={`service-${service.id}-description`}
+                          tabIndex={0}
+                          className={`group w-full text-left relative p-3 cursor-pointer transition-all duration-200 rounded-lg border focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:ring-offset-slate-900 ${
                             selectedItem === `service-${service.id}`
                               ? 'bg-primary-500/10 border-primary-400/60 text-white'
                               : 'bg-slate-800/20 hover:bg-slate-700/30 border-white/10 hover:border-primary-400/40 text-slate-200'
                           }`}
                           onMouseEnter={() => handleServiceHover(service)}
                           onMouseLeave={resetToProfile}
+                          onFocus={() => handleServiceHover(service)}
+                          onBlur={resetToProfile}
+                          onClick={() => handleServiceHover(service)}
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{
@@ -669,11 +682,13 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
               }}
             >
               <button
+                type='button'
                 onClick={onEnterPortfolio}
-                className='group relative px-6 py-3 bg-primary-500 hover:bg-primary-400 text-gray-900 font-display font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-primary-500/20 border border-transparent'
+                aria-label='Enter portfolio section to view projects and experience'
+                className='group relative px-6 py-3 bg-primary-500 hover:bg-primary-400 text-gray-900 font-display font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-primary-500/20 border border-transparent focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2 focus:ring-offset-slate-900'
               >
                 <span className='relative z-10'>ENTER PORTFOLIO</span>
-                <div className='absolute inset-0 rounded-lg bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+                <div className='absolute inset-0 rounded-lg bg-white/10 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300' />
               </button>
             </motion.div>
           )}
@@ -696,7 +711,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
 
         {/* Scanlines */}
         <div className='absolute inset-0 scanlines rounded-3xl pointer-events-none opacity-5' />
-      </motion.div>
+      </motion.main>
 
       <style>{`
         @keyframes gridPulse {

@@ -21,18 +21,21 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                  focus-within:ring-2 focus-within:ring-cyberpunk-neon focus-within:ring-offset-2 focus-within:ring-offset-cyberpunk-dark'
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ 
-        duration: 0.5, 
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{
+        duration: 0.5,
         delay: index * 0.1,
-        ease: [0.4, 0.0, 0.2, 1]
+        ease: [0.4, 0.0, 0.2, 1],
       }}
-      whileHover={{ 
-        y: -8, 
+      whileHover={{
+        y: -8,
         scale: 1.01,
-        transition: { duration: 0.2 }
+        transition: { duration: 0.2 },
       }}
       onHoverStart={handleHover}
+      role='article'
+      aria-labelledby={`project-${project.id}-title`}
+      aria-describedby={`project-${project.id}-description`}
     >
       {/* Featured badge */}
       {project.featured && (
@@ -164,7 +167,10 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       <div className='absolute bottom-4 right-4 w-2 h-2 bg-cyberpunk-neon/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
 
       {/* Category indicator - improved accessibility */}
-      <div className='absolute top-4 right-4' aria-label={`Project category: ${project.category}`}>
+      <div
+        className='absolute top-4 right-4'
+        aria-label={`Project category: ${project.category}`}
+      >
         <div
           className={`w-2 h-2 rounded-full ${
             project.category === 'technical'
