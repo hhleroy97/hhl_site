@@ -2,72 +2,71 @@ import { motion } from 'framer-motion'
 
 export default function Hero() {
   return (
-    <section className='relative pt-28 pb-20 px-4 sm:px-6 lg:px-8'>
-      {/* soft radial glow */}
+    <section className='relative pt-20 pb-16 px-6 lg:px-8'>
+      {/* Subtle background accent - reduced intensity */}
       <div
-        className='pointer-events-none absolute inset-0 opacity-30'
+        className='pointer-events-none absolute inset-0 opacity-10'
         aria-hidden='true'
         style={{
           backgroundImage:
-            'radial-gradient(600px 300px at 10% 10%, rgba(0, 212, 245, 0.15), transparent 60%), radial-gradient(600px 300px at 90% 20%, rgba(0, 212, 245, 0.08), transparent 60%)',
+            'radial-gradient(800px 400px at 20% 10%, rgba(0, 229, 255, 0.1), transparent 70%)',
         }}
       />
 
-      {/* scanning line accent */}
-      <motion.div
-        className='pointer-events-none absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent'
-        initial={{ x: '-100%' }}
-        animate={{ x: '100%' }}
-        transition={{ duration: 2.2, repeat: Infinity, ease: 'linear' }}
-        aria-hidden='true'
-      />
-
-      <div className='relative max-w-7xl mx-auto'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
-          {/* Left column */}
+      <div className='relative max-w-6xl mx-auto'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'>
+          {/* Left column - Content */}
           <motion.div
-            className='space-y-6'
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
+            className='space-y-8'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
           >
+            {/* Professional status badge */}
             <motion.div
-              className='inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1'
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              className='inline-flex items-center gap-3 card-surface px-4 py-2'
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1, duration: 0.4 }}
             >
-              <span className='h-2 w-2 rounded-full bg-primary-400 shadow-[0_0_10px_rgba(0,212,245,0.6)]' />
-              <span className='text-xs font-mono tracking-widest text-gray-300'>
-                CLOUD + DATA ENGINEER
+              <div className='w-2 h-2 rounded-full bg-cyberpunk-neon animate-pulse' />
+              <span className='text-sm font-medium text-cyberpunk-text-secondary tracking-wide'>
+                Available for opportunities
               </span>
             </motion.div>
 
-            <motion.h1
-              className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-extrabold text-white leading-tight'
-              initial={{ opacity: 0, y: 18 }}
+            {/* Main heading with better hierarchy */}
+            <motion.div
+              className='space-y-4'
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.7 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
             >
-              Hartley H.{' '}
-              <span className='relative inline-block'>
-                Leroy
-                <span
-                  className='absolute -bottom-1 left-0 right-0 h-3 rounded-md bg-primary-400/20'
-                  aria-hidden='true'
-                />
-              </span>
-            </motion.h1>
+              <h1 className='text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-cyberpunk-text-primary leading-tight'>
+                Hartley H.{' '}
+                <span className='relative'>
+                  <span className='text-cyberpunk-neon'>Leroy</span>
+                  <span
+                    className='absolute -bottom-2 left-0 right-0 h-1 bg-cyberpunk-neon/30 rounded-full'
+                    aria-hidden='true'
+                  />
+                </span>
+              </h1>
+              
+              <p className='text-xl text-cyberpunk-text-secondary font-medium'>
+                Cloud & Data Engineer
+              </p>
+            </motion.div>
 
+            {/* Enhanced description */}
             <motion.p
-              className='max-w-2xl text-lg text-gray-300/90 font-display'
-              initial={{ opacity: 0, y: 12 }}
+              className='text-lg text-cyberpunk-text-secondary leading-relaxed max-w-xl'
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.6 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
             >
-              I design resilient cloud architectures, expressive data systems,
-              and interactive tools that merge engineering rigor with creative
-              intent.
+              Specializing in resilient cloud architectures, scalable data systems, 
+              and innovative solutions that bridge engineering excellence with creative vision.
             </motion.p>
 
             <motion.div
