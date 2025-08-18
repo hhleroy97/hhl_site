@@ -38,7 +38,9 @@ export default function PortfolioSection() {
       />
 
       <Header />
-      <Hero />
+      <div className='pt-16'>
+        <Hero />
+      </div>
       <About />
       <Experience />
       <Projects />

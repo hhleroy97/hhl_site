@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export default function Hero() {
   return (
-    <section className='relative pt-28 pb-20 px-4 sm:px-6 lg:px-8'>
+    <section className='relative min-h-[calc(100vh-4rem)] px-4 sm:px-6 lg:px-8 flex items-center'>
       {/* soft radial glow */}
       <div
         className='pointer-events-none absolute inset-0 opacity-30'
@@ -22,11 +22,11 @@ export default function Hero() {
         aria-hidden='true'
       />
 
-      <div className='relative max-w-7xl mx-auto'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
+      <div className='relative max-w-7xl mx-auto w-full'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center'>
           {/* Left column */}
           <motion.div
-            className='space-y-6'
+            className='space-y-5'
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
@@ -44,7 +44,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
-              className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-extrabold text-white leading-tight'
+              className='text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-display font-extrabold text-white leading-tight'
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.7 }}
@@ -60,7 +60,7 @@ export default function Hero() {
             </motion.h1>
 
             <motion.p
-              className='max-w-2xl text-lg text-gray-300/90 font-display'
+              className='max-w-2xl text-base sm:text-lg text-gray-300/90 font-display'
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.6 }}
@@ -94,7 +94,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.div
-              className='flex flex-wrap gap-4 pt-2'
+              className='flex flex-wrap gap-3 pt-1'
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.55, duration: 0.6 }}
@@ -118,7 +118,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.div
-              className='mt-6 grid grid-cols-3 gap-4 max-w-md'
+              className='mt-4 grid grid-cols-3 gap-3 max-w-md'
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.65, duration: 0.6 }}
@@ -132,7 +132,7 @@ export default function Hero() {
                   key={item.k}
                   className='rounded-lg border border-white/10 bg-white/5 p-3 text-center'
                 >
-                  <div className='text-xl font-semibold text-white'>
+                  <div className='text-lg font-semibold text-white'>
                     {item.v}
                   </div>
                   <div className='text-[11px] tracking-wider text-gray-400 uppercase'>
@@ -150,7 +150,7 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
-            <div className='relative w-[22rem] h-[22rem] sm:w-[26rem] sm:h-[26rem]'>
+            <div className='relative w-[18rem] h-[18rem] sm:w-[22rem] sm:h-[22rem] lg:w-[24rem] lg:h-[24rem]'>
               {/* aura */}
               <div
                 className='absolute -inset-8 rounded-full bg-gradient-radial from-primary-500/25 to-transparent blur-2xl'
