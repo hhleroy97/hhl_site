@@ -16,14 +16,22 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
   }
 
   return (
-    <motion.div
-      className='group relative bg-cyberpunk-dark-alt border border-cyberpunk-neon/20 rounded-xl overflow-hidden
-                 hover:border-cyberpunk-neon/60 transition-all duration-300'
-      initial={{ opacity: 0, y: 50 }}
+    <motion.article
+      className='group relative card-elevated hover:border-cyberpunk-neon/60 transition-all duration-300 
+                 focus-within:ring-2 focus-within:ring-cyberpunk-neon focus-within:ring-offset-2 focus-within:ring-offset-cyberpunk-dark'
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ y: -10, scale: 1.02 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ 
+        duration: 0.5, 
+        delay: index * 0.1,
+        ease: [0.4, 0.0, 0.2, 1]
+      }}
+      whileHover={{ 
+        y: -8, 
+        scale: 1.01,
+        transition: { duration: 0.2 }
+      }}
       onHoverStart={handleHover}
     >
       {/* Featured badge */}
@@ -40,166 +48,131 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       )}
 
       {/* Project image/placeholder */}
-      <div className='relative h-48 bg-gradient-to-br from-cyberpunk-dark to-cyberpunk-dark-alt overflow-hidden'>
+      <div className='relative h-48 bg-gradient-to-br from-cyberpunk-dark-surface to-cyberpunk-dark-elevated overflow-hidden'>
         {/* Placeholder for project image */}
         <div className='absolute inset-0 flex items-center justify-center'>
           <div className='text-center'>
-            <div className='w-16 h-16 mx-auto mb-3 rounded-lg bg-cyberpunk-neon/20 flex items-center justify-center'>
-              <span className='text-2xl'>📱</span>
+            <div className='w-16 h-16 mx-auto mb-3 rounded-xl bg-cyberpunk-neon/10 border border-cyberpunk-neon/20 flex items-center justify-center'>
+              <span className='text-2xl'>💻</span>
             </div>
-            <p className='text-sm text-gray-400 font-display'>
-              Project Screenshot
+            <p className='text-sm text-cyberpunk-text-muted font-body'>
+              Project Preview
             </p>
           </div>
         </div>
 
-        {/* Hover overlay */}
+        {/* Professional hover overlay */}
         <motion.div
-          className='absolute inset-0 bg-cyberpunk-neon/10 opacity-0 group-hover:opacity-100'
-          transition={{ duration: 0.3 }}
-        />
-
-        {/* Glitch overlay */}
-        <motion.div
-          className='absolute inset-0 bg-cyberpunk-pink/20'
-          animate={
-            isGlitching
-              ? {
-                  opacity: [0, 0.7, 0],
-                  x: [-2, 2, -1, 1, 0],
-                }
-              : { opacity: 0 }
-          }
-          transition={{ duration: 0.3 }}
-        />
-
-        {/* Tech stack overlay on hover */}
-        <motion.div
-          className='absolute inset-0 bg-black/80 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100'
-          transition={{ duration: 0.3 }}
+          className='absolute inset-0 bg-gradient-to-t from-cyberpunk-dark/90 via-transparent to-transparent 
+                     opacity-0 group-hover:opacity-100 flex items-end p-4'
+          transition={{ duration: 0.2 }}
         >
-          <div className='text-center'>
-            <p className='text-cyberpunk-neon font-cyber font-bold mb-2 text-sm'>
-              TECH STACK
+          <div className='w-full'>
+            <p className='text-cyberpunk-neon font-medium mb-2 text-sm'>
+              Technologies
             </p>
-            <div className='flex flex-wrap gap-1 justify-center'>
-              {project.technologies.slice(0, 4).map(tech => (
+            <div className='flex flex-wrap gap-1'>
+              {project.technologies.slice(0, 3).map(tech => (
                 <span
                   key={tech}
-                  className='px-2 py-1 bg-cyberpunk-neon text-black text-xs font-mono rounded'
+                  className='px-2 py-1 bg-cyberpunk-neon/20 text-cyberpunk-text-primary text-xs font-medium rounded-md backdrop-blur-sm'
                 >
                   {tech}
                 </span>
               ))}
-              {project.technologies.length > 4 && (
-                <span className='px-2 py-1 bg-cyberpunk-pink text-white text-xs font-mono rounded'>
-                  +{project.technologies.length - 4}
+              {project.technologies.length > 3 && (
+                <span className='px-2 py-1 bg-cyberpunk-text-muted/20 text-cyberpunk-text-muted text-xs font-medium rounded-md backdrop-blur-sm'>
+                  +{project.technologies.length - 3} more
                 </span>
               )}
             </div>
           </div>
         </motion.div>
+
+        {/* Subtle glitch effect - reduced intensity */}
+        {isGlitching && (
+          <motion.div
+            className='absolute inset-0 bg-cyberpunk-neon/5'
+            animate={{
+              opacity: [0, 0.3, 0],
+              x: [-1, 1, 0],
+            }}
+            transition={{ duration: 0.3 }}
+          />
+        )}
       </div>
 
       {/* Project content */}
       <div className='p-6 space-y-4'>
         {/* Title */}
-        <motion.h3
-          className='text-xl font-cyber font-bold text-white group-hover:text-cyberpunk-neon transition-colors duration-300'
-          animate={
-            isGlitching
-              ? {
-                  x: [-1, 1, -1, 1, 0],
-                  textShadow: [
-                    '0 0 0px #00ffff',
-                    '2px 0 #ff00ff, -2px 0 #00ffff',
-                    '0 0 0px #00ffff',
-                  ],
-                }
-              : {}
-          }
-          transition={{ duration: 0.3 }}
-        >
+        <h3 className='text-xl font-display font-semibold text-cyberpunk-text-primary group-hover:text-cyberpunk-neon transition-colors duration-200'>
           {project.title}
-        </motion.h3>
+        </h3>
 
         {/* Description */}
-        <p className='text-gray-300 font-display text-sm leading-relaxed line-clamp-3'>
+        <p className='text-cyberpunk-text-secondary font-body text-sm leading-relaxed line-clamp-3'>
           {project.description}
         </p>
 
-        {/* Technology tags */}
+        {/* Technology tags - cleaner design */}
         <div className='flex flex-wrap gap-2'>
           {project.technologies.slice(0, 3).map(tech => (
             <span
               key={tech}
-              className='px-2 py-1 text-xs font-mono bg-cyberpunk-dark border border-cyberpunk-neon/30 
-                       text-cyberpunk-neon rounded hover:border-cyberpunk-neon/60 transition-colors duration-300'
+              className='px-3 py-1 text-xs font-medium bg-cyberpunk-dark-surface border border-cyberpunk-neon/20 
+                       text-cyberpunk-text-secondary rounded-full hover:border-cyberpunk-neon/40 hover:text-cyberpunk-text-primary
+                       transition-all duration-200'
             >
               {tech}
             </span>
           ))}
           {project.technologies.length > 3 && (
-            <span className='px-2 py-1 text-xs font-mono text-gray-400'>
-              +{project.technologies.length - 3} more
+            <span className='px-3 py-1 text-xs font-medium text-cyberpunk-text-muted bg-cyberpunk-dark-surface rounded-full'>
+              +{project.technologies.length - 3}
             </span>
           )}
         </div>
 
-        {/* Action buttons */}
+        {/* Action buttons - professional design */}
         <div className='flex gap-3 pt-2'>
           {project.demoUrl && (
-            <motion.a
+            <a
               href={project.demoUrl}
               target='_blank'
               rel='noopener noreferrer'
-              className='px-4 py-2 bg-cyberpunk-neon text-black font-cyber font-bold text-sm rounded-lg
-                       hover:bg-cyberpunk-pink hover:shadow-lg hover:shadow-cyberpunk-pink/30
-                       transition-all duration-300'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className='btn-primary text-sm focus-ring'
             >
-              VIEW DEMO
-            </motion.a>
+              View Demo
+            </a>
           )}
 
           {project.githubUrl && (
-            <motion.a
+            <a
               href={project.githubUrl}
               target='_blank'
               rel='noopener noreferrer'
-              className='px-4 py-2 border border-cyberpunk-neon text-cyberpunk-neon font-cyber font-bold text-sm rounded-lg
-                       hover:bg-cyberpunk-neon hover:text-black hover:shadow-lg hover:shadow-cyberpunk-neon/30
-                       transition-all duration-300'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className='btn-secondary text-sm focus-ring'
             >
-              VIEW CODE
-            </motion.a>
+              View Code
+            </a>
           )}
         </div>
       </div>
 
-      {/* Corner accents */}
-      <div
-        className='absolute top-3 left-3 w-4 h-4 border-l-2 border-t-2 border-cyberpunk-neon/30 
-                    group-hover:border-cyberpunk-neon transition-colors duration-300'
-      />
-      <div
-        className='absolute bottom-3 right-3 w-4 h-4 border-r-2 border-b-2 border-cyberpunk-neon/30 
-                    group-hover:border-cyberpunk-neon transition-colors duration-300'
-      />
+      {/* Subtle corner indicators - less intrusive */}
+      <div className='absolute top-4 left-4 w-2 h-2 bg-cyberpunk-neon/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+      <div className='absolute bottom-4 right-4 w-2 h-2 bg-cyberpunk-neon/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
 
-      {/* Category indicator */}
-      <div className='absolute bottom-3 left-3'>
-        <span
-          className={`w-3 h-3 rounded-full ${
+      {/* Category indicator - improved accessibility */}
+      <div className='absolute top-4 right-4' aria-label={`Project category: ${project.category}`}>
+        <div
+          className={`w-2 h-2 rounded-full ${
             project.category === 'technical'
-              ? 'bg-cyberpunk-neon'
+              ? 'bg-cyberpunk-blue'
               : 'bg-cyberpunk-pink'
           }`}
         />
       </div>
-    </motion.div>
+    </motion.article>
   )
 }

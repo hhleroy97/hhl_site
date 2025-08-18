@@ -8,9 +8,13 @@
   }
 
   body {
-    @apply bg-cyberpunk-dark text-white font-display antialiased;
+    @apply bg-cyberpunk-dark text-cyberpunk-text-primary font-body antialiased;
     font-feature-settings: 'cv11', 'ss01';
     font-variation-settings: 'opsz' 32;
+    /* Better text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   html {
@@ -38,17 +42,94 @@
 }
 
 @layer components {
+  /* Professional component classes */
   .cyberpunk-glow {
     @apply text-cyberpunk-neon;
     text-shadow:
-      0 0 10px theme('colors.cyberpunk.neon'),
-      0 0 20px theme('colors.cyberpunk.neon'),
-      0 0 40px theme('colors.cyberpunk.neon');
+      0 0 8px theme('colors.cyberpunk.neon'),
+      0 0 16px theme('colors.cyberpunk.neon');
+  }
+
+  .cyberpunk-glow-bright {
+    @apply text-cyberpunk-neon-bright;
+    text-shadow:
+      0 0 10px theme('colors.cyberpunk.neon-bright'),
+      0 0 20px theme('colors.cyberpunk.neon-bright'),
+      0 0 40px theme('colors.cyberpunk.neon-bright');
   }
 
   .cyberpunk-border {
+    @apply border border-cyberpunk-neon/60;
+    box-shadow: 0 0 8px theme('colors.cyberpunk.neon');
+  }
+
+  .cyberpunk-border-glow {
     @apply border-2 border-cyberpunk-neon;
-    box-shadow: 0 0 10px theme('colors.cyberpunk.neon');
+    box-shadow: 
+      0 0 10px theme('colors.cyberpunk.neon'),
+      inset 0 0 10px theme('colors.cyberpunk.neon');
+  }
+
+  /* Professional card styles */
+  .card-surface {
+    @apply bg-cyberpunk-dark-surface border border-cyberpunk-text-disabled/20 rounded-xl;
+    backdrop-filter: blur(8px);
+  }
+
+  .card-elevated {
+    @apply bg-cyberpunk-dark-elevated border border-cyberpunk-text-muted/30 rounded-xl shadow-xl;
+    backdrop-filter: blur(12px);
+    box-shadow: 
+      0 10px 25px -5px rgba(0, 0, 0, 0.3),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  /* Accessible focus styles */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-cyberpunk-neon focus:ring-offset-2 focus:ring-offset-cyberpunk-dark;
+  }
+
+  /* Professional button styles */
+  .btn-primary {
+    @apply px-6 py-3 bg-cyberpunk-neon text-cyberpunk-dark font-medium rounded-lg transition-all duration-200 focus-ring;
+    @apply hover:bg-cyberpunk-neon/90 hover:shadow-lg active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-cyberpunk-dark-surface text-cyberpunk-text-primary border border-cyberpunk-neon/40 font-medium rounded-lg transition-all duration-200 focus-ring;
+    @apply hover:bg-cyberpunk-dark-elevated hover:border-cyberpunk-neon/60 active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply px-6 py-3 text-cyberpunk-text-secondary font-medium rounded-lg transition-all duration-200 focus-ring;
+    @apply hover:bg-cyberpunk-dark-surface hover:text-cyberpunk-text-primary active:scale-95;
+  }
+
+  /* Screen reader only utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Professional animations */
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
   }
 
   .glitch-text {
@@ -136,7 +217,7 @@
   }
 
   .scanlines::after {
-    opacity: 0.5; /* Reduce scanlines intensity on mobile */
+    opacity: 0.2; /* Further reduce scanlines intensity on mobile */
   }
 
   /* Reduce motion for better mobile performance */
@@ -144,6 +225,42 @@
     transform: none !important;
     animation: none !important;
   }
+
+  /* Improve mobile spacing */
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Better mobile button sizes */
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    min-height: 44px !important; /* iOS recommended touch target */
+    padding: 0.75rem 1.5rem !important;
+  }
+
+  /* Mobile-first typography */
+  h1 {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+  }
+
+  h3 {
+    font-size: 1.25rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Reduce excessive glow effects on mobile */
+  .cyberpunk-glow-bright {
+    text-shadow: 0 0 5px currentColor !important;
+  }
+}
 
   /* Mobile-first trainer card layout */
   .cyberpunk-trainer-card-mobile {
