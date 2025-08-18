@@ -371,16 +371,16 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
               />
             </div>
 
-            <div className='relative grid grid-cols-1 lg:grid-cols-12 gap-2 lg:h-[400px]'>
+            <div className='relative grid grid-cols-1 lg:grid-cols-12 gap-2 lg:items-stretch'>
               {/* Left Panel: Core Services Navigation */}
               <motion.div
-                className='lg:col-span-4 relative h-full'
+                className='lg:col-span-4 relative'
                 initial={{ x: -50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.8 }}
               >
                 {/* Services Panel with Inset Effect */}
-                <div className='relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-2 border-cyberpunk-neon/30 rounded-xl p-4 backdrop-blur-sm h-full flex flex-col'>
+                <div className='relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-2 border-cyberpunk-neon/30 rounded-xl p-4 backdrop-blur-sm h-full'>
                   {/* Inset Glow */}
                   <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-neon/5 to-cyberpunk-purple/5' />
                   <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyberpunk-neon/60 to-transparent' />
@@ -391,7 +391,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                       CORE SERVICES
                     </h2>
 
-                    <div className='space-y-2 flex-1 overflow-y-auto'>
+                    <div className='space-y-2'>
                       {services.map((service, index) => (
                         <motion.button
                           key={service.id}
@@ -452,12 +452,12 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
 
               {/* Right Panel: Dominant Info Display */}
               <motion.div
-                className='lg:col-span-8 relative h-full'
+                className='lg:col-span-8 relative'
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1 }}
               >
-                <div className='relative bg-gradient-to-br from-cyberpunk-dark/95 to-slate-900/95 border-3 border-cyberpunk-neon/60 rounded-xl p-4 backdrop-blur-sm overflow-hidden h-full flex flex-col'>
+                <div className='relative bg-gradient-to-br from-cyberpunk-dark/95 to-slate-900/95 border-3 border-cyberpunk-neon/60 rounded-xl p-4 backdrop-blur-sm overflow-hidden h-full'>
                   {/* Animated Background Pattern */}
                   <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/5 via-transparent to-cyberpunk-pink/5 rounded-2xl' />
                   <div className='absolute inset-0 opacity-10'>
@@ -476,7 +476,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   <div className='absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyberpunk-pink to-transparent animate-pulse' />
 
                   {/* Info Content with Clear Hierarchy */}
-                  <div className='relative z-10 flex-1 flex flex-col'>
+                  <div className='relative z-10'>
                     <AnimatePresence mode='wait'>
                       <motion.div
                         key={activeContent.title}
@@ -519,7 +519,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                         </div>
 
                         {/* Highlights - Glowing Bullets/Tags */}
-                        <div className='flex-1'>
+                        <div>
                           <div className='text-cyberpunk-neon/70 font-mono text-xs font-bold mb-3 tracking-wider'>
                             HIGHLIGHTS
                           </div>
@@ -553,7 +553,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
 
             {/* Skills Section - Collectible Badge Grid */}
             <motion.div
-              className='relative mt-8'
+              className='relative mt-4'
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.2 }}
