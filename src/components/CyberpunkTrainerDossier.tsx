@@ -19,7 +19,6 @@ interface Service {
   title: string
   description: string
   details: string[]
-  level: number
 }
 
 interface Skill {
@@ -36,7 +35,6 @@ interface InfoContent {
   title: string
   description: string
   stats: string[]
-  level?: number
 }
 
 interface CyberpunkTrainerDossierProps {
@@ -68,7 +66,6 @@ const services: Service[] = [
       'CloudFormation IaC',
       '10M+ events processed daily',
     ],
-    level: 95,
   },
   {
     id: 'robotics',
@@ -82,7 +79,6 @@ const services: Service[] = [
       'Fleet Management',
       '500+ robots deployed',
     ],
-    level: 88,
   },
   {
     id: 'embedded',
@@ -96,7 +92,6 @@ const services: Service[] = [
       'Production Firmware',
       'Zero field failures',
     ],
-    level: 82,
   },
   {
     id: 'web',
@@ -110,7 +105,6 @@ const services: Service[] = [
       'Global Deployment',
       '200+ operators',
     ],
-    level: 85,
   },
   {
     id: 'prototyping',
@@ -124,7 +118,6 @@ const services: Service[] = [
       '3D Printing',
       '$2M+ funding secured',
     ],
-    level: 91,
   },
   {
     id: 'leadership',
@@ -138,7 +131,6 @@ const services: Service[] = [
       'Global Coordination',
       '6+ engineers led',
     ],
-    level: 78,
   },
 ]
 
@@ -263,7 +255,6 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
       title: service.title.toUpperCase(),
       description: service.description,
       stats: service.details,
-      level: service.level,
     })
     setSelectedItem(`service-${service.id}`)
   }
@@ -521,13 +512,6 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                           <h3 className='text-xl font-bold text-white font-display'>
                             {activeContent.title}
                           </h3>
-                          {activeContent.level && (
-                            <div className='bg-primary-500/10 border border-primary-400/40 rounded-lg px-2 py-1'>
-                              <span className='text-primary-300 font-mono text-sm font-bold'>
-                                {activeContent.level}%
-                              </span>
-                            </div>
-                          )}
                         </div>
 
                         {/* Description */}
