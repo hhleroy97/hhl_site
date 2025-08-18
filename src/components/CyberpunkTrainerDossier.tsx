@@ -500,18 +500,15 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                           </div>
                           <div className='grid grid-cols-1 lg:grid-cols-2 gap-3 overflow-y-auto flex-1'>
                             {activeContent.stats.map((stat, index) => (
-                              <motion.div
+                              <div
                                 key={index}
                                 className='group flex items-center gap-3 p-2 rounded-lg bg-cyberpunk-neon/5 hover:bg-cyberpunk-neon/10 transition-all duration-200'
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.1 }}
                               >
                                 <div className='w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse shadow-lg shadow-cyberpunk-green/50' />
                                 <span className='text-cyberpunk-neon/90 font-mono text-sm font-medium'>
                                   {stat}
                                 </span>
-                              </motion.div>
+                              </div>
                             ))}
                           </div>
                         </div>
