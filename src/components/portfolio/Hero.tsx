@@ -2,166 +2,187 @@ import { motion } from 'framer-motion'
 
 export default function Hero() {
   return (
-    <section className='pt-24 pb-16 px-4 sm:px-6 lg:px-8'>
-      <div className='max-w-7xl mx-auto'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
-          {/* Left column - Text content */}
-          <motion.div
-            className='space-y-8'
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <div>
-              <motion.h1
-                className='text-4xl sm:text-5xl lg:text-6xl font-cyber font-bold text-white mb-4'
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                <span className='text-cyberpunk-neon'>HARTLEY</span>
-                <br />
-                <span className='text-white'>H. LEROY</span>
-              </motion.h1>
+    <section className='relative pt-28 pb-20 px-4 sm:px-6 lg:px-8'>
+      {/* soft radial glow */}
+      <div
+        className='pointer-events-none absolute inset-0 opacity-30'
+        aria-hidden='true'
+        style={{
+          backgroundImage:
+            'radial-gradient(600px 300px at 10% 10%, rgba(0, 212, 245, 0.15), transparent 60%), radial-gradient(600px 300px at 90% 20%, rgba(0, 212, 245, 0.08), transparent 60%)',
+        }}
+      />
 
-              <motion.div
-                className='text-xl sm:text-2xl text-gray-300 font-display'
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-              >
-                Engineer • Builder • Creative Technologist
-              </motion.div>
-            </div>
+      {/* scanning line accent */}
+      <motion.div
+        className='pointer-events-none absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent'
+        initial={{ x: '-100%' }}
+        animate={{ x: '100%' }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: 'linear' }}
+        aria-hidden='true'
+      />
+
+      <div className='relative max-w-7xl mx-auto'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
+          {/* Left column */}
+          <motion.div
+            className='space-y-6'
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+          >
+            <motion.div
+              className='inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1'
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <span className='h-2 w-2 rounded-full bg-primary-400 shadow-[0_0_10px_rgba(0,212,245,0.6)]' />
+              <span className='text-xs font-mono tracking-widest text-gray-300'>CLOUD + DATA ENGINEER</span>
+            </motion.div>
+
+            <motion.h1
+              className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-extrabold text-white leading-tight'
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.7 }}
+            >
+              Hartley H.{' '}
+              <span className='relative inline-block'>
+                Leroy
+                <span className='absolute -bottom-1 left-0 right-0 h-3 rounded-md bg-primary-400/20' aria-hidden='true' />
+              </span>
+            </motion.h1>
 
             <motion.p
-              className='text-lg text-gray-400 leading-relaxed max-w-2xl font-display'
-              initial={{ opacity: 0, y: 20 }}
+              className='max-w-2xl text-lg text-gray-300/90 font-display'
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
+              transition={{ delay: 0.35, duration: 0.6 }}
             >
-              Bridging the gap between technical excellence and creative
-              innovation. I build scalable systems, lead cross-functional teams,
-              and create immersive digital experiences that push the boundaries
-              of what's possible.
+              I design resilient cloud architectures, expressive data systems, and interactive tools that merge engineering rigor with creative intent.
             </motion.p>
 
             <motion.div
-              className='flex flex-wrap gap-4'
-              initial={{ opacity: 0, y: 20 }}
+              className='flex flex-wrap gap-3'
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
+              transition={{ delay: 0.45, duration: 0.6 }}
+            >
+              {['AWS', 'GCP', 'Kubernetes', 'PySpark', 'TypeScript', 'TouchDesigner'].map((chip, index) => (
+                <span
+                  key={chip}
+                  className='rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs font-mono tracking-wide text-gray-300/90'
+                >
+                  {chip}
+                </span>
+              ))}
+            </motion.div>
+
+            <motion.div
+              className='flex flex-wrap gap-4 pt-2'
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55, duration: 0.6 }}
             >
               <motion.a
                 href='#projects'
-                className='px-6 py-3 bg-cyberpunk-neon text-black font-cyber font-bold rounded-lg
-                         hover:bg-cyberpunk-pink hover:shadow-lg hover:shadow-cyberpunk-pink/30
-                         transition-all duration-300'
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                className='px-6 py-3 rounded-lg bg-primary-500 text-gray-900 font-display font-semibold shadow-sm shadow-primary-500/20 hover:bg-primary-400 transition-colors'
+                whileHover={{ y: -2, scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
               >
-                VIEW PROJECTS
+                View Work
               </motion.a>
-
               <motion.a
                 href='#contact'
-                className='px-6 py-3 border-2 border-cyberpunk-neon text-cyberpunk-neon font-cyber font-bold rounded-lg
-                         hover:bg-cyberpunk-neon hover:text-black hover:shadow-lg hover:shadow-cyberpunk-neon/30
-                         transition-all duration-300'
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                className='px-6 py-3 rounded-lg border border-white/15 text-white font-display hover:border-primary-400/60 hover:text-primary-200 transition-colors'
+                whileHover={{ y: -2, scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
               >
-                GET IN TOUCH
+                Get in touch
               </motion.a>
+            </motion.div>
+
+            <motion.div
+              className='mt-6 grid grid-cols-3 gap-4 max-w-md'
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.65, duration: 0.6 }}
+            >
+              {[
+                { k: 'Years', v: '8+' },
+                { k: 'Projects', v: '40+' },
+                { k: 'Installations', v: '12' },
+              ].map(item => (
+                <div key={item.k} className='rounded-lg border border-white/10 bg-white/5 p-3 text-center'>
+                  <div className='text-xl font-semibold text-white'>{item.v}</div>
+                  <div className='text-[11px] tracking-wider text-gray-400 uppercase'>{item.k}</div>
+                </div>
+              ))}
             </motion.div>
           </motion.div>
 
-          {/* Right column - Visual element */}
+          {/* Right column - Data orbit visual */}
           <motion.div
             className='relative flex justify-center lg:justify-end'
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
-            <div className='relative'>
-              {/* Main geometric shape */}
+            <div className='relative w-[22rem] h-[22rem] sm:w-[26rem] sm:h-[26rem]'>
+              {/* aura */}
+              <div className='absolute -inset-8 rounded-full bg-gradient-radial from-primary-500/25 to-transparent blur-2xl' aria-hidden='true' />
+
+              {/* orbit container */}
               <motion.div
-                className='w-80 h-80 relative'
-                animate={{
-                  rotateY: [0, 360],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
+                className='relative w-full h-full'
+                animate={{ rotate: 360 }}
+                transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+                aria-hidden='true'
               >
-                {/* Outer ring */}
+                {/* outer ring */}
+                <div className='absolute inset-0 rounded-full border border-white/10' />
+                {/* mid ring */}
+                <div className='absolute inset-6 rounded-full border border-white/10' />
+                {/* inner ring */}
+                <div className='absolute inset-12 rounded-full border border-white/10' />
+
+                {/* center node */}
                 <motion.div
-                  className='absolute inset-0 border-2 border-cyberpunk-neon rounded-full'
-                  animate={{
-                    rotate: [0, 360],
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{
-                    duration: 10,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
+                  className='absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-400 shadow-[0_0_20px_rgba(0,212,245,0.7)]'
+                  animate={{ scale: [1, 1.25, 1], opacity: [0.9, 1, 0.9] }}
+                  transition={{ duration: 2, repeat: Infinity }}
                 />
 
-                {/* Inner hexagon */}
-                <motion.div
-                  className='absolute inset-8 border-2 border-cyberpunk-pink'
-                  style={{
-                    clipPath:
-                      'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)',
-                  }}
-                  animate={{
-                    rotate: [360, 0],
-                  }}
-                  transition={{
-                    duration: 15,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                />
+                {/* orbiting nodes */}
+                {Array.from({ length: 12 }).map((_, i) => {
+                  const angle = (i / 12) * Math.PI * 2
+                  const radius = 150
+                  const x = 160 + Math.cos(angle) * radius
+                  const y = 160 + Math.sin(angle) * radius
+                  return (
+                    <motion.div
+                      key={i}
+                      className='absolute h-2 w-2 rounded-full bg-white/80'
+                      style={{ left: x, top: y }}
+                      animate={{ y: [y, y - 8, y], opacity: [0.6, 1, 0.6] }}
+                      transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.08 }}
+                    />
+                  )
+                })}
 
-                {/* Center dot */}
-                <motion.div
-                  className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-                           w-4 h-4 bg-cyberpunk-neon rounded-full'
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [1, 0.5, 1],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                  }}
-                />
+                {/* data streaks */}
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className='absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-400/70 to-transparent'
+                    style={{ top: `${10 + i * 25}%` }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 2.2, repeat: Infinity, delay: i * 0.3 }}
+                  />
+                ))}
               </motion.div>
-
-              {/* Floating particles around the shape */}
-              {Array.from({ length: 8 }).map((_, i) => (
-                <motion.div
-                  key={i}
-                  className='absolute w-2 h-2 bg-cyberpunk-purple rounded-full'
-                  style={{
-                    top: `${30 + Math.sin(i * 0.785) * 150}px`,
-                    left: `${30 + Math.cos(i * 0.785) * 150}px`,
-                  }}
-                  animate={{
-                    y: [0, -20, 0],
-                    opacity: [0.3, 1, 0.3],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    delay: i * 0.2,
-                  }}
-                />
-              ))}
             </div>
           </motion.div>
         </div>
