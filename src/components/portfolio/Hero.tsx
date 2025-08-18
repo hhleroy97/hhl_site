@@ -38,7 +38,9 @@ export default function Hero() {
               transition={{ delay: 0.1 }}
             >
               <span className='h-2 w-2 rounded-full bg-primary-400 shadow-[0_0_10px_rgba(0,212,245,0.6)]' />
-              <span className='text-xs font-mono tracking-widest text-gray-300'>CLOUD + DATA ENGINEER</span>
+              <span className='text-xs font-mono tracking-widest text-gray-300'>
+                CLOUD + DATA ENGINEER
+              </span>
             </motion.div>
 
             <motion.h1
@@ -50,7 +52,10 @@ export default function Hero() {
               Hartley H.{' '}
               <span className='relative inline-block'>
                 Leroy
-                <span className='absolute -bottom-1 left-0 right-0 h-3 rounded-md bg-primary-400/20' aria-hidden='true' />
+                <span
+                  className='absolute -bottom-1 left-0 right-0 h-3 rounded-md bg-primary-400/20'
+                  aria-hidden='true'
+                />
               </span>
             </motion.h1>
 
@@ -60,7 +65,9 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.6 }}
             >
-              I design resilient cloud architectures, expressive data systems, and interactive tools that merge engineering rigor with creative intent.
+              I design resilient cloud architectures, expressive data systems,
+              and interactive tools that merge engineering rigor with creative
+              intent.
             </motion.p>
 
             <motion.div
@@ -69,7 +76,14 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.6 }}
             >
-              {['AWS', 'GCP', 'Kubernetes', 'PySpark', 'TypeScript', 'TouchDesigner'].map((chip, index) => (
+              {[
+                'AWS',
+                'GCP',
+                'Kubernetes',
+                'PySpark',
+                'TypeScript',
+                'TouchDesigner',
+              ].map(chip => (
                 <span
                   key={chip}
                   className='rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs font-mono tracking-wide text-gray-300/90'
@@ -114,9 +128,16 @@ export default function Hero() {
                 { k: 'Projects', v: '40+' },
                 { k: 'Installations', v: '12' },
               ].map(item => (
-                <div key={item.k} className='rounded-lg border border-white/10 bg-white/5 p-3 text-center'>
-                  <div className='text-xl font-semibold text-white'>{item.v}</div>
-                  <div className='text-[11px] tracking-wider text-gray-400 uppercase'>{item.k}</div>
+                <div
+                  key={item.k}
+                  className='rounded-lg border border-white/10 bg-white/5 p-3 text-center'
+                >
+                  <div className='text-xl font-semibold text-white'>
+                    {item.v}
+                  </div>
+                  <div className='text-[11px] tracking-wider text-gray-400 uppercase'>
+                    {item.k}
+                  </div>
                 </div>
               ))}
             </motion.div>
@@ -131,7 +152,10 @@ export default function Hero() {
           >
             <div className='relative w-[22rem] h-[22rem] sm:w-[26rem] sm:h-[26rem]'>
               {/* aura */}
-              <div className='absolute -inset-8 rounded-full bg-gradient-radial from-primary-500/25 to-transparent blur-2xl' aria-hidden='true' />
+              <div
+                className='absolute -inset-8 rounded-full bg-gradient-radial from-primary-500/25 to-transparent blur-2xl'
+                aria-hidden='true'
+              />
 
               {/* orbit container */}
               <motion.div
@@ -166,7 +190,11 @@ export default function Hero() {
                       className='absolute h-2 w-2 rounded-full bg-white/80'
                       style={{ left: x, top: y }}
                       animate={{ y: [y, y - 8, y], opacity: [0.6, 1, 0.6] }}
-                      transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.08 }}
+                      transition={{
+                        duration: 2.4,
+                        repeat: Infinity,
+                        delay: i * 0.08,
+                      }}
                     />
                   )
                 })}
@@ -179,7 +207,11 @@ export default function Hero() {
                     style={{ top: `${10 + i * 25}%` }}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0, 1, 0] }}
-                    transition={{ duration: 2.2, repeat: Infinity, delay: i * 0.3 }}
+                    transition={{
+                      duration: 2.2,
+                      repeat: Infinity,
+                      delay: i * 0.3,
+                    }}
                   />
                 ))}
               </motion.div>
