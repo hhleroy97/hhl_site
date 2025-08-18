@@ -29,14 +29,14 @@ export const Heading: React.FC<HeadingProps> = ({
     6: 'text-sm font-semibold uppercase tracking-wider',
   }
 
-  const Tag = `h${level}` as keyof JSX.IntrinsicElements
+  const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements
 
-  return (
-    <Tag
-      className={`${baseClasses} ${levelClasses[level]} ${gradientClasses} ${className}`}
-    >
-      {children}
-    </Tag>
+  return React.createElement(
+    HeadingTag,
+    {
+      className: `${baseClasses} ${levelClasses[level]} ${gradientClasses} ${className}`,
+    },
+    children
   )
 }
 
