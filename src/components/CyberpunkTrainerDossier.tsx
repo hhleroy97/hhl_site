@@ -319,12 +319,6 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
           />
         </div>
 
-        {/* Corner Brackets */}
-        <div className='absolute top-4 left-4 w-6 h-6 border-l-2 border-t-2 border-white/15' />
-        <div className='absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-white/15' />
-        <div className='absolute bottom-4 left-4 w-6 h-6 border-l-2 border-b-2 border-white/15' />
-        <div className='absolute bottom-4 right-4 w-6 h-6 border-r-2 border-b-2 border-white/15' />
-
         <div className='relative z-10 p-4'>
           {/* Header */}
           <motion.div
@@ -565,10 +559,6 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                       </motion.div>
                     </AnimatePresence>
                   </div>
-
-                  {/* Corner Effects */}
-                  <div className='absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-primary-400/5 to-transparent rounded-tl-full' />
-                  <div className='absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-primary-400/5 to-transparent rounded-br-full' />
                 </div>
               </motion.div>
 
@@ -585,7 +575,6 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 <div className='relative bg-gradient-to-br from-slate-700/30 to-slate-800/30 border border-white/10 rounded-xl p-4 backdrop-blur-sm h-[320px] flex items-center justify-center'>
                   {/* Aura */}
                   <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-primary-500/5' />
-                  <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-400/30 to-transparent' />
 
                   {/* Photo */}
                   <div className='relative w-full h-full flex items-center justify-center'>
