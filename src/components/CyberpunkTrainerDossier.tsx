@@ -281,112 +281,81 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
         <div className='absolute bottom-4 left-4 w-8 h-8 border-l-3 border-b-3 border-cyberpunk-neon animate-pulse' />
         <div className='absolute bottom-4 right-4 w-8 h-8 border-r-3 border-b-3 border-cyberpunk-neon animate-pulse' />
 
-        {/* Enlarged Sprite - Central Anchor */}
-        <motion.div
-          className='absolute -top-8 left-1/2 transform -translate-x-1/2 z-30'
-          initial={{ y: -50, opacity: 0, scale: 0.8 }}
-          animate={{ y: 0, opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4, duration: 0.8, ease: 'easeOut' }}
-        >
-          <div className='relative'>
-            {/* Sprite Glow Effect */}
-            <div className='absolute inset-0 bg-cyberpunk-neon/30 rounded-2xl blur-xl animate-pulse scale-110' />
-            <div className='absolute inset-0 bg-cyberpunk-pink/20 rounded-2xl blur-2xl animate-pulse scale-125' />
-
-            {/* Main Sprite Container */}
-            <div className='relative w-32 h-32 lg:w-40 lg:h-40 border-4 border-cyberpunk-neon rounded-2xl overflow-hidden bg-gradient-to-br from-cyberpunk-neon/20 via-cyberpunk-dark/80 to-cyberpunk-blue/20 backdrop-blur-sm'>
-              <img
-                src={characterProfile}
-                alt='Hartley H. Leroy'
-                className='w-full h-full object-contain relative z-10'
-              />
-              <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/20 via-transparent to-cyberpunk-pink/20 animate-pulse' />
-
-              {/* Level Badge */}
-              <div className='absolute -top-2 -right-2 bg-cyberpunk-pink border-3 border-cyberpunk-neon rounded-full w-10 h-10 flex items-center justify-center text-sm font-bold shadow-lg shadow-cyberpunk-pink/50'>
-                ∞
-              </div>
-
-              {/* Status Indicator */}
-              <div className='absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-cyberpunk-green/90 border-2 border-cyberpunk-green rounded-full px-3 py-1'>
-                <div className='flex items-center gap-2'>
-                  <div className='w-2 h-2 bg-cyberpunk-green rounded-full animate-ping' />
-                  <span className='text-cyberpunk-green font-mono text-xs font-bold'>
-                    ONLINE
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        <div className='relative z-10 pt-20 lg:pt-24 px-6 pb-6'>
-          {/* Header Section */}
+        <div className='relative z-10 p-2'>
+          {/* Compact Header Section with Left-Aligned Sprite */}
           <motion.div
-            className='text-center mb-8 pb-6 border-b border-cyberpunk-neon/30'
-            initial={{ y: -30, opacity: 0 }}
+            className='flex items-center gap-3 mb-2 pb-2 border-b border-cyberpunk-neon/30'
+            initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.4 }}
           >
-            {/* Name + Tagline */}
-            <h1 className='text-3xl lg:text-4xl font-bold text-cyberpunk-neon mb-2 tracking-wider font-mono'>
-              HARTLEY H. LEROY
-            </h1>
-            <div className='text-cyberpunk-pink text-lg lg:text-xl font-semibold tracking-wide mb-4'>
-              CREATIVE TECHNOLOGIST • SYSTEMS ARCHITECT
+            {/* Simple Sprite */}
+            <div className='relative flex-shrink-0'>
+              <div className='w-10 h-10 border-2 border-cyberpunk-neon rounded-lg overflow-hidden'>
+                <img
+                  src={characterProfile}
+                  alt='Hartley H. Leroy'
+                  className='w-full h-full object-contain'
+                />
+              </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className='flex justify-center gap-4 mt-6'>
+            {/* Header Content */}
+            <div className='flex-1'>
+              {/* Name + Tagline */}
+              <h1 className='text-lg lg:text-xl font-bold text-cyberpunk-neon mb-1 tracking-wider font-mono'>
+                HARTLEY H. LEROY
+              </h1>
+              <div className='text-cyberpunk-pink text-sm lg:text-base font-semibold tracking-wide'>
+                CREATIVE TECHNOLOGIST • SYSTEMS ARCHITECT
+              </div>
+            </div>
+
+            {/* Compact Action Buttons - Right Aligned */}
+            <div className='flex items-center gap-3'>
               <a
                 href='https://github.com/hhleroy97'
                 target='_blank'
                 rel='noopener noreferrer'
-                className='group px-6 py-3 bg-cyberpunk-green/20 hover:bg-cyberpunk-green/30 text-cyberpunk-green border-2 border-cyberpunk-green/50 hover:border-cyberpunk-green rounded-xl font-mono text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyberpunk-green/30'
+                className='w-10 h-10 bg-cyberpunk-green/20 hover:bg-cyberpunk-green/30 text-cyberpunk-green border-2 border-cyberpunk-green/50 hover:border-cyberpunk-green rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105'
               >
-                <div className='flex items-center gap-2'>
-                  <svg
-                    className='w-5 h-5'
-                    fill='currentColor'
-                    viewBox='0 0 24 24'
-                  >
-                    <path d='M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z' />
-                  </svg>
-                  GITHUB
-                </div>
+                <svg
+                  className='w-5 h-5'
+                  fill='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path d='M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z' />
+                </svg>
               </a>
 
               <a
                 href='https://linkedin.com/in/hartley-h-leroy'
                 target='_blank'
                 rel='noopener noreferrer'
-                className='group px-6 py-3 bg-cyberpunk-blue/20 hover:bg-cyberpunk-blue/30 text-cyberpunk-blue border-2 border-cyberpunk-blue/50 hover:border-cyberpunk-blue rounded-xl font-mono text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyberpunk-blue/30'
+                className='w-10 h-10 bg-cyberpunk-blue/20 hover:bg-cyberpunk-blue/30 text-cyberpunk-blue border-2 border-cyberpunk-blue/50 hover:border-cyberpunk-blue rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105'
               >
-                <div className='flex items-center gap-2'>
-                  <svg
-                    className='w-5 h-5'
-                    fill='currentColor'
-                    viewBox='0 0 24 24'
-                  >
-                    <path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z' />
-                  </svg>
-                  LINKEDIN
-                </div>
+                <svg
+                  className='w-5 h-5'
+                  fill='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z' />
+                </svg>
               </a>
 
               {onEnterPortfolio && (
                 <button
                   onClick={onEnterPortfolio}
-                  className='group px-6 py-3 bg-cyberpunk-pink/20 hover:bg-cyberpunk-pink/30 text-cyberpunk-pink border-2 border-cyberpunk-pink/50 hover:border-cyberpunk-pink rounded-xl font-mono text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyberpunk-pink/30'
+                  className='px-3 py-2 bg-cyberpunk-pink/20 hover:bg-cyberpunk-pink/30 text-cyberpunk-pink border-2 border-cyberpunk-pink/50 hover:border-cyberpunk-pink rounded-lg font-mono text-xs font-bold transition-all duration-300 hover:scale-105'
                 >
-                  ENTER PORTFOLIO
+                  PORTFOLIO
                 </button>
               )}
             </div>
           </motion.div>
 
           {/* Main Content - Layered Layout */}
-          <div className='relative space-y-6'>
+          <div className='relative space-y-2'>
             {/* Background Grid Pattern for Depth */}
             <div className='absolute inset-0 opacity-5 pointer-events-none'>
               <div
@@ -402,31 +371,31 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
               />
             </div>
 
-            <div className='relative grid grid-cols-1 lg:grid-cols-12 gap-6'>
+            <div className='relative grid grid-cols-1 lg:grid-cols-12 gap-2 lg:h-[400px]'>
               {/* Left Panel: Core Services Navigation */}
               <motion.div
-                className='lg:col-span-4 relative'
+                className='lg:col-span-4 relative h-full'
                 initial={{ x: -50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.8 }}
               >
                 {/* Services Panel with Inset Effect */}
-                <div className='relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-2 border-cyberpunk-neon/30 rounded-2xl p-6 backdrop-blur-sm'>
+                <div className='relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-2 border-cyberpunk-neon/30 rounded-xl p-4 backdrop-blur-sm h-full flex flex-col'>
                   {/* Inset Glow */}
                   <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-neon/5 to-cyberpunk-purple/5' />
                   <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyberpunk-neon/60 to-transparent' />
 
                   <div className='relative z-10'>
-                    <h2 className='text-cyberpunk-pink font-mono text-xl font-bold mb-6 flex items-center gap-3'>
+                    <h2 className='text-cyberpunk-pink font-mono text-lg font-bold mb-4 flex items-center gap-2'>
                       <div className='w-4 h-4 bg-cyberpunk-pink rounded-full animate-pulse shadow-lg shadow-cyberpunk-pink/50' />
                       CORE SERVICES
                     </h2>
 
-                    <div className='space-y-3'>
+                    <div className='space-y-2 flex-1 overflow-y-auto'>
                       {services.map((service, index) => (
                         <motion.button
                           key={service.id}
-                          className={`group w-full text-left relative p-4 cursor-pointer transition-all duration-300 rounded-xl border-2 overflow-hidden ${
+                          className={`group w-full text-left relative p-3 cursor-pointer transition-all duration-300 rounded-xl border-2 overflow-hidden ${
                             selectedItem === `service-${service.id}`
                               ? 'bg-cyberpunk-purple/40 border-cyberpunk-pink shadow-lg shadow-cyberpunk-pink/30 scale-105'
                               : 'bg-cyberpunk-purple/10 hover:bg-cyberpunk-purple/25 border-cyberpunk-neon/30 hover:border-cyberpunk-pink/60 hover:scale-102'
@@ -450,11 +419,8 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
 
                           <div className='relative z-10 flex items-center justify-between'>
                             <div>
-                              <div className='text-cyberpunk-neon font-mono text-sm font-bold mb-1'>
+                              <div className='text-cyberpunk-neon font-mono text-sm font-bold'>
                                 {service.title}
-                              </div>
-                              <div className='text-cyberpunk-neon/60 font-mono text-xs'>
-                                LVL {service.level}
                               </div>
                             </div>
 
@@ -486,12 +452,12 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
 
               {/* Right Panel: Dominant Info Display */}
               <motion.div
-                className='lg:col-span-8 relative'
+                className='lg:col-span-8 relative h-full'
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1 }}
               >
-                <div className='relative bg-gradient-to-br from-cyberpunk-dark/95 to-slate-900/95 border-3 border-cyberpunk-neon/60 rounded-2xl p-8 backdrop-blur-sm overflow-hidden min-h-[350px]'>
+                <div className='relative bg-gradient-to-br from-cyberpunk-dark/95 to-slate-900/95 border-3 border-cyberpunk-neon/60 rounded-xl p-4 backdrop-blur-sm overflow-hidden h-full flex flex-col'>
                   {/* Animated Background Pattern */}
                   <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/5 via-transparent to-cyberpunk-pink/5 rounded-2xl' />
                   <div className='absolute inset-0 opacity-10'>
@@ -510,7 +476,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   <div className='absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyberpunk-pink to-transparent animate-pulse' />
 
                   {/* Info Content with Clear Hierarchy */}
-                  <div className='relative z-10 h-full flex flex-col justify-center'>
+                  <div className='relative z-10 flex-1 flex flex-col'>
                     <AnimatePresence mode='wait'>
                       <motion.div
                         key={activeContent.title}
@@ -553,7 +519,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                         </div>
 
                         {/* Highlights - Glowing Bullets/Tags */}
-                        <div>
+                        <div className='flex-1'>
                           <div className='text-cyberpunk-neon/70 font-mono text-xs font-bold mb-3 tracking-wider'>
                             HIGHLIGHTS
                           </div>
@@ -593,18 +559,18 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
               transition={{ delay: 1.2 }}
             >
               {/* Skills Panel with Breathing Room */}
-              <div className='relative bg-gradient-to-br from-slate-800/30 to-slate-900/30 border-2 border-cyberpunk-blue/30 rounded-2xl p-6 backdrop-blur-sm'>
+              <div className='relative bg-gradient-to-br from-slate-800/30 to-slate-900/30 border-2 border-cyberpunk-blue/30 rounded-2xl p-4 backdrop-blur-sm'>
                 <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-blue/5 to-cyberpunk-purple/5' />
                 <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyberpunk-blue/60 to-transparent' />
 
                 <div className='relative z-10'>
-                  <h2 className='text-cyberpunk-blue font-mono text-xl font-bold mb-6 flex items-center gap-3'>
+                  <h2 className='text-cyberpunk-blue font-mono text-lg font-bold mb-4 flex items-center gap-2'>
                     <div className='w-4 h-4 bg-cyberpunk-blue rounded-full animate-pulse shadow-lg shadow-cyberpunk-blue/50' />
                     SKILL BADGES
                   </h2>
 
                   {/* Badge Grid with Proper Spacing */}
-                  <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6'>
+                  <div className='grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-2'>
                     {skills.map((skill, index) => (
                       <motion.div
                         key={skill.id}
@@ -623,7 +589,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                       >
                         {/* Badge Container */}
                         <div
-                          className={`relative p-4 rounded-2xl border-2 transition-all duration-300 overflow-hidden ${
+                          className={`relative p-2 rounded-lg border-2 transition-all duration-300 overflow-hidden aspect-square flex flex-col items-center justify-center ${
                             selectedItem === `skill-${skill.id}`
                               ? 'bg-cyberpunk-neon/25 border-cyberpunk-neon shadow-xl shadow-cyberpunk-neon/40'
                               : 'bg-cyberpunk-blue/10 hover:bg-cyberpunk-blue/20 border-cyberpunk-neon/30 hover:border-cyberpunk-neon/60'
@@ -641,9 +607,9 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                           {/* Idle Shimmer Effect */}
                           <div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out' />
 
-                          <div className='relative z-10 text-center'>
+                          <div className='relative z-10 flex flex-col items-center justify-center h-full'>
                             {/* Icon */}
-                            <div className='w-12 h-12 mx-auto mb-3 relative'>
+                            <div className='w-6 h-6 mb-1 relative flex-shrink-0'>
                               <img
                                 src={skill.icon}
                                 alt={skill.title}
@@ -655,21 +621,8 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                             </div>
 
                             {/* Title */}
-                            <div className='text-cyberpunk-neon font-mono text-sm font-bold leading-tight mb-1'>
-                              {skill.title}
-                            </div>
-
-                            {/* Level Badge */}
-                            <div
-                              className={`inline-block px-2 py-1 rounded-full border transition-all duration-300 ${
-                                selectedItem === `skill-${skill.id}`
-                                  ? 'bg-cyberpunk-neon/20 border-cyberpunk-neon text-cyberpunk-neon'
-                                  : 'bg-cyberpunk-blue/20 border-cyberpunk-blue/50 text-cyberpunk-blue'
-                              }`}
-                            >
-                              <span className='font-mono text-xs font-bold'>
-                                {skill.level}
-                              </span>
+                            <div className='text-cyberpunk-neon font-mono text-xs font-bold leading-tight text-center'>
+                              {skill.title.split(' ')[0]}
                             </div>
                           </div>
                         </div>
@@ -683,7 +636,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
 
           {/* Footer */}
           <motion.div
-            className='mt-8 pt-4 border-t border-cyberpunk-neon/30 text-center'
+            className='mt-2 pt-2 border-t border-cyberpunk-neon/30 text-center'
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1.6 }}
