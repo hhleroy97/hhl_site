@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import PortfolioSection from '@components/PortfolioSection'
-import CyberpunkTrainerDossierDemo from '@components/CyberpunkTrainerDossierDemo'
+import LandingPage from '@components/LandingPage'
 import Navigation from '@components/ui/Navigation'
 import LoadingSpinner from '@components/ui/LoadingSpinner'
 
-type AppView = 'trainer-card' | 'portfolio'
+type AppView = 'landing' | 'portfolio'
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<AppView>('trainer-card')
+  const [currentView, setCurrentView] = useState<AppView>('landing')
   const [isTransitioning, setIsTransitioning] = useState(false)
 
   const handleEnterPortfolio = () => {
@@ -19,20 +19,20 @@ export default function App() {
     }, 800)
   }
 
-  const handleBackToTrainerCard = () => {
+  const handleBackToLanding = () => {
     setIsTransitioning(true)
     setTimeout(() => {
-      setCurrentView('trainer-card')
+      setCurrentView('landing')
       setIsTransitioning(false)
     }, 800)
   }
 
   return (
-    <div className='relative min-h-screen bg-cyberpunk-dark overflow-hidden'>
+    <div className='relative min-h-screen overflow-hidden'>
       <AnimatePresence mode='wait'>
-        {currentView === 'trainer-card' && (
+        {currentView === 'landing' && (
           <motion.div
-            key='trainer-card'
+            key='landing'
             className='relative'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -43,7 +43,7 @@ export default function App() {
             }}
             transition={{ duration: 0.8 }}
           >
-            <CyberpunkTrainerDossierDemo
+            <LandingPage
               onEnterPortfolio={handleEnterPortfolio}
             />
           </motion.div>
@@ -65,7 +65,7 @@ export default function App() {
             <PortfolioSection />
 
             <Navigation
-              onBackToCard={handleBackToTrainerCard}
+              onBackToCard={handleBackToLanding}
               showBackButton={true}
               className='top-8 left-8'
             />
@@ -76,7 +76,7 @@ export default function App() {
       {/* Transition Overlay */}
       {isTransitioning && (
         <motion.div
-          className='fixed inset-0 z-[100] bg-cyberpunk-dark flex items-center justify-center'
+          className='fixed inset-0 z-[100] bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

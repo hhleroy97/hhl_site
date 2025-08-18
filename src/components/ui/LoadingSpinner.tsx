@@ -27,13 +27,13 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   return (
     <div className={`flex flex-col items-center justify-center ${className}`}>
       <motion.div
-        className={`${sizeClasses[size]} border-4 border-cyberpunk-neon border-t-transparent rounded-full mb-4`}
+        className={`${sizeClasses[size]} border-4 border-cyan-400 border-t-transparent rounded-full mb-4`}
         animate={{ rotate: 360 }}
         transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
       />
       {text && (
         <motion.div
-          className={`text-cyberpunk-neon font-cyber ${textSizes[size]} tracking-wider`}
+          className={`text-cyan-400 font-mono ${textSizes[size]} tracking-wider`}
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
