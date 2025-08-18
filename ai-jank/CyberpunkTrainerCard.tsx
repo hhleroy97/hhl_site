@@ -471,7 +471,7 @@ const CyberpunkTrainerCard: React.FC<CyberpunkTrainerCardProps> = ({
                       <img
                         src={characterProfile}
                         alt='Character Profile'
-                        className='w-full h-full object-contain object-center rounded-lg'
+                        className='w-full h-full object-cover object-center rounded-lg'
                         style={{}}
                       />
                       <div
