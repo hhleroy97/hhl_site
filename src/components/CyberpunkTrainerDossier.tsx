@@ -391,7 +391,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
               />
             </div>
 
-            <div className='relative grid grid-cols-1 lg:grid-cols-12 gap-2 lg:items-stretch lg:min-h-[400px]'>
+            <div className='relative grid grid-cols-1 lg:grid-cols-12 gap-2 lg:items-start'>
               {/* Left Panel: Core Services Navigation */}
               <motion.div
                 className='lg:col-span-3 relative'
@@ -400,7 +400,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 transition={{ delay: 0.8 }}
               >
                 {/* Services Panel */}
-                <div className='relative bg-slate-800/60 border border-slate-600/40 rounded-xl p-4 backdrop-blur-sm h-full'>
+                <div className='relative bg-slate-800/60 border border-slate-600/40 rounded-xl p-4 backdrop-blur-sm'>
                   <div className='relative z-10'>
                     <h2 className='text-cyberpunk-neon font-mono text-lg font-bold mb-4'>
                       CORE SERVICES
@@ -449,9 +449,9 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1 }}
               >
-                <div className='relative bg-slate-800/60 border border-slate-600/40 rounded-xl p-4 backdrop-blur-sm h-full flex flex-col'>
+                <div className='relative bg-slate-800/60 border border-slate-600/40 rounded-xl p-4 backdrop-blur-sm h-[380px] flex flex-col'>
                   {/* Info Content with Clear Hierarchy */}
-                  <div className='relative z-10 flex-1 flex flex-col'>
+                  <div className='relative z-10 flex-1 flex flex-col overflow-hidden'>
                     <AnimatePresence mode='wait'>
                       <motion.div
                         key={activeContent.title}
@@ -494,11 +494,11 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                         </div>
 
                         {/* Highlights - Glowing Bullets/Tags */}
-                        <div className='flex-1'>
+                        <div className='flex-1 flex flex-col min-h-0'>
                           <div className='text-cyberpunk-neon/70 font-mono text-xs font-bold mb-3 tracking-wider'>
                             HIGHLIGHTS
                           </div>
-                          <div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
+                          <div className='grid grid-cols-1 lg:grid-cols-2 gap-3 overflow-y-auto flex-1'>
                             {activeContent.stats.map((stat, index) => (
                               <motion.div
                                 key={index}
@@ -532,7 +532,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 1.2 }}
               >
-                <div className='relative bg-gradient-to-br from-slate-700/50 to-slate-800/50 border-2 border-cyberpunk-pink/30 rounded-xl p-4 backdrop-blur-sm h-full flex items-center justify-center'>
+                <div className='relative bg-gradient-to-br from-slate-700/50 to-slate-800/50 border-2 border-cyberpunk-pink/30 rounded-xl p-4 backdrop-blur-sm h-[380px] flex items-center justify-center'>
                   {/* Sprite Glow */}
                   <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-pink/5 to-cyberpunk-neon/5' />
                   <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyberpunk-pink/60 to-transparent' />
