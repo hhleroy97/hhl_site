@@ -281,17 +281,17 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
         <div className='absolute bottom-4 left-4 w-8 h-8 border-l-3 border-b-3 border-cyberpunk-neon animate-pulse' />
         <div className='absolute bottom-4 right-4 w-8 h-8 border-r-3 border-b-3 border-cyberpunk-neon animate-pulse' />
 
-        <div className='relative z-10 p-8'>
+        <div className='relative z-10 p-6'>
           {/* Header Section */}
           <motion.div
-            className='flex items-center justify-between mb-8 pb-6 border-b border-cyberpunk-neon/30'
+            className='flex items-center justify-between mb-6 pb-4 border-b border-cyberpunk-neon/30'
             initial={{ y: -30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
             {/* Left: Avatar */}
             <div className='relative'>
-              <div className='w-20 h-20 border-3 border-cyberpunk-neon rounded-xl overflow-hidden bg-gradient-to-br from-cyberpunk-neon/20 to-cyberpunk-blue/20 relative'>
+              <div className='w-16 h-16 border-3 border-cyberpunk-neon rounded-xl overflow-hidden bg-gradient-to-br from-cyberpunk-neon/20 to-cyberpunk-blue/20 relative'>
                 <img
                   src={characterProfile}
                   alt='Hartley H. Leroy'
@@ -299,17 +299,17 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 />
                 <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/20 via-transparent to-cyberpunk-pink/20 animate-pulse' />
               </div>
-              <div className='absolute -top-2 -right-2 bg-cyberpunk-pink border-2 border-cyberpunk-neon rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold'>
+              <div className='absolute -top-1 -right-1 bg-cyberpunk-pink border-2 border-cyberpunk-neon rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold'>
                 ∞
               </div>
             </div>
 
             {/* Center: Name + Tagline */}
-            <div className='flex-1 text-center mx-8'>
-              <h1 className='text-3xl lg:text-4xl font-bold text-cyberpunk-neon mb-2 tracking-wider font-mono'>
+            <div className='flex-1 text-center mx-6'>
+              <h1 className='text-2xl lg:text-3xl font-bold text-cyberpunk-neon mb-1 tracking-wider font-mono'>
                 HARTLEY H. LEROY
               </h1>
-              <div className='text-cyberpunk-pink text-lg font-semibold tracking-wide'>
+              <div className='text-cyberpunk-pink text-base font-semibold tracking-wide'>
                 CREATIVE TECHNOLOGIST • SYSTEMS ARCHITECT
               </div>
             </div>
@@ -366,18 +366,18 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
             </div>
           </motion.div>
 
-          {/* Main Content Grid */}
-          <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-            {/* Left Column: Command Menu */}
-            <motion.div
-              className='lg:col-span-1 space-y-6'
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              {/* Core Services */}
-              <div>
-                <h2 className='text-cyberpunk-pink font-mono text-lg font-bold mb-4 flex items-center gap-2'>
+          {/* Main Content */}
+          <div className='space-y-6'>
+            {/* Top Row: Core Services and Professional Profile */}
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+              {/* Left: Core Services */}
+              <motion.div
+                className='space-y-4'
+                initial={{ x: -50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                <h2 className='text-cyberpunk-pink font-mono text-lg font-bold mb-3 flex items-center gap-2'>
                   <div className='w-3 h-3 bg-cyberpunk-pink rounded-full animate-pulse' />
                   CORE SERVICES
                 </h2>
@@ -385,7 +385,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   {services.map((service, index) => (
                     <motion.div
                       key={service.id}
-                      className={`group relative p-3 cursor-pointer transition-all duration-200 rounded-lg border-2 ${
+                      className={`group relative p-2.5 cursor-pointer transition-all duration-200 rounded-lg border-2 ${
                         selectedItem === `service-${service.id}`
                           ? 'bg-cyberpunk-purple/30 border-cyberpunk-pink shadow-lg shadow-cyberpunk-pink/30'
                           : 'bg-cyberpunk-purple/10 hover:bg-cyberpunk-purple/20 border-cyberpunk-neon/30 hover:border-cyberpunk-pink/60'
@@ -415,123 +415,126 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                     </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Skills Grid */}
-              <div>
-                <h2 className='text-cyberpunk-pink font-mono text-lg font-bold mb-4 flex items-center gap-2'>
-                  <div className='w-3 h-3 bg-cyberpunk-pink rounded-full animate-pulse' />
-                  SKILLS
-                </h2>
-                <div className='grid grid-cols-2 gap-3'>
-                  {skills.map((skill, index) => (
-                    <motion.div
-                      key={skill.id}
-                      className={`group relative p-3 cursor-pointer transition-all duration-200 rounded-xl border-2 ${
-                        selectedItem === `skill-${skill.id}`
-                          ? 'bg-cyberpunk-neon/20 border-cyberpunk-neon shadow-lg shadow-cyberpunk-neon/30'
-                          : 'bg-cyberpunk-blue/10 hover:bg-cyberpunk-blue/20 border-cyberpunk-neon/30 hover:border-cyberpunk-neon/60'
-                      }`}
-                      onMouseEnter={() => handleSkillHover(skill)}
-                      onMouseLeave={resetToProfile}
-                      whileHover={{ scale: 1.05 }}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1 + 0.8 }}
-                    >
-                      <div className='text-center'>
-                        <div className='w-8 h-8 mx-auto mb-2'>
-                          <img
-                            src={skill.icon}
-                            alt={skill.title}
-                            className='w-full h-full object-contain'
-                          />
+              {/* Right: Info Panel (Professional Profile) */}
+              <motion.div
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.6 }}
+              >
+                <div className='h-full bg-gradient-to-br from-cyberpunk-dark/90 to-cyberpunk-dark/70 border-3 border-cyberpunk-neon/60 rounded-2xl p-6 backdrop-blur-sm relative overflow-hidden min-h-[280px]'>
+                  {/* Parallax Background */}
+                  <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/5 via-transparent to-cyberpunk-pink/5 rounded-2xl' />
+
+                  {/* Scanning Line */}
+                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyberpunk-neon to-transparent animate-pulse' />
+
+                  {/* Info Content */}
+                  <div className='relative z-10 h-full flex flex-col justify-center'>
+                    <AnimatePresence mode='wait'>
+                      <motion.div
+                        key={activeContent.title}
+                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                        transition={{ duration: 0.25, ease: 'easeInOut' }}
+                      >
+                        <div className='flex items-center gap-4 mb-4'>
+                          <h3 className='text-2xl lg:text-3xl font-bold text-cyberpunk-neon font-mono tracking-wider'>
+                            {activeContent.title}
+                          </h3>
+                          {activeContent.level && (
+                            <div className='bg-cyberpunk-pink/20 border border-cyberpunk-pink rounded-full px-3 py-1'>
+                              <span className='text-cyberpunk-pink font-mono text-sm font-bold'>
+                                LVL {activeContent.level}
+                              </span>
+                            </div>
+                          )}
                         </div>
-                        <div className='text-cyberpunk-neon font-mono text-xs font-bold leading-tight'>
-                          {skill.title}
+
+                        <p className='text-white/90 text-base leading-relaxed mb-4'>
+                          {activeContent.description}
+                        </p>
+
+                        <div className='grid grid-cols-1 gap-2'>
+                          {activeContent.stats.map((stat, index) => (
+                            <motion.div
+                              key={index}
+                              className='flex items-center gap-3 text-cyberpunk-neon/80 font-mono text-sm'
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.1 }}
+                            >
+                              <div className='w-2 h-2 bg-cyberpunk-green rounded-full animate-pulse' />
+                              {stat}
+                            </motion.div>
+                          ))}
                         </div>
-                        <div className='text-cyberpunk-neon/60 font-mono text-xs'>
-                          {skill.level}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Depth Effects */}
+                  <div className='absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-cyberpunk-neon/10 to-transparent rounded-tl-full' />
+                  <div className='absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-cyberpunk-pink/10 to-transparent rounded-br-full' />
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
 
-            {/* Right Column: Info Panel (Primary Focus) */}
+            {/* Bottom Row: Skills in Single Row */}
             <motion.div
-              className='lg:col-span-2'
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.8 }}
             >
-              <div className='h-full bg-gradient-to-br from-cyberpunk-dark/90 to-cyberpunk-dark/70 border-3 border-cyberpunk-neon/60 rounded-2xl p-8 backdrop-blur-sm relative overflow-hidden min-h-[400px]'>
-                {/* Parallax Background */}
-                <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/5 via-transparent to-cyberpunk-pink/5 rounded-2xl' />
-
-                {/* Scanning Line */}
-                <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyberpunk-neon to-transparent animate-pulse' />
-
-                {/* Info Content */}
-                <div className='relative z-10 h-full flex flex-col justify-center'>
-                  <AnimatePresence mode='wait'>
-                    <motion.div
-                      key={activeContent.title}
-                      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                      transition={{ duration: 0.25, ease: 'easeInOut' }}
-                    >
-                      <div className='flex items-center gap-4 mb-6'>
-                        <h3 className='text-3xl lg:text-4xl font-bold text-cyberpunk-neon font-mono tracking-wider'>
-                          {activeContent.title}
-                        </h3>
-                        {activeContent.level && (
-                          <div className='bg-cyberpunk-pink/20 border border-cyberpunk-pink rounded-full px-4 py-2'>
-                            <span className='text-cyberpunk-pink font-mono text-sm font-bold'>
-                              LVL {activeContent.level}
-                            </span>
-                          </div>
-                        )}
+              <h2 className='text-cyberpunk-pink font-mono text-lg font-bold mb-3 flex items-center gap-2'>
+                <div className='w-3 h-3 bg-cyberpunk-pink rounded-full animate-pulse' />
+                SKILLS
+              </h2>
+              <div className='grid grid-cols-4 lg:grid-cols-8 gap-3'>
+                {skills.map((skill, index) => (
+                  <motion.div
+                    key={skill.id}
+                    className={`group relative p-2.5 cursor-pointer transition-all duration-200 rounded-xl border-2 ${
+                      selectedItem === `skill-${skill.id}`
+                        ? 'bg-cyberpunk-neon/20 border-cyberpunk-neon shadow-lg shadow-cyberpunk-neon/30'
+                        : 'bg-cyberpunk-blue/10 hover:bg-cyberpunk-blue/20 border-cyberpunk-neon/30 hover:border-cyberpunk-neon/60'
+                    }`}
+                    onMouseEnter={() => handleSkillHover(skill)}
+                    onMouseLeave={resetToProfile}
+                    whileHover={{ scale: 1.05 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.05 + 1 }}
+                  >
+                    <div className='text-center'>
+                      <div className='w-6 h-6 mx-auto mb-1'>
+                        <img
+                          src={skill.icon}
+                          alt={skill.title}
+                          className='w-full h-full object-contain'
+                        />
                       </div>
-
-                      <p className='text-white/90 text-lg leading-relaxed mb-8 max-w-3xl'>
-                        {activeContent.description}
-                      </p>
-
-                      <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                        {activeContent.stats.map((stat, index) => (
-                          <motion.div
-                            key={index}
-                            className='flex items-center gap-3 text-cyberpunk-neon/80 font-mono text-sm'
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.1 }}
-                          >
-                            <div className='w-2 h-2 bg-cyberpunk-green rounded-full animate-pulse' />
-                            {stat}
-                          </motion.div>
-                        ))}
+                      <div className='text-cyberpunk-neon font-mono text-xs font-bold leading-tight'>
+                        {skill.title.split(' ')[0]}
                       </div>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                {/* Depth Effects */}
-                <div className='absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-cyberpunk-neon/10 to-transparent rounded-tl-full' />
-                <div className='absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-cyberpunk-pink/10 to-transparent rounded-br-full' />
+                      <div className='text-cyberpunk-neon/60 font-mono text-xs'>
+                        {skill.level}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           </div>
 
           {/* Footer */}
           <motion.div
-            className='mt-8 pt-4 border-t border-cyberpunk-neon/30 text-center'
+            className='mt-6 pt-3 border-t border-cyberpunk-neon/30 text-center'
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1 }}
+            transition={{ delay: 1.2 }}
           >
             <div className='text-cyberpunk-neon/60 font-mono text-sm'>
               [ Hover or select a service or skill to analyze capabilities ]
