@@ -203,7 +203,7 @@ function RibbonCable({
   start,
   end,
   opacity = 0.6,
-  cableCount = 5,
+  cableCount = 4,
 }: {
   start: [number, number, number]
   end: [number, number, number]
@@ -233,24 +233,24 @@ function RibbonCable({
     const midX = sx + (ex - sx) * 0.6
     const mid2Y = ey
 
-    // Create multiple parallel cable paths with gradient colors
+    // Create multiple parallel cable paths with gradient colors and better spacing
     for (let i = 0; i < cableCount; i++) {
-      const offset = (i - Math.floor(cableCount / 2)) * 0.04
+      const offset = (i - Math.floor(cableCount / 2)) * 0.08 // Increased spacing between cables
       const colorIndex = i % paletteColors.length
 
       // Create path with 90-degree turns
       const points = [
-        new THREE.Vector3(sx, sy + offset * 0.5, sz + offset),
-        new THREE.Vector3(midX, sy + offset * 0.5, sz + offset),
-        new THREE.Vector3(midX, mid2Y + offset * 0.5, sz + offset),
-        new THREE.Vector3(ex, ey + offset * 0.5, ez + offset),
+        new THREE.Vector3(sx, sy + offset * 0.6, sz + offset * 0.8),
+        new THREE.Vector3(midX, sy + offset * 0.6, sz + offset * 0.8),
+        new THREE.Vector3(midX, mid2Y + offset * 0.6, sz + offset * 0.8),
+        new THREE.Vector3(ex, ey + offset * 0.6, ez + offset * 0.8),
       ]
 
       paths.push({
         points,
         offset,
         color: paletteColors[colorIndex],
-        opacity: opacity - Math.abs(offset) * 2,
+        opacity: Math.max(0.4, opacity - Math.abs(offset) * 1.5), // Better opacity falloff
       })
     }
 
@@ -264,9 +264,9 @@ function RibbonCable({
           key={i}
           points={path.points}
           color={path.color}
-          lineWidth={2}
+          lineWidth={4} // Increased cable thickness
           transparent
-          opacity={Math.max(0.3, path.opacity)}
+          opacity={Math.max(0.4, path.opacity)}
         />
       ))}
     </group>
@@ -381,79 +381,53 @@ function DataTransferVisualization() {
     }
   })
 
-  // Network topology representing tech infrastructure
+  // Simplified network topology with 4 key nodes
   const nodes = [
     {
       position: [0, 0, 0] as [number, number, number],
       color: '#00d4aa',
-      size: 0.25,
+      size: 0.3,
       label: 'Core',
     },
     {
-      position: [-2, 1.5, 0] as [number, number, number],
+      position: [-2.5, 1.8, 0] as [number, number, number],
       color: '#0ea5e9',
-      size: 0.2,
+      size: 0.25,
       label: 'Cloud',
     },
     {
-      position: [2, 1.5, 0] as [number, number, number],
+      position: [2.5, 1.8, 0] as [number, number, number],
       color: '#8b5cf6',
-      size: 0.2,
+      size: 0.25,
       label: 'Data',
     },
     {
-      position: [-1.5, -1.5, 0] as [number, number, number],
+      position: [0, -2.2, 0] as [number, number, number],
       color: '#ff6b6b',
-      size: 0.18,
-      label: 'ML',
-    },
-    {
-      position: [1.5, -1.5, 0] as [number, number, number],
-      color: '#f59e0b',
-      size: 0.18,
-      label: 'API',
-    },
-    {
-      position: [0, 2.5, -1] as [number, number, number],
-      color: '#10b981',
-      size: 0.15,
-      label: 'IoT',
-    },
-    {
-      position: [0, -2.5, -1] as [number, number, number],
-      color: '#ef4444',
-      size: 0.15,
+      size: 0.25,
       label: 'Edge',
     },
   ]
 
-  // Define connections between nodes
+  // Define connections between nodes - cleaner mesh
   const connections = [
     { start: nodes[0].position, end: nodes[1].position, color: '#0ea5e9' },
     { start: nodes[0].position, end: nodes[2].position, color: '#8b5cf6' },
     { start: nodes[0].position, end: nodes[3].position, color: '#ff6b6b' },
-    { start: nodes[0].position, end: nodes[4].position, color: '#f59e0b' },
-    { start: nodes[1].position, end: nodes[5].position, color: '#10b981' },
-    { start: nodes[2].position, end: nodes[6].position, color: '#ef4444' },
-    { start: nodes[3].position, end: nodes[4].position, color: '#fbbf24' },
+    { start: nodes[1].position, end: nodes[2].position, color: '#10b981' },
+    { start: nodes[1].position, end: nodes[3].position, color: '#f59e0b' },
   ]
 
   return (
     <group ref={groupRef}>
-      {/* Background orbital rings showing network activity */}
+      {/* Simplified background orbital rings */}
+      <OrbitalRing radius={4.0} speed={0.2} particleCount={8} color='#00d4aa' />
       <OrbitalRing
-        radius={3.5}
-        speed={0.3}
-        particleCount={12}
-        color='#00d4aa'
+        radius={3.2}
+        speed={-0.3}
+        particleCount={6}
+        color='#8b5cf6'
       />
-      <OrbitalRing
-        radius={4.2}
-        speed={-0.2}
-        particleCount={8}
-        color='#0ea5e9'
-      />
-      <OrbitalRing radius={2.8} speed={0.5} particleCount={6} color='#8b5cf6' />
 
       {/* Render network nodes */}
       {nodes.map((node, i) => (
@@ -471,8 +445,8 @@ function DataTransferVisualization() {
           key={`ribbon-${i}`}
           start={conn.start}
           end={conn.end}
-          opacity={0.7}
-          cableCount={5 + (i % 3)} // Vary cable count for visual interest (5-7 cables)
+          opacity={0.8}
+          cableCount={4} // Consistent 4 thick cables per bundle
         />
       ))}
 
