@@ -2,7 +2,10 @@ import { motion } from 'framer-motion'
 
 export default function Hero() {
   return (
-    <section className='relative pt-20 pb-16 px-6 lg:px-8'>
+    <section
+      className='relative pt-20 pb-16 px-6 lg:px-8'
+      aria-label='Introduction and hero section'
+    >
       {/* Subtle background accent - reduced intensity */}
       <div
         className='pointer-events-none absolute inset-0 opacity-10'
@@ -52,7 +55,7 @@ export default function Hero() {
                   />
                 </span>
               </h1>
-              
+
               <p className='text-xl text-cyberpunk-text-secondary font-medium'>
                 Cloud & Data Engineer
               </p>
@@ -65,8 +68,9 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              Specializing in resilient cloud architectures, scalable data systems, 
-              and innovative solutions that bridge engineering excellence with creative vision.
+              Specializing in resilient cloud architectures, scalable data
+              systems, and innovative solutions that bridge engineering
+              excellence with creative vision.
             </motion.p>
 
             <motion.div
@@ -93,48 +97,52 @@ export default function Hero() {
             </motion.div>
 
             <motion.div
-              className='flex flex-wrap gap-4 pt-2'
+              className='flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 w-full sm:w-auto'
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.55, duration: 0.6 }}
             >
               <motion.a
                 href='#projects'
-                className='px-6 py-3 rounded-lg bg-primary-500 text-gray-900 font-display font-semibold shadow-sm shadow-primary-500/20 hover:bg-primary-400 transition-colors'
+                className='px-6 py-3 rounded-lg bg-primary-500 text-gray-900 font-display font-semibold shadow-sm shadow-primary-500/20 hover:bg-primary-400 transition-colors text-center sm:text-left touch-target focus-ring'
                 whileHover={{ y: -2, scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
+                aria-label='View my work and projects'
               >
                 View Work
               </motion.a>
               <motion.a
                 href='#contact'
-                className='px-6 py-3 rounded-lg border border-white/15 text-white font-display hover:border-primary-400/60 hover:text-primary-200 transition-colors'
+                className='px-6 py-3 rounded-lg border border-white/15 text-white font-display hover:border-primary-400/60 hover:text-primary-200 transition-colors text-center sm:text-left touch-target focus-ring'
                 whileHover={{ y: -2, scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
+                aria-label='Get in touch with me'
               >
                 Get in touch
               </motion.a>
             </motion.div>
 
             <motion.div
-              className='mt-6 grid grid-cols-3 gap-4 max-w-md'
+              className='mt-6 grid grid-cols-3 gap-3 sm:gap-4 max-w-md'
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.65, duration: 0.6 }}
             >
               {[
-                { k: 'Years', v: '8+' },
-                { k: 'Projects', v: '40+' },
-                { k: 'Installations', v: '12' },
+                { k: 'Years', v: '8+', desc: 'Experience' },
+                { k: 'Projects', v: '40+', desc: 'Completed' },
+                { k: 'Installations', v: '12', desc: 'Deployed' },
               ].map(item => (
                 <div
                   key={item.k}
-                  className='rounded-lg border border-white/10 bg-white/5 p-3 text-center'
+                  className='rounded-lg border border-white/10 bg-white/5 p-3 text-center hover:bg-white/10 transition-colors'
+                  role='img'
+                  aria-label={`${item.v} ${item.desc}`}
                 >
-                  <div className='text-xl font-semibold text-white'>
+                  <div className='text-lg sm:text-xl font-semibold text-white'>
                     {item.v}
                   </div>
-                  <div className='text-[11px] tracking-wider text-gray-400 uppercase'>
+                  <div className='text-[10px] sm:text-[11px] tracking-wider text-gray-400 uppercase leading-tight'>
                     {item.k}
                   </div>
                 </div>
