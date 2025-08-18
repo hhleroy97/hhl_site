@@ -83,30 +83,191 @@ function DataParticle({
   )
 }
 
-// Connection line between nodes
-function Connection({
+// Circuit board style data packet following orthogonal routing
+function CircuitDataPacket({
+  start,
+  end,
+  speed = 1,
+  color = '#00d4aa',
+  delay = 0,
+}: {
+  start: [number, number, number]
+  end: [number, number, number]
+  speed?: number
+  color?: string
+  delay?: number
+}) {
+  const meshRef = useRef<THREE.Mesh>(null)
+
+  // Calculate route path matching CircuitTrace
+  const routePath = useMemo(() => {
+    const [sx, sy, sz] = start
+    const [ex, ey, ez] = end
+
+    return [
+      { pos: [sx, sy, sz], length: 0 },
+      { pos: [sx + (ex - sx) * 0.3, sy, sz], length: 0.3 },
+      { pos: [sx + (ex - sx) * 0.3, sy + (ey - sy) * 0.5, sz], length: 0.5 },
+      { pos: [sx + (ex - sx) * 0.7, sy + (ey - sy) * 0.5, sz], length: 0.7 },
+      { pos: [sx + (ex - sx) * 0.7, ey, ez], length: 0.9 },
+      { pos: [ex, ey, ez], length: 1.0 },
+    ]
+  }, [start, end])
+
+  useFrame(state => {
+    if (meshRef.current) {
+      const t = ((state.clock.elapsedTime * speed + delay) % 3) / 3
+
+      // Find which segment we're on
+      let segmentIndex = 0
+      for (let i = 1; i < routePath.length; i++) {
+        if (t <= routePath[i].length) {
+          segmentIndex = i - 1
+          break
+        }
+      }
+
+      const currentSeg = routePath[segmentIndex]
+      const nextSeg = routePath[segmentIndex + 1] || routePath[segmentIndex]
+
+      const segmentLength = nextSeg.length - currentSeg.length
+      const segmentT =
+        segmentLength > 0 ? (t - currentSeg.length) / segmentLength : 0
+
+      const x =
+        currentSeg.pos[0] + (nextSeg.pos[0] - currentSeg.pos[0]) * segmentT
+      const y =
+        currentSeg.pos[1] + (nextSeg.pos[1] - currentSeg.pos[1]) * segmentT
+      const z =
+        currentSeg.pos[2] + (nextSeg.pos[2] - currentSeg.pos[2]) * segmentT
+
+      meshRef.current.position.set(x, y, z)
+      meshRef.current.scale.setScalar(
+        0.6 + Math.sin(state.clock.elapsedTime * 6 + delay) * 0.15
+      )
+    }
+  })
+
+  return (
+    <mesh ref={meshRef}>
+      <boxGeometry args={[0.08, 0.04, 0.04]} />
+      <meshStandardMaterial
+        color={color}
+        emissive={color}
+        emissiveIntensity={1.0}
+        roughness={0.2}
+      />
+    </mesh>
+  )
+}
+
+// Ribbon cable connection with 90-degree turns and multiple parallel lines
+function RibbonCable({
   start,
   end,
   color = '#00d4aa',
   opacity = 0.6,
+  cableCount = 3,
+}: {
+  start: [number, number, number]
+  end: [number, number, number]
+  color?: string
+  opacity?: number
+  cableCount?: number
+}) {
+  const cablePaths = useMemo(() => {
+    const paths = []
+    const [sx, sy, sz] = start
+    const [ex, ey, ez] = end
+
+    // Calculate intermediate points for 90-degree routing
+    const midX = sx + (ex - sx) * 0.6
+    const mid2Y = ey
+
+    // Create multiple parallel cable paths with slight offsets
+    for (let i = 0; i < cableCount; i++) {
+      const offset = (i - Math.floor(cableCount / 2)) * 0.05
+
+      // Create path with 90-degree turns
+      const points = [
+        new THREE.Vector3(sx, sy + offset * 0.5, sz + offset),
+        new THREE.Vector3(midX, sy + offset * 0.5, sz + offset),
+        new THREE.Vector3(midX, mid2Y + offset * 0.5, sz + offset),
+        new THREE.Vector3(ex, ey + offset * 0.5, ez + offset),
+      ]
+
+      paths.push({ points, offset })
+    }
+
+    return paths
+  }, [start, end, cableCount])
+
+  return (
+    <group>
+      {cablePaths.map((path, i) => (
+        <Line
+          key={i}
+          points={path.points}
+          color={color}
+          lineWidth={1.5}
+          transparent
+          opacity={opacity - path.offset * 0.1}
+        />
+      ))}
+    </group>
+  )
+}
+
+// Circuit board trace - more complex routing patterns
+function CircuitTrace({
+  start,
+  end,
+  color = '#00d4aa',
+  opacity = 0.4,
 }: {
   start: [number, number, number]
   end: [number, number, number]
   color?: string
   opacity?: number
 }) {
-  const points = useMemo(
-    () => [new THREE.Vector3(...start), new THREE.Vector3(...end)],
-    [start, end]
-  )
+  const tracePath = useMemo(() => {
+    const [sx, sy, sz] = start
+    const [ex, ey, ez] = end
+
+    // Create circuit board-style routing with multiple turns
+    const points = []
+
+    // Start point
+    points.push(new THREE.Vector3(sx, sy, sz))
+
+    // First horizontal segment
+    const seg1X = sx + (ex - sx) * 0.3
+    points.push(new THREE.Vector3(seg1X, sy, sz))
+
+    // First vertical turn
+    const seg2Y = sy + (ey - sy) * 0.5
+    points.push(new THREE.Vector3(seg1X, seg2Y, sz))
+
+    // Second horizontal segment
+    const seg3X = sx + (ex - sx) * 0.7
+    points.push(new THREE.Vector3(seg3X, seg2Y, sz))
+
+    // Final approach
+    points.push(new THREE.Vector3(seg3X, ey, ez))
+    points.push(new THREE.Vector3(ex, ey, ez))
+
+    return points
+  }, [start, end])
 
   return (
     <Line
-      points={points}
+      points={tracePath}
       color={color}
-      lineWidth={2}
+      lineWidth={1}
       transparent
       opacity={opacity}
+      dashSize={0.1}
+      gapSize={0.05}
     />
   )
 }
@@ -249,14 +410,26 @@ function DataTransferVisualization() {
         />
       ))}
 
-      {/* Render connections */}
+      {/* Render ribbon cable connections */}
       {connections.map((conn, i) => (
-        <Connection
-          key={i}
+        <RibbonCable
+          key={`ribbon-${i}`}
           start={conn.start}
           end={conn.end}
           color={conn.color}
-          opacity={0.4}
+          opacity={0.6}
+          cableCount={3 + (i % 2)} // Vary cable count for visual interest
+        />
+      ))}
+
+      {/* Render circuit board traces as secondary connections */}
+      {connections.map((conn, i) => (
+        <CircuitTrace
+          key={`trace-${i}`}
+          start={conn.start}
+          end={conn.end}
+          color={conn.color}
+          opacity={0.3}
         />
       ))}
 
@@ -281,6 +454,30 @@ function DataTransferVisualization() {
           color={conn.color}
           speed={1.2 + Math.random() * 0.3}
           delay={i * 0.5 + 1}
+        />
+      ))}
+
+      {/* Circuit board data packets following orthogonal routes */}
+      {connections.map((conn, i) => (
+        <CircuitDataPacket
+          key={`circuit-packet-${i}`}
+          start={conn.start}
+          end={conn.end}
+          color={conn.color}
+          speed={0.6 + Math.random() * 0.3}
+          delay={i * 0.4 + 2}
+        />
+      ))}
+
+      {/* Additional circuit packets in reverse */}
+      {connections.slice(0, 3).map((conn, i) => (
+        <CircuitDataPacket
+          key={`circuit-packet-reverse-${i}`}
+          start={conn.end}
+          end={conn.start}
+          color={conn.color}
+          speed={0.8 + Math.random() * 0.4}
+          delay={i * 0.6 + 4}
         />
       ))}
 
