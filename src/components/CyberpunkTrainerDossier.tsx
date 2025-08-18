@@ -10,7 +10,7 @@ import {
   Users,
   CheckSquare,
 } from 'lucide-react'
-import characterProfile from '../assets/character-profile.png'
+import profPic from '../assets/prof-pic.png'
 
 interface Service {
   id: string
@@ -538,9 +538,9 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   <div className='relative w-full h-full flex items-center justify-center'>
                     <div className='w-full h-full max-w-[90%] max-h-[90%] aspect-square border-3 border-cyberpunk-neon rounded-2xl overflow-hidden shadow-2xl shadow-cyberpunk-neon/30'>
                       <img
-                        src={characterProfile}
+                        src={profPic}
                         alt='Hartley H. Leroy'
-                        className='w-full h-full object-contain bg-gradient-to-br from-slate-900 to-slate-800'
+                        className='w-full h-full object-cover scale-110 cyberpunk-id-photo'
                       />
                     </div>
                     {/* Sprite Glow Effect */}
@@ -646,6 +646,19 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
         @keyframes pulseGlow {
           0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
           50% { box-shadow: 0 0 40px rgba(0, 255, 255, 0.6); }
+        }
+        .cyberpunk-id-photo {
+          filter: 
+            contrast(1.2) 
+            brightness(1.1) 
+            saturate(0.8) 
+            hue-rotate(5deg) 
+            sepia(0.1);
+          background: linear-gradient(135deg, 
+            rgba(0,255,255,0.05) 0%, 
+            transparent 20%, 
+            transparent 80%, 
+            rgba(255,0,255,0.05) 100%);
         }
       `}</style>
     </div>
