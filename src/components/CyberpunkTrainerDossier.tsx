@@ -589,7 +589,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                       >
                         {/* Badge Container */}
                         <div
-                          className={`relative p-2 rounded-lg border-2 transition-all duration-300 overflow-hidden aspect-square flex flex-col items-center justify-center ${
+                          className={`relative p-4 rounded-lg border-2 transition-all duration-300 overflow-hidden aspect-square flex flex-col items-center justify-center ${
                             selectedItem === `skill-${skill.id}`
                               ? 'bg-cyberpunk-neon/25 border-cyberpunk-neon shadow-xl shadow-cyberpunk-neon/40'
                               : 'bg-cyberpunk-blue/10 hover:bg-cyberpunk-blue/20 border-cyberpunk-neon/30 hover:border-cyberpunk-neon/60'
@@ -609,7 +609,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
 
                           <div className='relative z-10 flex flex-col items-center justify-center h-full'>
                             {/* Icon */}
-                            <div className='w-6 h-6 mb-1 relative flex-shrink-0'>
+                            <div className='w-12 h-12 mb-2 relative flex-shrink-0'>
                               <img
                                 src={skill.icon}
                                 alt={skill.title}
@@ -621,7 +621,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                             </div>
 
                             {/* Title */}
-                            <div className='text-cyberpunk-neon font-mono text-xs font-bold leading-tight text-center'>
+                            <div className='text-cyberpunk-neon font-mono text-sm font-bold leading-tight text-center'>
                               {skill.title.split(' ')[0]}
                             </div>
                           </div>
