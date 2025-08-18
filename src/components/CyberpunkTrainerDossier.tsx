@@ -282,24 +282,13 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
         <div className='absolute bottom-4 right-4 w-8 h-8 border-r-3 border-b-3 border-cyberpunk-neon animate-pulse' />
 
         <div className='relative z-10 p-2'>
-          {/* Compact Header Section with Left-Aligned Sprite */}
+          {/* Compact Header Section */}
           <motion.div
             className='flex items-center gap-3 mb-2 pb-2 border-b border-cyberpunk-neon/30'
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            {/* Simple Sprite */}
-            <div className='relative flex-shrink-0'>
-              <div className='w-10 h-10 border-2 border-cyberpunk-neon rounded-lg overflow-hidden'>
-                <img
-                  src={characterProfile}
-                  alt='Hartley H. Leroy'
-                  className='w-full h-full object-contain'
-                />
-              </div>
-            </div>
-
             {/* Header Content */}
             <div className='flex-1'>
               {/* Name + Tagline */}
@@ -374,7 +363,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
             <div className='relative grid grid-cols-1 lg:grid-cols-12 gap-2 lg:items-stretch'>
               {/* Left Panel: Core Services Navigation */}
               <motion.div
-                className='lg:col-span-4 relative'
+                className='lg:col-span-3 relative'
                 initial={{ x: -50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.8 }}
@@ -450,9 +439,9 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 </div>
               </motion.div>
 
-              {/* Right Panel: Dominant Info Display */}
+              {/* Center Panel: Dominant Info Display */}
               <motion.div
-                className='lg:col-span-8 relative'
+                className='lg:col-span-6 relative'
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1 }}
@@ -547,6 +536,33 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   {/* Depth Corner Effects */}
                   <div className='absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-cyberpunk-neon/10 to-transparent rounded-tl-full' />
                   <div className='absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-cyberpunk-pink/10 to-transparent rounded-br-full' />
+                </div>
+              </motion.div>
+
+              {/* Right Panel: Character Sprite */}
+              <motion.div
+                className='lg:col-span-3 relative'
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 1.2 }}
+              >
+                <div className='relative bg-gradient-to-br from-slate-700/50 to-slate-800/50 border-2 border-cyberpunk-pink/30 rounded-xl p-4 backdrop-blur-sm h-full flex items-center justify-center'>
+                  {/* Sprite Glow */}
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-pink/5 to-cyberpunk-neon/5' />
+                  <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyberpunk-pink/60 to-transparent' />
+
+                  {/* Character Sprite - Large */}
+                  <div className='relative w-full h-full flex items-center justify-center'>
+                    <div className='w-full h-full max-w-[90%] max-h-[90%] aspect-square border-3 border-cyberpunk-neon rounded-2xl overflow-hidden shadow-2xl shadow-cyberpunk-neon/30'>
+                      <img
+                        src={characterProfile}
+                        alt='Hartley H. Leroy'
+                        className='w-full h-full object-contain bg-gradient-to-br from-slate-900 to-slate-800'
+                      />
+                    </div>
+                    {/* Sprite Glow Effect */}
+                    <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-neon/20 via-transparent to-cyberpunk-pink/20 animate-pulse' />
+                  </div>
                 </div>
               </motion.div>
             </div>
