@@ -10,7 +10,7 @@ const CyberpunkTrainerDossierDemo: React.FC<
   CyberpunkTrainerDossierDemoProps
 > = ({ onEnterPortfolio }) => {
   return (
-    <div className='min-h-screen bg-cyberpunk-dark relative overflow-hidden'>
+    <div className='h-screen bg-cyberpunk-dark relative overflow-hidden'>
       {/* Animated Grid Background */}
       <div className='absolute inset-0 opacity-5'>
         <div
@@ -36,7 +36,7 @@ const CyberpunkTrainerDossierDemo: React.FC<
         <div className='scanlines h-full w-full' />
       </div>
 
-      <div className='flex items-center justify-center min-h-screen relative z-10 p-4'>
+      <div className='flex items-center justify-center h-screen relative z-10 p-4'>
         <div className='w-full max-w-6xl'>
           {/* Main Trainer Dossier - No Delays */}
           <motion.div
