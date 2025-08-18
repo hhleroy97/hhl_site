@@ -12,8 +12,7 @@ import {
   Award,
   Globe,
 } from 'lucide-react'
-// import profPic from '../assets/prof-pic.png'
-const profPic = '/src/assets/character-profile.png' // Using existing character profile image
+import profPic from '../assets/prof-pic.png'
 
 interface Service {
   id: string
