@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export default function Hero() {
   return (
-    <section className='relative pt-28 pb-20 px-4 sm:px-6 lg:px-8'>
+    <section className='relative pt-16 pb-12 px-4 sm:px-6 lg:px-8'>
       {/* soft radial glow */}
       <div
         className='pointer-events-none absolute inset-0 opacity-30'
@@ -26,7 +26,7 @@ export default function Hero() {
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
           {/* Left column */}
           <motion.div
-            className='space-y-6'
+            className='space-y-4'
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
@@ -44,7 +44,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
-              className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-extrabold text-white leading-tight'
+              className='text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-extrabold text-white leading-tight'
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.7 }}
@@ -60,7 +60,7 @@ export default function Hero() {
             </motion.h1>
 
             <motion.p
-              className='max-w-2xl text-lg text-gray-300/90 font-display'
+              className='max-w-2xl text-base text-gray-300/90 font-display'
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.6 }}
@@ -118,7 +118,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.div
-              className='mt-6 grid grid-cols-3 gap-4 max-w-md'
+              className='mt-4 grid grid-cols-3 gap-3 max-w-md'
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.65, duration: 0.6 }}
@@ -130,12 +130,12 @@ export default function Hero() {
               ].map(item => (
                 <div
                   key={item.k}
-                  className='rounded-lg border border-white/10 bg-white/5 p-3 text-center'
+                  className='rounded-lg border border-white/10 bg-white/5 p-2 text-center'
                 >
-                  <div className='text-xl font-semibold text-white'>
+                  <div className='text-lg font-semibold text-white'>
                     {item.v}
                   </div>
-                  <div className='text-[11px] tracking-wider text-gray-400 uppercase'>
+                  <div className='text-[10px] tracking-wider text-gray-400 uppercase'>
                     {item.k}
                   </div>
                 </div>
@@ -150,7 +150,7 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
-            <div className='relative w-[22rem] h-[22rem] sm:w-[26rem] sm:h-[26rem]'>
+            <div className='relative w-[18rem] h-[18rem] sm:w-[20rem] sm:h-[20rem]'>
               {/* aura */}
               <div
                 className='absolute -inset-8 rounded-full bg-gradient-radial from-primary-500/25 to-transparent blur-2xl'

@@ -9,13 +9,13 @@ export default function Header() {
       transition={{ duration: 0.8, delay: 0.2 }}
     >
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='flex items-center justify-between h-16'>
+        <div className='flex items-center justify-between h-12'>
           {/* Logo/Name */}
           <motion.div
             className='flex items-center'
             whileHover={{ scale: 1.05 }}
           >
-            <h1 className='text-xl font-cyber font-bold text-cyberpunk-neon tracking-wider'>
+            <h1 className='text-lg font-cyber font-bold text-cyberpunk-neon tracking-wider'>
               H.H.L
             </h1>
           </motion.div>
