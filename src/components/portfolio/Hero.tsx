@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import { Suspense, lazy } from 'react'
 
-// Lazy load the 3D scene for performance
-const Scene3D = lazy(() => import('../3d/Scene3D'))
+// Lazy load the simple 3D scene for performance
+const SimpleScene3D = lazy(() => import('../3d/SimpleScene3D'))
 
 export default function Hero() {
   return (
@@ -191,7 +191,7 @@ export default function Hero() {
                   </div>
                 }
               >
-                <Scene3D className='w-full h-full' interactive={true} />
+                <SimpleScene3D className='w-full h-full' />
               </Suspense>
 
               {/* Artistic glow effect around 3D scene */}
