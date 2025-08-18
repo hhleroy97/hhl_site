@@ -43,25 +43,25 @@ export default function Contact() {
       name: 'GitHub',
       url: 'https://github.com/hartleyhleroy',
       icon: '📱',
-      color: 'cyberpunk-neon',
+      color: 'tech-neon',
     },
     {
       name: 'LinkedIn',
       url: 'https://linkedin.com/in/hartleyhleroy',
       icon: '💼',
-      color: 'cyberpunk-blue',
+      color: 'tech-blue',
     },
     {
       name: 'Instagram',
       url: 'https://instagram.com/hartleyhleroy',
       icon: '🎨',
-      color: 'cyberpunk-pink',
+      color: 'tech-pink',
     },
     {
       name: 'Email',
       url: 'mailto:contact@hartleyleroy.dev',
       icon: '📧',
-      color: 'cyberpunk-purple',
+      color: 'tech-purple',
     },
   ]
 
@@ -77,9 +77,9 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
         >
           <h2 className='text-4xl sm:text-5xl font-cyber font-bold text-white mb-4'>
-            GET IN <span className='text-cyberpunk-neon'>TOUCH</span>
+            GET IN <span className='text-tech-neon'>TOUCH</span>
           </h2>
-          <div className='w-24 h-1 bg-cyberpunk-neon mx-auto mb-6' />
+          <div className='w-24 h-1 bg-tech-neon mx-auto mb-6' />
           <p className='text-lg text-gray-400 font-display max-w-2xl mx-auto'>
             Ready to collaborate on something amazing? Let's build the future
             together.
@@ -95,7 +95,7 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className='text-2xl font-cyber font-bold text-cyberpunk-neon mb-6'>
+            <h3 className='text-2xl font-cyber font-bold text-tech-neon mb-6'>
               SEND MESSAGE
             </h3>
 
@@ -114,14 +114,14 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className='w-full px-4 py-3 bg-cyberpunk-dark-alt border-2 border-cyberpunk-neon/30 
+                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
                            rounded-lg text-white font-display placeholder-gray-500
-                           focus:border-cyberpunk-neon focus:outline-none focus:ring-2 focus:ring-cyberpunk-neon/20
+                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
                            transition-all duration-300'
                   placeholder='Your Name'
                 />
                 <motion.div
-                  className='absolute inset-0 border-2 border-cyberpunk-neon rounded-lg opacity-0'
+                  className='absolute inset-0 border-2 border-tech-neon rounded-lg opacity-0'
                   whileFocus={{ opacity: 1, scale: 1.02 }}
                   transition={{ duration: 0.2 }}
                 />
@@ -141,9 +141,9 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className='w-full px-4 py-3 bg-cyberpunk-dark-alt border-2 border-cyberpunk-neon/30 
+                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
                            rounded-lg text-white font-display placeholder-gray-500
-                           focus:border-cyberpunk-neon focus:outline-none focus:ring-2 focus:ring-cyberpunk-neon/20
+                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
                            transition-all duration-300'
                   placeholder='Your Email'
                 />
@@ -163,9 +163,9 @@ export default function Contact() {
                   value={formData.subject}
                   onChange={handleInputChange}
                   required
-                  className='w-full px-4 py-3 bg-cyberpunk-dark-alt border-2 border-cyberpunk-neon/30 
+                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
                            rounded-lg text-white font-display placeholder-gray-500
-                           focus:border-cyberpunk-neon focus:outline-none focus:ring-2 focus:ring-cyberpunk-neon/20
+                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
                            transition-all duration-300'
                   placeholder='Subject'
                 />
@@ -185,9 +185,9 @@ export default function Contact() {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className='w-full px-4 py-3 bg-cyberpunk-dark-alt border-2 border-cyberpunk-neon/30 
+                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
                            rounded-lg text-white font-display placeholder-gray-500 resize-none
-                           focus:border-cyberpunk-neon focus:outline-none focus:ring-2 focus:ring-cyberpunk-neon/20
+                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
                            transition-all duration-300'
                   placeholder='Your Message'
                 />
@@ -197,8 +197,8 @@ export default function Contact() {
               <motion.button
                 type='submit'
                 disabled={isSubmitting}
-                className='w-full px-6 py-4 bg-cyberpunk-neon text-black font-cyber font-bold rounded-lg
-                         hover:bg-cyberpunk-pink hover:shadow-lg hover:shadow-cyberpunk-pink/30
+                className='w-full px-6 py-4 bg-tech-neon text-black font-cyber font-bold rounded-lg
+                         hover:bg-tech-pink hover:shadow-lg hover:shadow-tech-pink/30
                          disabled:opacity-50 disabled:cursor-not-allowed
                          transition-all duration-300'
                 whileHover={{
@@ -247,21 +247,19 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <h3 className='text-2xl font-cyber font-bold text-cyberpunk-neon mb-6'>
+            <h3 className='text-2xl font-cyber font-bold text-tech-neon mb-6'>
               CONNECT WITH ME
             </h3>
 
             {/* Direct contact info */}
             <div className='space-y-4'>
               <motion.div
-                className='flex items-center space-x-4 p-4 bg-cyberpunk-dark-alt rounded-lg border border-cyberpunk-neon/20'
+                className='flex items-center space-x-4 p-4 bg-tech-dark-alt rounded-lg border border-tech-neon/20'
                 whileHover={{ scale: 1.02, borderColor: '#00ffff' }}
               >
                 <span className='text-2xl'>📧</span>
                 <div>
-                  <p className='font-cyber font-bold text-cyberpunk-neon'>
-                    Email
-                  </p>
+                  <p className='font-cyber font-bold text-tech-neon'>Email</p>
                   <p className='text-gray-300 font-display'>
                     contact@hartleyleroy.dev
                   </p>
@@ -269,12 +267,12 @@ export default function Contact() {
               </motion.div>
 
               <motion.div
-                className='flex items-center space-x-4 p-4 bg-cyberpunk-dark-alt rounded-lg border border-cyberpunk-neon/20'
+                className='flex items-center space-x-4 p-4 bg-tech-dark-alt rounded-lg border border-tech-neon/20'
                 whileHover={{ scale: 1.02, borderColor: '#00ffff' }}
               >
                 <span className='text-2xl'>📍</span>
                 <div>
-                  <p className='font-cyber font-bold text-cyberpunk-neon'>
+                  <p className='font-cyber font-bold text-tech-neon'>
                     Location
                   </p>
                   <p className='text-gray-300 font-display'>
@@ -296,8 +294,8 @@ export default function Contact() {
                     href={link.url}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='flex items-center space-x-3 p-4 bg-cyberpunk-dark-alt rounded-lg 
-                             border border-gray-600 hover:border-cyberpunk-neon/60
+                    className='flex items-center space-x-3 p-4 bg-tech-dark-alt rounded-lg 
+                             border border-gray-600 hover:border-tech-neon/60
                              transition-all duration-300'
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
@@ -326,9 +324,9 @@ export default function Contact() {
               <motion.a
                 href='/resume.pdf'
                 download
-                className='inline-flex items-center px-6 py-3 border-2 border-cyberpunk-purple text-cyberpunk-purple 
-                         font-cyber font-bold rounded-lg hover:bg-cyberpunk-purple hover:text-black 
-                         hover:shadow-lg hover:shadow-cyberpunk-purple/30 transition-all duration-300'
+                className='inline-flex items-center px-6 py-3 border-2 border-tech-purple text-tech-purple 
+                         font-cyber font-bold rounded-lg hover:bg-tech-purple hover:text-black 
+                         hover:shadow-lg hover:shadow-tech-purple/30 transition-all duration-300'
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >

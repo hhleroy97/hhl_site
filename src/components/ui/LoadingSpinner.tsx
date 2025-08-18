@@ -25,11 +25,11 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   }
 
   return (
-    <div 
+    <div
       className={`flex flex-col items-center justify-center ${className}`}
-      role="status"
-      aria-live="polite"
-      aria-label="Loading content"
+      role='status'
+      aria-live='polite'
+      aria-label='Loading content'
     >
       {/* Modern spinner design */}
       <motion.div
@@ -37,13 +37,13 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
         animate={{ rotate: 360 }}
         transition={{ duration: 1.2, repeat: Infinity, ease: 'linear' }}
       >
-        <div className="absolute inset-0 rounded-full border-2 border-cyberpunk-text-disabled/20" />
-        <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-cyberpunk-neon" />
+        <div className='absolute inset-0 rounded-full border-2 border-tech-text-disabled/20' />
+        <div className='absolute inset-0 rounded-full border-2 border-transparent border-t-tech-neon' />
       </motion.div>
-      
+
       {text && (
         <motion.p
-          className={`text-cyberpunk-text-secondary font-body ${textSizes[size]} mt-4 font-medium`}
+          className={`text-tech-text-secondary font-body ${textSizes[size]} mt-4 font-medium`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
@@ -51,9 +51,9 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
           {text}
         </motion.p>
       )}
-      
+
       {/* Screen reader only text */}
-      <span className="sr-only">Loading, please wait...</span>
+      <span className='sr-only'>Loading, please wait...</span>
     </div>
   )
 }

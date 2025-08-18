@@ -2,11 +2,11 @@
 
 /* Focus Management */
 .focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-cyberpunk-neon focus:ring-offset-2 focus:ring-offset-cyberpunk-dark;
+  @apply focus:outline-none focus:ring-2 focus:ring-tech-teal focus:ring-offset-2 focus:ring-offset-tech-dark;
 }
 
 .focus-visible-ring {
-  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyberpunk-neon focus-visible:ring-offset-2 focus-visible:ring-offset-cyberpunk-dark;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tech-teal focus-visible:ring-offset-2 focus:ring-offset-tech-dark;
 }
 
 /* Enhanced Button Styles */
@@ -15,16 +15,16 @@
 }
 
 .btn-secondary {
-  @apply px-6 py-3 bg-cyberpunk-dark-surface hover:bg-cyberpunk-dark-elevated text-cyberpunk-text-primary border border-cyberpunk-text-disabled/20 hover:border-cyberpunk-text-disabled/40 font-display font-medium rounded-lg transition-all duration-300 focus-ring;
+  @apply px-6 py-3 bg-tech-dark-surface hover:bg-tech-dark-elevated text-tech-text-primary border border-tech-text-disabled/20 hover:border-tech-text-disabled/40 font-display font-medium rounded-lg transition-all duration-300 focus-ring;
 }
 
 .btn-ghost {
-  @apply px-4 py-2 bg-transparent hover:bg-cyberpunk-dark-surface/50 text-cyberpunk-text-secondary hover:text-cyberpunk-text-primary border border-transparent hover:border-cyberpunk-text-disabled/20 font-display font-medium rounded-lg transition-all duration-300 focus-ring;
+  @apply px-4 py-2 bg-transparent hover:bg-tech-dark-surface/50 text-tech-text-secondary hover:text-tech-text-primary border border-transparent hover:border-tech-text-disabled/20 font-display font-medium rounded-lg transition-all duration-300 focus-ring;
 }
 
 /* Card Styles */
 .card-base {
-  @apply bg-cyberpunk-dark-surface border border-cyberpunk-text-disabled/10 rounded-xl backdrop-blur-sm;
+  @apply bg-tech-dark-surface border border-tech-text-disabled/10 rounded-xl backdrop-blur-sm;
 }
 
 .card-elevated {
@@ -32,16 +32,16 @@
 }
 
 .card-surface {
-  @apply bg-cyberpunk-dark-surface/80 border border-cyberpunk-text-disabled/10 rounded-lg backdrop-blur-sm;
+  @apply bg-tech-dark-surface/80 border border-tech-text-disabled/10 rounded-lg backdrop-blur-sm;
 }
 
 /* Text Utilities */
 .text-gradient-primary {
-  @apply bg-gradient-to-r from-cyberpunk-neon to-primary-400 bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-tech-teal to-primary-400 bg-clip-text text-transparent;
 }
 
 .text-gradient-accent {
-  @apply bg-gradient-to-r from-cyberpunk-pink to-cyberpunk-purple bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-tech-coral to-tech-purple bg-clip-text text-transparent;
 }
 
 /* Accessibility Utilities */
@@ -71,7 +71,7 @@
 
 /* Skip Link */
 .skip-link {
-  @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-cyberpunk-neon text-black font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white;
+  @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-tech-teal text-black font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white;
 }
 
 /* Reduced Motion Support */
@@ -156,7 +156,7 @@
 }
 
 .interactive-subtle {
-  @apply transition-all duration-200 hover:bg-cyberpunk-dark-surface/50 focus-ring;
+  @apply transition-all duration-200 hover:bg-tech-dark-surface/50 focus-ring;
 }
 
 /* Layout Utilities */
@@ -174,34 +174,34 @@
 
 /* Typography Enhancements */
 .heading-primary {
-  @apply text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-cyberpunk-text-primary leading-tight;
+  @apply text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-tech-text-primary leading-tight;
 }
 
 .heading-secondary {
-  @apply text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-cyberpunk-text-primary leading-tight;
+  @apply text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-tech-text-primary leading-tight;
 }
 
 .heading-tertiary {
-  @apply text-xl sm:text-2xl font-display font-semibold text-cyberpunk-text-primary;
+  @apply text-xl sm:text-2xl font-display font-semibold text-tech-text-primary;
 }
 
 .body-large {
-  @apply text-lg text-cyberpunk-text-secondary leading-relaxed;
+  @apply text-lg text-tech-text-secondary leading-relaxed;
 }
 
 .body-small {
-  @apply text-sm text-cyberpunk-text-muted leading-relaxed;
+  @apply text-sm text-tech-text-muted leading-relaxed;
 }
 
 /* Status Indicators */
 .status-online {
-  @apply w-2 h-2 rounded-full bg-cyberpunk-green animate-pulse;
+  @apply w-2 h-2 rounded-full bg-tech-green animate-pulse;
 }
 
 .status-busy {
-  @apply w-2 h-2 rounded-full bg-cyberpunk-yellow;
+  @apply w-2 h-2 rounded-full bg-tech-yellow;
 }
 
 .status-offline {
-  @apply w-2 h-2 rounded-full bg-cyberpunk-text-disabled;
+  @apply w-2 h-2 rounded-full bg-tech-text-disabled;
 }

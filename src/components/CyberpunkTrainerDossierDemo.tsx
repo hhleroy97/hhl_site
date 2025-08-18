@@ -10,7 +10,7 @@ const CyberpunkTrainerDossierDemo: React.FC<
   CyberpunkTrainerDossierDemoProps
 > = ({ onEnterPortfolio }) => {
   return (
-    <div className='min-h-screen bg-cyberpunk-dark relative overflow-hidden'>
+    <div className='min-h-screen bg-tech-dark relative overflow-hidden'>
       {/* Animated Grid Background */}
       <div className='absolute inset-0 opacity-5'>
         <div

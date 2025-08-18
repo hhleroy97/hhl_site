@@ -17,7 +17,7 @@ export const Heading: React.FC<HeadingProps> = ({
   className = '',
   gradient = false,
 }) => {
-  const baseClasses = 'font-display font-bold text-cyberpunk-text-primary'
+  const baseClasses = 'font-display font-bold text-tech-text-primary'
   const gradientClasses = gradient ? 'text-gradient-primary' : ''
 
   const levelClasses = {
@@ -64,7 +64,7 @@ export const Text: React.FC<TextProps> = ({
 
   const colorClass = muted
     ? 'text-cyberpunk-text-muted'
-    : 'text-cyberpunk-text-secondary'
+    : 'text-tech-text-secondary'
 
   return (
     <p className={`${variantClasses[variant]} ${colorClass} ${className}`}>
@@ -105,7 +105,7 @@ export const Button: React.FC<ButtonProps> = ({
     secondary: 'btn-secondary',
     ghost: 'btn-ghost',
     outline:
-      'border-2 border-cyberpunk-neon/40 text-cyberpunk-neon hover:bg-cyberpunk-neon/10',
+      'border-2 border-tech-neon/40 text-tech-neon hover:bg-tech-neon/10',
   }
 
   const sizeClasses = {
@@ -153,7 +153,7 @@ export const Card: React.FC<CardProps> = ({
   const variantClasses = {
     surface: 'card-surface',
     elevated: 'card-elevated',
-    outline: 'border border-cyberpunk-text-disabled/20 bg-transparent',
+    outline: 'border border-tech-text-disabled/20 bg-transparent',
   }
 
   const paddingClasses = {
@@ -193,7 +193,7 @@ export const Badge: React.FC<BadgeProps> = ({
   const variantClasses = {
     primary: 'bg-primary-500/20 text-primary-300 border border-primary-500/30',
     secondary:
-      'bg-cyberpunk-text-disabled/20 text-cyberpunk-text-secondary border border-cyberpunk-text-disabled/30',
+      'bg-tech-text-disabled/20 text-tech-text-secondary border border-tech-text-disabled/30',
     success: 'bg-success/20 text-success border border-success/30',
     warning: 'bg-warning/20 text-warning border border-warning/30',
     error: 'bg-error/20 text-error border border-error/30',
@@ -261,10 +261,10 @@ export const Divider: React.FC<DividerProps> = ({
     orientation === 'horizontal' ? 'w-full h-px' : 'h-full w-px'
 
   const variantClasses = {
-    solid: 'bg-cyberpunk-text-disabled/20',
-    dashed: 'border-dashed border-cyberpunk-text-disabled/20',
+    solid: 'bg-tech-text-disabled/20',
+    dashed: 'border-dashed border-tech-text-disabled/20',
     gradient:
-      'bg-gradient-to-r from-transparent via-cyberpunk-neon/30 to-transparent',
+      'bg-gradient-to-r from-transparent via-tech-neon/30 to-transparent',
   }
 
   return (

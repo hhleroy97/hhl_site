@@ -1,78 +1,96 @@
 import { motion } from 'framer-motion'
+import { Suspense, lazy } from 'react'
+
+// Lazy load the 3D scene for performance
+const Scene3D = lazy(() => import('../3d/Scene3D'))
 
 export default function Hero() {
   return (
     <section
-      className='relative pt-20 pb-16 px-6 lg:px-8'
+      className='relative pt-20 pb-16 px-6 lg:px-8 min-h-screen flex items-center'
       aria-label='Introduction and hero section'
     >
-      {/* Subtle background accent - reduced intensity */}
+      {/* Artistic background accent */}
       <div
-        className='pointer-events-none absolute inset-0 opacity-10'
+        className='pointer-events-none absolute inset-0 opacity-20'
         aria-hidden='true'
         style={{
-          backgroundImage:
-            'radial-gradient(800px 400px at 20% 10%, rgba(0, 229, 255, 0.1), transparent 70%)',
+          backgroundImage: `
+            radial-gradient(600px 400px at 20% 30%, rgba(0, 212, 170, 0.15), transparent 70%),
+            radial-gradient(800px 600px at 80% 70%, rgba(139, 92, 246, 0.1), transparent 70%)
+          `,
         }}
       />
 
-      <div className='relative max-w-6xl mx-auto'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'>
+      <div className='relative max-w-7xl mx-auto'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
           {/* Left column - Content */}
           <motion.div
-            className='space-y-8'
+            className='space-y-8 z-10'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
           >
             {/* Professional status badge */}
             <motion.div
-              className='inline-flex items-center gap-3 card-surface px-4 py-2'
+              className='inline-flex items-center gap-3 bg-tech-dark-surface/80 backdrop-blur-sm border border-primary-500/20 rounded-full px-4 py-2'
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.4 }}
             >
-              <div className='w-2 h-2 rounded-full bg-cyberpunk-neon animate-pulse' />
-              <span className='text-sm font-medium text-cyberpunk-text-secondary tracking-wide'>
-                Available for opportunities
+              <div className='w-2 h-2 rounded-full bg-tech-teal animate-pulse' />
+              <span className='text-sm font-medium text-tech-text-secondary tracking-wide'>
+                Innovative Problem Solver
               </span>
             </motion.div>
 
-            {/* Main heading with better hierarchy */}
+            {/* Main heading with emphasis on problem solving */}
             <motion.div
               className='space-y-4'
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <h1 className='text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-cyberpunk-text-primary leading-tight'>
+              <h1 className='text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-tech-text-primary leading-tight'>
                 Hartley H.{' '}
                 <span className='relative'>
-                  <span className='text-cyberpunk-neon'>Leroy</span>
-                  <span
-                    className='absolute -bottom-2 left-0 right-0 h-1 bg-cyberpunk-neon/30 rounded-full'
+                  <span className='text-transparent bg-gradient-to-r from-tech-teal to-tech-cyan bg-clip-text'>
+                    Leroy
+                  </span>
+                  <motion.span
+                    className='absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-tech-teal to-tech-cyan rounded-full'
+                    initial={{ width: 0 }}
+                    animate={{ width: '100%' }}
+                    transition={{ delay: 0.8, duration: 0.8 }}
                     aria-hidden='true'
                   />
                 </span>
               </h1>
 
-              <p className='text-xl text-cyberpunk-text-secondary font-medium'>
-                Cloud & Data Engineer
-              </p>
+              <div className='space-y-2'>
+                <p className='text-xl font-semibold text-tech-text-primary'>
+                  Software Engineer
+                </p>
+                <p className='text-lg text-tech-coral font-medium'>
+                  Specializing in Complex Systems & Technical Communication
+                </p>
+              </div>
             </motion.div>
 
-            {/* Enhanced description */}
+            {/* Enhanced description focusing on problem solving */}
             <motion.p
-              className='text-lg text-cyberpunk-text-secondary leading-relaxed max-w-xl'
+              className='text-lg text-tech-text-secondary leading-relaxed max-w-xl'
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              Specializing in resilient cloud architectures, scalable data
-              systems, and innovative solutions that bridge engineering
-              excellence with creative vision.
+              Bridging technical complexity with clear communication. I solve
+              intricate engineering challenges in robotics, cloud
+              infrastructure, and data systems while ensuring stakeholders at
+              every level understand the impact.
             </motion.p>
 
+            {/* Tech stack with new colors */}
             <motion.div
               className='flex flex-wrap gap-3'
               initial={{ opacity: 0, y: 12 }}
@@ -80,69 +98,71 @@ export default function Hero() {
               transition={{ delay: 0.45, duration: 0.6 }}
             >
               {[
-                'AWS',
-                'GCP',
-                'Kubernetes',
-                'PySpark',
-                'TypeScript',
-                'TouchDesigner',
+                { label: 'AWS IoT', color: 'tech-teal' },
+                { label: 'ROS2/PX4', color: 'tech-purple' },
+                { label: 'Python', color: 'tech-blue' },
+                { label: 'React', color: 'tech-cyan' },
+                { label: 'Embedded C', color: 'tech-coral' },
+                { label: 'Product Mgmt', color: 'tech-gold' },
               ].map(chip => (
                 <span
-                  key={chip}
-                  className='rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs font-mono tracking-wide text-gray-300/90'
+                  key={chip.label}
+                  className='rounded-lg border border-tech-dark-elevated bg-tech-dark-surface/60 backdrop-blur-sm px-3 py-2 text-sm font-mono tracking-wide text-tech-text-secondary hover:border-primary-400/40 transition-colors'
                 >
-                  {chip}
+                  {chip.label}
                 </span>
               ))}
             </motion.div>
 
+            {/* CTA Buttons */}
             <motion.div
-              className='flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 w-full sm:w-auto'
+              className='flex flex-col sm:flex-row gap-4 pt-4'
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.55, duration: 0.6 }}
             >
               <motion.a
                 href='#projects'
-                className='px-6 py-3 rounded-lg bg-primary-500 text-gray-900 font-display font-semibold shadow-sm shadow-primary-500/20 hover:bg-primary-400 transition-colors text-center sm:text-left touch-target focus-ring'
-                whileHover={{ y: -2, scale: 1.03 }}
+                className='px-8 py-4 rounded-lg bg-gradient-to-r from-tech-teal to-tech-cyan text-tech-dark font-display font-bold shadow-lg hover:shadow-tech-teal/25 transition-all text-center'
+                whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                aria-label='View my work and projects'
+                aria-label='View my engineering projects'
               >
-                View Work
+                Explore My Work
               </motion.a>
               <motion.a
                 href='#contact'
-                className='px-6 py-3 rounded-lg border border-white/15 text-white font-display hover:border-primary-400/60 hover:text-primary-200 transition-colors text-center sm:text-left touch-target focus-ring'
-                whileHover={{ y: -2, scale: 1.03 }}
+                className='px-8 py-4 rounded-lg border border-tech-text-muted/30 text-tech-text-primary font-display font-semibold hover:border-tech-teal/60 hover:text-tech-teal transition-all text-center backdrop-blur-sm'
+                whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                aria-label='Get in touch with me'
+                aria-label='Get in touch about opportunities'
               >
-                Get in touch
+                Let's Connect
               </motion.a>
             </motion.div>
 
+            {/* Achievement stats updated with real data */}
             <motion.div
-              className='mt-6 grid grid-cols-3 gap-3 sm:gap-4 max-w-md'
+              className='mt-8 grid grid-cols-3 gap-4 max-w-md'
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.65, duration: 0.6 }}
             >
               {[
-                { k: 'Years', v: '8+', desc: 'Experience' },
-                { k: 'Projects', v: '40+', desc: 'Completed' },
-                { k: 'Installations', v: '12', desc: 'Deployed' },
+                { k: 'Experience', v: '4+', desc: 'Years' },
+                { k: 'Migration', v: '$500K', desc: 'AWS Project' },
+                { k: 'Team', v: '6', desc: 'Engineers Led' },
               ].map(item => (
                 <div
                   key={item.k}
-                  className='rounded-lg border border-white/10 bg-white/5 p-3 text-center hover:bg-white/10 transition-colors'
+                  className='rounded-lg border border-tech-dark-elevated bg-tech-dark-surface/40 backdrop-blur-sm p-4 text-center hover:bg-tech-dark-elevated/60 transition-colors'
                   role='img'
                   aria-label={`${item.v} ${item.desc}`}
                 >
-                  <div className='text-lg sm:text-xl font-semibold text-white'>
+                  <div className='text-xl font-bold text-tech-teal'>
                     {item.v}
                   </div>
-                  <div className='text-[10px] sm:text-[11px] tracking-wider text-gray-400 uppercase leading-tight'>
+                  <div className='text-xs tracking-wide text-tech-text-muted uppercase leading-tight mt-1'>
                     {item.k}
                   </div>
                 </div>
@@ -150,78 +170,41 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right column - Data orbit visual */}
+          {/* Right column - 3D Network Visualization */}
           <motion.div
             className='relative flex justify-center lg:justify-end'
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
-            <div className='relative w-[22rem] h-[22rem] sm:w-[26rem] sm:h-[26rem]'>
-              {/* aura */}
+            <div className='relative w-full max-w-[500px] h-[500px]'>
+              {/* 3D Scene Container */}
+              <Suspense
+                fallback={
+                  <div className='w-full h-full bg-tech-dark-surface/30 rounded-lg border border-tech-dark-elevated flex items-center justify-center'>
+                    <div className='flex flex-col items-center space-y-4'>
+                      <div className='w-8 h-8 border-2 border-tech-teal border-t-transparent rounded-full animate-spin'></div>
+                      <span className='text-tech-text-muted text-sm'>
+                        Loading 3D Network...
+                      </span>
+                    </div>
+                  </div>
+                }
+              >
+                <Scene3D className='w-full h-full' interactive={true} />
+              </Suspense>
+
+              {/* Artistic glow effect around 3D scene */}
               <div
-                className='absolute -inset-8 rounded-full bg-gradient-radial from-primary-500/25 to-transparent blur-2xl'
+                className='absolute -inset-8 rounded-full opacity-30 blur-3xl'
+                style={{
+                  background: `
+                    radial-gradient(circle, rgba(0, 212, 170, 0.3) 0%, transparent 70%),
+                    radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.2) 0%, transparent 50%)
+                  `,
+                }}
                 aria-hidden='true'
               />
-
-              {/* orbit container */}
-              <motion.div
-                className='relative w-full h-full'
-                animate={{ rotate: 360 }}
-                transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-                aria-hidden='true'
-              >
-                {/* outer ring */}
-                <div className='absolute inset-0 rounded-full border border-white/10' />
-                {/* mid ring */}
-                <div className='absolute inset-6 rounded-full border border-white/10' />
-                {/* inner ring */}
-                <div className='absolute inset-12 rounded-full border border-white/10' />
-
-                {/* center node */}
-                <motion.div
-                  className='absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-400 shadow-[0_0_20px_rgba(0,212,245,0.7)]'
-                  animate={{ scale: [1, 1.25, 1], opacity: [0.9, 1, 0.9] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-
-                {/* orbiting nodes */}
-                {Array.from({ length: 12 }).map((_, i) => {
-                  const angle = (i / 12) * Math.PI * 2
-                  const radius = 150
-                  const x = 160 + Math.cos(angle) * radius
-                  const y = 160 + Math.sin(angle) * radius
-                  return (
-                    <motion.div
-                      key={i}
-                      className='absolute h-2 w-2 rounded-full bg-white/80'
-                      style={{ left: x, top: y }}
-                      animate={{ y: [y, y - 8, y], opacity: [0.6, 1, 0.6] }}
-                      transition={{
-                        duration: 2.4,
-                        repeat: Infinity,
-                        delay: i * 0.08,
-                      }}
-                    />
-                  )
-                })}
-
-                {/* data streaks */}
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className='absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-400/70 to-transparent'
-                    style={{ top: `${10 + i * 25}%` }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: [0, 1, 0] }}
-                    transition={{
-                      duration: 2.2,
-                      repeat: Infinity,
-                      delay: i * 0.3,
-                    }}
-                  />
-                ))}
-              </motion.div>
             </div>
           </motion.div>
         </div>

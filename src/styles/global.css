@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-cyberpunk-dark text-cyberpunk-text-primary font-body antialiased;
+    @apply bg-tech-dark text-tech-text-primary font-body antialiased;
     font-feature-settings: 'cv11', 'ss01';
     font-variation-settings: 'opsz' 32;
     /* Better text rendering */
@@ -28,57 +28,57 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-cyberpunk-dark;
+    @apply bg-tech-dark;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-cyberpunk-neon rounded-full;
-    box-shadow: 0 0 10px theme('colors.cyberpunk.neon');
+    @apply bg-tech-teal rounded-full;
+    box-shadow: 0 0 10px theme('colors.tech.teal');
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-cyberpunk-pink;
-    box-shadow: 0 0 15px theme('colors.cyberpunk.pink');
+    @apply bg-tech-cyan;
+    box-shadow: 0 0 15px theme('colors.tech.cyan');
   }
 }
 
 @layer components {
-  /* Professional component classes */
-  .cyberpunk-glow {
-    @apply text-cyberpunk-neon;
+  /* Professional tech component classes */
+  .tech-glow {
+    @apply text-tech-teal;
     text-shadow:
-      0 0 8px theme('colors.cyberpunk.neon'),
-      0 0 16px theme('colors.cyberpunk.neon');
+      0 0 8px theme('colors.tech.teal'),
+      0 0 16px theme('colors.tech.teal');
   }
 
-  .cyberpunk-glow-bright {
-    @apply text-cyberpunk-neon-bright;
+  .tech-glow-bright {
+    @apply text-tech-teal-bright;
     text-shadow:
-      0 0 10px theme('colors.cyberpunk.neon-bright'),
-      0 0 20px theme('colors.cyberpunk.neon-bright'),
-      0 0 40px theme('colors.cyberpunk.neon-bright');
+      0 0 10px theme('colors.tech.teal-bright'),
+      0 0 20px theme('colors.tech.teal-bright'),
+      0 0 40px theme('colors.tech.teal-bright');
   }
 
-  .cyberpunk-border {
-    @apply border border-cyberpunk-neon/60;
-    box-shadow: 0 0 8px theme('colors.cyberpunk.neon');
+  .tech-border {
+    @apply border border-tech-teal/60;
+    box-shadow: 0 0 8px theme('colors.tech.teal');
   }
 
-  .cyberpunk-border-glow {
-    @apply border-2 border-cyberpunk-neon;
+  .tech-border-glow {
+    @apply border-2 border-tech-teal;
     box-shadow:
-      0 0 10px theme('colors.cyberpunk.neon'),
-      inset 0 0 10px theme('colors.cyberpunk.neon');
+      0 0 10px theme('colors.tech.teal'),
+      inset 0 0 10px theme('colors.tech.teal');
   }
 
   /* Professional card styles */
   .card-surface {
-    @apply bg-cyberpunk-dark-surface border border-cyberpunk-text-disabled/20 rounded-xl;
+    @apply bg-tech-dark-surface border border-tech-text-disabled/20 rounded-xl;
     backdrop-filter: blur(8px);
   }
 
   .card-elevated {
-    @apply bg-cyberpunk-dark-elevated border border-cyberpunk-text-muted/30 rounded-xl shadow-xl;
+    @apply bg-tech-dark-elevated border border-tech-text-muted/30 rounded-xl shadow-xl;
     backdrop-filter: blur(12px);
     box-shadow:
       0 10px 25px -5px rgba(0, 0, 0, 0.3),
@@ -88,23 +88,23 @@
 
   /* Accessible focus styles */
   .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-cyberpunk-neon focus:ring-offset-2 focus:ring-offset-cyberpunk-dark;
+    @apply focus:outline-none focus:ring-2 focus:ring-tech-teal focus:ring-offset-2 focus:ring-offset-tech-dark;
   }
 
   /* Professional button styles */
   .btn-primary {
-    @apply px-6 py-3 bg-cyberpunk-neon text-cyberpunk-dark font-medium rounded-lg transition-all duration-200 focus-ring;
-    @apply hover:bg-cyberpunk-neon/90 hover:shadow-lg active:scale-95;
+    @apply px-6 py-3 bg-tech-teal text-tech-dark font-medium rounded-lg transition-all duration-200 focus-ring;
+    @apply hover:bg-tech-teal/90 hover:shadow-lg active:scale-95;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 bg-cyberpunk-dark-surface text-cyberpunk-text-primary border border-cyberpunk-neon/40 font-medium rounded-lg transition-all duration-200 focus-ring;
-    @apply hover:bg-cyberpunk-dark-elevated hover:border-cyberpunk-neon/60 active:scale-95;
+    @apply px-6 py-3 bg-tech-dark-surface text-tech-text-primary border border-tech-teal/40 font-medium rounded-lg transition-all duration-200 focus-ring;
+    @apply hover:bg-tech-dark-elevated hover:border-tech-teal/60 active:scale-95;
   }
 
   .btn-ghost {
-    @apply px-6 py-3 text-cyberpunk-text-secondary font-medium rounded-lg transition-all duration-200 focus-ring;
-    @apply hover:bg-cyberpunk-dark-surface hover:text-cyberpunk-text-primary active:scale-95;
+    @apply px-6 py-3 text-tech-text-secondary font-medium rounded-lg transition-all duration-200 focus-ring;
+    @apply hover:bg-tech-dark-surface hover:text-tech-text-primary active:scale-95;
   }
 
   /* Screen reader only utility */
@@ -150,13 +150,13 @@
 
   .glitch-text::before {
     animation: glitch-1 0.5s infinite;
-    color: theme('colors.cyberpunk.pink');
+    color: theme('colors.tech.coral');
     z-index: -1;
   }
 
   .glitch-text::after {
     animation: glitch-2 0.5s infinite;
-    color: theme('colors.cyberpunk.blue');
+    color: theme('colors.tech.cyan');
     z-index: -2;
   }
 
@@ -258,11 +258,11 @@
   }
 
   /* Reduce excessive glow effects on mobile */
-  .cyberpunk-glow-bright {
+  .tech-glow-bright {
     text-shadow: 0 0 5px currentColor !important;
   }
   /* Mobile-first trainer card layout */
-  .cyberpunk-trainer-card-mobile {
+  .tech-trainer-card-mobile {
     aspect-ratio: unset !important;
     min-height: auto !important;
     max-width: 100% !important;
@@ -409,7 +409,7 @@
 
 /* Desktop scaling for cards */
 @media (min-width: 1024px) {
-  .cyberpunk-trainer-container {
+  .tech-trainer-container {
     transform: scale(1.5) !important;
   }
 }
@@ -433,8 +433,8 @@
     color: black !important;
   }
 
-  .cyberpunk-glow,
-  .cyberpunk-border {
+  .tech-glow,
+  .tech-border {
     color: black !important;
     text-shadow: none !important;
     box-shadow: none !important;

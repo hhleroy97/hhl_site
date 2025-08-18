@@ -56,7 +56,7 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
               {/* Close button */}
               <motion.button
                 onClick={onClose}
-                className='absolute -top-12 right-0 text-white hover:text-cyberpunk-neon 
+                className='absolute -top-12 right-0 text-white hover:text-tech-neon 
                          transition-colors duration-300 z-10'
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -78,7 +78,7 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
 
               {/* Main content container */}
               <motion.div
-                className='relative bg-cyberpunk-dark-alt border-2 border-cyberpunk-neon rounded-xl overflow-hidden'
+                className='relative bg-tech-dark-alt border-2 border-tech-neon rounded-xl overflow-hidden'
                 initial={{
                   opacity: 0,
                   rotateY: 90,
@@ -96,7 +96,7 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
               >
                 {/* Glitch effect during open */}
                 <motion.div
-                  className='absolute inset-0 bg-cyberpunk-pink/20 z-10'
+                  className='absolute inset-0 bg-tech-pink/20 z-10'
                   initial={{ opacity: 0 }}
                   animate={{
                     opacity: [0, 0.7, 0, 0.5, 0],
@@ -109,7 +109,7 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
                 <div className='relative'>
                   {content.type === 'image' ? (
                     <motion.div
-                      className='relative bg-gradient-to-br from-cyberpunk-dark to-cyberpunk-dark-alt'
+                      className='relative bg-gradient-to-br from-tech-dark to-tech-dark-alt'
                       style={{ aspectRatio: '16/9' }}
                       initial={{ scale: 1.1 }}
                       animate={{ scale: 1 }}
@@ -118,7 +118,7 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
                       {/* Placeholder for creative work */}
                       <div className='absolute inset-0 flex items-center justify-center'>
                         <div className='text-center'>
-                          <div className='w-24 h-24 mx-auto mb-4 rounded-lg bg-cyberpunk-neon/20 flex items-center justify-center'>
+                          <div className='w-24 h-24 mx-auto mb-4 rounded-lg bg-tech-neon/20 flex items-center justify-center'>
                             <span className='text-4xl'>🎨</span>
                           </div>
                           <p className='text-lg text-gray-400 font-display'>
@@ -129,7 +129,7 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
 
                       {/* Scan line effect */}
                       <motion.div
-                        className='absolute inset-0 bg-gradient-to-b from-transparent via-cyberpunk-neon to-transparent opacity-20'
+                        className='absolute inset-0 bg-gradient-to-b from-transparent via-tech-neon to-transparent opacity-20'
                         animate={{
                           y: ['-100%', '100%'],
                         }}
@@ -152,7 +152,7 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
                       {/* Video placeholder */}
                       <div className='absolute inset-0 flex items-center justify-center'>
                         <div className='text-center'>
-                          <div className='w-24 h-24 mx-auto mb-4 rounded-lg bg-cyberpunk-pink/20 flex items-center justify-center'>
+                          <div className='w-24 h-24 mx-auto mb-4 rounded-lg bg-tech-pink/20 flex items-center justify-center'>
                             <span className='text-4xl'>▶️</span>
                           </div>
                           <p className='text-lg text-gray-400 font-display'>
@@ -171,7 +171,7 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <h3 className='text-2xl font-cyber font-bold text-cyberpunk-neon'>
+                  <h3 className='text-2xl font-cyber font-bold text-tech-neon'>
                     {content.title}
                   </h3>
 
@@ -186,8 +186,8 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
                       {content.technologies.map(tech => (
                         <span
                           key={tech}
-                          className='px-3 py-1 text-xs font-mono bg-cyberpunk-dark border border-cyberpunk-neon/30 
-                                   text-cyberpunk-neon rounded-full'
+                          className='px-3 py-1 text-xs font-mono bg-tech-dark border border-tech-neon/30 
+                                   text-tech-neon rounded-full'
                         >
                           {tech}
                         </span>
@@ -197,10 +197,10 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
                 </motion.div>
 
                 {/* Corner brackets */}
-                <div className='absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-cyberpunk-neon' />
-                <div className='absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-cyberpunk-neon' />
-                <div className='absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-cyberpunk-neon' />
-                <div className='absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-cyberpunk-neon' />
+                <div className='absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-tech-neon' />
+                <div className='absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-tech-neon' />
+                <div className='absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-tech-neon' />
+                <div className='absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-tech-neon' />
               </motion.div>
             </div>
           </motion.div>

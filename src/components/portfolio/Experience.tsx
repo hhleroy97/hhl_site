@@ -24,9 +24,9 @@ export default function Experience() {
           transition={{ duration: 0.8 }}
         >
           <h2 className='text-4xl sm:text-5xl font-cyber font-bold text-white mb-4'>
-            MY <span className='text-cyberpunk-neon'>EXPERIENCE</span>
+            MY <span className='text-tech-neon'>EXPERIENCE</span>
           </h2>
-          <div className='w-24 h-1 bg-cyberpunk-neon mx-auto mb-6' />
+          <div className='w-24 h-1 bg-tech-neon mx-auto mb-6' />
           <p className='text-lg text-gray-400 font-display max-w-2xl mx-auto'>
             Explore my journey through technical innovation and leadership
             excellence
@@ -64,7 +64,7 @@ export default function Experience() {
             {[...Array(5)].map((_, i) => (
               <motion.div
                 key={i}
-                className='w-2 h-2 bg-cyberpunk-neon rounded-full'
+                className='w-2 h-2 bg-tech-neon rounded-full'
                 animate={{
                   scale: [1, 1.5, 1],
                   opacity: [0.3, 1, 0.3],

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 export default function Header() {
   return (
     <motion.header
-      className='fixed top-0 left-0 right-0 z-40 bg-cyberpunk-dark/80 backdrop-blur-md border-b border-cyberpunk-neon/20'
+      className='fixed top-0 left-0 right-0 z-40 bg-tech-dark/80 backdrop-blur-md border-b border-tech-neon/20'
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
@@ -15,7 +15,7 @@ export default function Header() {
             className='flex items-center'
             whileHover={{ scale: 1.05 }}
           >
-            <h1 className='text-xl font-cyber font-bold text-cyberpunk-neon tracking-wider'>
+            <h1 className='text-xl font-cyber font-bold text-tech-neon tracking-wider'>
               H.H.L
             </h1>
           </motion.div>
@@ -27,7 +27,7 @@ export default function Header() {
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className='text-gray-300 hover:text-cyberpunk-neon transition-colors duration-300 font-display tracking-wide'
+                  className='text-gray-300 hover:text-tech-neon transition-colors duration-300 font-display tracking-wide'
                   whileHover={{ scale: 1.1 }}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -41,7 +41,7 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <motion.button
-            className='md:hidden p-2 rounded-md text-gray-300 hover:text-cyberpunk-neon focus:outline-none'
+            className='md:hidden p-2 rounded-md text-gray-300 hover:text-tech-neon focus:outline-none'
             whileTap={{ scale: 0.95 }}
           >
             <svg
