@@ -9,13 +9,13 @@ interface LoadingSpinnerProps {
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'md',
-  text = 'LOADING...',
+  text = 'Loading...',
   className = '',
 }) => {
   const sizeClasses = {
-    sm: 'w-8 h-8',
-    md: 'w-16 h-16',
-    lg: 'w-24 h-24',
+    sm: 'w-6 h-6',
+    md: 'w-10 h-10',
+    lg: 'w-16 h-16',
   }
 
   const textSizes = {
@@ -25,21 +25,35 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   }
 
   return (
-    <div className={`flex flex-col items-center justify-center ${className}`}>
+    <div 
+      className={`flex flex-col items-center justify-center ${className}`}
+      role="status"
+      aria-live="polite"
+      aria-label="Loading content"
+    >
+      {/* Modern spinner design */}
       <motion.div
-        className={`${sizeClasses[size]} border-4 border-cyberpunk-neon border-t-transparent rounded-full mb-4`}
+        className={`${sizeClasses[size]} relative`}
         animate={{ rotate: 360 }}
-        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-      />
+        transition={{ duration: 1.2, repeat: Infinity, ease: 'linear' }}
+      >
+        <div className="absolute inset-0 rounded-full border-2 border-cyberpunk-text-disabled/20" />
+        <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-cyberpunk-neon" />
+      </motion.div>
+      
       {text && (
-        <motion.div
-          className={`text-cyberpunk-neon font-cyber ${textSizes[size]} tracking-wider`}
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity }}
+        <motion.p
+          className={`text-cyberpunk-text-secondary font-body ${textSizes[size]} mt-4 font-medium`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
         >
           {text}
-        </motion.div>
+        </motion.p>
       )}
+      
+      {/* Screen reader only text */}
+      <span className="sr-only">Loading, please wait...</span>
     </div>
   )
 }
