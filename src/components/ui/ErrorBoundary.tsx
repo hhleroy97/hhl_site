@@ -41,7 +41,7 @@ class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className='min-h-screen bg-cyberpunk-dark flex items-center justify-center px-4'>
+        <div className='min-h-screen bg-tech-dark flex items-center justify-center px-4'>
           <motion.div
             className='max-w-md w-full text-center'
             initial={{ opacity: 0, y: 20 }}
@@ -58,7 +58,7 @@ class ErrorBoundary extends Component<Props, State> {
             </motion.div>
 
             <motion.h1
-              className='text-2xl font-display font-bold text-cyberpunk-text-primary mb-4'
+              className='text-2xl font-display font-bold text-tech-text-primary mb-4'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
@@ -67,7 +67,7 @@ class ErrorBoundary extends Component<Props, State> {
             </motion.h1>
 
             <motion.p
-              className='text-cyberpunk-text-secondary mb-8 leading-relaxed'
+              className='text-tech-text-secondary mb-8 leading-relaxed'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -84,7 +84,7 @@ class ErrorBoundary extends Component<Props, State> {
             >
               <button
                 onClick={this.handleRetry}
-                className='w-full px-6 py-3 bg-primary-500 hover:bg-primary-400 text-gray-900 font-display font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-primary-500/20 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2 focus:ring-offset-cyberpunk-dark flex items-center justify-center gap-2'
+                className='w-full px-6 py-3 bg-primary-500 hover:bg-primary-400 text-gray-900 font-display font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-primary-500/20 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2 focus:ring-offset-tech-dark flex items-center justify-center gap-2'
                 aria-label='Try again'
               >
                 <RefreshCw className='w-4 h-4' />
@@ -93,7 +93,7 @@ class ErrorBoundary extends Component<Props, State> {
 
               <button
                 onClick={() => window.location.reload()}
-                className='w-full px-6 py-3 bg-cyberpunk-dark-surface hover:bg-cyberpunk-dark-elevated text-cyberpunk-text-secondary border border-cyberpunk-text-disabled/20 hover:border-cyberpunk-text-disabled/40 font-display font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyberpunk-neon focus:ring-offset-2 focus:ring-offset-cyberpunk-dark'
+                className='w-full px-6 py-3 bg-tech-dark-surface hover:bg-tech-dark-elevated text-tech-text-secondary border border-tech-text-disabled/20 hover:border-tech-text-disabled/40 font-display font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-tech-neon focus:ring-offset-2 focus:ring-offset-tech-dark'
                 aria-label='Reload page'
               >
                 Reload Page
@@ -107,10 +107,10 @@ class ErrorBoundary extends Component<Props, State> {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
               >
-                <summary className='cursor-pointer text-sm text-cyberpunk-text-muted hover:text-cyberpunk-text-secondary transition-colors'>
+                <summary className='cursor-pointer text-sm text-cyberpunk-text-muted hover:text-tech-text-secondary transition-colors'>
                   Error Details (Development)
                 </summary>
-                <pre className='mt-4 p-4 bg-cyberpunk-dark-surface rounded-lg text-xs text-cyberpunk-text-muted overflow-auto max-h-40 border border-cyberpunk-text-disabled/10'>
+                <pre className='mt-4 p-4 bg-tech-dark-surface rounded-lg text-xs text-cyberpunk-text-muted overflow-auto max-h-40 border border-tech-text-disabled/10'>
                   {this.state.error.toString()}
                   {this.state.errorInfo?.componentStack}
                 </pre>

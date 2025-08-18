@@ -25,9 +25,9 @@ export default function Projects() {
           transition={{ duration: 0.8 }}
         >
           <h2 className='text-4xl sm:text-5xl font-cyber font-bold text-white mb-4'>
-            MY <span className='text-cyberpunk-neon'>PROJECTS</span>
+            MY <span className='text-tech-neon'>PROJECTS</span>
           </h2>
-          <div className='w-24 h-1 bg-cyberpunk-neon mx-auto mb-6' />
+          <div className='w-24 h-1 bg-tech-neon mx-auto mb-6' />
           <p className='text-lg text-gray-400 font-display max-w-2xl mx-auto'>
             A collection of technical innovations and creative explorations
           </p>
@@ -41,15 +41,15 @@ export default function Projects() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className='flex bg-cyberpunk-dark-alt rounded-xl p-2 border border-cyberpunk-neon/30'>
+          <div className='flex bg-tech-dark-alt rounded-xl p-2 border border-tech-neon/30'>
             {(['all', 'technical', 'creative'] as const).map(filterType => (
               <motion.button
                 key={filterType}
                 onClick={() => setFilter(filterType)}
                 className={`relative px-6 py-2 font-cyber font-bold rounded-lg transition-all duration-300 ${
                   filter === filterType
-                    ? 'text-black bg-cyberpunk-neon'
-                    : 'text-cyberpunk-neon hover:text-white'
+                    ? 'text-black bg-tech-neon'
+                    : 'text-tech-neon hover:text-white'
                 }`}
                 whileHover={{ scale: filter === filterType ? 1 : 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -59,7 +59,7 @@ export default function Projects() {
                 {/* Active indicator */}
                 {filter === filterType && (
                   <motion.div
-                    className='absolute inset-0 bg-cyberpunk-neon rounded-lg'
+                    className='absolute inset-0 bg-tech-neon rounded-lg'
                     layoutId='activeFilter'
                     style={{ zIndex: -1 }}
                   />
@@ -78,7 +78,7 @@ export default function Projects() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <h3 className='text-2xl font-cyber font-bold text-cyberpunk-neon mb-8 text-center'>
+            <h3 className='text-2xl font-cyber font-bold text-tech-neon mb-8 text-center'>
               FEATURED PROJECTS
             </h3>
             <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
@@ -124,9 +124,9 @@ export default function Projects() {
             href='https://github.com/hartleyhleroy'
             target='_blank'
             rel='noopener noreferrer'
-            className='inline-flex items-center px-8 py-4 border-2 border-cyberpunk-neon text-cyberpunk-neon 
-                     font-cyber font-bold rounded-lg hover:bg-cyberpunk-neon hover:text-black 
-                     hover:shadow-lg hover:shadow-cyberpunk-neon/30 transition-all duration-300'
+            className='inline-flex items-center px-8 py-4 border-2 border-tech-neon text-tech-neon 
+                     font-cyber font-bold rounded-lg hover:bg-tech-neon hover:text-black 
+                     hover:shadow-lg hover:shadow-tech-neon/30 transition-all duration-300'
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -152,7 +152,7 @@ export default function Projects() {
             {[...Array(7)].map((_, i) => (
               <motion.div
                 key={i}
-                className='w-1 h-1 bg-cyberpunk-neon rounded-full'
+                className='w-1 h-1 bg-tech-neon rounded-full'
                 animate={{
                   scale: [1, 1.5, 1],
                   opacity: [0.3, 1, 0.3],

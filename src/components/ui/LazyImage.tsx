@@ -81,7 +81,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
       {/* Placeholder */}
       {shouldShowPlaceholder && (
         <motion.div
-          className='absolute inset-0 bg-cyberpunk-dark-surface flex items-center justify-center'
+          className='absolute inset-0 bg-tech-dark-surface flex items-center justify-center'
           initial={{ opacity: 1 }}
           animate={{ opacity: isLoaded ? 0 : 1 }}
           transition={{ duration: 0.3 }}
@@ -102,7 +102,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
       {/* Fallback */}
       {shouldShowFallback && (
         <motion.div
-          className='absolute inset-0 bg-cyberpunk-dark-surface flex items-center justify-center text-cyberpunk-text-muted'
+          className='absolute inset-0 bg-tech-dark-surface flex items-center justify-center text-cyberpunk-text-muted'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
@@ -141,12 +141,12 @@ const LazyImage: React.FC<LazyImageProps> = ({
       {/* Loading indicator */}
       {isInView && !isLoaded && !hasError && (
         <motion.div
-          className='absolute inset-0 flex items-center justify-center bg-cyberpunk-dark-surface/50'
+          className='absolute inset-0 flex items-center justify-center bg-tech-dark-surface/50'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div className='w-8 h-8 border-2 border-cyberpunk-neon/30 border-t-cyberpunk-neon rounded-full animate-spin' />
+          <div className='w-8 h-8 border-2 border-tech-neon/30 border-t-tech-neon rounded-full animate-spin' />
         </motion.div>
       )}
     </div>
