@@ -1,14 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import characterProfile from '../assets/character-profile.png'
-import pythonBadge from '../assets/python-badge.png'
-import cloudBadge from '../assets/cloud-badge.png'
-import databaseBadge from '../assets/database-badge.png'
-import etlBadge from '../assets/etl-badge.png'
-import robotBadge from '../assets/robot-badge.png'
-import pipeBadge from '../assets/pipe-badge.png'
-import collabBadge from '../assets/collab-badge.png'
-import checklistBadge from '../assets/checklist-badge.png'
+// Using clean SVG icons instead of PNG badges for professionalism
 
 interface Service {
   id: string
@@ -24,7 +17,7 @@ interface Skill {
   description: string
   category: string
   level: string
-  icon: string
+  iconType: string
 }
 
 interface InfoContent {
@@ -145,7 +138,7 @@ const skills: Skill[] = [
     description: 'Data workflows, automation, backend scripting',
     category: 'Programming',
     level: 'Expert',
-    icon: pythonBadge,
+    iconType: 'code',
   },
   {
     id: 'cloud',
@@ -153,7 +146,7 @@ const skills: Skill[] = [
     description: 'AWS IoT Core, Kinesis, Glue, S3, Lambda',
     category: 'Infrastructure',
     level: 'Expert',
-    icon: cloudBadge,
+    iconType: 'cloud',
   },
   {
     id: 'dataEng',
@@ -161,7 +154,7 @@ const skills: Skill[] = [
     description: 'ETL pipelines, schema design, high-volume processing',
     category: 'Data',
     level: 'Advanced',
-    icon: databaseBadge,
+    iconType: 'database',
   },
   {
     id: 'etl',
@@ -169,7 +162,7 @@ const skills: Skill[] = [
     description: 'Data transformation, pipeline orchestration',
     category: 'Data',
     level: 'Advanced',
-    icon: etlBadge,
+    iconType: 'workflow',
   },
   {
     id: 'robotics',
@@ -177,7 +170,7 @@ const skills: Skill[] = [
     description: 'ROS2, PX4, MQTT protocols',
     category: 'Hardware',
     level: 'Advanced',
-    icon: robotBadge,
+    iconType: 'cpu',
   },
   {
     id: 'dataPipes',
@@ -185,7 +178,7 @@ const skills: Skill[] = [
     description: 'Stream processing, real-time data flows',
     category: 'Infrastructure',
     level: 'Advanced',
-    icon: pipeBadge,
+    iconType: 'pipeline',
   },
   {
     id: 'collab',
@@ -193,7 +186,7 @@ const skills: Skill[] = [
     description: 'Jira, Notion, Scrum workflows',
     category: 'Process',
     level: 'Intermediate',
-    icon: collabBadge,
+    iconType: 'users',
   },
   {
     id: 'pm',
@@ -201,9 +194,161 @@ const skills: Skill[] = [
     description: 'Task coordination, delivery management',
     category: 'Process',
     level: 'Intermediate',
-    icon: checklistBadge,
+    iconType: 'checklist',
   },
 ]
+
+// Clean, professional SVG icons
+const renderSkillIcon = (iconType: string) => {
+  const iconProps = 'w-full h-full text-cyberpunk-neon'
+
+  switch (iconType) {
+    case 'code':
+      return (
+        <svg
+          className={iconProps}
+          fill='none'
+          stroke='currentColor'
+          viewBox='0 0 24 24'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4'
+          />
+        </svg>
+      )
+    case 'cloud':
+      return (
+        <svg
+          className={iconProps}
+          fill='none'
+          stroke='currentColor'
+          viewBox='0 0 24 24'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10'
+          />
+        </svg>
+      )
+    case 'database':
+      return (
+        <svg
+          className={iconProps}
+          fill='none'
+          stroke='currentColor'
+          viewBox='0 0 24 24'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4'
+          />
+        </svg>
+      )
+    case 'workflow':
+      return (
+        <svg
+          className={iconProps}
+          fill='none'
+          stroke='currentColor'
+          viewBox='0 0 24 24'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2m9-2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2m-7 9l3 3m0 0l3-3m-3 3V10'
+          />
+        </svg>
+      )
+    case 'cpu':
+      return (
+        <svg
+          className={iconProps}
+          fill='none'
+          stroke='currentColor'
+          viewBox='0 0 24 24'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z'
+          />
+        </svg>
+      )
+    case 'pipeline':
+      return (
+        <svg
+          className={iconProps}
+          fill='none'
+          stroke='currentColor'
+          viewBox='0 0 24 24'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M13 10V3L4 14h7v7l9-11h-7z'
+          />
+        </svg>
+      )
+    case 'users':
+      return (
+        <svg
+          className={iconProps}
+          fill='none'
+          stroke='currentColor'
+          viewBox='0 0 24 24'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a4 4 0 11-8 0 4 4 0 018 0z'
+          />
+        </svg>
+      )
+    case 'checklist':
+      return (
+        <svg
+          className={iconProps}
+          fill='none'
+          stroke='currentColor'
+          viewBox='0 0 24 24'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2m9-2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2m-7 9l3 3m0 0l3-3m-3 3V10'
+          />
+        </svg>
+      )
+    default:
+      return (
+        <svg
+          className={iconProps}
+          fill='none'
+          stroke='currentColor'
+          viewBox='0 0 24 24'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'
+          />
+        </svg>
+      )
+  }
+}
 
 const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
   onEnterPortfolio,
@@ -368,15 +513,10 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.8 }}
               >
-                {/* Services Panel with Inset Effect */}
-                <div className='relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-2 border-cyberpunk-neon/30 rounded-xl p-4 backdrop-blur-sm h-full'>
-                  {/* Inset Glow */}
-                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-neon/5 to-cyberpunk-purple/5' />
-                  <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyberpunk-neon/60 to-transparent' />
-
+                {/* Services Panel */}
+                <div className='relative bg-slate-800/60 border border-slate-600/40 rounded-xl p-4 backdrop-blur-sm h-full'>
                   <div className='relative z-10'>
-                    <h2 className='text-cyberpunk-pink font-mono text-lg font-bold mb-4 flex items-center gap-2'>
-                      <div className='w-4 h-4 bg-cyberpunk-pink rounded-full animate-pulse shadow-lg shadow-cyberpunk-pink/50' />
+                    <h2 className='text-cyberpunk-neon font-mono text-lg font-bold mb-4'>
                       CORE SERVICES
                     </h2>
 
@@ -384,54 +524,31 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                       {services.map((service, index) => (
                         <motion.button
                           key={service.id}
-                          className={`group w-full text-left relative p-3 cursor-pointer transition-all duration-300 rounded-xl border-2 overflow-hidden ${
+                          className={`group w-full text-left relative p-3 cursor-pointer transition-all duration-200 rounded-lg border ${
                             selectedItem === `service-${service.id}`
-                              ? 'bg-cyberpunk-purple/40 border-cyberpunk-pink shadow-lg shadow-cyberpunk-pink/30 scale-105'
-                              : 'bg-cyberpunk-purple/10 hover:bg-cyberpunk-purple/25 border-cyberpunk-neon/30 hover:border-cyberpunk-pink/60 hover:scale-102'
+                              ? 'bg-cyberpunk-neon/15 border-cyberpunk-neon text-white'
+                              : 'bg-slate-700/30 hover:bg-slate-600/40 border-slate-600/50 hover:border-cyberpunk-neon/40 text-slate-200'
                           }`}
                           onMouseEnter={() => handleServiceHover(service)}
                           onMouseLeave={resetToProfile}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 + 1 }}
                         >
-                          {/* Button Glow Effect */}
-                          <div
-                            className={`absolute inset-0 bg-gradient-to-r transition-opacity duration-300 ${
-                              selectedItem === `service-${service.id}`
-                                ? 'from-cyberpunk-pink/20 to-cyberpunk-purple/20 opacity-100'
-                                : 'from-cyberpunk-neon/10 to-cyberpunk-blue/10 opacity-0 group-hover:opacity-100'
-                            }`}
-                          />
-
-                          <div className='relative z-10 flex items-center justify-between'>
-                            <div>
-                              <div className='text-cyberpunk-neon font-mono text-sm font-bold'>
-                                {service.title}
-                              </div>
+                          <div className='flex items-center justify-between'>
+                            <div className='font-mono text-sm font-medium'>
+                              {service.title}
                             </div>
-
                             <div
-                              className={`text-cyberpunk-pink text-lg font-mono transition-all duration-300 ${
+                              className={`text-xs transition-opacity duration-200 ${
                                 selectedItem === `service-${service.id}`
-                                  ? 'opacity-100 translate-x-0'
-                                  : 'opacity-0 translate-x-2 group-hover:opacity-70 group-hover:translate-x-0'
+                                  ? 'opacity-100'
+                                  : 'opacity-0 group-hover:opacity-60'
                               }`}
                             >
-                              ▶
+                              →
                             </div>
                           </div>
-
-                          {/* Glowing Divider */}
-                          <div
-                            className={`absolute bottom-0 left-4 right-4 h-px bg-gradient-to-r transition-opacity duration-300 ${
-                              selectedItem === `service-${service.id}`
-                                ? 'from-cyberpunk-pink/60 via-cyberpunk-neon/40 to-cyberpunk-pink/60 opacity-100'
-                                : 'from-cyberpunk-neon/30 via-cyberpunk-neon/10 to-cyberpunk-neon/30 opacity-30 group-hover:opacity-60'
-                            }`}
-                          />
                         </motion.button>
                       ))}
                     </div>
@@ -446,24 +563,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1 }}
               >
-                <div className='relative bg-gradient-to-br from-cyberpunk-dark/95 to-slate-900/95 border-3 border-cyberpunk-neon/60 rounded-xl p-4 backdrop-blur-sm overflow-hidden h-full'>
-                  {/* Animated Background Pattern */}
-                  <div className='absolute inset-0 bg-gradient-to-br from-cyberpunk-neon/5 via-transparent to-cyberpunk-pink/5 rounded-2xl' />
-                  <div className='absolute inset-0 opacity-10'>
-                    <div
-                      className='w-full h-full'
-                      style={{
-                        backgroundImage: `radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 1px, transparent 1px)`,
-                        backgroundSize: '30px 30px',
-                        animation: 'pulse 4s ease-in-out infinite',
-                      }}
-                    />
-                  </div>
-
-                  {/* Scanning Lines */}
-                  <div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyberpunk-neon to-transparent animate-pulse' />
-                  <div className='absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyberpunk-pink to-transparent animate-pulse' />
-
+                <div className='relative bg-slate-800/60 border border-slate-600/40 rounded-xl p-4 backdrop-blur-sm h-full'>
                   {/* Info Content with Clear Hierarchy */}
                   <div className='relative z-10'>
                     <AnimatePresence mode='wait'>
@@ -574,15 +674,11 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.2 }}
             >
-              {/* Skills Panel with Breathing Room */}
-              <div className='relative bg-gradient-to-br from-slate-800/30 to-slate-900/30 border-2 border-cyberpunk-blue/30 rounded-2xl p-4 backdrop-blur-sm'>
-                <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-blue/5 to-cyberpunk-purple/5' />
-                <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyberpunk-blue/60 to-transparent' />
-
+              {/* Skills Panel */}
+              <div className='relative bg-slate-800/60 border border-slate-600/40 rounded-xl p-4 backdrop-blur-sm'>
                 <div className='relative z-10'>
-                  <h2 className='text-cyberpunk-blue font-mono text-lg font-bold mb-4 flex items-center gap-2'>
-                    <div className='w-4 h-4 bg-cyberpunk-blue rounded-full animate-pulse shadow-lg shadow-cyberpunk-blue/50' />
-                    SKILL BADGES
+                  <h2 className='text-cyberpunk-neon font-mono text-lg font-bold mb-4'>
+                    SKILLS
                   </h2>
 
                   {/* Badge Grid with Proper Spacing */}
@@ -605,35 +701,18 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                       >
                         {/* Badge Container */}
                         <div
-                          className={`relative p-4 rounded-lg border-2 transition-all duration-300 overflow-hidden aspect-square flex flex-col items-center justify-center ${
+                          className={`relative p-4 rounded-lg border transition-all duration-200 aspect-square flex flex-col items-center justify-center ${
                             selectedItem === `skill-${skill.id}`
-                              ? 'bg-cyberpunk-neon/25 border-cyberpunk-neon shadow-xl shadow-cyberpunk-neon/40'
-                              : 'bg-cyberpunk-blue/10 hover:bg-cyberpunk-blue/20 border-cyberpunk-neon/30 hover:border-cyberpunk-neon/60'
+                              ? 'bg-cyberpunk-neon/15 border-cyberpunk-neon'
+                              : 'bg-slate-800/30 hover:bg-slate-700/40 border-slate-600/50 hover:border-cyberpunk-neon/40'
                           }`}
                         >
-                          {/* Badge Glow Effect */}
-                          <div
-                            className={`absolute inset-0 bg-gradient-to-br transition-opacity duration-300 ${
-                              selectedItem === `skill-${skill.id}`
-                                ? 'from-cyberpunk-neon/20 to-cyberpunk-blue/20 opacity-100'
-                                : 'from-cyberpunk-blue/10 to-cyberpunk-neon/10 opacity-0 group-hover:opacity-100'
-                            }`}
-                          />
-
-                          {/* Idle Shimmer Effect */}
-                          <div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out' />
-
                           <div className='relative z-10 flex flex-col items-center justify-center h-full'>
                             {/* Icon */}
                             <div className='w-12 h-12 mb-2 relative flex-shrink-0'>
-                              <img
-                                src={skill.icon}
-                                alt={skill.title}
-                                className='w-full h-full object-contain transition-transform duration-300 group-hover:scale-110'
-                              />
-                              {selectedItem === `skill-${skill.id}` && (
-                                <div className='absolute inset-0 bg-cyberpunk-neon/20 rounded-full animate-ping' />
-                              )}
+                              <div className='transition-transform duration-300 group-hover:scale-110'>
+                                {renderSkillIcon(skill.iconType)}
+                              </div>
                             </div>
 
                             {/* Title */}
