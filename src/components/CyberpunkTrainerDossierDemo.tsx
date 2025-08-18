@@ -36,8 +36,8 @@ const CyberpunkTrainerDossierDemo: React.FC<
         <div className='scanlines h-full w-full' />
       </div>
 
-      <div className='flex items-center justify-center min-h-screen relative z-10 p-4'>
-        <div className='w-full max-w-6xl'>
+      <div className='flex items-start justify-center min-h-screen relative z-10 p-4 pt-6 md:pt-10'>
+        <div className='w-full max-w-6xl fit-viewport'>
           {/* Main Trainer Dossier - No Delays */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

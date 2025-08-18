@@ -14,7 +14,7 @@ export default function Projects() {
   const otherProjects = filteredProjects.filter(project => !project.featured)
 
   return (
-    <section id='projects' className='py-20 px-4 sm:px-6 lg:px-8'>
+    <section id='projects' className='py-16 md:py-20 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-7xl mx-auto'>
         {/* Section header */}
         <motion.div

@@ -10,7 +10,7 @@ import Contact from './portfolio/Contact'
 export default function PortfolioSection() {
   return (
     <motion.div
-      className='min-h-screen bg-gradient-to-br from-cyberpunk-dark via-gray-900 to-cyberpunk-dark-alt'
+      className='min-h-screen bg-gradient-to-br from-cyberpunk-dark via-gray-900 to-cyberpunk-dark-alt pt-16'
       initial={{
         opacity: 0,
         scale: 1.1,

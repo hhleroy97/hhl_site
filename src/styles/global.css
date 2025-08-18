@@ -306,6 +306,26 @@
   }
 }
 
+/* Fit-to-viewport scaling for shorter screens */
+@media (max-height: 900px) {
+  .fit-viewport {
+    transform: scale(0.92);
+    transform-origin: top center;
+  }
+}
+@media (max-height: 800px) {
+  .fit-viewport {
+    transform: scale(0.85);
+    transform-origin: top center;
+  }
+}
+@media (max-height: 700px) {
+  .fit-viewport {
+    transform: scale(0.78);
+    transform-origin: top center;
+  }
+}
+
 /* Print styles */
 @media print {
   .no-print {

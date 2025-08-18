@@ -12,7 +12,25 @@ import {
   Award,
   Globe,
 } from 'lucide-react'
-import profPic from '../assets/prof-pic.png'
+// Using a data URL placeholder to avoid bundling external image and keep above-the-fold layout predictable
+const profPic =
+  'data:image/svg+xml;utf8,' +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#00ffff" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#ff00ff" stop-opacity="0.15"/>
+        </linearGradient>
+      </defs>
+      <rect width="400" height="400" fill="#0b0f10"/>
+      <rect x="16" y="16" width="368" height="368" rx="24" fill="url(#g)" stroke="#1e293b"/>
+      <circle cx="200" cy="160" r="72" fill="#111827" stroke="#334155"/>
+      <circle cx="200" cy="150" r="36" fill="#0ea5b7" opacity="0.25"/>
+      <rect x="110" y="250" width="180" height="80" rx="18" fill="#111827" stroke="#334155"/>
+      <text x="200" y="295" fill="#94a3b8" font-size="20" text-anchor="middle" font-family="monospace">HHL</text>
+    </svg>`
+  )
 
 interface Service {
   id: string

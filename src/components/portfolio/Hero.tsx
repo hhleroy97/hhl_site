@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export default function Hero() {
   return (
-    <section className='relative pt-28 pb-20 px-4 sm:px-6 lg:px-8'>
+    <section className='relative min-h-[calc(100svh-56px)] flex items-center px-4 sm:px-6 lg:px-8 py-8 md:py-12'>
       {/* soft radial glow */}
       <div
         className='pointer-events-none absolute inset-0 opacity-30'
@@ -44,7 +44,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
-              className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-extrabold text-white leading-tight'
+              className='text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-extrabold text-white leading-tight'
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.7 }}
@@ -150,7 +150,7 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
-            <div className='relative w-[22rem] h-[22rem] sm:w-[26rem] sm:h-[26rem]'>
+            <div className='relative w-[20rem] h-[20rem] sm:w-[24rem] sm:h-[24rem]'>
               {/* aura */}
               <div
                 className='absolute -inset-8 rounded-full bg-gradient-radial from-primary-500/25 to-transparent blur-2xl'
