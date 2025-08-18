@@ -27,9 +27,9 @@ const CyberpunkTrainerDossierDemo: React.FC<
       </div>
 
       {/* Ambient Lighting Effects */}
-      <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-cyberpunk-neon/10 rounded-full filter blur-3xl' />
-      <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyberpunk-pink/10 rounded-full filter blur-3xl' />
-      <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyberpunk-blue/5 rounded-full filter blur-3xl' />
+      <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-tech-neon/10 rounded-full filter blur-3xl' />
+      <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-tech-pink/10 rounded-full filter blur-3xl' />
+      <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-tech-blue/5 rounded-full filter blur-3xl' />
 
       {/* Scanlines Overlay */}
       <div className='absolute inset-0 pointer-events-none opacity-10'>

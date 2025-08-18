@@ -58,13 +58,11 @@ export const Text: React.FC<TextProps> = ({
     body: 'text-base leading-relaxed',
     'body-large': 'body-large',
     'body-small': 'body-small',
-    caption: 'text-xs text-cyberpunk-text-muted',
+    caption: 'text-xs text-tech-text-muted',
     overline: 'text-xs uppercase tracking-wider font-medium',
   }
 
-  const colorClass = muted
-    ? 'text-cyberpunk-text-muted'
-    : 'text-tech-text-secondary'
+  const colorClass = muted ? 'text-tech-text-muted' : 'text-tech-text-secondary'
 
   return (
     <p className={`${variantClasses[variant]} ${colorClass} ${className}`}>
@@ -237,7 +235,7 @@ export const Status: React.FC<StatusProps> = ({
     <div className={`flex items-center gap-2 ${className}`}>
       <div className={config.class} aria-label={`Status: ${config.text}`} />
       {showText && (
-        <Text variant='caption' className='text-cyberpunk-text-muted'>
+        <Text variant='caption' className='text-tech-text-muted'>
           {config.text}
         </Text>
       )}
