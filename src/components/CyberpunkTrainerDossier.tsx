@@ -1,7 +1,16 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import {
+  Code2,
+  Cloud,
+  Database,
+  GitBranch,
+  Cpu,
+  Zap,
+  Users,
+  CheckSquare,
+} from 'lucide-react'
 import characterProfile from '../assets/character-profile.png'
-// Using clean SVG icons instead of PNG badges for professionalism
 
 interface Service {
   id: string
@@ -198,155 +207,32 @@ const skills: Skill[] = [
   },
 ]
 
-// Clean, professional SVG icons
+// Professional Lucide React icons
 const renderSkillIcon = (iconType: string) => {
-  const iconProps = 'w-full h-full text-cyberpunk-neon'
+  const iconProps = {
+    className: 'w-full h-full text-cyberpunk-neon',
+    strokeWidth: 1.5,
+  }
 
   switch (iconType) {
     case 'code':
-      return (
-        <svg
-          className={iconProps}
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth={2}
-            d='M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4'
-          />
-        </svg>
-      )
+      return <Code2 {...iconProps} />
     case 'cloud':
-      return (
-        <svg
-          className={iconProps}
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth={2}
-            d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10'
-          />
-        </svg>
-      )
+      return <Cloud {...iconProps} />
     case 'database':
-      return (
-        <svg
-          className={iconProps}
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth={2}
-            d='M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4'
-          />
-        </svg>
-      )
+      return <Database {...iconProps} />
     case 'workflow':
-      return (
-        <svg
-          className={iconProps}
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth={2}
-            d='M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2m9-2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2m-7 9l3 3m0 0l3-3m-3 3V10'
-          />
-        </svg>
-      )
+      return <GitBranch {...iconProps} />
     case 'cpu':
-      return (
-        <svg
-          className={iconProps}
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth={2}
-            d='M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z'
-          />
-        </svg>
-      )
+      return <Cpu {...iconProps} />
     case 'pipeline':
-      return (
-        <svg
-          className={iconProps}
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth={2}
-            d='M13 10V3L4 14h7v7l9-11h-7z'
-          />
-        </svg>
-      )
+      return <Zap {...iconProps} />
     case 'users':
-      return (
-        <svg
-          className={iconProps}
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth={2}
-            d='M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a4 4 0 11-8 0 4 4 0 018 0z'
-          />
-        </svg>
-      )
+      return <Users {...iconProps} />
     case 'checklist':
-      return (
-        <svg
-          className={iconProps}
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth={2}
-            d='M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2m9-2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2m-7 9l3 3m0 0l3-3m-3 3V10'
-          />
-        </svg>
-      )
+      return <CheckSquare {...iconProps} />
     default:
-      return (
-        <svg
-          className={iconProps}
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth={2}
-            d='M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'
-          />
-        </svg>
-      )
+      return <Code2 {...iconProps} />
   }
 }
 
