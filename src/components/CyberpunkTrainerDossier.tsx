@@ -540,7 +540,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                       <img
                         src={profPic}
                         alt='Hartley H. Leroy'
-                        className='w-full h-full object-fill scale-150 cyberpunk-id-photo'
+                        className='w-full h-full object-cover cyberpunk-id-photo'
                       />
                     </div>
                     {/* Sprite Glow Effect */}
