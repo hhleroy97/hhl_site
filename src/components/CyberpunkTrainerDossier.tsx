@@ -12,7 +12,7 @@ import {
   Award,
   Globe,
 } from 'lucide-react'
-import profPic from '../assets/prof-pic.png'
+import profPic from '../assets/character-profile.png'
 
 interface Service {
   id: string
