@@ -11,6 +11,8 @@ import {
   CheckSquare,
   Award,
   Globe,
+  ChevronRight,
+  ExternalLink,
 } from 'lucide-react'
 import profPic from '../assets/prof-pic.png'
 
@@ -99,103 +101,75 @@ const services: Service[] = [
     level: 82,
   },
   {
-    id: 'web',
-    title: 'Web Applications',
+    id: 'data',
+    title: 'Data Engineering',
     description:
-      'Dashboards, operator tools, and customer platforms. Modern web applications with real-time data visualization.',
+      'Real-time data processing, analytics pipelines, and machine learning infrastructure. Building systems that turn data into insights.',
     details: [
-      'React/Vue Frameworks',
-      'Real-time Dashboards',
-      'Fleet Management UI',
-      'Global Deployment',
-      '200+ operators',
+      'Apache Kafka',
+      'TensorFlow/PyTorch',
+      'Time Series Analysis',
+      'ML Model Deployment',
+      'Real-time Analytics',
     ],
     level: 85,
-  },
-  {
-    id: 'prototyping',
-    title: 'Prototyping & R&D',
-    description:
-      'MVPs, proof-of-concepts, and rapid prototyping. Validating product ideas through working demonstrations.',
-    details: [
-      'Hardware Prototyping',
-      'AI/ML Integration',
-      'MVP Development',
-      '3D Printing',
-      '$2M+ funding secured',
-    ],
-    level: 91,
-  },
-  {
-    id: 'leadership',
-    title: 'Team Leadership',
-    description:
-      'Project management, Agile methodologies, and cross-team delivery. Leading engineering teams through complex projects.',
-    details: [
-      'Agile/Scrum',
-      'Cross-functional Teams',
-      'Technical Leadership',
-      'Global Coordination',
-      '6+ engineers led',
-    ],
-    level: 78,
   },
 ]
 
 const skills: Skill[] = [
   {
-    id: 'python',
-    title: 'Python Development',
-    description: 'Data workflows, automation, backend scripting',
-    category: 'Programming',
+    id: 'frontend',
+    title: 'Frontend Development',
+    description: 'Modern web applications and user interfaces',
+    category: 'Development',
     level: 'Expert',
     iconType: 'code',
   },
   {
+    id: 'backend',
+    title: 'Backend Systems',
+    description: 'Scalable server architecture and APIs',
+    category: 'Development',
+    level: 'Expert',
+    iconType: 'database',
+  },
+  {
     id: 'cloud',
-    title: 'Cloud Architecture',
-    description: 'AWS IoT Core, Kinesis, Glue, S3, Lambda',
+    title: 'Cloud Platforms',
+    description: 'AWS, Azure, and hybrid cloud solutions',
     category: 'Infrastructure',
     level: 'Expert',
     iconType: 'cloud',
   },
   {
-    id: 'dataEng',
-    title: 'Data Engineering',
-    description: 'ETL pipelines, schema design, high-volume processing',
-    category: 'Data',
-    level: 'Advanced',
-    iconType: 'database',
-  },
-  {
-    id: 'etl',
-    title: 'ETL Pipelines',
-    description: 'Data transformation, pipeline orchestration',
-    category: 'Data',
+    id: 'devops',
+    title: 'DevOps & CI/CD',
+    description: 'Automated deployment and infrastructure',
+    category: 'Process',
     level: 'Advanced',
     iconType: 'workflow',
   },
   {
-    id: 'robotics',
-    title: 'Robotics Systems',
-    description: 'ROS2, PX4, MQTT protocols',
+    id: 'embedded',
+    title: 'Embedded Systems',
+    description: 'Firmware and hardware integration',
     category: 'Hardware',
     level: 'Advanced',
     iconType: 'cpu',
   },
   {
-    id: 'dataPipes',
-    title: 'Data Pipelines',
-    description: 'Stream processing, real-time data flows',
-    category: 'Infrastructure',
+    id: 'data',
+    title: 'Data Engineering',
+    description: 'ETL pipelines and analytics',
+    category: 'Data',
     level: 'Advanced',
     iconType: 'pipeline',
   },
   {
-    id: 'collab',
-    title: 'Collaboration & Agile',
-    description: 'Jira, Notion, Scrum workflows',
-    category: 'Process',
+    id: 'leadership',
+    title: 'Technical Leadership',
+    description: 'Team management and project delivery',
+    category: 'Leadership',
     level: 'Intermediate',
     iconType: 'users',
   },
@@ -250,14 +224,23 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
 
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     setPrefersReducedMotion(
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     )
+    
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  const handleServiceHover = (service: Service) => {
+  const handleServiceClick = (service: Service) => {
     setActiveContent({
       type: 'service',
       title: service.title.toUpperCase(),
@@ -268,7 +251,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
     setSelectedItem(`service-${service.id}`)
   }
 
-  const handleSkillHover = (skill: Skill) => {
+  const handleSkillClick = (skill: Skill) => {
     setActiveContent({
       type: 'skill',
       title: skill.title.toUpperCase(),
@@ -291,10 +274,10 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
   return (
     <div className='w-full max-w-7xl mx-auto relative'>
       <motion.div
-        className='relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border border-white/10 rounded-3xl shadow-xl overflow-hidden'
+        className='relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border border-white/20 rounded-3xl shadow-2xl overflow-hidden'
         style={{
           boxShadow:
-            '0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255, 255, 255, 0.03)',
+            '0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
         }}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -318,15 +301,15 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
         </div>
 
         {/* Corner Brackets */}
-        <div className='absolute top-4 left-4 w-6 h-6 border-l-2 border-t-2 border-white/15' />
-        <div className='absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-white/15' />
-        <div className='absolute bottom-4 left-4 w-6 h-6 border-l-2 border-b-2 border-white/15' />
-        <div className='absolute bottom-4 right-4 w-6 h-6 border-r-2 border-b-2 border-white/15' />
+        <div className='absolute top-4 left-4 w-6 h-6 border-l-2 border-t-2 border-white/20' />
+        <div className='absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-white/20' />
+        <div className='absolute bottom-4 left-4 w-6 h-6 border-l-2 border-b-2 border-white/20' />
+        <div className='absolute bottom-4 right-4 w-6 h-6 border-r-2 border-b-2 border-white/20' />
 
-        <div className='relative z-10 p-4'>
+        <div className='relative z-10 p-6'>
           {/* Header */}
           <motion.div
-            className='flex items-center justify-between mb-6 pb-4 border-b border-white/10'
+            className='flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 pb-6 border-b border-white/15'
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
@@ -335,44 +318,45 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
             }}
           >
             {/* Header Content */}
-            <div className='flex-1'>
-              <h1 className='text-xl lg:text-2xl font-bold text-white mb-1 tracking-tight font-display'>
+            <div className='flex-1 mb-4 lg:mb-0'>
+              <h1 className='text-2xl lg:text-3xl font-bold text-white mb-2 tracking-tight font-display'>
                 HARTLEY H. LEROY
               </h1>
-              <div className='text-white/80 text-sm font-medium tracking-wide mb-1'>
+              <div className='text-white/90 text-base lg:text-lg font-medium tracking-wide mb-2'>
                 Creative Technologist • Systems Architect
               </div>
-              <div className='text-white/60 text-xs font-medium'>
+              <div className='text-white/70 text-sm lg:text-base font-medium'>
                 Bridging hardware and software for scalable solutions
               </div>
             </div>
 
             {/* Metrics */}
-            <div className='hidden lg:flex items-center gap-4 mr-4'>
+            <div className='flex lg:flex-col items-center gap-6 lg:gap-4 lg:mr-6'>
               <div className='text-center'>
-                <div className='text-lg font-bold text-primary-400'>5+</div>
-                <div className='text-white/60 text-xs'>Years</div>
+                <div className='text-xl lg:text-2xl font-bold text-primary-400'>5+</div>
+                <div className='text-white/70 text-sm'>Years</div>
               </div>
               <div className='text-center'>
-                <div className='text-lg font-bold text-primary-400'>10K+</div>
-                <div className='text-white/60 text-xs'>Devices</div>
+                <div className='text-xl lg:text-2xl font-bold text-primary-400'>10K+</div>
+                <div className='text-white/70 text-sm'>Devices</div>
               </div>
               <div className='text-center'>
-                <div className='text-lg font-bold text-primary-400'>$2M+</div>
-                <div className='text-white/60 text-xs'>Funding</div>
+                <div className='text-xl lg:text-2xl font-bold text-primary-400'>$2M+</div>
+                <div className='text-white/70 text-sm'>Funding</div>
               </div>
             </div>
 
             {/* Social */}
-            <div className='flex items-center gap-2'>
+            <div className='flex items-center gap-3'>
               <a
                 href='https://github.com/hhleroy97'
                 target='_blank'
                 rel='noopener noreferrer'
-                className='w-8 h-8 bg-white/5 hover:bg-white/10 text-white/80 border border-white/15 hover:border-primary-400/60 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105 hover:text-primary-200'
+                className='w-10 h-10 bg-white/10 hover:bg-white/15 text-white/90 border border-white/20 hover:border-primary-400/60 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105 hover:text-primary-200 focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:ring-offset-2 focus:ring-offset-slate-900'
+                aria-label='GitHub Profile'
               >
                 <svg
-                  className='w-4 h-4'
+                  className='w-5 h-5'
                   fill='currentColor'
                   viewBox='0 0 24 24'
                 >
@@ -384,10 +368,11 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 href='https://linkedin.com/in/hartley-h-leroy'
                 target='_blank'
                 rel='noopener noreferrer'
-                className='w-8 h-8 bg-white/5 hover:bg-white/10 text-white/80 border border-white/15 hover:border-primary-400/60 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105 hover:text-primary-200'
+                className='w-10 h-10 bg-white/10 hover:bg-white/15 text-white/90 border border-white/20 hover:border-primary-400/60 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105 hover:text-primary-200 focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:ring-offset-2 focus:ring-offset-slate-900'
+                aria-label='LinkedIn Profile'
               >
                 <svg
-                  className='w-4 h-4'
+                  className='w-5 h-5'
                   fill='currentColor'
                   viewBox='0 0 24 24'
                 >
@@ -399,7 +384,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
 
           {/* Achievement Badges */}
           <motion.div
-            className='flex flex-wrap gap-2 mb-4'
+            className='flex flex-wrap gap-3 mb-6'
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
@@ -407,29 +392,29 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
               duration: prefersReducedMotion ? 0.3 : 0.6,
             }}
           >
-            <div className='flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-2 py-1'>
-              <CheckSquare className='w-3 h-3 text-primary-400' />
-              <span className='text-white/80 text-xs font-medium'>
+            <div className='flex items-center gap-2 bg-white/10 border border-white/20 rounded-lg px-3 py-2'>
+              <CheckSquare className='w-4 h-4 text-primary-400' />
+              <span className='text-white/90 text-sm font-medium'>
                 10K+ Devices Deployed
               </span>
             </div>
-            <div className='flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-2 py-1'>
-              <Award className='w-3 h-3 text-primary-400' />
-              <span className='text-white/80 text-xs font-medium'>
+            <div className='flex items-center gap-2 bg-white/10 border border-white/20 rounded-lg px-3 py-2'>
+              <Award className='w-4 h-4 text-primary-400' />
+              <span className='text-white/90 text-sm font-medium'>
                 Zero Field Failures
               </span>
             </div>
-            <div className='flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-2 py-1'>
-              <Globe className='w-3 h-3 text-primary-400' />
-              <span className='text-white/80 text-xs font-medium'>
+            <div className='flex items-center gap-2 bg-white/10 border border-white/20 rounded-lg px-3 py-2'>
+              <Globe className='w-4 h-4 text-primary-400' />
+              <span className='text-white/90 text-sm font-medium'>
                 3 Continents
               </span>
             </div>
           </motion.div>
 
           {/* Main Content */}
-          <div className='relative space-y-4'>
-            <div className='relative grid grid-cols-1 lg:grid-cols-12 gap-4 lg:items-start'>
+          <div className='relative space-y-6'>
+            <div className='relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:items-start'>
               {/* Left Panel: Services */}
               <motion.div
                 className='lg:col-span-3 relative'
@@ -440,42 +425,49 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   duration: prefersReducedMotion ? 0.3 : 0.6,
                 }}
               >
-                <div className='relative bg-slate-800/40 border border-white/10 rounded-xl p-4 backdrop-blur-sm'>
+                <div className='relative bg-slate-800/50 border border-white/20 rounded-xl p-5 backdrop-blur-sm'>
                   <div className='relative z-10'>
-                    <h2 className='text-primary-400 font-mono text-sm tracking-widest font-semibold mb-3'>
+                    <h2 className='text-primary-400 font-mono text-sm tracking-widest font-semibold mb-4'>
                       CORE SERVICES
                     </h2>
 
-                    <div className='space-y-2'>
+                    <div className='space-y-3'>
                       {services.map((service, index) => (
                         <motion.button
                           key={service.id}
-                          className={`group w-full text-left relative p-3 cursor-pointer transition-all duration-200 rounded-lg border ${
+                          className={`group w-full text-left relative p-4 cursor-pointer transition-all duration-200 rounded-lg border ${
                             selectedItem === `service-${service.id}`
-                              ? 'bg-primary-500/10 border-primary-400/60 text-white'
-                              : 'bg-slate-800/20 hover:bg-slate-700/30 border-white/10 hover:border-primary-400/40 text-slate-200'
+                              ? 'bg-primary-500/15 border-primary-400/60 text-white shadow-lg shadow-primary-400/20'
+                              : 'bg-slate-800/30 hover:bg-slate-700/40 border-white/20 hover:border-primary-400/40 text-slate-200'
                           }`}
-                          onMouseEnter={() => handleServiceHover(service)}
-                          onMouseLeave={resetToProfile}
+                          onClick={() => handleServiceClick(service)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault()
+                              handleServiceClick(service)
+                            }
+                          }}
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{
                             delay: index * 0.1 + 1,
                             duration: prefersReducedMotion ? 0.2 : 0.4,
                           }}
+                          aria-label={`View ${service.title} details`}
+                          tabIndex={0}
                         >
                           <div className='flex items-center justify-between'>
                             <div className='font-mono text-sm font-medium'>
                               {service.title}
                             </div>
                             <div
-                              className={`text-xs transition-opacity duration-200 ${
+                              className={`text-sm transition-opacity duration-200 ${
                                 selectedItem === `service-${service.id}`
                                   ? 'opacity-100'
                                   : 'opacity-0 group-hover:opacity-60'
                               }`}
                             >
-                              →
+                              <ChevronRight className='w-4 h-4' />
                             </div>
                           </div>
                         </motion.button>
@@ -495,7 +487,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   duration: prefersReducedMotion ? 0.3 : 0.6,
                 }}
               >
-                <div className='relative bg-slate-800/40 border border-white/10 rounded-xl p-5 backdrop-blur-sm h-[320px] flex flex-col'>
+                <div className='relative bg-slate-800/50 border border-white/20 rounded-xl p-6 backdrop-blur-sm min-h-[400px] flex flex-col'>
                   <div className='relative z-10 flex-1 flex flex-col overflow-hidden'>
                     <AnimatePresence mode='wait'>
                       <motion.div
@@ -507,16 +499,16 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                           duration: prefersReducedMotion ? 0.2 : 0.3,
                           ease: 'easeInOut',
                         }}
-                        className='space-y-4'
+                        className='space-y-5'
                       >
                         {/* Section Header */}
                         <div className='flex items-center gap-3'>
-                          <div className='w-1 h-6 bg-primary-400 rounded-full' />
-                          <h3 className='text-xl font-bold text-white font-display'>
+                          <div className='w-1 h-8 bg-primary-400 rounded-full' />
+                          <h3 className='text-xl lg:text-2xl font-bold text-white font-display'>
                             {activeContent.title}
                           </h3>
                           {activeContent.level && (
-                            <div className='bg-primary-500/10 border border-primary-400/40 rounded-lg px-2 py-1'>
+                            <div className='bg-primary-500/15 border border-primary-400/40 rounded-lg px-3 py-1'>
                               <span className='text-primary-300 font-mono text-sm font-bold'>
                                 {activeContent.level}%
                               </span>
@@ -525,25 +517,25 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                         </div>
 
                         {/* Description */}
-                        <div className='bg-slate-800/40 rounded-lg p-3 border border-white/10'>
-                          <p className='text-white/80 text-sm leading-relaxed'>
+                        <div className='bg-slate-800/50 rounded-lg p-4 border border-white/15'>
+                          <p className='text-white/90 text-base leading-relaxed'>
                             {activeContent.description}
                           </p>
                         </div>
 
                         {/* Highlights */}
                         <div className='flex-1 flex flex-col min-h-0'>
-                          <div className='text-white/60 font-mono text-xs font-bold mb-2 tracking-wider'>
+                          <div className='text-white/70 font-mono text-xs font-bold mb-3 tracking-wider'>
                             HIGHLIGHTS
                           </div>
-                          <div className='grid grid-cols-1 lg:grid-cols-2 gap-2 overflow-y-auto flex-1'>
+                          <div className='grid grid-cols-1 lg:grid-cols-2 gap-3 overflow-y-auto flex-1'>
                             {activeContent.stats.map((stat, index) => (
                               <div
                                 key={index}
-                                className='group flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-200'
+                                className='group flex items-center gap-3 p-3 rounded-lg bg-white/10 hover:bg-white/15 transition-all duration-200'
                               >
-                                <div className='w-1.5 h-1.5 bg-primary-400 rounded-full shadow-lg shadow-primary-400/40' />
-                                <span className='text-white/80 font-mono text-xs font-medium'>
+                                <div className='w-2 h-2 bg-primary-400 rounded-full shadow-lg shadow-primary-400/40' />
+                                <span className='text-white/90 font-mono text-sm font-medium'>
                                   {stat}
                                 </span>
                               </div>
@@ -555,8 +547,8 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   </div>
 
                   {/* Corner Effects */}
-                  <div className='absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-primary-400/5 to-transparent rounded-tl-full' />
-                  <div className='absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-primary-400/5 to-transparent rounded-br-full' />
+                  <div className='absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-primary-400/10 to-transparent rounded-tl-full' />
+                  <div className='absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-primary-400/10 to-transparent rounded-br-full' />
                 </div>
               </motion.div>
 
@@ -570,21 +562,21 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   duration: prefersReducedMotion ? 0.3 : 0.6,
                 }}
               >
-                <div className='relative bg-gradient-to-br from-slate-700/30 to-slate-800/30 border border-white/10 rounded-xl p-4 backdrop-blur-sm h-[320px] flex items-center justify-center'>
+                <div className='relative bg-gradient-to-br from-slate-700/40 to-slate-800/40 border border-white/20 rounded-xl p-5 backdrop-blur-sm min-h-[400px] flex items-center justify-center'>
                   {/* Aura */}
-                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-primary-500/5' />
-                  <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-400/30 to-transparent' />
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-primary-500/10' />
+                  <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-400/40 to-transparent' />
 
                   {/* Photo */}
                   <div className='relative w-full h-full flex items-center justify-center'>
-                    <div className='w-full h-full max-w-[90%] max-h-[90%] aspect-square border border-white/15 rounded-2xl overflow-hidden shadow-lg shadow-black/20'>
+                    <div className='w-full h-full max-w-[90%] max-h-[90%] aspect-square border border-white/20 rounded-2xl overflow-hidden shadow-xl shadow-black/30'>
                       <img
                         src={profPic}
-                        alt='Hartley H. Leroy'
+                        alt='Hartley H. Leroy - Professional headshot'
                         className='w-full h-full object-cover cyberpunk-id-photo'
                       />
                     </div>
-                    <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-500/10 via-transparent to-white/5' />
+                    <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-500/15 via-transparent to-white/10' />
                   </div>
                 </div>
               </motion.div>
@@ -600,23 +592,28 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 duration: prefersReducedMotion ? 0.3 : 0.6,
               }}
             >
-              <div className='relative bg-slate-800/40 border border-white/10 rounded-xl p-4 backdrop-blur-sm'>
+              <div className='relative bg-slate-800/50 border border-white/20 rounded-xl p-5 backdrop-blur-sm'>
                 <div className='relative z-10'>
-                  <h2 className='text-primary-400 font-mono text-base font-bold mb-4'>
-                    SKILLS
+                  <h2 className='text-primary-400 font-mono text-base font-bold mb-5'>
+                    SKILLS & EXPERTISE
                   </h2>
 
-                  <div className='grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-2'>
+                  <div className='grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3'>
                     {skills.map((skill, index) => (
-                      <motion.div
+                      <motion.button
                         key={skill.id}
                         className={`group relative cursor-pointer transition-all duration-300 ${
                           selectedItem === `skill-${skill.id}`
                             ? 'scale-105 z-10'
                             : 'hover:scale-105'
                         }`}
-                        onMouseEnter={() => handleSkillHover(skill)}
-                        onMouseLeave={resetToProfile}
+                        onClick={() => handleSkillClick(skill)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            handleSkillClick(skill)
+                          }
+                        }}
                         whileHover={{ scale: prefersReducedMotion ? 1 : 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         initial={{ opacity: 0, scale: 0.8, rotateY: -15 }}
@@ -625,17 +622,19 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                           delay: index * 0.1 + 1.4,
                           duration: prefersReducedMotion ? 0.3 : 0.5,
                         }}
+                        aria-label={`View ${skill.title} details`}
+                        tabIndex={0}
                       >
                         {/* Badge */}
                         <div
-                          className={`relative p-2 rounded-lg border transition-all duration-200 aspect-square flex flex-col items-center justify-center ${
+                          className={`relative p-3 rounded-lg border transition-all duration-200 aspect-square flex flex-col items-center justify-center ${
                             selectedItem === `skill-${skill.id}`
-                              ? 'bg-primary-500/10 border-primary-400/60'
-                              : 'bg-slate-800/30 hover:bg-slate-700/40 border-white/10 hover:border-primary-400/30'
+                              ? 'bg-primary-500/15 border-primary-400/60 shadow-lg shadow-primary-400/20'
+                              : 'bg-slate-800/40 hover:bg-slate-700/50 border-white/20 hover:border-primary-400/40'
                           }`}
                         >
                           <div className='relative z-10 flex flex-col items-center justify-center h-full'>
-                            <div className='w-6 h-6 mb-1 relative flex-shrink-0'>
+                            <div className='w-7 h-7 mb-2 relative flex-shrink-0'>
                               <div className='transition-transform duration-300 group-hover:scale-110'>
                                 {renderSkillIcon(skill.iconType)}
                               </div>
@@ -644,12 +643,12 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                             <div className='text-primary-300 font-mono text-xs font-bold leading-tight text-center'>
                               {skill.title.split(' ')[0]}
                             </div>
-                            <div className='text-white/60 text-xs mt-0.5'>
+                            <div className='text-white/70 text-xs mt-1'>
                               {skill.level}
                             </div>
                           </div>
                         </div>
-                      </motion.div>
+                      </motion.button>
                     ))}
                   </div>
                 </div>
@@ -660,7 +659,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
           {/* Call-to-Action */}
           {onEnterPortfolio && (
             <motion.div
-              className='flex justify-center mt-6'
+              className='flex justify-center mt-8'
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{
@@ -670,9 +669,13 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
             >
               <button
                 onClick={onEnterPortfolio}
-                className='group relative px-6 py-3 bg-primary-500 hover:bg-primary-400 text-gray-900 font-display font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-primary-500/20 border border-transparent'
+                className='group relative px-8 py-4 bg-primary-500 hover:bg-primary-400 text-gray-900 font-display font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-primary-500/30 border border-transparent focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:ring-offset-2 focus:ring-offset-slate-900'
+                aria-label='Enter portfolio section'
               >
-                <span className='relative z-10'>ENTER PORTFOLIO</span>
+                <span className='relative z-10 flex items-center gap-2'>
+                  ENTER PORTFOLIO
+                  <ExternalLink className='w-4 h-4' />
+                </span>
                 <div className='absolute inset-0 rounded-lg bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
               </button>
             </motion.div>
@@ -680,7 +683,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
 
           {/* Footer */}
           <motion.div
-            className='mt-4 pt-3 border-t border-white/10 text-center'
+            className='mt-6 pt-4 border-t border-white/15 text-center'
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
@@ -688,8 +691,8 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
               duration: prefersReducedMotion ? 0.3 : 0.6,
             }}
           >
-            <div className='text-white/40 font-mono text-xs'>
-              [ Hover services and skills to preview focus areas ]
+            <div className='text-white/50 font-mono text-sm'>
+              [ Click services and skills to explore focus areas ]
             </div>
           </motion.div>
         </div>
