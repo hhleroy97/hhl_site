@@ -41,7 +41,7 @@ function NetworkNode({
   )
 }
 
-// Animated data particle that moves along connections
+// Animated data particle that follows ribbon cable routing
 function DataParticle({
   start,
   end,
@@ -57,12 +57,49 @@ function DataParticle({
 }) {
   const meshRef = useRef<THREE.Mesh>(null)
 
+  // Calculate ribbon cable routing path (matching RibbonCable logic)
+  const routePath = useMemo(() => {
+    const [sx, sy, sz] = start
+    const [ex, ey, ez] = end
+
+    // Calculate intermediate points for 90-degree routing
+    const midX = sx + (ex - sx) * 0.6
+    const mid2Y = ey
+
+    return [
+      { pos: [sx, sy, sz], length: 0 },
+      { pos: [midX, sy, sz], length: 0.4 },
+      { pos: [midX, mid2Y, sz], length: 0.7 },
+      { pos: [ex, ey, ez], length: 1.0 },
+    ]
+  }, [start, end])
+
   useFrame(state => {
     if (meshRef.current) {
-      const t = ((state.clock.elapsedTime * speed + delay) % 2) / 2
-      const x = start[0] + (end[0] - start[0]) * t
-      const y = start[1] + (end[1] - start[1]) * t
-      const z = start[2] + (end[2] - start[2]) * t
+      const t = ((state.clock.elapsedTime * speed + delay) % 2.5) / 2.5
+
+      // Find which segment we're on
+      let segmentIndex = 0
+      for (let i = 1; i < routePath.length; i++) {
+        if (t <= routePath[i].length) {
+          segmentIndex = i - 1
+          break
+        }
+      }
+
+      const currentSeg = routePath[segmentIndex]
+      const nextSeg = routePath[segmentIndex + 1] || routePath[segmentIndex]
+
+      const segmentLength = nextSeg.length - currentSeg.length
+      const segmentT =
+        segmentLength > 0 ? (t - currentSeg.length) / segmentLength : 0
+
+      const x =
+        currentSeg.pos[0] + (nextSeg.pos[0] - currentSeg.pos[0]) * segmentT
+      const y =
+        currentSeg.pos[1] + (nextSeg.pos[1] - currentSeg.pos[1]) * segmentT
+      const z =
+        currentSeg.pos[2] + (nextSeg.pos[2] - currentSeg.pos[2]) * segmentT
 
       meshRef.current.position.set(x, y, z)
       meshRef.current.scale.setScalar(
@@ -73,11 +110,11 @@ function DataParticle({
 
   return (
     <mesh ref={meshRef}>
-      <sphereGeometry args={[0.05, 8, 8]} />
+      <sphereGeometry args={[0.06, 8, 8]} />
       <meshStandardMaterial
         color={color}
         emissive={color}
-        emissiveIntensity={0.8}
+        emissiveIntensity={0.9}
       />
     </mesh>
   )
@@ -161,13 +198,12 @@ function CircuitDataPacket({
   )
 }
 
-// Ribbon cable connection with 90-degree turns and multiple parallel lines
+// Ribbon cable connection with gradient colors and 90-degree turns
 function RibbonCable({
   start,
   end,
-  color = '#00d4aa',
   opacity = 0.6,
-  cableCount = 3,
+  cableCount = 5,
 }: {
   start: [number, number, number]
   end: [number, number, number]
@@ -175,6 +211,19 @@ function RibbonCable({
   opacity?: number
   cableCount?: number
 }) {
+  // Our complete color palette for gradient effect
+  const paletteColors = [
+    '#00d4aa', // tech-teal
+    '#0ea5e9', // tech-blue
+    '#8b5cf6', // tech-purple
+    '#ff6b6b', // tech-coral
+    '#f59e0b', // tech-gold
+    '#10b981', // tech-green
+    '#ef4444', // tech-red
+    '#00ffcc', // tech-teal-bright
+    '#00e5ff', // tech-cyan
+  ]
+
   const cablePaths = useMemo(() => {
     const paths = []
     const [sx, sy, sz] = start
@@ -184,9 +233,10 @@ function RibbonCable({
     const midX = sx + (ex - sx) * 0.6
     const mid2Y = ey
 
-    // Create multiple parallel cable paths with slight offsets
+    // Create multiple parallel cable paths with gradient colors
     for (let i = 0; i < cableCount; i++) {
-      const offset = (i - Math.floor(cableCount / 2)) * 0.05
+      const offset = (i - Math.floor(cableCount / 2)) * 0.04
+      const colorIndex = i % paletteColors.length
 
       // Create path with 90-degree turns
       const points = [
@@ -196,11 +246,16 @@ function RibbonCable({
         new THREE.Vector3(ex, ey + offset * 0.5, ez + offset),
       ]
 
-      paths.push({ points, offset })
+      paths.push({
+        points,
+        offset,
+        color: paletteColors[colorIndex],
+        opacity: opacity - Math.abs(offset) * 2,
+      })
     }
 
     return paths
-  }, [start, end, cableCount])
+  }, [start, end, cableCount, opacity])
 
   return (
     <group>
@@ -208,10 +263,10 @@ function RibbonCable({
         <Line
           key={i}
           points={path.points}
-          color={color}
-          lineWidth={1.5}
+          color={path.color}
+          lineWidth={2}
           transparent
-          opacity={opacity - path.offset * 0.1}
+          opacity={Math.max(0.3, path.opacity)}
         />
       ))}
     </group>
@@ -410,15 +465,14 @@ function DataTransferVisualization() {
         />
       ))}
 
-      {/* Render ribbon cable connections */}
+      {/* Render ribbon cable connections with gradient palette */}
       {connections.map((conn, i) => (
         <RibbonCable
           key={`ribbon-${i}`}
           start={conn.start}
           end={conn.end}
-          color={conn.color}
-          opacity={0.6}
-          cableCount={3 + (i % 2)} // Vary cable count for visual interest
+          opacity={0.7}
+          cableCount={5 + (i % 3)} // Vary cable count for visual interest (5-7 cables)
         />
       ))}
 
