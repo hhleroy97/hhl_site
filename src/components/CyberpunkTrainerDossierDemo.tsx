@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import CyberpunkTrainerDossier from './CyberpunkTrainerDossier'
 
 interface CyberpunkTrainerDossierDemoProps {
@@ -9,10 +9,11 @@ interface CyberpunkTrainerDossierDemoProps {
 const CyberpunkTrainerDossierDemo: React.FC<
   CyberpunkTrainerDossierDemoProps
 > = ({ onEnterPortfolio }) => {
+  const shouldReduceMotion = useReducedMotion()
   return (
     <div className='min-h-screen bg-cyberpunk-dark relative overflow-hidden'>
       {/* Animated Grid Background */}
-      <div className='absolute inset-0 opacity-5'>
+      <div className='absolute inset-0 opacity-5' aria-hidden='true'>
         <div
           className='w-full h-full'
           style={{
@@ -21,18 +22,32 @@ const CyberpunkTrainerDossierDemo: React.FC<
               linear-gradient(90deg, rgba(0, 255, 255, 0.3) 1px, transparent 1px)
             `,
             backgroundSize: '60px 60px',
-            animation: 'gridMove 20s linear infinite',
+            animation: shouldReduceMotion
+              ? 'none'
+              : 'gridMove 20s linear infinite',
           }}
         />
       </div>
 
       {/* Ambient Lighting Effects */}
-      <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-cyberpunk-neon/10 rounded-full filter blur-3xl' />
-      <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyberpunk-pink/10 rounded-full filter blur-3xl' />
-      <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyberpunk-blue/5 rounded-full filter blur-3xl' />
+      <div
+        aria-hidden='true'
+        className='absolute top-1/4 left-1/4 w-96 h-96 bg-cyberpunk-neon/10 rounded-full filter blur-3xl'
+      />
+      <div
+        aria-hidden='true'
+        className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyberpunk-pink/10 rounded-full filter blur-3xl'
+      />
+      <div
+        aria-hidden='true'
+        className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyberpunk-blue/5 rounded-full filter blur-3xl'
+      />
 
       {/* Scanlines Overlay */}
-      <div className='absolute inset-0 pointer-events-none opacity-10'>
+      <div
+        className='absolute inset-0 pointer-events-none opacity-10'
+        aria-hidden='true'
+      >
         <div className='scanlines h-full w-full' />
       </div>
 

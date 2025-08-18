@@ -17,6 +17,27 @@
     scroll-behavior: smooth;
   }
 
+  /* Accessible skip link */
+  .skip-link {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: #0a0a0a;
+    color: #00ffff;
+    border: 2px solid #00ffff;
+    border-radius: 0.375rem;
+    transform: translateY(-200%);
+    transition: transform 0.2s ease;
+    z-index: 1000;
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.5);
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
@@ -102,6 +123,17 @@
 }
 
 @layer utilities {
+  /* Global focus-visible ring for interactive elements */
+  button:focus-visible,
+  [role='button']:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid theme('colors.cyberpunk.neon');
+    outline-offset: 2px;
+  }
+
   .text-shadow-glow {
     text-shadow: 0 0 10px currentColor;
   }

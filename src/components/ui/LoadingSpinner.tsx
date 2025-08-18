@@ -25,11 +25,17 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   }
 
   return (
-    <div className={`flex flex-col items-center justify-center ${className}`}>
+    <div
+      className={`flex flex-col items-center justify-center ${className}`}
+      role='status'
+      aria-live='polite'
+      aria-busy='true'
+    >
       <motion.div
         className={`${sizeClasses[size]} border-4 border-cyberpunk-neon border-t-transparent rounded-full mb-4`}
         animate={{ rotate: 360 }}
         transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+        aria-hidden='true'
       />
       {text && (
         <motion.div

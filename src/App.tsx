@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import PortfolioSection from '@components/PortfolioSection'
 import CyberpunkTrainerDossierDemo from '@components/CyberpunkTrainerDossierDemo'
 import Navigation from '@components/ui/Navigation'
@@ -8,6 +8,10 @@ import LoadingSpinner from '@components/ui/LoadingSpinner'
 type AppView = 'trainer-card' | 'portfolio'
 
 export default function App() {
+  const shouldReduceMotion = useReducedMotion()
+  const transitionDuration = shouldReduceMotion ? 0.2 : 0.8
+  const overlayDuration = shouldReduceMotion ? 0.1 : 0.4
+  const transitionMs = shouldReduceMotion ? 200 : 800
   const [currentView, setCurrentView] = useState<AppView>('trainer-card')
   const [isTransitioning, setIsTransitioning] = useState(false)
 
@@ -16,7 +20,7 @@ export default function App() {
     setTimeout(() => {
       setCurrentView('portfolio')
       setIsTransitioning(false)
-    }, 800)
+    }, transitionMs)
   }
 
   const handleBackToTrainerCard = () => {
@@ -24,11 +28,14 @@ export default function App() {
     setTimeout(() => {
       setCurrentView('trainer-card')
       setIsTransitioning(false)
-    }, 800)
+    }, transitionMs)
   }
 
   return (
     <div className='relative min-h-screen bg-cyberpunk-dark overflow-hidden'>
+      <a href='#main-content' className='skip-link'>
+        Skip to content
+      </a>
       <AnimatePresence mode='wait'>
         {currentView === 'trainer-card' && (
           <motion.div
@@ -41,7 +48,7 @@ export default function App() {
               scale: 0.95,
               filter: 'blur(10px)',
             }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: transitionDuration }}
           >
             <CyberpunkTrainerDossierDemo
               onEnterPortfolio={handleEnterPortfolio}
@@ -60,7 +67,7 @@ export default function App() {
               rotateY: -90,
               filter: 'blur(10px)',
             }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: transitionDuration }}
           >
             <PortfolioSection />
 
@@ -80,7 +87,7 @@ export default function App() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: overlayDuration }}
         >
           <LoadingSpinner size='lg' text='TRANSITIONING...' />
         </motion.div>
