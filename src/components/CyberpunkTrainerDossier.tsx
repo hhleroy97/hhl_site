@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Code2,
@@ -9,6 +9,9 @@ import {
   Zap,
   Users,
   CheckSquare,
+  Award,
+  TrendingUp,
+  Globe,
 } from 'lucide-react'
 import profPic from '../assets/prof-pic.png'
 
@@ -247,6 +250,13 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
   })
 
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+
+  useEffect(() => {
+    setPrefersReducedMotion(
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    )
+  }, [])
 
   const handleServiceHover = (service: Service) => {
     setActiveContent({
@@ -282,52 +292,72 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
   return (
     <div className='w-full max-w-7xl mx-auto relative'>
       <motion.div
-        className='relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-2 border-cyberpunk-neon/60 rounded-3xl shadow-2xl overflow-hidden'
+        className='relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-2 border-cyberpunk-neon/40 rounded-3xl shadow-2xl overflow-hidden'
         style={{
           boxShadow:
-            '0 0 80px rgba(0, 255, 255, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.1)',
+            '0 0 60px rgba(0, 255, 255, 0.2), inset 0 2px 0 rgba(255, 255, 255, 0.05)',
         }}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: prefersReducedMotion ? 0.4 : 0.8 }}
       >
-        {/* Animated Grid Background */}
-        <div className='absolute inset-0 opacity-10'>
+        {/* Subtle Grid Background - Reduced opacity */}
+        <div className='absolute inset-0 opacity-5'>
           <div
             className='w-full h-full'
             style={{
               backgroundImage: `
-                linear-gradient(rgba(0, 255, 255, 0.4) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.4) 1px, transparent 1px)
+                linear-gradient(rgba(0, 255, 255, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.3) 1px, transparent 1px)
               `,
-              backgroundSize: '40px 40px',
-              animation: 'gridPulse 4s ease-in-out infinite',
+              backgroundSize: '60px 60px',
+              animation: prefersReducedMotion ? 'none' : 'gridPulse 6s ease-in-out infinite',
             }}
           />
         </div>
 
-        {/* Corner Brackets */}
-        <div className='absolute top-4 left-4 w-8 h-8 border-l-3 border-t-3 border-cyberpunk-neon animate-pulse' />
-        <div className='absolute top-4 right-4 w-8 h-8 border-r-3 border-t-3 border-cyberpunk-neon animate-pulse' />
-        <div className='absolute bottom-4 left-4 w-8 h-8 border-l-3 border-b-3 border-cyberpunk-neon animate-pulse' />
-        <div className='absolute bottom-4 right-4 w-8 h-8 border-r-3 border-b-3 border-cyberpunk-neon animate-pulse' />
+        {/* Corner Brackets - More subtle */}
+        <div className='absolute top-4 left-4 w-6 h-6 border-l-2 border-t-2 border-cyberpunk-neon/60' />
+        <div className='absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-cyberpunk-neon/60' />
+        <div className='absolute bottom-4 left-4 w-6 h-6 border-l-2 border-b-2 border-cyberpunk-neon/60' />
+        <div className='absolute bottom-4 right-4 w-6 h-6 border-r-2 border-b-2 border-cyberpunk-neon/60' />
 
-        <div className='relative z-10 p-2'>
-          {/* Compact Header Section */}
+        <div className='relative z-10 p-6'>
+          {/* Enhanced Header Section */}
           <motion.div
-            className='flex items-center gap-3 mb-2 pb-2 border-b border-cyberpunk-neon/30'
+            className='flex items-center justify-between mb-8 pb-6 border-b border-cyberpunk-neon/20'
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.4, duration: prefersReducedMotion ? 0.3 : 0.6 }}
           >
             {/* Header Content */}
             <div className='flex-1'>
               {/* Name + Tagline */}
-              <h1 className='text-lg lg:text-xl font-bold text-cyberpunk-neon mb-1 tracking-wider font-mono'>
+              <h1 className='text-xl lg:text-2xl font-bold text-cyberpunk-neon mb-3 tracking-wider font-mono'>
                 HARTLEY H. LEROY
               </h1>
-              <div className='text-cyberpunk-pink text-sm lg:text-base font-semibold tracking-wide'>
+              <div className='text-cyberpunk-pink/80 text-sm lg:text-base font-semibold tracking-wide mb-2'>
                 CREATIVE TECHNOLOGIST • SYSTEMS ARCHITECT
+              </div>
+              {/* Professional tagline */}
+              <div className='text-white/60 text-sm font-medium'>
+                Bridging hardware and software for scalable solutions
+              </div>
+            </div>
+
+            {/* Professional Metrics Display */}
+            <div className='hidden lg:flex items-center gap-6 mr-6'>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-cyberpunk-neon'>5+</div>
+                <div className='text-white/60 text-xs'>Years</div>
+              </div>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-cyberpunk-pink'>10K+</div>
+                <div className='text-white/60 text-xs'>Devices</div>
+              </div>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-cyberpunk-green'>$2M+</div>
+                <div className='text-white/60 text-xs'>Funding</div>
               </div>
             </div>
 
@@ -362,64 +392,61 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   <path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z' />
                 </svg>
               </a>
+            </div>
+          </motion.div>
 
-              {onEnterPortfolio && (
-                <button
-                  onClick={onEnterPortfolio}
-                  className='px-3 py-2 bg-cyberpunk-pink/20 hover:bg-cyberpunk-pink/30 text-cyberpunk-pink border-2 border-cyberpunk-pink/50 hover:border-cyberpunk-pink rounded-lg font-mono text-xs font-bold transition-all duration-300 hover:scale-105'
-                >
-                  PORTFOLIO
-                </button>
-              )}
+          {/* Achievement Badges */}
+          <motion.div
+            className='flex flex-wrap gap-3 mb-6'
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.6, duration: prefersReducedMotion ? 0.3 : 0.6 }}
+          >
+            <div className='flex items-center gap-2 bg-cyberpunk-green/10 border border-cyberpunk-green/30 rounded-lg px-3 py-2'>
+              <CheckSquare className='w-4 h-4 text-cyberpunk-green' />
+              <span className='text-cyberpunk-green/80 text-sm font-medium'>10K+ Devices Deployed</span>
+            </div>
+            <div className='flex items-center gap-2 bg-cyberpunk-pink/10 border border-cyberpunk-pink/30 rounded-lg px-3 py-2'>
+              <Award className='w-4 h-4 text-cyberpunk-pink' />
+              <span className='text-cyberpunk-pink/80 text-sm font-medium'>Zero Field Failures</span>
+            </div>
+            <div className='flex items-center gap-2 bg-cyberpunk-blue/10 border border-cyberpunk-blue/30 rounded-lg px-3 py-2'>
+              <Globe className='w-4 h-4 text-cyberpunk-blue' />
+              <span className='text-cyberpunk-blue/80 text-sm font-medium'>3 Continents</span>
             </div>
           </motion.div>
 
           {/* Main Content - Layered Layout */}
-          <div className='relative space-y-2'>
-            {/* Background Grid Pattern for Depth */}
-            <div className='absolute inset-0 opacity-5 pointer-events-none'>
-              <div
-                className='w-full h-full'
-                style={{
-                  backgroundImage: `
-                    linear-gradient(rgba(0, 255, 255, 0.3) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0, 255, 255, 0.3) 1px, transparent 1px)
-                  `,
-                  backgroundSize: '24px 24px',
-                  animation: 'gridFloat 8s ease-in-out infinite',
-                }}
-              />
-            </div>
-
-            <div className='relative grid grid-cols-1 lg:grid-cols-12 gap-2 lg:items-start'>
+          <div className='relative space-y-6'>
+            <div className='relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:items-start'>
               {/* Left Panel: Core Services Navigation */}
               <motion.div
                 className='lg:col-span-3 relative'
                 initial={{ x: -50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.8 }}
+                transition={{ delay: 0.8, duration: prefersReducedMotion ? 0.3 : 0.6 }}
               >
                 {/* Services Panel */}
-                <div className='relative bg-slate-800/60 border border-slate-600/40 rounded-xl p-4 backdrop-blur-sm'>
+                <div className='relative bg-slate-800/40 border border-slate-600/30 rounded-xl p-5 backdrop-blur-sm'>
                   <div className='relative z-10'>
-                    <h2 className='text-cyberpunk-neon font-mono text-lg font-bold mb-4'>
+                    <h2 className='text-cyberpunk-neon font-mono text-lg font-bold mb-5'>
                       CORE SERVICES
                     </h2>
 
-                    <div className='space-y-2'>
+                    <div className='space-y-3'>
                       {services.map((service, index) => (
                         <motion.button
                           key={service.id}
-                          className={`group w-full text-left relative p-3 cursor-pointer transition-all duration-200 rounded-lg border ${
+                          className={`group w-full text-left relative p-4 cursor-pointer transition-all duration-200 rounded-lg border ${
                             selectedItem === `service-${service.id}`
-                              ? 'bg-cyberpunk-neon/15 border-cyberpunk-neon text-white'
-                              : 'bg-slate-700/30 hover:bg-slate-600/40 border-slate-600/50 hover:border-cyberpunk-neon/40 text-slate-200'
+                              ? 'bg-cyberpunk-neon/10 border-cyberpunk-neon/60 text-white'
+                              : 'bg-slate-700/20 hover:bg-slate-600/30 border-slate-600/40 hover:border-cyberpunk-neon/30 text-slate-200'
                           }`}
                           onMouseEnter={() => handleServiceHover(service)}
                           onMouseLeave={resetToProfile}
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 + 1 }}
+                          transition={{ delay: index * 0.1 + 1, duration: prefersReducedMotion ? 0.2 : 0.4 }}
                         >
                           <div className='flex items-center justify-between'>
                             <div className='font-mono text-sm font-medium'>
@@ -447,9 +474,9 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 className='lg:col-span-6 relative'
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1 }}
+                transition={{ delay: 1, duration: prefersReducedMotion ? 0.3 : 0.6 }}
               >
-                <div className='relative bg-slate-800/60 border border-slate-600/40 rounded-xl p-4 backdrop-blur-sm h-[380px] flex flex-col'>
+                <div className='relative bg-slate-800/40 border border-slate-600/30 rounded-xl p-6 backdrop-blur-sm h-[400px] flex flex-col'>
                   {/* Info Content with Clear Hierarchy */}
                   <div className='relative z-10 flex-1 flex flex-col overflow-hidden'>
                     <AnimatePresence mode='wait'>
@@ -458,37 +485,27 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                         initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                         exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        transition={{ duration: prefersReducedMotion ? 0.2 : 0.3, ease: 'easeInOut' }}
+                        className='space-y-6'
                       >
-                        {/* Section Label */}
-                        <div className='text-cyberpunk-neon/60 font-mono text-sm font-bold mb-2 tracking-wider'>
-                          {activeContent.type === 'profile'
-                            ? 'PROFESSIONAL OVERVIEW'
-                            : activeContent.type === 'service'
-                              ? 'SERVICE DETAILS'
-                              : 'SKILL ANALYSIS'}
-                        </div>
-
-                        {/* Main Title - Big, Bold, Glowing */}
-                        <div className='flex items-center gap-4 mb-6'>
-                          <h3 className='text-3xl lg:text-4xl font-bold text-cyberpunk-neon font-mono tracking-wider drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]'>
+                        {/* Section Header */}
+                        <div className='flex items-center gap-3'>
+                          <div className='w-1 h-8 bg-cyberpunk-neon rounded-full' />
+                          <h3 className='text-2xl font-bold text-cyberpunk-neon font-mono'>
                             {activeContent.title}
                           </h3>
                           {activeContent.level && (
-                            <div className='bg-cyberpunk-pink/30 border-2 border-cyberpunk-pink rounded-full px-4 py-2 shadow-lg shadow-cyberpunk-pink/30'>
+                            <div className='bg-cyberpunk-pink/20 border border-cyberpunk-pink/40 rounded-lg px-3 py-1'>
                               <span className='text-cyberpunk-pink font-mono text-sm font-bold'>
-                                LVL {activeContent.level}
+                                {activeContent.level}%
                               </span>
                             </div>
                           )}
                         </div>
 
-                        {/* Description - Subdued but Clear */}
-                        <div className='mb-6'>
-                          <div className='text-cyberpunk-neon/70 font-mono text-xs font-bold mb-2 tracking-wider'>
-                            DESCRIPTION
-                          </div>
-                          <p className='text-white/90 text-lg leading-relaxed max-w-none'>
+                        {/* Description with better typography */}
+                        <div className='bg-slate-800/40 rounded-lg p-4 border border-slate-600/20'>
+                          <p className='text-white/80 text-base leading-relaxed'>
                             {activeContent.description}
                           </p>
                         </div>
@@ -502,10 +519,10 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                             {activeContent.stats.map((stat, index) => (
                               <div
                                 key={index}
-                                className='group flex items-center gap-3 p-2 rounded-lg bg-cyberpunk-neon/5 hover:bg-cyberpunk-neon/10 transition-all duration-200'
+                                className='group flex items-center gap-3 p-3 rounded-lg bg-cyberpunk-neon/5 hover:bg-cyberpunk-neon/10 transition-all duration-200'
                               >
-                                <div className='w-3 h-3 bg-cyberpunk-green rounded-full animate-pulse shadow-lg shadow-cyberpunk-green/50' />
-                                <span className='text-cyberpunk-neon/90 font-mono text-sm font-medium'>
+                                <div className='w-2 h-2 bg-cyberpunk-green rounded-full shadow-lg shadow-cyberpunk-green/50' />
+                                <span className='text-cyberpunk-neon/80 font-mono text-sm font-medium'>
                                   {stat}
                                 </span>
                               </div>
@@ -516,9 +533,9 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                     </AnimatePresence>
                   </div>
 
-                  {/* Depth Corner Effects */}
-                  <div className='absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-cyberpunk-neon/10 to-transparent rounded-tl-full' />
-                  <div className='absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-cyberpunk-pink/10 to-transparent rounded-br-full' />
+                  {/* Subtle Corner Effects */}
+                  <div className='absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-cyberpunk-neon/5 to-transparent rounded-tl-full' />
+                  <div className='absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-cyberpunk-pink/5 to-transparent rounded-br-full' />
                 </div>
               </motion.div>
 
@@ -527,80 +544,85 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                 className='lg:col-span-3 relative'
                 initial={{ x: 50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 1.2 }}
+                transition={{ delay: 1.2, duration: prefersReducedMotion ? 0.3 : 0.6 }}
               >
-                <div className='relative bg-gradient-to-br from-slate-700/50 to-slate-800/50 border-2 border-cyberpunk-pink/30 rounded-xl p-4 backdrop-blur-sm h-[380px] flex items-center justify-center'>
-                  {/* Sprite Glow */}
-                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-pink/5 to-cyberpunk-neon/5' />
-                  <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyberpunk-pink/60 to-transparent' />
+                <div className='relative bg-gradient-to-br from-slate-700/30 to-slate-800/30 border-2 border-cyberpunk-pink/20 rounded-xl p-4 backdrop-blur-sm h-[400px] flex items-center justify-center'>
+                  {/* Subtle Glow */}
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-pink/3 to-cyberpunk-neon/3' />
+                  <div className='absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyberpunk-pink/30 to-transparent' />
 
                   {/* Character Sprite - Large */}
                   <div className='relative w-full h-full flex items-center justify-center'>
-                    <div className='w-full h-full max-w-[90%] max-h-[90%] aspect-square border-3 border-cyberpunk-neon rounded-2xl overflow-hidden shadow-2xl shadow-cyberpunk-neon/30'>
+                    <div className='w-full h-full max-w-[90%] max-h-[90%] aspect-square border-2 border-cyberpunk-neon/40 rounded-2xl overflow-hidden shadow-lg shadow-cyberpunk-neon/20'>
                       <img
                         src={profPic}
                         alt='Hartley H. Leroy'
                         className='w-full h-full object-cover scale-110 cyberpunk-id-photo'
                       />
                     </div>
-                    {/* Sprite Glow Effect */}
-                    <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-neon/20 via-transparent to-cyberpunk-pink/20 animate-pulse' />
+                    {/* Subtle Sprite Glow Effect */}
+                    <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-cyberpunk-neon/10 via-transparent to-cyberpunk-pink/10' />
                   </div>
                 </div>
               </motion.div>
             </div>
 
-            {/* Skills Section - Collectible Badge Grid */}
+            {/* Skills Section - Refined Badge Grid */}
             <motion.div
-              className='relative mt-4'
+              className='relative'
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 1.2 }}
+              transition={{ delay: 1.2, duration: prefersReducedMotion ? 0.3 : 0.6 }}
             >
               {/* Skills Panel */}
-              <div className='relative bg-slate-800/60 border border-slate-600/40 rounded-xl p-4 backdrop-blur-sm'>
+              <div className='relative bg-slate-800/40 border border-slate-600/30 rounded-xl p-5 backdrop-blur-sm'>
                 <div className='relative z-10'>
-                  <h2 className='text-cyberpunk-neon font-mono text-lg font-bold mb-4'>
+                  <h2 className='text-cyberpunk-neon font-mono text-lg font-bold mb-5'>
                     SKILLS
                   </h2>
 
-                  {/* Badge Grid with Proper Spacing */}
-                  <div className='grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-2'>
+                  {/* Badge Grid with Better Spacing */}
+                  <div className='grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-3'>
                     {skills.map((skill, index) => (
                       <motion.div
                         key={skill.id}
                         className={`group relative cursor-pointer transition-all duration-300 ${
                           selectedItem === `skill-${skill.id}`
-                            ? 'scale-110 z-10'
+                            ? 'scale-105 z-10'
                             : 'hover:scale-105'
                         }`}
                         onMouseEnter={() => handleSkillHover(skill)}
                         onMouseLeave={resetToProfile}
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={{ scale: prefersReducedMotion ? 1 : 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         initial={{ opacity: 0, scale: 0.8, rotateY: -15 }}
                         animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                        transition={{ delay: index * 0.1 + 1.4, duration: 0.5 }}
+                        transition={{ delay: index * 0.1 + 1.4, duration: prefersReducedMotion ? 0.3 : 0.5 }}
                       >
                         {/* Badge Container */}
                         <div
-                          className={`relative p-4 rounded-lg border transition-all duration-200 aspect-square flex flex-col items-center justify-center ${
+                          className={`relative p-3 rounded-lg border transition-all duration-200 aspect-square flex flex-col items-center justify-center ${
                             selectedItem === `skill-${skill.id}`
-                              ? 'bg-cyberpunk-neon/15 border-cyberpunk-neon'
-                              : 'bg-slate-800/30 hover:bg-slate-700/40 border-slate-600/50 hover:border-cyberpunk-neon/40'
+                              ? 'bg-cyberpunk-neon/10 border-cyberpunk-neon/60'
+                              : 'bg-slate-800/30 hover:bg-slate-700/40 border-slate-600/40 hover:border-cyberpunk-neon/30'
                           }`}
                         >
                           <div className='relative z-10 flex flex-col items-center justify-center h-full'>
                             {/* Icon */}
-                            <div className='w-12 h-12 mb-2 relative flex-shrink-0'>
+                            <div className='w-8 h-8 mb-2 relative flex-shrink-0'>
                               <div className='transition-transform duration-300 group-hover:scale-110'>
                                 {renderSkillIcon(skill.iconType)}
                               </div>
                             </div>
 
                             {/* Title */}
-                            <div className='text-cyberpunk-neon font-mono text-sm font-bold leading-tight text-center'>
+                            <div className='text-cyberpunk-neon/90 font-mono text-xs font-bold leading-tight text-center'>
                               {skill.title.split(' ')[0]}
+                            </div>
+                            
+                            {/* Skill level indicator */}
+                            <div className='text-cyberpunk-pink/60 text-xs mt-1'>
+                              {skill.level}
                             </div>
                           </div>
                         </div>
@@ -612,53 +634,70 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
             </motion.div>
           </div>
 
+          {/* Professional Call-to-Action */}
+          {onEnterPortfolio && (
+            <motion.div
+              className='flex justify-center mt-8'
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.6, duration: prefersReducedMotion ? 0.3 : 0.6 }}
+            >
+              <button
+                onClick={onEnterPortfolio}
+                className='group relative px-8 py-4 bg-gradient-to-r from-cyberpunk-neon/20 to-cyberpunk-pink/20 hover:from-cyberpunk-neon/30 hover:to-cyberpunk-pink/30 border-2 border-cyberpunk-neon/50 hover:border-cyberpunk-neon text-cyberpunk-neon font-mono font-bold rounded-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-cyberpunk-neon/25'
+              >
+                <span className='relative z-10'>ENTER PORTFOLIO</span>
+                <div className='absolute inset-0 bg-gradient-to-r from-cyberpunk-neon/10 to-cyberpunk-pink/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+              </button>
+            </motion.div>
+          )}
+
           {/* Footer */}
           <motion.div
-            className='mt-2 pt-2 border-t border-cyberpunk-neon/30 text-center'
+            className='mt-6 pt-4 border-t border-cyberpunk-neon/20 text-center'
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1.6 }}
+            transition={{ delay: 1.8, duration: prefersReducedMotion ? 0.3 : 0.6 }}
           >
-            <div className='text-cyberpunk-neon/60 font-mono text-sm'>
-              [ Interactive Analysis Ready • Hover Services & Skills for Details
-              ]
+            <div className='text-cyberpunk-neon/50 font-mono text-sm'>
+              [ Interactive Analysis Ready • Hover Services & Skills for Details ]
             </div>
           </motion.div>
         </div>
 
-        {/* Scanlines Overlay */}
-        <div className='absolute inset-0 scanlines rounded-3xl pointer-events-none opacity-10' />
+        {/* Subtle Scanlines Overlay */}
+        <div className='absolute inset-0 scanlines rounded-3xl pointer-events-none opacity-5' />
       </motion.div>
 
       <style>{`
         @keyframes gridPulse {
-          0%, 100% { opacity: 0.1; }
-          50% { opacity: 0.3; }
+          0%, 100% { opacity: 0.05; }
+          50% { opacity: 0.15; }
         }
         @keyframes gridFloat {
           0%, 100% { transform: translate(0, 0); }
-          50% { transform: translate(12px, 12px); }
+          50% { transform: translate(8px, 8px); }
         }
         @keyframes shimmer {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(100%); }
         }
         @keyframes pulseGlow {
-          0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(0, 255, 255, 0.6); }
+          0%, 100% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.2); }
+          50% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.4); }
         }
         .cyberpunk-id-photo {
           filter: 
-            contrast(1.2) 
-            brightness(1.1) 
-            saturate(0.8) 
-            hue-rotate(5deg) 
-            sepia(0.1);
+            contrast(1.1) 
+            brightness(1.05) 
+            saturate(0.9) 
+            hue-rotate(3deg) 
+            sepia(0.05);
           background: linear-gradient(135deg, 
-            rgba(0,255,255,0.05) 0%, 
+            rgba(0,255,255,0.03) 0%, 
             transparent 20%, 
             transparent 80%, 
-            rgba(255,0,255,0.05) 100%);
+            rgba(255,0,255,0.03) 100%);
         }
       `}</style>
     </div>
