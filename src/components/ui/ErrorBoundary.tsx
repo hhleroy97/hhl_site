@@ -107,10 +107,10 @@ class ErrorBoundary extends Component<Props, State> {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
               >
-                <summary className='cursor-pointer text-sm text-cyberpunk-text-muted hover:text-tech-text-secondary transition-colors'>
+                <summary className='cursor-pointer text-sm text-tech-text-muted hover:text-tech-text-secondary transition-colors'>
                   Error Details (Development)
                 </summary>
-                <pre className='mt-4 p-4 bg-tech-dark-surface rounded-lg text-xs text-cyberpunk-text-muted overflow-auto max-h-40 border border-tech-text-disabled/10'>
+                <pre className='mt-4 p-4 bg-tech-dark-surface rounded-lg text-xs text-tech-text-muted overflow-auto max-h-40 border border-tech-text-disabled/10'>
                   {this.state.error.toString()}
                   {this.state.errorInfo?.componentStack}
                 </pre>

@@ -58,7 +58,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             <div className='w-16 h-16 mx-auto mb-3 rounded-xl bg-tech-neon/10 border border-tech-neon/20 flex items-center justify-center'>
               <span className='text-2xl'>💻</span>
             </div>
-            <p className='text-sm text-cyberpunk-text-muted font-body'>
+            <p className='text-sm text-tech-text-muted font-body'>
               Project Preview
             </p>
           </div>
@@ -84,7 +84,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                 </span>
               ))}
               {project.technologies.length > 3 && (
-                <span className='px-2 py-1 bg-cyberpunk-text-muted/20 text-cyberpunk-text-muted text-xs font-medium rounded-md backdrop-blur-sm'>
+                <span className='px-2 py-1 bg-tech-text-muted/20 text-tech-text-muted text-xs font-medium rounded-md backdrop-blur-sm'>
                   +{project.technologies.length - 3} more
                 </span>
               )}
@@ -130,7 +130,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             </span>
           ))}
           {project.technologies.length > 3 && (
-            <span className='px-3 py-1 text-xs font-medium text-cyberpunk-text-muted bg-tech-dark-surface rounded-full'>
+            <span className='px-3 py-1 text-xs font-medium text-tech-text-muted bg-tech-dark-surface rounded-full'>
               +{project.technologies.length - 3}
             </span>
           )}
