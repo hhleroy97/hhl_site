@@ -436,7 +436,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   duration: prefersReducedMotion ? 0.3 : 0.6,
                 }}
               >
-                <div className='relative bg-slate-800/40 border border-white/10 rounded-xl p-4 backdrop-blur-sm'>
+                <div className='relative bg-slate-800/40 border border-white/10 rounded-xl p-4 backdrop-blur-sm min-h-[400px] flex flex-col'>
                   <div className='relative z-10'>
                     <h2 className='text-primary-400 font-mono text-sm tracking-widest font-semibold mb-3'>
                       CORE SERVICES
@@ -501,7 +501,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   duration: prefersReducedMotion ? 0.3 : 0.6,
                 }}
               >
-                <div className='relative bg-slate-800/40 border border-white/10 rounded-xl p-5 backdrop-blur-sm h-[320px] flex flex-col'>
+                <div className='relative bg-slate-800/40 border border-white/10 rounded-xl p-5 backdrop-blur-sm h-[400px] flex flex-col'>
                   <div className='relative z-10 flex-1 flex flex-col overflow-hidden'>
                     <AnimatePresence mode='wait'>
                       <motion.div
@@ -572,7 +572,7 @@ const CyberpunkTrainerDossier: React.FC<CyberpunkTrainerDossierProps> = ({
                   duration: prefersReducedMotion ? 0.3 : 0.6,
                 }}
               >
-                <div className='relative bg-gradient-to-br from-slate-700/30 to-slate-800/30 border border-white/10 rounded-xl p-4 backdrop-blur-sm h-[320px] flex items-center justify-center'>
+                <div className='relative bg-gradient-to-br from-slate-700/30 to-slate-800/30 border border-white/10 rounded-xl p-4 backdrop-blur-sm h-[400px] flex items-center justify-center'>
                   {/* Aura */}
                   <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-primary-500/5' />
 
