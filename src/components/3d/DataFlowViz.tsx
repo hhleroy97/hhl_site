@@ -148,12 +148,18 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
     canvas.style.webkitUserDrag = 'none'
     canvas.style.touchAction = 'none'
 
-    canvas.addEventListener('mousedown', onMouseDown, { passive: false })
-    canvas.addEventListener('contextmenu', e => e.preventDefault())
-    canvas.addEventListener('dragstart', e => e.preventDefault())
-    canvas.addEventListener('selectstart', e => e.preventDefault())
-    document.addEventListener('mousemove', onMouseMove, { passive: false })
-    document.addEventListener('mouseup', onMouseUp, { passive: false })
+    canvas.addEventListener('mousedown', (e: MouseEvent) => onMouseDown(e), {
+      passive: false,
+    })
+    canvas.addEventListener('contextmenu', (e: Event) => e.preventDefault())
+    canvas.addEventListener('dragstart', (e: Event) => e.preventDefault())
+    canvas.addEventListener('selectstart', (e: Event) => e.preventDefault())
+    document.addEventListener('mousemove', (e: MouseEvent) => onMouseMove(e), {
+      passive: false,
+    })
+    document.addEventListener('mouseup', (e: MouseEvent) => onMouseUp(e), {
+      passive: false,
+    })
 
     console.log('Event listeners added')
 
@@ -199,7 +205,7 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
         WebkitUserSelect: 'none',
         MozUserSelect: 'none',
         msUserSelect: 'none',
-        WebkitUserDrag: 'none',
+        WebkitUserDrag: 'none' as any,
         WebkitTouchCallout: 'none',
         touchAction: 'none',
       }}

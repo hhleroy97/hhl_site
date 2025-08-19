@@ -5,7 +5,9 @@ interface NeuralNetworkVizProps {
   className?: string
 }
 
-const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) => {
+const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({
+  className = '',
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const sceneRef = useRef<THREE.Scene | null>(null)
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null)
@@ -26,24 +28,26 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
     const neurons: THREE.Mesh[] = []
     const layers: THREE.Mesh[][] = []
 
-    networkStructure.forEach((nodeCount, layerIndex) => {
+    networkStructure.forEach((nodeCount: number, layerIndex: number) => {
       const layerNodes: THREE.Mesh[] = []
       const x = (layerIndex - (networkStructure.length - 1) / 2) * layerSpacing
-      
+
       for (let nodeIndex = 0; nodeIndex < nodeCount; nodeIndex++) {
         // Simple vertical stacking for clarity
         const y = (nodeIndex - (nodeCount - 1) / 2) * nodeSpacing
         const z = 0 // Keep it simple, minimal 3D depth
-        
+
         // Clean, professional neuron design
         const geometry = new THREE.SphereGeometry(0.15, 16, 16)
-        
+
         // Clear, distinct colors for each layer
         let color: number
-        if (layerIndex === 0) color = 0x00d4aa // Input - teal
-        else if (layerIndex === networkStructure.length - 1) color = 0x8b5cf6 // Output - purple
+        if (layerIndex === 0)
+          color = 0x00d4aa // Input - teal
+        else if (layerIndex === networkStructure.length - 1)
+          color = 0x8b5cf6 // Output - purple
         else color = 0x0ea5e9 // Hidden layers - blue
-        
+
         const material = new THREE.MeshStandardMaterial({
           color,
           metalness: 0.2,
@@ -51,7 +55,7 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
           emissive: color,
           emissiveIntensity: 0.05,
           transparent: true,
-          opacity: 0.85
+          opacity: 0.85,
         })
 
         const neuron = new THREE.Mesh(geometry, material)
@@ -61,7 +65,7 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
           nodeIndex,
           originalPosition: neuron.position.clone(),
           originalScale: 1,
-          activation: 0
+          activation: 0,
         }
 
         scene.add(neuron)
@@ -82,11 +86,11 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
       const currentLayer = layers[layerIndex]
       const nextLayer = layers[layerIndex + 1]
 
-      currentLayer.forEach(fromNeuron => {
-        nextLayer.forEach(toNeuron => {
+      currentLayer.forEach((fromNeuron: THREE.Mesh) => {
+        nextLayer.forEach((toNeuron: THREE.Mesh) => {
           const points = [
             fromNeuron.position.clone(),
-            toNeuron.position.clone()
+            toNeuron.position.clone(),
           ]
 
           const geometry = new THREE.BufferGeometry().setFromPoints(points)
@@ -94,7 +98,7 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
             color: 0x404040,
             transparent: true,
             opacity: 0.15,
-            linewidth: 2
+            linewidth: 2,
           })
 
           const connection = new THREE.Line(geometry, material)
@@ -102,7 +106,7 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
             fromNeuron,
             toNeuron,
             weight: Math.random() * 0.5 + 0.25,
-            active: false
+            active: false,
           }
 
           scene.add(connection)
@@ -117,13 +121,13 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
   // Create data packets that flow through the network
   const createDataPackets = (scene: THREE.Scene) => {
     const packets: THREE.Mesh[] = []
-    
+
     for (let i = 0; i < 6; i++) {
       const geometry = new THREE.SphereGeometry(0.05, 12, 12)
       const material = new THREE.MeshBasicMaterial({
         color: 0x00ffcc,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.8,
       })
 
       const packet = new THREE.Mesh(geometry, material)
@@ -133,7 +137,7 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
         currentLayer: 0,
         targetLayer: 1,
         path: [],
-        active: false
+        active: false,
       }
 
       scene.add(packet)
@@ -148,10 +152,10 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
     const cycle = (time * 0.4) % (networkStructure.length + 1) // Steady, clear timing
 
     // Reset all activations
-    neuronsRef.current.forEach(neuron => {
+    neuronsRef.current.forEach((neuron: THREE.Mesh) => {
       neuron.userData.activation = 0
       neuron.scale.setScalar(neuron.userData.originalScale)
-      
+
       if (neuron.material instanceof THREE.MeshStandardMaterial) {
         neuron.material.opacity = 0.6
         neuron.material.emissiveIntensity = 0.02
@@ -163,13 +167,14 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
     const layerProgress = cycle - currentLayer
 
     // Activate current layer with clean, smooth effects
-    neuronsRef.current.forEach(neuron => {
+    neuronsRef.current.forEach((neuron: THREE.Mesh) => {
       if (neuron.userData.layerIndex === currentLayer) {
-        const activation = 0.7 + Math.sin(time * 3 + neuron.userData.nodeIndex * 0.8) * 0.3
-        
+        const activation =
+          0.7 + Math.sin(time * 3 + neuron.userData.nodeIndex * 0.8) * 0.3
+
         neuron.userData.activation = activation
         neuron.scale.setScalar(1 + activation * 0.4)
-        
+
         if (neuron.material instanceof THREE.MeshStandardMaterial) {
           neuron.material.opacity = 0.6 + activation * 0.4
           neuron.material.emissiveIntensity = 0.02 + activation * 0.15
@@ -178,12 +183,13 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
     })
 
     // Animate connections
-    connectionsRef.current.forEach(connection => {
+    connectionsRef.current.forEach((connection: THREE.Line) => {
       const fromLayer = connection.userData.fromNeuron.userData.layerIndex
       const toLayer = connection.userData.toNeuron.userData.layerIndex
-      
-      connection.userData.active = (fromLayer === currentLayer && toLayer === currentLayer + 1)
-      
+
+      connection.userData.active =
+        fromLayer === currentLayer && toLayer === currentLayer + 1
+
       if (connection.material instanceof THREE.LineBasicMaterial) {
         if (connection.userData.active) {
           const intensity = layerProgress * connection.userData.weight
@@ -197,32 +203,37 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
     })
 
     // Animate data packets along connections
-    dataPacketsRef.current.forEach((packet, index) => {
+    dataPacketsRef.current.forEach((packet: THREE.Mesh, index: number) => {
       const packetCycle = (time * 0.5 + index * 0.5) % 4
       const packetLayer = Math.floor(packetCycle)
       const packetProgress = packetCycle - packetLayer
 
       if (packetLayer < networkStructure.length - 1) {
         packet.visible = true
-        
+
         // Find source and target neurons
-        const layerStart = neuronsRef.current.filter(n => n.userData.layerIndex === packetLayer)
-        const layerEnd = neuronsRef.current.filter(n => n.userData.layerIndex === packetLayer + 1)
-        
+        const layerStart = neuronsRef.current.filter(
+          n => n.userData.layerIndex === packetLayer
+        )
+        const layerEnd = neuronsRef.current.filter(
+          n => n.userData.layerIndex === packetLayer + 1
+        )
+
         if (layerStart.length > 0 && layerEnd.length > 0) {
           const sourceNeuron = layerStart[index % layerStart.length]
           const targetNeuron = layerEnd[index % layerEnd.length]
-          
+
           // Interpolate position
           packet.position.lerpVectors(
             sourceNeuron.position,
             targetNeuron.position,
             packetProgress
           )
-          
+
           // Vary opacity for flow effect
           if (packet.material instanceof THREE.MeshBasicMaterial) {
-            packet.material.opacity = 0.8 + Math.sin(packetProgress * Math.PI) * 0.2
+            packet.material.opacity =
+              0.8 + Math.sin(packetProgress * Math.PI) * 0.2
           }
         }
       } else {
@@ -273,7 +284,7 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
     }
 
     if (sceneRef.current) {
-      sceneRef.current.traverse((object) => {
+      sceneRef.current.traverse((object: THREE.Object3D) => {
         if (object instanceof THREE.Mesh || object instanceof THREE.Line) {
           object.geometry?.dispose()
           if (object.material instanceof THREE.Material) {
@@ -296,15 +307,15 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
     sceneRef.current = scene
 
     // Setup renderer
-    const renderer = new THREE.WebGLRenderer({ 
+    const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       antialias: true,
-      alpha: true
+      alpha: true,
     })
-    
+
     const width = canvasRef.current.clientWidth || 500
     const height = canvasRef.current.clientHeight || 500
-    
+
     renderer.setSize(width, height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     rendererRef.current = renderer
@@ -332,7 +343,7 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
     // Create the neural network
     const { neurons, layers } = createNeurons(scene)
     neuronsRef.current = neurons
-    
+
     connectionsRef.current = createConnections(scene, layers)
     dataPacketsRef.current = createDataPackets(scene)
 
@@ -349,18 +360,20 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
     <div className={`relative ${className}`}>
       <canvas
         ref={canvasRef}
-        className="w-full h-full"
-        style={{ 
-          background: 'transparent'
+        className='w-full h-full'
+        style={{
+          background: 'transparent',
         }}
       />
-      
+
       {/* Network architecture labels */}
-      <div className="absolute bottom-4 left-4 text-xs text-tech-text-muted font-mono">
-        <div className="bg-tech-dark/90 px-3 py-2 rounded-lg border border-tech-teal/30">
-          <div className="text-tech-teal font-semibold">Neural Network</div>
-          <div className="text-tech-text-secondary">[4-6-6-3] Architecture</div>
-          <div className="text-tech-text-muted text-[10px] mt-1">AI Decision Processing</div>
+      <div className='absolute bottom-4 left-4 text-xs text-tech-text-muted font-mono'>
+        <div className='bg-tech-dark/90 px-3 py-2 rounded-lg border border-tech-teal/30'>
+          <div className='text-tech-teal font-semibold'>Neural Network</div>
+          <div className='text-tech-text-secondary'>[4-6-6-3] Architecture</div>
+          <div className='text-tech-text-muted text-[10px] mt-1'>
+            AI Decision Processing
+          </div>
         </div>
       </div>
     </div>
