@@ -27,70 +27,64 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className='relative'>
-              {/* Main photo container */}
-              <motion.div
-                className='relative w-80 h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-tech-dark-alt to-tech-dark border-2 border-tech-neon/30'
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Placeholder avatar - you can replace with actual photo */}
-                <div className='w-full h-full flex items-center justify-center bg-gradient-to-br from-tech-neon/20 to-tech-pink/20'>
-                  <div className='text-center'>
-                    <div className='w-32 h-32 mx-auto mb-4 rounded-full bg-tech-neon/30 flex items-center justify-center'>
-                      <span className='text-4xl font-cyber font-bold text-tech-neon'>
-                        HHL
-                      </span>
-                    </div>
-                    <p className='text-sm text-gray-400 font-display'>
-                      Professional Photo
-                    </p>
-                  </div>
+              {/* Professional Photo with 3D-inspired border */}
+              <div className='relative w-80 h-80'>
+                {/* Main border ring - matches 3D design */}
+                <div className='absolute inset-2 rounded-full border-2 border-tech-teal/80 animate-pulse'></div>
+                
+                {/* Secondary border rings */}
+                <div className='absolute inset-0 rounded-full border border-tech-cyan/40'></div>
+                <div className='absolute inset-4 rounded-full border border-tech-purple/30'></div>
+                
+                {/* Octahedral accent points - positioned on circular perimeter */}
+                {/* Top - 0° */}
+                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-teal bg-tech-teal/30 animate-pulse' 
+                     style={{top: '8px', left: '50%', transform: 'translateX(-50%) rotate(45deg)'}}></div>
+                {/* Top-right - 45° */}
+                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-cyan bg-tech-cyan/30 animate-pulse' 
+                     style={{top: '25px', right: '25px', animationDelay: '0.2s'}}></div>
+                {/* Right - 90° */}
+                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-purple bg-tech-purple/30 animate-pulse' 
+                     style={{top: '50%', right: '8px', transform: 'translateY(-50%) rotate(45deg)', animationDelay: '0.4s'}}></div>
+                {/* Bottom-right - 135° */}
+                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-teal bg-tech-teal/30 animate-pulse' 
+                     style={{bottom: '25px', right: '25px', animationDelay: '0.6s'}}></div>
+                {/* Bottom - 180° */}
+                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-cyan bg-tech-cyan/30 animate-pulse' 
+                     style={{bottom: '8px', left: '50%', transform: 'translateX(-50%) rotate(45deg)', animationDelay: '0.8s'}}></div>
+                {/* Bottom-left - 225° */}
+                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-purple bg-tech-purple/30 animate-pulse' 
+                     style={{bottom: '25px', left: '25px', animationDelay: '1s'}}></div>
+                {/* Left - 270° */}
+                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-teal bg-tech-teal/30 animate-pulse' 
+                     style={{top: '50%', left: '8px', transform: 'translateY(-50%) rotate(45deg)', animationDelay: '1.2s'}}></div>
+                {/* Top-left - 315° */}
+                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-cyan bg-tech-cyan/30 animate-pulse' 
+                     style={{top: '25px', left: '25px', animationDelay: '1.4s'}}></div>
+                
+                {/* Corner L-shaped brackets - positioned on the circle */}
+                <div className='absolute w-6 h-6 border-l-2 border-t-2 border-tech-cyan/60 animate-pulse'
+                     style={{top: '60px', left: '60px'}}></div>
+                <div className='absolute w-6 h-6 border-r-2 border-t-2 border-tech-cyan/60 animate-pulse'
+                     style={{top: '60px', right: '60px', animationDelay: '0.3s'}}></div>
+                <div className='absolute w-6 h-6 border-l-2 border-b-2 border-tech-cyan/60 animate-pulse'
+                     style={{bottom: '60px', left: '60px', animationDelay: '0.6s'}}></div>
+                <div className='absolute w-6 h-6 border-r-2 border-b-2 border-tech-cyan/60 animate-pulse'
+                     style={{bottom: '60px', right: '60px', animationDelay: '0.9s'}}></div>
+                
+                {/* Image container */}
+                <div className='relative w-full h-full rounded-full bg-gradient-to-br from-tech-teal/20 to-tech-cyan/20 flex items-center justify-center overflow-hidden shadow-2xl'>
+                  <img 
+                    src="/src/assets/prof-pic-2.jpg" 
+                    alt="Hartley H. Leroy - Creative Technologist & AI Engineer"
+                    className="w-full h-full object-cover"
+                    style={{ 
+                      imageRendering: 'optimize-quality',
+                      transform: 'translateX(-20px) scale(1.2)'
+                    }}
+                  />
                 </div>
-
-                {/* Cyberpunk overlay effects */}
-                <motion.div
-                  className='absolute inset-0 bg-gradient-to-t from-tech-neon/10 to-transparent opacity-0'
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-
-                {/* Corner brackets */}
-                <div className='absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-tech-neon' />
-                <div className='absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-tech-neon' />
-                <div className='absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-tech-neon' />
-                <div className='absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-tech-neon' />
-              </motion.div>
-
-              {/* Floating tech icons */}
-              <motion.div
-                className='absolute -top-4 -right-4 w-12 h-12 bg-tech-pink rounded-lg flex items-center justify-center'
-                animate={{
-                  y: [0, -10, 0],
-                  rotate: [0, 5, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: 0,
-                }}
-              >
-                <span className='text-white text-xl'>⚡</span>
-              </motion.div>
-
-              <motion.div
-                className='absolute -bottom-4 -left-4 w-12 h-12 bg-tech-purple rounded-lg flex items-center justify-center'
-                animate={{
-                  y: [0, -8, 0],
-                  rotate: [0, -5, 0],
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  delay: 1,
-                }}
-              >
-                <span className='text-white text-xl'>🚀</span>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
 

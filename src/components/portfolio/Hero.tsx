@@ -108,7 +108,7 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right column - Professional Photo with 3D Grid Background */}
+          {/* Right column - 3D Grid Background */}
           <motion.div
             className='relative flex justify-center lg:justify-end'
             initial={{ opacity: 0, x: 40 }}
@@ -116,69 +116,8 @@ export default function Hero() {
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
             <div className='relative w-full max-w-[500px] h-[500px] flex items-center justify-center'>
-              
-              {/* 3D Grid Background - positioned behind profile pic */}
               <div className='absolute inset-0 pointer-events-none opacity-40'>
                 <RetroDataFlow className="w-full h-full" />
-              </div>
-              
-              {/* Professional Photo with 3D-inspired border */}
-              <div className='relative z-10 w-96 h-96'>
-                {/* Main border ring - matches 3D design */}
-                <div className='absolute inset-2 rounded-full border-2 border-tech-teal/80 animate-pulse'></div>
-                
-                {/* Secondary border rings */}
-                <div className='absolute inset-0 rounded-full border border-tech-cyan/40'></div>
-                <div className='absolute inset-4 rounded-full border border-tech-purple/30'></div>
-                
-                {/* Octahedral accent points - positioned on circular perimeter */}
-                {/* Top - 0° */}
-                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-teal bg-tech-teal/30 animate-pulse' 
-                     style={{top: '8px', left: '50%', transform: 'translateX(-50%) rotate(45deg)'}}></div>
-                {/* Top-right - 45° */}
-                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-cyan bg-tech-cyan/30 animate-pulse' 
-                     style={{top: '25px', right: '25px', animationDelay: '0.2s'}}></div>
-                {/* Right - 90° */}
-                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-purple bg-tech-purple/30 animate-pulse' 
-                     style={{top: '50%', right: '8px', transform: 'translateY(-50%) rotate(45deg)', animationDelay: '0.4s'}}></div>
-                {/* Bottom-right - 135° */}
-                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-teal bg-tech-teal/30 animate-pulse' 
-                     style={{bottom: '25px', right: '25px', animationDelay: '0.6s'}}></div>
-                {/* Bottom - 180° */}
-                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-cyan bg-tech-cyan/30 animate-pulse' 
-                     style={{bottom: '8px', left: '50%', transform: 'translateX(-50%) rotate(45deg)', animationDelay: '0.8s'}}></div>
-                {/* Bottom-left - 225° */}
-                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-purple bg-tech-purple/30 animate-pulse' 
-                     style={{bottom: '25px', left: '25px', animationDelay: '1s'}}></div>
-                {/* Left - 270° */}
-                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-teal bg-tech-teal/30 animate-pulse' 
-                     style={{top: '50%', left: '8px', transform: 'translateY(-50%) rotate(45deg)', animationDelay: '1.2s'}}></div>
-                {/* Top-left - 315° */}
-                <div className='absolute w-3 h-3 rotate-45 border-2 border-tech-cyan bg-tech-cyan/30 animate-pulse' 
-                     style={{top: '25px', left: '25px', animationDelay: '1.4s'}}></div>
-                
-                {/* Corner L-shaped brackets - positioned on the circle */}
-                <div className='absolute w-6 h-6 border-l-2 border-t-2 border-tech-cyan/60 animate-pulse'
-                     style={{top: '60px', left: '60px'}}></div>
-                <div className='absolute w-6 h-6 border-r-2 border-t-2 border-tech-cyan/60 animate-pulse'
-                     style={{top: '60px', right: '60px', animationDelay: '0.3s'}}></div>
-                <div className='absolute w-6 h-6 border-l-2 border-b-2 border-tech-cyan/60 animate-pulse'
-                     style={{bottom: '60px', left: '60px', animationDelay: '0.6s'}}></div>
-                <div className='absolute w-6 h-6 border-r-2 border-b-2 border-tech-cyan/60 animate-pulse'
-                     style={{bottom: '60px', right: '60px', animationDelay: '0.9s'}}></div>
-                
-                {/* Image container */}
-                <div className='relative w-full h-full rounded-full bg-gradient-to-br from-tech-teal/20 to-tech-cyan/20 flex items-center justify-center overflow-hidden shadow-2xl'>
-                  <img 
-                    src="/src/assets/prof-pic-2.jpg" 
-                    alt="Hartley H. Leroy - Creative Technologist & AI Engineer"
-                    className="w-full h-full object-cover"
-                    style={{ 
-                      imageRendering: 'optimize-quality',
-                      transform: 'translateX(-20px) scale(1.2)'
-                    }}
-                  />
-                </div>
               </div>
             </div>
           </motion.div>
