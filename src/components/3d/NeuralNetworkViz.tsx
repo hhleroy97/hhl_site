@@ -16,10 +16,10 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
   const connectionsRef = useRef<THREE.Line[]>([])
   const dataPacketsRef = useRef<THREE.Mesh[]>([])
 
-  // Network architecture: Input -> Hidden1 -> Hidden2 -> Output
-  const networkStructure = [4, 6, 4, 2] // nodes per layer
-  const layerSpacing = 2.5
-  const nodeSpacing = 0.8
+  // Network architecture: Input -> Hidden1 -> Hidden2 -> Hidden3 -> Output
+  const networkStructure = [8, 12, 16, 12, 6] // nodes per layer
+  const layerSpacing = 3.5
+  const nodeSpacing = 0.6
 
   // Create neural network nodes
   const createNeurons = (scene: THREE.Scene) => {
@@ -31,25 +31,54 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
       const x = (layerIndex - (networkStructure.length - 1) / 2) * layerSpacing
       
       for (let nodeIndex = 0; nodeIndex < nodeCount; nodeIndex++) {
-        const y = (nodeIndex - (nodeCount - 1) / 2) * nodeSpacing
+        // Create 3D arrangement in cylindrical formation
+        const angle = (nodeIndex / nodeCount) * Math.PI * 2
+        const radius = Math.min(nodeCount * 0.12, 2.5)
+        const y = Math.cos(angle) * radius
+        const z = Math.sin(angle) * radius
         
-        const geometry = new THREE.SphereGeometry(0.08, 16, 16)
-        const material = new THREE.MeshBasicMaterial({
-          color: layerIndex === 0 ? 0x00d4aa : // Input layer - teal
-                 layerIndex === networkStructure.length - 1 ? 0x8b5cf6 : // Output layer - purple
-                 0x0ea5e9, // Hidden layers - blue
+        // Larger neurons with better 3D geometry
+        const geometry = new THREE.SphereGeometry(0.12, 20, 20)
+        
+        // Dynamic colors based on layer depth
+        let color: number
+        if (layerIndex === 0) color = 0x00d4aa // Input - teal
+        else if (layerIndex === networkStructure.length - 1) color = 0xff6b6b // Output - red
+        else if (layerIndex === 1) color = 0x0ea5e9 // Hidden 1 - blue
+        else if (layerIndex === 2) color = 0x8b5cf6 // Hidden 2 - purple
+        else color = 0x06b6d4 // Hidden 3 - cyan
+        
+        const material = new THREE.MeshStandardMaterial({
+          color,
+          metalness: 0.3,
+          roughness: 0.4,
+          emissive: color,
+          emissiveIntensity: 0.1,
           transparent: true,
-          opacity: 0.8
+          opacity: 0.9
         })
 
         const neuron = new THREE.Mesh(geometry, material)
-        neuron.position.set(x, y, 0)
+        neuron.position.set(x, y, z)
         neuron.userData = {
           layerIndex,
           nodeIndex,
+          originalPosition: neuron.position.clone(),
           originalScale: 1,
-          activation: 0
+          activation: 0,
+          angle,
+          radius
         }
+
+        // Add glow effect
+        const glowGeometry = new THREE.SphereGeometry(0.18, 12, 12)
+        const glowMaterial = new THREE.MeshBasicMaterial({
+          color,
+          transparent: true,
+          opacity: 0.1
+        })
+        const glow = new THREE.Mesh(glowGeometry, glowMaterial)
+        neuron.add(glow)
 
         scene.add(neuron)
         neurons.push(neuron)
@@ -80,7 +109,8 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
           const material = new THREE.LineBasicMaterial({
             color: 0x404040,
             transparent: true,
-            opacity: 0.2
+            opacity: 0.15,
+            linewidth: 2
           })
 
           const connection = new THREE.Line(geometry, material)
@@ -104,10 +134,14 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
   const createDataPackets = (scene: THREE.Scene) => {
     const packets: THREE.Mesh[] = []
     
-    for (let i = 0; i < 8; i++) {
-      const geometry = new THREE.SphereGeometry(0.03, 8, 8)
-      const material = new THREE.MeshBasicMaterial({
+    for (let i = 0; i < 20; i++) {
+      const geometry = new THREE.SphereGeometry(0.04, 12, 12)
+      const material = new THREE.MeshStandardMaterial({
         color: 0x00ffcc,
+        metalness: 0.8,
+        roughness: 0.2,
+        emissive: 0x00ffcc,
+        emissiveIntensity: 0.3,
         transparent: true,
         opacity: 0.9
       })
@@ -115,7 +149,7 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
       const packet = new THREE.Mesh(geometry, material)
       packet.userData = {
         progress: Math.random(),
-        speed: 0.01 + Math.random() * 0.01,
+        speed: 0.008 + Math.random() * 0.012,
         currentLayer: 0,
         targetLayer: 1,
         path: [],
@@ -131,29 +165,43 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
 
   // Simulate forward propagation animation
   const simulateForwardPass = (time: number) => {
-    const cycle = (time * 0.5) % 4 // 4-second cycle
+    const cycle = (time * 0.3) % (networkStructure.length + 1) // Slower, more dramatic
 
     // Reset all activations
     neuronsRef.current.forEach(neuron => {
       neuron.userData.activation = 0
       neuron.scale.setScalar(neuron.userData.originalScale)
-      if (neuron.material instanceof THREE.MeshBasicMaterial) {
-        neuron.material.opacity = 0.6
+      
+      // Add subtle rotation to neurons
+      neuron.rotation.x = time * 0.5 + neuron.userData.nodeIndex * 0.2
+      neuron.rotation.y = time * 0.3 + neuron.userData.layerIndex * 0.4
+      
+      if (neuron.material instanceof THREE.MeshStandardMaterial) {
+        neuron.material.opacity = 0.7
+        neuron.material.emissiveIntensity = 0.05
       }
     })
 
-    // Activate layers progressively
+    // Activate layers progressively with wave effects
     const currentLayer = Math.floor(cycle)
     const layerProgress = cycle - currentLayer
 
-    // Activate current layer
+    // Activate current layer with dramatic effects
     neuronsRef.current.forEach(neuron => {
       if (neuron.userData.layerIndex === currentLayer) {
-        const activation = Math.sin(time * 3 + neuron.userData.nodeIndex * 0.5) * 0.5 + 0.5
+        const wave = Math.sin(time * 2 + neuron.userData.angle * 3) * 0.5 + 0.5
+        const activation = wave * (0.8 + Math.sin(time * 4 + neuron.userData.nodeIndex) * 0.2)
+        
         neuron.userData.activation = activation
-        neuron.scale.setScalar(1 + activation * 0.3)
-        if (neuron.material instanceof THREE.MeshBasicMaterial) {
-          neuron.material.opacity = 0.6 + activation * 0.4
+        neuron.scale.setScalar(1 + activation * 0.6)
+        
+        // Pulse neuron positions outward
+        const pulseFactor = 1 + activation * 0.2
+        neuron.position.copy(neuron.userData.originalPosition).multiplyScalar(pulseFactor)
+        
+        if (neuron.material instanceof THREE.MeshStandardMaterial) {
+          neuron.material.opacity = 0.7 + activation * 0.3
+          neuron.material.emissiveIntensity = 0.1 + activation * 0.4
         }
       }
     })
@@ -221,10 +269,12 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
     // Run forward propagation simulation
     simulateForwardPass(time)
 
-    // Gentle camera rotation for 3D effect
+    // Dynamic camera movement for maximum impact
     if (cameraRef.current) {
-      cameraRef.current.position.x = Math.sin(time * 0.1) * 1
-      cameraRef.current.position.y = Math.cos(time * 0.15) * 0.5
+      const radius = 12 + Math.sin(time * 0.2) * 2
+      cameraRef.current.position.x = Math.sin(time * 0.1) * radius * 0.7
+      cameraRef.current.position.y = 4 + Math.cos(time * 0.15) * 2
+      cameraRef.current.position.z = Math.cos(time * 0.1) * radius
       cameraRef.current.lookAt(0, 0, 0)
     }
 
@@ -289,19 +339,33 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     rendererRef.current = renderer
 
-    // Setup camera
-    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100)
-    camera.position.set(2, 1, 8)
+    // Setup camera for dramatic 3D view
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100)
+    camera.position.set(8, 4, 12)
     camera.lookAt(0, 0, 0)
     cameraRef.current = camera
 
-    // Setup lighting
-    const ambientLight = new THREE.AmbientLight(0x404040, 0.8)
+    // Setup dramatic lighting
+    const ambientLight = new THREE.AmbientLight(0x111111, 0.3)
     scene.add(ambientLight)
 
-    const pointLight = new THREE.PointLight(0x00d4aa, 0.5, 50)
-    pointLight.position.set(5, 5, 5)
-    scene.add(pointLight)
+    // Multiple colored lights for depth
+    const light1 = new THREE.PointLight(0x00d4aa, 2, 50)
+    light1.position.set(10, 5, 5)
+    scene.add(light1)
+
+    const light2 = new THREE.PointLight(0x8b5cf6, 1.5, 50)
+    light2.position.set(-10, -5, 5)
+    scene.add(light2)
+
+    const light3 = new THREE.PointLight(0x0ea5e9, 1, 50)
+    light3.position.set(0, 10, -5)
+    scene.add(light3)
+
+    // Directional light for overall illumination
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
+    directionalLight.position.set(5, 5, 5)
+    scene.add(directionalLight)
 
     // Create the neural network
     const { neurons, layers } = createNeurons(scene)
@@ -331,8 +395,10 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({ className = '' }) =
       
       {/* Network architecture labels */}
       <div className="absolute bottom-4 left-4 text-xs text-tech-text-muted font-mono">
-        <div className="bg-tech-dark/80 px-2 py-1 rounded">
-          Neural Network: [4-6-4-2]
+        <div className="bg-tech-dark/90 px-3 py-2 rounded-lg border border-tech-teal/30">
+          <div className="text-tech-teal font-semibold">Deep Neural Network</div>
+          <div className="text-tech-text-secondary">[8-12-16-12-6] Architecture</div>
+          <div className="text-tech-text-muted text-[10px] mt-1">Forward Propagation Active</div>
         </div>
       </div>
     </div>
