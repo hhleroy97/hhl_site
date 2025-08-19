@@ -221,7 +221,7 @@ const DataflowRibbons: React.FC = () => {
     nR.position.set(xR, y, (zMin + zMax) / 2)
     scene.add(nR)
 
-    // Create ribbons with bends on same Y plane to avoid crossings
+    // Circuit board layout system with fanning patterns
     const curves: THREE.CurvePath<THREE.Vector3>[] = []
     const colors: THREE.Color[] = []
     const particles: THREE.Sprite[] = []
@@ -229,143 +229,190 @@ const DataflowRibbons: React.FC = () => {
     // All ribbons stay on same Y level
     const ribbonY = y + 0.05
 
+    // Create grid of occupied positions to prevent overlaps
+    const gridSize = 0.3
+    const occupiedGrid = new Set<string>()
+
+    // Helper to check and mark grid positions
+    const markGridPosition = (x: number, z: number) => {
+      const gx = Math.round(x / gridSize)
+      const gz = Math.round(z / gridSize)
+      const key = `${gx},${gz}`
+      occupiedGrid.add(key)
+      return key
+    }
+
+    const isGridOccupied = (x: number, z: number, buffer = 1) => {
+      const gx = Math.round(x / gridSize)
+      const gz = Math.round(z / gridSize)
+      for (let dx = -buffer; dx <= buffer; dx++) {
+        for (let dz = -buffer; dz <= buffer; dz++) {
+          const key = `${gx + dx},${gz + dz}`
+          if (occupiedGrid.has(key)) return true
+        }
+      }
+      return false
+    }
+
+    // Circuit routing patterns
     for (let i = 0; i < lanes; i++) {
       const zLane = zStart + i * spacing
-      const tubeR = Math.max(0.02, 0.18 * 0.5)
+      const tubeR = Math.max(0.02, 0.18 * 0.4)
 
-      // Create alternating routing patterns to avoid crossings in X/Z plane
-      const pattern = i % 6
-      let pts3: THREE.Vector3[]
+      // Determine circuit routing type based on lane position
+      const laneType = Math.floor((i / lanes) * 4) // 4 routing zones
+      let pts3: THREE.Vector3[] = []
 
-      switch (pattern) {
-        case 0: // Direct path
-          pts3 = [
-            new THREE.Vector3(xL, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.3, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.7, ribbonY, zLane),
-            new THREE.Vector3(xR, ribbonY, zLane),
-          ]
-          break
-
-        case 1: {
-          // S-curve north
-          const zOffset1 = Math.min(1.5, spacing * 0.6)
+      switch (laneType) {
+        case 0: {
+          // Direct traces (top quarter)
           pts3 = [
             new THREE.Vector3(xL, ribbonY, zLane),
             new THREE.Vector3(xL + (xR - xL) * 0.2, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.35, ribbonY, zLane + zOffset1),
-            new THREE.Vector3(xL + (xR - xL) * 0.65, ribbonY, zLane + zOffset1),
             new THREE.Vector3(xL + (xR - xL) * 0.8, ribbonY, zLane),
+            new THREE.Vector3(xR, ribbonY, zLane),
+          ]
+          break
+        }
+
+        case 1: {
+          // Fan-out pattern (upper middle)
+          const fanDirection = i % 2 === 0 ? 1 : -1
+          const fanOffset = fanDirection * spacing * 0.8
+          const midX = xL + (xR - xL) * 0.5
+
+          pts3 = [
+            new THREE.Vector3(xL, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.15, ribbonY, zLane),
+            new THREE.Vector3(
+              xL + (xR - xL) * 0.25,
+              ribbonY,
+              zLane + fanOffset * 0.3
+            ),
+            new THREE.Vector3(midX, ribbonY, zLane + fanOffset),
+            new THREE.Vector3(
+              xL + (xR - xL) * 0.75,
+              ribbonY,
+              zLane + fanOffset * 0.3
+            ),
+            new THREE.Vector3(xL + (xR - xL) * 0.85, ribbonY, zLane),
             new THREE.Vector3(xR, ribbonY, zLane),
           ]
           break
         }
 
         case 2: {
-          // S-curve south
-          const zOffset2 = -Math.min(1.5, spacing * 0.6)
+          // L-shaped routing (lower middle)
+          const routeUp = i % 2 === 0
+          const bendPoint = routeUp
+            ? zLane + spacing * 1.2
+            : zLane - spacing * 1.2
+
+          // Ensure no overlap by checking bend position
+          const safeBendPoint = isGridOccupied(xL + (xR - xL) * 0.4, bendPoint)
+            ? routeUp
+              ? zLane + spacing * 0.6
+              : zLane - spacing * 0.6
+            : bendPoint
+
           pts3 = [
             new THREE.Vector3(xL, ribbonY, zLane),
             new THREE.Vector3(xL + (xR - xL) * 0.2, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.35, ribbonY, zLane + zOffset2),
-            new THREE.Vector3(xL + (xR - xL) * 0.65, ribbonY, zLane + zOffset2),
+            new THREE.Vector3(xL + (xR - xL) * 0.4, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.4, ribbonY, safeBendPoint),
+            new THREE.Vector3(xL + (xR - xL) * 0.6, ribbonY, safeBendPoint),
+            new THREE.Vector3(xL + (xR - xL) * 0.6, ribbonY, zLane),
             new THREE.Vector3(xL + (xR - xL) * 0.8, ribbonY, zLane),
             new THREE.Vector3(xR, ribbonY, zLane),
           ]
+
+          // Mark grid positions for this L-route
+          markGridPosition(xL + (xR - xL) * 0.4, safeBendPoint)
+          markGridPosition(xL + (xR - xL) * 0.6, safeBendPoint)
           break
         }
 
-        case 3: {
-          // Wide arch north
-          const archZ1 = zLane + Math.min(2, spacing * 0.8)
-          pts3 = [
-            new THREE.Vector3(xL, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.15, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.3, ribbonY, archZ1),
-            new THREE.Vector3(xL + (xR - xL) * 0.5, ribbonY, archZ1),
-            new THREE.Vector3(xL + (xR - xL) * 0.7, ribbonY, archZ1),
-            new THREE.Vector3(xL + (xR - xL) * 0.85, ribbonY, zLane),
-            new THREE.Vector3(xR, ribbonY, zLane),
-          ]
-          break
-        }
-
-        case 4: {
-          // Wide arch south
-          const archZ2 = zLane - Math.min(2, spacing * 0.8)
-          pts3 = [
-            new THREE.Vector3(xL, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.15, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.3, ribbonY, archZ2),
-            new THREE.Vector3(xL + (xR - xL) * 0.5, ribbonY, archZ2),
-            new THREE.Vector3(xL + (xR - xL) * 0.7, ribbonY, archZ2),
-            new THREE.Vector3(xL + (xR - xL) * 0.85, ribbonY, zLane),
-            new THREE.Vector3(xR, ribbonY, zLane),
-          ]
-          break
-        }
-
-        case 5: // Complex zigzag
+        case 3: // Via-style routing (bottom quarter)
         default: {
-          const zigOffset = (i % 2 === 0 ? 1 : -1) * Math.min(1, spacing * 0.4)
+          // Create stepped routing pattern
+          const steps = 3
+          const stepZ = spacing * 0.4 * (i % 2 === 0 ? 1 : -1)
+
           pts3 = [
             new THREE.Vector3(xL, ribbonY, zLane),
-            new THREE.Vector3(
-              xL + (xR - xL) * 0.25,
-              ribbonY,
-              zLane + zigOffset * 0.5
-            ),
-            new THREE.Vector3(xL + (xR - xL) * 0.4, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.6, ribbonY, zLane + zigOffset),
-            new THREE.Vector3(xL + (xR - xL) * 0.75, ribbonY, zLane),
-            new THREE.Vector3(xR, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.2, ribbonY, zLane),
           ]
+
+          // Add stepped segments
+          for (let step = 1; step <= steps; step++) {
+            const stepX = xL + (xR - xL) * (0.2 + (step * 0.6) / steps)
+            const currentStepZ = step % 2 === 1 ? zLane + stepZ : zLane
+
+            if (!isGridOccupied(stepX, currentStepZ, 0)) {
+              pts3.push(new THREE.Vector3(stepX, ribbonY, currentStepZ))
+              markGridPosition(stepX, currentStepZ)
+            }
+          }
+
+          pts3.push(
+            new THREE.Vector3(xL + (xR - xL) * 0.8, ribbonY, zLane),
+            new THREE.Vector3(xR, ribbonY, zLane)
+          )
           break
         }
       }
 
-      const curve = filletedPath3D(pts3, tubeR * 0.8)
-      const geom = new THREE.TubeGeometry(curve, 128, tubeR, 16, false)
+      const curve = filletedPath3D(pts3, tubeR * 1.2)
+      const geom = new THREE.TubeGeometry(curve, 96, tubeR, 12, false)
       const tLane = lanes > 1 ? i / (lanes - 1) : 0.5
 
-      // Color based on pattern complexity
-      const patternIntensity = [1.0, 0.9, 0.9, 0.8, 0.8, 0.7][pattern] || 0.6
-      const col = gradientColor(pal, tLane).multiplyScalar(patternIntensity)
+      // Color based on circuit function
+      const circuitColors = [
+        gradientColor(pal, tLane).multiplyScalar(1.1), // Direct - bright
+        gradientColor(pal, tLane).multiplyScalar(0.9), // Fan-out - medium
+        gradientColor(pal, tLane).multiplyScalar(0.8), // L-route - dimmer
+        gradientColor(pal, tLane).multiplyScalar(0.7), // Via - dimmest
+      ]
+      const col = circuitColors[laneType] || gradientColor(pal, tLane)
 
-      const mat = new THREE.MeshToonMaterial({ color: col, gradientMap: GRAD4 })
+      const mat = new THREE.MeshToonMaterial({
+        color: col,
+        gradientMap: GRAD4,
+        transparent: true,
+        opacity: 0.9,
+      })
       const mesh = new THREE.Mesh(geom, mat)
-      mesh.scale.y = Math.max(0.2, 0.04 / (tubeR * 2))
+      mesh.scale.y = Math.max(0.15, 0.03 / (tubeR * 2))
 
-      // Add glow to direct paths for emphasis
-      if (pattern === 0) {
-        mat.emissive = col.clone().multiplyScalar(0.1)
+      // Add emissive glow for direct traces
+      if (laneType === 0) {
+        mat.emissive = col.clone().multiplyScalar(0.15)
       }
 
       scene.add(mesh)
       curves.push(curve)
       colors.push(col)
 
-      // Add animated particles with pattern-specific properties
-      const glowTex = makeGlowTexture(32)
-      const isDirectPath = pattern === 0
-      const particleSize = isDirectPath ? 0.18 : 0.14
-      const particleSpeed = [0.6, 0.5, 0.5, 0.4, 0.4, 0.45][pattern] || 0.5
+      // Add circuit-style particles
+      const glowTex = makeGlowTexture(24)
+      const particleSizes = [0.16, 0.14, 0.12, 0.1] // Size by circuit type
+      const particleSpeeds = [0.7, 0.5, 0.4, 0.3] // Speed by circuit type
 
       const spriteMat = new THREE.SpriteMaterial({
         map: glowTex,
         color: col,
         transparent: true,
-        opacity: isDirectPath ? 0.9 : 0.75,
+        opacity: 0.8,
         blending: THREE.AdditiveBlending,
       })
       const sprite = new THREE.Sprite(spriteMat)
-      sprite.scale.setScalar(particleSize)
+      sprite.scale.setScalar(particleSizes[laneType])
       sprite.userData = {
         curve,
         t: Math.random(),
-        speed: particleSpeed + Math.random() * 0.15,
-        pattern,
-        isDirectPath,
+        speed: particleSpeeds[laneType] + Math.random() * 0.2,
+        laneType,
+        baseOpacity: 0.8,
       }
       scene.add(sprite)
       particles.push(sprite)
@@ -376,44 +423,76 @@ const DataflowRibbons: React.FC = () => {
     const animate = () => {
       controls.update()
 
-      // Animate particles along curved ribbons
+      // Animate circuit particles with realistic electronic flow
       particles.forEach((particle, index) => {
-        particle.userData.t += particle.userData.speed * 0.01
+        particle.userData.t += particle.userData.speed * 0.008
         if (particle.userData.t > 1) particle.userData.t = 0
 
         const point = particle.userData.curve.getPointAt(particle.userData.t)
         particle.position.copy(point)
 
-        // Ensure particles stay at correct Y level (same as ribbon)
-        particle.position.y = ribbonY + 0.05 // Slight elevation above ribbon
+        // Keep particles slightly above circuit traces
+        particle.position.y = ribbonY + 0.04
 
-        // Pattern-specific visual effects
+        // Circuit-specific visual effects
         const time = Date.now() * 0.001
-        const pattern = particle.userData.pattern
+        const laneType = particle.userData.laneType
+        const baseOpacity = particle.userData.baseOpacity
 
-        if (particle.userData.isDirectPath) {
-          // Direct paths: steady bright flow with size pulse
-          const pulse = 1 + Math.sin(time * 2.5 + index) * 0.3
-          particle.scale.setScalar(0.18 * pulse)
+        switch (laneType) {
+          case 0: {
+            // Direct traces - steady high-speed flow
+            const pulse = 1 + Math.sin(time * 3 + index * 0.5) * 0.2
+            particle.scale.setScalar(0.16 * pulse)
 
-          // Extra glow effect for direct paths
-          if (particle.material instanceof THREE.SpriteMaterial) {
-            particle.material.opacity = 0.9 + Math.sin(time * 1.8 + index) * 0.1
+            if (particle.material instanceof THREE.SpriteMaterial) {
+              particle.material.opacity =
+                baseOpacity + Math.sin(time * 2 + index) * 0.15
+            }
+            break
           }
-        } else {
-          // Curved paths: effects based on pattern complexity
-          const patternOffset = pattern * 0.2
 
-          // Size variation for curved paths
-          const variation =
-            1 + Math.sin(time * 1.8 + index + patternOffset) * 0.25
-          particle.scale.setScalar(0.14 * variation)
+          case 1: {
+            // Fan-out - variable intensity based on curve position
+            const progress = particle.userData.t
+            const fanIntensity = Math.sin(progress * Math.PI) // Peak at middle of curve
+            const pulse = 1 + fanIntensity * 0.4
+            particle.scale.setScalar(0.14 * pulse)
 
-          // Opacity pulsing with pattern-specific timing
-          if (particle.material instanceof THREE.SpriteMaterial) {
-            const pulseSpeed = [2, 2.2, 2.5, 1.8, 2.8, 2.1][pattern] || 2
-            particle.material.opacity =
-              0.75 + Math.sin(time * pulseSpeed + index + patternOffset) * 0.15
+            if (particle.material instanceof THREE.SpriteMaterial) {
+              particle.material.opacity =
+                baseOpacity * (0.7 + fanIntensity * 0.3)
+            }
+            break
+          }
+
+          case 2: {
+            // L-routes - pulse at corners
+            const progress = particle.userData.t
+            const cornerPulse = Math.abs(Math.sin(progress * Math.PI * 4)) // Multiple pulses along route
+            const scale = 0.12 * (1 + cornerPulse * 0.3)
+            particle.scale.setScalar(scale)
+
+            if (particle.material instanceof THREE.SpriteMaterial) {
+              particle.material.opacity = baseOpacity + cornerPulse * 0.2
+            }
+            break
+          }
+
+          case 3: // Via-style - discrete packet-like movement
+          default: {
+            // Stepped movement to simulate digital packets
+            const stepProgress = Math.floor(particle.userData.t * 8) / 8
+            const stepIntensity = 1 + Math.sin(stepProgress * Math.PI * 8) * 0.5
+            particle.scale.setScalar(0.1 * stepIntensity)
+
+            if (particle.material instanceof THREE.SpriteMaterial) {
+              // Blink effect for digital packets
+              const blinkRate = time * 4 + index * 0.3
+              particle.material.opacity =
+                baseOpacity * (0.6 + Math.abs(Math.sin(blinkRate)) * 0.4)
+            }
+            break
           }
         }
       })
