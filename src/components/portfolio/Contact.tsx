@@ -42,25 +42,25 @@ export default function Contact() {
     {
       name: 'GitHub',
       url: 'https://github.com/hartleyhleroy',
-      icon: '📱',
+      icon: '',
       color: 'tech-neon',
     },
     {
       name: 'LinkedIn',
       url: 'https://linkedin.com/in/hartleyhleroy',
-      icon: '💼',
+      icon: '',
       color: 'tech-blue',
     },
     {
       name: 'Instagram',
       url: 'https://instagram.com/hartleyhleroy',
-      icon: '🎨',
+      icon: '',
       color: 'tech-pink',
     },
     {
       name: 'Email',
       url: 'mailto:contact@hartleyleroy.dev',
-      icon: '📧',
+      icon: '',
       color: 'tech-purple',
     },
   ]
@@ -217,7 +217,7 @@ export default function Contact() {
                     animate={{ rotate: 360 }}
                     transition={{ repeat: Infinity, duration: 1 }}
                   >
-                    <span className='mr-2'>⚡</span>
+                    <span className='mr-2'></span>
                     SENDING...
                   </motion.div>
                 ) : (
@@ -234,7 +234,7 @@ export default function Contact() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                ✅ Message sent successfully! I'll get back to you soon.
+                Message sent successfully! I'll get back to you soon.
               </motion.div>
             )}
           </motion.div>

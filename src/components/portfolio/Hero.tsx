@@ -95,7 +95,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                🚀 See My Impact
+                See My Impact
               </motion.a>
               <motion.a
                 href='#contact'
@@ -103,7 +103,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                💬 Let's Build Together
+                Let's Build Together
               </motion.a>
             </motion.div>
           </motion.div>

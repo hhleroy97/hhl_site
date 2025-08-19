@@ -113,7 +113,7 @@ export default function CreativeWork() {
                   <div className='text-center'>
                     <div className='w-16 h-16 mx-auto mb-3 rounded-lg bg-tech-pink/20 flex items-center justify-center'>
                       <span className='text-2xl'>
-                        {work.type === 'video' ? '🎬' : '🎨'}
+                        {work.type === 'video' ? 'VIDEO' : 'ART'}
                       </span>
                     </div>
                     <p className='text-xs text-gray-400 font-display'>
@@ -135,7 +135,7 @@ export default function CreativeWork() {
                     transition={{ duration: 0.2 }}
                   >
                     <div className='w-12 h-12 mx-auto mb-2 rounded-full bg-tech-pink flex items-center justify-center'>
-                      <span className='text-white text-xl'>👁️</span>
+                      <span className='text-white text-xl'>VIEW</span>
                     </div>
                     <p className='text-white font-cyber font-bold text-sm'>
                       VIEW

@@ -119,7 +119,7 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
                       <div className='absolute inset-0 flex items-center justify-center'>
                         <div className='text-center'>
                           <div className='w-24 h-24 mx-auto mb-4 rounded-lg bg-tech-neon/20 flex items-center justify-center'>
-                            <span className='text-4xl'>🎨</span>
+                            <span className='text-4xl'>ART</span>
                           </div>
                           <p className='text-lg text-gray-400 font-display'>
                             Creative Work Preview
@@ -153,7 +153,7 @@ export default function Lightbox({ isOpen, onClose, content }: LightboxProps) {
                       <div className='absolute inset-0 flex items-center justify-center'>
                         <div className='text-center'>
                           <div className='w-24 h-24 mx-auto mb-4 rounded-lg bg-tech-pink/20 flex items-center justify-center'>
-                            <span className='text-4xl'>▶️</span>
+                            <span className='text-4xl'>PLAY</span>
                           </div>
                           <p className='text-lg text-gray-400 font-display'>
                             Video Content
