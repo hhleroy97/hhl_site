@@ -1,7 +1,11 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import SimpleGrid from '@components/3d/SimpleGrid'
+import DataflowRibbons from '@components/3d/DataflowRibbons'
 
 export default function Hero() {
+  const [showGrid, setShowGrid] = useState(true)
+
   return (
     <section
       className='relative pt-20 pb-16 px-6 lg:px-8 min-h-screen flex items-center'
@@ -121,7 +125,16 @@ export default function Hero() {
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
             <div className='relative w-full h-full flex items-center justify-start'>
-              <SimpleGrid />
+              {/* Toggle button */}
+              <button
+                onClick={() => setShowGrid(!showGrid)}
+                className='absolute top-4 right-4 z-10 px-3 py-1 text-xs bg-tech-dark/80 border border-tech-teal/30 text-tech-teal rounded hover:bg-tech-teal/20 transition-all'
+              >
+                {showGrid ? 'Ribbons' : 'Grid'}
+              </button>
+
+              {/* 3D Visualizations */}
+              {showGrid ? <SimpleGrid /> : <DataflowRibbons />}
             </div>
           </motion.div>
         </div>
