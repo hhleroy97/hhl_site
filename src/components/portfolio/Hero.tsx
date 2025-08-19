@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import NeuralNetworkViz from '@components/3d/NeuralNetworkViz'
+import DataFlowViz from '@components/3d/DataFlowViz'
 
 export default function Hero() {
   return (
@@ -108,7 +108,7 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right column - Neural Network Visualization */}
+          {/* Right column - Data Flow Visualization */}
           <motion.div
             className='relative flex justify-center lg:justify-end'
             initial={{ opacity: 0, x: 40 }}
@@ -117,17 +117,21 @@ export default function Hero() {
           >
             <div className='relative w-full max-w-[500px] h-[500px] flex items-center justify-center'>
               <div className='absolute inset-0 pointer-events-none'>
-                <NeuralNetworkViz className="w-full h-full" />
+                <DataFlowViz className="w-full h-full" />
               </div>
               
               {/* Professional frame */}
               <div className='absolute inset-4 border border-tech-teal/20 rounded-lg pointer-events-none' />
               
-              {/* Corner accent elements */}
-              <div className='absolute top-6 left-6 w-8 h-8 border-l-2 border-t-2 border-tech-teal/50' />
-              <div className='absolute top-6 right-6 w-8 h-8 border-r-2 border-t-2 border-tech-cyan/50' />
-              <div className='absolute bottom-6 left-6 w-8 h-8 border-l-2 border-b-2 border-tech-purple/50' />
-              <div className='absolute bottom-6 right-6 w-8 h-8 border-r-2 border-b-2 border-tech-teal/50' />
+              {/* Data flow indicators */}
+              <div className='absolute top-6 left-6 flex items-center space-x-2 text-xs text-tech-teal'>
+                <div className='w-2 h-2 bg-tech-teal rounded-full animate-pulse'></div>
+                <span className='font-mono'>INPUT</span>
+              </div>
+              <div className='absolute top-6 right-6 flex items-center space-x-2 text-xs text-tech-purple'>
+                <span className='font-mono'>OUTPUT</span>
+                <div className='w-2 h-2 bg-tech-purple rounded-full animate-pulse'></div>
+              </div>
             </div>
           </motion.div>
         </div>
