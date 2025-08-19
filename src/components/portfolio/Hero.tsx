@@ -1,210 +1,75 @@
 import { motion } from 'framer-motion'
-import { Suspense, lazy } from 'react'
-
-// Lazy load the simple 3D scene for performance
-const SimpleScene3D = lazy(() => import('../3d/SimpleScene3D'))
 
 export default function Hero() {
   return (
     <section
-      className='relative pt-20 pb-16 px-6 lg:px-8 min-h-screen flex items-center'
+      className='relative pt-24 pb-12 px-6 lg:px-8 flex items-center'
       aria-label='Introduction and hero section'
     >
-      {/* Artistic background accent */}
-      <div
-        className='pointer-events-none absolute inset-0 opacity-20'
-        aria-hidden='true'
-        style={{
-          backgroundImage: `
-            radial-gradient(600px 400px at 20% 30%, rgba(0, 212, 170, 0.15), transparent 70%),
-            radial-gradient(800px 600px at 80% 70%, rgba(139, 92, 246, 0.1), transparent 70%)
-          `,
-        }}
-      />
-
       <div className='relative max-w-7xl mx-auto'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
-          {/* Left column - Content */}
+        <div className='grid grid-cols-1 gap-8 items-center'>
+          {/* Content */}
           <motion.div
-            className='space-y-8 z-10'
-            initial={{ opacity: 0, y: 20 }}
+            className='space-y-6 z-10'
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
+            transition={{ duration: 0.4 }}
           >
-            {/* Professional status badge */}
-            <motion.div
-              className='inline-flex items-center gap-3 bg-tech-dark-surface/80 backdrop-blur-sm border border-primary-500/20 rounded-full px-4 py-2'
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1, duration: 0.4 }}
-            >
-              <div className='w-2 h-2 rounded-full bg-tech-teal animate-pulse' />
-              <span className='text-sm font-medium text-tech-text-secondary tracking-wide'>
-                Innovative Problem Solver
+            {/* Simple status badge */}
+            <div className='inline-flex items-center gap-2 rounded-full px-3 py-1 border border-tech-dark-elevated'>
+              <div className='w-2 h-2 rounded-full bg-tech-teal' />
+              <span className='text-sm text-tech-text-secondary'>
+                Available
               </span>
-            </motion.div>
+            </div>
 
-            {/* Main heading with emphasis on problem solving */}
-            <motion.div
-              className='space-y-4'
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-            >
-              <h1 className='text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-tech-text-primary leading-tight'>
-                Hartley H.{' '}
-                <span className='relative'>
-                  <span className='text-transparent bg-gradient-to-r from-tech-teal to-tech-cyan bg-clip-text'>
-                    Leroy
-                  </span>
-                  <motion.span
-                    className='absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-tech-teal to-tech-cyan rounded-full'
-                    initial={{ width: 0 }}
-                    animate={{ width: '100%' }}
-                    transition={{ delay: 0.8, duration: 0.8 }}
-                    aria-hidden='true'
-                  />
-                </span>
+            {/* Main heading */}
+            <div className='space-y-3'>
+              <h1 className='text-5xl font-display font-bold text-tech-text-primary leading-tight'>
+                Hartley H. Leroy
               </h1>
-
-              <div className='space-y-2'>
+              <div className='space-y-1'>
                 <p className='text-xl font-semibold text-tech-text-primary'>
                   Software Engineer
                 </p>
                 <p className='text-lg text-tech-coral font-medium'>
-                  Specializing in Complex Systems & Technical Communication
+                  Complex Systems · Clear Communication
                 </p>
               </div>
-            </motion.div>
+            </div>
 
-            {/* Enhanced description focusing on problem solving */}
-            <motion.p
-              className='text-lg text-tech-text-secondary leading-relaxed max-w-xl'
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-            >
-              Bridging technical complexity with clear communication. I solve
-              intricate engineering challenges in robotics, cloud
-              infrastructure, and data systems while ensuring stakeholders at
-              every level understand the impact.
-            </motion.p>
+            {/* Short description */}
+            <p className='text-lg text-tech-text-secondary leading-relaxed max-w-xl'>
+              Software engineer focused on clear systems, reliable delivery, and
+              practical impact across cloud, data, and robotics.
+            </p>
 
-            {/* Tech stack with new colors */}
-            <motion.div
-              className='flex flex-wrap gap-3'
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.45, duration: 0.6 }}
-            >
-              {[
-                { label: 'AWS IoT', color: 'tech-teal' },
-                { label: 'ROS2/PX4', color: 'tech-purple' },
-                { label: 'Python', color: 'tech-blue' },
-                { label: 'React', color: 'tech-cyan' },
-                { label: 'Embedded C', color: 'tech-coral' },
-                { label: 'Product Mgmt', color: 'tech-gold' },
-              ].map(chip => (
+            {/* Tech stack simplified */}
+            <div className='flex flex-wrap gap-2'>
+              {['AWS', 'Python', 'React', 'ROS2'].map(label => (
                 <span
-                  key={chip.label}
-                  className='rounded-lg border border-tech-dark-elevated bg-tech-dark-surface/60 backdrop-blur-sm px-3 py-2 text-sm font-mono tracking-wide text-tech-text-secondary hover:border-primary-400/40 transition-colors'
+                  key={label}
+                  className='rounded-md border border-tech-dark-elevated px-3 py-1 text-sm text-tech-text-secondary'
                 >
-                  {chip.label}
+                  {label}
                 </span>
               ))}
-            </motion.div>
+            </div>
 
-            {/* CTA Buttons */}
-            <motion.div
-              className='flex flex-col sm:flex-row gap-4 pt-4'
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55, duration: 0.6 }}
-            >
-              <motion.a
+            {/* CTA Buttons simplified */}
+            <div className='flex flex-col sm:flex-row gap-3 pt-2'>
+              <a
                 href='#projects'
-                className='px-8 py-4 rounded-lg bg-gradient-to-r from-tech-teal to-tech-cyan text-tech-dark font-display font-bold shadow-lg hover:shadow-tech-teal/25 transition-all text-center'
-                whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                aria-label='View my engineering projects'
+                className='px-6 py-3 rounded-md bg-tech-teal text-tech-dark font-display font-semibold text-center'
               >
-                Explore My Work
-              </motion.a>
-              <motion.a
+                Explore Work
+              </a>
+              <a
                 href='#contact'
-                className='px-8 py-4 rounded-lg border border-tech-text-muted/30 text-tech-text-primary font-display font-semibold hover:border-tech-teal/60 hover:text-tech-teal transition-all text-center backdrop-blur-sm'
-                whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                aria-label='Get in touch about opportunities'
+                className='px-6 py-3 rounded-md border border-tech-dark-elevated text-tech-text-primary text-center'
               >
-                Let's Connect
-              </motion.a>
-            </motion.div>
-
-            {/* Achievement stats updated with real data */}
-            <motion.div
-              className='mt-8 grid grid-cols-3 gap-4 max-w-md'
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.65, duration: 0.6 }}
-            >
-              {[
-                { k: 'Experience', v: '4+', desc: 'Years' },
-                { k: 'Migration', v: '$500K', desc: 'AWS Project' },
-                { k: 'Team', v: '6', desc: 'Engineers Led' },
-              ].map(item => (
-                <div
-                  key={item.k}
-                  className='rounded-lg border border-tech-dark-elevated bg-tech-dark-surface/40 backdrop-blur-sm p-4 text-center hover:bg-tech-dark-elevated/60 transition-colors'
-                  role='img'
-                  aria-label={`${item.v} ${item.desc}`}
-                >
-                  <div className='text-xl font-bold text-tech-teal'>
-                    {item.v}
-                  </div>
-                  <div className='text-xs tracking-wide text-tech-text-muted uppercase leading-tight mt-1'>
-                    {item.k}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          {/* Right column - 3D Network Visualization */}
-          <motion.div
-            className='relative flex justify-center lg:justify-end'
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
-          >
-            <div className='relative w-full max-w-[500px] h-[500px]'>
-              {/* 3D Scene Container */}
-              <Suspense
-                fallback={
-                  <div className='w-full h-full bg-tech-dark-surface/30 rounded-lg border border-tech-dark-elevated flex items-center justify-center'>
-                    <div className='flex flex-col items-center space-y-4'>
-                      <div className='w-8 h-8 border-2 border-tech-teal border-t-transparent rounded-full animate-spin'></div>
-                      <span className='text-tech-text-muted text-sm'>
-                        Loading 3D Network...
-                      </span>
-                    </div>
-                  </div>
-                }
-              >
-                <SimpleScene3D className='w-full h-full' />
-              </Suspense>
-
-              {/* Artistic glow effect around 3D scene */}
-              <div
-                className='absolute -inset-8 rounded-full opacity-30 blur-3xl'
-                style={{
-                  background: `
-                    radial-gradient(circle, rgba(0, 212, 170, 0.3) 0%, transparent 70%),
-                    radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.2) 0%, transparent 50%)
-                  `,
-                }}
-                aria-hidden='true'
-              />
+                Contact
+              </a>
             </div>
           </motion.div>
         </div>
