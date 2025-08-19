@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import RetroDataFlow from '@components/3d/RetroDataFlow'
+import DataTransferArt from '@components/3d/DataTransferArt'
 
 export default function Hero() {
   return (
@@ -108,7 +108,7 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right column - 3D Grid Background */}
+          {/* Right column - Abstract Data Transfer Art */}
           <motion.div
             className='relative flex justify-center lg:justify-end'
             initial={{ opacity: 0, x: 40 }}
@@ -116,9 +116,18 @@ export default function Hero() {
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
             <div className='relative w-full max-w-[500px] h-[500px] flex items-center justify-center'>
-              <div className='absolute inset-0 pointer-events-none opacity-40'>
-                <RetroDataFlow className="w-full h-full" />
+              <div className='absolute inset-0 pointer-events-none'>
+                <DataTransferArt className="w-full h-full" />
               </div>
+              
+              {/* Subtle overlay gradient for depth */}
+              <div className='absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-tech-dark/20 pointer-events-none' />
+              
+              {/* Corner accent elements */}
+              <div className='absolute top-8 left-8 w-12 h-12 border-l-2 border-t-2 border-tech-teal/30' />
+              <div className='absolute top-8 right-8 w-12 h-12 border-r-2 border-t-2 border-tech-cyan/30' />
+              <div className='absolute bottom-8 left-8 w-12 h-12 border-l-2 border-b-2 border-tech-purple/30' />
+              <div className='absolute bottom-8 right-8 w-12 h-12 border-r-2 border-b-2 border-tech-teal/30' />
             </div>
           </motion.div>
         </div>
