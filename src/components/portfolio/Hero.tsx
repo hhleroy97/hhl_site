@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import DataFlowViz from '@components/3d/DataFlowViz'
+import SimpleGrid from '@components/3d/SimpleGrid'
 
 export default function Hero() {
   return (
@@ -42,11 +42,12 @@ export default function Hero() {
                   </span>
                 </h1>
                 <p className='text-xl text-tech-text-secondary font-medium leading-relaxed'>
-                  I architect intelligent systems that bridge AI, robotics, and data engineering. 
-                  Currently building autonomous drone fleets with real-time ML pipelines at Lucid Bots.
+                  I architect intelligent systems that bridge AI, robotics, and
+                  data engineering. Currently building autonomous drone fleets
+                  with real-time ML pipelines at Lucid Bots.
                 </p>
               </motion.div>
-              
+
               <motion.div
                 className='flex items-center space-x-4 text-tech-text-muted'
                 initial={{ opacity: 0, x: -20 }}
@@ -70,11 +71,15 @@ export default function Hero() {
             >
               <div className='text-center p-4 rounded-lg bg-tech-dark-alt/50 border border-tech-teal/20'>
                 <div className='text-2xl font-bold text-tech-teal'>$500K</div>
-                <div className='text-sm text-tech-text-muted'>AWS Infrastructure</div>
+                <div className='text-sm text-tech-text-muted'>
+                  AWS Infrastructure
+                </div>
               </div>
               <div className='text-center p-4 rounded-lg bg-tech-dark-alt/50 border border-tech-cyan/20'>
                 <div className='text-2xl font-bold text-tech-cyan'>ROS2</div>
-                <div className='text-sm text-tech-text-muted'>Drone Systems</div>
+                <div className='text-sm text-tech-text-muted'>
+                  Drone Systems
+                </div>
               </div>
               <div className='text-center p-4 rounded-lg bg-tech-dark-alt/50 border border-tech-purple/20'>
                 <div className='text-2xl font-bold text-tech-purple'>AI/ML</div>
@@ -115,23 +120,11 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
-            <div className='relative w-full max-w-[500px] h-[500px] flex items-center justify-center'>
-              <div className='absolute inset-0 pointer-events-none'>
-                <DataFlowViz className="w-full h-full" />
-              </div>
-              
+            <div className='relative w-full flex items-center justify-center'>
+              <SimpleGrid />
+
               {/* Professional frame */}
               <div className='absolute inset-4 border border-tech-teal/20 rounded-lg pointer-events-none' />
-              
-              {/* Data flow indicators */}
-              <div className='absolute top-6 left-6 flex items-center space-x-2 text-xs text-tech-teal'>
-                <div className='w-2 h-2 bg-tech-teal rounded-full animate-pulse'></div>
-                <span className='font-mono'>INPUT</span>
-              </div>
-              <div className='absolute top-6 right-6 flex items-center space-x-2 text-xs text-tech-purple'>
-                <span className='font-mono'>OUTPUT</span>
-                <div className='w-2 h-2 bg-tech-purple rounded-full animate-pulse'></div>
-              </div>
             </div>
           </motion.div>
         </div>
