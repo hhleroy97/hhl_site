@@ -120,11 +120,8 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
-            <div className='relative w-full flex items-center justify-center'>
+            <div className='relative w-full h-full flex items-center justify-start'>
               <SimpleGrid />
-
-              {/* Professional frame */}
-              <div className='absolute inset-4 border border-tech-teal/20 rounded-lg pointer-events-none' />
             </div>
           </motion.div>
         </div>
