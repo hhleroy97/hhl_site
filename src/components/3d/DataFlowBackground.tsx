@@ -136,7 +136,7 @@ const DataFlowBackground: React.FC<DataFlowBackgroundProps> = ({ className = '' 
     // Prevent double initialization
     if (rendererRef.current) return
 
-    console.log('Initializing data flow background...')
+    // Initializing data flow background
 
     // Initialize Three.js scene
     const scene = new THREE.Scene()
@@ -161,7 +161,6 @@ const DataFlowBackground: React.FC<DataFlowBackgroundProps> = ({ className = '' 
     cameraRef.current = camera
 
     // Create minimal, elegant elements
-    console.log('Creating subtle background elements...')
     dataNodesRef.current = createSubtleParticles(scene)
     createMinimalGrid(scene)
 
@@ -180,22 +179,15 @@ const DataFlowBackground: React.FC<DataFlowBackgroundProps> = ({ className = '' 
     renderer.domElement.style.zIndex = '-1'
     renderer.domElement.style.pointerEvents = 'none'
     canvasRef.current.appendChild(renderer.domElement)
-    
-    console.log('DataFlow background mounted to DOM', {
-      nodes: dataNodesRef.current.length,
-      streams: particleSystemsRef.current.length,
-      connections: connectionLinesRef.current.length
-    })
 
     // Add resize listener
     window.addEventListener('resize', handleResize)
 
     // Start animation
-    console.log('Starting data flow animation...')
     animate()
 
     return cleanup
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div 

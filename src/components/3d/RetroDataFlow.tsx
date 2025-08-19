@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import * as THREE from 'three'
 
 interface RetroDataFlowProps {
@@ -14,15 +14,7 @@ const RetroDataFlow: React.FC<RetroDataFlowProps> = ({ className = '' }) => {
   const clockRef = useRef<THREE.Clock>(new THREE.Clock())
 
   // Professional color palette with subtle tech aesthetics
-  const colors = {
-    neonGreen: 0x00d4aa,      // tech-teal
-    neonPink: 0x8b5cf6,       // tech-purple  
-    neonBlue: 0x0ea5e9,       // tech-blue
-    neonYellow: 0x06b6d4,     // tech-cyan
-    neonCyan: 0x00d4aa,       // tech-teal
-    neonOrange: 0x8b5cf6,     // tech-purple
-    background: 0x000000      // pure black for transparency
-  }
+  const neonGreen = 0x00d4aa
 
   // Initialize Three.js scene
   useEffect(() => {
@@ -66,7 +58,7 @@ const RetroDataFlow: React.FC<RetroDataFlowProps> = ({ className = '' }) => {
         ]
         const hGeometry = new THREE.BufferGeometry().setFromPoints(hPoints)
         const hMaterial = new THREE.LineBasicMaterial({
-          color: colors.neonGreen,
+          color: neonGreen,
           transparent: true,
           opacity: 0.1
         })
@@ -81,7 +73,7 @@ const RetroDataFlow: React.FC<RetroDataFlowProps> = ({ className = '' }) => {
         ]
         const vGeometry = new THREE.BufferGeometry().setFromPoints(vPoints)
         const vMaterial = new THREE.LineBasicMaterial({
-          color: colors.neonGreen,
+          color: neonGreen,
           transparent: true,
           opacity: 0.1
         })
@@ -100,7 +92,7 @@ const RetroDataFlow: React.FC<RetroDataFlowProps> = ({ className = '' }) => {
     const ambientLight = new THREE.AmbientLight(0x404040, 0.3)
     scene.add(ambientLight)
 
-    const pointLight = new THREE.PointLight(colors.neonGreen, 1, 100)
+    const pointLight = new THREE.PointLight(neonGreen, 1, 100)
     pointLight.position.set(10, 10, 10)
     scene.add(pointLight)
 
@@ -143,7 +135,7 @@ const RetroDataFlow: React.FC<RetroDataFlowProps> = ({ className = '' }) => {
       
       renderer.dispose()
     }
-  }, [])
+  }, [neonGreen])
 
   return (
     <div className={`relative ${className}`}>

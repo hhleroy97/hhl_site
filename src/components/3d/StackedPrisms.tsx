@@ -111,7 +111,7 @@ const StackedPrisms: React.FC<StackedPrismsProps> = ({ className = '' }) => {
   useEffect(() => {
     if (!canvasRef.current) return
 
-    console.log('Initializing stacked prisms...')
+    // Initializing stacked prisms
 
     // Initialize Three.js scene
     const scene = new THREE.Scene()
@@ -157,7 +157,6 @@ const StackedPrisms: React.FC<StackedPrismsProps> = ({ className = '' }) => {
     scene.add(fillLight)
 
     // Create the stacked prisms
-    console.log('Creating stacked prisms...')
     createStackedPrisms(scene)
 
     // Mount to DOM
@@ -167,12 +166,11 @@ const StackedPrisms: React.FC<StackedPrismsProps> = ({ className = '' }) => {
     window.addEventListener('resize', handleResize)
 
     // Start animation
-    console.log('Starting animation...')
     setIsLoaded(true)
     animate()
 
     return cleanup
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={`relative ${className}`} style={{ width: '100%', height: '100%', minHeight: '400px' }}>
