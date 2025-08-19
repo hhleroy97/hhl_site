@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import profilePic from '../../assets/prof-pic.png'
 
 export default function About() {
   return (
@@ -18,7 +19,7 @@ export default function About() {
         </motion.div>
 
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'>
-          {/* Photo/Avatar Section */}
+          {/* Abstract Data Flow Visual (replaces previous photo area) */}
           <motion.div
             className='flex justify-center lg:justify-start'
             initial={{ opacity: 0, x: -50 }}
@@ -27,27 +28,61 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className='relative'>
-              {/* Main photo container */}
+              {/* Abstract data movement container */}
               <motion.div
-                className='relative w-80 h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-tech-dark-alt to-tech-dark border-2 border-tech-neon/30'
+                className='relative w-80 h-80 rounded-2xl overflow-hidden bg-tech-dark border-2 border-tech-neon/30'
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Placeholder avatar - you can replace with actual photo */}
-                <div className='w-full h-full flex items-center justify-center bg-gradient-to-br from-tech-neon/20 to-tech-pink/20'>
-                  <div className='text-center'>
-                    <div className='w-32 h-32 mx-auto mb-4 rounded-full bg-tech-neon/30 flex items-center justify-center'>
-                      <span className='text-4xl font-cyber font-bold text-tech-neon'>
-                        HHL
-                      </span>
-                    </div>
-                    <p className='text-sm text-gray-400 font-display'>
-                      Professional Photo
-                    </p>
-                  </div>
-                </div>
+                {/* Ambient gradients */}
+                <div
+                  className='absolute inset-0 opacity-80'
+                  style={{
+                    backgroundImage: `radial-gradient(600px 400px at 20% 30%, rgba(0, 212, 170, 0.10), transparent 70%),
+                      radial-gradient(800px 600px at 80% 70%, rgba(139, 92, 246, 0.10), transparent 70%)`,
+                  }}
+                />
 
-                {/* Cyberpunk overlay effects */}
+                {/* Flow lines */}
+                <motion.div
+                  className='absolute top-10 left-[-20%] h-0.5 w-[60%] bg-gradient-to-r from-tech-teal/0 via-tech-teal/60 to-tech-teal/0'
+                  animate={{ x: ['-20%', '120%'] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+                />
+                <motion.div
+                  className='absolute top-1/3 left-[-30%] h-0.5 w-[70%] bg-gradient-to-r from-tech-cyan/0 via-tech-cyan/60 to-tech-cyan/0'
+                  animate={{ x: ['-30%', '130%'] }}
+                  transition={{ duration: 7.5, repeat: Infinity, ease: 'linear', delay: 0.8 }}
+                />
+                <motion.div
+                  className='absolute top-1/2 left-[-25%] h-0.5 w-[65%] bg-gradient-to-r from-tech-purple/0 via-tech-purple/60 to-tech-purple/0'
+                  animate={{ x: ['-25%', '125%'] }}
+                  transition={{ duration: 8.5, repeat: Infinity, ease: 'linear', delay: 1.4 }}
+                />
+                <motion.div
+                  className='absolute bottom-12 left-[-35%] h-0.5 w-[75%] bg-gradient-to-r from-tech-pink/0 via-tech-pink/60 to-tech-pink/0'
+                  animate={{ x: ['-35%', '135%'] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: 'linear', delay: 2 }}
+                />
+
+                {/* Moving data nodes */}
+                <motion.div
+                  className='absolute top-16 left-0 w-2 h-2 rounded-full bg-tech-teal shadow-[0_0_12px_rgba(0,212,170,0.6)]'
+                  animate={{ x: [0, 320] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'linear', delay: 0.2 }}
+                />
+                <motion.div
+                  className='absolute top-1/2 left-0 w-2 h-2 rounded-full bg-tech-purple shadow-[0_0_12px_rgba(139,92,246,0.6)]'
+                  animate={{ x: [0, 320] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: 'linear', delay: 1 }}
+                />
+                <motion.div
+                  className='absolute bottom-16 left-0 w-2 h-2 rounded-full bg-tech-pink shadow-[0_0_12px_rgba(236,72,153,0.6)]'
+                  animate={{ x: [0, 320] }}
+                  transition={{ duration: 4.5, repeat: Infinity, ease: 'linear', delay: 1.8 }}
+                />
+
+                {/* Subtle scan overlay on hover */}
                 <motion.div
                   className='absolute inset-0 bg-gradient-to-t from-tech-neon/10 to-transparent opacity-0'
                   whileHover={{ opacity: 1 }}
@@ -94,7 +129,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Bio Content */}
+          {/* Bio Content with circular profile image */}
           <motion.div
             className='space-y-6'
             initial={{ opacity: 0, x: 50 }}
@@ -102,6 +137,17 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
+            <div className='flex items-center gap-4'>
+              <img
+                src={profilePic}
+                alt='Hartley H. Leroy profile'
+                className='w-20 h-20 rounded-full object-cover border-2 border-tech-neon/40 shadow-md'
+              />
+              <div>
+                <p className='text-tech-text-secondary text-sm'>About Me</p>
+                <p className='text-white font-display font-semibold'>Hartley H. Leroy</p>
+              </div>
+            </div>
             <div className='space-y-4 text-gray-300 font-display text-lg leading-relaxed'>
               <p>
                 I'm a passionate{' '}
