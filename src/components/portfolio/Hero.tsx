@@ -11,23 +11,25 @@ export default function Hero() {
       className='relative pt-20 pb-16 px-6 lg:px-8 min-h-screen flex items-center'
       aria-label='Introduction and hero section'
     >
-      {/* Artistic background accent */}
-      <div
-        className='pointer-events-none absolute inset-0 opacity-20'
-        aria-hidden='true'
-        style={{
-          backgroundImage: `
-            radial-gradient(600px 400px at 20% 30%, rgba(0, 212, 170, 0.15), transparent 70%),
-            radial-gradient(800px 600px at 80% 70%, rgba(139, 92, 246, 0.1), transparent 70%)
-          `,
-        }}
-      />
+      {/* 3D Background - Full container */}
+      <div className='absolute inset-0 pointer-events-auto'>
+        {/* Toggle button */}
+        <button
+          onClick={() => setShowGrid(!showGrid)}
+          className='absolute top-24 right-6 z-20 px-3 py-1 text-xs bg-tech-dark/90 border border-tech-teal/40 text-tech-teal rounded hover:bg-tech-teal/20 transition-all backdrop-blur-sm'
+        >
+          {showGrid ? 'Ribbons' : 'Grid'}
+        </button>
 
-      <div className='relative max-w-7xl mx-auto'>
+        {/* 3D Visualizations */}
+        {showGrid ? <SimpleGrid /> : <DataflowRibbons />}
+      </div>
+
+      <div className='relative max-w-7xl mx-auto z-10 pointer-events-none'>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
           {/* Left column - Content */}
           <motion.div
-            className='space-y-8 z-10'
+            className='space-y-8 z-10 pointer-events-auto bg-tech-dark/30 backdrop-blur-sm rounded-2xl p-8 border border-tech-teal/10'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
@@ -117,26 +119,8 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right column - Data Flow Visualization */}
-          <motion.div
-            className='relative flex justify-center lg:justify-end'
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
-          >
-            <div className='relative w-full h-full flex items-center justify-start'>
-              {/* Toggle button */}
-              <button
-                onClick={() => setShowGrid(!showGrid)}
-                className='absolute top-4 right-4 z-10 px-3 py-1 text-xs bg-tech-dark/80 border border-tech-teal/30 text-tech-teal rounded hover:bg-tech-teal/20 transition-all'
-              >
-                {showGrid ? 'Ribbons' : 'Grid'}
-              </button>
-
-              {/* 3D Visualizations */}
-              {showGrid ? <SimpleGrid /> : <DataflowRibbons />}
-            </div>
-          </motion.div>
+          {/* Right column - Empty space for background interaction */}
+          <div className='hidden lg:block'></div>
         </div>
       </div>
     </section>
