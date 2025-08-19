@@ -1,49 +1,30 @@
-import { motion } from 'framer-motion'
-
 export default function Header() {
   return (
-    <motion.header
-      className='fixed top-0 left-0 right-0 z-40 bg-tech-dark/80 backdrop-blur-md border-b border-tech-neon/20'
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-    >
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <header className='fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-sm border-b border-gray-200'>
+      <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex items-center justify-between h-16'>
           {/* Logo/Name */}
-          <motion.div
-            className='flex items-center'
-            whileHover={{ scale: 1.05 }}
-          >
-            <h1 className='text-xl font-cyber font-bold text-tech-neon tracking-wider'>
-              H.H.L
+          <div className='flex items-center'>
+            <h1 className='text-xl font-semibold text-gray-900'>
+              Hartley H. Leroy
             </h1>
-          </motion.div>
+          </div>
 
           {/* Navigation */}
           <nav className='hidden md:flex items-center space-x-8'>
-            {['About', 'Experience', 'Projects', 'Creative', 'Contact'].map(
-              (item, index) => (
-                <motion.a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className='text-gray-300 hover:text-tech-neon transition-colors duration-300 font-display tracking-wide'
-                  whileHover={{ scale: 1.1 }}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                >
-                  {item}
-                </motion.a>
-              )
-            )}
+            {['About', 'Experience', 'Projects', 'Contact'].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className='text-gray-600 hover:text-gray-900 transition-colors duration-200'
+              >
+                {item}
+              </a>
+            ))}
           </nav>
 
           {/* Mobile menu button */}
-          <motion.button
-            className='md:hidden p-2 rounded-md text-gray-300 hover:text-tech-neon focus:outline-none'
-            whileTap={{ scale: 0.95 }}
-          >
+          <button className='md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none'>
             <svg
               className='h-6 w-6'
               fill='none'
@@ -57,9 +38,9 @@ export default function Header() {
                 d='M4 6h16M4 12h16M4 18h16'
               />
             </svg>
-          </motion.button>
+          </button>
         </div>
       </div>
-    </motion.header>
+    </header>
   )
 }
