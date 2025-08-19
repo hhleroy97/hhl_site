@@ -11,18 +11,10 @@ import Contact from './portfolio/Contact'
 export default function PortfolioSection() {
   return (
     <motion.div
-      className='min-h-screen bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-navy-deep'
-      initial={{
-        opacity: 0,
-        scale: 1.02,
-        filter: 'blur(5px)',
-      }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        filter: 'blur(0px)',
-      }}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
+      className='min-h-screen bg-background-primary'
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
     >
       <Header />
       <Hero />

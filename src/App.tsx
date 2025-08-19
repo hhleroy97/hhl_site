@@ -16,30 +16,11 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <div className='relative min-h-screen bg-tech-dark overflow-hidden'>
-        {/* Engineering-inspired background gradient */}
-        <div
-          className='fixed inset-0 bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-navy-deep'
-          aria-hidden='true'
-        />
-
-        {/* Subtle circuit-pattern background */}
-        <div
-          className='fixed inset-0 opacity-[0.03] pointer-events-none'
-          aria-hidden='true'
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 212, 170, 0.4) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 212, 170, 0.4) 1px, transparent 1px)
-            `,
-            backgroundSize: '80px 80px',
-          }}
-        />
-
+      <div className='relative min-h-screen bg-background-primary'>
         {/* Skip to main content link for accessibility */}
         <a
           href='#main-content'
-          className='sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-primary-500 text-tech-dark font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white'
+          className='sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-primary-500 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
         >
           Skip to main content
         </a>

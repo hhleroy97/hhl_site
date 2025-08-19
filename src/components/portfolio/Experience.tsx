@@ -13,7 +13,7 @@ export default function Experience() {
     activeTab === 'technical' ? technicalExperience : leadershipExperience
 
   return (
-    <section id='experience' className='py-20 px-4 sm:px-6 lg:px-8'>
+    <section id='experience' className='py-20 px-4 sm:px-6 lg:px-8 bg-background-primary'>
       <div className='max-w-7xl mx-auto'>
         {/* Section header */}
         <motion.div
@@ -23,11 +23,11 @@ export default function Experience() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className='text-4xl sm:text-5xl font-cyber font-bold text-white mb-4'>
-            MY <span className='text-tech-neon'>EXPERIENCE</span>
+          <h2 className='text-4xl sm:text-5xl font-bold text-text-primary mb-4'>
+            My <span className='text-primary-600'>Experience</span>
           </h2>
-          <div className='w-24 h-1 bg-tech-neon mx-auto mb-6' />
-          <p className='text-lg text-gray-400 font-display max-w-2xl mx-auto'>
+          <div className='w-24 h-1 bg-primary-500 mx-auto mb-6' />
+          <p className='text-lg text-text-secondary max-w-2xl mx-auto'>
             Explore my journey through technical innovation and leadership
             excellence
           </p>
@@ -51,33 +51,6 @@ export default function Experience() {
             ))}
           </motion.div>
         </AnimatePresence>
-
-        {/* Section decoration */}
-        <motion.div
-          className='flex justify-center mt-16'
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          <div className='flex space-x-2'>
-            {[...Array(5)].map((_, i) => (
-              <motion.div
-                key={i}
-                className='w-2 h-2 bg-tech-neon rounded-full'
-                animate={{
-                  scale: [1, 1.5, 1],
-                  opacity: [0.3, 1, 0.3],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                }}
-              />
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   )

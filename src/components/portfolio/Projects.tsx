@@ -14,7 +14,7 @@ export default function Projects() {
   const otherProjects = filteredProjects.filter(project => !project.featured)
 
   return (
-    <section id='projects' className='py-20 px-4 sm:px-6 lg:px-8'>
+    <section id='projects' className='py-20 px-4 sm:px-6 lg:px-8 bg-background-primary'>
       <div className='max-w-7xl mx-auto'>
         {/* Section header */}
         <motion.div
@@ -24,11 +24,11 @@ export default function Projects() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className='text-4xl sm:text-5xl font-cyber font-bold text-white mb-4'>
-            MY <span className='text-tech-neon'>PROJECTS</span>
+          <h2 className='text-4xl sm:text-5xl font-bold text-text-primary mb-4'>
+            My <span className='text-primary-600'>Projects</span>
           </h2>
-          <div className='w-24 h-1 bg-tech-neon mx-auto mb-6' />
-          <p className='text-lg text-gray-400 font-display max-w-2xl mx-auto'>
+          <div className='w-24 h-1 bg-primary-500 mx-auto mb-6' />
+          <p className='text-lg text-text-secondary max-w-2xl mx-auto'>
             A collection of technical innovations and creative explorations
           </p>
         </motion.div>
@@ -41,25 +41,25 @@ export default function Projects() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className='flex bg-tech-dark-alt rounded-xl p-2 border border-tech-neon/30'>
+          <div className='flex bg-background-secondary rounded-xl p-2 border border-neutral-200'>
             {(['all', 'technical', 'creative'] as const).map(filterType => (
               <motion.button
                 key={filterType}
                 onClick={() => setFilter(filterType)}
-                className={`relative px-6 py-2 font-cyber font-bold rounded-lg transition-all duration-300 ${
+                className={`relative px-6 py-2 font-semibold rounded-lg transition-all duration-300 ${
                   filter === filterType
-                    ? 'text-black bg-tech-neon'
-                    : 'text-tech-neon hover:text-white'
+                    ? 'text-white bg-primary-600'
+                    : 'text-text-secondary hover:text-text-primary'
                 }`}
                 whileHover={{ scale: filter === filterType ? 1 : 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {filterType.toUpperCase()}
+                {filterType.charAt(0).toUpperCase() + filterType.slice(1)}
 
                 {/* Active indicator */}
                 {filter === filterType && (
                   <motion.div
-                    className='absolute inset-0 bg-tech-neon rounded-lg'
+                    className='absolute inset-0 bg-primary-600 rounded-lg'
                     layoutId='activeFilter'
                     style={{ zIndex: -1 }}
                   />
@@ -78,8 +78,8 @@ export default function Projects() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <h3 className='text-2xl font-cyber font-bold text-tech-neon mb-8 text-center'>
-              FEATURED PROJECTS
+            <h3 className='text-2xl font-bold text-primary-600 mb-8 text-center'>
+              Featured Projects
             </h3>
             <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
               {featuredProjects.map((project, index) => (
@@ -97,8 +97,8 @@ export default function Projects() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <h3 className='text-2xl font-cyber font-bold text-white mb-8 text-center'>
-              OTHER PROJECTS
+            <h3 className='text-2xl font-bold text-text-primary mb-8 text-center'>
+              Other Projects
             </h3>
             <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
               {otherProjects.map((project, index) => (
@@ -124,13 +124,13 @@ export default function Projects() {
             href='https://github.com/hartleyhleroy'
             target='_blank'
             rel='noopener noreferrer'
-            className='inline-flex items-center px-8 py-4 border-2 border-tech-neon text-tech-neon 
-                     font-cyber font-bold rounded-lg hover:bg-tech-neon hover:text-black 
-                     hover:shadow-lg hover:shadow-tech-neon/30 transition-all duration-300'
+            className='inline-flex items-center px-8 py-4 border-2 border-primary-600 text-primary-600 
+                     font-semibold rounded-lg hover:bg-primary-600 hover:text-white 
+                     transition-all duration-300'
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className='mr-2'>VIEW ALL ON GITHUB</span>
+            <span className='mr-2'>View All on GitHub</span>
             <motion.span
               animate={{ x: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
@@ -138,33 +138,6 @@ export default function Projects() {
               →
             </motion.span>
           </motion.a>
-        </motion.div>
-
-        {/* Section decoration */}
-        <motion.div
-          className='flex justify-center mt-16'
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 1 }}
-        >
-          <div className='flex space-x-2'>
-            {[...Array(7)].map((_, i) => (
-              <motion.div
-                key={i}
-                className='w-1 h-1 bg-tech-neon rounded-full'
-                animate={{
-                  scale: [1, 1.5, 1],
-                  opacity: [0.3, 1, 0.3],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: i * 0.1,
-                }}
-              />
-            ))}
-          </div>
         </motion.div>
       </div>
     </section>

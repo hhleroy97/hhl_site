@@ -43,30 +43,30 @@ export default function Contact() {
       name: 'GitHub',
       url: 'https://github.com/hartleyhleroy',
       icon: '📱',
-      color: 'tech-neon',
+      color: 'primary',
     },
     {
       name: 'LinkedIn',
       url: 'https://linkedin.com/in/hartleyhleroy',
       icon: '💼',
-      color: 'tech-blue',
+      color: 'accent-blue',
     },
     {
       name: 'Instagram',
       url: 'https://instagram.com/hartleyhleroy',
       icon: '🎨',
-      color: 'tech-pink',
+      color: 'accent-purple',
     },
     {
       name: 'Email',
       url: 'mailto:contact@hartleyleroy.dev',
       icon: '📧',
-      color: 'tech-purple',
+      color: 'accent-green',
     },
   ]
 
   return (
-    <section id='contact' className='py-20 px-4 sm:px-6 lg:px-8'>
+    <section id='contact' className='py-20 px-4 sm:px-6 lg:px-8 bg-background-primary'>
       <div className='max-w-7xl mx-auto'>
         {/* Section header */}
         <motion.div
@@ -76,11 +76,11 @@ export default function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className='text-4xl sm:text-5xl font-cyber font-bold text-white mb-4'>
-            GET IN <span className='text-tech-neon'>TOUCH</span>
+          <h2 className='text-4xl sm:text-5xl font-bold text-text-primary mb-4'>
+            Get in <span className='text-primary-600'>Touch</span>
           </h2>
-          <div className='w-24 h-1 bg-tech-neon mx-auto mb-6' />
-          <p className='text-lg text-gray-400 font-display max-w-2xl mx-auto'>
+          <div className='w-24 h-1 bg-primary-500 mx-auto mb-6' />
+          <p className='text-lg text-text-secondary max-w-2xl mx-auto'>
             Ready to collaborate on something amazing? Let's build the future
             together.
           </p>
@@ -95,8 +95,8 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className='text-2xl font-cyber font-bold text-tech-neon mb-6'>
-              SEND MESSAGE
+            <h3 className='text-2xl font-bold text-primary-600 mb-6'>
+              Send Message
             </h3>
 
             <form onSubmit={handleSubmit} className='space-y-6'>
@@ -114,16 +114,11 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
-                           rounded-lg text-white font-display placeholder-gray-500
-                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
+                  className='w-full px-4 py-3 bg-background-secondary border border-neutral-300 
+                           rounded-lg text-text-primary font-medium placeholder-text-muted
+                           focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20
                            transition-all duration-300'
                   placeholder='Your Name'
-                />
-                <motion.div
-                  className='absolute inset-0 border-2 border-tech-neon rounded-lg opacity-0'
-                  whileFocus={{ opacity: 1, scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
                 />
               </motion.div>
 
@@ -141,9 +136,9 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
-                           rounded-lg text-white font-display placeholder-gray-500
-                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
+                  className='w-full px-4 py-3 bg-background-secondary border border-neutral-300 
+                           rounded-lg text-text-primary font-medium placeholder-text-muted
+                           focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20
                            transition-all duration-300'
                   placeholder='Your Email'
                 />
@@ -163,9 +158,9 @@ export default function Contact() {
                   value={formData.subject}
                   onChange={handleInputChange}
                   required
-                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
-                           rounded-lg text-white font-display placeholder-gray-500
-                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
+                  className='w-full px-4 py-3 bg-background-secondary border border-neutral-300 
+                           rounded-lg text-text-primary font-medium placeholder-text-muted
+                           focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20
                            transition-all duration-300'
                   placeholder='Subject'
                 />
@@ -185,9 +180,9 @@ export default function Contact() {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
-                           rounded-lg text-white font-display placeholder-gray-500 resize-none
-                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
+                  className='w-full px-4 py-3 bg-background-secondary border border-neutral-300 
+                           rounded-lg text-text-primary font-medium placeholder-text-muted resize-none
+                           focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20
                            transition-all duration-300'
                   placeholder='Your Message'
                 />
@@ -197,9 +192,8 @@ export default function Contact() {
               <motion.button
                 type='submit'
                 disabled={isSubmitting}
-                className='w-full px-6 py-4 bg-tech-neon text-black font-cyber font-bold rounded-lg
-                         hover:bg-tech-pink hover:shadow-lg hover:shadow-tech-pink/30
-                         disabled:opacity-50 disabled:cursor-not-allowed
+                className='w-full px-6 py-4 bg-primary-600 text-white font-semibold rounded-lg
+                         hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed
                          transition-all duration-300'
                 whileHover={{
                   scale: isSubmitting ? 1 : 1.02,
@@ -218,10 +212,10 @@ export default function Contact() {
                     transition={{ repeat: Infinity, duration: 1 }}
                   >
                     <span className='mr-2'>⚡</span>
-                    SENDING...
+                    Sending...
                   </motion.div>
                 ) : (
-                  'SEND MESSAGE'
+                  'Send Message'
                 )}
               </motion.button>
             </form>
@@ -229,7 +223,7 @@ export default function Contact() {
             {/* Success message */}
             {submitStatus === 'success' && (
               <motion.div
-                className='p-4 bg-green-900/50 border border-green-500 rounded-lg text-green-300 font-display'
+                className='p-4 bg-accent-green/10 border border-accent-green rounded-lg text-accent-green font-medium'
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ type: 'spring', stiffness: 300 }}
@@ -247,35 +241,35 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <h3 className='text-2xl font-cyber font-bold text-tech-neon mb-6'>
-              CONNECT WITH ME
+            <h3 className='text-2xl font-bold text-primary-600 mb-6'>
+              Connect with Me
             </h3>
 
             {/* Direct contact info */}
             <div className='space-y-4'>
               <motion.div
-                className='flex items-center space-x-4 p-4 bg-tech-dark-alt rounded-lg border border-tech-neon/20'
-                whileHover={{ scale: 1.02, borderColor: '#00ffff' }}
+                className='flex items-center space-x-4 p-4 bg-background-secondary rounded-lg border border-neutral-200'
+                whileHover={{ scale: 1.02, borderColor: '#0ea5e9' }}
               >
                 <span className='text-2xl'>📧</span>
                 <div>
-                  <p className='font-cyber font-bold text-tech-neon'>Email</p>
-                  <p className='text-gray-300 font-display'>
+                  <p className='font-semibold text-primary-600'>Email</p>
+                  <p className='text-text-secondary'>
                     contact@hartleyleroy.dev
                   </p>
                 </div>
               </motion.div>
 
               <motion.div
-                className='flex items-center space-x-4 p-4 bg-tech-dark-alt rounded-lg border border-tech-neon/20'
-                whileHover={{ scale: 1.02, borderColor: '#00ffff' }}
+                className='flex items-center space-x-4 p-4 bg-background-secondary rounded-lg border border-neutral-200'
+                whileHover={{ scale: 1.02, borderColor: '#0ea5e9' }}
               >
                 <span className='text-2xl'>📍</span>
                 <div>
-                  <p className='font-cyber font-bold text-tech-neon'>
+                  <p className='font-semibold text-primary-600'>
                     Location
                   </p>
-                  <p className='text-gray-300 font-display'>
+                  <p className='text-text-secondary'>
                     Available Worldwide (Remote)
                   </p>
                 </div>
@@ -284,8 +278,8 @@ export default function Contact() {
 
             {/* Social links */}
             <div>
-              <h4 className='text-lg font-cyber font-bold text-white mb-4'>
-                SOCIAL LINKS
+              <h4 className='text-lg font-bold text-text-primary mb-4'>
+                Social Links
               </h4>
               <div className='grid grid-cols-2 gap-4'>
                 {socialLinks.map((link, index) => (
@@ -294,8 +288,8 @@ export default function Contact() {
                     href={link.url}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='flex items-center space-x-3 p-4 bg-tech-dark-alt rounded-lg 
-                             border border-gray-600 hover:border-tech-neon/60
+                    className='flex items-center space-x-3 p-4 bg-background-secondary rounded-lg 
+                             border border-neutral-200 hover:border-primary-500
                              transition-all duration-300'
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
@@ -305,7 +299,7 @@ export default function Contact() {
                     transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
                   >
                     <span className='text-xl'>{link.icon}</span>
-                    <span className='font-cyber font-bold text-white'>
+                    <span className='font-semibold text-text-primary'>
                       {link.name}
                     </span>
                   </motion.a>
@@ -324,14 +318,14 @@ export default function Contact() {
               <motion.a
                 href='/resume.pdf'
                 download
-                className='inline-flex items-center px-6 py-3 border-2 border-tech-purple text-tech-purple 
-                         font-cyber font-bold rounded-lg hover:bg-tech-purple hover:text-black 
-                         hover:shadow-lg hover:shadow-tech-purple/30 transition-all duration-300'
+                className='inline-flex items-center px-6 py-3 border-2 border-accent-purple text-accent-purple 
+                         font-semibold rounded-lg hover:bg-accent-purple hover:text-white 
+                         transition-all duration-300'
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span className='mr-2'>📄</span>
-                DOWNLOAD RESUME
+                Download Resume
               </motion.a>
             </motion.div>
           </motion.div>
