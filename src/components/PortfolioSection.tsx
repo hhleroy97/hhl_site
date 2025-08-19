@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import Header from './portfolio/Header'
 import Hero from './portfolio/Hero'
 import About from './portfolio/About'
 import Skills from './portfolio/Skills'
@@ -22,7 +21,6 @@ export default function PortfolioSection() {
       }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
-      <Header />
       <Hero />
       <About />
       <Skills />
