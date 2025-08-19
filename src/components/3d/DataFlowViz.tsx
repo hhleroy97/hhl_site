@@ -17,33 +17,47 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
   const dataPacketsRef = useRef<THREE.Mesh[]>([])
   const connectionsRef = useRef<THREE.Line[]>([])
 
-  // Create data sources (leftmost)
+  // Create data sources (left side) - Real cloud systems you've used
   const createDataSources = (scene: THREE.Scene) => {
     const sources: THREE.Mesh[] = []
     const sourceTypes = [
-      { name: 'Raw Data', color: 0x00d4aa, y: 1 },
-      { name: 'Sensor Feed', color: 0x0ea5e9, y: -1 }
+      { name: 'IoT Devices', color: 0x00d4aa, y: 2, aws: 'IoT Core' },
+      { name: 'Drone Telemetry', color: 0x0ea5e9, y: 0.5, aws: 'Kinesis' },
+      { name: 'ROS2 Sensors', color: 0x8b5cf6, y: -1, aws: 'MQTT Bridge' },
+      { name: 'API Streams', color: 0x06b6d4, y: -2.5, aws: 'API Gateway' },
     ]
 
     sourceTypes.forEach((source, index) => {
-      const geometry = new THREE.SphereGeometry(0.15, 16, 16)
+      // Main source node
+      const geometry = new THREE.SphereGeometry(0.2, 16, 16)
       const material = new THREE.MeshStandardMaterial({
         color: source.color,
         emissive: source.color,
         emissiveIntensity: 0.1,
         metalness: 0.3,
-        roughness: 0.4
+        roughness: 0.4,
       })
 
       const node = new THREE.Mesh(geometry, material)
-      node.position.set(-5, source.y, 0)
+      node.position.set(-4, source.y, 0)
       node.userData = {
         type: 'source',
         name: source.name,
         color: source.color,
+        awsService: source.aws,
         index,
-        stage: 0
       }
+
+      // Add AWS cloud indicator
+      const cloudGeometry = new THREE.RingGeometry(0.25, 0.3, 8)
+      const cloudMaterial = new THREE.MeshBasicMaterial({
+        color: 0xff9500, // AWS orange
+        transparent: true,
+        opacity: 0.4,
+      })
+      const cloudRing = new THREE.Mesh(cloudGeometry, cloudMaterial)
+      cloudRing.rotation.x = Math.PI / 2
+      node.add(cloudRing)
 
       scene.add(node)
       sources.push(node)
@@ -52,134 +66,122 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
     return sources
   }
 
-  // Create processing stages (like golf course holes)
-  const createProcessingStages = (scene: THREE.Scene) => {
-    const stages: THREE.Mesh[] = []
-    const stageTypes = [
-      { name: 'Data Cleaning', color: 0x06b6d4, x: -2.5, shape: 'cylinder' },
-      { name: 'AI Analysis', color: 0x8b5cf6, x: 0, shape: 'octahedron' },
-      { name: 'ML Processing', color: 0xffd93d, x: 2.5, shape: 'cone' },
-      { name: 'Output', color: 0xff6b6b, x: 5, shape: 'box' }
+  // Create cloud data destinations (right side) - Real AWS services you've architected
+  const createCloudDestinations = (scene: THREE.Scene) => {
+    const destinations: THREE.Mesh[] = []
+    const destTypes = [
+      {
+        name: 'S3 Data Lake',
+        color: 0xff6b6b,
+        y: 1.5,
+        aws: 'S3 + Athena',
+        value: '$500K',
+      },
+      {
+        name: 'Real-time Analytics',
+        color: 0xffd93d,
+        y: 0,
+        aws: 'Kinesis + Glue',
+        value: 'Pipeline',
+      },
+      {
+        name: 'ML Training',
+        color: 0x6bcf7f,
+        y: -1.5,
+        aws: 'SageMaker',
+        value: 'ROS2',
+      },
     ]
 
-    stageTypes.forEach((stage, index) => {
-      let geometry: THREE.BufferGeometry
-      
-      switch (stage.shape) {
-        case 'cylinder':
-          geometry = new THREE.CylinderGeometry(0.2, 0.2, 0.6, 8)
-          break
-        case 'octahedron':
-          geometry = new THREE.OctahedronGeometry(0.25)
-          break
-        case 'cone':
-          geometry = new THREE.ConeGeometry(0.2, 0.6, 8)
-          break
-        default:
-          geometry = new THREE.BoxGeometry(0.4, 0.4, 0.4)
-      }
-
+    destTypes.forEach((dest, index) => {
+      // Main destination node
+      const geometry = new THREE.BoxGeometry(0.4, 0.4, 0.4)
       const material = new THREE.MeshStandardMaterial({
-        color: stage.color,
-        emissive: stage.color,
-        emissiveIntensity: 0.15,
+        color: dest.color,
+        emissive: dest.color,
+        emissiveIntensity: 0.1,
         metalness: 0.4,
-        roughness: 0.3
+        roughness: 0.3,
       })
 
       const node = new THREE.Mesh(geometry, material)
-      node.position.set(stage.x, 0, 0)
+      node.position.set(4, dest.y, 0)
       node.userData = {
-        type: 'stage',
-        name: stage.name,
-        color: stage.color,
+        type: 'destination',
+        name: dest.name,
+        color: dest.color,
+        awsService: dest.aws,
+        businessValue: dest.value,
         index,
-        stage: index + 1,
-        isAI: stage.name.includes('AI') || stage.name.includes('ML')
       }
 
-      // Add AI indicator for AI stages
-      if (node.userData.isAI) {
-        const aiGeometry = new THREE.RingGeometry(0.35, 0.4, 8)
-        const aiMaterial = new THREE.MeshBasicMaterial({
-          color: 0x00ffff,
-          transparent: true,
-          opacity: 0.6
-        })
-        const aiRing = new THREE.Mesh(aiGeometry, aiMaterial)
-        aiRing.rotation.x = Math.PI / 2
-        node.add(aiRing)
-      }
+      // Add AWS cloud infrastructure indicator
+      const awsGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
+      const awsMaterial = new THREE.MeshBasicMaterial({
+        color: 0xff9500, // AWS orange
+        transparent: true,
+        opacity: 0.15,
+        wireframe: true,
+      })
+      const awsFrame = new THREE.Mesh(awsGeometry, awsMaterial)
+      node.add(awsFrame)
 
       scene.add(node)
-      stages.push(node)
+      destinations.push(node)
     })
 
-    return stages
+    return destinations
   }
 
-  // Create stage-to-stage connections (pipeline flow)
-  const createConnections = (scene: THREE.Scene, allNodes: THREE.Mesh[]) => {
+  // Create cloud connections between sources and destinations
+  const createConnections = (
+    scene: THREE.Scene,
+    sources: THREE.Mesh[],
+    destinations: THREE.Mesh[]
+  ) => {
     const connections: THREE.Line[] = []
 
-    // Sort nodes by stage (x position)
-    const sortedNodes = [...allNodes].sort((a, b) => a.position.x - b.position.x)
+    sources.forEach(source => {
+      destinations.forEach(destination => {
+        // Create curved cloud data flow path
+        const startPos = source.position.clone()
+        const endPos = destination.position.clone()
+        const midPoint = new THREE.Vector3(
+          (startPos.x + endPos.x) / 2,
+          (startPos.y + endPos.y) / 2 + Math.random() * 1 - 0.5,
+          Math.sin((startPos.y + endPos.y) * 0.5) * 0.5
+        )
 
-    // Connect each stage to the next
-    for (let i = 0; i < sortedNodes.length - 1; i++) {
-      const currentStage = sortedNodes[i]
-      const nextStage = sortedNodes[i + 1]
+        const curve = new THREE.QuadraticBezierCurve3(
+          startPos,
+          midPoint,
+          endPos
+        )
+        const points = curve.getPoints(20)
 
-      // Sources connect to first processing stage
-      if (currentStage.userData.type === 'source') {
-        const firstProcessingStage = sortedNodes.find(n => n.userData.type === 'stage')
-        if (firstProcessingStage) {
-          const connection = createConnection(scene, currentStage, firstProcessingStage)
-          connections.push(connection)
+        const geometry = new THREE.BufferGeometry().setFromPoints(points)
+        const material = new THREE.LineBasicMaterial({
+          color: 0x404040,
+          transparent: true,
+          opacity: 0.3,
+        })
+
+        const line = new THREE.Line(geometry, material)
+        line.userData = {
+          source,
+          destination,
+          curve,
+          points,
+          active: false,
+          awsService: destination.userData.awsService,
         }
-      }
-      // Stages connect to next stage
-      else if (currentStage.userData.type === 'stage' && nextStage.userData.type === 'stage') {
-        const connection = createConnection(scene, currentStage, nextStage)
-        connections.push(connection)
-      }
-    }
 
-    return connections
-  }
-
-  // Helper function to create individual connections
-  const createConnection = (scene: THREE.Scene, from: THREE.Mesh, to: THREE.Mesh) => {
-    const startPos = from.position.clone()
-    const endPos = to.position.clone()
-    const midPoint = new THREE.Vector3(
-      (startPos.x + endPos.x) / 2,
-      (startPos.y + endPos.y) / 2 + Math.sin((startPos.x + endPos.x) * 0.5) * 0.3,
-      Math.sin((startPos.x - endPos.x) * 0.3) * 0.2
-    )
-
-    const curve = new THREE.QuadraticBezierCurve3(startPos, midPoint, endPos)
-    const points = curve.getPoints(25)
-
-    const geometry = new THREE.BufferGeometry().setFromPoints(points)
-    const material = new THREE.LineBasicMaterial({
-      color: 0x404040,
-      transparent: true,
-      opacity: 0.4
+        scene.add(line)
+        connections.push(line)
+      })
     })
 
-    const line = new THREE.Line(geometry, material)
-    line.userData = {
-      from,
-      to,
-      curve,
-      points,
-      active: false,
-      isAIStage: to.userData.isAI
-    }
-
-    scene.add(line)
-    return line
+    return connections
   }
 
   // Create flowing data packets
@@ -187,34 +189,26 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
     const packets: THREE.Mesh[] = []
 
     // Create packets for each connection
-    connections.forEach((connection, connIndex) => {
+    connections.forEach((connection, _connIndex) => {
       for (let i = 0; i < 2; i++) {
         const geometry = new THREE.SphereGeometry(0.05, 8, 8)
-        const sourceColor = connection.userData.from.userData.color
-        
-        // Special packet appearance for AI stages
-        const material = connection.userData.isAIStage 
-          ? new THREE.MeshStandardMaterial({
-              color: 0x00ffff,
-              emissive: 0x00ffff,
-              emissiveIntensity: 0.3,
-              transparent: true,
-              opacity: 0.9
-            })
-          : new THREE.MeshBasicMaterial({
-              color: sourceColor,
-              transparent: true,
-              opacity: 0.8
-            })
+        const sourceColor = connection.userData.source.userData.color
+
+        // Cloud data packets with AWS styling
+        const material = new THREE.MeshBasicMaterial({
+          color: sourceColor,
+          transparent: true,
+          opacity: 0.8,
+        })
 
         const packet = new THREE.Mesh(geometry, material)
         packet.userData = {
           connection,
-          progress: (i / 2) + Math.random() * 0.3,
+          progress: i / 2 + Math.random() * 0.3,
           speed: 0.01 + Math.random() * 0.005,
           sourceColor,
-          isAIPacket: connection.userData.isAIStage,
-          active: false
+          awsService: connection.userData.awsService,
+          active: false,
         }
 
         scene.add(packet)
@@ -225,32 +219,39 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
     return packets
   }
 
-  // Add stage labels
+  // Add cloud architecture labels
   const createLabels = (scene: THREE.Scene) => {
-    const stageLabels = [
-      { text: 'RAW DATA', x: -5, color: '#00d4aa' },
-      { text: 'CLEANING', x: -2.5, color: '#06b6d4' },
-      { text: 'AI ANALYSIS', x: 0, color: '#8b5cf6' },
-      { text: 'ML PROCESS', x: 2.5, color: '#ffd93d' },
-      { text: 'OUTPUT', x: 5, color: '#ff6b6b' }
+    const cloudLabels = [
+      { text: 'EDGE DEVICES', x: -4, y: 2.8, color: '#00d4aa' },
+      { text: 'AWS CLOUD', x: 4, y: 2.8, color: '#ff9500' },
+      {
+        text: 'IoT → S3 Pipeline',
+        x: 0,
+        y: -2.8,
+        color: '#0ea5e9',
+        size: '9px',
+      },
     ]
 
-    stageLabels.forEach((stage, index) => {
+    cloudLabels.forEach((label, _index) => {
       const canvas = document.createElement('canvas')
       const context = canvas.getContext('2d')!
-      canvas.width = 128
+      canvas.width = 160
       canvas.height = 32
-      
-      context.fillStyle = stage.color
-      context.font = '11px monospace'
+
+      context.fillStyle = label.color
+      context.font = `${label.size || '11px'} monospace`
       context.textAlign = 'center'
-      context.fillText(stage.text, 64, 20)
+      context.fillText(label.text, 80, 20)
 
       const texture = new THREE.CanvasTexture(canvas)
-      const material = new THREE.SpriteMaterial({ map: texture, transparent: true })
+      const material = new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+      })
       const sprite = new THREE.Sprite(material)
-      sprite.position.set(stage.x, -1.8, 0)
-      sprite.scale.set(1.2, 0.3, 1)
+      sprite.position.set(label.x, label.y, 0)
+      sprite.scale.set(1.4, 0.35, 1)
       scene.add(sprite)
     })
   }
@@ -261,63 +262,64 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
 
     const time = clockRef.current.getElapsedTime()
 
-    // Animate source nodes
+    // Animate source nodes (Edge devices)
     dataSourcesRef.current.forEach((source, index) => {
       const pulse = Math.sin(time * 2 + index * 0.5) * 0.1 + 1
       source.scale.setScalar(pulse)
-      
+
       if (source.material instanceof THREE.MeshStandardMaterial) {
-        source.material.emissiveIntensity = 0.1 + Math.sin(time * 3 + index) * 0.1
+        source.material.emissiveIntensity =
+          0.1 + Math.sin(time * 3 + index) * 0.1
+      }
+
+      // Animate AWS cloud indicators
+      if (source.children.length > 0) {
+        const cloudRing = source.children[0]
+        cloudRing.rotation.z = time * 1.2 + index * 0.3
       }
     })
 
-    // Animate processing stages
-    dataTargetsRef.current.forEach((stage, index) => {
-      // AI stages get special animation
-      if (stage.userData.isAI) {
-        stage.rotation.y = time * 1.5
-        const aiPulse = Math.sin(time * 4 + index) * 0.2 + 1
-        stage.scale.setScalar(aiPulse)
-        
-        if (stage.material instanceof THREE.MeshStandardMaterial) {
-          stage.material.emissiveIntensity = 0.2 + Math.sin(time * 3 + index) * 0.2
-        }
-        
-        // Animate AI ring
-        if (stage.children.length > 0) {
-          const aiRing = stage.children[0]
-          aiRing.rotation.z = time * 2
-        }
-      } else {
-        stage.rotation.y = time * 0.3 + index
-        if (stage.material instanceof THREE.MeshStandardMaterial) {
-          stage.material.emissiveIntensity = 0.1 + Math.sin(time * 2 + index) * 0.1
-        }
+    // Animate cloud destinations (AWS services)
+    dataTargetsRef.current.forEach((destination, index) => {
+      destination.rotation.y = time * 0.4 + index * 0.6
+
+      if (destination.material instanceof THREE.MeshStandardMaterial) {
+        destination.material.emissiveIntensity =
+          0.1 + Math.sin(time * 2 + index) * 0.1
+      }
+
+      // Animate AWS infrastructure indicators
+      if (destination.children.length > 0) {
+        const awsFrame = destination.children[0]
+        awsFrame.rotation.x = time * 0.5
+        awsFrame.rotation.y = time * 0.3
       }
     })
 
-    // Animate connections
+    // Animate cloud connections
     connectionsRef.current.forEach((connection, index) => {
       const activity = Math.sin(time * 1.5 + index * 0.3) * 0.5 + 0.5
       if (connection.material instanceof THREE.LineBasicMaterial) {
-        connection.material.opacity = 0.4 + activity * 0.3
-        
-        // AI connections get special color treatment
-        if (connection.userData.isAIStage && activity > 0.6) {
-          connection.material.color.setHex(0x00ffff)
-        } else if (activity > 0.7) {
-          connection.material.color.setHex(connection.userData.from.userData.color)
+        connection.material.opacity = 0.3 + activity * 0.4
+
+        // AWS connections get special color treatment
+        if (activity > 0.7) {
+          connection.material.color.setHex(0xff9500) // AWS orange for active connections
+        } else if (activity > 0.5) {
+          connection.material.color.setHex(
+            connection.userData.source.userData.color
+          )
         } else {
           connection.material.color.setHex(0x404040)
         }
       }
     })
 
-    // Animate data packets flowing through pipeline
+    // Animate data packets flowing through cloud
     dataPacketsRef.current.forEach((packet, index) => {
       const connection = packet.userData.connection
       const curve = connection.userData.curve
-      
+
       // Update packet position along curve
       packet.userData.progress += packet.userData.speed
       if (packet.userData.progress >= 1) {
@@ -327,24 +329,29 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
       const position = curve.getPoint(packet.userData.progress)
       packet.position.copy(position)
 
-      // Special effects for AI packets
-      if (packet.userData.isAIPacket) {
-        const aiPulse = 1 + Math.sin(time * 8 + index) * 0.4
-        packet.scale.setScalar(aiPulse)
-        
-        if (packet.material instanceof THREE.MeshStandardMaterial) {
-          packet.material.emissiveIntensity = 0.3 + Math.sin(time * 6 + index) * 0.2
+      // Cloud data packet effects
+      const pulse = 1 + Math.sin(time * 8 + index) * 0.3
+      packet.scale.setScalar(pulse)
+
+      // Add AWS glow when packet is in transit
+      if (packet.userData.progress > 0.3 && packet.userData.progress < 0.7) {
+        if (packet.material instanceof THREE.MeshBasicMaterial) {
+          packet.material.opacity = 0.9
         }
       } else {
-        const pulse = 1 + Math.sin(time * 10 + index) * 0.2
-        packet.scale.setScalar(pulse)
+        if (packet.material instanceof THREE.MeshBasicMaterial) {
+          packet.material.opacity = 0.6
+        }
       }
 
-      // Flash destination when packet arrives
+      // Flash AWS destination when packet arrives
       if (packet.userData.progress > 0.9) {
-        const target = connection.userData.to
+        const target = connection.userData.destination
         if (target.material instanceof THREE.MeshStandardMaterial) {
-          target.material.emissiveIntensity = Math.max(target.material.emissiveIntensity, 0.4)
+          target.material.emissiveIntensity = Math.max(
+            target.material.emissiveIntensity,
+            0.4
+          )
         }
       }
     })
@@ -368,8 +375,12 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
     }
 
     if (sceneRef.current) {
-      sceneRef.current.traverse((object) => {
-        if (object instanceof THREE.Mesh || object instanceof THREE.Line || object instanceof THREE.Sprite) {
+      sceneRef.current.traverse(object => {
+        if (
+          object instanceof THREE.Mesh ||
+          object instanceof THREE.Line ||
+          object instanceof THREE.Sprite
+        ) {
           object.geometry?.dispose()
           if (object.material instanceof THREE.Material) {
             object.material.dispose()
@@ -390,15 +401,15 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
     sceneRef.current = scene
 
     // Setup renderer
-    const renderer = new THREE.WebGLRenderer({ 
+    const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       antialias: true,
-      alpha: true
+      alpha: true,
     })
-    
+
     const width = canvasRef.current.clientWidth || 500
     const height = canvasRef.current.clientHeight || 500
-    
+
     renderer.setSize(width, height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     rendererRef.current = renderer
@@ -417,13 +428,16 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
     keyLight.position.set(5, 5, 5)
     scene.add(keyLight)
 
-    // Create the multi-stage data pipeline
+    // Create the cloud data flow architecture
     dataSourcesRef.current = createDataSources(scene)
-    dataTargetsRef.current = createProcessingStages(scene)
-    
-    // Combine all nodes for connection creation
-    const allNodes = [...dataSourcesRef.current, ...dataTargetsRef.current]
-    connectionsRef.current = createConnections(scene, allNodes)
+    dataTargetsRef.current = createCloudDestinations(scene)
+
+    // Create connections between sources and cloud destinations
+    connectionsRef.current = createConnections(
+      scene,
+      dataSourcesRef.current,
+      dataTargetsRef.current
+    )
     dataPacketsRef.current = createDataPackets(scene, connectionsRef.current)
     createLabels(scene)
 
@@ -437,18 +451,22 @@ const DataFlowViz: React.FC<DataFlowVizProps> = ({ className = '' }) => {
     <div className={`relative ${className}`}>
       <canvas
         ref={canvasRef}
-        className="w-full h-full"
-        style={{ 
-          background: 'transparent'
+        className='w-full h-full'
+        style={{
+          background: 'transparent',
         }}
       />
-      
-      {/* Data pipeline info */}
-      <div className="absolute bottom-4 left-4 text-xs text-tech-text-muted font-mono">
-        <div className="bg-tech-dark/90 px-3 py-2 rounded-lg border border-tech-teal/30">
-          <div className="text-tech-teal font-semibold">AI Data Pipeline</div>
-          <div className="text-tech-text-secondary">5-Stage Processing</div>
-          <div className="text-tech-text-muted text-[10px] mt-1">Raw → Clean → AI → ML → Output</div>
+
+      {/* Cloud architecture info */}
+      <div className='absolute bottom-4 left-4 text-xs text-tech-text-muted font-mono'>
+        <div className='bg-tech-dark/90 px-3 py-2 rounded-lg border border-tech-teal/30'>
+          <div className='text-tech-teal font-semibold'>
+            Cloud Data Architecture
+          </div>
+          <div className='text-tech-text-secondary'>IoT → AWS Pipeline</div>
+          <div className='text-tech-text-muted text-[10px] mt-1'>
+            Edge → Cloud → Analytics
+          </div>
         </div>
       </div>
     </div>
