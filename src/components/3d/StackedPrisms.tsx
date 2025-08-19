@@ -26,11 +26,11 @@ const StackedPrisms: React.FC<StackedPrismsProps> = ({ className = '' }) => {
     for (let i = 0; i < 5; i++) {
       // Create cylinder geometry (tall and wide, not very deep)
       const geometry = new THREE.CylinderGeometry(
-        2.5,  // radiusTop - wide
-        2.5,  // radiusBottom - wide  
-        0.4,  // height - not very deep
-        32,   // radialSegments - smooth rounded edges
-        1     // heightSegments
+        2.5, // radiusTop - wide
+        2.5, // radiusBottom - wide
+        0.4, // height - not very deep
+        32, // radialSegments - smooth rounded edges
+        1 // heightSegments
       )
 
       const material = new THREE.MeshStandardMaterial({
@@ -40,14 +40,14 @@ const StackedPrisms: React.FC<StackedPrismsProps> = ({ className = '' }) => {
         emissive: new THREE.Color(colors[i]),
         emissiveIntensity: 0.1,
         metalness: 0.3,
-        roughness: 0.4
+        roughness: 0.4,
       })
 
       const prism = new THREE.Mesh(geometry, material)
-      
+
       // Position each prism with spacing
       prism.position.set(0, i * spacing - 3, 0) // Stack vertically with spacing
-      
+
       scene.add(prism)
       prisms.push(prism)
     }
@@ -60,7 +60,8 @@ const StackedPrisms: React.FC<StackedPrismsProps> = ({ className = '' }) => {
     if (!sceneRef.current || !cameraRef.current || !rendererRef.current) return
 
     // Gentle rotation for the whole scene
-    sceneRef.current.rotation.y = Math.sin(clockRef.current.elapsedTime * 0.2) * 0.1
+    sceneRef.current.rotation.y =
+      Math.sin(clockRef.current.elapsedTime * 0.2) * 0.1
 
     // Update controls
     controlsRef.current?.update()
@@ -92,7 +93,7 @@ const StackedPrisms: React.FC<StackedPrismsProps> = ({ className = '' }) => {
     }
 
     if (sceneRef.current) {
-      sceneRef.current.traverse((object) => {
+      sceneRef.current.traverse((object: THREE.Object3D) => {
         if (object instanceof THREE.Mesh) {
           object.geometry?.dispose()
           if (object.material instanceof THREE.Material) {
@@ -119,20 +120,25 @@ const StackedPrisms: React.FC<StackedPrismsProps> = ({ className = '' }) => {
     sceneRef.current = scene
 
     // Setup renderer
-    const renderer = new THREE.WebGLRenderer({ 
+    const renderer = new THREE.WebGLRenderer({
       antialias: true,
-      alpha: false
+      alpha: false,
     })
-    
+
     const containerWidth = canvasRef.current.clientWidth || 500
     const containerHeight = canvasRef.current.clientHeight || 500
-    
+
     renderer.setSize(containerWidth, containerHeight)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     rendererRef.current = renderer
 
     // Setup camera
-    const camera = new THREE.PerspectiveCamera(50, containerWidth / containerHeight, 0.1, 100)
+    const camera = new THREE.PerspectiveCamera(
+      50,
+      containerWidth / containerHeight,
+      0.1,
+      100
+    )
     camera.position.set(0, 2, 8)
     cameraRef.current = camera
 
@@ -147,11 +153,11 @@ const StackedPrisms: React.FC<StackedPrismsProps> = ({ className = '' }) => {
 
     // Setup lighting
     scene.add(new THREE.AmbientLight(0xffffff, 0.4))
-    
+
     const keyLight = new THREE.DirectionalLight(0xffffff, 0.8)
     keyLight.position.set(5, 5, 5)
     scene.add(keyLight)
-    
+
     const fillLight = new THREE.DirectionalLight(0xffffff, 0.3)
     fillLight.position.set(-3, 2, -2)
     scene.add(fillLight)
@@ -173,31 +179,34 @@ const StackedPrisms: React.FC<StackedPrismsProps> = ({ className = '' }) => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className={`relative ${className}`} style={{ width: '100%', height: '100%', minHeight: '400px' }}>
+    <div
+      className={`relative ${className}`}
+      style={{ width: '100%', height: '100%', minHeight: '400px' }}
+    >
       {/* Loading indicator */}
       {!isLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 z-10">
-          <div className="flex flex-col items-center gap-4 text-slate-300">
-            <div className="w-8 h-8 border-2 border-slate-600 border-t-cyan-400 rounded-full animate-spin" />
-            <span className="text-sm font-medium">Loading 3D Stack...</span>
+        <div className='absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 z-10'>
+          <div className='flex flex-col items-center gap-4 text-slate-300'>
+            <div className='w-8 h-8 border-2 border-slate-600 border-t-cyan-400 rounded-full animate-spin' />
+            <span className='text-sm font-medium'>Loading 3D Stack...</span>
           </div>
         </div>
       )}
 
       {/* Three.js canvas mount */}
-      <div 
-        ref={canvasRef} 
-        style={{ 
-          position: 'absolute', 
-          top: 0, 
-          left: 0, 
-          width: '100%', 
-          height: '100%'
-        }} 
+      <div
+        ref={canvasRef}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+        }}
       />
-      
+
       {/* Debug info */}
-      <div className="absolute top-2 left-2 text-xs text-white/50 z-20">
+      <div className='absolute top-2 left-2 text-xs text-white/50 z-20'>
         {isLoaded ? '3D Stack Loaded' : 'Loading...'}
       </div>
     </div>

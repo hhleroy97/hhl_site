@@ -5,18 +5,18 @@ export default function LandingHero() {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ['start start', 'end start'],
   })
 
   // Transform values based on scroll progress
   const nameScale = useTransform(scrollYProgress, [0, 1], [1, 0.3])
   const nameX = useTransform(scrollYProgress, [0, 1], [0, -200])
   const nameY = useTransform(scrollYProgress, [0, 1], [0, -300])
-  
+
   const photoScale = useTransform(scrollYProgress, [0, 1], [1, 0.15])
   const photoX = useTransform(scrollYProgress, [0, 1], [0, 300])
   const photoY = useTransform(scrollYProgress, [0, 1], [0, -300])
-  
+
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
   const headerOpacity = useTransform(scrollYProgress, [0.2, 0.8], [0, 1])
 
@@ -27,14 +27,14 @@ export default function LandingHero() {
         className='fixed top-0 left-0 right-0 z-40 bg-tech-dark/95 backdrop-blur-md border-b border-tech-teal/20 h-16'
         style={{ opacity: headerOpacity }}
       />
-      
+
       {/* Navigation that appears on scroll */}
       <motion.nav
         className='fixed top-0 right-0 z-50 p-4'
         style={{ opacity: headerOpacity }}
       >
         <div className='flex items-center space-x-6'>
-          {['About', 'Skills', 'Experience', 'Contact'].map((item) => (
+          {['About', 'Skills', 'Experience', 'Contact'].map(item => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -61,13 +61,13 @@ export default function LandingHero() {
               transition={{ duration: 0.8 }}
             >
               {/* Name - morphs to header position */}
-              <motion.div 
+              <motion.div
                 className='space-y-6'
                 style={{
                   scale: nameScale,
                   x: nameX,
                   y: nameY,
-                  transformOrigin: 'left center'
+                  transformOrigin: 'left center',
                 }}
               >
                 <h1 className='text-5xl sm:text-6xl lg:text-7xl font-bold text-tech-text-primary leading-tight'>
@@ -76,27 +76,25 @@ export default function LandingHero() {
                     Leroy
                   </span>
                 </h1>
-                
-                <motion.div 
+
+                <motion.div
                   className='space-y-2'
                   style={{ opacity: contentOpacity }}
                 >
                   <p className='text-2xl sm:text-3xl font-semibold text-tech-text-secondary'>
                     Software Engineer
                   </p>
-                  
+
                   <p className='text-xl text-tech-text-muted'>
                     Robotics Fleet Management
                   </p>
-                  
-                  <p className='text-lg text-tech-text-muted'>
-                    Charlotte, NC
-                  </p>
+
+                  <p className='text-lg text-tech-text-muted'>Charlotte, NC</p>
                 </motion.div>
               </motion.div>
 
               {/* Contact Actions */}
-              <motion.div 
+              <motion.div
                 className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-6'
                 style={{ opacity: contentOpacity }}
               >
@@ -129,17 +127,17 @@ export default function LandingHero() {
                 scale: photoScale,
                 x: photoX,
                 y: photoY,
-                transformOrigin: 'center'
+                transformOrigin: 'center',
               }}
             >
               <div className='relative w-96 h-96 rounded-full bg-gradient-to-br from-tech-teal/20 to-tech-cyan/20 border-2 border-tech-teal/30 flex items-center justify-center overflow-hidden shadow-2xl'>
-                <img 
-                  src="/src/assets/prof-pic-2.jpg" 
-                  alt="Hartley H. Leroy - Professional Photo"
-                  className="w-full h-full object-cover"
-                  style={{ 
-                    imageRendering: 'optimize-quality',
-                    transform: 'translateX(-20px) scale(1.2)'
+                <img
+                  src='/src/assets/prof-pic-2.jpg'
+                  alt='Hartley H. Leroy - Professional Photo'
+                  className='w-full h-full object-cover'
+                  style={{
+                    imageRendering: 'optimizeQuality' as const,
+                    transform: 'translateX(-20px) scale(1.2)',
                   }}
                 />
               </div>

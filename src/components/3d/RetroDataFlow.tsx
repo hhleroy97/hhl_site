@@ -33,10 +33,10 @@ const RetroDataFlow: React.FC<RetroDataFlowProps> = ({ className = '' }) => {
     cameraRef.current = camera
 
     // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ 
+    const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       antialias: true,
-      alpha: true
+      alpha: true,
     })
     renderer.setSize(800, 600)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -45,43 +45,43 @@ const RetroDataFlow: React.FC<RetroDataFlowProps> = ({ className = '' }) => {
     // Create simple grid background
     const createGridBackground = () => {
       const gridElements: THREE.Line[] = []
-      
+
       // Simple grid lines for background
       const gridSize = 20
       const gridSpacing = 0.5
-      
+
       for (let i = -gridSize; i <= gridSize; i++) {
         // Horizontal lines
         const hPoints = [
           new THREE.Vector3(-gridSize * gridSpacing, i * gridSpacing, 0),
-          new THREE.Vector3(gridSize * gridSpacing, i * gridSpacing, 0)
+          new THREE.Vector3(gridSize * gridSpacing, i * gridSpacing, 0),
         ]
         const hGeometry = new THREE.BufferGeometry().setFromPoints(hPoints)
         const hMaterial = new THREE.LineBasicMaterial({
           color: neonGreen,
           transparent: true,
-          opacity: 0.1
+          opacity: 0.1,
         })
         const hLine = new THREE.Line(hGeometry, hMaterial)
         gridElements.push(hLine)
         scene.add(hLine)
-        
+
         // Vertical lines
         const vPoints = [
           new THREE.Vector3(i * gridSpacing, -gridSize * gridSpacing, 0),
-          new THREE.Vector3(i * gridSpacing, gridSize * gridSpacing, 0)
+          new THREE.Vector3(i * gridSpacing, gridSize * gridSpacing, 0),
         ]
         const vGeometry = new THREE.BufferGeometry().setFromPoints(vPoints)
         const vMaterial = new THREE.LineBasicMaterial({
           color: neonGreen,
           transparent: true,
-          opacity: 0.1
+          opacity: 0.1,
         })
         const vLine = new THREE.Line(vGeometry, vMaterial)
         gridElements.push(vLine)
         scene.add(vLine)
       }
-      
+
       return gridElements
     }
 
@@ -99,19 +99,19 @@ const RetroDataFlow: React.FC<RetroDataFlowProps> = ({ className = '' }) => {
     // Animation loop with subtle grid effects
     const animate = () => {
       const elapsedTime = clockRef.current.getElapsedTime()
-      
+
       // Subtle grid animation
-      gridElements.forEach((line, index) => {
+      gridElements.forEach((line: THREE.Line, index: number) => {
         const material = line.material as THREE.LineBasicMaterial
         const pulse = Math.sin(elapsedTime * 0.5 + index * 0.1) * 0.05 + 0.1
         material.opacity = pulse
       })
-      
+
       // Render
       if (rendererRef.current && sceneRef.current && cameraRef.current) {
         rendererRef.current.render(sceneRef.current, cameraRef.current)
       }
-      
+
       animationRef.current = requestAnimationFrame(animate)
     }
 
@@ -122,9 +122,9 @@ const RetroDataFlow: React.FC<RetroDataFlowProps> = ({ className = '' }) => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current)
       }
-      
+
       // Dispose of Three.js objects
-      scene.traverse((object) => {
+      scene.traverse((object: THREE.Object3D) => {
         if (object instanceof THREE.Mesh) {
           object.geometry?.dispose()
           if (object.material instanceof THREE.Material) {
@@ -132,7 +132,7 @@ const RetroDataFlow: React.FC<RetroDataFlowProps> = ({ className = '' }) => {
           }
         }
       })
-      
+
       renderer.dispose()
     }
   }, [neonGreen])
@@ -141,9 +141,9 @@ const RetroDataFlow: React.FC<RetroDataFlowProps> = ({ className = '' }) => {
     <div className={`relative ${className}`}>
       <canvas
         ref={canvasRef}
-        className="w-full h-full"
-        style={{ 
-          background: 'transparent'
+        className='w-full h-full'
+        style={{
+          background: 'transparent',
         }}
       />
     </div>
