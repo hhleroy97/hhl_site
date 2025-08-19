@@ -27,34 +27,51 @@ const SimpleGrid: React.FC = () => {
     // Create grid group
     const gridGroup = new THREE.Group()
 
-    // Create white grid helper with fewer, larger cells
-    const gridHelper = new THREE.GridHelper(15, 7, 0xffffff, 0xffffff) // 7 divisions = larger cells, still odd number
+    // Create white grid helper with even number of divisions for proper centering
+    const gridHelper = new THREE.GridHelper(15, 14, 0xffffff, 0xffffff) // 14 divisions = even number for centering
     gridHelper.rotation.x = Math.PI // Rotate 90 degrees more around x-axis
     gridGroup.add(gridHelper)
 
-    // Add red center tile with height (3D cube)
-    const centerGeometry = new THREE.BoxGeometry(2, 0.6, 2) // Width, Height, Depth - scaled up
-    const centerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+    // Add center tile with height (3D cube) - sized to take up 4 grid spaces (2x2)
+    const centerGeometry = new THREE.BoxGeometry(2, 0.6, 2, 8, 8, 8) // Width, Height, Depth with rounded segments
+    const centerMaterial = new THREE.MeshStandardMaterial({
+      color: 0x888888,
+      metalness: 0.8,
+      roughness: 0.2,
+    })
     const centerCube = new THREE.Mesh(centerGeometry, centerMaterial)
     centerCube.position.set(0, 0.3, 0) // Raise it up by half its height
     gridGroup.add(centerCube)
 
-    // Add 5 other colored tiles positioned off-axis for more interesting layout
+    // Add 5 other colored tiles aligned with grid spacing (15 units / 14 divisions = 1.07 per division)
+    const gridSpacing = 15 / 14 // 1.07 units per grid division
     const coloredTiles = [
-      { color: 0x00ff00, x: 2, z: 1 }, // Green - off-axis position
-      { color: 0x0000ff, x: -1, z: 3 }, // Blue - off-axis position
-      { color: 0xffff00, x: 3, z: -2 }, // Yellow - off-axis position
-      { color: 0xff00ff, x: -3, z: -1 }, // Magenta - off-axis position
-      { color: 0x00ffff, x: 1, z: -3 }, // Cyan - off-axis position
+      { color: 0x00ff00, x: gridSpacing * 3, z: gridSpacing * -2 }, // Green - 3 divisions right, 2 down
+      { color: 0x0000ff, x: gridSpacing * -4, z: gridSpacing * 2 }, // Blue - 4 divisions left, 2 up
+      { color: 0xffff00, x: gridSpacing * 2, z: gridSpacing * 4 }, // Yellow - 2 divisions right, 4 up
+      { color: 0xff00ff, x: gridSpacing * -2, z: gridSpacing * -5 }, // Magenta - 2 divisions left, 5 down
+      { color: 0x00ffff, x: gridSpacing * 5, z: gridSpacing * 1 }, // Cyan - 5 divisions right, 1 up
     ]
 
     coloredTiles.forEach(tile => {
-      const tileGeometry = new THREE.BoxGeometry(2, 0.6, 2) // Scaled up to match larger cells
-      const tileMaterial = new THREE.MeshBasicMaterial({ color: tile.color })
+      const tileGeometry = new THREE.BoxGeometry(2, 0.6, 2, 8, 8, 8) // Sized to take up 4 grid spaces (2x2) with rounded segments
+      const tileMaterial = new THREE.MeshStandardMaterial({
+        color: 0x888888,
+        metalness: 0.8,
+        roughness: 0.2,
+      })
       const tileCube = new THREE.Mesh(tileGeometry, tileMaterial)
       tileCube.position.set(tile.x, 0.3, tile.z) // Adjusted Y position for taller cubes
       gridGroup.add(tileCube)
     })
+
+    // Add lighting for metallic materials
+    const ambientLight = new THREE.AmbientLight(0x404040, 0.4)
+    scene.add(ambientLight)
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8)
+    directionalLight.position.set(5, 10, 5)
+    scene.add(directionalLight)
 
     scene.add(gridGroup)
 
