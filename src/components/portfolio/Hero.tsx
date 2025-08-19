@@ -1,8 +1,5 @@
 import { motion } from 'framer-motion'
-import { Suspense, lazy } from 'react'
-
-// Lazy load the simple 3D scene for performance
-const SimpleScene3D = lazy(() => import('../3d/SimpleScene3D'))
+import profilePic from '@/assets/prof-pic.jpg'
 
 export default function Hero() {
   return (
@@ -170,7 +167,7 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right column - 3D Network Visualization */}
+          {/* Right column - Profile Picture */}
           <motion.div
             className='relative flex justify-center lg:justify-end'
             initial={{ opacity: 0, x: 40 }}
@@ -178,23 +175,29 @@ export default function Hero() {
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
             <div className='relative w-full max-w-[500px] h-[500px]'>
-              {/* 3D Scene Container */}
-              <Suspense
-                fallback={
-                  <div className='w-full h-full bg-tech-dark-surface/30 rounded-lg border border-tech-dark-elevated flex items-center justify-center'>
-                    <div className='flex flex-col items-center space-y-4'>
-                      <div className='w-8 h-8 border-2 border-tech-teal border-t-transparent rounded-full animate-spin'></div>
-                      <span className='text-tech-text-muted text-sm'>
-                        Loading 3D Network...
-                      </span>
-                    </div>
-                  </div>
-                }
+              {/* Profile Picture Container */}
+              <motion.div
+                className='relative w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-tech-dark-alt to-tech-dark border-2 border-tech-teal/30'
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
               >
-                <SimpleScene3D className='w-full h-full' />
-              </Suspense>
+                <img
+                  src={profilePic}
+                  alt='Hartley H. Leroy - Software Engineer'
+                  className='w-full h-full object-cover'
+                />
 
-              {/* Artistic glow effect around 3D scene */}
+                {/* Gradient overlay for better text contrast */}
+                <div className='absolute inset-0 bg-gradient-to-t from-tech-dark/40 via-transparent to-transparent' />
+
+                {/* Corner brackets */}
+                <div className='absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-tech-teal' />
+                <div className='absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-tech-teal' />
+                <div className='absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-tech-teal' />
+                <div className='absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-tech-teal' />
+              </motion.div>
+
+              {/* Artistic glow effect around profile picture */}
               <div
                 className='absolute -inset-8 rounded-full opacity-30 blur-3xl'
                 style={{
@@ -205,6 +208,37 @@ export default function Hero() {
                 }}
                 aria-hidden='true'
               />
+
+              {/* Floating tech icons */}
+              <motion.div
+                className='absolute -top-4 -right-4 w-12 h-12 bg-tech-teal rounded-lg flex items-center justify-center'
+                animate={{
+                  y: [0, -10, 0],
+                  rotate: [0, 5, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: 0,
+                }}
+              >
+                <span className='text-tech-dark text-xl'>⚡</span>
+              </motion.div>
+
+              <motion.div
+                className='absolute -bottom-4 -left-4 w-12 h-12 bg-tech-purple rounded-lg flex items-center justify-center'
+                animate={{
+                  y: [0, -8, 0],
+                  rotate: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  delay: 1,
+                }}
+              >
+                <span className='text-white text-xl'>🚀</span>
+              </motion.div>
             </div>
           </motion.div>
         </div>
