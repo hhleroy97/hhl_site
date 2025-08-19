@@ -1,8 +1,5 @@
 import { motion } from 'framer-motion'
-import { Suspense, lazy } from 'react'
-
-// Lazy load the simple 3D scene for performance
-const SimpleScene3D = lazy(() => import('../3d/SimpleScene3D'))
+import AbstractDataFlow from '../ui/AbstractDataFlow'
 
 export default function Hero() {
   return (
@@ -170,7 +167,7 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right column - 3D Network Visualization */}
+          {/* Right column - Abstract Data Flow Visualization */}
           <motion.div
             className='relative flex justify-center lg:justify-end'
             initial={{ opacity: 0, x: 40 }}
@@ -178,32 +175,50 @@ export default function Hero() {
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
             <div className='relative w-full max-w-[500px] h-[500px]'>
-              {/* 3D Scene Container */}
-              <Suspense
-                fallback={
-                  <div className='w-full h-full bg-tech-dark-surface/30 rounded-lg border border-tech-dark-elevated flex items-center justify-center'>
-                    <div className='flex flex-col items-center space-y-4'>
-                      <div className='w-8 h-8 border-2 border-tech-teal border-t-transparent rounded-full animate-spin'></div>
-                      <span className='text-tech-text-muted text-sm'>
-                        Loading 3D Network...
-                      </span>
-                    </div>
-                  </div>
-                }
-              >
-                <SimpleScene3D className='w-full h-full' />
-              </Suspense>
+              {/* Abstract Data Flow Container */}
+              <div className='w-full h-full bg-gradient-to-br from-tech-dark-surface/20 to-tech-dark-elevated/30 rounded-2xl border border-tech-dark-elevated/50 backdrop-blur-sm overflow-hidden'>
+                <AbstractDataFlow className='w-full h-full' />
+              </div>
 
-              {/* Artistic glow effect around 3D scene */}
+              {/* Artistic glow effect around visualization */}
               <div
-                className='absolute -inset-8 rounded-full opacity-30 blur-3xl'
+                className='absolute -inset-8 rounded-full opacity-40 blur-3xl pointer-events-none'
                 style={{
                   background: `
-                    radial-gradient(circle, rgba(0, 212, 170, 0.3) 0%, transparent 70%),
-                    radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.2) 0%, transparent 50%)
+                    radial-gradient(circle, rgba(0, 212, 170, 0.4) 0%, transparent 70%),
+                    radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 30% 70%, rgba(239, 68, 68, 0.2) 0%, transparent 60%)
                   `,
                 }}
                 aria-hidden='true'
+              />
+
+              {/* Additional floating elements for artistic effect */}
+              <motion.div
+                className='absolute -top-4 -right-4 w-3 h-3 bg-tech-coral rounded-full opacity-80'
+                animate={{
+                  y: [0, -10, 0],
+                  opacity: [0.8, 1, 0.8],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
+              <motion.div
+                className='absolute -bottom-6 -left-6 w-2 h-2 bg-tech-cyan rounded-full opacity-70'
+                animate={{
+                  y: [0, -8, 0],
+                  x: [0, 4, 0],
+                  opacity: [0.7, 1, 0.7],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 0.5,
+                }}
               />
             </div>
           </motion.div>

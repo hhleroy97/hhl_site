@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import profPic from '../../assets/prof-pic.png'
 
 export default function About() {
   return (
@@ -33,17 +34,16 @@ export default function About() {
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Placeholder avatar - you can replace with actual photo */}
-                <div className='w-full h-full flex items-center justify-center bg-gradient-to-br from-tech-neon/20 to-tech-pink/20'>
-                  <div className='text-center'>
-                    <div className='w-32 h-32 mx-auto mb-4 rounded-full bg-tech-neon/30 flex items-center justify-center'>
-                      <span className='text-4xl font-cyber font-bold text-tech-neon'>
-                        HHL
-                      </span>
-                    </div>
-                    <p className='text-sm text-gray-400 font-display'>
-                      Professional Photo
-                    </p>
+                {/* Circular profile picture */}
+                <div className='w-full h-full flex items-center justify-center'>
+                  <div className='relative w-72 h-72 rounded-full overflow-hidden border-4 border-tech-neon/50 shadow-2xl shadow-tech-neon/20'>
+                    <img
+                      src={profPic}
+                      alt='Hartley H. Leroy - Professional Photo'
+                      className='w-full h-full object-cover'
+                    />
+                    {/* Subtle overlay for cyberpunk aesthetic */}
+                    <div className='absolute inset-0 bg-gradient-to-br from-tech-neon/10 via-transparent to-tech-pink/10 rounded-full' />
                   </div>
                 </div>
 
