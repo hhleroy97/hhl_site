@@ -14,43 +14,43 @@ interface SkillCategory {
 export default function Skills() {
   const skillCategories: SkillCategory[] = [
     {
-      category: 'Cloud & Infrastructure',
-      description: 'Scalable cloud solutions and infrastructure automation',
+      category: 'AI & Machine Learning',
+      description: 'Intelligent systems and real-time ML pipelines',
       skills: [
-        { name: 'AWS', level: 90, color: 'tech-teal' },
-        { name: 'Docker', level: 85, color: 'tech-blue' },
-        { name: 'Kubernetes', level: 75, color: 'tech-cyan' },
-        { name: 'Terraform', level: 80, color: 'tech-purple' },
+        { name: 'Computer Vision', level: 85, color: 'tech-teal' },
+        { name: 'TensorFlow/PyTorch', level: 80, color: 'tech-blue' },
+        { name: 'Real-time ML Pipelines', level: 90, color: 'tech-cyan' },
+        { name: 'Edge AI Deployment', level: 85, color: 'tech-purple' },
       ],
     },
     {
-      category: 'Backend Development',
-      description: 'Robust APIs and distributed systems',
+      category: 'Robotics & Autonomous Systems',
+      description: 'ROS2-based drone fleets and autonomous navigation',
       skills: [
-        { name: 'Python', level: 95, color: 'tech-teal' },
-        { name: 'Node.js', level: 85, color: 'tech-green' },
-        { name: 'PostgreSQL', level: 80, color: 'tech-blue' },
-        { name: 'Redis', level: 75, color: 'tech-coral' },
+        { name: 'ROS2/PX4 Drones', level: 95, color: 'tech-teal' },
+        { name: 'Autonomous Navigation', level: 90, color: 'tech-blue' },
+        { name: 'Sensor Fusion', level: 85, color: 'tech-cyan' },
+        { name: 'Fleet Management', level: 90, color: 'tech-purple' },
       ],
     },
     {
-      category: 'Robotics & IoT',
-      description: 'Autonomous systems and real-time control',
+      category: 'Cloud & Data Architecture',
+      description: 'AWS IoT infrastructure and real-time data processing',
       skills: [
-        { name: 'ROS/ROS2', level: 85, color: 'tech-purple' },
-        { name: 'Computer Vision', level: 80, color: 'tech-coral' },
-        { name: 'MQTT/IoT', level: 90, color: 'tech-gold' },
-        { name: 'Edge Computing', level: 75, color: 'tech-cyan' },
+        { name: 'AWS IoT Core/Kinesis', level: 95, color: 'tech-teal' },
+        { name: 'Real-time Telemetry', level: 90, color: 'tech-blue' },
+        { name: 'Python/Embedded C', level: 95, color: 'tech-cyan' },
+        { name: 'Infrastructure as Code', level: 85, color: 'tech-purple' },
       ],
     },
     {
-      category: 'Data & Analytics',
-      description: 'Data-driven insights and machine learning',
+      category: 'Creative Technology',
+      description: 'Innovation at the intersection of art and engineering',
       skills: [
-        { name: 'Data Engineering', level: 90, color: 'tech-teal' },
-        { name: 'Machine Learning', level: 75, color: 'tech-coral' },
-        { name: 'Time Series', level: 85, color: 'tech-blue' },
-        { name: 'Analytics', level: 80, color: 'tech-purple' },
+        { name: 'Creative Problem Solving', level: 95, color: 'tech-teal' },
+        { name: 'Rapid Prototyping', level: 90, color: 'tech-blue' },
+        { name: 'Cross-disciplinary Design', level: 85, color: 'tech-cyan' },
+        { name: 'Technology Innovation', level: 90, color: 'tech-purple' },
       ],
     },
   ]
@@ -73,13 +73,12 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
         >
           <h2 className='text-4xl lg:text-5xl font-display font-bold text-tech-text-primary mb-6'>
-            Technical
-            <span className='text-gradient-primary ml-3'>Expertise</span>
+            Creative Technology
+            <span className='text-gradient-primary ml-3'>& AI Engineering</span>
           </h2>
           <p className='text-xl text-tech-text-secondary max-w-3xl mx-auto leading-relaxed'>
-            Specialized in building innovative solutions across cloud
-            infrastructure, robotics, and data engineering with 4+ years of
-            hands-on experience
+            Building intelligent autonomous systems at Lucid Bots. Expertise spans AI/ML pipelines, 
+            robotics engineering, and creative problem-solving for next-generation drone technologies.
           </p>
         </motion.div>
 

@@ -2,6 +2,7 @@ import { useEffect, Suspense } from 'react'
 import PortfolioSection from '@components/PortfolioSection'
 import LoadingSpinner from '@components/ui/LoadingSpinner'
 import ErrorBoundary from '@components/ui/ErrorBoundary'
+import DataFlowBackground from '@components/3d/DataFlowBackground'
 import { performanceMonitor } from '@/utils/performance'
 
 export default function App() {
@@ -16,25 +17,10 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <div className='relative min-h-screen bg-tech-dark overflow-hidden'>
-        {/* Engineering-inspired background gradient */}
-        <div
-          className='fixed inset-0 bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-navy-deep'
-          aria-hidden='true'
-        />
-
-        {/* Subtle circuit-pattern background */}
-        <div
-          className='fixed inset-0 opacity-[0.03] pointer-events-none'
-          aria-hidden='true'
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 212, 170, 0.4) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 212, 170, 0.4) 1px, transparent 1px)
-            `,
-            backgroundSize: '80px 80px',
-          }}
-        />
+      {/* Data Flow 3D Background */}
+      <DataFlowBackground />
+      
+      <div className='relative min-h-screen overflow-hidden bg-transparent'>
 
         {/* Skip to main content link for accessibility */}
         <a

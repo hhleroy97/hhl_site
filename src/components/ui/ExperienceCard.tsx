@@ -13,17 +13,17 @@ export default function ExperienceCard({
   return (
     <motion.div
       className='relative bg-tech-dark-alt border border-tech-neon/20 rounded-xl p-6 
-                 hover:border-tech-neon/60 transition-all duration-300 group'
-      initial={{ opacity: 0, y: 50 }}
+                 hover:border-tech-neon/60 transition-all duration-150 group'
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ y: -5, scale: 1.02 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
+      whileHover={{ y: -3, scale: 1.01 }}
     >
       {/* Hover glow effect */}
       <motion.div
         className='absolute inset-0 bg-tech-neon/5 rounded-xl opacity-0 group-hover:opacity-100'
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.15 }}
       />
 
       {/* Card content */}
@@ -49,12 +49,12 @@ export default function ExperienceCard({
             <motion.li
               key={i}
               className='text-gray-300 font-display text-sm leading-relaxed flex items-start'
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 + i * 0.05 }}
+              transition={{ duration: 0.2, delay: index * 0.02 + i * 0.02 }}
             >
-              <span className='text-tech-neon mr-3 mt-1.5 text-xs'>▶</span>
+              <span className='text-tech-neon mr-3 mt-0.5 text-xs'>▶</span>
               {item}
             </motion.li>
           ))}
@@ -67,12 +67,12 @@ export default function ExperienceCard({
               key={tech}
               className='px-3 py-1 text-xs font-mono bg-tech-dark border border-tech-neon/30 
                        text-tech-neon rounded-full hover:border-tech-neon/60 
-                       hover:bg-tech-neon/10 transition-all duration-300'
-              initial={{ opacity: 0, scale: 0.8 }}
+                       hover:bg-tech-neon/10 transition-all duration-150'
+              initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: index * 0.1 + i * 0.02 }}
-              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.15, delay: index * 0.02 + i * 0.01 }}
+              whileHover={{ scale: 1.05 }}
             >
               {tech}
             </motion.span>
@@ -83,11 +83,11 @@ export default function ExperienceCard({
       {/* Corner accents */}
       <div
         className='absolute top-3 left-3 w-4 h-4 border-l-2 border-t-2 border-tech-neon/30 
-                    group-hover:border-tech-neon transition-colors duration-300'
+                    group-hover:border-tech-neon transition-colors duration-150'
       />
       <div
         className='absolute bottom-3 right-3 w-4 h-4 border-r-2 border-b-2 border-tech-neon/30 
-                    group-hover:border-tech-neon transition-colors duration-300'
+                    group-hover:border-tech-neon transition-colors duration-150'
       />
 
       {/* Glitch effect on hover */}
@@ -95,7 +95,7 @@ export default function ExperienceCard({
         className='absolute inset-0 bg-tech-pink/10 rounded-xl opacity-0'
         whileHover={{
           opacity: [0, 0.3, 0],
-          transition: { duration: 0.2, repeat: 2 },
+          transition: { duration: 0.1, repeat: 1 },
         }}
       />
     </motion.div>
