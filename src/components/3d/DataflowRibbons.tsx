@@ -127,8 +127,8 @@ const DataflowRibbons: React.FC = () => {
     scene.background = null
 
     // Camera setup
-    const width = container.clientWidth
-    const height = container.clientHeight || 500
+    const width = container.clientWidth || window.innerWidth
+    const height = container.clientHeight || window.innerHeight
     const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 200)
     camera.position.set(0, 6.5, 26)
 
@@ -316,11 +316,10 @@ const DataflowRibbons: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className='w-full h-full overflow-hidden'
+      className='absolute inset-0 w-full h-full overflow-hidden'
       style={{
         cursor: 'grab',
         background: 'transparent',
-        minHeight: '500px',
       }}
     />
   )

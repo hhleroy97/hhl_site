@@ -15,8 +15,8 @@ const SimpleGrid: React.FC = () => {
     scene.background = null // Transparent background
 
     // Camera setup - below and tilted up 45 degrees toward user
-    const width = container.clientWidth
-    const height = container.clientHeight || 500
+    const width = container.clientWidth || window.innerWidth
+    const height = container.clientHeight || window.innerHeight
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
     camera.position.set(0, -14, 14) // Further back to see larger grid
     camera.lookAt(0, 0, 0) // Look at center of grid
@@ -156,11 +156,10 @@ const SimpleGrid: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className='w-full h-full overflow-hidden'
+      className='absolute inset-0 w-full h-full overflow-hidden'
       style={{
         cursor: 'grab',
         background: 'transparent',
-        minHeight: '500px',
       }}
     />
   )
