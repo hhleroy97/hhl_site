@@ -27,9 +27,9 @@ const SimpleGrid: React.FC = () => {
     // Create grid group
     const gridGroup = new THREE.Group()
 
-    // Create white grid helper with odd divisions for center tile
-    const gridHelper = new THREE.GridHelper(15, 15, 0xffffff, 0xffffff) // 15 divisions = 16 lines = odd number of squares
-    gridHelper.rotation.x = Math.PI / 2 // Rotate to face camera
+    // Create white grid helper with fewer, larger cells
+    const gridHelper = new THREE.GridHelper(15, 7, 0xffffff, 0xffffff) // 7 divisions = larger cells, still odd number
+    gridHelper.rotation.x = Math.PI // Rotate 90 degrees more around x-axis
     gridGroup.add(gridHelper)
 
     // Add red center tile with height (3D cube)
