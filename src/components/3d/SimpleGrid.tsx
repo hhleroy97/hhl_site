@@ -33,10 +33,10 @@ const SimpleGrid: React.FC = () => {
     gridGroup.add(gridHelper)
 
     // Add red center tile with height (3D cube)
-    const centerGeometry = new THREE.BoxGeometry(1, 0.3, 1) // Width, Height, Depth
+    const centerGeometry = new THREE.BoxGeometry(2, 0.6, 2) // Width, Height, Depth - scaled up
     const centerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 })
     const centerCube = new THREE.Mesh(centerGeometry, centerMaterial)
-    centerCube.position.set(0, 0.15, 0) // Raise it up by half its height
+    centerCube.position.set(0, 0.3, 0) // Raise it up by half its height
     gridGroup.add(centerCube)
 
     // Add 5 other colored tiles positioned off-axis for more interesting layout
@@ -49,10 +49,10 @@ const SimpleGrid: React.FC = () => {
     ]
 
     coloredTiles.forEach(tile => {
-      const tileGeometry = new THREE.BoxGeometry(1, 0.3, 1)
+      const tileGeometry = new THREE.BoxGeometry(2, 0.6, 2) // Scaled up to match larger cells
       const tileMaterial = new THREE.MeshBasicMaterial({ color: tile.color })
       const tileCube = new THREE.Mesh(tileGeometry, tileMaterial)
-      tileCube.position.set(tile.x, 0.15, tile.z)
+      tileCube.position.set(tile.x, 0.3, tile.z) // Adjusted Y position for taller cubes
       gridGroup.add(tileCube)
     })
 
