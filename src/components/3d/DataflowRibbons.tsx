@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 // Helper functions
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v))
@@ -52,8 +52,11 @@ function makeToonGradient(levels = 4) {
 }
 
 // Filleted path using curves
-function filletedPath3D(points3: THREE.Vector3[], r: number) {
-  const path = new THREE.CurvePath()
+function filletedPath3D(
+  points3: THREE.Vector3[],
+  r: number
+): THREE.CurvePath<THREE.Vector3> {
+  const path = new THREE.CurvePath<THREE.Vector3>()
   const P = points3.map(p => p.clone())
   let curr = P[0].clone()
 
@@ -157,7 +160,7 @@ const DataflowRibbons: React.FC = () => {
     const GRAD5 = makeToonGradient(5)
     const pal = getPalette('neon')
     const board = [18, 6]
-    const lanes = 10
+    const lanes = 20
     const [W, D] = board
     const padX = Math.max(0.6, W * 0.06)
     const padZ = Math.max(0.6, D * 0.06)
@@ -218,55 +221,151 @@ const DataflowRibbons: React.FC = () => {
     nR.position.set(xR, y, (zMin + zMax) / 2)
     scene.add(nR)
 
-    // Create ribbons
+    // Create ribbons with bends on same Y plane to avoid crossings
     const curves: THREE.CurvePath<THREE.Vector3>[] = []
     const colors: THREE.Color[] = []
     const particles: THREE.Sprite[] = []
+
+    // All ribbons stay on same Y level
+    const ribbonY = y + 0.05
 
     for (let i = 0; i < lanes; i++) {
       const zLane = zStart + i * spacing
       const tubeR = Math.max(0.02, 0.18 * 0.5)
 
-      const xB = xL + (xR - xL) * 0.18
-      const xFan = xL + (xR - xL) * 0.45
-      const xDown = xFan + tubeR * 2
+      // Create alternating routing patterns to avoid crossings in X/Z plane
+      const pattern = i % 6
+      let pts3: THREE.Vector3[]
 
-      const pts3 = [
-        new THREE.Vector3(xL, y, zLane),
-        new THREE.Vector3(xB, y, zLane),
-        new THREE.Vector3(xB, y, zLane),
-        new THREE.Vector3(xFan, y, zLane),
-        new THREE.Vector3(xDown, y, zLane),
-        new THREE.Vector3(xR, y, zLane),
-      ]
+      switch (pattern) {
+        case 0: // Direct path
+          pts3 = [
+            new THREE.Vector3(xL, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.3, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.7, ribbonY, zLane),
+            new THREE.Vector3(xR, ribbonY, zLane),
+          ]
+          break
+
+        case 1: {
+          // S-curve north
+          const zOffset1 = Math.min(1.5, spacing * 0.6)
+          pts3 = [
+            new THREE.Vector3(xL, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.2, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.35, ribbonY, zLane + zOffset1),
+            new THREE.Vector3(xL + (xR - xL) * 0.65, ribbonY, zLane + zOffset1),
+            new THREE.Vector3(xL + (xR - xL) * 0.8, ribbonY, zLane),
+            new THREE.Vector3(xR, ribbonY, zLane),
+          ]
+          break
+        }
+
+        case 2: {
+          // S-curve south
+          const zOffset2 = -Math.min(1.5, spacing * 0.6)
+          pts3 = [
+            new THREE.Vector3(xL, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.2, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.35, ribbonY, zLane + zOffset2),
+            new THREE.Vector3(xL + (xR - xL) * 0.65, ribbonY, zLane + zOffset2),
+            new THREE.Vector3(xL + (xR - xL) * 0.8, ribbonY, zLane),
+            new THREE.Vector3(xR, ribbonY, zLane),
+          ]
+          break
+        }
+
+        case 3: {
+          // Wide arch north
+          const archZ1 = zLane + Math.min(2, spacing * 0.8)
+          pts3 = [
+            new THREE.Vector3(xL, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.15, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.3, ribbonY, archZ1),
+            new THREE.Vector3(xL + (xR - xL) * 0.5, ribbonY, archZ1),
+            new THREE.Vector3(xL + (xR - xL) * 0.7, ribbonY, archZ1),
+            new THREE.Vector3(xL + (xR - xL) * 0.85, ribbonY, zLane),
+            new THREE.Vector3(xR, ribbonY, zLane),
+          ]
+          break
+        }
+
+        case 4: {
+          // Wide arch south
+          const archZ2 = zLane - Math.min(2, spacing * 0.8)
+          pts3 = [
+            new THREE.Vector3(xL, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.15, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.3, ribbonY, archZ2),
+            new THREE.Vector3(xL + (xR - xL) * 0.5, ribbonY, archZ2),
+            new THREE.Vector3(xL + (xR - xL) * 0.7, ribbonY, archZ2),
+            new THREE.Vector3(xL + (xR - xL) * 0.85, ribbonY, zLane),
+            new THREE.Vector3(xR, ribbonY, zLane),
+          ]
+          break
+        }
+
+        case 5: // Complex zigzag
+        default: {
+          const zigOffset = (i % 2 === 0 ? 1 : -1) * Math.min(1, spacing * 0.4)
+          pts3 = [
+            new THREE.Vector3(xL, ribbonY, zLane),
+            new THREE.Vector3(
+              xL + (xR - xL) * 0.25,
+              ribbonY,
+              zLane + zigOffset * 0.5
+            ),
+            new THREE.Vector3(xL + (xR - xL) * 0.4, ribbonY, zLane),
+            new THREE.Vector3(xL + (xR - xL) * 0.6, ribbonY, zLane + zigOffset),
+            new THREE.Vector3(xL + (xR - xL) * 0.75, ribbonY, zLane),
+            new THREE.Vector3(xR, ribbonY, zLane),
+          ]
+          break
+        }
+      }
 
       const curve = filletedPath3D(pts3, tubeR * 0.8)
       const geom = new THREE.TubeGeometry(curve, 128, tubeR, 16, false)
       const tLane = lanes > 1 ? i / (lanes - 1) : 0.5
-      const col = gradientColor(pal, tLane)
+
+      // Color based on pattern complexity
+      const patternIntensity = [1.0, 0.9, 0.9, 0.8, 0.8, 0.7][pattern] || 0.6
+      const col = gradientColor(pal, tLane).multiplyScalar(patternIntensity)
+
       const mat = new THREE.MeshToonMaterial({ color: col, gradientMap: GRAD4 })
       const mesh = new THREE.Mesh(geom, mat)
       mesh.scale.y = Math.max(0.2, 0.04 / (tubeR * 2))
-      scene.add(mesh)
 
+      // Add glow to direct paths for emphasis
+      if (pattern === 0) {
+        mat.emissive = col.clone().multiplyScalar(0.1)
+      }
+
+      scene.add(mesh)
       curves.push(curve)
       colors.push(col)
 
-      // Add animated particles
+      // Add animated particles with pattern-specific properties
       const glowTex = makeGlowTexture(32)
+      const isDirectPath = pattern === 0
+      const particleSize = isDirectPath ? 0.18 : 0.14
+      const particleSpeed = [0.6, 0.5, 0.5, 0.4, 0.4, 0.45][pattern] || 0.5
+
       const spriteMat = new THREE.SpriteMaterial({
         map: glowTex,
         color: col,
         transparent: true,
-        opacity: 0.8,
+        opacity: isDirectPath ? 0.9 : 0.75,
         blending: THREE.AdditiveBlending,
       })
       const sprite = new THREE.Sprite(spriteMat)
-      sprite.scale.setScalar(0.15)
+      sprite.scale.setScalar(particleSize)
       sprite.userData = {
         curve,
         t: Math.random(),
-        speed: 0.3 + Math.random() * 0.4,
+        speed: particleSpeed + Math.random() * 0.15,
+        pattern,
+        isDirectPath,
       }
       scene.add(sprite)
       particles.push(sprite)
@@ -277,14 +376,46 @@ const DataflowRibbons: React.FC = () => {
     const animate = () => {
       controls.update()
 
-      // Animate particles along curves
-      particles.forEach(particle => {
+      // Animate particles along curved ribbons
+      particles.forEach((particle, index) => {
         particle.userData.t += particle.userData.speed * 0.01
         if (particle.userData.t > 1) particle.userData.t = 0
 
         const point = particle.userData.curve.getPointAt(particle.userData.t)
         particle.position.copy(point)
-        particle.position.y += 0.05 // Slight elevation
+
+        // Ensure particles stay at correct Y level (same as ribbon)
+        particle.position.y = ribbonY + 0.05 // Slight elevation above ribbon
+
+        // Pattern-specific visual effects
+        const time = Date.now() * 0.001
+        const pattern = particle.userData.pattern
+
+        if (particle.userData.isDirectPath) {
+          // Direct paths: steady bright flow with size pulse
+          const pulse = 1 + Math.sin(time * 2.5 + index) * 0.3
+          particle.scale.setScalar(0.18 * pulse)
+
+          // Extra glow effect for direct paths
+          if (particle.material instanceof THREE.SpriteMaterial) {
+            particle.material.opacity = 0.9 + Math.sin(time * 1.8 + index) * 0.1
+          }
+        } else {
+          // Curved paths: effects based on pattern complexity
+          const patternOffset = pattern * 0.2
+
+          // Size variation for curved paths
+          const variation =
+            1 + Math.sin(time * 1.8 + index + patternOffset) * 0.25
+          particle.scale.setScalar(0.14 * variation)
+
+          // Opacity pulsing with pattern-specific timing
+          if (particle.material instanceof THREE.SpriteMaterial) {
+            const pulseSpeed = [2, 2.2, 2.5, 1.8, 2.8, 2.1][pattern] || 2
+            particle.material.opacity =
+              0.75 + Math.sin(time * pulseSpeed + index + patternOffset) * 0.15
+          }
+        }
       })
 
       renderer.render(scene, camera)

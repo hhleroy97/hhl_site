@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import * as THREE from 'three'
-import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry'
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 const SimpleGrid: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -84,68 +85,28 @@ const SimpleGrid: React.FC = () => {
 
     scene.add(gridGroup)
 
-    // Mouse controls with zoom
-    let mouseDown = false
-    let mouseX = 0
-    let mouseY = 0
-    let zoom = 1
-
-    const handleMouseDown = (event: MouseEvent) => {
-      mouseDown = true
-      mouseX = event.clientX
-      mouseY = event.clientY
-    }
-
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!mouseDown) return
-
-      const deltaX = event.clientX - mouseX
-      const deltaY = event.clientY - mouseY
-
-      gridGroup.rotation.y += deltaX * 0.01
-      gridGroup.rotation.x += deltaY * 0.01
-
-      mouseX = event.clientX
-      mouseY = event.clientY
-    }
-
-    const handleMouseUp = () => {
-      mouseDown = false
-    }
-
-    const handleWheel = (event: WheelEvent) => {
-      event.preventDefault()
-      const zoomSpeed = 0.1
-      const delta = event.deltaY > 0 ? 1 + zoomSpeed : 1 - zoomSpeed
-
-      zoom *= delta
-      zoom = Math.max(0.5, Math.min(3, zoom)) // Limit zoom between 0.5x and 3x
-
-      camera.position.set(0, -14 / zoom, 14 / zoom)
-      camera.lookAt(0, 0, 0)
-    }
-
-    // Add event listeners
-    renderer.domElement.addEventListener('mousedown', handleMouseDown)
-    renderer.domElement.addEventListener('wheel', handleWheel, {
-      passive: false,
-    })
-    document.addEventListener('mousemove', handleMouseMove)
-    document.addEventListener('mouseup', handleMouseUp)
+    // OrbitControls for camera movement like ribbons
+    const controls = new OrbitControls(camera, renderer.domElement)
+    controls.enableDamping = true
+    controls.dampingFactor = 0.05
+    controls.enableZoom = true
+    controls.enableRotate = true
+    controls.enablePan = true
+    controls.maxPolarAngle = Math.PI
+    controls.minDistance = 5
+    controls.maxDistance = 50
 
     // Animation loop
     const animate = () => {
       requestAnimationFrame(animate)
+      controls.update()
       renderer.render(scene, camera)
     }
     animate()
 
     // Cleanup
     return () => {
-      renderer.domElement.removeEventListener('mousedown', handleMouseDown)
-      renderer.domElement.removeEventListener('wheel', handleWheel)
-      document.removeEventListener('mousemove', handleMouseMove)
-      document.removeEventListener('mouseup', handleMouseUp)
+      controls.dispose()
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement)
       }
