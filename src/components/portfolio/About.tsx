@@ -104,33 +104,28 @@ export default function About() {
           >
             <div className='space-y-4 text-gray-300 font-display text-lg leading-relaxed'>
               <p>
-                I'm a passionate{' '}
-                <span className='text-tech-neon font-semibold'>engineer</span>{' '}
-                and
-                <span className='text-tech-pink font-semibold'>
-                  {' '}
-                  creative technologist
-                </span>{' '}
-                with over 8 years of experience building scalable systems and
-                leading high-performing teams.
+                I'm a{' '}
+                <span className='text-tech-neon font-semibold'>creative technologist</span>{' '}
+                passionate about building intelligent systems that merge AI, robotics, and data engineering. 
+                Currently at Lucid Bots, I architect autonomous drone fleets with real-time machine learning 
+                capabilities that revolutionize how robots perceive and interact with the world.
               </p>
 
               <p>
-                My journey spans from architecting enterprise-level backend
-                services to creating immersive digital art installations using
-                TouchDesigner and generative algorithms. I believe the best
-                solutions emerge at the intersection of technical precision and
-                creative vision.
+                My unique approach combines{' '}
+                <span className='text-tech-pink font-semibold'>creative problem-solving</span>{' '}
+                with cutting-edge technology. From engineering{' '}
+                <span className='text-tech-purple font-semibold'>$500K AWS IoT infrastructures</span>{' '}
+                to designing ROS2-based autonomous systems, I bridge the gap between 
+                visionary concepts and production-ready solutions.
               </p>
 
               <p>
-                When I'm not coding, you'll find me exploring the latest in
-                <span className='text-tech-purple font-semibold'>
-                  {' '}
-                  generative art
-                </span>
-                , contributing to open-source projects, or experimenting with
-                new technologies that push the boundaries of what's possible.
+                I thrive at the intersection of{' '}
+                <span className='text-tech-cyan font-semibold'>AI innovation and practical engineering</span>. 
+                Whether it's optimizing real-time telemetry pipelines, implementing computer vision algorithms, 
+                or leading cross-functional teams, I bring both technical expertise and creative vision 
+                to every challenge.
               </p>
             </div>
 
@@ -143,12 +138,12 @@ export default function About() {
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               {[
-                'Leadership',
-                'System Design',
-                'Creative Coding',
-                'DevOps',
-                'Team Building',
-                'Innovation',
+                'AI/ML Engineering',
+                'Robotics (ROS2)',
+                'Creative Technology',
+                'AWS IoT Architecture',
+                'Computer Vision',
+                'Autonomous Systems',
               ].map((skill, index) => (
                 <motion.div
                   key={skill}
