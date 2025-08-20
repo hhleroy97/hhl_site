@@ -3,23 +3,6 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 // Helper functions
-const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v))
-
-
-function getPalette(theme = 'neon') {
-  switch (theme) {
-    case 'mono':
-      return ['#e6ebff', '#c8d2ff', '#aeb8f0', '#8d96d8', '#6c75bf', '#4d569f']
-    case 'sunset':
-      return ['#ff8a5b', '#ff6e6e', '#ffd166', '#ffe6a7', '#f4a261', '#c1121f']
-    case 'cyber':
-      return ['#00f5d4', '#00bbf9', '#9b5de5', '#f15bb5', '#fee440', '#00bfb2']
-    case 'neon':
-    default:
-      return ['#00eaff', '#7cff00', '#ff6ec7', '#ffd166', '#8a5cff', '#ff8a5b']
-  }
-}
-
 
 // Optimized toon gradient texture - cached
 const gradientTextures = new Map<number, THREE.CanvasTexture>()
@@ -27,7 +10,7 @@ function makeToonGradient(levels = 4) {
   if (gradientTextures.has(levels)) {
     return gradientTextures.get(levels)!
   }
-  
+
   const c = document.createElement('canvas')
   c.width = 1
   c.height = levels
@@ -42,11 +25,10 @@ function makeToonGradient(levels = 4) {
   tex.magFilter = THREE.NearestFilter
   tex.generateMipmaps = false
   tex.needsUpdate = true
-  
+
   gradientTextures.set(levels, tex)
   return tex
 }
-
 
 interface DataflowRibbonsProps {
   performance?: 'low' | 'medium' | 'high'
@@ -98,7 +80,9 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
   useEffect(() => {
     if (!containerRef.current) return
     if (typeof globalThis.performance === 'undefined') {
-      console.warn('Performance API not available, falling back to basic timing')
+      console.warn(
+        'Performance API not available, falling back to basic timing'
+      )
       return
     }
 
@@ -116,21 +100,23 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
     camera.position.set(0, 8, 20) // Moved camera closer and higher to see all traces
 
     // Renderer setup with performance optimizations
-    const renderer = new THREE.WebGLRenderer({ 
+    const renderer = new THREE.WebGLRenderer({
       antialias: performanceLevel !== 'low',
       alpha: true,
       powerPreference: 'high-performance',
     })
     renderer.setClearColor(0x000000, 0)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, settings.pixelRatio))
+    renderer.setPixelRatio(
+      Math.min(window.devicePixelRatio, settings.pixelRatio)
+    )
     renderer.setSize(width, height)
-    
+
     // Performance optimizations
     if (settings.enableShadows) {
       renderer.shadowMap.enabled = true
       renderer.shadowMap.type = THREE.PCFSoftShadowMap
     }
-    
+
     container.appendChild(renderer.domElement)
 
     // Controls with performance settings
@@ -153,7 +139,7 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
       keyLight.shadow.mapSize.height = 1024
     }
     scene.add(keyLight)
-    
+
     const rimLight = new THREE.DirectionalLight(0x6fd6ff, 0.75)
     rimLight.position.set(-8, 12, -10)
     scene.add(rimLight)
@@ -161,48 +147,41 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
     // Build ribbons with performance optimizations
     const GRAD4 = makeToonGradient(4)
     const board = [18, 6]
-    const lanes = settings.lanes
-    const [W, D] = board
+    const [W] = board
     const padX = Math.max(0.6, W * 0.06)
-    const padZ = Math.max(0.6, D * 0.06)
-
-
 
     // Calculate lane positions
     const xL = -W / 2 + padX
     const xR = W / 2 - padX
-    const auto = lanes > 1 ? (D - 2 * padZ) / (lanes - 1) : 0
-    const spacing = clamp(
-      auto,
-      Math.max(0.18 * 1.2, 0.06),
-      Math.max(Math.max(0.18 * 1.2, 0.06), auto)
-    )
 
     // Base Y position for traces
     const y = 0.02
 
     // Circuit board layout system with performance optimizations
-    const curves: THREE.CurvePath<THREE.Vector3>[] = []
-    const colors: THREE.Color[] = []
     const meshes: THREE.Mesh[] = []
 
     // Each ribbon gets its own Y-level to guarantee zero overlap
     const baseRibbonY = y + 0.05
 
     // Authentic PCB-style pattern generation with maximum 5 bends per line
-    const generatePCBSegment = (progress: number, patternType: number): number => {
+    const generatePCBSegment = (
+      progress: number,
+      patternType: number
+    ): number => {
       const patternAmplitude = 2.5
-      
+
       switch (patternType) {
         case 0: // Simple 3-bend pattern: horizontal → up → horizontal → down → horizontal
           if (progress < 0.2) {
             return 0 // Straight horizontal
           } else if (progress < 0.3) {
-            return patternAmplitude * (progress - 0.2) / 0.1 // 90-degree turn up
+            return (patternAmplitude * (progress - 0.2)) / 0.1 // 90-degree turn up
           } else if (progress < 0.7) {
             return patternAmplitude // Straight horizontal
           } else if (progress < 0.8) {
-            return patternAmplitude - patternAmplitude * (progress - 0.7) / 0.1 // 90-degree turn down
+            return (
+              patternAmplitude - (patternAmplitude * (progress - 0.7)) / 0.1
+            ) // 90-degree turn down
           } else {
             return 0 // Straight horizontal
           }
@@ -210,19 +189,23 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
           if (progress < 0.15) {
             return 0 // Straight horizontal
           } else if (progress < 0.25) {
-            return patternAmplitude * (progress - 0.15) / 0.1 // 90-degree turn up
+            return (patternAmplitude * (progress - 0.15)) / 0.1 // 90-degree turn up
           } else if (progress < 0.35) {
             return patternAmplitude // Straight horizontal
           } else if (progress < 0.45) {
-            return patternAmplitude - patternAmplitude * (progress - 0.35) / 0.1 // 90-degree turn down
+            return (
+              patternAmplitude - (patternAmplitude * (progress - 0.35)) / 0.1
+            ) // 90-degree turn down
           } else if (progress < 0.55) {
             return 0 // Straight horizontal
           } else if (progress < 0.65) {
-            return patternAmplitude * (progress - 0.55) / 0.1 // 90-degree turn up
+            return (patternAmplitude * (progress - 0.55)) / 0.1 // 90-degree turn up
           } else if (progress < 0.75) {
             return patternAmplitude // Straight horizontal
           } else if (progress < 0.85) {
-            return patternAmplitude - patternAmplitude * (progress - 0.75) / 0.1 // 90-degree turn down
+            return (
+              patternAmplitude - (patternAmplitude * (progress - 0.75)) / 0.1
+            ) // 90-degree turn down
           } else {
             return 0 // Straight horizontal
           }
@@ -230,11 +213,13 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
           if (progress < 0.3) {
             return 0 // Straight horizontal
           } else if (progress < 0.4) {
-            return patternAmplitude * (progress - 0.3) / 0.1 // 90-degree turn up
+            return (patternAmplitude * (progress - 0.3)) / 0.1 // 90-degree turn up
           } else if (progress < 0.6) {
             return patternAmplitude // Straight horizontal
           } else if (progress < 0.7) {
-            return patternAmplitude - patternAmplitude * (progress - 0.6) / 0.1 // 90-degree turn down
+            return (
+              patternAmplitude - (patternAmplitude * (progress - 0.6)) / 0.1
+            ) // 90-degree turn down
           } else {
             return 0 // Straight horizontal
           }
@@ -242,19 +227,28 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
           if (progress < 0.1) {
             return 0 // Straight horizontal
           } else if (progress < 0.2) {
-            return patternAmplitude * 0.5 * (progress - 0.1) / 0.1 // 90-degree turn up
+            return (patternAmplitude * 0.5 * (progress - 0.1)) / 0.1 // 90-degree turn up
           } else if (progress < 0.3) {
             return patternAmplitude * 0.5 // Straight horizontal
           } else if (progress < 0.4) {
-            return patternAmplitude * 0.5 + patternAmplitude * 0.5 * (progress - 0.3) / 0.1 // 90-degree turn up
+            return (
+              patternAmplitude * 0.5 +
+              (patternAmplitude * 0.5 * (progress - 0.3)) / 0.1
+            ) // 90-degree turn up
           } else if (progress < 0.5) {
             return patternAmplitude // Straight horizontal
           } else if (progress < 0.6) {
-            return patternAmplitude - patternAmplitude * 0.5 * (progress - 0.5) / 0.1 // 90-degree turn down
+            return (
+              patternAmplitude -
+              (patternAmplitude * 0.5 * (progress - 0.5)) / 0.1
+            ) // 90-degree turn down
           } else if (progress < 0.7) {
             return patternAmplitude * 0.5 // Straight horizontal
           } else if (progress < 0.8) {
-            return patternAmplitude * 0.5 - patternAmplitude * 0.5 * (progress - 0.7) / 0.1 // 90-degree turn down
+            return (
+              patternAmplitude * 0.5 -
+              (patternAmplitude * 0.5 * (progress - 0.7)) / 0.1
+            ) // 90-degree turn down
           } else {
             return 0 // Straight horizontal
           }
@@ -262,7 +256,7 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
           if (progress < 0.5) {
             return 0 // Horizontal leg
           } else if (progress < 0.6) {
-            return patternAmplitude * (progress - 0.5) / 0.1 // 90-degree turn
+            return (patternAmplitude * (progress - 0.5)) / 0.1 // 90-degree turn
           } else {
             return patternAmplitude // Vertical leg
           }
@@ -270,87 +264,83 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
           return 0
       }
     }
-    
+
     // Simple trace creation without zones
     const tubeRadius = 0.15 // Much larger radius to make traces clearly visible
     const maxTraces = 20 // Create 20 traces
-    // Generate consistent pattern for all traces to layer nicely
-    const patternType = Math.floor(Math.random() * 5) // Same pattern for all traces
-    
+
     for (let i = 0; i < maxTraces; i++) {
       const tubeR = tubeRadius
-      
+
       // All traces on the same Y-level, side by side
       const ribbonY = baseRibbonY
-      
+
       // Simple trace positioning without zones
       const groupIndex = Math.floor(i / 4)
-      const traceInGroup = i % 4
-      const traceWidth = tubeR * 2
-      const buffer = 0.5
-      const traceSpacing = traceWidth + buffer
-      
-      let pts3: THREE.Vector3[] = []
-      
+
+      const pts3: THREE.Vector3[] = []
+
       // Create PCB-style traces with specific angles - more segments for sharper angles
-      const numSegments = performanceLevel === 'low' ? 32 : (performanceLevel === 'high' ? 64 : 48)
-      
+      const numSegments =
+        performanceLevel === 'low' ? 32 : performanceLevel === 'high' ? 64 : 48
+
       for (let seg = 0; seg <= numSegments; seg++) {
         const progress = seg / numSegments
-        
+
         // X position - same for all traces
         const baseX = xL + (xR - xL) * progress
         const xVariation = (Math.random() - 0.5) * 0.4 // Reduced X variation for cleaner PCB look
         const x = baseX + xVariation
-        
+
         // Z position - PCB pattern with specific angles, same shape for each group
         const groupIndex = Math.floor(i / 4)
         const traceInGroup = i % 4
-        
-        // Each group follows the same pattern shape with slight individual variations
-        const basePatternZ = generatePCBSegment(progress, patternType)
+
+        // Each group gets its own unique pattern shape
+        const groupPatternType = groupIndex % 5 // Each of the 5 groups uses a different pattern
+        const basePatternZ = generatePCBSegment(progress, groupPatternType)
         // Add slight individual variation to each trace within the group
-        const individualVariation = Math.sin(progress * Math.PI * 3 + traceInGroup) * 0.2
+        const individualVariation =
+          Math.sin(progress * Math.PI * 3 + traceInGroup) * 0.2
         const patternZ = basePatternZ + individualVariation
-        
+
         // Shift each subsequent line up by trace width + buffer to avoid overlap
         const traceWidth = tubeR * 2 // Diameter of the trace
         const buffer = 0.5 // Increased buffer for better separation
         const traceSpacing = traceWidth + buffer // Total spacing between traces
-        
+
         // Group base position (groups are well separated)
         const groupBaseZ = groupIndex * 15.0 // Increased group separation to 15 units
         // Trace position within group (tightly packed but with better spacing)
         const traceZ = traceInGroup * traceSpacing
-        
-        let z = groupBaseZ + traceZ + patternZ // Same pattern shape, different Z positions
-        
+
+        const z = groupBaseZ + traceZ + patternZ // Same pattern shape, different Z positions
+
         const finalPoint = new THREE.Vector3(x, ribbonY, z)
         pts3.push(finalPoint)
-        
       }
 
       // Create sharp angles for authentic PCB traces
       const curve = new THREE.CatmullRomCurve3(pts3, false, 'centripetal', 0.5)
       const geom = new THREE.TubeGeometry(
-        curve, 
-        settings.tubeSegments, 
-        tubeR, 
-        settings.tubeRadialSegments, 
+        curve,
+        settings.tubeSegments,
+        tubeR,
+        settings.tubeRadialSegments,
         false
       )
       // Group-based coloring system
       const groupColors = [
         new THREE.Color(0xff4444), // Group 1: Red tones
-        new THREE.Color(0x44ff44), // Group 2: Green tones  
+        new THREE.Color(0x44ff44), // Group 2: Green tones
         new THREE.Color(0x4444ff), // Group 3: Blue tones
         new THREE.Color(0xffff44), // Group 4: Yellow tones
         new THREE.Color(0xff44ff), // Group 5: Magenta tones
       ]
-      
+
       // Create 5 groups of 4 traces each
       const groupColor = groupColors[groupIndex % groupColors.length]
-      
+
       // Add slight variation within each group
       const variation = (i % 4) * 0.15 // 0, 0.15, 0.3, 0.45
       const col = groupColor.clone().multiplyScalar(0.7 + variation)
@@ -379,11 +369,8 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
       mesh.material.depthWrite = true
 
       scene.add(mesh)
-      curves.push(curve)
-      colors.push(col)
       meshes.push(mesh)
     }
-    
 
     // Performance monitoring
     let frameCount = 0
@@ -405,10 +392,12 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
         fps = frameCount
         frameCount = 0
         lastTime = currentTime
-        
+
         // Adaptive quality adjustment
         if (fps < 30 && performanceLevel === 'high') {
-          console.warn('Low FPS detected, consider switching to medium performance')
+          console.warn(
+            'Low FPS detected, consider switching to medium performance'
+          )
         }
       }
 
@@ -425,7 +414,7 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
       resizeTimeout = setTimeout(() => {
         const newWidth = container.clientWidth || window.innerWidth
         const newHeight = container.clientHeight || window.innerHeight
-        
+
         camera.aspect = newWidth / newHeight
         camera.updateProjectionMatrix()
         renderer.setSize(newWidth, newHeight)
@@ -444,11 +433,11 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
     return () => {
       if (animationId) cancelAnimationFrame(animationId)
       if (resizeTimeout) clearTimeout(resizeTimeout)
-      
+
       controls.dispose()
       window.removeEventListener('resize', handleResize)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
-      
+
       // Dispose geometries and materials
       scene.traverse((object: THREE.Object3D) => {
         if (object instanceof THREE.Mesh) {
@@ -462,13 +451,19 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
           }
         }
       })
-      
+
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement)
       }
       renderer.dispose()
     }
-  }, [performanceLevel, interactive, autoRotate, getPerformanceSettings, isVisible])
+  }, [
+    performanceLevel,
+    interactive,
+    autoRotate,
+    getPerformanceSettings,
+    isVisible,
+  ])
 
   return (
     <div
