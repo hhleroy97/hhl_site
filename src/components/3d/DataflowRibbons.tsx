@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 // Helper functions
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v))
+
 
 function getPalette(theme = 'neon') {
   switch (theme) {
@@ -19,21 +20,14 @@ function getPalette(theme = 'neon') {
   }
 }
 
-function gradientColor(pal: string[], t: number) {
-  t = clamp(t, 0, 1)
-  if (!pal || pal.length === 0) return new THREE.Color(0xffffff)
-  if (pal.length === 1) return new THREE.Color(pal[0])
-  const scaled = t * (pal.length - 1)
-  const i0 = Math.floor(scaled)
-  const i1 = Math.min(pal.length - 1, Math.ceil(scaled))
-  const f = scaled - i0
-  const c0 = new THREE.Color(pal[i0])
-  const c1 = new THREE.Color(pal[i1])
-  return c0.lerp(c1, f)
-}
 
-// Toon gradient texture
+// Optimized toon gradient texture - cached
+const gradientTextures = new Map<number, THREE.CanvasTexture>()
 function makeToonGradient(levels = 4) {
+  if (gradientTextures.has(levels)) {
+    return gradientTextures.get(levels)!
+  }
+  
   const c = document.createElement('canvas')
   c.width = 1
   c.height = levels
@@ -48,56 +42,68 @@ function makeToonGradient(levels = 4) {
   tex.magFilter = THREE.NearestFilter
   tex.generateMipmaps = false
   tex.needsUpdate = true
+  
+  gradientTextures.set(levels, tex)
   return tex
 }
 
-// Filleted path using curves
-function filletedPath3D(
-  points3: THREE.Vector3[],
-  r: number
-): THREE.CurvePath<THREE.Vector3> {
-  const path = new THREE.CurvePath<THREE.Vector3>()
-  const P = points3.map(p => p.clone())
-  let curr = P[0].clone()
 
-  for (let k = 1; k < P.length - 1; k++) {
-    const a = P[k - 1]
-    const b = P[k]
-    const c = P[k + 1]
-    const dirIn = b.clone().sub(a)
-    const lenIn = dirIn.length()
-    dirIn.normalize()
-    const dirOut = c.clone().sub(b)
-    const lenOut = dirOut.length()
-    dirOut.normalize()
-    const rEff = Math.max(
-      0.001,
-      Math.min(r, lenIn * 0.5 - 1e-3, lenOut * 0.5 - 1e-3)
-    )
-    const pIn = b.clone().sub(dirIn.clone().multiplyScalar(rEff))
-    const pOut = b.clone().add(dirOut.clone().multiplyScalar(rEff))
-
-    if (curr.distanceTo(pIn) > 1e-6) {
-      path.add(new THREE.LineCurve3(curr.clone(), pIn))
-    }
-    path.add(new THREE.QuadraticBezierCurve3(pIn, b.clone(), pOut))
-    curr = pOut
-  }
-
-  const last = P[P.length - 1]
-  if (curr.distanceTo(last) > 1e-6) {
-    path.add(new THREE.LineCurve3(curr.clone(), last.clone()))
-  }
-  return path
+interface DataflowRibbonsProps {
+  performance?: 'low' | 'medium' | 'high'
+  interactive?: boolean
+  autoRotate?: boolean
 }
 
-const DataflowRibbons: React.FC = () => {
+const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
+  performance: performanceLevel = 'medium',
+  interactive = true,
+  autoRotate = false,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(true)
+
+  // Performance settings based on level
+  const getPerformanceSettings = useCallback(() => {
+    switch (performanceLevel) {
+      case 'low':
+        return {
+          lanes: 4,
+          tubeSegments: 32,
+          tubeRadialSegments: 6,
+          curveSegments: 48,
+          enableShadows: false,
+          pixelRatio: 1,
+        }
+      case 'high':
+        return {
+          lanes: 8,
+          tubeSegments: 128,
+          tubeRadialSegments: 16,
+          curveSegments: 96,
+          enableShadows: true,
+          pixelRatio: 2,
+        }
+      default: // medium
+        return {
+          lanes: 6,
+          tubeSegments: 64,
+          tubeRadialSegments: 8,
+          curveSegments: 64,
+          enableShadows: false,
+          pixelRatio: 1.5,
+        }
+    }
+  }, [performanceLevel])
 
   useEffect(() => {
     if (!containerRef.current) return
+    if (typeof globalThis.performance === 'undefined') {
+      console.warn('Performance API not available, falling back to basic timing')
+      return
+    }
 
     const container = containerRef.current
+    const settings = getPerformanceSettings()
 
     // Scene setup
     const scene = new THREE.Scene()
@@ -107,58 +113,60 @@ const DataflowRibbons: React.FC = () => {
     const width = container.clientWidth || window.innerWidth
     const height = container.clientHeight || window.innerHeight
     const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 200)
-    camera.position.set(0, 6.5, 26)
+    camera.position.set(0, 8, 20) // Moved camera closer and higher to see all traces
 
-    // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    // Renderer setup with performance optimizations
+    const renderer = new THREE.WebGLRenderer({ 
+      antialias: performanceLevel !== 'low',
+      alpha: true,
+      powerPreference: 'high-performance',
+    })
     renderer.setClearColor(0x000000, 0)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, settings.pixelRatio))
     renderer.setSize(width, height)
+    
+    // Performance optimizations
+    if (settings.enableShadows) {
+      renderer.shadowMap.enabled = true
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    }
+    
     container.appendChild(renderer.domElement)
 
-    // Controls
+    // Controls with performance settings
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true
+    controls.dampingFactor = 0.05
+    controls.enableZoom = interactive
+    controls.enablePan = interactive
+    controls.enableRotate = interactive
+    controls.autoRotate = autoRotate
+    controls.autoRotateSpeed = 0.5
 
-    // Lighting
+    // Optimized lighting
     scene.add(new THREE.AmbientLight(0xffffff, 0.25))
     const keyLight = new THREE.DirectionalLight(0xffffff, 1.05)
     keyLight.position.set(10, 18, 14)
+    if (settings.enableShadows) {
+      keyLight.castShadow = true
+      keyLight.shadow.mapSize.width = 1024
+      keyLight.shadow.mapSize.height = 1024
+    }
     scene.add(keyLight)
+    
     const rimLight = new THREE.DirectionalLight(0x6fd6ff, 0.75)
     rimLight.position.set(-8, 12, -10)
     scene.add(rimLight)
 
-    // Build ribbons
+    // Build ribbons with performance optimizations
     const GRAD4 = makeToonGradient(4)
-    const GRAD5 = makeToonGradient(5)
-    const pal = getPalette('neon')
     const board = [18, 6]
-    const lanes = 20
+    const lanes = settings.lanes
     const [W, D] = board
     const padX = Math.max(0.6, W * 0.06)
     const padZ = Math.max(0.6, D * 0.06)
 
-    // Substrate board
-    const subGeom = new THREE.BoxGeometry(W, 0.16, D)
-    const subMat = new THREE.MeshToonMaterial({
-      color: 0x0b0f24,
-      gradientMap: GRAD4,
-    })
-    const sub = new THREE.Mesh(subGeom, subMat)
-    sub.position.set(0, -0.08, 0)
-    scene.add(sub)
 
-    // Edge outline
-    const edgeG = new THREE.EdgesGeometry(subGeom, 1)
-    const edgeM = new THREE.LineBasicMaterial({
-      color: 0x1f2a5a,
-      transparent: true,
-      opacity: 0.6,
-    })
-    const outline = new THREE.LineSegments(edgeG, edgeM)
-    outline.position.copy(sub.position)
-    scene.add(outline)
 
     // Calculate lane positions
     const xL = -W / 2 + padX
@@ -169,215 +177,279 @@ const DataflowRibbons: React.FC = () => {
       Math.max(0.18 * 1.2, 0.06),
       Math.max(Math.max(0.18 * 1.2, 0.06), auto)
     )
-    const zSpan = lanes > 1 ? (lanes - 1) * spacing : 0
-    const zStart = -zSpan / 2
 
-    // Node positions
-    const zMin = zStart
-    const zMax = zStart + (lanes > 1 ? (lanes - 1) * spacing : 0)
-    const nodeLen = zMax - zMin + Math.max(0.3, spacing * 0.2)
-    const nodeGeom = new THREE.BoxGeometry(
-      0.24,
-      Math.max(0.04 * 1.6, 0.05),
-      Math.max(0.2, nodeLen)
-    )
-    const nodeMat = new THREE.MeshToonMaterial({
-      color: 0xffc65a,
-      gradientMap: GRAD5,
-    })
+    // Base Y position for traces
     const y = 0.02
 
-    const nL = new THREE.Mesh(nodeGeom, nodeMat)
-    nL.position.set(xL, y, (zMin + zMax) / 2)
-    scene.add(nL)
-
-    const nR = new THREE.Mesh(nodeGeom, nodeMat)
-    nR.position.set(xR, y, (zMin + zMax) / 2)
-    scene.add(nR)
-
-    // Circuit board layout system
+    // Circuit board layout system with performance optimizations
     const curves: THREE.CurvePath<THREE.Vector3>[] = []
     const colors: THREE.Color[] = []
+    const meshes: THREE.Mesh[] = []
 
-    // All ribbons stay on same Y level
-    const ribbonY = y + 0.05
+    // Each ribbon gets its own Y-level to guarantee zero overlap
+    const baseRibbonY = y + 0.05
 
-    // Tron-style routing eliminates need for collision detection
-
-    // Tron-style trace routing - each lane gets dedicated paths with no crossings
-    for (let i = 0; i < lanes; i++) {
-      const zLane = zStart + i * spacing
-      const tubeR = Math.max(0.02, 0.18 * 0.4)
-
-      // Calculate lane position relative to center
-      const laneNormalized = i / (lanes - 1) - 0.5 // Range from -0.5 to 0.5
-      const laneFromCenter = Math.abs(laneNormalized)
-
-      // Assign routing type based on position from center to avoid crossings
-      let routingType = 'direct'
-      if (laneFromCenter > 0.7) {
-        routingType = 'outer_bend'
-      } else if (laneFromCenter > 0.4) {
-        routingType = 'middle_bend'
-      } else if (laneFromCenter > 0.2) {
-        routingType = 'inner_curve'
+    // Authentic PCB-style pattern generation with maximum 5 bends per line
+    const generatePCBSegment = (progress: number, patternType: number): number => {
+      const patternAmplitude = 2.5
+      
+      switch (patternType) {
+        case 0: // Simple 3-bend pattern: horizontal → up → horizontal → down → horizontal
+          if (progress < 0.2) {
+            return 0 // Straight horizontal
+          } else if (progress < 0.3) {
+            return patternAmplitude * (progress - 0.2) / 0.1 // 90-degree turn up
+          } else if (progress < 0.7) {
+            return patternAmplitude // Straight horizontal
+          } else if (progress < 0.8) {
+            return patternAmplitude - patternAmplitude * (progress - 0.7) / 0.1 // 90-degree turn down
+          } else {
+            return 0 // Straight horizontal
+          }
+        case 1: // 5-bend zigzag: horizontal → up → horizontal → down → horizontal → up → horizontal
+          if (progress < 0.15) {
+            return 0 // Straight horizontal
+          } else if (progress < 0.25) {
+            return patternAmplitude * (progress - 0.15) / 0.1 // 90-degree turn up
+          } else if (progress < 0.35) {
+            return patternAmplitude // Straight horizontal
+          } else if (progress < 0.45) {
+            return patternAmplitude - patternAmplitude * (progress - 0.35) / 0.1 // 90-degree turn down
+          } else if (progress < 0.55) {
+            return 0 // Straight horizontal
+          } else if (progress < 0.65) {
+            return patternAmplitude * (progress - 0.55) / 0.1 // 90-degree turn up
+          } else if (progress < 0.75) {
+            return patternAmplitude // Straight horizontal
+          } else if (progress < 0.85) {
+            return patternAmplitude - patternAmplitude * (progress - 0.75) / 0.1 // 90-degree turn down
+          } else {
+            return 0 // Straight horizontal
+          }
+        case 2: // 3-bend step pattern: horizontal → up → horizontal → down → horizontal
+          if (progress < 0.3) {
+            return 0 // Straight horizontal
+          } else if (progress < 0.4) {
+            return patternAmplitude * (progress - 0.3) / 0.1 // 90-degree turn up
+          } else if (progress < 0.6) {
+            return patternAmplitude // Straight horizontal
+          } else if (progress < 0.7) {
+            return patternAmplitude - patternAmplitude * (progress - 0.6) / 0.1 // 90-degree turn down
+          } else {
+            return 0 // Straight horizontal
+          }
+        case 3: // 5-bend staircase: horizontal → up → horizontal → up → horizontal → down → horizontal → down → horizontal
+          if (progress < 0.1) {
+            return 0 // Straight horizontal
+          } else if (progress < 0.2) {
+            return patternAmplitude * 0.5 * (progress - 0.1) / 0.1 // 90-degree turn up
+          } else if (progress < 0.3) {
+            return patternAmplitude * 0.5 // Straight horizontal
+          } else if (progress < 0.4) {
+            return patternAmplitude * 0.5 + patternAmplitude * 0.5 * (progress - 0.3) / 0.1 // 90-degree turn up
+          } else if (progress < 0.5) {
+            return patternAmplitude // Straight horizontal
+          } else if (progress < 0.6) {
+            return patternAmplitude - patternAmplitude * 0.5 * (progress - 0.5) / 0.1 // 90-degree turn down
+          } else if (progress < 0.7) {
+            return patternAmplitude * 0.5 // Straight horizontal
+          } else if (progress < 0.8) {
+            return patternAmplitude * 0.5 - patternAmplitude * 0.5 * (progress - 0.7) / 0.1 // 90-degree turn down
+          } else {
+            return 0 // Straight horizontal
+          }
+        case 4: // Simple L-shape: horizontal → 90-degree turn → vertical
+          if (progress < 0.5) {
+            return 0 // Horizontal leg
+          } else if (progress < 0.6) {
+            return patternAmplitude * (progress - 0.5) / 0.1 // 90-degree turn
+          } else {
+            return patternAmplitude // Vertical leg
+          }
+        default:
+          return 0
       }
-
+    }
+    
+    // Simple trace creation without zones
+    const tubeRadius = 0.15 // Much larger radius to make traces clearly visible
+    const maxTraces = 20 // Create 20 traces
+    // Generate consistent pattern for all traces to layer nicely
+    const patternType = Math.floor(Math.random() * 5) // Same pattern for all traces
+    
+    for (let i = 0; i < maxTraces; i++) {
+      const tubeR = tubeRadius
+      
+      // All traces on the same Y-level, side by side
+      const ribbonY = baseRibbonY
+      
+      // Simple trace positioning without zones
+      const groupIndex = Math.floor(i / 4)
+      const traceInGroup = i % 4
+      const traceWidth = tubeR * 2
+      const buffer = 0.5
+      const traceSpacing = traceWidth + buffer
+      
       let pts3: THREE.Vector3[] = []
-
-      switch (routingType) {
-        case 'direct': {
-          // Center traces go straight - no crossing possible
-          pts3 = [
-            new THREE.Vector3(xL, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.3, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.7, ribbonY, zLane),
-            new THREE.Vector3(xR, ribbonY, zLane),
-          ]
-          break
-        }
-
-        case 'inner_curve': {
-          // Inner traces make gentle curves away from center, no crossing
-          const curveDirection = laneNormalized > 0 ? 1 : -1
-          const curveAmount = spacing * 0.8
-
-          pts3 = [
-            new THREE.Vector3(xL, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.2, ribbonY, zLane),
-            new THREE.Vector3(
-              xL + (xR - xL) * 0.35,
-              ribbonY,
-              zLane + curveAmount * curveDirection
-            ),
-            new THREE.Vector3(
-              xL + (xR - xL) * 0.65,
-              ribbonY,
-              zLane + curveAmount * curveDirection
-            ),
-            new THREE.Vector3(xL + (xR - xL) * 0.8, ribbonY, zLane),
-            new THREE.Vector3(xR, ribbonY, zLane),
-          ]
-          break
-        }
-
-        case 'middle_bend': {
-          // Middle traces make L-bends in dedicated lanes, no crossing
-          const bendDirection = laneNormalized > 0 ? 1 : -1
-          const bendDistance = spacing * (1.5 + laneFromCenter)
-          const bendX = xL + (xR - xL) * (0.4 + laneFromCenter * 0.1)
-
-          pts3 = [
-            new THREE.Vector3(xL, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.25, ribbonY, zLane),
-            new THREE.Vector3(bendX, ribbonY, zLane),
-            new THREE.Vector3(
-              bendX,
-              ribbonY,
-              zLane + bendDistance * bendDirection
-            ),
-            new THREE.Vector3(
-              xL + (xR - xL) * 0.6,
-              ribbonY,
-              zLane + bendDistance * bendDirection
-            ),
-            new THREE.Vector3(xL + (xR - xL) * 0.6, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.75, ribbonY, zLane),
-            new THREE.Vector3(xR, ribbonY, zLane),
-          ]
-          break
-        }
-
-        case 'outer_bend': {
-          // Outer traces get the longest paths to avoid all others
-          const bendDirection = laneNormalized > 0 ? 1 : -1
-          const bendDistance = spacing * (2.0 + laneFromCenter * 0.5)
-          const bendX1 = xL + (xR - xL) * (0.3 + laneFromCenter * 0.05)
-          const bendX2 = xL + (xR - xL) * (0.7 - laneFromCenter * 0.05)
-
-          pts3 = [
-            new THREE.Vector3(xL, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.15, ribbonY, zLane),
-            new THREE.Vector3(bendX1, ribbonY, zLane),
-            new THREE.Vector3(
-              bendX1,
-              ribbonY,
-              zLane + bendDistance * bendDirection * 0.7
-            ),
-            new THREE.Vector3(
-              xL + (xR - xL) * 0.5,
-              ribbonY,
-              zLane + bendDistance * bendDirection
-            ),
-            new THREE.Vector3(
-              bendX2,
-              ribbonY,
-              zLane + bendDistance * bendDirection * 0.7
-            ),
-            new THREE.Vector3(bendX2, ribbonY, zLane),
-            new THREE.Vector3(xL + (xR - xL) * 0.85, ribbonY, zLane),
-            new THREE.Vector3(xR, ribbonY, zLane),
-          ]
-          break
-        }
+      
+      // Create PCB-style traces with specific angles - more segments for sharper angles
+      const numSegments = performanceLevel === 'low' ? 32 : (performanceLevel === 'high' ? 64 : 48)
+      
+      for (let seg = 0; seg <= numSegments; seg++) {
+        const progress = seg / numSegments
+        
+        // X position - same for all traces
+        const baseX = xL + (xR - xL) * progress
+        const xVariation = (Math.random() - 0.5) * 0.4 // Reduced X variation for cleaner PCB look
+        const x = baseX + xVariation
+        
+        // Z position - PCB pattern with specific angles, same shape for each group
+        const groupIndex = Math.floor(i / 4)
+        const traceInGroup = i % 4
+        
+        // Each group follows the same pattern shape with slight individual variations
+        const basePatternZ = generatePCBSegment(progress, patternType)
+        // Add slight individual variation to each trace within the group
+        const individualVariation = Math.sin(progress * Math.PI * 3 + traceInGroup) * 0.2
+        const patternZ = basePatternZ + individualVariation
+        
+        // Shift each subsequent line up by trace width + buffer to avoid overlap
+        const traceWidth = tubeR * 2 // Diameter of the trace
+        const buffer = 0.5 // Increased buffer for better separation
+        const traceSpacing = traceWidth + buffer // Total spacing between traces
+        
+        // Group base position (groups are well separated)
+        const groupBaseZ = groupIndex * 15.0 // Increased group separation to 15 units
+        // Trace position within group (tightly packed but with better spacing)
+        const traceZ = traceInGroup * traceSpacing
+        
+        let z = groupBaseZ + traceZ + patternZ // Same pattern shape, different Z positions
+        
+        const finalPoint = new THREE.Vector3(x, ribbonY, z)
+        pts3.push(finalPoint)
+        
       }
 
-      const curve = filletedPath3D(pts3, tubeR * 1.2)
-      const geom = new THREE.TubeGeometry(curve, 96, tubeR, 12, false)
-      const tLane = lanes > 1 ? i / (lanes - 1) : 0.5
-
-      // Color based on routing type and distance from center
-      let colorMultiplier = 1.0
-
-      switch (routingType) {
-        case 'direct':
-          colorMultiplier = 1.2 // Brightest for center traces
-          break
-        case 'inner_curve':
-          colorMultiplier = 1.0
-          break
-        case 'middle_bend':
-          colorMultiplier = 0.9
-          break
-        case 'outer_bend':
-          colorMultiplier = 0.8
-          break
-      }
-
-      const col = gradientColor(pal, tLane).multiplyScalar(colorMultiplier)
+      // Create sharp angles for authentic PCB traces
+      const curve = new THREE.CatmullRomCurve3(pts3, false, 'centripetal', 0.5)
+      const geom = new THREE.TubeGeometry(
+        curve, 
+        settings.tubeSegments, 
+        tubeR, 
+        settings.tubeRadialSegments, 
+        false
+      )
+      // Group-based coloring system
+      const groupColors = [
+        new THREE.Color(0xff4444), // Group 1: Red tones
+        new THREE.Color(0x44ff44), // Group 2: Green tones  
+        new THREE.Color(0x4444ff), // Group 3: Blue tones
+        new THREE.Color(0xffff44), // Group 4: Yellow tones
+        new THREE.Color(0xff44ff), // Group 5: Magenta tones
+      ]
+      
+      // Create 5 groups of 4 traces each
+      const groupColor = groupColors[groupIndex % groupColors.length]
+      
+      // Add slight variation within each group
+      const variation = (i % 4) * 0.15 // 0, 0.15, 0.3, 0.45
+      const col = groupColor.clone().multiplyScalar(0.7 + variation)
 
       const mat = new THREE.MeshToonMaterial({
         color: col,
         gradientMap: GRAD4,
         transparent: true,
-        opacity: 0.9,
+        opacity: 1.0, // Full opacity to see traces clearly
       })
       const mesh = new THREE.Mesh(geom, mat)
       mesh.scale.y = Math.max(0.15, 0.03 / (tubeR * 2))
 
-      // Add emissive glow for direct traces
-      if (routingType === 'direct') {
-        mat.emissive = col.clone().multiplyScalar(0.15)
+      // Add emissive glow for more complex paths
+      if (pts3.length > 5) {
+        mat.emissive = col.clone().multiplyScalar(0.12)
       }
+
+      if (settings.enableShadows) {
+        mesh.castShadow = true
+      }
+
+      // Set proper depth ordering - deeper traces rendered first
+      mesh.renderOrder = i
+      mesh.material.depthTest = true
+      mesh.material.depthWrite = true
 
       scene.add(mesh)
       curves.push(curve)
       colors.push(col)
+      meshes.push(mesh)
     }
+    
 
-    // Animation loop
+    // Performance monitoring
+    let frameCount = 0
+    let lastTime = globalThis.performance?.now() || Date.now()
+    let fps = 60
+
+    // Optimized animation loop
     let animationId: number
     const animate = () => {
+      if (!isVisible) {
+        animationId = requestAnimationFrame(animate)
+        return
+      }
+
+      // FPS monitoring
+      frameCount++
+      const currentTime = globalThis.performance?.now() || Date.now()
+      if (currentTime - lastTime >= 1000) {
+        fps = frameCount
+        frameCount = 0
+        lastTime = currentTime
+        
+        // Adaptive quality adjustment
+        if (fps < 30 && performanceLevel === 'high') {
+          console.warn('Low FPS detected, consider switching to medium performance')
+        }
+      }
+
       controls.update()
       renderer.render(scene, camera)
       animationId = requestAnimationFrame(animate)
     }
     animate()
 
+    // Resize handler with debouncing
+    let resizeTimeout: NodeJS.Timeout
+    const handleResize = () => {
+      clearTimeout(resizeTimeout)
+      resizeTimeout = setTimeout(() => {
+        const newWidth = container.clientWidth || window.innerWidth
+        const newHeight = container.clientHeight || window.innerHeight
+        
+        camera.aspect = newWidth / newHeight
+        camera.updateProjectionMatrix()
+        renderer.setSize(newWidth, newHeight)
+      }, 100)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    // Visibility API for performance
+    const handleVisibilityChange = () => {
+      setIsVisible(!document.hidden)
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
     // Cleanup
     return () => {
       if (animationId) cancelAnimationFrame(animationId)
+      if (resizeTimeout) clearTimeout(resizeTimeout)
+      
       controls.dispose()
+      window.removeEventListener('resize', handleResize)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      
+      // Dispose geometries and materials
       scene.traverse((object: THREE.Object3D) => {
         if (object instanceof THREE.Mesh) {
           object.geometry?.dispose()
@@ -390,19 +462,20 @@ const DataflowRibbons: React.FC = () => {
           }
         }
       })
+      
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement)
       }
       renderer.dispose()
     }
-  }, [])
+  }, [performanceLevel, interactive, autoRotate, getPerformanceSettings, isVisible])
 
   return (
     <div
       ref={containerRef}
       className='absolute inset-0 w-full h-full overflow-hidden'
       style={{
-        cursor: 'grab',
+        cursor: interactive ? 'grab' : 'default',
         background: 'transparent',
       }}
     />

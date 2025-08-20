@@ -1,282 +1,260 @@
 // Performance monitoring and optimization utilities
-
 export interface PerformanceMetrics {
-  fcp: number | null // First Contentful Paint
-  lcp: number | null // Largest Contentful Paint
-  fid: number | null // First Input Delay
-  cls: number | null // Cumulative Layout Shift
-  ttfb: number | null // Time to First Byte
+  fps: number
+  frameTime: number
+  memoryUsage?: number
+  gpuMemory?: number
+  drawCalls?: number
+  triangles?: number
+  timestamp: number
+}
+
+export interface PerformanceThresholds {
+  lowFps: number
+  targetFps: number
+  maxFrameTime: number
+  maxMemoryUsage: number
 }
 
 class PerformanceMonitor {
-  private metrics: PerformanceMetrics = {
-    fcp: null,
-    lcp: null,
-    fid: null,
-    cls: null,
-    ttfb: null,
+  private metrics: PerformanceMetrics[] = []
+  private maxMetrics = 60 // Keep last 60 frames
+  private isMonitoring = false
+  private frameCount = 0
+  private lastTime = globalThis.performance?.now() || Date.now()
+  private thresholds: PerformanceThresholds = {
+    lowFps: 30,
+    targetFps: 60,
+    maxFrameTime: 16.67, // 60fps = 16.67ms per frame
+    maxMemoryUsage: 100 * 1024 * 1024, // 100MB
   }
 
-  constructor() {
-    if (typeof window !== 'undefined') {
-      this.initializeMetrics()
+  // Start monitoring
+  start() {
+    if (this.isMonitoring) return
+    this.isMonitoring = true
+    this.metrics = []
+    this.frameCount = 0
+    this.lastTime = globalThis.performance?.now() || Date.now()
+    this.monitorFrame()
+  }
+
+  // Stop monitoring
+  stop() {
+    this.isMonitoring = false
+  }
+
+  // Monitor a single frame
+  private monitorFrame = () => {
+    if (!this.isMonitoring) return
+
+    const currentTime = globalThis.performance?.now() || Date.now()
+    const frameTime = currentTime - this.lastTime
+    const fps = 1000 / frameTime
+
+    const metric: PerformanceMetrics = {
+      fps,
+      frameTime,
+      timestamp: currentTime,
+    }
+
+    // Add memory usage if available
+    if (globalThis.performance && 'memory' in globalThis.performance) {
+      const memory = (globalThis.performance as any).memory
+      metric.memoryUsage = memory.usedJSHeapSize
+    }
+
+    this.metrics.push(metric)
+    this.frameCount++
+
+    // Keep only recent metrics
+    if (this.metrics.length > this.maxMetrics) {
+      this.metrics.shift()
+    }
+
+    this.lastTime = currentTime
+    requestAnimationFrame(this.monitorFrame)
+  }
+
+  // Get current performance metrics
+  getCurrentMetrics(): PerformanceMetrics | null {
+    if (this.metrics.length === 0) return null
+    return this.metrics[this.metrics.length - 1]
+  }
+
+  // Get average metrics over the last N frames
+  getAverageMetrics(frames: number = 30): PerformanceMetrics | null {
+    if (this.metrics.length === 0) return null
+
+    const recentMetrics = this.metrics.slice(-frames)
+    const avgFps = recentMetrics.reduce((sum, m) => sum + m.fps, 0) / recentMetrics.length
+    const avgFrameTime = recentMetrics.reduce((sum, m) => sum + m.frameTime, 0) / recentMetrics.length
+
+    return {
+      fps: avgFps,
+      frameTime: avgFrameTime,
+      timestamp: globalThis.performance?.now() || Date.now(),
     }
   }
 
-  private initializeMetrics() {
-    // First Contentful Paint
-    this.observePerformanceEntry('first-contentful-paint', entry => {
-      this.metrics.fcp = entry.startTime
-    })
+  // Check if performance is acceptable
+  isPerformanceAcceptable(): boolean {
+    const avgMetrics = this.getAverageMetrics()
+    if (!avgMetrics) return true
 
-    // Largest Contentful Paint
-    this.observeLCP()
-
-    // First Input Delay
-    this.observeFID()
-
-    // Cumulative Layout Shift
-    this.observeCLS()
-
-    // Time to First Byte
-    this.observeTTFB()
+    return avgMetrics.fps >= this.thresholds.lowFps
   }
 
-  private observePerformanceEntry(
-    entryType: string,
-    callback: (entry: PerformanceEntry) => void
-  ) {
-    const observer = new PerformanceObserver(list => {
-      const entries = list.getEntries()
-      entries.forEach(callback)
-    })
+  // Get performance recommendations
+  getRecommendations(): string[] {
+    const avgMetrics = this.getAverageMetrics()
+    if (!avgMetrics) return []
 
-    try {
-      observer.observe({ entryTypes: [entryType] })
-    } catch {
-      // Fallback for browsers that don't support the entry type
-      console.warn(`Performance observer for ${entryType} not supported`)
+    const recommendations: string[] = []
+
+    if (avgMetrics.fps < this.thresholds.lowFps) {
+      recommendations.push('Consider reducing 3D complexity or switching to lower performance mode')
     }
-  }
 
-  private observeLCP() {
-    if ('PerformanceObserver' in window) {
-      const observer = new PerformanceObserver(list => {
-        const entries = list.getEntries()
-        const lastEntry = entries[entries.length - 1]
-        this.metrics.lcp = lastEntry.startTime
-      })
-
-      try {
-        observer.observe({ entryTypes: ['largest-contentful-paint'] })
-      } catch {
-        console.warn('LCP observation not supported')
-      }
+    if (avgMetrics.frameTime > this.thresholds.maxFrameTime) {
+      recommendations.push('Frame time is high - consider optimizing render settings')
     }
-  }
 
-  private observeFID() {
-    if ('PerformanceObserver' in window) {
-      const observer = new PerformanceObserver(list => {
-        const entries = list.getEntries()
-        entries.forEach(
-          (entry: PerformanceEntry & { processingStart?: number }) => {
-            if (entry.processingStart && entry.startTime) {
-              this.metrics.fid = entry.processingStart - entry.startTime
-            }
-          }
-        )
-      })
-
-      try {
-        observer.observe({ entryTypes: ['first-input'] })
-      } catch {
-        console.warn('FID observation not supported')
-      }
+    if (avgMetrics.memoryUsage && avgMetrics.memoryUsage > this.thresholds.maxMemoryUsage) {
+      recommendations.push('Memory usage is high - consider cleaning up unused resources')
     }
+
+    return recommendations
   }
 
-  private observeCLS() {
-    if ('PerformanceObserver' in window) {
-      let clsValue = 0
-      const observer = new PerformanceObserver(list => {
-        const entries = list.getEntries()
-        entries.forEach(
-          (
-            entry: PerformanceEntry & {
-              hadRecentInput?: boolean
-              value?: number
-            }
-          ) => {
-            if (!entry.hadRecentInput && entry.value) {
-              clsValue += entry.value
-              this.metrics.cls = clsValue
-            }
-          }
-        )
-      })
+  // Log performance metrics
+  logMetrics() {
+    const current = this.getCurrentMetrics()
+    const average = this.getAverageMetrics()
+    const recommendations = this.getRecommendations()
 
-      try {
-        observer.observe({ entryTypes: ['layout-shift'] })
-      } catch {
-        console.warn('CLS observation not supported')
-      }
+    console.group('Performance Metrics')
+    if (current) {
+      console.log('Current FPS:', current.fps.toFixed(1))
+      console.log('Current Frame Time:', current.frameTime.toFixed(2) + 'ms')
     }
-  }
-
-  private observeTTFB() {
-    if ('performance' in window && 'getEntriesByType' in performance) {
-      const navigationEntries = performance.getEntriesByType(
-        'navigation'
-      ) as PerformanceNavigationTiming[]
-      if (navigationEntries.length > 0) {
-        this.metrics.ttfb =
-          navigationEntries[0].responseStart - navigationEntries[0].requestStart
-      }
+    if (average) {
+      console.log('Average FPS:', average.fps.toFixed(1))
+      console.log('Average Frame Time:', average.frameTime.toFixed(2) + 'ms')
     }
-  }
-
-  public getMetrics(): PerformanceMetrics {
-    return { ...this.metrics }
-  }
-
-  public logMetrics() {
-    if (process.env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console
-      console.table(this.metrics)
+    if (recommendations.length > 0) {
+      console.warn('Recommendations:', recommendations)
     }
+    console.groupEnd()
+  }
+
+  // Set performance thresholds
+  setThresholds(thresholds: Partial<PerformanceThresholds>) {
+    this.thresholds = { ...this.thresholds, ...thresholds }
+  }
+
+  // Get all metrics for analysis
+  getAllMetrics(): PerformanceMetrics[] {
+    return [...this.metrics]
+  }
+
+  // Clear metrics
+  clear() {
+    this.metrics = []
   }
 }
 
-// Singleton instance
+// 3D-specific performance utilities
+export class ThreeJSPerformanceMonitor {
+  private renderer: THREE.WebGLRenderer | null = null
+  private info: any = null
+
+  constructor(renderer?: THREE.WebGLRenderer) {
+    if (renderer) {
+      this.setRenderer(renderer)
+    }
+  }
+
+  setRenderer(renderer: THREE.WebGLRenderer) {
+    this.renderer = renderer
+    // Access Three.js info if available
+    if ('info' in THREE) {
+      this.info = (THREE as any).info
+    }
+  }
+
+  getThreeJSMetrics(): Partial<PerformanceMetrics> {
+    if (!this.renderer) return {}
+
+    const metrics: Partial<PerformanceMetrics> = {}
+
+    // Get renderer info
+    if (this.info) {
+      metrics.drawCalls = this.info.render.calls
+      metrics.triangles = this.info.render.triangles
+    }
+
+    // Get memory info if available
+    if ('memory' in performance) {
+      const memory = (performance as any).memory
+      metrics.memoryUsage = memory.usedJSHeapSize
+    }
+
+    return metrics
+  }
+
+  // Optimize renderer settings based on performance
+  optimizeRenderer(performanceLevel: 'low' | 'medium' | 'high') {
+    if (!this.renderer) return
+
+    switch (performanceLevel) {
+      case 'low':
+        this.renderer.setPixelRatio(1)
+        this.renderer.shadowMap.enabled = false
+        break
+      case 'medium':
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
+        this.renderer.shadowMap.enabled = false
+        break
+      case 'high':
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+        this.renderer.shadowMap.enabled = true
+        break
+    }
+  }
+
+  // Get optimization suggestions for Three.js
+  getThreeJSOptimizations(): string[] {
+    const metrics = this.getThreeJSMetrics()
+    const suggestions: string[] = []
+
+    if (metrics.drawCalls && metrics.drawCalls > 100) {
+      suggestions.push('High draw calls - consider using instancing or merging geometries')
+    }
+
+    if (metrics.triangles && metrics.triangles > 50000) {
+      suggestions.push('High triangle count - consider using LOD or reducing geometry complexity')
+    }
+
+    if (metrics.memoryUsage && metrics.memoryUsage > 100 * 1024 * 1024) {
+      suggestions.push('High memory usage - dispose unused geometries and materials')
+    }
+
+    return suggestions
+  }
+}
+
+// Create singleton instance
 export const performanceMonitor = new PerformanceMonitor()
 
-// Utility functions for performance optimization
-export const preloadImage = (src: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    const img = new Image()
-    img.onload = () => resolve()
-    img.onerror = reject
-    img.src = src
-  })
+// Auto-start monitoring in development
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  performanceMonitor.start()
+  
+  // Log metrics every 5 seconds in development
+  setInterval(() => {
+    performanceMonitor.logMetrics()
+  }, 5000)
 }
 
-export const preloadImages = async (sources: string[]): Promise<void> => {
-  const promises = sources.map(preloadImage)
-  await Promise.allSettled(promises)
-}
-
-// Debounce utility for performance
-export const debounce = <T extends (...args: unknown[]) => unknown>(
-  func: T,
-  wait: number
-): ((...args: Parameters<T>) => void) => {
-  let timeout: NodeJS.Timeout | null = null
-
-  return (...args: Parameters<T>) => {
-    if (timeout) clearTimeout(timeout)
-    timeout = setTimeout(() => func(...args), wait)
-  }
-}
-
-// Throttle utility for performance
-export const throttle = <T extends (...args: unknown[]) => unknown>(
-  func: T,
-  limit: number
-): ((...args: Parameters<T>) => void) => {
-  let inThrottle: boolean
-
-  return (...args: Parameters<T>) => {
-    if (!inThrottle) {
-      func(...args)
-      inThrottle = true
-      setTimeout(() => (inThrottle = false), limit)
-    }
-  }
-}
-
-// Intersection Observer utility for lazy loading
-export const createIntersectionObserver = (
-  callback: IntersectionObserverCallback,
-  options?: IntersectionObserverInit
-): IntersectionObserver | null => {
-  if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
-    return null
-  }
-
-  return new IntersectionObserver(callback, {
-    threshold: 0.1,
-    rootMargin: '50px',
-    ...options,
-  })
-}
-
-// Memory usage monitoring
-export const getMemoryUsage = (): Record<string, number> | null => {
-  if (typeof window !== 'undefined' && 'memory' in performance) {
-    return (performance as unknown as { memory: Record<string, number> }).memory
-  }
-  return null
-}
-
-// Connection quality detection
-export const getConnectionQuality = (): string => {
-  if (typeof navigator !== 'undefined' && 'connection' in navigator) {
-    const connection = (
-      navigator as unknown as { connection: { effectiveType?: string } }
-    ).connection
-    return connection.effectiveType || 'unknown'
-  }
-  return 'unknown'
-}
-
-// Reduced motion preference
-export const prefersReducedMotion = (): boolean => {
-  if (typeof window === 'undefined') return false
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-}
-
-// Prefers color scheme
-export const prefersColorScheme = (): 'light' | 'dark' => {
-  if (typeof window === 'undefined') return 'dark'
-  return window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light'
-}
-
-// Resource hints
-export const addResourceHint = (
-  href: string,
-  rel: 'preload' | 'prefetch' | 'preconnect' | 'dns-prefetch',
-  as?: string
-) => {
-  if (typeof document === 'undefined') return
-
-  const link = document.createElement('link')
-  link.rel = rel
-  link.href = href
-  if (as) link.setAttribute('as', as)
-
-  document.head.appendChild(link)
-}
-
-// Critical resource loading
-export const loadCriticalResources = async (
-  resources: Array<{ src: string; type: 'image' | 'font' | 'script' }>
-) => {
-  const promises = resources.map(resource => {
-    switch (resource.type) {
-      case 'image':
-        return preloadImage(resource.src)
-      case 'font':
-        addResourceHint(resource.src, 'preload', 'font')
-        return Promise.resolve()
-      case 'script':
-        return import(resource.src)
-      default:
-        return Promise.resolve()
-    }
-  })
-
-  await Promise.allSettled(promises)
-}
+export default performanceMonitor
