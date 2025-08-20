@@ -2,10 +2,11 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import SimpleGrid from '@components/3d/SimpleGrid'
 import DataflowRibbons from '@components/3d/DataflowRibbons'
+import DataPipeline from '@components/3d/DataPipeline'
 import PerformanceDisplay from '@components/ui/PerformanceDisplay'
 
 export default function Hero() {
-  const [showGrid, setShowGrid] = useState(true)
+  const [currentVisualization, setCurrentVisualization] = useState<'grid' | 'ribbons' | 'pipeline'>('pipeline')
   const [performance, setPerformance] = useState<'low' | 'medium' | 'high'>('medium')
   const [autoRotate, setAutoRotate] = useState(false)
 
@@ -18,16 +19,19 @@ export default function Hero() {
       <div className='absolute inset-0 pointer-events-auto'>
         {/* Control panel */}
         <div className='absolute top-24 right-6 z-20 flex flex-col gap-2'>
-          {/* Toggle button */}
-          <button
-            onClick={() => setShowGrid(!showGrid)}
+          {/* Visualization selector */}
+          <select
+            value={currentVisualization}
+            onChange={(e) => setCurrentVisualization(e.target.value as 'grid' | 'ribbons' | 'pipeline')}
             className='px-3 py-1 text-xs bg-tech-dark/90 border border-tech-teal/40 text-tech-teal rounded hover:bg-tech-teal/20 transition-all backdrop-blur-sm'
           >
-            {showGrid ? 'Ribbons' : 'Grid'}
-          </button>
+            <option value='pipeline'>Data Pipeline</option>
+            <option value='grid'>Grid</option>
+            <option value='ribbons'>PCB Traces</option>
+          </select>
 
           {/* Performance selector - only show for ribbons */}
-          {!showGrid && (
+          {currentVisualization === 'ribbons' && (
             <div className='flex flex-col gap-1'>
               <select
                 value={performance}
@@ -54,14 +58,16 @@ export default function Hero() {
         </div>
 
         {/* 3D Visualizations */}
-        {showGrid ? (
-          <SimpleGrid />
-        ) : (
+        {currentVisualization === 'grid' && <SimpleGrid />}
+        {currentVisualization === 'ribbons' && (
           <DataflowRibbons 
             performance={performance}
             interactive={true}
             autoRotate={autoRotate}
           />
+        )}
+        {currentVisualization === 'pipeline' && (
+          <DataPipeline interactive={true} />
         )}
       </div>
 

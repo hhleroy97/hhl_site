@@ -163,165 +163,146 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
     // Each ribbon gets its own Y-level to guarantee zero overlap
     const baseRibbonY = y + 0.05
 
-    // Authentic PCB-style pattern generation with maximum 5 bends per line
-    const generatePCBSegment = (
-      progress: number,
-      patternType: number
-    ): number => {
-      const patternAmplitude = 2.5
-
-      switch (patternType) {
-        case 0: // Simple 3-bend pattern: horizontal → up → horizontal → down → horizontal
-          if (progress < 0.2) {
-            return 0 // Straight horizontal
-          } else if (progress < 0.3) {
-            return (patternAmplitude * (progress - 0.2)) / 0.1 // 90-degree turn up
-          } else if (progress < 0.7) {
-            return patternAmplitude // Straight horizontal
-          } else if (progress < 0.8) {
-            return (
-              patternAmplitude - (patternAmplitude * (progress - 0.7)) / 0.1
-            ) // 90-degree turn down
-          } else {
-            return 0 // Straight horizontal
-          }
-        case 1: // 5-bend zigzag: horizontal → up → horizontal → down → horizontal → up → horizontal
-          if (progress < 0.15) {
-            return 0 // Straight horizontal
-          } else if (progress < 0.25) {
-            return (patternAmplitude * (progress - 0.15)) / 0.1 // 90-degree turn up
-          } else if (progress < 0.35) {
-            return patternAmplitude // Straight horizontal
-          } else if (progress < 0.45) {
-            return (
-              patternAmplitude - (patternAmplitude * (progress - 0.35)) / 0.1
-            ) // 90-degree turn down
-          } else if (progress < 0.55) {
-            return 0 // Straight horizontal
-          } else if (progress < 0.65) {
-            return (patternAmplitude * (progress - 0.55)) / 0.1 // 90-degree turn up
-          } else if (progress < 0.75) {
-            return patternAmplitude // Straight horizontal
-          } else if (progress < 0.85) {
-            return (
-              patternAmplitude - (patternAmplitude * (progress - 0.75)) / 0.1
-            ) // 90-degree turn down
-          } else {
-            return 0 // Straight horizontal
-          }
-        case 2: // 3-bend step pattern: horizontal → up → horizontal → down → horizontal
-          if (progress < 0.3) {
-            return 0 // Straight horizontal
-          } else if (progress < 0.4) {
-            return (patternAmplitude * (progress - 0.3)) / 0.1 // 90-degree turn up
-          } else if (progress < 0.6) {
-            return patternAmplitude // Straight horizontal
-          } else if (progress < 0.7) {
-            return (
-              patternAmplitude - (patternAmplitude * (progress - 0.6)) / 0.1
-            ) // 90-degree turn down
-          } else {
-            return 0 // Straight horizontal
-          }
-        case 3: // 5-bend staircase: horizontal → up → horizontal → up → horizontal → down → horizontal → down → horizontal
-          if (progress < 0.1) {
-            return 0 // Straight horizontal
-          } else if (progress < 0.2) {
-            return (patternAmplitude * 0.5 * (progress - 0.1)) / 0.1 // 90-degree turn up
-          } else if (progress < 0.3) {
-            return patternAmplitude * 0.5 // Straight horizontal
-          } else if (progress < 0.4) {
-            return (
-              patternAmplitude * 0.5 +
-              (patternAmplitude * 0.5 * (progress - 0.3)) / 0.1
-            ) // 90-degree turn up
-          } else if (progress < 0.5) {
-            return patternAmplitude // Straight horizontal
-          } else if (progress < 0.6) {
-            return (
-              patternAmplitude -
-              (patternAmplitude * 0.5 * (progress - 0.5)) / 0.1
-            ) // 90-degree turn down
-          } else if (progress < 0.7) {
-            return patternAmplitude * 0.5 // Straight horizontal
-          } else if (progress < 0.8) {
-            return (
-              patternAmplitude * 0.5 -
-              (patternAmplitude * 0.5 * (progress - 0.7)) / 0.1
-            ) // 90-degree turn down
-          } else {
-            return 0 // Straight horizontal
-          }
-        case 4: // Simple L-shape: horizontal → 90-degree turn → vertical
-          if (progress < 0.5) {
-            return 0 // Horizontal leg
-          } else if (progress < 0.6) {
-            return (patternAmplitude * (progress - 0.5)) / 0.1 // 90-degree turn
-          } else {
-            return patternAmplitude // Vertical leg
-          }
-        default:
-          return 0
-      }
-    }
-
     // Simple trace creation without zones
     const tubeRadius = 0.15 // Much larger radius to make traces clearly visible
     const maxTraces = 20 // Create 20 traces
+    
+    // Collision detection and avoidance for clean PCB routing
+    const occupiedRegions: Array<{x1: number, x2: number, z1: number, z2: number}> = []
+    const traceWidth = tubeRadius * 2 + 0.2 // Tube diameter plus clearance
+    
+    const checkCollision = (x1: number, x2: number, z1: number, z2: number): boolean => {
+      return occupiedRegions.some(region => 
+        !(x2 < region.x1 || x1 > region.x2 || z2 < region.z1 || z1 > region.z2)
+      )
+    }
+    
+    const addOccupiedRegion = (x1: number, x2: number, z1: number, z2: number) => {
+      occupiedRegions.push({x1, x2, z1, z2})
+    }
+    
+    const createPCBRoute = (
+      startX: number,
+      endX: number,
+      traceIndex: number
+    ): THREE.Vector3[] => {
+      const ribbonY = baseRibbonY
+      
+      // Start with preferred Z position
+      let baseZ = traceIndex * 1.2 // Increased spacing
+      
+      // Try different routing strategies until we find a clear path
+      for (let attempt = 0; attempt < 5; attempt++) {
+        const routePoints: THREE.Vector3[] = []
+        const segments: Array<{x1: number, x2: number, z1: number, z2: number}> = []
+        let hasCollision = false
+        
+        // Strategy varies by attempt - start with more interesting patterns
+        if (attempt === 0) {
+          // Attempt 1: Simple step pattern (preferred PCB style)
+          const stepZ = baseZ + 2.0
+          routePoints.push(new THREE.Vector3(startX, ribbonY, baseZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, baseZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, stepZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, stepZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, baseZ))
+          routePoints.push(new THREE.Vector3(endX, ribbonY, baseZ))
+          
+          segments.push(
+            {x1: startX, x2: startX + (endX - startX) * 0.3, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.3, x2: startX + (endX - startX) * 0.3, z1: Math.min(baseZ, stepZ) - traceWidth/2, z2: Math.max(baseZ, stepZ) + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.3, x2: startX + (endX - startX) * 0.7, z1: stepZ - traceWidth/2, z2: stepZ + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.7, x2: startX + (endX - startX) * 0.7, z1: Math.min(baseZ, stepZ) - traceWidth/2, z2: Math.max(baseZ, stepZ) + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.7, x2: endX, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2}
+          )
+        } else if (attempt === 1) {
+          // Attempt 2: Direct horizontal route (fallback)
+          routePoints.push(new THREE.Vector3(startX, ribbonY, baseZ))
+          routePoints.push(new THREE.Vector3(endX, ribbonY, baseZ))
+          segments.push({
+            x1: startX, x2: endX,
+            z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2
+          })
+        } else if (attempt === 2) {
+          // Attempt 3: Step down
+          const stepZ = baseZ - 2.0
+          routePoints.push(new THREE.Vector3(startX, ribbonY, baseZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, baseZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, stepZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, stepZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, baseZ))
+          routePoints.push(new THREE.Vector3(endX, ribbonY, baseZ))
+          
+          segments.push(
+            {x1: startX, x2: startX + (endX - startX) * 0.3, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.3, x2: startX + (endX - startX) * 0.3, z1: Math.min(baseZ, stepZ) - traceWidth/2, z2: Math.max(baseZ, stepZ) + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.3, x2: startX + (endX - startX) * 0.7, z1: stepZ - traceWidth/2, z2: stepZ + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.7, x2: startX + (endX - startX) * 0.7, z1: Math.min(baseZ, stepZ) - traceWidth/2, z2: Math.max(baseZ, stepZ) + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.7, x2: endX, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2}
+          )
+        } else if (attempt === 3) {
+          // Attempt 4: Large detour up
+          const detourZ = baseZ + 4.0
+          routePoints.push(new THREE.Vector3(startX, ribbonY, baseZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.2, ribbonY, baseZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.2, ribbonY, detourZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.8, ribbonY, detourZ))
+          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.8, ribbonY, baseZ))
+          routePoints.push(new THREE.Vector3(endX, ribbonY, baseZ))
+          
+          segments.push(
+            {x1: startX, x2: startX + (endX - startX) * 0.2, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.2, x2: startX + (endX - startX) * 0.2, z1: Math.min(baseZ, detourZ) - traceWidth/2, z2: Math.max(baseZ, detourZ) + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.2, x2: startX + (endX - startX) * 0.8, z1: detourZ - traceWidth/2, z2: detourZ + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.8, x2: startX + (endX - startX) * 0.8, z1: Math.min(baseZ, detourZ) - traceWidth/2, z2: Math.max(baseZ, detourZ) + traceWidth/2},
+            {x1: startX + (endX - startX) * 0.8, x2: endX, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2}
+          )
+        } else {
+          // Attempt 5: Force a different Z level
+          baseZ = traceIndex * 1.2 + (attempt - 4) * 3.0
+          routePoints.push(new THREE.Vector3(startX, ribbonY, baseZ))
+          routePoints.push(new THREE.Vector3(endX, ribbonY, baseZ))
+          segments.push({
+            x1: startX, x2: endX,
+            z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2
+          })
+        }
+        
+        // Check for collisions with existing traces
+        for (const segment of segments) {
+          if (checkCollision(segment.x1, segment.x2, segment.z1, segment.z2)) {
+            hasCollision = true
+            break
+          }
+        }
+        
+        if (!hasCollision) {
+          // Found a clear path, reserve the space and return the route
+          for (const segment of segments) {
+            addOccupiedRegion(segment.x1, segment.x2, segment.z1, segment.z2)
+          }
+          return routePoints
+        }
+      }
+      
+      // Fallback: force trace to a higher Z level
+      baseZ = traceIndex * 1.2 + Math.ceil(traceIndex / 5) * 6.0
+      const fallbackPoints = [
+        new THREE.Vector3(startX, ribbonY, baseZ),
+        new THREE.Vector3(endX, ribbonY, baseZ)
+      ]
+      addOccupiedRegion(startX, endX, baseZ - traceWidth/2, baseZ + traceWidth/2)
+      return fallbackPoints
+    }
 
     for (let i = 0; i < maxTraces; i++) {
       const tubeR = tubeRadius
+      
+      // Generate proper PCB routing points
+      const pts3 = createPCBRoute(xL, xR, i)
 
-      // All traces on the same Y-level, side by side
-      const ribbonY = baseRibbonY
-
-      // Simple trace positioning without zones
-      const groupIndex = Math.floor(i / 4)
-
-      const pts3: THREE.Vector3[] = []
-
-      // Create PCB-style traces with specific angles - more segments for sharper angles
-      const numSegments =
-        performanceLevel === 'low' ? 32 : performanceLevel === 'high' ? 64 : 48
-
-      for (let seg = 0; seg <= numSegments; seg++) {
-        const progress = seg / numSegments
-
-        // X position - same for all traces
-        const baseX = xL + (xR - xL) * progress
-        const xVariation = (Math.random() - 0.5) * 0.4 // Reduced X variation for cleaner PCB look
-        const x = baseX + xVariation
-
-        // Z position - PCB pattern with specific angles, same shape for each group
-        const groupIndex = Math.floor(i / 4)
-        const traceInGroup = i % 4
-
-        // Each group gets its own unique pattern shape
-        const groupPatternType = groupIndex % 5 // Each of the 5 groups uses a different pattern
-        const basePatternZ = generatePCBSegment(progress, groupPatternType)
-        // Add slight individual variation to each trace within the group
-        const individualVariation =
-          Math.sin(progress * Math.PI * 3 + traceInGroup) * 0.2
-        const patternZ = basePatternZ + individualVariation
-
-        // Shift each subsequent line up by trace width + buffer to avoid overlap
-        const traceWidth = tubeR * 2 // Diameter of the trace
-        const buffer = 0.5 // Increased buffer for better separation
-        const traceSpacing = traceWidth + buffer // Total spacing between traces
-
-        // Group base position (groups are well separated)
-        const groupBaseZ = groupIndex * 15.0 // Increased group separation to 15 units
-        // Trace position within group (tightly packed but with better spacing)
-        const traceZ = traceInGroup * traceSpacing
-
-        const z = groupBaseZ + traceZ + patternZ // Same pattern shape, different Z positions
-
-        const finalPoint = new THREE.Vector3(x, ribbonY, z)
-        pts3.push(finalPoint)
-      }
-
-      // Create sharp angles for authentic PCB traces
-      const curve = new THREE.CatmullRomCurve3(pts3, false, 'centripetal', 0.5)
+      // Create path from discrete points (no curves for sharp PCB angles)
+      const curve = new THREE.CatmullRomCurve3(pts3, false, 'centripetal', 0.0)
       const geom = new THREE.TubeGeometry(
         curve,
         settings.tubeSegments,
@@ -329,21 +310,9 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
         settings.tubeRadialSegments,
         false
       )
-      // Group-based coloring system
-      const groupColors = [
-        new THREE.Color(0xff4444), // Group 1: Red tones
-        new THREE.Color(0x44ff44), // Group 2: Green tones
-        new THREE.Color(0x4444ff), // Group 3: Blue tones
-        new THREE.Color(0xffff44), // Group 4: Yellow tones
-        new THREE.Color(0xff44ff), // Group 5: Magenta tones
-      ]
-
-      // Create 5 groups of 4 traces each
-      const groupColor = groupColors[groupIndex % groupColors.length]
-
-      // Add slight variation within each group
-      const variation = (i % 4) * 0.15 // 0, 0.15, 0.3, 0.45
-      const col = groupColor.clone().multiplyScalar(0.7 + variation)
+      // Simple color progression across all traces
+      const hue = (i / maxTraces) * 0.8 // Spread across most of the color spectrum
+      const col = new THREE.Color().setHSL(hue, 0.8, 0.6)
 
       const mat = new THREE.MeshToonMaterial({
         color: col,
