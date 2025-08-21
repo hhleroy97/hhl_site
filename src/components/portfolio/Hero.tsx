@@ -72,7 +72,7 @@ export default function Hero() {
       <PerformanceDisplay showDetails={true} />
 
       {/* Content Container - Above the fold positioning */}
-      <div className='w-full flex items-center justify-center px-6 md:px-16 py-8 md:py-12 relative z-30'>
+      <div className='w-full flex items-center justify-center px-6 md:px-16 py-4 md:py-6 relative z-30'>
         <motion.div
           className='w-full max-w-6xl pointer-events-auto relative'
           initial={{ opacity: 0, y: 40 }}
