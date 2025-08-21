@@ -50,14 +50,26 @@ export default function Navigation({
           {/* Logo */}
           <motion.a
             href='#'
-            className='text-xl font-bold bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent'
+            className='text-xl font-bold bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent relative'
             whileHover={{ scale: 1.05 }}
             onClick={e => {
               e.preventDefault()
-              window.scrollTo({ top: 0, behavior: 'smooth' })
+              if (isSlideshow && onSectionChange) {
+                onSectionChange(0)
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }
             }}
           >
             H.L
+            {isSlideshow && currentSection === 0 && (
+              <motion.div
+                className='absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-fuchsia-500'
+                layoutId='activeTab'
+                initial={false}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              />
+            )}
           </motion.a>
 
           {/* Desktop Navigation */}
