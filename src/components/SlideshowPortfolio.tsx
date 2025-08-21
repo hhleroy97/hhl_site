@@ -62,25 +62,34 @@ export default function SlideshowPortfolio() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [nextSection, prevSection, navigateToSection])
 
-  // Wheel navigation (optional - can be disabled if too sensitive)
+  // Wheel navigation with improved sensitivity control
   useEffect(() => {
     let isScrolling = false
+    let scrollAccumulator = 0
+    const scrollThreshold = 100
+    const cooldownTime = 1500
 
     const handleWheel = (e: WheelEvent) => {
       if (isScrolling) return
 
       e.preventDefault()
-      isScrolling = true
 
-      if (e.deltaY > 0) {
-        nextSection()
-      } else {
-        prevSection()
+      scrollAccumulator += Math.abs(e.deltaY)
+
+      if (scrollAccumulator >= scrollThreshold) {
+        isScrolling = true
+        scrollAccumulator = 0
+
+        if (e.deltaY > 0) {
+          nextSection()
+        } else {
+          prevSection()
+        }
+
+        setTimeout(() => {
+          isScrolling = false
+        }, cooldownTime)
       }
-
-      setTimeout(() => {
-        isScrolling = false
-      }, 1000)
     }
 
     window.addEventListener('wheel', handleWheel, { passive: false })
