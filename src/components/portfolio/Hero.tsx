@@ -42,7 +42,7 @@ export default function Hero() {
 
   return (
     <section
-      className='relative min-h-screen flex items-start justify-start overflow-hidden pt-0'
+      className='relative min-h-screen flex items-center justify-center overflow-hidden pt-0'
       aria-label='Hartley H. Leroy - Creative Technologist & AI Engineer'
     >
       {/* 3D Background Layer - Dynamic background integration */}
@@ -71,8 +71,8 @@ export default function Hero() {
       {/* Performance Display */}
       <PerformanceDisplay showDetails={true} />
 
-      {/* Content Container - Premium Spacing */}
-      <div className='w-full flex items-start justify-center px-6 md:px-16 pt-16 md:pt-24 pb-12 md:pb-16 relative z-30'>
+      {/* Content Container - Above the fold positioning */}
+      <div className='w-full flex items-center justify-center px-6 md:px-16 py-8 md:py-12 relative z-30'>
         <motion.div
           className='w-full max-w-6xl pointer-events-auto relative'
           initial={{ opacity: 0, y: 40 }}
@@ -138,7 +138,7 @@ export default function Hero() {
 
           {/* Premium Impact Metrics - Interactive Cards */}
           <motion.div
-            className='grid grid-cols-1 gap-6 md:gap-8 relative z-10 mt-8 md:mt-12'
+            className='grid grid-cols-1 gap-4 md:gap-5 relative z-10 mt-6 md:mt-8'
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.0 }}
@@ -146,7 +146,7 @@ export default function Hero() {
             {metrics.map((metric, index) => (
               <motion.div
                 key={index}
-                className={`group relative p-6 md:p-8 rounded-2xl bg-gradient-to-r from-${metric.bgColor} to-${metric.bgColor}/60 border border-${metric.borderColor} 
+                className={`group relative p-4 md:p-6 rounded-2xl bg-gradient-to-r from-${metric.bgColor} to-${metric.bgColor}/60 border border-${metric.borderColor} 
                     transition-all duration-700 cursor-pointer overflow-hidden backdrop-blur-sm shadow-lg hover:shadow-2xl`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -168,9 +168,9 @@ export default function Hero() {
                 />
 
                 <div className='flex items-center justify-between relative z-10'>
-                  <div className='space-y-3 md:space-y-4 flex-1'>
+                  <div className='space-y-2 md:space-y-3 flex-1'>
                     <div
-                      className={`text-2xl md:text-4xl font-black text-${metric.color} relative group-hover:scale-105 transition-transform duration-300`}
+                      className={`text-xl md:text-3xl font-black text-${metric.color} relative group-hover:scale-105 transition-transform duration-300`}
                     >
                       <span className='relative z-10'>{metric.value}</span>
                       <span
@@ -179,10 +179,10 @@ export default function Hero() {
                         {metric.value}
                       </span>
                     </div>
-                    <div className='text-lg md:text-xl font-bold text-tech-text-primary group-hover:text-white transition-colors duration-300'>
+                    <div className='text-base md:text-lg font-bold text-tech-text-primary group-hover:text-white transition-colors duration-300'>
                       {metric.label}
                     </div>
-                    <p className='text-sm md:text-base text-tech-text-secondary leading-[1.6] group-hover:text-tech-text-primary transition-colors duration-300'>
+                    <p className='text-xs md:text-sm text-tech-text-secondary leading-[1.5] group-hover:text-tech-text-primary transition-colors duration-300'>
                       {metric.detail}
                     </p>
                   </div>
@@ -203,7 +203,7 @@ export default function Hero() {
 
           {/* Refined CTAs - Clear Hierarchy */}
           <motion.div
-            className='flex flex-col sm:flex-row gap-4 md:gap-6 pt-8 md:pt-12 relative z-10'
+            className='flex flex-col sm:flex-row gap-3 md:gap-4 pt-6 md:pt-8 relative z-10'
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.6 }}
@@ -211,7 +211,7 @@ export default function Hero() {
             {/* Primary CTA */}
             <motion.a
               href='#experience'
-              className='group relative px-8 md:px-10 py-4 md:py-5 rounded-2xl bg-tech-coral text-white font-bold text-lg md:text-xl text-center overflow-hidden transition-all duration-400 mobile-touch-target shadow-lg hover:shadow-2xl'
+              className='group relative px-6 md:px-8 py-3 md:py-4 rounded-2xl bg-tech-coral text-white font-bold text-base md:text-lg text-center overflow-hidden transition-all duration-400 mobile-touch-target shadow-lg hover:shadow-2xl'
               whileHover={{
                 scale: 1.03,
                 y: -3,
@@ -228,7 +228,7 @@ export default function Hero() {
             {/* Secondary CTA */}
             <motion.a
               href='#contact'
-              className='group relative px-8 md:px-10 py-4 md:py-5 rounded-2xl border-2 border-tech-text-muted/30 text-tech-text-primary font-semibold text-lg md:text-xl text-center hover:border-tech-coral hover:text-tech-coral transition-all duration-400 overflow-hidden mobile-touch-target backdrop-blur-sm'
+              className='group relative px-6 md:px-8 py-3 md:py-4 rounded-2xl border-2 border-tech-text-muted/30 text-tech-text-primary font-semibold text-base md:text-lg text-center hover:border-tech-coral hover:text-tech-coral transition-all duration-400 overflow-hidden mobile-touch-target backdrop-blur-sm'
               whileHover={{
                 scale: 1.02,
                 y: -2,
