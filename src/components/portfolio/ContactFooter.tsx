@@ -65,13 +65,13 @@ export default function ContactFooter() {
             transition={{ duration: 0.8 }}
           >
             <motion.div
-              className='inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-sm font-medium mb-6'
+              className='inline-flex items-center gap-3 px-6 py-3 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-lg font-medium mb-6'
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <div className='w-2 h-2 bg-cyan-400 rounded-full animate-pulse' />
+              <div className='w-3 h-3 bg-cyan-400 rounded-full animate-pulse' />
               Contact
             </motion.div>
             <h2 className='text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
