@@ -2,17 +2,25 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Navigation from './ui/Navigation'
 import NewHero from './portfolio/NewHero'
-import LiveDataLoom from './portfolio/LiveDataLoom'
 import Services from './portfolio/Services'
+import WorkExperience from './portfolio/WorkExperience'
 import NewAbout from './portfolio/NewAbout'
-import TestimonialsPlaceholder from './portfolio/TestimonialsPlaceholder'
+import SkillsTools from './portfolio/SkillsTools'
 import ContactFooter from './portfolio/ContactFooter'
 
 export default function RefactoredPortfolio() {
   return (
-    <div className="relative min-h-screen bg-zinc-900 text-white">
+    <div className="relative min-h-screen bg-zinc-900 text-white overflow-x-hidden">
       {/* Navigation */}
       <Navigation />
+
+      {/* Background elements */}
+      <div className="fixed inset-0 pointer-events-none">
+        {/* Floating data streams */}
+        <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent animate-pulse" style={{ animationDuration: '3s' }} />
+        <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-fuchsia-400/20 to-transparent animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+        <div className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent animate-pulse" style={{ animationDuration: '5s', animationDelay: '2s' }} />
+      </div>
 
       {/* Main Content */}
       <motion.main
@@ -21,20 +29,20 @@ export default function RefactoredPortfolio() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        {/* Hero Section - LCP optimized */}
+        {/* Hero Section */}
         <NewHero />
 
-        {/* Live Data Loom Showcase */}
-        <LiveDataLoom />
-
-        {/* Services */}
+        {/* Services - What I Do */}
         <Services />
+
+        {/* Work Experience */}
+        <WorkExperience />
 
         {/* About */}
         <NewAbout />
 
-        {/* Testimonials Placeholder */}
-        <TestimonialsPlaceholder />
+        {/* Skills & Tools */}
+        <SkillsTools />
 
         {/* Contact & Footer */}
         <ContactFooter />

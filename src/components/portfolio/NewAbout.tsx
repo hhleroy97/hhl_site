@@ -1,106 +1,104 @@
 import { motion } from 'framer-motion'
 
-const tools = [
-  { name: 'AWS IoT', category: 'Cloud' },
-  { name: 'Kinesis', category: 'Cloud' },
-  { name: 'S3', category: 'Cloud' },
-  { name: 'Athena', category: 'Cloud' },
-  { name: 'ROS2', category: 'Robotics' },
-  { name: 'PX4', category: 'Robotics' },
-  { name: 'TouchDesigner', category: 'Creative' },
-  { name: 'React Three Fiber', category: 'Creative' },
-  { name: 'Python', category: 'Language' },
-  { name: 'TypeScript', category: 'Language' }
-]
-
-const categoryColors = {
-  Cloud: 'from-blue-400 to-cyan-400',
-  Robotics: 'from-green-400 to-emerald-400', 
-  Creative: 'from-fuchsia-400 to-pink-400',
-  Language: 'from-amber-400 to-orange-400'
-}
-
 export default function NewAbout() {
   return (
-    <section className="py-20 md:py-28">
-      <div className="container-custom">
-        <div className="grid lg:grid-cols-[2fr,1fr] gap-12 items-start">
+    <section id="about" className="py-24 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-zinc-900/40 to-zinc-900/70" />
+      <div className="absolute top-1/3 left-1/4 w-32 h-px bg-gradient-to-r from-emerald-500/30 to-transparent" />
+      <div className="absolute bottom-1/3 right-1/4 w-24 h-px bg-gradient-to-l from-cyan-500/30 to-transparent" />
+      
+      <div className="container-custom relative z-10">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-sm font-medium mb-6"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <h2 className="text-section-heading mb-6">About</h2>
-            
-            <div className="prose prose-invert prose-lg max-w-none">
-              <p className="text-zinc-300 leading-relaxed mb-6">
-                I'm a creative technologist who bridges the gap between complex data systems 
-                and human-centered experiences. With 8+ years across robotics, cloud infrastructure, 
-                and interactive media, I help teams turn ambitious technical visions into 
-                scalable realities.
-              </p>
-              
-              <p className="text-zinc-300 leading-relaxed">
-                Whether it's orchestrating autonomous drone fleets, building real-time data 
-                pipelines that handle terabytes daily, or creating immersive visualizations 
-                that make complex systems intuitive — I thrive at the intersection of 
-                engineering rigor and creative problem-solving.
-              </p>
-            </div>
+            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+            About
+          </motion.div>
+        </motion.div>
 
+        <div className="max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-[1fr,300px] gap-16 items-center">
+            {/* Content */}
             <motion.div
-              className="mt-8"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
+              className="space-y-8"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
             >
-              <h3 className="text-lg font-semibold mb-4 text-zinc-200">Tools & Technologies</h3>
-              <div className="flex flex-wrap gap-2">
-                {tools.map((tool, index) => (
-                  <motion.span
-                    key={tool.name}
-                    className={`px-3 py-1.5 text-sm rounded-full bg-gradient-to-r ${
-                      categoryColors[tool.category as keyof typeof categoryColors]
-                    } bg-opacity-10 ring-1 ring-white/20 text-white hover:ring-white/40 transition-all duration-200`}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ 
-                      delay: 0.4 + (index * 0.05), 
-                      duration: 0.4,
-                      type: "spring",
-                      stiffness: 150
-                    }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    {tool.name}
-                  </motion.span>
-                ))}
+              <div className="prose prose-invert prose-xl max-w-none">
+                <p className="text-2xl text-zinc-300 leading-relaxed font-light mb-8">
+                  I'm a <span className="text-cyan-400 font-medium">creative technologist</span> who engineers systems that move — and move people.
+                </p>
+                
+                <p className="text-lg text-zinc-400 leading-relaxed mb-6">
+                  With experience across robotics, cloud systems, and interactive visuals, I bring a rare blend of technical rigor and artistic vision to the table. Whether building autonomous fleets or crafting audio-reactive visuals, I help ideas become systems.
+                </p>
+                
+                <blockquote className="border-l-4 border-gradient-to-b border-cyan-400 pl-6 py-4 bg-white/5 rounded-r-lg">
+                  <p className="text-xl text-white font-medium italic">
+                    "The future belongs to those who can bridge the gap between imagination and implementation."
+                  </p>
+                </blockquote>
               </div>
             </motion.div>
-          </motion.div>
 
-          {/* Subtle avatar/sprite area */}
-          <motion.div
-            className="hidden lg:block"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <div className="relative">
-              <div className="w-48 h-48 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 ring-1 ring-white/20 backdrop-blur-md flex items-center justify-center">
-                {/* Simple geometric avatar or could be replaced with actual image */}
-                <div className="w-24 h-24 rounded-full bg-gradient-to-r from-cyan-400 to-fuchsia-500 opacity-60" />
+            {/* Photo/Avatar */}
+            <motion.div
+              className="relative flex justify-center lg:justify-end"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <div className="relative">
+                {/* Main photo container */}
+                <div className="w-64 h-80 relative overflow-hidden rounded-2xl bg-gradient-to-b from-white/10 to-white/5 border border-white/20">
+                  {/* Photo placeholder - replace with actual photo */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-fuchsia-500/20 to-emerald-500/20">
+                    <img 
+                      src="/src/assets/prof-pic-2.jpg"
+                      alt="Hartley Leroy"
+                      className="w-full h-full object-cover object-center"
+                      onError={(e) => {
+                        // Fallback if image doesn't exist
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        target.parentElement!.innerHTML = `
+                          <div class="w-full h-full flex items-center justify-center">
+                            <div class="w-32 h-32 rounded-full bg-gradient-to-r from-cyan-400 to-fuchsia-500 opacity-80"></div>
+                          </div>
+                        `;
+                      }}
+                    />
+                  </div>
+                  
+                  {/* Overlay effects */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/60 via-transparent to-transparent" />
+                </div>
+                
+                {/* Floating elements */}
+                <div className="absolute -top-4 -right-4 w-6 h-6 rounded-full bg-cyan-400 animate-pulse shadow-lg shadow-cyan-400/50" />
+                <div className="absolute -bottom-4 -left-4 w-4 h-4 rounded-full bg-fuchsia-500 animate-pulse shadow-lg shadow-fuchsia-500/50" style={{ animationDelay: '1s' }} />
+                <div className="absolute top-1/2 -left-6 w-3 h-3 rounded-full bg-emerald-400 animate-pulse shadow-lg shadow-emerald-400/50" style={{ animationDelay: '0.5s' }} />
+                
+                {/* Glow effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-fuchsia-500/10 to-emerald-500/10 blur-xl -z-10" />
               </div>
-              
-              {/* Floating accent elements */}
-              <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-cyan-400 animate-pulse" />
-              <div className="absolute -bottom-2 -left-2 w-3 h-3 rounded-full bg-fuchsia-500 animate-pulse" style={{ animationDelay: '1s' }} />
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
