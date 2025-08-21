@@ -41,9 +41,9 @@ export default function NewHero() {
               transition={{ delay: 0.4, duration: 0.8 }}
             >
               Turning data into{' '}
-              <span className='text-cyan-400 font-medium'>art</span>,{' '}
-              <span className='text-fuchsia-400 font-medium'>insight</span>, and{' '}
-              <span className='text-emerald-400 font-medium'>autonomy</span> —
+              <span className='text-cyan-400 font-bold'>art</span>,{' '}
+              <span className='text-fuchsia-400 font-bold'>insight</span>, and{' '}
+              <span className='text-emerald-400 font-bold'>autonomy</span> —
               bridging infrastructure and imagination.
             </motion.h2>
 
