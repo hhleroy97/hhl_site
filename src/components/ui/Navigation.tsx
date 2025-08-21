@@ -149,7 +149,7 @@ export default function Navigation({
         {/* Mobile Menu */}
         <motion.div
           className={`md:hidden overflow-hidden ${
-            isScrolled
+            isSlideshow
               ? 'bg-zinc-900/95 backdrop-blur-md'
               : 'bg-zinc-900/90 backdrop-blur-sm'
           }`}

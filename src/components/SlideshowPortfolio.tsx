@@ -228,7 +228,6 @@ export default function SlideshowPortfolio() {
             backgroundImage:
               'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)',
             backgroundSize: '50px 50px',
-            animation: 'float 20s ease-in-out infinite',
           }}
         />
 
@@ -246,18 +245,6 @@ export default function SlideshowPortfolio() {
           style={{ animationDuration: '5s', animationDelay: '2s' }}
         />
       </div>
-
-      <style jsx>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-      `}</style>
     </div>
   )
 }
