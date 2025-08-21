@@ -40,11 +40,12 @@ export default function NewHero() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              Bridging infrastructure and imagination.
-              <br />I turn data into{' '}
+              Turning data into{' '}
               <span className='text-cyan-400 font-bold'>art</span>,{' '}
               <span className='text-fuchsia-400 font-bold'>insights</span>, and{' '}
               <span className='text-emerald-400 font-bold'>autonomy</span>.
+              <br />
+              Bridging infrastructure and imagination.
             </motion.h2>
 
             {/* Subtitle */}
