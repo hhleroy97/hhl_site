@@ -72,10 +72,14 @@ export default function ContactFooter() {
               transition={{ delay: 0.2, duration: 0.6 }}
             >
               <div className='w-2 h-2 bg-cyan-400 rounded-full animate-pulse' />
-              Get In Touch
-            </motion.div>
-            <h2 className='text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
               Contact
+            </motion.div>
+            <h2 className='text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
+              Let's build something that moves —
+              <br />
+              <span className='bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent'>
+                and moves people
+              </span>
             </h2>
           </motion.div>
 

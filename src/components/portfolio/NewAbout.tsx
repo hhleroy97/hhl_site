@@ -26,9 +26,6 @@ export default function NewAbout() {
             <div className='w-2 h-2 bg-emerald-400 rounded-full animate-pulse' />
             About
           </motion.div>
-          <h2 className='text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
-            About
-          </h2>
         </motion.div>
 
         <div className='max-w-5xl mx-auto'>
