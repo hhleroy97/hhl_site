@@ -1,6 +1,6 @@
 # Hartley H. Leroy - Portfolio Website
 
-> Engineer • Builder • Creative Technologist
+> ENGINEER • BUILDER • CREATIVE TECHNOLOGIST
 
 A modern, high-performance portfolio website built with React, TypeScript, and cutting-edge web technologies. Features a professional cyberpunk-inspired design with accessibility-first approach, smooth animations, and excellent user experience across all devices.
 

@@ -12,7 +12,7 @@ export default defineConfig({
       manifest: {
         name: 'Hartley H. Leroy - Portfolio',
         short_name: 'HHL Portfolio',
-        description: 'Engineer, Builder, Creative Technologist',
+        description: 'ENGINEER, BUILDER, CREATIVE TECHNOLOGIST',
         theme_color: '#00ffff',
         background_color: '#000000',
         display: 'standalone',

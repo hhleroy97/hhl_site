@@ -3,14 +3,25 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --accent: 0 255 204; /* Cyan for primary accent */
+    --accent-secondary: 255 71 255; /* Fuchsia for secondary accent */
+    --background: 10 15 28; /* Deep dark background */
+  }
+
   html {
-    @apply bg-tech-dark text-text-primary font-body antialiased;
+    @apply bg-zinc-900 text-white font-sans antialiased;
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-tech-dark text-text-primary;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    @apply bg-zinc-900 text-white;
+    font-family:
+      'Inter',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    background: rgb(10 15 28);
   }
 
   /* Custom scrollbar */
@@ -44,6 +55,33 @@
     @apply outline-none;
   }
 
+  /* Hero fade mask for 3D background */
+  .hero-fade {
+    mask-image: radial-gradient(
+      60% 50% at 50% 40%,
+      black 60%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      60% 50% at 50% 40%,
+      black 60%,
+      transparent 100%
+    );
+  }
+
+  /* Glass card effects */
+  .glass-card {
+    @apply backdrop-blur-md bg-white/5 ring-1 ring-white/10 rounded-2xl;
+  }
+
+  /* LCP optimization - preload hero font */
+  @font-face {
+    font-family: 'Inter';
+    font-display: swap;
+    src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2')
+      format('woff2');
+  }
+
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -53,25 +91,68 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+
+    .hero-fade {
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
   }
 }
 
 @layer components {
-  /* Button styles */
-  .btn-primary {
-    @apply px-6 py-3 bg-accentWarm text-tech-dark font-medium rounded-lg transition-all duration-200 focus-ring;
+  /* Container utility */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6 md:px-8;
   }
 
-  .btn-primary:hover {
-    @apply bg-accentWarm/90 transform scale-105;
+  /* Button styles - new design system */
+  .btn-primary {
+    @apply relative inline-flex items-center gap-2 rounded-xl px-5 py-3 bg-white/10 ring-1 ring-white/15 backdrop-blur-md hover:scale-[1.02] transition-all duration-200;
+  }
+
+  .btn-primary::before {
+    content: '';
+    @apply absolute -inset-0.5 rounded-xl blur opacity-30 bg-gradient-to-r from-fuchsia-500 to-cyan-400 pointer-events-none;
+  }
+
+  .btn-primary span {
+    @apply relative z-10;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 bg-tech-dark-surface text-text-primary border border-accentCool/40 font-medium rounded-lg transition-all duration-200 focus-ring;
+    @apply inline-flex items-center gap-2 rounded-xl px-5 py-3 ring-1 ring-white/15 hover:bg-white/5 transition-all duration-200;
   }
 
-  .btn-secondary:hover {
-    @apply hover:bg-tech-dark-surface hover:text-text-primary active:scale-95;
+  /* Typography scale */
+  .text-hero {
+    @apply text-5xl md:text-7xl font-extrabold tracking-tight leading-[0.95];
+  }
+
+  .text-section-heading {
+    @apply text-2xl md:text-3xl font-semibold;
+  }
+
+  /* Micro-interactions */
+  .hover-lift {
+    @apply transition-all duration-200 hover:scale-[1.02] hover:-translate-y-1;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+  }
+
+  /* Link styles with tasteful underlines */
+  .link-elegant {
+    @apply underline decoration-1 underline-offset-4 hover:decoration-2 hover:underline-offset-2 transition-all duration-200;
+  }
+
+  /* Focus styles for accessibility */
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900;
   }
 
   /* Card styles */
@@ -223,7 +304,8 @@
 
   /* Custom animations */
   @keyframes float {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0px);
     }
     50% {
@@ -241,7 +323,8 @@
   }
 
   @keyframes pulse-glow {
-    0%, 100% {
+    0%,
+    100% {
       box-shadow: 0 0 20px rgba(255, 71, 87, 0.4);
     }
     50% {

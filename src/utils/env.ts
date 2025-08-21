@@ -8,7 +8,7 @@ export const env = {
     name: import.meta.env.VITE_SITE_NAME || 'Hartley H. Leroy',
     description:
       import.meta.env.VITE_SITE_DESCRIPTION ||
-      'Engineer • Builder • Creative Technologist',
+      'ENGINEER • BUILDER • CREATIVE TECHNOLOGIST',
   },
 
   contact: {

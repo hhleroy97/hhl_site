@@ -24,7 +24,9 @@
       "Bash(npx eslint:*)",
       "Bash(git revert:*)",
       "Bash(git config:*)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(cp:*)",
+      "Bash(rsync:*)"
     ],
     "defaultMode": "acceptEdits"
   }
