@@ -163,33 +163,7 @@ export default function Highlights() {
           })}
         </div>
 
-        {/* Call to action */}
-        <motion.div
-          className='text-center mt-12'
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <motion.a
-            href='#projects'
-            className='group relative inline-flex items-center px-6 py-3 border-2 border-accentWarm text-accentWarm 
-                     font-semibold rounded-xl hover:bg-accentWarm hover:text-tech-dark 
-                     transition-all duration-300 overflow-hidden backdrop-blur-sm'
-            whileHover={{ 
-              scale: 1.03,
-              y: -2,
-              transition: { duration: 0.2, ease: 'easeOut' }
-            }}
-            whileTap={{ scale: 0.98 }}
-          >
-            {/* Button glow effects */}
-            <div className='absolute inset-0 bg-accentWarm blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-400'></div>
-            <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10'></div>
-            
-            <span className='relative z-10'>View Case Studies</span>
-          </motion.a>
-        </motion.div>
+
       </div>
     </section>
   )

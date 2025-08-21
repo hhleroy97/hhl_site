@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import Hero from './portfolio/Hero'
 import Highlights from './portfolio/Highlights'
-import Projects from './portfolio/Projects'
 import About from './portfolio/About'
 import Experience from './portfolio/Experience'
 import Contact from './portfolio/Contact'
@@ -24,7 +23,6 @@ export default function PortfolioSection() {
     >
       <Hero />
       <Highlights />
-      <Projects />
       <About />
       <Experience />
       <Contact />
