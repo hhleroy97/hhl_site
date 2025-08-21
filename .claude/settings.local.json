@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(convert:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(npm install:*)",
+      "Bash(sed:*)",
+      "Bash(find:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run typecheck:*)",
+      "Bash(git commit:*)",
+      "Bash(npx tsc:*)",
+      "Bash(curl:*)",
+      "Bash(rm:*)",
+      "Bash(git stash show:*)",
+      "Bash(git stash:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npx eslint:*)",
+      "Bash(git revert:*)"
+    ],
+    "defaultMode": "acceptEdits"
+  }
+}

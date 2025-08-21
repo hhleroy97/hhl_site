@@ -43,32 +43,36 @@ export default function Contact() {
       name: 'GitHub',
       url: 'https://github.com/hartleyhleroy',
       icon: '',
-      color: 'tech-neon',
+      color: 'tech-teal',
     },
     {
       name: 'LinkedIn',
       url: 'https://linkedin.com/in/hartleyhleroy',
       icon: '',
-      color: 'tech-blue',
+      color: 'tech-coral',
     },
     {
       name: 'Instagram',
       url: 'https://instagram.com/hartleyhleroy',
       icon: '',
-      color: 'tech-pink',
+      color: 'tech-teal',
     },
     {
       name: 'Email',
       url: 'mailto:contact@hartleyleroy.dev',
       icon: '',
-      color: 'tech-purple',
+      color: 'tech-coral',
     },
   ]
 
   return (
-    <section id='contact' className='py-20 px-4 sm:px-6 lg:px-8'>
-      <div className='max-w-7xl mx-auto'>
-        {/* Section header */}
+    <section id='contact' className='py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'>
+      {/* Background depth layer */}
+      <div className='absolute inset-0 bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-dark opacity-90' />
+      <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-tech-coral/5 via-transparent to-tech-teal/5' />
+      
+      <div className='max-w-7xl mx-auto relative z-10'>
+        {/* Section header - Enhanced with disciplined glow */}
         <motion.div
           className='text-center mb-16'
           initial={{ opacity: 0, y: 30 }}
@@ -76,10 +80,20 @@ export default function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className='text-4xl sm:text-5xl font-cyber font-bold text-white mb-4'>
-            GET IN <span className='text-tech-neon'>TOUCH</span>
+          <h2 className='text-4xl sm:text-5xl font-cyber font-bold text-white mb-4 relative'>
+            GET IN{' '}
+            <span className='relative inline-block'>
+              <span className='text-tech-coral relative z-10'>TOUCH</span>
+              {/* Disciplined glow matching hero */}
+              <span className='absolute inset-0 text-tech-coral blur-sm opacity-40'>
+                TOUCH
+              </span>
+            </span>
           </h2>
-          <div className='w-24 h-1 bg-tech-neon mx-auto mb-6' />
+          <div className='w-24 h-1 bg-tech-coral mx-auto mb-6 relative'>
+            {/* Glow effect on accent line */}
+            <div className='absolute inset-0 bg-tech-coral blur-sm opacity-60'></div>
+          </div>
           <p className='text-lg text-gray-400 font-display max-w-2xl mx-auto'>
             Ready to collaborate on something amazing? Let's build the future
             together.
@@ -87,7 +101,7 @@ export default function Contact() {
         </motion.div>
 
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-16'>
-          {/* Contact Form */}
+          {/* Contact Form - Enhanced floating container */}
           <motion.div
             className='space-y-6'
             initial={{ opacity: 0, x: -50 }}
@@ -95,14 +109,21 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className='text-2xl font-cyber font-bold text-tech-neon mb-6'>
-              SEND MESSAGE
-            </h3>
+            <motion.h3 
+              className='text-2xl font-cyber font-bold text-tech-coral mb-6 relative'
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <span className='relative z-10'>SEND MESSAGE</span>
+              <span className='absolute inset-0 text-tech-coral blur-sm opacity-30'>SEND MESSAGE</span>
+            </motion.h3>
 
             <form onSubmit={handleSubmit} className='space-y-6'>
-              {/* Name field */}
+              {/* Name field - Enhanced with floating styling */}
               <motion.div
-                className='relative'
+                className='relative group'
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -114,22 +135,20 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
-                           rounded-lg text-white font-display placeholder-gray-500
-                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
-                           transition-all duration-300'
+                  className='w-full px-4 py-3 bg-tech-dark-surface/80 border-2 border-tech-coral/20 
+                           rounded-xl text-white font-display placeholder-gray-500
+                           focus:border-tech-coral focus:outline-none focus:ring-2 focus:ring-tech-coral/20
+                           transition-all duration-300 backdrop-blur-sm shadow-lg hover:shadow-xl
+                           group-hover:border-tech-coral/40'
                   placeholder='Your Name'
                 />
-                <motion.div
-                  className='absolute inset-0 border-2 border-tech-neon rounded-lg opacity-0'
-                  whileFocus={{ opacity: 1, scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                />
+                {/* Floating glow effect */}
+                <div className='absolute inset-0 bg-tech-coral/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm'></div>
               </motion.div>
 
-              {/* Email field */}
+              {/* Email field - Enhanced with floating styling */}
               <motion.div
-                className='relative'
+                className='relative group'
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -141,17 +160,20 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
-                           rounded-lg text-white font-display placeholder-gray-500
-                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
-                           transition-all duration-300'
+                  className='w-full px-4 py-3 bg-tech-dark-surface/80 border-2 border-tech-coral/20 
+                           rounded-xl text-white font-display placeholder-gray-500
+                           focus:border-tech-coral focus:outline-none focus:ring-2 focus:ring-tech-coral/20
+                           transition-all duration-300 backdrop-blur-sm shadow-lg hover:shadow-xl
+                           group-hover:border-tech-coral/40'
                   placeholder='Your Email'
                 />
+                {/* Floating glow effect */}
+                <div className='absolute inset-0 bg-tech-coral/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm'></div>
               </motion.div>
 
-              {/* Subject field */}
+              {/* Subject field - Enhanced with floating styling */}
               <motion.div
-                className='relative'
+                className='relative group'
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -163,17 +185,20 @@ export default function Contact() {
                   value={formData.subject}
                   onChange={handleInputChange}
                   required
-                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
-                           rounded-lg text-white font-display placeholder-gray-500
-                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
-                           transition-all duration-300'
+                  className='w-full px-4 py-3 bg-tech-dark-surface/80 border-2 border-tech-coral/20 
+                           rounded-xl text-white font-display placeholder-gray-500
+                           focus:border-tech-coral focus:outline-none focus:ring-2 focus:ring-tech-coral/20
+                           transition-all duration-300 backdrop-blur-sm shadow-lg hover:shadow-xl
+                           group-hover:border-tech-coral/40'
                   placeholder='Subject'
                 />
+                {/* Floating glow effect */}
+                <div className='absolute inset-0 bg-tech-coral/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm'></div>
               </motion.div>
 
-              {/* Message field */}
+              {/* Message field - Enhanced with floating styling */}
               <motion.div
-                className='relative'
+                className='relative group'
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -185,25 +210,29 @@ export default function Contact() {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className='w-full px-4 py-3 bg-tech-dark-alt border-2 border-tech-neon/30 
-                           rounded-lg text-white font-display placeholder-gray-500 resize-none
-                           focus:border-tech-neon focus:outline-none focus:ring-2 focus:ring-tech-neon/20
-                           transition-all duration-300'
+                  className='w-full px-4 py-3 bg-tech-dark-surface/80 border-2 border-tech-coral/20 
+                           rounded-xl text-white font-display placeholder-gray-500 resize-none
+                           focus:border-tech-coral focus:outline-none focus:ring-2 focus:ring-tech-coral/20
+                           transition-all duration-300 backdrop-blur-sm shadow-lg hover:shadow-xl
+                           group-hover:border-tech-coral/40'
                   placeholder='Your Message'
                 />
+                {/* Floating glow effect */}
+                <div className='absolute inset-0 bg-tech-coral/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm'></div>
               </motion.div>
 
-              {/* Submit button */}
+              {/* Submit button - Enhanced with premium styling */}
               <motion.button
                 type='submit'
                 disabled={isSubmitting}
-                className='w-full px-6 py-4 bg-tech-neon text-black font-cyber font-bold rounded-lg
-                         hover:bg-tech-pink hover:shadow-lg hover:shadow-tech-pink/30
+                className='group relative w-full px-6 py-4 bg-tech-coral text-tech-dark font-cyber font-bold rounded-xl
+                         hover:bg-tech-coral/90 hover:shadow-xl hover:shadow-tech-coral/30
                          disabled:opacity-50 disabled:cursor-not-allowed
-                         transition-all duration-300'
+                         transition-all duration-300 overflow-hidden backdrop-blur-sm'
                 whileHover={{
                   scale: isSubmitting ? 1 : 1.02,
-                  y: isSubmitting ? 0 : -2,
+                  y: isSubmitting ? 0 : -3,
+                  transition: { duration: 0.2, ease: 'easeOut' }
                 }}
                 whileTap={{ scale: 0.98 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -211,9 +240,13 @@ export default function Contact() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
+                {/* Button glow effects */}
+                <div className='absolute inset-0 bg-tech-coral blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-400'></div>
+                <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10'></div>
+                
                 {isSubmitting ? (
                   <motion.div
-                    className='flex items-center justify-center'
+                    className='flex items-center justify-center relative z-10'
                     animate={{ rotate: 360 }}
                     transition={{ repeat: Infinity, duration: 1 }}
                   >
@@ -221,25 +254,26 @@ export default function Contact() {
                     SENDING...
                   </motion.div>
                 ) : (
-                  'SEND MESSAGE'
+                  <span className='relative z-10'>SEND MESSAGE</span>
                 )}
               </motion.button>
             </form>
 
-            {/* Success message */}
+            {/* Success message - Enhanced with glow */}
             {submitStatus === 'success' && (
               <motion.div
-                className='p-4 bg-green-900/50 border border-green-500 rounded-lg text-green-300 font-display'
+                className='relative p-4 bg-green-900/50 border border-green-500 rounded-xl text-green-300 font-display backdrop-blur-sm'
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                Message sent successfully! I'll get back to you soon.
+                <div className='absolute inset-0 bg-green-500/10 rounded-xl blur-sm'></div>
+                <span className='relative z-10'>Message sent successfully! I'll get back to you soon.</span>
               </motion.div>
             )}
           </motion.div>
 
-          {/* Contact Info & Social Links */}
+          {/* Contact Info & Social Links - Enhanced floating containers */}
           <motion.div
             className='space-y-8'
             initial={{ opacity: 0, x: 50 }}
@@ -247,19 +281,35 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <h3 className='text-2xl font-cyber font-bold text-tech-neon mb-6'>
-              CONNECT WITH ME
-            </h3>
+            <motion.h3 
+              className='text-2xl font-cyber font-bold text-tech-coral mb-6 relative'
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <span className='relative z-10'>CONNECT WITH ME</span>
+              <span className='absolute inset-0 text-tech-coral blur-sm opacity-30'>CONNECT WITH ME</span>
+            </motion.h3>
 
-            {/* Direct contact info */}
+            {/* Direct contact info - Enhanced floating cards */}
             <div className='space-y-4'>
               <motion.div
-                className='flex items-center space-x-4 p-4 bg-tech-dark-alt rounded-lg border border-tech-neon/20'
-                whileHover={{ scale: 1.02, borderColor: '#00ffff' }}
+                className='group relative flex items-center space-x-4 p-4 bg-tech-dark-surface/80 rounded-xl border border-tech-coral/20 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300'
+                whileHover={{ 
+                  scale: 1.02,
+                  y: -2,
+                  borderColor: '#ff4757',
+                  transition: { duration: 0.2, ease: 'easeOut' }
+                }}
               >
-                <span className='text-2xl'>📧</span>
-                <div>
-                  <p className='font-cyber font-bold text-tech-neon'>Email</p>
+                {/* Depth effects */}
+                <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] rounded-xl pointer-events-none' />
+                <div className='absolute -top-8 -right-8 w-16 h-16 bg-tech-coral/8 rounded-full blur-2xl pointer-events-none group-hover:bg-tech-coral/12 transition-all duration-300' />
+                
+                <span className='text-2xl relative z-10'>📧</span>
+                <div className='relative z-10'>
+                  <p className='font-cyber font-bold text-tech-coral'>Email</p>
                   <p className='text-gray-300 font-display'>
                     contact@hartleyleroy.dev
                   </p>
@@ -267,12 +317,21 @@ export default function Contact() {
               </motion.div>
 
               <motion.div
-                className='flex items-center space-x-4 p-4 bg-tech-dark-alt rounded-lg border border-tech-neon/20'
-                whileHover={{ scale: 1.02, borderColor: '#00ffff' }}
+                className='group relative flex items-center space-x-4 p-4 bg-tech-dark-surface/80 rounded-xl border border-tech-teal/20 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300'
+                whileHover={{ 
+                  scale: 1.02,
+                  y: -2,
+                  borderColor: '#00d4aa',
+                  transition: { duration: 0.2, ease: 'easeOut' }
+                }}
               >
-                <span className='text-2xl'>📍</span>
-                <div>
-                  <p className='font-cyber font-bold text-tech-neon'>
+                {/* Depth effects */}
+                <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] rounded-xl pointer-events-none' />
+                <div className='absolute -top-8 -right-8 w-16 h-16 bg-tech-teal/8 rounded-full blur-2xl pointer-events-none group-hover:bg-tech-teal/12 transition-all duration-300' />
+                
+                <span className='text-2xl relative z-10'>📍</span>
+                <div className='relative z-10'>
+                  <p className='font-cyber font-bold text-tech-teal'>
                     Location
                   </p>
                   <p className='text-gray-300 font-display'>
@@ -282,10 +341,11 @@ export default function Contact() {
               </motion.div>
             </div>
 
-            {/* Social links */}
+            {/* Social links - Enhanced floating cards */}
             <div>
-              <h4 className='text-lg font-cyber font-bold text-white mb-4'>
-                SOCIAL LINKS
+              <h4 className='text-lg font-cyber font-bold text-white mb-4 relative'>
+                <span className='relative z-10'>SOCIAL LINKS</span>
+                <span className='absolute inset-0 text-white blur-sm opacity-20'>SOCIAL LINKS</span>
               </h4>
               <div className='grid grid-cols-2 gap-4'>
                 {socialLinks.map((link, index) => (
@@ -294,18 +354,26 @@ export default function Contact() {
                     href={link.url}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='flex items-center space-x-3 p-4 bg-tech-dark-alt rounded-lg 
-                             border border-gray-600 hover:border-tech-neon/60
-                             transition-all duration-300'
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
+                    className='group relative flex items-center space-x-3 p-4 bg-tech-dark-surface/80 rounded-xl 
+                             border border-gray-600/30 hover:border-tech-coral/40
+                             transition-all duration-300 backdrop-blur-sm shadow-lg hover:shadow-xl'
+                    whileHover={{ 
+                      scale: 1.02,
+                      y: -3,
+                      transition: { duration: 0.2, ease: 'easeOut' }
+                    }}
+                    whileTap={{ scale: 0.98 }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
                   >
-                    <span className='text-xl'>{link.icon}</span>
-                    <span className='font-cyber font-bold text-white'>
+                    {/* Depth effects */}
+                    <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] rounded-xl pointer-events-none' />
+                    <div className={`absolute -top-6 -right-6 w-12 h-12 bg-${link.color}/8 rounded-full blur-xl pointer-events-none group-hover:bg-${link.color}/12 transition-all duration-300`} />
+                    
+                    <span className='text-xl relative z-10'>{link.icon}</span>
+                    <span className='font-cyber font-bold text-white relative z-10 group-hover:text-tech-coral transition-colors duration-300'>
                       {link.name}
                     </span>
                   </motion.a>
@@ -313,7 +381,7 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Resume download */}
+            {/* Resume download - Enhanced with premium styling */}
             <motion.div
               className='pt-6'
               initial={{ opacity: 0, y: 20 }}
@@ -324,14 +392,22 @@ export default function Contact() {
               <motion.a
                 href='/resume.pdf'
                 download
-                className='inline-flex items-center px-6 py-3 border-2 border-tech-purple text-tech-purple 
-                         font-cyber font-bold rounded-lg hover:bg-tech-purple hover:text-black 
-                         hover:shadow-lg hover:shadow-tech-purple/30 transition-all duration-300'
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                className='group relative inline-flex items-center px-6 py-3 border-2 border-tech-coral text-tech-coral 
+                         font-cyber font-bold rounded-xl hover:bg-tech-coral hover:text-tech-dark 
+                         hover:shadow-xl hover:shadow-tech-coral/30 transition-all duration-300 overflow-hidden backdrop-blur-sm'
+                whileHover={{ 
+                  scale: 1.03,
+                  y: -3,
+                  transition: { duration: 0.2, ease: 'easeOut' }
+                }}
+                whileTap={{ scale: 0.98 }}
               >
-                <span className='mr-2'>📄</span>
-                DOWNLOAD RESUME
+                {/* Button glow effects */}
+                <div className='absolute inset-0 bg-tech-coral blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-400'></div>
+                <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10'></div>
+                
+                <span className='mr-2 relative z-10'>📄</span>
+                <span className='relative z-10'>DOWNLOAD RESUME</span>
               </motion.a>
             </motion.div>
           </motion.div>
