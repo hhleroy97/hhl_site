@@ -31,10 +31,19 @@ export const env = {
     email: import.meta.env.VITE_EMAIL || 'contact@hartleyleroy.dev',
   },
 
+  github: {
+    clientId: import.meta.env.VITE_GITHUB_CLIENT_ID,
+    clientSecret: import.meta.env.VITE_GITHUB_CLIENT_SECRET,
+    redirectUri:
+      import.meta.env.VITE_GITHUB_REDIRECT_URI ||
+      `${import.meta.env.VITE_SITE_URL || 'http://localhost:3000'}/auth/github/callback`,
+  },
+
   features: {
     animations: import.meta.env.VITE_ENABLE_ANIMATIONS === 'true',
     cyberpunkMode: import.meta.env.VITE_ENABLE_CYBERPUNK_MODE === 'true',
     contactForm: import.meta.env.VITE_ENABLE_CONTACT_FORM === 'true',
     analytics: import.meta.env.VITE_ENABLE_ANALYTICS === 'true',
+    githubAuth: import.meta.env.VITE_ENABLE_GITHUB_AUTH === 'true',
   },
 } as const
