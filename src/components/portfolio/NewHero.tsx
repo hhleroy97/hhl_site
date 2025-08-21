@@ -147,7 +147,7 @@ export default function NewHero() {
                   target.href = '/docs/Hartley_LeRoy_Resume_Aug25.docx'
                 }}
               >
-                View Résumé
+                View Resume
               </a>
               <a
                 href='#contact'

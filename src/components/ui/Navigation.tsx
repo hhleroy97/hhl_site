@@ -115,7 +115,7 @@ export default function Navigation() {
               onClick={handleResumeClick}
               className='hidden sm:inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/20 hover:ring-white/40 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105'
             >
-              Résumé
+              Resume
             </a>
 
             {/* Mobile Menu Button */}
@@ -184,7 +184,7 @@ export default function Navigation() {
               onClick={handleResumeClick}
               className='block mx-2 mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/20 rounded-lg text-sm font-medium text-center transition-all duration-200'
             >
-              Résumé
+              Resume
             </a>
           </div>
         </motion.div>
