@@ -55,8 +55,8 @@ export default function NewHero() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
-              Cloud & Creative Engineer — robotics fleet management, data
-              pipelines, and real-time visuals.
+              Cloud & Creative Engineer — crafting end-to-end systems from edge
+              to interface.
             </motion.p>
 
             {/* Status and contact info */}
