@@ -125,8 +125,6 @@ export function useHighlightsContent() {
   }
 }
 
-
-
 export function useAboutContent() {
   const { content, loading, error } = useSiteContent()
   return {
@@ -155,9 +153,8 @@ export function useNavigationContent() {
 }
 
 // Resume file detection helper
-export function getResumePath(): string {
-  const { content } = useSiteContent()
+export function getResumePath(content?: SiteContent | null): string {
   if (!content) return '/docs/Hartley_LeRoy_Resume_Aug25.docx.pdf'
-  
+
   return `/docs/${content.meta.resumeFile}`
-} 
+}
