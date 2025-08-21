@@ -36,22 +36,6 @@ export interface SiteContent {
     proof: string[]
     skill: string
   }>
-  projects: Array<{
-    slug: string
-    title: string
-    tags: string[]
-    problem: string
-    solution: string
-    results: string[]
-    stack: string[]
-    role: string
-    period: string
-    links: {
-      demo: string
-      repo: string
-    }
-    featured: boolean
-  }>
   about: {
     positioning: string
     bestAt: string[]
@@ -132,14 +116,7 @@ export function useHeroContent() {
   }
 }
 
-export function useProjectsContent() {
-  const { content, loading, error } = useSiteContent()
-  return {
-    projects: content?.projects,
-    loading,
-    error,
-  }
-}
+
 
 export function useAboutContent() {
   const { content, loading, error } = useSiteContent()

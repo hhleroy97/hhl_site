@@ -9,7 +9,6 @@
   "navigation": {
     "logo": "H.H.L",
     "links": [
-      { "label": "Work", "href": "#work" },
       { "label": "About", "href": "#about" },
       { "label": "Process", "href": "#process" },
       { "label": "Contact", "href": "#contact" }
@@ -23,7 +22,7 @@
   "hero": {
     "headline": "I build intelligent systems.",
     "subhead": "I design and deploy real-time AI for robotics and cloud infrastructure, turning sensor data into decisions with sub-100ms latency.",
-    "primaryCta": "View My Work",
+    "primaryCta": "Learn More",
     "secondaryCta": "Hire Me",
     "metrics": [
       {
@@ -64,72 +63,6 @@
       "how": "Streaming models across 1TB/day sensor data.",
       "proof": ["<100ms inference", "Blue/green deploys", "Monitoring & alerts"],
       "skill": "ml"
-    }
-  ],
-  "projects": [
-    {
-      "slug": "fleet-ingestion",
-      "title": "Autonomous Fleet Ingestion",
-      "tags": ["Infra", "ML"],
-      "problem": "Terabytes/day streaming from robots; rising costs & latency.",
-      "solution": "Kinesis + IoT Core + Glue/S3 pipeline; partitioned storage; autoscaling.",
-      "results": ["-32% cost", "-48% p95 latency", "10M+ msgs/day"],
-      "stack": ["AWS IoT", "Kinesis", "Glue", "S3", "Step Functions"],
-      "role": "Lead engineer",
-      "period": "2024–2025",
-      "links": {
-        "demo": "",
-        "repo": ""
-      },
-      "featured": true
-    },
-    {
-      "slug": "drone-autonomy",
-      "title": "ROS2 Drone Fleet Management",
-      "tags": ["Robotics", "ROS2"],
-      "problem": "Manual drone operations limiting scale and safety.",
-      "solution": "ROS2-based autonomous navigation with computer vision and failsafe systems.",
-      "results": ["100% autonomous flights", "<50ms decision loop", "Fleet coordination"],
-      "stack": ["ROS2", "PX4", "Python", "C++", "OpenCV"],
-      "role": "Software Engineer",
-      "period": "2024–2025",
-      "links": {
-        "demo": "",
-        "repo": ""
-      },
-      "featured": true
-    },
-    {
-      "slug": "ml-pipeline",
-      "title": "Real-time ML Pipeline",
-      "tags": ["ML", "Infra"],
-      "problem": "Batch ML processing causing 24+ hour delays for critical decisions.",
-      "solution": "Streaming ML pipeline with real-time feature engineering and model serving.",
-      "results": ["<100ms inference", "Real-time features", "99.9% uptime"],
-      "stack": ["Python", "TensorFlow", "Kafka", "Redis", "Docker"],
-      "role": "ML Engineer",
-      "period": "2023–2024",
-      "links": {
-        "demo": "",
-        "repo": ""
-      },
-      "featured": false
-    },
-    {
-      "slug": "iot-platform",
-      "title": "IoT Data Platform",
-      "tags": ["Infra", "IoT"],
-      "problem": "Fragmented IoT data across multiple systems and formats.",
-      "solution": "Unified IoT platform with standardized ingestion, processing, and visualization.",
-      "results": ["Single source of truth", "Real-time dashboards", "Scalable architecture"],
-      "stack": ["AWS IoT", "Lambda", "DynamoDB", "CloudWatch", "React"],
-      "role": "Platform Engineer",
-      "period": "2023–2024",
-      "links": {
-        "demo": "",
-        "repo": ""
-      },
-      "featured": false
     }
   ],
   "about": {

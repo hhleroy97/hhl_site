@@ -227,7 +227,7 @@ export default function Hero() {
           >
             {/* Primary CTA */}
             <motion.a
-              href='#work'
+              href='#about'
               className='group relative px-6 md:px-8 py-3 md:py-4 rounded-2xl bg-accentWarm text-tech-dark font-bold text-base md:text-lg text-center overflow-hidden transition-all duration-400 mobile-touch-target shadow-lg hover:shadow-xl'
               whileHover={{
                 scale: 1.03,
