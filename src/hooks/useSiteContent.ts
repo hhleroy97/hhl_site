@@ -116,6 +116,15 @@ export function useHeroContent() {
   }
 }
 
+export function useHighlightsContent() {
+  const { content, loading, error } = useSiteContent()
+  return {
+    highlights: content?.highlights,
+    loading,
+    error,
+  }
+}
+
 
 
 export function useAboutContent() {

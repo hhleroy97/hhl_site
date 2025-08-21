@@ -49,50 +49,27 @@ const experiences = [
   {
     id: '4',
     company: 'Delphi Digital',
-    role: 'Blockchain Research Analyst',
-    duration: 'Nov 2021 – Jan 2023',
+    role: 'Research Analyst',
+    duration: 'Jun 2022 – Dec 2022',
     description: [
-      'Analyzed blockchain tokenomics, governance, and infrastructure',
-      'Built Python/SQL research tools; delivered data-driven reports for institutional investors',
+      'Published medical innovation research in JAMA (2023)',
+      'Delivered institutional investor reports on blockchain tokenomics',
+      'Developed Python/SQL research tools for data analysis',
     ],
-    technologies: ['Python', 'SQL', 'Blockchain', 'Data Analysis'],
-    type: 'technical' as const,
-  },
-  {
-    id: '5',
-    company: 'Softhread Inc.',
-    role: 'Software Engineer – Front End',
-    duration: 'Nov 2020 – Nov 2021',
-    description: [
-      'Developed React/Vue/Next.js components for a privacy-focused blockchain platform',
-      'Collaborated on API design for blockchain transactions',
-    ],
-    technologies: ['React', 'Vue', 'Next.js', 'JavaScript', 'API Design'],
-    type: 'technical' as const,
-  },
-  {
-    id: '6',
-    company: 'FDA – CDRH',
-    role: 'ORISE Fellow',
-    duration: 'Aug 2020 – Nov 2021',
-    description: [
-      'Supported AI and blockchain strategy; coordinated cross-team projects',
-      'Contributed to published medical innovation research (JAMA, 2023)',
-    ],
-    technologies: ['AI Strategy', 'Research', 'Cross-functional Collaboration'],
-    type: 'technical' as const,
+    technologies: ['Python', 'SQL', 'Research', 'Blockchain', 'JAMA Publication'],
+    type: 'research' as const,
   },
 ]
 
 export default function Experience() {
   return (
-    <section id='experience' className='py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'>
+    <section id='experience' className='min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'>
       {/* Background depth layer */}
-      <div className='absolute inset-0 bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-dark opacity-90' />
-      <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-tech-teal/5 via-transparent to-tech-coral/5' />
-      
-      <div className='max-w-7xl mx-auto relative z-10'>
-        {/* Section header - Enhanced with disciplined glow */}
+      <div className='absolute inset-0 bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-dark opacity-95' />
+      <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accentPurple/5 via-transparent to-accentWarm/5' />
+
+      <div className='max-w-7xl mx-auto w-full relative z-10'>
+        {/* Section header */}
         <motion.div
           className='text-center mb-16'
           initial={{ opacity: 0, y: 30 }}
@@ -100,32 +77,29 @@ export default function Experience() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className='text-4xl md:text-5xl font-black text-text-primary mb-6 relative'>
-            <span className='relative z-10'>Professional Experience</span>
-            <span className='absolute inset-0 text-tech-teal/20 blur-sm'>Professional Experience</span>
+          <h2 className='text-h2 font-bold text-text-primary mb-4'>
+            Work <span className='text-accentPurple text-glow-purple'>Experience</span>
           </h2>
-          <div className='w-24 h-1 bg-tech-teal mx-auto mb-6 relative'>
-            {/* Glow effect on accent line */}
-            <div className='absolute inset-0 bg-tech-teal blur-sm opacity-60'></div>
-          </div>
-          <p className='text-lg md:text-xl text-tech-text-secondary max-w-4xl mx-auto leading-relaxed mt-4'>
-            Building scalable systems and leading technical teams across robotics,
-            blockchain, and cloud infrastructure with a focus on real-world impact.
+          <div className='w-24 h-1 bg-accentPurple mx-auto mb-6' />
+          <p className='text-body text-text-secondary max-w-2xl mx-auto'>
+            My professional journey across robotics, product management, and research
           </p>
         </motion.div>
 
-        {/* Experience cards - Enhanced with floating containers */}
-        <motion.div
-          className='grid gap-8 md:gap-12 max-w-5xl mx-auto'
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          {experiences.map((exp, index) => (
-            <ExperienceCard key={exp.id} experience={exp} index={index} />
+        {/* Experience cards */}
+        <div className='space-y-8'>
+          {experiences.map((experience, index) => (
+            <motion.div
+              key={experience.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              <ExperienceCard experience={experience} />
+            </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )
