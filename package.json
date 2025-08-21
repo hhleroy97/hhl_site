@@ -1,7 +1,7 @@
 {
   "name": "hartley-leroy-portfolio",
   "version": "1.0.0",
-  "description": "Personal portfolio website for Hartley H. Leroy - Engineer, Builder, Creative Technologist",
+  "description": "Personal portfolio website for Hartley H. Leroy - ENGINEER, BUILDER, CREATIVE TECHNOLOGIST",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -37,13 +37,13 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
         animate={{ rotate: 360 }}
         transition={{ duration: 1.2, repeat: Infinity, ease: 'linear' }}
       >
-        <div className='absolute inset-0 rounded-full border-2 border-tech-text-disabled/20' />
-        <div className='absolute inset-0 rounded-full border-2 border-transparent border-t-tech-neon' />
+        <div className='absolute inset-0 rounded-full border-2 border-zinc-600/20' />
+        <div className='absolute inset-0 rounded-full border-2 border-transparent border-t-cyan-400' />
       </motion.div>
 
       {text && (
         <motion.p
-          className={`text-tech-text-secondary font-body ${textSizes[size]} mt-4 font-medium`}
+          className={`text-zinc-300 ${textSizes[size]} mt-4 font-medium`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
