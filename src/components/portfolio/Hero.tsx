@@ -5,7 +5,7 @@ import PerformanceDisplay from '@components/ui/PerformanceDisplay'
 export default function Hero() {
   return (
     <section
-      className='relative pt-24 pb-20 px-8 lg:px-16 min-h-screen flex items-center'
+      className='relative py-16 px-8 lg:px-16 min-h-screen flex items-center'
       aria-label='Introduction and hero section'
     >
       {/* 3D Background - Full container */}
