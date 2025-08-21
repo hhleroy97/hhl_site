@@ -504,7 +504,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
     })
 
     // Neural network connections (selective connections for cleaner visualization)
-    const connections = []
+    const connections: [number, number][] = []
 
     // Input layer (0-8: 3x3 grid) to Hidden layer 1 (9-20: 12 nodes) - clear layer connections
     const inputToHidden1 = [
@@ -742,7 +742,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
         fromNodeIndex: fromIdx,
         toNodeIndex: toIdx,
         progress: Math.random(), // Random starting progress along path
-        speed: 0.002 + Math.random() * 0.004,
+        speed: 0.001 + Math.random() * 0.002,
         connectionIndex: connectionIndex,
         sourceColor: from.color, // Store the original source node color
       }
@@ -801,10 +801,15 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
     // Animation loop
     let animationId: number
     const animate = () => {
-      // Gentle node box animation - use refs and account for box+outline pairs
-      nodeBoxesRef.current.forEach(box => {
-        // Remove rotation to fix parallax issues
-        box.rotation.set(0, 0, 0)
+      // Gentle node box animation with slow drift for background layer
+      nodeBoxesRef.current.forEach((box, index) => {
+        // Very slow rotation for graceful background motion
+        const time = Date.now() * 0.0001
+        const isMainBox = index % 2 === 0 // Every other is main box (not outline)
+        if (isMainBox) {
+          box.rotation.y = Math.sin(time + index * 0.1) * 0.05
+          box.rotation.x = Math.cos(time * 0.7 + index * 0.05) * 0.03
+        }
       })
 
       // Keep connection lines stable
@@ -813,10 +818,11 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
         material.opacity = 0.4
       })
 
-      // Animate data particles through network
+      // Animate data particles through network with slower, graceful motion
       particlesRef.current.forEach(particle => {
         const userData = particle.userData
-        userData.progress += userData.speed
+        // Slower particle speed for graceful background drift
+        userData.progress += userData.speed * 0.3
 
         if (userData.progress <= 1) {
           // Get current node positions from the actual scene objects
@@ -877,9 +883,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
           }
         }
 
-        // Particle glow effect
-        particle.rotation.x += 0.03
-        particle.rotation.y += 0.04
+        // Gentle particle glow effect for background
+        particle.rotation.x += 0.01
+        particle.rotation.y += 0.015
       })
 
       // Update orbit controls
