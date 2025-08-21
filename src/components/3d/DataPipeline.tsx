@@ -771,31 +771,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         </div>
       </div>
       
-      {/* System architecture labels */}
-      <div className="absolute top-4 left-4 text-xs text-tech-text-muted font-mono bg-tech-dark/50 px-2 py-1 rounded">
-        <div className="mb-1">Deep Learning Architecture</div>
-        <div className="text-tech-teal">27 nodes • 3×3→8→5→3→2 layers</div>
-      </div>
-      
-      {/* Network type indicators */}
-      <div className="absolute bottom-4 left-4 text-xs text-tech-text-muted font-mono bg-tech-dark/50 px-2 py-1 rounded">
-        <div className="flex flex-col gap-1">
-          <div><span className="text-green-400">●</span> Input Grid (3×3)</div>
-          <div><span className="text-blue-400">●</span> Features (8)</div>
-          <div><span className="text-purple-400">●</span> Patterns (5)</div>
-          <div><span className="text-orange-400">●</span> Concepts (3)</div>
-          <div><span className="text-pink-400">●</span> Classes (2)</div>
-        </div>
-      </div>
-      
-      {/* Network characteristics */}
-      <div className="absolute bottom-4 right-4 text-xs text-tech-text-muted font-mono bg-tech-dark/50 px-2 py-1 rounded">
-        <div className="flex flex-col gap-1">
-          <div>Feedforward Network</div>
-          <div>Fully Connected</div>
-          <div>Multi-Layer Perceptron</div>
-        </div>
-      </div>
+
     </div>
   )
 }
