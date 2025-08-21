@@ -5,7 +5,7 @@ import PerformanceDisplay from '@components/ui/PerformanceDisplay'
 export default function Hero() {
   return (
     <section
-      className='relative pt-20 pb-16 px-6 lg:px-8 min-h-screen flex items-center'
+      className='relative pt-24 pb-20 px-8 lg:px-16 min-h-screen flex items-center'
       aria-label='Introduction and hero section'
     >
       {/* 3D Background - Full container */}
@@ -18,28 +18,28 @@ export default function Hero() {
       <PerformanceDisplay showDetails={true} />
 
       <div className='relative max-w-7xl mx-auto z-10 pointer-events-none'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'>
           {/* Left column - Content */}
           <motion.div
-            className='space-y-8 z-10 pointer-events-auto bg-tech-dark/30 backdrop-blur-sm rounded-2xl p-8 border border-tech-teal/10'
+            className='space-y-12 z-10 pointer-events-auto bg-tech-dark/40 backdrop-blur-md rounded-3xl p-12 border border-tech-teal/20 shadow-2xl'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
           >
             {/* Impact Statement */}
-            <div className='space-y-6'>
+            <div className='space-y-10'>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <h1 className='text-4xl sm:text-5xl lg:text-6xl font-bold text-tech-text-primary leading-tight mb-4'>
+                <h1 className='text-5xl sm:text-6xl lg:text-7xl font-bold text-tech-text-primary leading-tight mb-8'>
                   Creative Technologist{' '}
                   <span className='text-transparent bg-gradient-to-r from-tech-teal to-tech-cyan bg-clip-text'>
                     & AI Engineer
                   </span>
                 </h1>
-                <p className='text-xl text-tech-text-secondary font-medium leading-relaxed'>
+                <p className='text-2xl text-tech-text-secondary font-medium leading-relaxed'>
                   I architect intelligent systems that bridge AI, robotics, and
                   data engineering. Currently building autonomous drone fleets
                   with real-time ML pipelines at Lucid Bots.
@@ -47,54 +47,54 @@ export default function Hero() {
               </motion.div>
 
               <motion.div
-                className='flex items-center space-x-4 text-tech-text-muted'
+                className='flex items-center space-x-6 text-tech-text-muted text-lg'
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
                 <span className='font-medium'>Hartley H. Leroy</span>
-                <span className='w-2 h-2 bg-tech-teal rounded-full'></span>
+                <span className='w-3 h-3 bg-tech-teal rounded-full'></span>
                 <span>Charlotte, NC</span>
-                <span className='w-2 h-2 bg-tech-cyan rounded-full'></span>
+                <span className='w-3 h-3 bg-tech-cyan rounded-full'></span>
                 <span>Available for Opportunities</span>
               </motion.div>
             </div>
 
             {/* Key Achievements */}
             <motion.div
-              className='grid grid-cols-1 sm:grid-cols-3 gap-4 py-6'
+              className='grid grid-cols-1 sm:grid-cols-3 gap-6 py-8'
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <div className='text-center p-4 rounded-lg bg-tech-dark-alt/50 border border-tech-teal/20'>
-                <div className='text-2xl font-bold text-tech-teal'>$500K</div>
-                <div className='text-sm text-tech-text-muted'>
+              <div className='text-center p-6 rounded-xl bg-tech-dark-alt/60 border border-tech-teal/30 shadow-lg'>
+                <div className='text-3xl font-bold text-tech-teal'>$500K</div>
+                <div className='text-base text-tech-text-muted mt-2'>
                   AWS Infrastructure
                 </div>
               </div>
-              <div className='text-center p-4 rounded-lg bg-tech-dark-alt/50 border border-tech-cyan/20'>
-                <div className='text-2xl font-bold text-tech-cyan'>ROS2</div>
-                <div className='text-sm text-tech-text-muted'>
+              <div className='text-center p-6 rounded-xl bg-tech-dark-alt/60 border border-tech-cyan/30 shadow-lg'>
+                <div className='text-3xl font-bold text-tech-cyan'>ROS2</div>
+                <div className='text-base text-tech-text-muted mt-2'>
                   Drone Systems
                 </div>
               </div>
-              <div className='text-center p-4 rounded-lg bg-tech-dark-alt/50 border border-tech-purple/20'>
-                <div className='text-2xl font-bold text-tech-purple'>AI/ML</div>
-                <div className='text-sm text-tech-text-muted'>Pipelines</div>
+              <div className='text-center p-6 rounded-xl bg-tech-dark-alt/60 border border-tech-purple/30 shadow-lg'>
+                <div className='text-3xl font-bold text-tech-purple'>AI/ML</div>
+                <div className='text-base text-tech-text-muted mt-2'>Pipelines</div>
               </div>
             </motion.div>
 
             {/* CTA Actions */}
             <motion.div
-              className='flex flex-col sm:flex-row gap-4 pt-4'
+              className='flex flex-col sm:flex-row gap-6 pt-8'
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
               <motion.a
                 href='#experience'
-                className='px-8 py-4 rounded-lg bg-gradient-to-r from-tech-teal to-tech-cyan text-tech-dark font-bold text-center transition-all hover:shadow-lg hover:shadow-tech-teal/25'
+                className='px-12 py-6 rounded-xl bg-gradient-to-r from-tech-teal to-tech-cyan text-tech-dark font-bold text-center transition-all hover:shadow-xl hover:shadow-tech-teal/25 text-lg'
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -102,7 +102,7 @@ export default function Hero() {
               </motion.a>
               <motion.a
                 href='#contact'
-                className='px-8 py-4 rounded-lg border border-tech-teal text-tech-teal font-semibold text-center hover:bg-tech-teal hover:text-tech-dark transition-all group'
+                className='px-12 py-6 rounded-xl border-2 border-tech-teal text-tech-teal font-semibold text-center hover:bg-tech-teal hover:text-tech-dark transition-all group text-lg'
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
