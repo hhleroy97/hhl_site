@@ -166,96 +166,223 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
     // Simple trace creation without zones
     const tubeRadius = 0.15 // Much larger radius to make traces clearly visible
     const maxTraces = 20 // Create 20 traces
-    
+
     // Collision detection and avoidance for clean PCB routing
-    const occupiedRegions: Array<{x1: number, x2: number, z1: number, z2: number}> = []
+    const occupiedRegions: Array<{
+      x1: number
+      x2: number
+      z1: number
+      z2: number
+    }> = []
     const traceWidth = tubeRadius * 2 + 0.2 // Tube diameter plus clearance
-    
-    const checkCollision = (x1: number, x2: number, z1: number, z2: number): boolean => {
-      return occupiedRegions.some(region => 
-        !(x2 < region.x1 || x1 > region.x2 || z2 < region.z1 || z1 > region.z2)
+
+    const checkCollision = (
+      x1: number,
+      x2: number,
+      z1: number,
+      z2: number
+    ): boolean => {
+      return occupiedRegions.some(
+        region =>
+          !(
+            x2 < region.x1 ||
+            x1 > region.x2 ||
+            z2 < region.z1 ||
+            z1 > region.z2
+          )
       )
     }
-    
-    const addOccupiedRegion = (x1: number, x2: number, z1: number, z2: number) => {
-      occupiedRegions.push({x1, x2, z1, z2})
+
+    const addOccupiedRegion = (
+      x1: number,
+      x2: number,
+      z1: number,
+      z2: number
+    ) => {
+      occupiedRegions.push({ x1, x2, z1, z2 })
     }
-    
+
     const createPCBRoute = (
       startX: number,
       endX: number,
       traceIndex: number
     ): THREE.Vector3[] => {
       const ribbonY = baseRibbonY
-      
+
       // Start with preferred Z position
       let baseZ = traceIndex * 1.2 // Increased spacing
-      
+
       // Try different routing strategies until we find a clear path
       for (let attempt = 0; attempt < 5; attempt++) {
         const routePoints: THREE.Vector3[] = []
-        const segments: Array<{x1: number, x2: number, z1: number, z2: number}> = []
+        const segments: Array<{
+          x1: number
+          x2: number
+          z1: number
+          z2: number
+        }> = []
         let hasCollision = false
-        
+
         // Strategy varies by attempt - start with more interesting patterns
         if (attempt === 0) {
           // Attempt 1: Simple step pattern (preferred PCB style)
           const stepZ = baseZ + 2.0
           routePoints.push(new THREE.Vector3(startX, ribbonY, baseZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, baseZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, stepZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, stepZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, baseZ))
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, baseZ)
+          )
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, stepZ)
+          )
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, stepZ)
+          )
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, baseZ)
+          )
           routePoints.push(new THREE.Vector3(endX, ribbonY, baseZ))
-          
+
           segments.push(
-            {x1: startX, x2: startX + (endX - startX) * 0.3, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.3, x2: startX + (endX - startX) * 0.3, z1: Math.min(baseZ, stepZ) - traceWidth/2, z2: Math.max(baseZ, stepZ) + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.3, x2: startX + (endX - startX) * 0.7, z1: stepZ - traceWidth/2, z2: stepZ + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.7, x2: startX + (endX - startX) * 0.7, z1: Math.min(baseZ, stepZ) - traceWidth/2, z2: Math.max(baseZ, stepZ) + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.7, x2: endX, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2}
+            {
+              x1: startX,
+              x2: startX + (endX - startX) * 0.3,
+              z1: baseZ - traceWidth / 2,
+              z2: baseZ + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.3,
+              x2: startX + (endX - startX) * 0.3,
+              z1: Math.min(baseZ, stepZ) - traceWidth / 2,
+              z2: Math.max(baseZ, stepZ) + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.3,
+              x2: startX + (endX - startX) * 0.7,
+              z1: stepZ - traceWidth / 2,
+              z2: stepZ + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.7,
+              x2: startX + (endX - startX) * 0.7,
+              z1: Math.min(baseZ, stepZ) - traceWidth / 2,
+              z2: Math.max(baseZ, stepZ) + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.7,
+              x2: endX,
+              z1: baseZ - traceWidth / 2,
+              z2: baseZ + traceWidth / 2,
+            }
           )
         } else if (attempt === 1) {
           // Attempt 2: Direct horizontal route (fallback)
           routePoints.push(new THREE.Vector3(startX, ribbonY, baseZ))
           routePoints.push(new THREE.Vector3(endX, ribbonY, baseZ))
           segments.push({
-            x1: startX, x2: endX,
-            z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2
+            x1: startX,
+            x2: endX,
+            z1: baseZ - traceWidth / 2,
+            z2: baseZ + traceWidth / 2,
           })
         } else if (attempt === 2) {
           // Attempt 3: Step down
           const stepZ = baseZ - 2.0
           routePoints.push(new THREE.Vector3(startX, ribbonY, baseZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, baseZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, stepZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, stepZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, baseZ))
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, baseZ)
+          )
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.3, ribbonY, stepZ)
+          )
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, stepZ)
+          )
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.7, ribbonY, baseZ)
+          )
           routePoints.push(new THREE.Vector3(endX, ribbonY, baseZ))
-          
+
           segments.push(
-            {x1: startX, x2: startX + (endX - startX) * 0.3, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.3, x2: startX + (endX - startX) * 0.3, z1: Math.min(baseZ, stepZ) - traceWidth/2, z2: Math.max(baseZ, stepZ) + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.3, x2: startX + (endX - startX) * 0.7, z1: stepZ - traceWidth/2, z2: stepZ + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.7, x2: startX + (endX - startX) * 0.7, z1: Math.min(baseZ, stepZ) - traceWidth/2, z2: Math.max(baseZ, stepZ) + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.7, x2: endX, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2}
+            {
+              x1: startX,
+              x2: startX + (endX - startX) * 0.3,
+              z1: baseZ - traceWidth / 2,
+              z2: baseZ + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.3,
+              x2: startX + (endX - startX) * 0.3,
+              z1: Math.min(baseZ, stepZ) - traceWidth / 2,
+              z2: Math.max(baseZ, stepZ) + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.3,
+              x2: startX + (endX - startX) * 0.7,
+              z1: stepZ - traceWidth / 2,
+              z2: stepZ + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.7,
+              x2: startX + (endX - startX) * 0.7,
+              z1: Math.min(baseZ, stepZ) - traceWidth / 2,
+              z2: Math.max(baseZ, stepZ) + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.7,
+              x2: endX,
+              z1: baseZ - traceWidth / 2,
+              z2: baseZ + traceWidth / 2,
+            }
           )
         } else if (attempt === 3) {
           // Attempt 4: Large detour up
           const detourZ = baseZ + 4.0
           routePoints.push(new THREE.Vector3(startX, ribbonY, baseZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.2, ribbonY, baseZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.2, ribbonY, detourZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.8, ribbonY, detourZ))
-          routePoints.push(new THREE.Vector3(startX + (endX - startX) * 0.8, ribbonY, baseZ))
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.2, ribbonY, baseZ)
+          )
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.2, ribbonY, detourZ)
+          )
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.8, ribbonY, detourZ)
+          )
+          routePoints.push(
+            new THREE.Vector3(startX + (endX - startX) * 0.8, ribbonY, baseZ)
+          )
           routePoints.push(new THREE.Vector3(endX, ribbonY, baseZ))
-          
+
           segments.push(
-            {x1: startX, x2: startX + (endX - startX) * 0.2, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.2, x2: startX + (endX - startX) * 0.2, z1: Math.min(baseZ, detourZ) - traceWidth/2, z2: Math.max(baseZ, detourZ) + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.2, x2: startX + (endX - startX) * 0.8, z1: detourZ - traceWidth/2, z2: detourZ + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.8, x2: startX + (endX - startX) * 0.8, z1: Math.min(baseZ, detourZ) - traceWidth/2, z2: Math.max(baseZ, detourZ) + traceWidth/2},
-            {x1: startX + (endX - startX) * 0.8, x2: endX, z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2}
+            {
+              x1: startX,
+              x2: startX + (endX - startX) * 0.2,
+              z1: baseZ - traceWidth / 2,
+              z2: baseZ + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.2,
+              x2: startX + (endX - startX) * 0.2,
+              z1: Math.min(baseZ, detourZ) - traceWidth / 2,
+              z2: Math.max(baseZ, detourZ) + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.2,
+              x2: startX + (endX - startX) * 0.8,
+              z1: detourZ - traceWidth / 2,
+              z2: detourZ + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.8,
+              x2: startX + (endX - startX) * 0.8,
+              z1: Math.min(baseZ, detourZ) - traceWidth / 2,
+              z2: Math.max(baseZ, detourZ) + traceWidth / 2,
+            },
+            {
+              x1: startX + (endX - startX) * 0.8,
+              x2: endX,
+              z1: baseZ - traceWidth / 2,
+              z2: baseZ + traceWidth / 2,
+            }
           )
         } else {
           // Attempt 5: Force a different Z level
@@ -263,11 +390,13 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
           routePoints.push(new THREE.Vector3(startX, ribbonY, baseZ))
           routePoints.push(new THREE.Vector3(endX, ribbonY, baseZ))
           segments.push({
-            x1: startX, x2: endX,
-            z1: baseZ - traceWidth/2, z2: baseZ + traceWidth/2
+            x1: startX,
+            x2: endX,
+            z1: baseZ - traceWidth / 2,
+            z2: baseZ + traceWidth / 2,
           })
         }
-        
+
         // Check for collisions with existing traces
         for (const segment of segments) {
           if (checkCollision(segment.x1, segment.x2, segment.z1, segment.z2)) {
@@ -275,7 +404,7 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
             break
           }
         }
-        
+
         if (!hasCollision) {
           // Found a clear path, reserve the space and return the route
           for (const segment of segments) {
@@ -284,28 +413,40 @@ const DataflowRibbons: React.FC<DataflowRibbonsProps> = ({
           return routePoints
         }
       }
-      
+
       // Fallback: force trace to a higher Z level
       baseZ = traceIndex * 1.2 + Math.ceil(traceIndex / 5) * 6.0
       const fallbackPoints = [
         new THREE.Vector3(startX, ribbonY, baseZ),
-        new THREE.Vector3(endX, ribbonY, baseZ)
+        new THREE.Vector3(endX, ribbonY, baseZ),
       ]
-      addOccupiedRegion(startX, endX, baseZ - traceWidth/2, baseZ + traceWidth/2)
+      addOccupiedRegion(
+        startX,
+        endX,
+        baseZ - traceWidth / 2,
+        baseZ + traceWidth / 2
+      )
       return fallbackPoints
     }
 
     for (let i = 0; i < maxTraces; i++) {
       const tubeR = tubeRadius
-      
+
       // Generate proper PCB routing points
       const pts3 = createPCBRoute(xL, xR, i)
 
-      // Create path from discrete points (no curves for sharp PCB angles)
-      const curve = new THREE.CatmullRomCurve3(pts3, false, 'centripetal', 0.0)
+      // Create straight line segments (authentic PCB style)
+      const path = new THREE.CurvePath<THREE.Vector3>()
+
+      for (let j = 0; j < pts3.length - 1; j++) {
+        const start = pts3[j]
+        const end = pts3[j + 1]
+        path.add(new THREE.LineCurve3(start, end))
+      }
+
       const geom = new THREE.TubeGeometry(
-        curve,
-        settings.tubeSegments,
+        path,
+        pts3.length - 1, // One segment per line
         tubeR,
         settings.tubeRadialSegments,
         false

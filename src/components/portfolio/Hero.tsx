@@ -1,15 +1,8 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
-import SimpleGrid from '@components/3d/SimpleGrid'
-import DataflowRibbons from '@components/3d/DataflowRibbons'
 import DataPipeline from '@components/3d/DataPipeline'
 import PerformanceDisplay from '@components/ui/PerformanceDisplay'
 
 export default function Hero() {
-  const [currentVisualization, setCurrentVisualization] = useState<'grid' | 'ribbons' | 'pipeline'>('pipeline')
-  const [performance, setPerformance] = useState<'low' | 'medium' | 'high'>('medium')
-  const [autoRotate, setAutoRotate] = useState(false)
-
   return (
     <section
       className='relative pt-20 pb-16 px-6 lg:px-8 min-h-screen flex items-center'
@@ -17,58 +10,8 @@ export default function Hero() {
     >
       {/* 3D Background - Full container */}
       <div className='absolute inset-0 pointer-events-auto'>
-        {/* Control panel */}
-        <div className='absolute top-24 right-6 z-20 flex flex-col gap-2'>
-          {/* Visualization selector */}
-          <select
-            value={currentVisualization}
-            onChange={(e) => setCurrentVisualization(e.target.value as 'grid' | 'ribbons' | 'pipeline')}
-            className='px-3 py-1 text-xs bg-tech-dark/90 border border-tech-teal/40 text-tech-teal rounded hover:bg-tech-teal/20 transition-all backdrop-blur-sm'
-          >
-            <option value='pipeline'>Data Pipeline</option>
-            <option value='grid'>Grid</option>
-            <option value='ribbons'>PCB Traces</option>
-          </select>
-
-          {/* Performance selector - only show for ribbons */}
-          {currentVisualization === 'ribbons' && (
-            <div className='flex flex-col gap-1'>
-              <select
-                value={performance}
-                onChange={(e) => setPerformance(e.target.value as 'low' | 'medium' | 'high')}
-                className='px-2 py-1 text-xs bg-tech-dark/90 border border-tech-teal/40 text-tech-teal rounded hover:bg-tech-teal/20 transition-all backdrop-blur-sm'
-              >
-                <option value='low'>Low Performance</option>
-                <option value='medium'>Medium Performance</option>
-                <option value='high'>High Performance</option>
-              </select>
-              
-              <button
-                onClick={() => setAutoRotate(!autoRotate)}
-                className={`px-2 py-1 text-xs border rounded transition-all backdrop-blur-sm ${
-                  autoRotate 
-                    ? 'bg-tech-teal/20 border-tech-teal text-tech-teal' 
-                    : 'bg-tech-dark/90 border-tech-teal/40 text-tech-teal hover:bg-tech-teal/20'
-                }`}
-              >
-                {autoRotate ? 'Stop Rotation' : 'Auto Rotate'}
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* 3D Visualizations */}
-        {currentVisualization === 'grid' && <SimpleGrid />}
-        {currentVisualization === 'ribbons' && (
-          <DataflowRibbons 
-            performance={performance}
-            interactive={true}
-            autoRotate={autoRotate}
-          />
-        )}
-        {currentVisualization === 'pipeline' && (
-          <DataPipeline interactive={true} />
-        )}
+        {/* 3D Visualization - Data Pipeline */}
+        <DataPipeline interactive={true} />
       </div>
 
       {/* Performance Display */}
