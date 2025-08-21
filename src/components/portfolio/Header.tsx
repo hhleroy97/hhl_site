@@ -1,51 +1,120 @@
 import { motion } from 'framer-motion'
+import { useNavigationContent } from '@/hooks/useSiteContent'
 
 export default function Header() {
+  const { navigation, loading } = useNavigationContent()
+
+  if (loading || !navigation) {
+    return (
+      <motion.header
+        className='fixed top-0 left-0 right-0 z-40 bg-tech-dark/95 backdrop-blur-xl border-b border-accentWarm/20 shadow-glow-warm'
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <div className='flex items-center justify-between h-16'>
+            <div className='h-6 w-24 bg-tech-dark-surface/50 rounded animate-pulse'></div>
+            <div className='hidden md:flex space-x-8'>
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className='h-4 w-16 bg-tech-dark-surface/50 rounded animate-pulse'></div>
+              ))}
+            </div>
+            <div className='h-8 w-20 bg-tech-dark-surface/50 rounded animate-pulse'></div>
+          </div>
+        </div>
+      </motion.header>
+    )
+  }
+
   return (
     <motion.header
-      className='fixed top-0 left-0 right-0 z-40 bg-tech-dark/80 backdrop-blur-md border-b border-tech-neon/20'
+      className='fixed top-0 left-0 right-0 z-40 bg-tech-dark/95 backdrop-blur-xl border-b border-accentWarm/20 shadow-glow-warm'
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
     >
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex items-center justify-between h-16'>
-          {/* Logo/Name */}
-          <motion.div
-            className='flex items-center'
+          {/* Logo/Name - Enhanced with disciplined glow */}
+          <motion.a
+            href='#'
+            className='flex items-center group'
             whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
           >
-            <h1 className='text-xl font-cyber font-bold text-tech-neon tracking-wider'>
-              H.H.L
+            <h1 className='text-xl font-black text-accentWarm tracking-wider relative'>
+              <span className='relative z-10'>{navigation.logo}</span>
+              {/* Single accent glow matching hero */}
+              <span className='absolute inset-0 text-accentWarm blur-sm opacity-40 group-hover:opacity-60 transition-opacity duration-300'>
+                {navigation.logo}
+              </span>
             </h1>
-          </motion.div>
+          </motion.a>
 
-          {/* Navigation */}
+          {/* Navigation - Floating elements with premium hover states */}
           <nav className='hidden md:flex items-center space-x-8'>
-            {['About', 'Experience', 'Projects', 'Creative', 'Contact'].map(
-              (item, index) => (
-                <motion.a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className='text-gray-300 hover:text-tech-neon transition-colors duration-300 font-display tracking-wide'
-                  whileHover={{ scale: 1.1 }}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                >
-                  {item}
-                </motion.a>
-              )
-            )}
+            {navigation.links.map((item, index) => (
+              <motion.a
+                key={item.label}
+                href={item.href}
+                className='relative px-4 py-2 text-tech-text-secondary hover:text-accentWarm transition-all duration-300 font-semibold tracking-wide group rounded-lg'
+                whileHover={{ 
+                  scale: 1.05,
+                  y: -2,
+                  transition: { duration: 0.2, ease: 'easeOut' }
+                }}
+                whileTap={{ scale: 0.98 }}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+              >
+                <span className='relative z-10'>{item.label}</span>
+                {/* Floating background with glow */}
+                <div className='absolute inset-0 bg-accentWarm/5 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 blur-sm'></div>
+                {/* Subtle glow on hover */}
+                <div className='absolute inset-0 bg-accentWarm/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl'></div>
+              </motion.a>
+            ))}
           </nav>
 
-          {/* Mobile menu button */}
+          {/* Resume CTA - Enhanced with glow */}
+          <motion.a
+            href={navigation.cta.href}
+            target={navigation.cta.external ? '_blank' : undefined}
+            rel={navigation.cta.external ? 'noopener noreferrer' : undefined}
+            className='group relative px-4 py-2 bg-accentWarm text-tech-dark font-semibold rounded-lg transition-all duration-300 overflow-hidden backdrop-blur-sm'
+            whileHover={{ 
+              scale: 1.05,
+              y: -2,
+              transition: { duration: 0.2, ease: 'easeOut' }
+            }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+          >
+            {/* Button glow effects */}
+            <div className='absolute inset-0 bg-accentWarm blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-400'></div>
+            <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10'></div>
+            
+            <span className='relative z-10'>{navigation.cta.label}</span>
+          </motion.a>
+
+          {/* Mobile menu button - Enhanced with glow */}
           <motion.button
-            className='md:hidden p-2 rounded-md text-gray-300 hover:text-tech-neon focus:outline-none'
+            className='md:hidden relative p-2 rounded-xl text-tech-text-secondary hover:text-accentWarm focus:outline-none backdrop-blur-sm hover:bg-accentWarm/10 transition-all duration-300 group focus-ring-warm'
+            whileHover={{ 
+              scale: 1.05,
+              y: -1,
+              transition: { duration: 0.2, ease: 'easeOut' }
+            }}
             whileTap={{ scale: 0.95 }}
           >
+            {/* Subtle glow background */}
+            <div className='absolute inset-0 bg-accentWarm/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm'></div>
             <svg
-              className='h-6 w-6'
+              className='h-6 w-6 relative z-10'
               fill='none'
               viewBox='0 0 24 24'
               stroke='currentColor'

@@ -70,7 +70,7 @@ export default function LandingHero() {
                   transformOrigin: 'left center',
                 }}
               >
-                <h1 className='text-5xl sm:text-6xl lg:text-7xl font-bold text-tech-text-primary leading-tight'>
+                <h1 className='text-5xl sm:text-6xl lg:text-7xl font-bold text-text-primary leading-tight'>
                   Hartley H.{' '}
                   <span className='text-transparent bg-gradient-to-r from-tech-teal to-tech-cyan bg-clip-text'>
                     Leroy

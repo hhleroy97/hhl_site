@@ -4,75 +4,76 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Engineering with Artistic Flair color system
-        tech: {
-          // Primary teals and blues
-          teal: '#00d4aa', // Main teal accent
-          'teal-bright': '#00ffcc', // Bright teal for highlights
-          cyan: '#00e5ff', // Cyan blue
-          blue: '#0ea5e9', // Engineering blue
-          'blue-dark': '#0284c7', // Darker blue
-          navy: '#1e3a8a', // Deep navy
-
-          // Artistic accent colors - signature warm palette
-          coral: '#ff4757', // Bold coral primary accent
-          magenta: '#ff3838', // Electric magenta for CTAs
-          amber: '#ffa726', // Warm amber for highlights
-          crimson: '#e74c3c', // Deep crimson for emphasis
-          purple: '#8b5cf6', // Creative purple (kept)
-          gold: '#f59e0b', // Premium gold (kept)
-          green: '#10b981', // Success green (kept)
-
-          // Aliases for missing classes
-          neon: '#00d4aa', // Alias for teal
-          pink: '#ff4757', // Alias for coral
-          yellow: '#ffa726', // Alias for amber
-          accent: '#ff4757', // Primary warm accent
-
-          // Background system - deep engineering blues
-          dark: '#0a0f1c', // Very deep blue-black
-          'dark-alt': '#1a1f35', // Slightly lighter blue-dark
-          'dark-surface': '#1e2537', // Card backgrounds
-          'dark-elevated': '#252b42', // Elevated surfaces
-          'navy-deep': '#0f1729', // Deep navy background
-
-          // Text colors for accessibility
-          'text-primary': '#ffffff',
-          'text-secondary': '#cbd5e1',
-          'text-muted': '#94a3b8',
-          'text-disabled': '#64748b',
-        },
-        // Enhanced primary teal palette
-        primary: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#00d4aa', // Main brand teal
-          600: '#0891b2',
-          700: '#0e7490',
-          800: '#155e75',
-          900: '#164e63',
-        },
-        // Coral accent palette for hierarchy
-        accent: {
+        // Global aesthetic system - 3-color system
+        accentWarm: {
           50: '#fff5f5',
           100: '#ffe3e3',
           200: '#ffc9c9',
           300: '#ffa8a8',
           400: '#ff8787',
-          500: '#ff4757', // Primary coral accent
-          600: '#ff3838', // Magenta CTA
+          500: '#ff4757', // Primary warm accent (coral)
+          600: '#ff3838', // Electric magenta for CTAs
           700: '#e74c3c', // Deep crimson
           800: '#c0392b',
           900: '#a93226',
+          DEFAULT: '#ff4757',
         },
-        // Semantic colors
-        success: '#4caf50',
-        warning: '#ff9800',
-        error: '#f44336',
-        info: '#2196f3',
+        accentCool: {
+          50: '#f0fdfa',
+          100: '#ccfbf1',
+          200: '#99f6e4',
+          300: '#5eead4',
+          400: '#2dd4bf',
+          500: '#00d4aa', // Primary cool accent (teal)
+          600: '#0891b2',
+          700: '#0e7490',
+          800: '#155e75',
+          900: '#164e63',
+          DEFAULT: '#00d4aa',
+        },
+        accentPurple: {
+          50: '#faf5ff',
+          100: '#f3e8ff',
+          200: '#e9d5ff',
+          300: '#d8b4fe',
+          400: '#c084fc',
+          500: '#8b5cf6', // Purple for AI/ML
+          600: '#7c3aed',
+          700: '#6d28d9',
+          800: '#5b21b6',
+          900: '#4c1d95',
+          DEFAULT: '#8b5cf6',
+        },
+        // Background system - deep engineering blues
+        tech: {
+          dark: '#0a0f1c', // Very deep blue-black
+          'dark-alt': '#1a1f35', // Slightly lighter blue-dark
+          'dark-surface': '#1e2537', // Card backgrounds
+          'dark-elevated': '#252b42', // Elevated surfaces
+          'navy-deep': '#0f1729', // Deep navy background
+          teal: '#00d4aa',
+          'teal-bright': '#00ffcc',
+          cyan: '#00e5ff',
+          blue: '#0ea5e9',
+          'blue-dark': '#0284c7',
+          navy: '#1e3a8a',
+          coral: '#ff4757',
+          magenta: '#ff3838',
+          amber: '#ffa726',
+          crimson: '#e74c3c',
+          purple: '#8b5cf6',
+          gold: '#f59e0b',
+          green: '#10b981',
+          neon: '#00d4aa',
+          pink: '#ff4757',
+          yellow: '#ffa726',
+          accent: '#ff4757',
+        },
+        // Text colors for accessibility - direct access
+        'text-primary': '#ffffff',
+        'text-secondary': '#cbd5e1',
+        'text-muted': '#94a3b8',
+        'text-disabled': '#64748b',
       },
       fontFamily: {
         mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
@@ -81,7 +82,33 @@ export default {
         body: ['Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        // Professional typography scale
+        // Typography scale
+        'h1': ['clamp(3.5rem, 8vw, 4rem)', { 
+          lineHeight: '1.25', 
+          fontWeight: '700',
+          letterSpacing: '-0.025em'
+        }],
+        'h2': ['clamp(2rem, 5vw, 2.5rem)', { 
+          lineHeight: '1.3', 
+          fontWeight: '600',
+          letterSpacing: '-0.0125em'
+        }],
+        'h3': ['clamp(1.375rem, 3vw, 1.5rem)', { 
+          lineHeight: '1.35', 
+          fontWeight: '600',
+          letterSpacing: '0em'
+        }],
+        'body': ['clamp(1rem, 2vw, 1.125rem)', { 
+          lineHeight: '1.6', 
+          fontWeight: '400',
+          letterSpacing: '0.0125em'
+        }],
+        'body-lg': ['clamp(1.125rem, 2.5vw, 1.25rem)', { 
+          lineHeight: '1.7', 
+          fontWeight: '500',
+          letterSpacing: '0.0125em'
+        }],
+        // Legacy support
         xs: ['0.75rem', { lineHeight: '1.5', letterSpacing: '0.025em' }],
         sm: ['0.875rem', { lineHeight: '1.5', letterSpacing: '0.025em' }],
         base: ['1rem', { lineHeight: '1.6', letterSpacing: '0.0125em' }],
@@ -117,29 +144,81 @@ export default {
         94: '23.5rem',
         98: '24.5rem',
       },
+      boxShadow: {
+        // Depth model shadows
+        'glow-warm': '0 0 12px rgba(255, 71, 87, 0.4)',
+        'glow-cool': '0 0 12px rgba(0, 212, 170, 0.4)',
+        'glow-purple': '0 0 12px rgba(139, 92, 246, 0.4)',
+        'glow-warm-lg': '0 0 20px rgba(255, 71, 87, 0.3)',
+        'glow-cool-lg': '0 0 20px rgba(0, 212, 170, 0.3)',
+        'glow-purple-lg': '0 0 20px rgba(139, 92, 246, 0.3)',
+        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        'card-elevated': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      },
       animation: {
-        glow: 'glow 2s ease-in-out infinite alternate',
-        'glow-pulse': 'glowPulse 3s ease-in-out infinite',
-        'text-shimmer': 'textShimmer 2s ease-in-out infinite',
-        'metric-flip': 'metricFlip 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-        'cta-bounce': 'ctaBounce 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-        glitch: 'glitch 0.3s ease-in-out infinite',
-        scan: 'scan 2s linear infinite',
-        flicker: 'flicker 0.15s linear infinite',
-        float: 'float 6s ease-in-out infinite',
-        typewriter: 'typewriter 3s steps(40) forwards',
+        // Motion system
         'fade-in': 'fadeIn 0.4s ease-out forwards',
-        'slide-up': 'slideUp 0.5s ease-out forwards',
-        'scale-in': 'scaleIn 0.3s ease-out forwards',
+        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+        'fade-in-down': 'fadeInDown 0.6s ease-out forwards',
+        'slide-in-left': 'slideInLeft 0.6s ease-out forwards',
+        'slide-in-right': 'slideInRight 0.6s ease-out forwards',
+        'scale-in': 'scaleIn 0.4s ease-out forwards',
+        'glow-pulse': 'glowPulse 3s ease-in-out infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'drift': 'drift 20s ease-in-out infinite',
+        'typewriter': 'typewriter 3s steps(40) forwards',
+        'glitch': 'glitch 0.3s ease-in-out infinite',
+        'scan': 'scan 2s linear infinite',
+        'flicker': 'flicker 0.15s linear infinite',
       },
       keyframes: {
-        glow: {
-          '0%': {
-            boxShadow: '0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff',
+        // Motion keyframes
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        fadeInDown: {
+          '0%': { opacity: '0', transform: 'translateY(-20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideInLeft: {
+          '0%': { opacity: '0', transform: 'translateX(-20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        slideInRight: {
+          '0%': { opacity: '0', transform: 'translateX(20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        scaleIn: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        glowPulse: {
+          '0%, 100%': {
+            boxShadow: '0 0 20px rgba(255, 71, 87, 0.4), 0 0 40px rgba(255, 71, 87, 0.2)',
           },
-          '100%': {
-            boxShadow: '0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff',
+          '50%': {
+            boxShadow: '0 0 30px rgba(255, 71, 87, 0.6), 0 0 60px rgba(255, 71, 87, 0.3)',
           },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        drift: {
+          '0%, 100%': { transform: 'translateX(0px) translateY(0px)' },
+          '25%': { transform: 'translateX(10px) translateY(-10px)' },
+          '50%': { transform: 'translateX(0px) translateY(-20px)' },
+          '75%': { transform: 'translateX(-10px) translateY(-10px)' },
+        },
+        typewriter: {
+          from: { width: '0' },
+          to: { width: '100%' },
         },
         glitch: {
           '0%, 100%': { transform: 'translate(0)' },
@@ -156,50 +235,6 @@ export default {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0.8 },
         },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
-        },
-        typewriter: {
-          from: { width: '0' },
-          to: { width: '100%' },
-        },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        scaleIn: {
-          '0%': { opacity: '0', transform: 'scale(0.95)' },
-          '100%': { opacity: '1', transform: 'scale(1)' },
-        },
-        glowPulse: {
-          '0%, 100%': {
-            boxShadow:
-              '0 0 20px rgba(255, 71, 87, 0.4), 0 0 40px rgba(255, 71, 87, 0.2)',
-          },
-          '50%': {
-            boxShadow:
-              '0 0 30px rgba(255, 71, 87, 0.6), 0 0 60px rgba(255, 71, 87, 0.3)',
-          },
-        },
-        textShimmer: {
-          '0%': { backgroundPosition: '-200% center' },
-          '100%': { backgroundPosition: '200% center' },
-        },
-        metricFlip: {
-          '0%': { transform: 'rotateY(0deg)' },
-          '50%': { transform: 'rotateY(-90deg)' },
-          '100%': { transform: 'rotateY(0deg)' },
-        },
-        ctaBounce: {
-          '0%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(1.05)' },
-          '100%': { transform: 'scale(1)' },
-        },
       },
       backdropBlur: {
         xs: '2px',
@@ -209,8 +244,99 @@ export default {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Custom utilities plugin
+    function({ addUtilities, theme }) {
+      const newUtilities = {
+        // Text glow utilities
+        '.text-glow-warm': {
+          'text-shadow': '0 0 10px rgba(255, 71, 87, 0.6)',
+        },
+        '.text-glow-cool': {
+          'text-shadow': '0 0 10px rgba(0, 212, 170, 0.6)',
+        },
+        '.text-glow-purple': {
+          'text-shadow': '0 0 10px rgba(139, 92, 246, 0.6)',
+        },
+        '.text-glow-warm-lg': {
+          'text-shadow': '0 0 20px rgba(255, 71, 87, 0.4), 0 0 40px rgba(255, 71, 87, 0.2)',
+        },
+        '.text-glow-cool-lg': {
+          'text-shadow': '0 0 20px rgba(0, 212, 170, 0.4), 0 0 40px rgba(0, 212, 170, 0.2)',
+        },
+        '.text-glow-purple-lg': {
+          'text-shadow': '0 0 20px rgba(139, 92, 246, 0.4), 0 0 40px rgba(139, 92, 246, 0.2)',
+        },
+        // Focus ring utilities
+        '.focus-ring-warm': {
+          '&:focus': {
+            outline: 'none',
+            'box-shadow': '0 0 0 3px rgba(255, 71, 87, 0.5)',
+          },
+        },
+        '.focus-ring-cool': {
+          '&:focus': {
+            outline: 'none',
+            'box-shadow': '0 0 0 3px rgba(0, 212, 170, 0.5)',
+          },
+        },
+        '.focus-ring-purple': {
+          '&:focus': {
+            outline: 'none',
+            'box-shadow': '0 0 0 3px rgba(139, 92, 246, 0.5)',
+          },
+        },
+        // Motion utilities
+        '.motion-safe': {
+          '@media (prefers-reduced-motion: no-preference)': {
+            '&': {
+              'transition-duration': '300ms',
+              'transition-timing-function': 'cubic-bezier(0.4, 0, 0.2, 1)',
+            },
+          },
+        },
+        '.motion-reduce': {
+          '@media (prefers-reduced-motion: reduce)': {
+            '&': {
+              'animation-duration': '0.01ms !important',
+              'animation-iteration-count': '1 !important',
+              'transition-duration': '0.01ms !important',
+            },
+          },
+        },
+        // Depth utilities
+        '.depth-foreground': {
+          'z-index': '10',
+          'position': 'relative',
+        },
+        '.depth-midground': {
+          'z-index': '5',
+          'position': 'relative',
+        },
+        '.depth-background': {
+          'z-index': '1',
+          'position': 'relative',
+        },
+        // Card utilities
+        '.card-surface': {
+          'background': 'rgba(30, 37, 55, 0.8)',
+          'backdrop-filter': 'blur(8px)',
+          'border': '1px solid rgba(255, 255, 255, 0.1)',
+          'border-radius': '0.75rem',
+          'box-shadow': '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+        },
+        '.card-surface-hover': {
+          '&:hover': {
+            'transform': 'translateY(-2px)',
+            'box-shadow': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+          },
+        },
+      }
+      addUtilities(newUtilities)
+    }
+  ],
 }

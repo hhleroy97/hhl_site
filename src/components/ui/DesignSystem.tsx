@@ -17,7 +17,7 @@ export const Heading: React.FC<HeadingProps> = ({
   className = '',
   gradient = false,
 }) => {
-  const baseClasses = 'font-display font-bold text-tech-text-primary'
+  const baseClasses = 'font-display font-bold text-text-primary'
   const gradientClasses = gradient ? 'text-gradient-primary' : ''
 
   const levelClasses = {

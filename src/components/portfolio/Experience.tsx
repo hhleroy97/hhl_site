@@ -86,9 +86,13 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section id='experience' className='py-20 px-4 sm:px-6 lg:px-8'>
-      <div className='max-w-7xl mx-auto'>
-        {/* Section header */}
+    <section id='experience' className='py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'>
+      {/* Background depth layer */}
+      <div className='absolute inset-0 bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-dark opacity-90' />
+      <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-tech-teal/5 via-transparent to-tech-coral/5' />
+      
+      <div className='max-w-7xl mx-auto relative z-10'>
+        {/* Section header - Enhanced with disciplined glow */}
         <motion.div
           className='text-center mb-16'
           initial={{ opacity: 0, y: 30 }}
@@ -96,14 +100,23 @@ export default function Experience() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className='text-4xl font-bold text-tech-text-primary mb-4'>
-            Experience
+          <h2 className='text-4xl md:text-5xl font-black text-text-primary mb-6 relative'>
+            <span className='relative z-10'>Professional Experience</span>
+            <span className='absolute inset-0 text-tech-teal/20 blur-sm'>Professional Experience</span>
           </h2>
+          <div className='w-24 h-1 bg-tech-teal mx-auto mb-6 relative'>
+            {/* Glow effect on accent line */}
+            <div className='absolute inset-0 bg-tech-teal blur-sm opacity-60'></div>
+          </div>
+          <p className='text-lg md:text-xl text-tech-text-secondary max-w-4xl mx-auto leading-relaxed mt-4'>
+            Building scalable systems and leading technical teams across robotics,
+            blockchain, and cloud infrastructure with a focus on real-world impact.
+          </p>
         </motion.div>
 
-        {/* Experience cards */}
+        {/* Experience cards - Enhanced with floating containers */}
         <motion.div
-          className='grid gap-8 max-w-4xl mx-auto'
+          className='grid gap-8 md:gap-12 max-w-5xl mx-auto'
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

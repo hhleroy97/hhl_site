@@ -72,7 +72,7 @@ export default function Skills() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className='text-4xl lg:text-5xl font-display font-bold text-tech-text-primary mb-6'>
+          <h2 className='text-4xl lg:text-5xl font-display font-bold text-text-primary mb-6'>
             Creative Technology
             <span className='text-gradient-primary ml-3'>& AI Engineering</span>
           </h2>
@@ -95,7 +95,7 @@ export default function Skills() {
             >
               {/* Category Header */}
               <div className='mb-6'>
-                <h3 className='text-2xl font-display font-bold text-tech-text-primary mb-3 group-hover:text-tech-teal transition-colors'>
+                <h3 className='text-2xl font-display font-bold text-text-primary mb-3 group-hover:text-tech-teal transition-colors'>
                   {category.category}
                 </h3>
                 <p className='text-tech-text-secondary text-sm leading-relaxed'>
@@ -119,7 +119,7 @@ export default function Skills() {
                   >
                     {/* Skill Name & Level */}
                     <div className='flex justify-between items-center mb-2'>
-                      <span className='text-tech-text-primary font-medium'>
+                      <span className='text-text-primary font-medium'>
                         {skill.name}
                       </span>
                       <span className={`text-${skill.color} text-sm font-mono`}>

@@ -58,7 +58,7 @@ class ErrorBoundary extends Component<Props, State> {
             </motion.div>
 
             <motion.h1
-              className='text-2xl font-display font-bold text-tech-text-primary mb-4'
+              className='text-2xl font-display font-bold text-text-primary mb-4'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}

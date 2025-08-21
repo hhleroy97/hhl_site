@@ -2,47 +2,39 @@ import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import DataPipeline from '@components/3d/DataPipeline'
 import PerformanceDisplay from '@components/ui/PerformanceDisplay'
+import { useHeroContent } from '@/hooks/useSiteContent'
+import { useVisualizationTrigger } from '@/contexts/VisualizationContext'
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false)
+  const { hero, loading } = useHeroContent()
+  const { triggerHighlight, clearHighlight } = useVisualizationTrigger()
 
   useEffect(() => {
     setIsVisible(true)
   }, [])
 
-  const metrics = [
-    {
-      value: '$500K',
-      label: 'Cloud Infrastructure Optimized',
-      detail:
-        'Architected scalable AWS systems serving 10M+ requests/day with 99.9% uptime',
-      color: 'tech-coral',
-      bgColor: 'tech-coral/10',
-      borderColor: 'tech-coral/30',
-    },
-    {
-      value: 'ROS2',
-      label: 'Autonomous Robotics',
-      detail:
-        'Built real-time navigation systems for autonomous drone fleets with computer vision',
-      color: 'tech-amber',
-      bgColor: 'tech-amber/10',
-      borderColor: 'tech-amber/30',
-    },
-    {
-      value: 'AI/ML',
-      label: 'Production Pipelines',
-      detail:
-        'Deployed ML models processing 1TB+ sensor data daily with sub-100ms latency',
-      color: 'tech-teal',
-      bgColor: 'tech-teal/10',
-      borderColor: 'tech-teal/30',
-    },
-  ]
+  if (loading || !hero) {
+    return (
+      <section className='relative min-h-screen flex items-center justify-center overflow-hidden pt-16'>
+        <div className='w-full max-w-6xl px-6 md:px-16 py-4 md:py-6'>
+          <div className='space-y-6'>
+            <div className='h-12 bg-tech-dark-surface/50 rounded animate-pulse'></div>
+            <div className='h-6 bg-tech-dark-surface/50 rounded animate-pulse max-w-2xl'></div>
+            <div className='space-y-4'>
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className='h-20 bg-tech-dark-surface/50 rounded-xl animate-pulse'></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section
-      className='relative min-h-screen flex items-center justify-center overflow-hidden pt-0'
+      className='relative min-h-screen flex items-center justify-center overflow-hidden pt-16'
       aria-label='Hartley H. Leroy - Creative Technologist & AI Engineer'
     >
       {/* 3D Background Layer - Dynamic background integration */}
@@ -58,9 +50,9 @@ export default function Hero() {
         {/* Mobile fallback - Enhanced animated background */}
         <div className='md:hidden absolute inset-0'>
           <div className='absolute inset-0 bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-dark opacity-90' />
-          <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-tech-coral/15 via-transparent to-tech-teal/15 animate-pulse' />
+          <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accentWarm/15 via-transparent to-accentCool/15 animate-pulse' />
           <div
-            className='absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,_var(--tw-gradient-stops))] from-tech-amber/8 via-transparent to-tech-magenta/8 animate-spin'
+            className='absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,_var(--tw-gradient-stops))] from-accentPurple/8 via-transparent to-accentWarm/8 animate-spin'
             style={{ animationDuration: '30s' }}
           />
           {/* Mobile depth overlay */}
@@ -88,32 +80,36 @@ export default function Hero() {
           >
             <div className='space-y-2 md:space-y-4'>
               <motion.h1
-                className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-tech-text-primary leading-[0.85] tracking-tight relative'
+                className='text-h1 font-black text-text-primary leading-[0.85] tracking-tight relative'
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                I build{' '}
-                <span className='relative inline-block'>
-                  <span className='text-tech-coral relative z-10'>
-                    intelligent
+                {hero.headline.split('intelligent').map((part, index, array) => (
+                  <span key={index}>
+                    {part}
+                    {index < array.length - 1 && (
+                      <span className='relative inline-block'>
+                        <span className='text-accentWarm relative z-10 text-glow-warm'>
+                          intelligent
+                        </span>
+                        {/* Single accent color glow */}
+                        <span className='absolute inset-0 text-accentWarm blur-sm opacity-40'>
+                          intelligent
+                        </span>
+                      </span>
+                    )}
                   </span>
-                  {/* Single accent color glow */}
-                  <span className='absolute inset-0 text-tech-coral blur-sm opacity-40'>
-                    intelligent
-                  </span>
-                </span>{' '}
-                systems
+                ))}
               </motion.h1>
 
               <motion.p
-                className='text-base sm:text-lg md:text-xl lg:text-2xl text-tech-text-secondary font-normal leading-[1.6] max-w-4xl relative z-10 mt-6 md:mt-8'
+                className='text-body-lg text-tech-text-secondary font-normal leading-[1.6] max-w-4xl relative z-10 mt-6 md:mt-8'
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
-                Real-time AI that powers autonomous robotics, scales cloud
-                infrastructure, and processes terabytes of sensor data daily.
+                {hero.subhead}
               </motion.p>
             </div>
 
@@ -123,13 +119,13 @@ export default function Hero() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <span className='font-semibold text-tech-text-primary'>
+              <span className='font-semibold text-text-primary'>
                 Hartley H. Leroy
               </span>
               <div className='flex items-center space-x-3'>
-                <div className='relative w-2 h-2 bg-tech-coral rounded-full'>
-                  <div className='absolute inset-0 bg-tech-coral rounded-full animate-ping'></div>
-                  <div className='absolute inset-0 bg-tech-coral rounded-full animate-glow-pulse'></div>
+                <div className='relative w-2 h-2 bg-accentWarm rounded-full'>
+                  <div className='absolute inset-0 bg-accentWarm rounded-full animate-ping'></div>
+                  <div className='absolute inset-0 bg-accentWarm rounded-full animate-glow-pulse'></div>
                 </div>
                 <span>Available for Senior Roles</span>
               </div>
@@ -143,62 +139,83 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.0 }}
           >
-            {metrics.map((metric, index) => (
-              <motion.div
-                key={index}
-                className={`group relative p-4 md:p-6 rounded-2xl bg-gradient-to-r from-${metric.bgColor} to-${metric.bgColor}/60 border border-${metric.borderColor} 
-                    transition-all duration-700 cursor-pointer overflow-hidden backdrop-blur-sm shadow-lg hover:shadow-2xl`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.2 + index * 0.15 }}
-                whileHover={{
-                  scale: 1.02,
-                  y: -4,
-                  transition: { duration: 0.3, ease: 'easeOut' },
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {/* Premium depth effects */}
-                <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] pointer-events-none' />
-                <div
-                  className={`absolute -top-16 -right-16 w-32 h-32 bg-${metric.color}/8 rounded-full blur-3xl pointer-events-none group-hover:bg-${metric.color}/12 transition-all duration-700`}
-                />
-                <div
-                  className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-${metric.color}/40 to-transparent group-hover:via-${metric.color}/60 transition-all duration-500`}
-                />
+            {hero.metrics.map((metric, index) => {
+              const getSkillColor = (skill: string) => {
+                switch (skill) {
+                  case 'infra':
+                    return 'accentWarm'
+                  case 'ros2':
+                    return 'accentCool'
+                  case 'ml':
+                    return 'accentPurple'
+                  default:
+                    return 'accentWarm'
+                }
+              }
 
-                <div className='flex items-center justify-between relative z-10'>
-                  <div className='space-y-2 md:space-y-3 flex-1'>
-                    <div
-                      className={`text-xl md:text-3xl font-black text-${metric.color} relative group-hover:scale-105 transition-transform duration-300`}
-                    >
-                      <span className='relative z-10'>{metric.value}</span>
-                      <span
-                        className={`absolute inset-0 text-${metric.color} opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-300`}
-                      >
-                        {metric.value}
-                      </span>
-                    </div>
-                    <div className='text-base md:text-lg font-bold text-tech-text-primary group-hover:text-white transition-colors duration-300'>
-                      {metric.label}
-                    </div>
-                    <p className='text-xs md:text-sm text-tech-text-secondary leading-[1.5] group-hover:text-tech-text-primary transition-colors duration-300'>
-                      {metric.detail}
-                    </p>
-                  </div>
+              const skillColor = getSkillColor(metric.skill)
+
+              return (
+                <motion.div
+                  key={index}
+                  className={`group relative p-4 md:p-6 rounded-2xl bg-tech-dark-surface/80 border border-${skillColor}/20 
+                      transition-all duration-700 cursor-pointer overflow-hidden backdrop-blur-sm shadow-lg hover:shadow-xl`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.2 + index * 0.15 }}
+                  whileHover={{
+                    scale: 1.02,
+                    y: -4,
+                    borderColor: `var(--tw-color-${skillColor}-500)`,
+                    boxShadow: `0 0 20px rgba(var(--tw-color-${skillColor}-500), 0.2)`,
+                    transition: { duration: 0.3, ease: 'easeOut' },
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  onMouseEnter={() => triggerHighlight(metric.skill)}
+                  onMouseLeave={clearHighlight}
+                >
+                  {/* Premium depth effects */}
+                  <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] pointer-events-none' />
                   <div
-                    className={`relative w-4 h-4 md:w-5 md:h-5 rounded-full bg-${metric.color} flex-shrink-0 ml-6 group-hover:scale-125 transition-transform duration-300`}
-                  >
+                    className={`absolute -top-16 -right-16 w-32 h-32 bg-${skillColor}/8 rounded-full blur-3xl pointer-events-none group-hover:bg-${skillColor}/12 transition-all duration-700`}
+                  />
+                  <div
+                    className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-${skillColor}/40 to-transparent group-hover:via-${skillColor}/60 transition-all duration-500`}
+                  />
+
+                  <div className='flex items-center justify-between relative z-10'>
+                    <div className='space-y-2 md:space-y-3 flex-1'>
+                      <div
+                        className={`text-xl md:text-3xl font-black text-${skillColor} relative group-hover:scale-105 transition-transform duration-300`}
+                      >
+                        <span className='relative z-10'>{metric.title}</span>
+                        <span
+                          className={`absolute inset-0 text-${skillColor} opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-300`}
+                        >
+                          {metric.title}
+                        </span>
+                      </div>
+                      <div className='text-base md:text-lg font-bold text-text-primary group-hover:text-white transition-colors duration-300'>
+                        {metric.key}
+                      </div>
+                      <p className='text-xs md:text-sm text-text-secondary leading-[1.5] group-hover:text-text-primary transition-colors duration-300'>
+                        {metric.blurb}
+                      </p>
+                    </div>
                     <div
-                      className={`absolute inset-0 bg-${metric.color} rounded-full animate-ping opacity-40 group-hover:opacity-60`}
-                    ></div>
-                    <div
-                      className={`absolute -inset-1 bg-${metric.color} rounded-full blur-sm opacity-30 group-hover:opacity-50 transition-opacity duration-300`}
-                    ></div>
+                      className={`relative w-4 h-4 md:w-5 md:h-5 rounded-full bg-${skillColor} flex-shrink-0 ml-6 group-hover:scale-125 transition-transform duration-300`}
+                    >
+                      <div
+                        className={`absolute inset-0 bg-${skillColor} rounded-full animate-ping opacity-40 group-hover:opacity-60`}
+                      ></div>
+                      <div
+                        className={`absolute -inset-1 bg-${skillColor} rounded-full blur-sm opacity-30 group-hover:opacity-50 transition-opacity duration-300`}
+                      ></div>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              )
+            })}
           </motion.div>
 
           {/* Refined CTAs - Clear Hierarchy */}
@@ -210,8 +227,8 @@ export default function Hero() {
           >
             {/* Primary CTA */}
             <motion.a
-              href='#experience'
-              className='group relative px-6 md:px-8 py-3 md:py-4 rounded-2xl bg-tech-coral text-white font-bold text-base md:text-lg text-center overflow-hidden transition-all duration-400 mobile-touch-target shadow-lg hover:shadow-2xl'
+              href='#work'
+              className='group relative px-6 md:px-8 py-3 md:py-4 rounded-2xl bg-accentWarm text-tech-dark font-bold text-base md:text-lg text-center overflow-hidden transition-all duration-400 mobile-touch-target shadow-lg hover:shadow-xl'
               whileHover={{
                 scale: 1.03,
                 y: -3,
@@ -220,15 +237,15 @@ export default function Hero() {
               whileTap={{ scale: 0.97 }}
             >
               {/* Primary button glow */}
-              <div className='absolute inset-0 bg-tech-coral blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-400'></div>
+              <div className='absolute inset-0 bg-accentWarm blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-400'></div>
               <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10'></div>
-              <span className='relative z-10'>View My Work</span>
+              <span className='relative z-10'>{hero.primaryCta}</span>
             </motion.a>
 
             {/* Secondary CTA */}
             <motion.a
               href='#contact'
-              className='group relative px-6 md:px-8 py-3 md:py-4 rounded-2xl border-2 border-tech-text-muted/30 text-tech-text-primary font-semibold text-base md:text-lg text-center hover:border-tech-coral hover:text-tech-coral transition-all duration-400 overflow-hidden mobile-touch-target backdrop-blur-sm'
+              className='group relative px-6 md:px-8 py-3 md:py-4 rounded-2xl border-2 border-text-muted/30 text-text-primary font-semibold text-base md:text-lg text-center hover:border-accentWarm hover:text-accentWarm transition-all duration-400 overflow-hidden mobile-touch-target backdrop-blur-sm'
               whileHover={{
                 scale: 1.02,
                 y: -2,
@@ -237,8 +254,8 @@ export default function Hero() {
               whileTap={{ scale: 0.98 }}
             >
               {/* Ghost button subtle glow */}
-              <div className='absolute inset-0 bg-tech-coral/5 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-400'></div>
-              <span className='relative z-10'>Hire Me</span>
+              <div className='absolute inset-0 bg-accentWarm/5 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-400'></div>
+              <span className='relative z-10'>{hero.secondaryCta}</span>
             </motion.a>
           </motion.div>
         </motion.div>
