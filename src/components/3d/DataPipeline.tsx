@@ -206,7 +206,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     ]
     connections.push(...inputToHidden1)
     
-    // Hidden layer 1 (9-20: 12 nodes) to Hidden layer 2 (21-29: 9 nodes) - clear layer connections
+    // Hidden layer 1 (9-20: 12 nodes) to Hidden layer 2 (21-29: 9 nodes) - ensure all nodes connected
     const hidden1ToHidden2 = [
       // Each hidden1 node connects to 2-3 hidden2 nodes
       [9, 21], [9, 22], [9, 23],
@@ -220,11 +220,14 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       [17, 22], [17, 23], [17, 24],
       [18, 23], [18, 24], [18, 25],
       [19, 24], [19, 25], [19, 26],
-      [20, 21], [20, 25], [20, 26]
+      [20, 21], [20, 25], [20, 26],
+      // Ensure all hidden2 nodes receive at least one connection
+      [9, 28], [10, 28], [11, 28], [12, 28], [13, 28], [14, 28], [15, 28], [16, 28], [17, 28], [18, 28], [19, 28], [20, 28],
+      [9, 29], [10, 29], [11, 29], [12, 29], [13, 29], [14, 29], [15, 29], [16, 29], [17, 29], [18, 29], [19, 29], [20, 29]
     ]
     connections.push(...hidden1ToHidden2)
     
-    // Hidden layer 2 (21-29: 9 nodes) to Hidden layer 3 (30-33: 4 nodes) - clear layer connections
+    // Hidden layer 2 (21-29: 9 nodes) to Hidden layer 3 (30-33: 4 nodes) - ensure all nodes connected
     const hidden2ToHidden3 = [
       // Each hidden2 node connects to 2-3 hidden3 nodes
       [21, 30], [21, 31],
@@ -235,7 +238,17 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       [26, 32], [26, 33],
       [27, 30], [27, 31],
       [28, 31], [28, 32],
-      [29, 32], [29, 33]
+      [29, 32], [29, 33],
+      // Ensure all hidden3 nodes receive at least one connection from each hidden2 node
+      [21, 30], [21, 31], [21, 32], [21, 33],
+      [22, 30], [22, 31], [22, 32], [22, 33],
+      [23, 30], [23, 31], [23, 32], [23, 33],
+      [24, 30], [24, 31], [24, 32], [24, 33],
+      [25, 30], [25, 31], [25, 32], [25, 33],
+      [26, 30], [26, 31], [26, 32], [26, 33],
+      [27, 30], [27, 31], [27, 32], [27, 33],
+      [28, 30], [28, 31], [28, 32], [28, 33],
+      [29, 30], [29, 31], [29, 32], [29, 33]
     ]
     connections.push(...hidden2ToHidden3)
     
@@ -551,7 +564,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       ]
       connectionPattern.push(...inputToHidden1)
       
-      // Hidden 1 to Hidden 2 - selective connections (9-20 to 21-29)
+      // Hidden 1 to Hidden 2 - ensure all nodes connected (9-20 to 21-29)
       const hidden1ToHidden2 = [
         [9, 21], [9, 22], [9, 23],
         [10, 21], [10, 22], [10, 24],
@@ -564,11 +577,14 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         [17, 22], [17, 23], [17, 24],
         [18, 23], [18, 24], [18, 25],
         [19, 24], [19, 25], [19, 26],
-        [20, 21], [20, 25], [20, 26]
+        [20, 21], [20, 25], [20, 26],
+        // Ensure all hidden2 nodes receive at least one connection
+        [9, 28], [10, 28], [11, 28], [12, 28], [13, 28], [14, 28], [15, 28], [16, 28], [17, 28], [18, 28], [19, 28], [20, 28],
+        [9, 29], [10, 29], [11, 29], [12, 29], [13, 29], [14, 29], [15, 29], [16, 29], [17, 29], [18, 29], [19, 29], [20, 29]
       ]
       connectionPattern.push(...hidden1ToHidden2)
       
-      // Hidden 2 to Hidden 3 - selective connections (21-29 to 30-33)
+      // Hidden 2 to Hidden 3 - ensure all nodes connected (21-29 to 30-33)
       const hidden2ToHidden3 = [
         [21, 30], [21, 31],
         [22, 30], [22, 31], [22, 32],
@@ -578,7 +594,17 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         [26, 32], [26, 33],
         [27, 30], [27, 31],
         [28, 31], [28, 32],
-        [29, 32], [29, 33]
+        [29, 32], [29, 33],
+        // Ensure all hidden3 nodes receive at least one connection from each hidden2 node
+        [21, 30], [21, 31], [21, 32], [21, 33],
+        [22, 30], [22, 31], [22, 32], [22, 33],
+        [23, 30], [23, 31], [23, 32], [23, 33],
+        [24, 30], [24, 31], [24, 32], [24, 33],
+        [25, 30], [25, 31], [25, 32], [25, 33],
+        [26, 30], [26, 31], [26, 32], [26, 33],
+        [27, 30], [27, 31], [27, 32], [27, 33],
+        [28, 30], [28, 31], [28, 32], [28, 33],
+        [29, 30], [29, 31], [29, 32], [29, 33]
       ]
       connectionPattern.push(...hidden2ToHidden3)
       
