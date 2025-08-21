@@ -108,7 +108,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       // Data Sources (3x3 grid = 9 nodes) - Real-time sensor inputs
       {
         name: 'LiDAR',
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
         color: 0xff4757,
@@ -116,7 +116,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Camera',
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: nodeSpacing + yOffset,
         z: 0 + zOffset,
         color: 0xff4757,
@@ -124,7 +124,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'IMU',
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0xff4757,
@@ -132,7 +132,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'GPS',
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0xff4757,
@@ -140,7 +140,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Radar',
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: 0 + yOffset,
         z: 0 + zOffset,
         color: 0xff4757,
@@ -148,7 +148,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Sonar',
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0xff4757,
@@ -156,7 +156,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Thermal',
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
         color: 0xff4757,
@@ -164,7 +164,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Telemetry',
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: -nodeSpacing + yOffset,
         z: 0 + zOffset,
         color: 0xff4757,
@@ -172,7 +172,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Encoder',
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0xff4757,
@@ -182,7 +182,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       // Processing Layer (12 nodes) - Real-time data processing (4x3 grid, 12 nodes)
       {
         name: 'SLAM',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing * 2 + zOffset,
         color: 0xffa726,
@@ -190,7 +190,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'CV Pipeline',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0xffa726,
@@ -198,7 +198,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Object Detect',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
         color: 0xffa726,
@@ -206,7 +206,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Path Planning',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0xffa726,
@@ -214,7 +214,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Kalman Filter',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing * 2 + zOffset,
         color: 0xffa726,
@@ -222,7 +222,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Feature Map',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0xffa726,
@@ -230,7 +230,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'ML Inference',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: 0 + yOffset,
         z: 0 + zOffset,
         color: 0xffa726,
@@ -238,7 +238,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Sensor Fusion',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0xffa726,
@@ -246,7 +246,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'State Estimation',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing * 2 + zOffset,
         color: 0xffa726,
@@ -254,7 +254,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Motion Control',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0xffa726,
@@ -262,7 +262,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Safety Check',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
         color: 0xffa726,
@@ -270,7 +270,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Cloud Sync',
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0xffa726,
@@ -280,7 +280,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       // Intelligence Layer (9 nodes) - AI decision making (3x3 grid, 9 nodes - complete)
       {
         name: 'Navigation AI',
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x00d4aa,
@@ -288,7 +288,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Obstacle Avoid',
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
         color: 0x00d4aa,
@@ -296,7 +296,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Mission Plan',
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x00d4aa,
@@ -304,7 +304,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Behavior Tree',
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x00d4aa,
@@ -312,7 +312,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Deep RL',
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: 0 + yOffset,
         z: 0 + zOffset,
         color: 0x00d4aa,
@@ -320,7 +320,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Fleet Coord',
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x00d4aa,
@@ -328,7 +328,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Anomaly Detect',
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x00d4aa,
@@ -336,7 +336,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Predictive',
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
         color: 0x00d4aa,
@@ -344,7 +344,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Optimization',
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x00d4aa,
@@ -354,7 +354,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       // Control Layer (4 nodes) - High-level system control (2x2 grid, 4 nodes - complete)
       {
         name: 'System Monitor',
-        x: layerSpacing * 0.25 + xOffset,
+        x: -layerSpacing * 0.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x8b5cf6,
@@ -362,7 +362,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Health Check',
-        x: layerSpacing * 0.25 + xOffset,
+        x: -layerSpacing * 0.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x8b5cf6,
@@ -370,7 +370,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Load Balance',
-        x: layerSpacing * 0.25 + xOffset,
+        x: -layerSpacing * 0.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x8b5cf6,
@@ -378,7 +378,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Auto Scale',
-        x: layerSpacing * 0.25 + xOffset,
+        x: -layerSpacing * 0.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x8b5cf6,
@@ -388,7 +388,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       // Output Layer (10 nodes) - Real-world actions (5x2 grid, 10 nodes - complete)
       {
         name: 'Motor Control',
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing * 2 + zOffset,
         color: 0x00e5ff,
@@ -396,7 +396,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Navigation',
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x00e5ff,
@@ -404,7 +404,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Data Capture',
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: 0 + zOffset,
         color: 0x00e5ff,
@@ -412,7 +412,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Communication',
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x00e5ff,
@@ -420,7 +420,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Emergency Stop',
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing * 2 + zOffset,
         color: 0x00e5ff,
@@ -428,7 +428,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Mission Execute',
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing * 2 + zOffset,
         color: 0x00e5ff,
@@ -436,7 +436,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Status Report',
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x00e5ff,
@@ -444,7 +444,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Cloud Upload',
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: 0 + zOffset,
         color: 0x00e5ff,
@@ -452,7 +452,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'Fleet Sync',
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x00e5ff,
@@ -460,7 +460,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       },
       {
         name: 'RTL Mode',
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing * 2 + zOffset,
         color: 0x00e5ff,
@@ -964,214 +964,214 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
     const basePositions = [
       // Input Layer (3x3 grid = 9 nodes)
       {
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: nodeSpacing + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
       },
-      { x: -layerSpacing * 3 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
+      { x: layerSpacing * 3 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
       {
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: -nodeSpacing + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: -layerSpacing * 3 + xOffset,
+        x: layerSpacing * 3 + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       // Hidden Layer 1 (12 nodes) - 4x3 grid
       {
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing * 2 + zOffset,
       },
       {
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing * 2 + zOffset,
       },
       {
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
       },
-      { x: -layerSpacing * 1.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
+      { x: layerSpacing * 1.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
       {
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing * 2 + zOffset,
       },
       {
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: -layerSpacing * 1.75 + xOffset,
+        x: layerSpacing * 1.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
       },
       // Hidden Layer 2 (9 nodes) - 3x3 grid
       {
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
       },
-      { x: -layerSpacing * 0.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
+      { x: layerSpacing * 0.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
       {
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: -layerSpacing * 0.75 + xOffset,
+        x: layerSpacing * 0.75 + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
       },
       // Hidden Layer 3 (4 nodes) - 2x2 grid
       {
-        x: layerSpacing * 0.25 + xOffset,
+        x: -layerSpacing * 0.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 0.25 + xOffset,
+        x: -layerSpacing * 0.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 0.25 + xOffset,
+        x: -layerSpacing * 0.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 0.25 + xOffset,
+        x: -layerSpacing * 0.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       // Output Layer (10 nodes) - 5x2 grid
       {
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing * 2 + zOffset,
       },
       {
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing * 2 + zOffset,
       },
       {
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing * 2 + zOffset,
       },
       {
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 1.25 + xOffset,
+        x: -layerSpacing * 1.25 + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing * 2 + zOffset,
       },

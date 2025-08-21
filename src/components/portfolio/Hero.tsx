@@ -43,7 +43,7 @@ export default function Hero() {
 
   return (
     <section
-      className='relative min-h-screen flex items-center overflow-hidden'
+      className='relative min-h-screen flex items-start overflow-hidden'
       aria-label='Hartley H. Leroy - Creative Technologist & AI Engineer'
     >
       {/* 3D Background - Full container */}
@@ -64,24 +64,24 @@ export default function Hero() {
       {/* Performance Display */}
       <PerformanceDisplay showDetails={true} />
 
-      {/* Content Container - Premium spacing */}
-      <div className='w-full md:w-1/2 h-full flex items-center px-6 md:px-16 py-12 md:py-20 relative z-20'>
+      {/* Content Container - Above the fold positioning */}
+      <div className='w-full md:w-1/2 h-full flex items-start justify-start px-6 md:px-16 py-8 md:py-16 relative z-20'>
         <motion.div
-          className='space-y-8 md:space-y-16 w-full pointer-events-auto bg-tech-dark/40 md:bg-tech-dark/30 backdrop-blur-xl rounded-2xl md:rounded-3xl p-8 md:p-16 border border-tech-coral/20 shadow-2xl'
+          className='space-y-6 md:space-y-10 w-full max-w-4xl pointer-events-auto bg-tech-dark/40 md:bg-tech-dark/30 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 md:p-10 border border-tech-coral/20 shadow-2xl'
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
           transition={{ duration: 0.8, ease: [0.4, 0.0, 0.2, 1] }}
         >
           {/* Hero Statement */}
           <motion.div
-            className='space-y-6 md:space-y-12'
+            className='space-y-4 md:space-y-8'
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className='space-y-4 md:space-y-8'>
+            <div className='space-y-3 md:space-y-6'>
               <motion.h1
-                className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-tech-text-primary leading-[0.9] tracking-tight'
+                className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-tech-text-primary leading-[0.9] tracking-tight'
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -96,7 +96,7 @@ export default function Hero() {
               </motion.h1>
 
               <motion.p
-                className='text-lg sm:text-xl md:text-2xl lg:text-3xl text-tech-text-secondary font-light leading-relaxed max-w-3xl'
+                className='text-base sm:text-lg md:text-xl lg:text-2xl text-tech-text-secondary font-light leading-relaxed max-w-3xl'
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
