@@ -1,7 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 
-const navItems = [
+interface NavigationProps {
+  currentSection?: number
+  onSectionChange?: (index: number) => void
+  sections?: Array<{ id: string; label: string; component: any }>
+}
+
+const defaultNavItems = [
   { href: '#services', label: 'Services' },
   { href: '#experience', label: 'Experience' },
   { href: '#about', label: 'About' },
@@ -9,37 +15,16 @@ const navItems = [
   { href: '#contact', label: 'Contact' },
 ]
 
-export default function Navigation() {
-  const [activeSection, setActiveSection] = useState('')
-  const [isScrolled, setIsScrolled] = useState(false)
+export default function Navigation({
+  currentSection = 0,
+  onSectionChange,
+  sections,
+}: NavigationProps = {}) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100
-      setIsScrolled(window.scrollY > 50)
-
-      // Find active section based on scroll position
-      for (const item of navItems) {
-        const element = document.querySelector(item.href)
-        if (element) {
-          const { offsetTop, offsetHeight } = element as HTMLElement
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(item.href)
-            break
-          }
-        }
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll() // Check initial position
-
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  // Use provided sections or fall back to default nav items
+  const navItems = sections ? sections.slice(1) : defaultNavItems // Skip hero section for nav
+  const isSlideshow = Boolean(sections && onSectionChange)
 
   const handleResumeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     // Try PDF first, fallback to DOCX if not found
@@ -52,7 +37,7 @@ export default function Navigation() {
   return (
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+        isSlideshow
           ? 'bg-zinc-900/95 backdrop-blur-md border-b border-white/10'
           : 'bg-transparent'
       }`}
@@ -77,33 +62,49 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className='hidden md:flex items-center space-x-8'>
-            {navItems.map(item => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={`px-3 py-2 text-sm font-medium transition-colors duration-200 relative ${
-                  activeSection === item.href
-                    ? 'text-cyan-400'
-                    : 'text-zinc-300 hover:text-cyan-400'
-                }`}
-                onClick={e => {
-                  e.preventDefault()
-                  document.querySelector(item.href)?.scrollIntoView({
-                    behavior: 'smooth',
-                  })
-                }}
-              >
-                {item.label}
-                {activeSection === item.href && (
-                  <motion.div
-                    className='absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-fuchsia-500'
-                    layoutId='activeTab'
-                    initial={false}
-                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                  />
-                )}
-              </a>
-            ))}
+            {navItems.map((item, index) => {
+              const itemIndex = sections ? index + 1 : index // Adjust for hero section
+              const isActive = isSlideshow
+                ? currentSection === itemIndex
+                : false
+              const label = sections ? item.label : item.label
+
+              return (
+                <button
+                  key={sections ? item.id : item.href}
+                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 relative ${
+                    isActive
+                      ? 'text-cyan-400'
+                      : 'text-zinc-300 hover:text-cyan-400'
+                  }`}
+                  onClick={e => {
+                    e.preventDefault()
+                    if (isSlideshow && onSectionChange) {
+                      onSectionChange(itemIndex)
+                    } else {
+                      const href = sections ? `#${item.id}` : item.href
+                      document.querySelector(href)?.scrollIntoView({
+                        behavior: 'smooth',
+                      })
+                    }
+                  }}
+                >
+                  {label}
+                  {isActive && (
+                    <motion.div
+                      className='absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-fuchsia-500'
+                      layoutId='activeTab'
+                      initial={false}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 300,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </button>
+              )
+            })}
           </div>
 
           {/* Resume Button */}
@@ -157,26 +158,38 @@ export default function Navigation() {
           transition={{ duration: 0.2 }}
         >
           <div className='py-4 space-y-2'>
-            {navItems.map(item => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={`block px-4 py-2 text-sm font-medium transition-colors duration-200 ${
-                  activeSection === item.href
-                    ? 'text-cyan-400 bg-white/10'
-                    : 'text-zinc-300 hover:text-cyan-400 hover:bg-white/5'
-                } rounded-lg mx-2`}
-                onClick={e => {
-                  e.preventDefault()
-                  setIsMobileMenuOpen(false)
-                  document.querySelector(item.href)?.scrollIntoView({
-                    behavior: 'smooth',
-                  })
-                }}
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item, index) => {
+              const itemIndex = sections ? index + 1 : index // Adjust for hero section
+              const isActive = isSlideshow
+                ? currentSection === itemIndex
+                : false
+              const label = sections ? item.label : item.label
+
+              return (
+                <button
+                  key={sections ? item.id : item.href}
+                  className={`block w-full text-left px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                    isActive
+                      ? 'text-cyan-400 bg-white/10'
+                      : 'text-zinc-300 hover:text-cyan-400 hover:bg-white/5'
+                  } rounded-lg mx-2`}
+                  onClick={e => {
+                    e.preventDefault()
+                    setIsMobileMenuOpen(false)
+                    if (isSlideshow && onSectionChange) {
+                      onSectionChange(itemIndex)
+                    } else {
+                      const href = sections ? `#${item.id}` : item.href
+                      document.querySelector(href)?.scrollIntoView({
+                        behavior: 'smooth',
+                      })
+                    }
+                  }}
+                >
+                  {label}
+                </button>
+              )
+            })}
             <a
               href='/docs/Hartley_LeRoy_Resume_Aug25.pdf'
               target='_blank'

@@ -4,7 +4,7 @@ export default function NewHero() {
   return (
     <section
       id='hero'
-      className='relative min-h-screen flex items-center py-24 md:py-32 overflow-hidden'
+      className='relative h-screen flex items-center justify-center overflow-hidden'
     >
       {/* Animated background elements */}
       <div className='absolute inset-0 opacity-20'>

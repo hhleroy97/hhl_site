@@ -1,10 +1,10 @@
-import RefactoredPortfolio from '@components/RefactoredPortfolio'
+import SlideshowPortfolio from '@components/SlideshowPortfolio'
 import { VisualizationProvider } from './contexts/VisualizationContext'
 
 export default function App() {
   return (
     <VisualizationProvider>
-      <RefactoredPortfolio />
+      <SlideshowPortfolio />
     </VisualizationProvider>
   )
 }
