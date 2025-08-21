@@ -49,20 +49,20 @@ export default function LandingHero() {
       {/* Main Hero Section */}
       <section
         ref={containerRef}
-        className='relative min-h-screen flex items-center justify-center px-6 lg:px-8'
+        className='relative min-h-screen flex items-center justify-center px-8 lg:px-16'
       >
         <div className='max-w-7xl mx-auto w-full'>
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'>
             {/* Left column - Content */}
             <motion.div
-              className='space-y-8 text-center lg:text-left'
+              className='space-y-12 text-center lg:text-left'
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
               {/* Name - morphs to header position */}
               <motion.div
-                className='space-y-6'
+                className='space-y-8'
                 style={{
                   scale: nameScale,
                   x: nameX,
@@ -78,7 +78,7 @@ export default function LandingHero() {
                 </h1>
 
                 <motion.div
-                  className='space-y-2'
+                  className='space-y-4'
                   style={{ opacity: contentOpacity }}
                 >
                   <p className='text-2xl sm:text-3xl font-semibold text-tech-text-secondary'>
@@ -95,12 +95,12 @@ export default function LandingHero() {
 
               {/* Contact Actions */}
               <motion.div
-                className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-6'
+                className='flex flex-col sm:flex-row gap-6 justify-center lg:justify-start pt-12'
                 style={{ opacity: contentOpacity }}
               >
                 <motion.a
                   href='#experience'
-                  className='px-8 py-4 rounded-lg bg-gradient-to-r from-tech-teal to-tech-cyan text-tech-dark font-bold text-center transition-all hover:shadow-lg'
+                  className='px-10 py-5 rounded-lg bg-gradient-to-r from-tech-teal to-tech-cyan text-tech-dark font-bold text-center transition-all hover:shadow-lg text-lg'
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -108,7 +108,7 @@ export default function LandingHero() {
                 </motion.a>
                 <motion.a
                   href='#contact'
-                  className='px-8 py-4 rounded-lg border border-tech-teal text-tech-teal font-semibold text-center hover:bg-tech-teal hover:text-tech-dark transition-all'
+                  className='px-10 py-5 rounded-lg border border-tech-teal text-tech-teal font-semibold text-center hover:bg-tech-teal hover:text-tech-dark transition-all text-lg'
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
