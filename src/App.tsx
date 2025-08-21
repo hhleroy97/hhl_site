@@ -1,5 +1,10 @@
 import PortfolioSection from '@components/PortfolioSection'
+import { VisualizationProvider } from './contexts/VisualizationContext'
 
 export default function App() {
-  return <PortfolioSection />
+  return (
+    <VisualizationProvider>
+      <PortfolioSection />
+    </VisualizationProvider>
+  )
 }
