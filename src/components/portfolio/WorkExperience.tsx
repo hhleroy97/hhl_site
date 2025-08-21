@@ -57,10 +57,7 @@ const experiences = [
 
 export default function WorkExperience() {
   return (
-    <section
-      id='experience'
-      className='h-screen flex flex-col justify-center py-16 relative overflow-y-auto'
-    >
+    <section id='experience' className='py-24 relative'>
       {/* Background elements */}
       <div className='absolute inset-0 bg-gradient-to-b from-zinc-900/30 to-zinc-900/60' />
       <div className='absolute top-1/2 left-8 w-px h-32 bg-gradient-to-b from-cyan-400/30 to-transparent' />

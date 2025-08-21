@@ -40,10 +40,7 @@ export default function ContactFooter() {
   return (
     <>
       {/* Contact Section */}
-      <section
-        id='contact'
-        className='h-screen flex flex-col justify-center py-16 relative overflow-hidden'
-      >
+      <section id='contact' className='py-24 relative overflow-hidden'>
         {/* Background effects */}
         <div className='absolute inset-0 bg-gradient-to-b from-zinc-900/70 to-zinc-900/90' />
         <div className='absolute top-1/4 left-8 w-px h-32 bg-gradient-to-b from-cyan-400/30 to-transparent' />

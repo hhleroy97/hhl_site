@@ -126,10 +126,7 @@ const skillCategories = [
 
 export default function SkillsTools() {
   return (
-    <section
-      id='skills'
-      className='h-screen flex flex-col justify-center py-16 relative overflow-y-auto'
-    >
+    <section id='skills' className='py-24 relative overflow-hidden'>
       {/* Background elements */}
       <div className='absolute inset-0 bg-gradient-to-b from-zinc-900/60 to-zinc-900/90' />
       <div className='absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-amber-500/20 to-transparent' />

@@ -96,10 +96,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section
-      id='services'
-      className='h-screen flex flex-col justify-center py-16 relative overflow-hidden'
-    >
+    <section id='services' className='py-24 relative overflow-hidden'>
       {/* Background effects */}
       <div className='absolute inset-0 bg-gradient-to-b from-zinc-900/50 to-zinc-900/80' />
       <div className='absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent' />

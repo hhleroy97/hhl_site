@@ -129,7 +129,7 @@ export default function SlideshowPortfolio() {
             }}
             className='absolute inset-0 h-full'
           >
-            <div className='h-full overflow-y-auto'>
+            <div className='h-screen flex flex-col justify-center overflow-y-auto'>
               <CurrentComponent />
             </div>
           </motion.div>
