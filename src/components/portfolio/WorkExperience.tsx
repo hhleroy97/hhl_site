@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
+import PageSection from '../ui/PageSection'
 
 const experiences = [
   {
@@ -90,174 +91,147 @@ export default function WorkExperience() {
   }, [currentIndex])
 
   return (
-    <section id='experience' className='py-24 relative'>
-      {/* Background elements */}
-      <div className='absolute inset-0 bg-gradient-to-b from-zinc-900/30 to-zinc-900/60' />
-      <div className='absolute top-1/2 left-8 w-px h-32 bg-gradient-to-b from-cyan-400/30 to-transparent' />
-      <div className='absolute top-1/4 right-12 w-px h-24 bg-gradient-to-b from-fuchsia-400/30 to-transparent' />
-
-      <div className='container-custom relative z-10'>
-        <motion.div
-          className='text-center mb-12'
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+    <PageSection
+      id='experience'
+      tagline='Experience'
+      taglineColor='fuchsia'
+      title='Building systems that scale'
+      subtitle='and experiences that inspire'
+    >
+      {/* Carousel Container with Navigation */}
+      <div className='relative max-w-6xl mx-auto flex items-center gap-8'>
+        {/* Left Navigation Arrow */}
+        <button
+          onClick={prevExperience}
+          className='flex-shrink-0 p-4 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm'
         >
-          <motion.div
-            className='inline-flex items-center gap-3 px-6 py-3 bg-fuchsia-500/10 border border-fuchsia-500/20 rounded-full text-fuchsia-400 text-lg font-medium mb-6'
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+          <svg
+            className='w-6 h-6'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
           >
-            <div className='w-3 h-3 bg-fuchsia-400 rounded-full animate-pulse' />
-            Experience
-          </motion.div>
-          <h2 className='text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
-            Building systems that scale
-            <br />
-            <span className='bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent'>
-              and experiences that inspire
-            </span>
-          </h2>
-        </motion.div>
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M15 19l-7-7 7-7'
+            />
+          </svg>
+        </button>
 
-        {/* Carousel Container with Navigation */}
-        <div className='relative max-w-6xl mx-auto flex items-center gap-8'>
-          {/* Left Navigation Arrow */}
-          <button
-            onClick={prevExperience}
-            className='flex-shrink-0 p-4 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm'
-          >
-            <svg
-              className='w-6 h-6'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
+        {/* Carousel Content */}
+        <div className='flex-1 relative max-w-4xl'>
+          {/* Experience Cards */}
+          <div className='overflow-hidden rounded-2xl'>
+            <motion.div
+              className='flex transition-transform duration-500 ease-out'
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M15 19l-7-7 7-7'
-              />
-            </svg>
-          </button>
-
-          {/* Carousel Content */}
-          <div className='flex-1 relative max-w-4xl'>
-            {/* Experience Cards */}
-            <div className='overflow-hidden rounded-2xl'>
-              <motion.div
-                className='flex transition-transform duration-500 ease-out'
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-              >
-                {experiences.map(exp => (
-                  <div
-                    key={`${exp.company}-${exp.role}`}
-                    className='w-full flex-shrink-0 px-2'
-                  >
-                    <div className='relative bg-gradient-to-r from-white/5 to-white/[0.02] rounded-2xl border border-white/10 p-6 hover:border-white/20 hover:from-white/10 hover:to-white/[0.05] transition-all duration-500 h-full'>
-                      {/* Company logo and title */}
-                      <div className='flex items-start justify-between mb-4'>
-                        <div className='flex items-center gap-4'>
-                          <div className='text-2xl'>{exp.logo}</div>
-                          <div>
-                            <h3 className='text-xl font-bold text-white mb-1'>
-                              {exp.company}
-                            </h3>
-                            <p className='text-lg text-cyan-400 font-medium'>
-                              {exp.role}
-                            </p>
-                          </div>
-                        </div>
-                        <div className='text-right text-sm text-zinc-400'>
-                          <div className='font-medium'>{exp.period}</div>
-                          <div>{exp.location}</div>
+              {experiences.map(exp => (
+                <div
+                  key={`${exp.company}-${exp.role}`}
+                  className='w-full flex-shrink-0 px-2'
+                >
+                  <div className='relative bg-gradient-to-r from-white/5 to-white/[0.02] rounded-2xl border border-white/10 p-6 hover:border-white/20 hover:from-white/10 hover:to-white/[0.05] transition-all duration-500 h-full'>
+                    {/* Company logo and title */}
+                    <div className='flex items-start justify-between mb-4'>
+                      <div className='flex items-center gap-4'>
+                        <div className='text-2xl'>{exp.logo}</div>
+                        <div>
+                          <h3 className='text-xl font-bold text-white mb-1'>
+                            {exp.company}
+                          </h3>
+                          <p className='text-lg text-cyan-400 font-medium'>
+                            {exp.role}
+                          </p>
                         </div>
                       </div>
-
-                      {/* Highlights */}
-                      <div className='mb-4'>
-                        <ul className='space-y-2'>
-                          {exp.highlights.map((highlight, i) => (
-                            <li
-                              key={i}
-                              className='flex items-start gap-3 text-zinc-300 text-sm'
-                            >
-                              <div className='w-1.5 h-1.5 bg-gradient-to-r from-cyan-400 to-fuchsia-500 rounded-full mt-2 flex-shrink-0' />
-                              <span>{highlight}</span>
-                            </li>
-                          ))}
-                        </ul>
+                      <div className='text-right text-sm text-zinc-400'>
+                        <div className='font-medium'>{exp.period}</div>
+                        <div>{exp.location}</div>
                       </div>
-
-                      {/* Technologies */}
-                      <div className='flex flex-wrap gap-1.5'>
-                        {exp.technologies.map(tech => (
-                          <span
-                            key={tech}
-                            className='px-2 py-1 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-zinc-300 hover:bg-white/20 hover:text-white transition-all duration-300'
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Hover effect */}
-                      <div className='absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-fuchsia-500/5 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none' />
                     </div>
+
+                    {/* Highlights */}
+                    <div className='mb-4'>
+                      <ul className='space-y-2'>
+                        {exp.highlights.map((highlight, i) => (
+                          <li
+                            key={i}
+                            className='flex items-start gap-3 text-zinc-300 text-sm'
+                          >
+                            <div className='w-1.5 h-1.5 bg-gradient-to-r from-cyan-400 to-fuchsia-500 rounded-full mt-2 flex-shrink-0' />
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Technologies */}
+                    <div className='flex flex-wrap gap-1.5'>
+                      {exp.technologies.map(tech => (
+                        <span
+                          key={tech}
+                          className='px-2 py-1 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-zinc-300 hover:bg-white/20 hover:text-white transition-all duration-300'
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Hover effect */}
+                    <div className='absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-fuchsia-500/5 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none' />
                   </div>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Carousel Indicators */}
-            <div className='flex justify-center gap-2 mt-6'>
-              {experiences.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToExperience(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    index === currentIndex
-                      ? 'bg-cyan-400 scale-125'
-                      : 'bg-white/30 hover:bg-white/50'
-                  }`}
-                  aria-label={`Go to experience ${index + 1}`}
-                />
+                </div>
               ))}
-            </div>
-
-            {/* Progress Counter */}
-            <div className='text-center mt-4'>
-              <span className='text-sm text-zinc-400'>
-                {currentIndex + 1} of {experiences.length}
-              </span>
-            </div>
+            </motion.div>
           </div>
 
-          {/* Right Navigation Arrow */}
-          <button
-            onClick={nextExperience}
-            className='flex-shrink-0 p-4 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm'
-          >
-            <svg
-              className='w-6 h-6'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M9 5l7 7-7 7'
+          {/* Carousel Indicators */}
+          <div className='flex justify-center gap-2 mt-6'>
+            {experiences.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToExperience(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === currentIndex
+                    ? 'bg-cyan-400 scale-125'
+                    : 'bg-white/30 hover:bg-white/50'
+                }`}
+                aria-label={`Go to experience ${index + 1}`}
               />
-            </svg>
-          </button>
+            ))}
+          </div>
+
+          {/* Progress Counter */}
+          <div className='text-center mt-4'>
+            <span className='text-sm text-zinc-400'>
+              {currentIndex + 1} of {experiences.length}
+            </span>
+          </div>
         </div>
+
+        {/* Right Navigation Arrow */}
+        <button
+          onClick={nextExperience}
+          className='flex-shrink-0 p-4 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm'
+        >
+          <svg
+            className='w-6 h-6'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M9 5l7 7-7 7'
+            />
+          </svg>
+        </button>
       </div>
-    </section>
+    </PageSection>
   )
 }
