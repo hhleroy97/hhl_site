@@ -8,14 +8,20 @@ export default function Highlights() {
 
   if (loading || !highlights) {
     return (
-      <section id='highlights' className='min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'>
+      <section
+        id='highlights'
+        className='min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'
+      >
         <div className='max-w-7xl mx-auto w-full'>
           <div className='space-y-8'>
             <div className='h-8 bg-tech-dark-surface/50 rounded animate-pulse'></div>
             <div className='h-4 bg-tech-dark-surface/50 rounded animate-pulse max-w-md mx-auto'></div>
             <div className='grid gap-6 md:grid-cols-3'>
               {[...Array(3)].map((_, i) => (
-                <div key={i} className='h-64 bg-tech-dark-surface/50 rounded-xl animate-pulse'></div>
+                <div
+                  key={i}
+                  className='h-64 bg-tech-dark-surface/50 rounded-xl animate-pulse'
+                ></div>
               ))}
             </div>
           </div>
@@ -38,7 +44,10 @@ export default function Highlights() {
   }
 
   return (
-    <section id='highlights' className='min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'>
+    <section
+      id='highlights'
+      className='min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'
+    >
       {/* Background depth layer */}
       <div className='absolute inset-0 bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-dark opacity-95' />
       <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accentWarm/5 via-transparent to-accentCool/5' />
@@ -53,11 +62,13 @@ export default function Highlights() {
           transition={{ duration: 0.8 }}
         >
           <h2 className='text-h2 font-bold text-text-primary mb-4'>
-            Impact & <span className='text-accentWarm text-glow-warm'>Highlights</span>
+            Impact &{' '}
+            <span className='text-accentWarm text-glow-warm'>Highlights</span>
           </h2>
           <div className='w-24 h-1 bg-accentWarm mx-auto mb-6' />
           <p className='text-body text-text-secondary max-w-2xl mx-auto'>
-            Key achievements that demonstrate real-world impact across infrastructure, robotics, and AI
+            Key achievements that demonstrate real-world impact across
+            infrastructure, robotics, and AI
           </p>
         </motion.div>
 
@@ -65,7 +76,7 @@ export default function Highlights() {
         <div className='grid gap-6 md:grid-cols-3'>
           {highlights.map((highlight, index) => {
             const skillColor = getSkillColor(highlight.skill)
-            
+
             return (
               <motion.div
                 key={index}
@@ -108,7 +119,9 @@ export default function Highlights() {
                     transition={{ duration: 0.4, delay: index * 0.1 + 0.1 }}
                   >
                     <span className='relative z-10'>{highlight.title}</span>
-                    <span className={`absolute inset-0 text-${skillColor} blur-sm opacity-30`}>
+                    <span
+                      className={`absolute inset-0 text-${skillColor} blur-sm opacity-30`}
+                    >
                       {highlight.title}
                     </span>
                   </motion.h3>
@@ -131,9 +144,14 @@ export default function Highlights() {
                           initial={{ opacity: 0, x: -10 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
-                          transition={{ duration: 0.3, delay: index * 0.1 + 0.2 + proofIndex * 0.05 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.1 + 0.2 + proofIndex * 0.05,
+                          }}
                         >
-                          <span className={`text-${skillColor} mr-2 text-xs`}>▶</span>
+                          <span className={`text-${skillColor} mr-2 text-xs`}>
+                            ▶
+                          </span>
                           {proof}
                         </motion.li>
                       ))}
@@ -147,7 +165,9 @@ export default function Highlights() {
                     whileHover={{ scale: 1 }}
                   >
                     <div className={`w-2 h-2 bg-${skillColor} rounded-full`}>
-                      <div className={`absolute inset-0 bg-${skillColor} rounded-full animate-ping opacity-40`}></div>
+                      <div
+                        className={`absolute inset-0 bg-${skillColor} rounded-full animate-ping opacity-40`}
+                      ></div>
                     </div>
                   </motion.div>
                 </div>
@@ -168,4 +188,4 @@ export default function Highlights() {
       </div>
     </section>
   )
-} 
+}

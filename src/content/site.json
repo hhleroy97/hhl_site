@@ -2,7 +2,15 @@
   "meta": {
     "title": "Hartley H. Leroy - Creative Technologist & AI Engineer",
     "description": "I build intelligent systems that merge AI, robotics, and data engineering. Real-time AI for autonomous robotics and cloud infrastructure.",
-    "keywords": ["AI Engineer", "Robotics", "Cloud Infrastructure", "Creative Technology", "ROS2", "AWS", "Machine Learning"],
+    "keywords": [
+      "AI Engineer",
+      "Robotics",
+      "Cloud Infrastructure",
+      "Creative Technology",
+      "ROS2",
+      "AWS",
+      "Machine Learning"
+    ],
     "author": "Hartley H. Leroy",
     "resumeFile": "Hartley_LeRoy_Resume_Aug25.docx.pdf"
   },
@@ -61,7 +69,11 @@
     {
       "title": "Production ML Pipelines",
       "how": "Streaming models across 1TB/day sensor data.",
-      "proof": ["<100ms inference", "Blue/green deploys", "Monitoring & alerts"],
+      "proof": [
+        "<100ms inference",
+        "Blue/green deploys",
+        "Monitoring & alerts"
+      ],
       "skill": "ml"
     }
   ],
@@ -211,4 +223,4 @@
       { "label": "Terms", "href": "/terms" }
     ]
   }
-} 
+}

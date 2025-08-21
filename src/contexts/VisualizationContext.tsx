@@ -9,9 +9,15 @@ interface VisualizationContextType {
   updateVisualizationIntensity: (intensity: number) => void
 }
 
-const VisualizationContext = createContext<VisualizationContextType | undefined>(undefined)
+const VisualizationContext = createContext<
+  VisualizationContextType | undefined
+>(undefined)
 
-export function VisualizationProvider({ children }: { children: React.ReactNode }) {
+export function VisualizationProvider({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const [highlightedSkill, setHighlightedSkill] = useState<string | null>(null)
   const [isVisualizationActive, setIsVisualizationActive] = useState(true)
   const [visualizationIntensity, setVisualizationIntensity] = useState(0.4)
@@ -47,7 +53,9 @@ export function VisualizationProvider({ children }: { children: React.ReactNode 
 export function useVisualization() {
   const context = useContext(VisualizationContext)
   if (context === undefined) {
-    throw new Error('useVisualization must be used within a VisualizationProvider')
+    throw new Error(
+      'useVisualization must be used within a VisualizationProvider'
+    )
   }
   return context
 }
@@ -55,14 +63,17 @@ export function useVisualization() {
 // Hook for components that need to trigger visualization highlights
 export function useVisualizationTrigger() {
   const { highlightSkill } = useVisualization()
-  
-  const triggerHighlight = useCallback((skill: string) => {
-    highlightSkill(skill)
-  }, [highlightSkill])
+
+  const triggerHighlight = useCallback(
+    (skill: string) => {
+      highlightSkill(skill)
+    },
+    [highlightSkill]
+  )
 
   const clearHighlight = useCallback(() => {
     highlightSkill(null)
   }, [highlightSkill])
 
   return { triggerHighlight, clearHighlight }
-} 
+}
