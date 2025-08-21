@@ -5,6 +5,9 @@ import PerformanceDisplay from '@components/ui/PerformanceDisplay'
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false)
+  const [hoveredMetric, setHoveredMetric] = useState<
+    'infrastructure' | 'robotics' | 'ai-ml' | null
+  >(null)
 
   useEffect(() => {
     setIsVisible(true)
@@ -19,6 +22,7 @@ export default function Hero() {
       color: 'tech-coral',
       bgColor: 'tech-coral/10',
       borderColor: 'tech-coral/30',
+      cluster: 'infrastructure' as const,
     },
     {
       value: 'ROS2',
@@ -28,6 +32,7 @@ export default function Hero() {
       color: 'tech-amber',
       bgColor: 'tech-amber/10',
       borderColor: 'tech-amber/30',
+      cluster: 'robotics' as const,
     },
     {
       value: 'AI/ML',
@@ -37,6 +42,7 @@ export default function Hero() {
       color: 'tech-teal',
       bgColor: 'tech-teal/10',
       borderColor: 'tech-teal/30',
+      cluster: 'ai-ml' as const,
     },
   ]
 
@@ -47,12 +53,11 @@ export default function Hero() {
     >
       {/* 3D Background Layer - Dynamic background integration */}
       <div className='absolute inset-0 pointer-events-none'>
-        {/* Desktop 3D Visualization - Integrated as background */}
-        <div className='hidden md:block absolute inset-0 opacity-40'>
-          <DataPipeline interactive={false} />
-          {/* Depth gradient overlay for text readability */}
-          <div className='absolute inset-0 bg-gradient-to-r from-tech-dark/60 via-transparent to-tech-dark/40 pointer-events-none' />
-          <div className='absolute inset-0 bg-gradient-to-t from-tech-dark/50 via-transparent to-tech-dark/30 pointer-events-none' />
+        {/* Desktop 3D Visualization - Interactive with metric cards */}
+        <div className='hidden md:block absolute inset-0 opacity-60 hover:opacity-80 transition-opacity duration-700'>
+          <DataPipeline interactive={false} highlightCluster={hoveredMetric} />
+          {/* Subtle depth overlay */}
+          <div className='absolute inset-0 bg-gradient-to-br from-tech-dark/30 via-transparent to-tech-dark/30 pointer-events-none' />
         </div>
 
         {/* Mobile fallback - Enhanced animated background */}
@@ -86,7 +91,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className='space-y-2 md:space-y-4'>
+            <div className='space-y-4 md:space-y-8'>
               <motion.h1
                 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-tech-text-primary leading-[0.85] tracking-tight relative'
                 initial={{ opacity: 0, y: 20 }}
@@ -95,19 +100,24 @@ export default function Hero() {
               >
                 I build{' '}
                 <span className='relative inline-block'>
-                  <span className='text-tech-coral relative z-10'>
+                  <span className='text-tech-coral relative z-10 drop-shadow-[0_0_8px_rgba(255,71,87,0.6)]'>
                     intelligent
                   </span>
-                  {/* Single accent color glow */}
-                  <span className='absolute inset-0 text-tech-coral blur-sm opacity-40'>
+                  {/* Sophisticated cyberpunk neon glow */}
+                  <span className='absolute inset-0 text-tech-coral blur-md opacity-30 animate-pulse'>
                     intelligent
                   </span>
+                  <span className='absolute inset-0 text-tech-coral blur-lg opacity-20'>
+                    intelligent
+                  </span>
+                  {/* Directional light streak */}
+                  <span className='absolute inset-0 bg-gradient-to-r from-transparent via-tech-coral/30 to-transparent h-full blur-sm opacity-40'></span>
                 </span>{' '}
                 systems
               </motion.h1>
 
               <motion.p
-                className='text-base sm:text-lg md:text-xl lg:text-2xl text-tech-text-secondary font-normal leading-[1.6] max-w-4xl relative z-10 mt-6 md:mt-8'
+                className='text-base sm:text-lg md:text-xl lg:text-2xl text-tech-text-secondary font-normal leading-[1.6] max-w-4xl relative z-10 mt-8 md:mt-12'
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -136,9 +146,9 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Premium Impact Metrics - Interactive Cards */}
+          {/* Premium Impact Metrics - Floating Interactive Cards */}
           <motion.div
-            className='grid grid-cols-1 gap-4 md:gap-5 relative z-10 mt-6 md:mt-8'
+            className='grid grid-cols-1 gap-6 md:gap-8 relative z-10 mt-12 md:mt-16'
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.0 }}
@@ -146,8 +156,12 @@ export default function Hero() {
             {metrics.map((metric, index) => (
               <motion.div
                 key={index}
-                className={`group relative p-4 md:p-6 rounded-2xl bg-gradient-to-r from-${metric.bgColor} to-${metric.bgColor}/60 border border-${metric.borderColor} 
-                    transition-all duration-700 cursor-pointer overflow-hidden backdrop-blur-sm shadow-lg hover:shadow-2xl`}
+                className={`group relative p-6 md:p-8 rounded-2xl bg-gradient-to-br from-${metric.bgColor}/80 to-${metric.bgColor}/40 
+                    border border-${metric.borderColor}/50 backdrop-blur-xl 
+                    shadow-[0_8px_32px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.05)] 
+                    hover:shadow-[0_16px_64px_rgba(0,0,0,0.4),0_0_32px_rgba(255,71,87,0.15),0_0_0_1px_rgba(255,255,255,0.1)] 
+                    transition-all duration-700 cursor-pointer overflow-hidden 
+                    hover:transform hover:scale-[1.02] hover:-translate-y-2`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.2 + index * 0.15 }}
@@ -157,32 +171,41 @@ export default function Hero() {
                   transition: { duration: 0.3, ease: 'easeOut' },
                 }}
                 whileTap={{ scale: 0.98 }}
+                onHoverStart={() => setHoveredMetric(metric.cluster)}
+                onHoverEnd={() => setHoveredMetric(null)}
               >
-                {/* Premium depth effects */}
-                <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] pointer-events-none' />
+                {/* Premium floating card effects */}
+                <div className='absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-black/[0.04] pointer-events-none' />
                 <div
-                  className={`absolute -top-16 -right-16 w-32 h-32 bg-${metric.color}/8 rounded-full blur-3xl pointer-events-none group-hover:bg-${metric.color}/12 transition-all duration-700`}
+                  className={`absolute -top-20 -right-20 w-40 h-40 bg-${metric.color}/6 rounded-full blur-3xl pointer-events-none group-hover:bg-${metric.color}/12 group-hover:animate-pulse transition-all duration-700`}
                 />
                 <div
-                  className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-${metric.color}/40 to-transparent group-hover:via-${metric.color}/60 transition-all duration-500`}
+                  className={`absolute -bottom-16 -left-16 w-32 h-32 bg-${metric.color}/4 rounded-full blur-2xl pointer-events-none group-hover:bg-${metric.color}/8 transition-all duration-700`}
+                />
+                <div
+                  className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-${metric.color}/60 to-transparent group-hover:via-${metric.color}/80 group-hover:h-1.5 transition-all duration-500`}
+                />
+                {/* Elegant inner glow */}
+                <div
+                  className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-${metric.color}/[0.02] via-transparent to-${metric.color}/[0.05] opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
                 />
 
                 <div className='flex items-center justify-between relative z-10'>
-                  <div className='space-y-2 md:space-y-3 flex-1'>
+                  <div className='space-y-3 md:space-y-4 flex-1'>
                     <div
-                      className={`text-xl md:text-3xl font-black text-${metric.color} relative group-hover:scale-105 transition-transform duration-300`}
+                      className={`text-2xl md:text-4xl font-black text-${metric.color} relative group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_8px_rgba(255,71,87,0.3)] group-hover:drop-shadow-[0_0_12px_rgba(255,71,87,0.5)]`}
                     >
                       <span className='relative z-10'>{metric.value}</span>
                       <span
-                        className={`absolute inset-0 text-${metric.color} opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-300`}
+                        className={`absolute inset-0 text-${metric.color} opacity-20 blur-md group-hover:opacity-40 transition-opacity duration-300`}
                       >
                         {metric.value}
                       </span>
                     </div>
-                    <div className='text-base md:text-lg font-bold text-tech-text-primary group-hover:text-white transition-colors duration-300'>
+                    <div className='text-lg md:text-xl font-bold text-tech-text-primary group-hover:text-white transition-colors duration-300'>
                       {metric.label}
                     </div>
-                    <p className='text-xs md:text-sm text-tech-text-secondary leading-[1.5] group-hover:text-tech-text-primary transition-colors duration-300'>
+                    <p className='text-sm md:text-base text-tech-text-secondary leading-[1.6] group-hover:text-tech-text-primary transition-colors duration-300'>
                       {metric.detail}
                     </p>
                   </div>
@@ -203,7 +226,7 @@ export default function Hero() {
 
           {/* Refined CTAs - Clear Hierarchy */}
           <motion.div
-            className='flex flex-col sm:flex-row gap-3 md:gap-4 pt-6 md:pt-8 relative z-10'
+            className='flex flex-col sm:flex-row gap-4 md:gap-6 pt-10 md:pt-12 relative z-10'
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.6 }}
@@ -211,7 +234,7 @@ export default function Hero() {
             {/* Primary CTA */}
             <motion.a
               href='#experience'
-              className='group relative px-6 md:px-8 py-3 md:py-4 rounded-2xl bg-tech-coral text-white font-bold text-base md:text-lg text-center overflow-hidden transition-all duration-400 mobile-touch-target shadow-lg hover:shadow-2xl'
+              className='group relative px-8 md:px-10 py-4 md:py-5 rounded-2xl bg-tech-coral text-white font-bold text-lg md:text-xl text-center overflow-hidden transition-all duration-400 mobile-touch-target shadow-[0_8px_32px_rgba(255,71,87,0.3)] hover:shadow-[0_16px_48px_rgba(255,71,87,0.4),0_0_32px_rgba(255,71,87,0.2)]'
               whileHover={{
                 scale: 1.03,
                 y: -3,
@@ -219,16 +242,17 @@ export default function Hero() {
               }}
               whileTap={{ scale: 0.97 }}
             >
-              {/* Primary button glow */}
-              <div className='absolute inset-0 bg-tech-coral blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-400'></div>
-              <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10'></div>
+              {/* Primary button premium glow */}
+              <div className='absolute inset-0 bg-tech-coral blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-400'></div>
+              <div className='absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-white/15'></div>
+              <div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent'></div>
               <span className='relative z-10'>View My Work</span>
             </motion.a>
 
             {/* Secondary CTA */}
             <motion.a
               href='#contact'
-              className='group relative px-6 md:px-8 py-3 md:py-4 rounded-2xl border-2 border-tech-text-muted/30 text-tech-text-primary font-semibold text-base md:text-lg text-center hover:border-tech-coral hover:text-tech-coral transition-all duration-400 overflow-hidden mobile-touch-target backdrop-blur-sm'
+              className='group relative px-8 md:px-10 py-4 md:py-5 rounded-2xl border-2 border-tech-text-muted/30 text-tech-text-primary font-semibold text-lg md:text-xl text-center hover:border-tech-coral hover:text-tech-coral transition-all duration-400 overflow-hidden mobile-touch-target backdrop-blur-sm shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_32px_rgba(255,71,87,0.2)]'
               whileHover={{
                 scale: 1.02,
                 y: -2,
@@ -236,8 +260,9 @@ export default function Hero() {
               }}
               whileTap={{ scale: 0.98 }}
             >
-              {/* Ghost button subtle glow */}
-              <div className='absolute inset-0 bg-tech-coral/5 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-400'></div>
+              {/* Ghost button elegant glow */}
+              <div className='absolute inset-0 bg-tech-coral/8 blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-400'></div>
+              <div className='absolute inset-0 bg-gradient-to-r from-transparent via-tech-coral/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400'></div>
               <span className='relative z-10'>Hire Me</span>
             </motion.a>
           </motion.div>
