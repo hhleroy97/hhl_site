@@ -17,13 +17,13 @@ export default function NewAbout() {
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className='inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-sm font-medium mb-6'
+            className='inline-flex items-center gap-3 px-6 py-3 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-lg font-medium mb-6'
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <div className='w-2 h-2 bg-emerald-400 rounded-full animate-pulse' />
+            <div className='w-3 h-3 bg-emerald-400 rounded-full animate-pulse' />
             About
           </motion.div>
         </motion.div>
