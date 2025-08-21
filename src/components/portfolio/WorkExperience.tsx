@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const experiences = [
   {
@@ -73,6 +73,22 @@ export default function WorkExperience() {
     setCurrentIndex(index)
   }
 
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        prevExperience()
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        nextExperience()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [currentIndex])
+
   return (
     <section id='experience' className='py-24 relative'>
       {/* Background elements */}
@@ -107,16 +123,15 @@ export default function WorkExperience() {
           </h2>
         </motion.div>
 
-        {/* Carousel Container */}
-        <div className='relative max-w-4xl mx-auto'>
-          {/* Navigation Arrows */}
+        {/* Carousel Container with Navigation */}
+        <div className='relative max-w-6xl mx-auto flex items-center gap-8'>
+          {/* Left Navigation Arrow */}
           <button
             onClick={prevExperience}
-            className='absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 p-3 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm'
-            disabled={currentIndex === 0}
+            className='flex-shrink-0 p-4 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm'
           >
             <svg
-              className='w-5 h-5'
+              className='w-6 h-6'
               fill='none'
               stroke='currentColor'
               viewBox='0 0 24 24'
@@ -130,13 +145,105 @@ export default function WorkExperience() {
             </svg>
           </button>
 
+          {/* Carousel Content */}
+          <div className='flex-1 relative max-w-4xl'>
+            {/* Experience Cards */}
+            <div className='overflow-hidden rounded-2xl'>
+              <motion.div
+                className='flex transition-transform duration-500 ease-out'
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              >
+                {experiences.map(exp => (
+                  <div
+                    key={`${exp.company}-${exp.role}`}
+                    className='w-full flex-shrink-0 px-2'
+                  >
+                    <div className='relative bg-gradient-to-r from-white/5 to-white/[0.02] rounded-2xl border border-white/10 p-6 hover:border-white/20 hover:from-white/10 hover:to-white/[0.05] transition-all duration-500 h-full'>
+                      {/* Company logo and title */}
+                      <div className='flex items-start justify-between mb-4'>
+                        <div className='flex items-center gap-4'>
+                          <div className='text-2xl'>{exp.logo}</div>
+                          <div>
+                            <h3 className='text-xl font-bold text-white mb-1'>
+                              {exp.company}
+                            </h3>
+                            <p className='text-lg text-cyan-400 font-medium'>
+                              {exp.role}
+                            </p>
+                          </div>
+                        </div>
+                        <div className='text-right text-sm text-zinc-400'>
+                          <div className='font-medium'>{exp.period}</div>
+                          <div>{exp.location}</div>
+                        </div>
+                      </div>
+
+                      {/* Highlights */}
+                      <div className='mb-4'>
+                        <ul className='space-y-2'>
+                          {exp.highlights.map((highlight, i) => (
+                            <li
+                              key={i}
+                              className='flex items-start gap-3 text-zinc-300 text-sm'
+                            >
+                              <div className='w-1.5 h-1.5 bg-gradient-to-r from-cyan-400 to-fuchsia-500 rounded-full mt-2 flex-shrink-0' />
+                              <span>{highlight}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Technologies */}
+                      <div className='flex flex-wrap gap-1.5'>
+                        {exp.technologies.map(tech => (
+                          <span
+                            key={tech}
+                            className='px-2 py-1 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-zinc-300 hover:bg-white/20 hover:text-white transition-all duration-300'
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Hover effect */}
+                      <div className='absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-fuchsia-500/5 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none' />
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Carousel Indicators */}
+            <div className='flex justify-center gap-2 mt-6'>
+              {experiences.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToExperience(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex
+                      ? 'bg-cyan-400 scale-125'
+                      : 'bg-white/30 hover:bg-white/50'
+                  }`}
+                  aria-label={`Go to experience ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Progress Counter */}
+            <div className='text-center mt-4'>
+              <span className='text-sm text-zinc-400'>
+                {currentIndex + 1} of {experiences.length}
+              </span>
+            </div>
+          </div>
+
+          {/* Right Navigation Arrow */}
           <button
             onClick={nextExperience}
-            className='absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 p-3 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm'
-            disabled={currentIndex === experiences.length - 1}
+            className='flex-shrink-0 p-4 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm'
           >
             <svg
-              className='w-5 h-5'
+              className='w-6 h-6'
               fill='none'
               stroke='currentColor'
               viewBox='0 0 24 24'
@@ -149,95 +256,6 @@ export default function WorkExperience() {
               />
             </svg>
           </button>
-
-          {/* Experience Cards */}
-          <div className='overflow-hidden rounded-2xl'>
-            <motion.div
-              className='flex transition-transform duration-500 ease-out'
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
-              {experiences.map(exp => (
-                <div
-                  key={`${exp.company}-${exp.role}`}
-                  className='w-full flex-shrink-0 px-2'
-                >
-                  <div className='relative bg-gradient-to-r from-white/5 to-white/[0.02] rounded-2xl border border-white/10 p-6 hover:border-white/20 hover:from-white/10 hover:to-white/[0.05] transition-all duration-500 h-full'>
-                    {/* Company logo and title */}
-                    <div className='flex items-start justify-between mb-4'>
-                      <div className='flex items-center gap-4'>
-                        <div className='text-2xl'>{exp.logo}</div>
-                        <div>
-                          <h3 className='text-xl font-bold text-white mb-1'>
-                            {exp.company}
-                          </h3>
-                          <p className='text-lg text-cyan-400 font-medium'>
-                            {exp.role}
-                          </p>
-                        </div>
-                      </div>
-                      <div className='text-right text-sm text-zinc-400'>
-                        <div className='font-medium'>{exp.period}</div>
-                        <div>{exp.location}</div>
-                      </div>
-                    </div>
-
-                    {/* Highlights */}
-                    <div className='mb-4'>
-                      <ul className='space-y-2'>
-                        {exp.highlights.map((highlight, i) => (
-                          <li
-                            key={i}
-                            className='flex items-start gap-3 text-zinc-300 text-sm'
-                          >
-                            <div className='w-1.5 h-1.5 bg-gradient-to-r from-cyan-400 to-fuchsia-500 rounded-full mt-2 flex-shrink-0' />
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Technologies */}
-                    <div className='flex flex-wrap gap-1.5'>
-                      {exp.technologies.map(tech => (
-                        <span
-                          key={tech}
-                          className='px-2 py-1 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-zinc-300 hover:bg-white/20 hover:text-white transition-all duration-300'
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Hover effect */}
-                    <div className='absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-fuchsia-500/5 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none' />
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Carousel Indicators */}
-          <div className='flex justify-center gap-2 mt-6'>
-            {experiences.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToExperience(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? 'bg-cyan-400 scale-125'
-                    : 'bg-white/30 hover:bg-white/50'
-                }`}
-                aria-label={`Go to experience ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Progress Counter */}
-          <div className='text-center mt-4'>
-            <span className='text-sm text-zinc-400'>
-              {currentIndex + 1} of {experiences.length}
-            </span>
-          </div>
         </div>
       </div>
     </section>
