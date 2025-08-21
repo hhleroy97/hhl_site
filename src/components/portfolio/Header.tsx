@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { useNavigationContent } from '@/hooks/useSiteContent'
+import { GitHubLoginButton } from '@/components/ui/GitHubLoginButton'
+import { env } from '@/utils/env'
 
 export default function Header() {
   const { navigation, loading } = useNavigationContent()
@@ -17,7 +19,10 @@ export default function Header() {
             <div className='h-6 w-24 bg-tech-dark-surface/50 rounded animate-pulse'></div>
             <div className='hidden md:flex space-x-8'>
               {[...Array(4)].map((_, i) => (
-                <div key={i} className='h-4 w-16 bg-tech-dark-surface/50 rounded animate-pulse'></div>
+                <div
+                  key={i}
+                  className='h-4 w-16 bg-tech-dark-surface/50 rounded animate-pulse'
+                ></div>
               ))}
             </div>
             <div className='h-8 w-20 bg-tech-dark-surface/50 rounded animate-pulse'></div>
@@ -59,10 +64,10 @@ export default function Header() {
                 key={item.label}
                 href={item.href}
                 className='relative px-4 py-2 text-tech-text-secondary hover:text-accentWarm transition-all duration-300 font-semibold tracking-wide group rounded-lg'
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
                   y: -2,
-                  transition: { duration: 0.2, ease: 'easeOut' }
+                  transition: { duration: 0.2, ease: 'easeOut' },
                 }}
                 whileTap={{ scale: 0.98 }}
                 initial={{ opacity: 0, y: -20 }}
@@ -78,16 +83,27 @@ export default function Header() {
             ))}
           </nav>
 
+          {/* GitHub Login Button */}
+          {env.features.githubAuth && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <GitHubLoginButton className='mr-4' />
+            </motion.div>
+          )}
+
           {/* Resume CTA - Enhanced with glow */}
           <motion.a
             href={navigation.cta.href}
             target={navigation.cta.external ? '_blank' : undefined}
             rel={navigation.cta.external ? 'noopener noreferrer' : undefined}
             className='group relative px-4 py-2 bg-accentWarm text-tech-dark font-semibold rounded-lg transition-all duration-300 overflow-hidden backdrop-blur-sm'
-            whileHover={{ 
+            whileHover={{
               scale: 1.05,
               y: -2,
-              transition: { duration: 0.2, ease: 'easeOut' }
+              transition: { duration: 0.2, ease: 'easeOut' },
             }}
             whileTap={{ scale: 0.98 }}
             initial={{ opacity: 0, y: -20 }}
@@ -97,17 +113,17 @@ export default function Header() {
             {/* Button glow effects */}
             <div className='absolute inset-0 bg-accentWarm blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-400'></div>
             <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10'></div>
-            
+
             <span className='relative z-10'>{navigation.cta.label}</span>
           </motion.a>
 
           {/* Mobile menu button - Enhanced with glow */}
           <motion.button
             className='md:hidden relative p-2 rounded-xl text-tech-text-secondary hover:text-accentWarm focus:outline-none backdrop-blur-sm hover:bg-accentWarm/10 transition-all duration-300 group focus-ring-warm'
-            whileHover={{ 
+            whileHover={{
               scale: 1.05,
               y: -1,
-              transition: { duration: 0.2, ease: 'easeOut' }
+              transition: { duration: 0.2, ease: 'easeOut' },
             }}
             whileTap={{ scale: 0.95 }}
           >
