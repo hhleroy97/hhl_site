@@ -14,16 +14,20 @@ export default {
           'blue-dark': '#0284c7', // Darker blue
           navy: '#1e3a8a', // Deep navy
 
-          // Artistic accent colors
-          coral: '#ff6b6b', // Warm coral accent
-          purple: '#8b5cf6', // Creative purple
-          gold: '#f59e0b', // Premium gold
-          green: '#10b981', // Success green
+          // Artistic accent colors - signature warm palette
+          coral: '#ff4757', // Bold coral primary accent
+          magenta: '#ff3838', // Electric magenta for CTAs
+          amber: '#ffa726', // Warm amber for highlights
+          crimson: '#e74c3c', // Deep crimson for emphasis
+          purple: '#8b5cf6', // Creative purple (kept)
+          gold: '#f59e0b', // Premium gold (kept)
+          green: '#10b981', // Success green (kept)
 
           // Aliases for missing classes
           neon: '#00d4aa', // Alias for teal
-          pink: '#ff6b6b', // Alias for coral
-          yellow: '#f59e0b', // Alias for gold
+          pink: '#ff4757', // Alias for coral
+          yellow: '#ffa726', // Alias for amber
+          accent: '#ff4757', // Primary warm accent
 
           // Background system - deep engineering blues
           dark: '#0a0f1c', // Very deep blue-black
@@ -50,6 +54,19 @@ export default {
           700: '#0e7490',
           800: '#155e75',
           900: '#164e63',
+        },
+        // Coral accent palette for hierarchy
+        accent: {
+          50: '#fff5f5',
+          100: '#ffe3e3',
+          200: '#ffc9c9',
+          300: '#ffa8a8',
+          400: '#ff8787',
+          500: '#ff4757', // Primary coral accent
+          600: '#ff3838', // Magenta CTA
+          700: '#e74c3c', // Deep crimson
+          800: '#c0392b',
+          900: '#a93226',
         },
         // Semantic colors
         success: '#4caf50',
@@ -102,6 +119,10 @@ export default {
       },
       animation: {
         glow: 'glow 2s ease-in-out infinite alternate',
+        'glow-pulse': 'glowPulse 3s ease-in-out infinite',
+        'text-shimmer': 'textShimmer 2s ease-in-out infinite',
+        'metric-flip': 'metricFlip 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+        'cta-bounce': 'ctaBounce 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
         glitch: 'glitch 0.3s ease-in-out infinite',
         scan: 'scan 2s linear infinite',
         flicker: 'flicker 0.15s linear infinite',
@@ -154,6 +175,30 @@ export default {
         scaleIn: {
           '0%': { opacity: '0', transform: 'scale(0.95)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        glowPulse: {
+          '0%, 100%': {
+            boxShadow:
+              '0 0 20px rgba(255, 71, 87, 0.4), 0 0 40px rgba(255, 71, 87, 0.2)',
+          },
+          '50%': {
+            boxShadow:
+              '0 0 30px rgba(255, 71, 87, 0.6), 0 0 60px rgba(255, 71, 87, 0.3)',
+          },
+        },
+        textShimmer: {
+          '0%': { backgroundPosition: '-200% center' },
+          '100%': { backgroundPosition: '200% center' },
+        },
+        metricFlip: {
+          '0%': { transform: 'rotateY(0deg)' },
+          '50%': { transform: 'rotateY(-90deg)' },
+          '100%': { transform: 'rotateY(0deg)' },
+        },
+        ctaBounce: {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.05)' },
+          '100%': { transform: 'scale(1)' },
         },
       },
       backdropBlur: {

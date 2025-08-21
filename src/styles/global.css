@@ -154,6 +154,20 @@
     z-index: -1;
   }
 
+  /* Signature brand animations */
+  .animate-text-shimmer {
+    background-size: 200% 100%;
+    animation: textShimmer 2s ease-in-out infinite;
+  }
+
+  .animate-glow-pulse {
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  .animate-metric-flip {
+    animation: metricFlip 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   .glitch-text::after {
     animation: glitch-2 0.5s infinite;
     color: theme('colors.tech.cyan');
@@ -196,6 +210,28 @@
 
   .bg-gradient-cyberpunk {
     background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a1a1a 100%);
+  }
+
+  /* Premium brand gradients */
+  .bg-gradient-signature {
+    background: linear-gradient(135deg, #ff4757 0%, #ffa726 50%, #ff4757 100%);
+  }
+
+  .bg-gradient-hero {
+    background: linear-gradient(135deg, #0a0f1c 0%, #1a1f35 25%, #0a0f1c 100%);
+  }
+
+  /* Interactive state utilities */
+  .hover-glow-coral:hover {
+    box-shadow:
+      0 0 30px rgba(255, 71, 87, 0.5),
+      0 0 60px rgba(255, 71, 87, 0.25);
+  }
+
+  .hover-glow-teal:hover {
+    box-shadow:
+      0 0 30px rgba(0, 212, 170, 0.5),
+      0 0 60px rgba(0, 212, 170, 0.25);
   }
 }
 
@@ -419,6 +455,42 @@
   .crisp-edges {
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+  }
+}
+
+/* Enhanced keyframes for signature animations */
+@keyframes textShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px rgba(255, 71, 87, 0.4),
+      0 0 40px rgba(255, 71, 87, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(255, 71, 87, 0.6),
+      0 0 60px rgba(255, 71, 87, 0.3);
+  }
+}
+
+@keyframes metricFlip {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(-90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
   }
 }
 
