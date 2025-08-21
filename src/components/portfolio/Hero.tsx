@@ -71,24 +71,14 @@ export default function Hero() {
       {/* Performance Display */}
       <PerformanceDisplay showDetails={true} />
 
-      {/* Content Container - Floating above 3D background */}
-      <div className='w-full flex items-start justify-center px-4 md:px-12 pt-6 md:pt-12 pb-8 relative z-30'>
+      {/* Content Container - Premium Spacing */}
+      <div className='w-full flex items-start justify-center px-6 md:px-16 pt-16 md:pt-24 pb-12 md:pb-16 relative z-30'>
         <motion.div
-          className='space-y-4 md:space-y-8 w-full max-w-5xl pointer-events-auto bg-gradient-to-br from-tech-dark/85 via-tech-dark/70 to-tech-dark/85 backdrop-blur-2xl rounded-2xl md:rounded-3xl p-6 md:p-10 border border-tech-coral/30 shadow-2xl relative overflow-hidden'
+          className='w-full max-w-6xl pointer-events-auto relative'
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
           transition={{ duration: 0.8, ease: [0.4, 0.0, 0.2, 1] }}
         >
-          {/* Enhanced depth-aware lighting effects */}
-          <div className='absolute inset-0 bg-gradient-to-tr from-tech-coral/8 via-transparent to-tech-amber/8 pointer-events-none' />
-          <div className='absolute -top-32 -right-32 w-64 h-64 bg-tech-coral/12 rounded-full blur-3xl pointer-events-none animate-pulse' />
-          <div
-            className='absolute -bottom-16 -left-16 w-48 h-48 bg-tech-teal/12 rounded-full blur-3xl pointer-events-none animate-pulse'
-            style={{ animationDelay: '1s' }}
-          />
-          <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-1 bg-gradient-to-r from-transparent via-tech-coral/25 to-transparent blur-sm pointer-events-none' />
-          {/* Content depth enhancer */}
-          <div className='absolute inset-0 bg-gradient-to-b from-transparent via-tech-dark/10 to-transparent pointer-events-none' />
           {/* Hero Statement */}
           <motion.div
             className='space-y-3 md:space-y-6 relative z-10'
@@ -98,30 +88,26 @@ export default function Hero() {
           >
             <div className='space-y-2 md:space-y-4'>
               <motion.h1
-                className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-tech-text-primary leading-[0.9] tracking-tight relative'
+                className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-tech-text-primary leading-[0.85] tracking-tight relative'
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                {/* Text glow effect */}
-                <span className='absolute inset-0 bg-gradient-to-r from-tech-coral via-tech-amber to-tech-coral bg-clip-text text-transparent opacity-30 blur-sm'>
-                  I build intelligent systems
-                </span>
-                <span className='relative z-10'>
-                  I build{' '}
-                  <span className='relative inline-block'>
-                    <span className='text-transparent bg-gradient-to-r from-tech-coral via-tech-amber to-tech-coral bg-clip-text animate-text-shimmer bg-[length:200%_100%] relative z-10'>
-                      intelligent
-                    </span>
-                    {/* Word highlight glow */}
-                    <span className='absolute inset-0 bg-gradient-to-r from-tech-coral/20 via-tech-amber/20 to-tech-coral/20 blur-lg'></span>
-                  </span>{' '}
-                  systems
-                </span>
+                I build{' '}
+                <span className='relative inline-block'>
+                  <span className='text-tech-coral relative z-10'>
+                    intelligent
+                  </span>
+                  {/* Single accent color glow */}
+                  <span className='absolute inset-0 text-tech-coral blur-sm opacity-40'>
+                    intelligent
+                  </span>
+                </span>{' '}
+                systems
               </motion.h1>
 
               <motion.p
-                className='text-sm sm:text-base md:text-lg lg:text-xl text-tech-text-secondary font-light leading-relaxed max-w-3xl relative z-10'
+                className='text-base sm:text-lg md:text-xl lg:text-2xl text-tech-text-secondary font-normal leading-[1.6] max-w-4xl relative z-10 mt-6 md:mt-8'
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -150,9 +136,9 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Premium Impact Metrics */}
+          {/* Premium Impact Metrics - Interactive Cards */}
           <motion.div
-            className='grid grid-cols-1 gap-3 md:gap-4 relative z-10'
+            className='grid grid-cols-1 gap-6 md:gap-8 relative z-10 mt-8 md:mt-12'
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.0 }}
@@ -160,50 +146,54 @@ export default function Hero() {
             {metrics.map((metric, index) => (
               <motion.div
                 key={index}
-                className={`group relative p-3 md:p-6 rounded-xl md:rounded-2xl bg-${metric.bgColor} border border-${metric.borderColor} 
-                    transition-all duration-500 overflow-hidden`}
+                className={`group relative p-6 md:p-8 rounded-2xl bg-gradient-to-r from-${metric.bgColor} to-${metric.bgColor}/60 border border-${metric.borderColor} 
+                    transition-all duration-700 cursor-pointer overflow-hidden backdrop-blur-sm shadow-lg hover:shadow-2xl`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.2 + index * 0.1 }}
+                transition={{ duration: 0.6, delay: 1.2 + index * 0.15 }}
+                whileHover={{
+                  scale: 1.02,
+                  y: -4,
+                  transition: { duration: 0.3, ease: 'easeOut' },
+                }}
+                whileTap={{ scale: 0.98 }}
               >
-                {/* Premium lighting effects for each metric */}
+                {/* Premium depth effects */}
+                <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] pointer-events-none' />
                 <div
-                  className={`absolute inset-0 bg-gradient-to-r from-${metric.color}/5 via-transparent to-${metric.color}/5 pointer-events-none`}
+                  className={`absolute -top-16 -right-16 w-32 h-32 bg-${metric.color}/8 rounded-full blur-3xl pointer-events-none group-hover:bg-${metric.color}/12 transition-all duration-700`}
                 />
                 <div
-                  className={`absolute -top-10 -right-10 w-20 h-20 bg-${metric.color}/10 rounded-full blur-2xl pointer-events-none`}
+                  className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-${metric.color}/40 to-transparent group-hover:via-${metric.color}/60 transition-all duration-500`}
                 />
-                <div
-                  className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-${metric.color}/30 to-transparent`}
-                />
+
                 <div className='flex items-center justify-between relative z-10'>
-                  <div className='space-y-1 md:space-y-2'>
+                  <div className='space-y-3 md:space-y-4 flex-1'>
                     <div
-                      className={`text-xl md:text-3xl font-black text-${metric.color} relative`}
+                      className={`text-2xl md:text-4xl font-black text-${metric.color} relative group-hover:scale-105 transition-transform duration-300`}
                     >
-                      {/* Glowing text effect */}
+                      <span className='relative z-10'>{metric.value}</span>
                       <span
-                        className={`absolute inset-0 text-${metric.color} opacity-40 blur-sm`}
+                        className={`absolute inset-0 text-${metric.color} opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-300`}
                       >
                         {metric.value}
                       </span>
-                      <span className='relative z-10'>{metric.value}</span>
                     </div>
-                    <div className='text-sm md:text-base font-semibold text-tech-text-primary'>
+                    <div className='text-lg md:text-xl font-bold text-tech-text-primary group-hover:text-white transition-colors duration-300'>
                       {metric.label}
                     </div>
-                    <p className='text-xs md:text-sm text-tech-text-secondary leading-relaxed opacity-80'>
+                    <p className='text-sm md:text-base text-tech-text-secondary leading-[1.6] group-hover:text-tech-text-primary transition-colors duration-300'>
                       {metric.detail}
                     </p>
                   </div>
                   <div
-                    className={`relative w-3 h-3 rounded-full bg-${metric.color} flex-shrink-0`}
+                    className={`relative w-4 h-4 md:w-5 md:h-5 rounded-full bg-${metric.color} flex-shrink-0 ml-6 group-hover:scale-125 transition-transform duration-300`}
                   >
                     <div
-                      className={`absolute inset-0 bg-${metric.color} rounded-full animate-ping opacity-30`}
+                      className={`absolute inset-0 bg-${metric.color} rounded-full animate-ping opacity-40 group-hover:opacity-60`}
                     ></div>
                     <div
-                      className={`absolute inset-0 bg-${metric.color} rounded-full blur-sm opacity-60`}
+                      className={`absolute -inset-1 bg-${metric.color} rounded-full blur-sm opacity-30 group-hover:opacity-50 transition-opacity duration-300`}
                     ></div>
                   </div>
                 </div>
@@ -211,50 +201,47 @@ export default function Hero() {
             ))}
           </motion.div>
 
-          {/* Premium CTAs */}
+          {/* Refined CTAs - Clear Hierarchy */}
           <motion.div
-            className='flex flex-col sm:flex-row gap-3 md:gap-6 pt-4 md:pt-8 relative z-10'
+            className='flex flex-col sm:flex-row gap-4 md:gap-6 pt-8 md:pt-12 relative z-10'
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
+            transition={{ duration: 0.8, delay: 1.6 }}
           >
+            {/* Primary CTA */}
             <motion.a
               href='#experience'
-              className='group relative px-4 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl bg-gradient-to-r from-tech-coral to-tech-magenta text-white font-bold text-base md:text-lg text-center overflow-hidden transition-all duration-300 mobile-touch-target'
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
+              className='group relative px-8 md:px-10 py-4 md:py-5 rounded-2xl bg-tech-coral text-white font-bold text-lg md:text-xl text-center overflow-hidden transition-all duration-400 mobile-touch-target shadow-lg hover:shadow-2xl'
+              whileHover={{
+                scale: 1.03,
+                y: -3,
+                transition: { duration: 0.2, ease: 'easeOut' },
+              }}
+              whileTap={{ scale: 0.97 }}
             >
-              {/* Button lighting effects */}
-              <div className='absolute inset-0 bg-gradient-to-r from-tech-coral/80 to-tech-magenta/80 blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-300'></div>
-              <div className='absolute inset-0 bg-gradient-to-t from-transparent via-white/10 to-transparent'></div>
-              <div className='relative z-10'>View My Work</div>
+              {/* Primary button glow */}
+              <div className='absolute inset-0 bg-tech-coral blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-400'></div>
+              <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10'></div>
+              <span className='relative z-10'>View My Work</span>
             </motion.a>
 
+            {/* Secondary CTA */}
             <motion.a
               href='#contact'
-              className='group relative px-4 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl border-2 border-tech-coral text-tech-coral font-semibold text-base md:text-lg text-center hover:bg-tech-coral hover:text-white transition-all duration-300 overflow-hidden mobile-touch-target'
-              whileHover={{ scale: 1.02, y: -2 }}
+              className='group relative px-8 md:px-10 py-4 md:py-5 rounded-2xl border-2 border-tech-text-muted/30 text-tech-text-primary font-semibold text-lg md:text-xl text-center hover:border-tech-coral hover:text-tech-coral transition-all duration-400 overflow-hidden mobile-touch-target backdrop-blur-sm'
+              whileHover={{
+                scale: 1.02,
+                y: -2,
+                transition: { duration: 0.2, ease: 'easeOut' },
+              }}
               whileTap={{ scale: 0.98 }}
             >
-              {/* Outline button glow effect */}
-              <div className='absolute inset-0 bg-tech-coral/10 blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300'></div>
-              <div className='absolute inset-0 bg-gradient-to-r from-transparent via-tech-coral/5 to-transparent'></div>
+              {/* Ghost button subtle glow */}
+              <div className='absolute inset-0 bg-tech-coral/5 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-400'></div>
               <span className='relative z-10'>Hire Me</span>
             </motion.a>
           </motion.div>
         </motion.div>
-      </div>
-
-      {/* Visualization Integration Overlays */}
-      <div className='absolute inset-0 pointer-events-none z-20'>
-        {/* Dynamic depth cues that respond to content positioning */}
-        <div className='absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-tech-dark/40 to-transparent' />
-        <div className='absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-tech-dark/40 to-transparent' />
-        <div className='absolute left-0 top-0 w-24 h-full bg-gradient-to-r from-tech-dark/40 to-transparent' />
-        <div className='absolute right-0 top-0 w-24 h-full bg-gradient-to-l from-tech-dark/40 to-transparent' />
-
-        {/* Content-aware blur zones for readability */}
-        <div className='absolute top-24 left-12 right-12 bottom-24 bg-gradient-to-br from-tech-dark/15 via-transparent to-tech-dark/15 backdrop-blur-sm rounded-3xl opacity-60' />
       </div>
     </section>
   )
