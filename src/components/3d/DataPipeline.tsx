@@ -742,7 +742,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
         fromNodeIndex: fromIdx,
         toNodeIndex: toIdx,
         progress: Math.random(), // Random starting progress along path
-        speed: 0.001 + Math.random() * 0.002,
+        speed: 0.0005 + Math.random() * 0.001,
         connectionIndex: connectionIndex,
         sourceColor: from.color, // Store the original source node color
       }
@@ -803,12 +803,12 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
     const animate = () => {
       // Gentle node box animation with slow drift for background layer
       nodeBoxesRef.current.forEach((box, index) => {
-        // Very slow rotation for graceful background motion
-        const time = Date.now() * 0.0001
+        // Minimal rotation for premium, subtle motion
+        const time = Date.now() * 0.00005
         const isMainBox = index % 2 === 0 // Every other is main box (not outline)
         if (isMainBox) {
-          box.rotation.y = Math.sin(time + index * 0.1) * 0.05
-          box.rotation.x = Math.cos(time * 0.7 + index * 0.05) * 0.03
+          box.rotation.y = Math.sin(time + index * 0.05) * 0.02
+          box.rotation.x = Math.cos(time * 0.5 + index * 0.03) * 0.015
         }
       })
 
@@ -821,8 +821,8 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       // Animate data particles through network with slower, graceful motion
       particlesRef.current.forEach(particle => {
         const userData = particle.userData
-        // Slower particle speed for graceful background drift
-        userData.progress += userData.speed * 0.3
+        // Even slower particle speed for premium background feel
+        userData.progress += userData.speed * 0.5
 
         if (userData.progress <= 1) {
           // Get current node positions from the actual scene objects
@@ -883,9 +883,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
           }
         }
 
-        // Gentle particle glow effect for background
-        particle.rotation.x += 0.01
-        particle.rotation.y += 0.015
+        // Subtle particle motion for elegant background
+        particle.rotation.x += 0.005
+        particle.rotation.y += 0.008
       })
 
       // Update orbit controls
