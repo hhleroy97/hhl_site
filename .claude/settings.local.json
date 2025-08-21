@@ -26,8 +26,14 @@
       "Bash(git config:*)",
       "Bash(touch:*)",
       "Bash(cp:*)",
-      "Bash(rsync:*)"
+      "Bash(rsync:*)",
+      "Bash(git tag:*)",
+      "Bash(ssh:*)",
+      "Bash(git remote set-url:*)"
     ],
-    "defaultMode": "acceptEdits"
+    "defaultMode": "acceptEdits",
+    "additionalDirectories": [
+      "/home/hartley/.ssh"
+    ]
   }
 }
