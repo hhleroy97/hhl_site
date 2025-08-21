@@ -20,13 +20,15 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({
 
   // Network architecture: Input -> Hidden1 -> Hidden2 -> Output (simplified)
   const networkStructure = [4, 6, 6, 3] // nodes per layer
-  const layerSpacing = 3.0
-  const nodeSpacing = 0.8
+  const layerSpacing = 10.0
+  const nodeSpacing = 3.0
 
   // Create neural network nodes
   const createNeurons = (scene: THREE.Scene) => {
     const neurons: THREE.Mesh[] = []
     const layers: THREE.Mesh[][] = []
+
+    console.log('Creating neurons with spacing:', { layerSpacing, nodeSpacing })
 
     networkStructure.forEach((nodeCount: number, layerIndex: number) => {
       const layerNodes: THREE.Mesh[] = []
@@ -38,7 +40,7 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({
         const z = 0 // Keep it simple, minimal 3D depth
 
         // Clean, professional neuron design
-        const geometry = new THREE.SphereGeometry(0.15, 16, 16)
+        const geometry = new THREE.SphereGeometry(0.5, 16, 16)
 
         // Clear, distinct colors for each layer
         let color: number
@@ -60,6 +62,11 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({
 
         const neuron = new THREE.Mesh(geometry, material)
         neuron.position.set(x, y, z)
+        console.log(`Neuron ${layerIndex}-${nodeIndex} positioned at:`, {
+          x,
+          y,
+          z,
+        })
         neuron.userData = {
           layerIndex,
           nodeIndex,
@@ -253,9 +260,9 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({
 
     // Subtle camera movement - professional and clean
     if (cameraRef.current) {
-      cameraRef.current.position.x = 6 + Math.sin(time * 0.08) * 1
-      cameraRef.current.position.y = 2 + Math.cos(time * 0.12) * 0.5
-      cameraRef.current.position.z = 8 + Math.sin(time * 0.06) * 0.5
+      cameraRef.current.position.x = 20 + Math.sin(time * 0.08) * 3
+      cameraRef.current.position.y = 8 + Math.cos(time * 0.12) * 2
+      cameraRef.current.position.z = 20 + Math.sin(time * 0.06) * 2
       cameraRef.current.lookAt(0, 0, 0)
     }
 
@@ -322,7 +329,7 @@ const NeuralNetworkViz: React.FC<NeuralNetworkVizProps> = ({
 
     // Setup camera for clean, professional view
     const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100)
-    camera.position.set(6, 2, 8)
+    camera.position.set(20, 8, 20)
     camera.lookAt(0, 0, 0)
     cameraRef.current = camera
 
