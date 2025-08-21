@@ -4,13 +4,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 interface DataPipelineProps {
   interactive?: boolean
-  highlightCluster?: 'infrastructure' | 'robotics' | 'ai-ml' | null
 }
 
-const DataPipeline: React.FC<DataPipelineProps> = ({
-  interactive = true,
-  highlightCluster = null,
-}) => {
+const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [xOffset, setXOffset] = useState(0)
   const [yOffset, setYOffset] = useState(0)
@@ -478,43 +474,10 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Different sizes based on node type
       const size = node.type === 'transform' ? 1.2 : 1.0
       const geometry = new THREE.BoxGeometry(size, size, size)
-      // Determine if this node should be highlighted based on cluster type
-      let shouldHighlight = false
-      if (
-        highlightCluster === 'infrastructure' &&
-        (node.type === 'input' ||
-          node.name.includes('Cloud') ||
-          node.name.includes('System') ||
-          node.name.includes('Load') ||
-          node.name.includes('Auto'))
-      ) {
-        shouldHighlight = true
-      } else if (
-        highlightCluster === 'robotics' &&
-        (node.name.includes('SLAM') ||
-          node.name.includes('Navigation') ||
-          node.name.includes('Motor') ||
-          node.name.includes('Sonar') ||
-          node.name.includes('LiDAR') ||
-          node.name.includes('IMU'))
-      ) {
-        shouldHighlight = true
-      } else if (
-        highlightCluster === 'ai-ml' &&
-        (node.name.includes('ML') ||
-          node.name.includes('AI') ||
-          node.name.includes('Deep') ||
-          node.name.includes('Predictive') ||
-          node.name.includes('Optimization') ||
-          node.type === 'hidden')
-      ) {
-        shouldHighlight = true
-      }
-
       const material = new THREE.MeshLambertMaterial({
         color: node.color,
         transparent: true,
-        opacity: shouldHighlight ? 1.0 : highlightCluster ? 0.3 : 0.9,
+        opacity: 0.9,
       })
       const box = new THREE.Mesh(geometry, material)
       box.position.set(node.x, node.y, node.z)
@@ -531,7 +494,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       const outlineMaterial = new THREE.MeshBasicMaterial({
         color: node.color,
         transparent: true,
-        opacity: shouldHighlight ? 0.6 : highlightCluster ? 0.1 : 0.3,
+        opacity: 0.3,
         side: THREE.BackSide,
       })
       const outline = new THREE.Mesh(outlineGeometry, outlineMaterial)
@@ -1447,120 +1410,6 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     inputLayerSpacing,
     cameraDistance,
   ])
-
-  // Effect to update node highlights when cluster selection changes
-  useEffect(() => {
-    if (!sceneRef.current) return
-
-    const nodes = [
-      // Input Layer nodes
-      { name: 'LiDAR', type: 'input', color: 0xff4757 },
-      { name: 'Camera', type: 'input', color: 0xff4757 },
-      { name: 'IMU', type: 'input', color: 0xff4757 },
-      { name: 'GPS', type: 'input', color: 0xff4757 },
-      { name: 'Radar', type: 'input', color: 0xff4757 },
-      { name: 'Sonar', type: 'input', color: 0xff4757 },
-      { name: 'Thermal', type: 'input', color: 0xff4757 },
-      { name: 'Telemetry', type: 'input', color: 0xff4757 },
-      { name: 'Encoder', type: 'input', color: 0xff4757 },
-      // Processing Layer nodes
-      { name: 'SLAM', type: 'hidden', color: 0xffa726 },
-      { name: 'CV Pipeline', type: 'hidden', color: 0xffa726 },
-      { name: 'Object Detect', type: 'hidden', color: 0xffa726 },
-      { name: 'Path Planning', type: 'hidden', color: 0xffa726 },
-      { name: 'Kalman Filter', type: 'hidden', color: 0xffa726 },
-      { name: 'Feature Map', type: 'hidden', color: 0xffa726 },
-      { name: 'ML Inference', type: 'hidden', color: 0xffa726 },
-      { name: 'Sensor Fusion', type: 'hidden', color: 0xffa726 },
-      { name: 'State Estimation', type: 'hidden', color: 0xffa726 },
-      { name: 'Motion Control', type: 'hidden', color: 0xffa726 },
-      { name: 'Safety Check', type: 'hidden', color: 0xffa726 },
-      { name: 'Cloud Sync', type: 'hidden', color: 0xffa726 },
-      // Intelligence Layer nodes
-      { name: 'Navigation AI', type: 'hidden', color: 0x00d4aa },
-      { name: 'Obstacle Avoid', type: 'hidden', color: 0x00d4aa },
-      { name: 'Mission Plan', type: 'hidden', color: 0x00d4aa },
-      { name: 'Behavior Tree', type: 'hidden', color: 0x00d4aa },
-      { name: 'Deep RL', type: 'hidden', color: 0x00d4aa },
-      { name: 'Fleet Coord', type: 'hidden', color: 0x00d4aa },
-      { name: 'Anomaly Detect', type: 'hidden', color: 0x00d4aa },
-      { name: 'Predictive', type: 'hidden', color: 0x00d4aa },
-      { name: 'Optimization', type: 'hidden', color: 0x00d4aa },
-      // Control Layer nodes
-      { name: 'System Monitor', type: 'hidden', color: 0x8b5cf6 },
-      { name: 'Health Check', type: 'hidden', color: 0x8b5cf6 },
-      { name: 'Load Balance', type: 'hidden', color: 0x8b5cf6 },
-      { name: 'Auto Scale', type: 'hidden', color: 0x8b5cf6 },
-      // Output Layer nodes
-      { name: 'Motor Control', type: 'output', color: 0x00e5ff },
-      { name: 'Navigation', type: 'output', color: 0x00e5ff },
-      { name: 'Data Capture', type: 'output', color: 0x00e5ff },
-      { name: 'Communication', type: 'output', color: 0x00e5ff },
-      { name: 'Emergency Stop', type: 'output', color: 0x00e5ff },
-      { name: 'Mission Execute', type: 'output', color: 0x00e5ff },
-      { name: 'Status Report', type: 'output', color: 0x00e5ff },
-      { name: 'Cloud Upload', type: 'output', color: 0x00e5ff },
-      { name: 'Fleet Sync', type: 'output', color: 0x00e5ff },
-      { name: 'RTL Mode', type: 'output', color: 0x00e5ff },
-    ]
-
-    // Update node materials based on highlight cluster
-    nodeBoxesRef.current.forEach((mesh, index) => {
-      const nodeIndex = Math.floor(index / 2) // Account for box+outline pairs
-      const node = nodes[nodeIndex]
-      if (!node || !mesh.material) return
-
-      let shouldHighlight = false
-      if (
-        highlightCluster === 'infrastructure' &&
-        (node.type === 'input' ||
-          node.name.includes('Cloud') ||
-          node.name.includes('System') ||
-          node.name.includes('Load') ||
-          node.name.includes('Auto'))
-      ) {
-        shouldHighlight = true
-      } else if (
-        highlightCluster === 'robotics' &&
-        (node.name.includes('SLAM') ||
-          node.name.includes('Navigation') ||
-          node.name.includes('Motor') ||
-          node.name.includes('Sonar') ||
-          node.name.includes('LiDAR') ||
-          node.name.includes('IMU'))
-      ) {
-        shouldHighlight = true
-      } else if (
-        highlightCluster === 'ai-ml' &&
-        (node.name.includes('ML') ||
-          node.name.includes('AI') ||
-          node.name.includes('Deep') ||
-          node.name.includes('Predictive') ||
-          node.name.includes('Optimization') ||
-          node.type === 'hidden')
-      ) {
-        shouldHighlight = true
-      }
-
-      const isOutline = index % 2 === 1
-      if (
-        mesh.material instanceof THREE.MeshLambertMaterial ||
-        mesh.material instanceof THREE.MeshBasicMaterial
-      ) {
-        mesh.material.opacity = shouldHighlight
-          ? isOutline
-            ? 0.6
-            : 1.0
-          : highlightCluster
-            ? isOutline
-              ? 0.1
-              : 0.3
-            : isOutline
-              ? 0.3
-              : 0.9
-      }
-    })
-  }, [highlightCluster])
 
   // Separate effect to handle rotation toggle
   useEffect(() => {
