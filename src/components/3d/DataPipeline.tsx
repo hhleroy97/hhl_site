@@ -249,7 +249,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Processing Layer (12 nodes) - Real-time data processing (4x3 grid, 12 nodes)
       {
         name: 'SLAM',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing * 2 + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -257,7 +257,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'CV Pipeline',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -265,7 +265,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Object Detect',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -273,7 +273,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Path Planning',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -281,7 +281,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Kalman Filter',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing * 2 + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -289,7 +289,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Feature Map',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -297,7 +297,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'ML Inference',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: 0 + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -305,7 +305,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Sensor Fusion',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -313,7 +313,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'State Estimation',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing * 2 + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -321,7 +321,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Motion Control',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -329,7 +329,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Safety Check',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -337,7 +337,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Cloud Sync',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
@@ -347,15 +347,15 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Intelligence Layer (9 nodes) - AI decision making (3x3 grid, 9 nodes - complete)
       {
         name: 'Navigation AI',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
+        color: 0x22d3ee, // Cyan-400 - Intelligence layer (fourth)
         type: 'hidden',
       },
       {
         name: 'Obstacle Avoid',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -363,7 +363,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Mission Plan',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -371,7 +371,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Behavior Tree',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -379,7 +379,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Deep RL',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: 0 + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -387,7 +387,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Fleet Coord',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -395,7 +395,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Anomaly Detect',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -403,7 +403,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Predictive',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -411,7 +411,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Optimization',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -616,145 +616,107 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     ]
     connections.push(...inputToHidden1)
 
-    // Hidden layer 1 (9-20: 12 nodes) to Hidden layer 2 (21-29: 9 nodes) - ensure all nodes connected
-    const hidden1ToHidden2 = [
-      // Each hidden1 node connects to 2-3 hidden2 nodes
-      [9, 21],
-      [9, 22],
-      [9, 23],
-      [10, 21],
-      [10, 22],
-      [10, 24],
-      [11, 22],
-      [11, 23],
-      [11, 24],
-      [12, 23],
-      [12, 24],
-      [12, 25],
-      [13, 21],
-      [13, 25],
-      [13, 26],
-      [14, 22],
-      [14, 24],
-      [14, 25],
-      [14, 26],
-      [15, 23],
-      [15, 25],
-      [15, 26],
-      [16, 21],
-      [16, 22],
-      [16, 27],
-      [17, 22],
-      [17, 23],
-      [17, 24],
-      [18, 23],
-      [18, 24],
-      [18, 25],
-      [19, 24],
-      [19, 25],
-      [19, 26],
-      [20, 21],
-      [20, 25],
-      [20, 26],
-      // Ensure all hidden2 nodes receive at least one connection
-      [9, 28],
-      [10, 28],
-      [11, 28],
-      [12, 28],
-      [13, 28],
-      [14, 28],
-      [15, 28],
-      [16, 28],
-      [17, 28],
-      [18, 28],
-      [19, 28],
-      [20, 28],
-      [9, 29],
-      [10, 29],
-      [11, 29],
-      [12, 29],
-      [13, 29],
-      [14, 29],
-      [15, 29],
-      [16, 29],
-      [17, 29],
-      [18, 29],
-      [19, 29],
-      [20, 29],
+    // Processing layer (9-20: 12 nodes) to Control layer (30-33: 4 nodes) - ensure all nodes connected
+    const processingToControl = [
+      // Each processing node connects to 2-3 control nodes
+      [9, 30],
+      [9, 31],
+      [10, 30],
+      [10, 31],
+      [10, 32],
+      [11, 31],
+      [11, 32],
+      [12, 30],
+      [12, 32],
+      [12, 33],
+      [13, 30],
+      [13, 31],
+      [13, 33],
+      [14, 31],
+      [14, 32],
+      [14, 33],
+      [15, 30],
+      [15, 32],
+      [16, 30],
+      [16, 31],
+      [16, 33],
+      [17, 31],
+      [17, 32],
+      [17, 33],
+      [18, 30],
+      [18, 32],
+      [18, 33],
+      [19, 31],
+      [19, 32],
+      [20, 30],
+      [20, 33],
     ]
-    connections.push(...hidden1ToHidden2)
+    connections.push(...processingToControl)
 
-    // Hidden layer 2 (21-29: 9 nodes) to Hidden layer 3 (30-33: 4 nodes) - ensure all nodes connected
-    const hidden2ToHidden3 = [
-      // Each hidden2 node connects to 2-3 hidden3 nodes
-      [21, 30],
-      [21, 31],
-      [22, 30],
-      [22, 31],
-      [22, 32],
-      [23, 31],
-      [23, 32],
-      [23, 33], // Middle node connects to all
-      [24, 30],
-      [24, 31],
-      [24, 32],
-      [25, 31],
-      [25, 32],
-      [25, 33],
-      [26, 32],
-      [26, 33],
-      [27, 30],
-      [27, 31],
-      [28, 31],
-      [28, 32],
-      [29, 32],
-      [29, 33],
-      // Ensure all hidden3 nodes receive at least one connection from each hidden2 node
-      [21, 30],
-      [21, 31],
-      [21, 32],
-      [21, 33],
-      [22, 30],
-      [22, 31],
-      [22, 32],
-      [22, 33],
-      [23, 30],
-      [23, 31],
-      [23, 32],
-      [23, 33],
-      [24, 30],
-      [24, 31],
-      [24, 32],
-      [24, 33],
-      [25, 30],
-      [25, 31],
-      [25, 32],
-      [25, 33],
-      [26, 30],
-      [26, 31],
-      [26, 32],
-      [26, 33],
-      [27, 30],
-      [27, 31],
-      [27, 32],
-      [27, 33],
-      [28, 30],
-      [28, 31],
-      [28, 32],
-      [28, 33],
-      [29, 30],
-      [29, 31],
-      [29, 32],
-      [29, 33],
+    // Control layer (30-33: 4 nodes) to Intelligence layer (21-29: 9 nodes) - ensure all nodes connected
+    const controlToIntelligence = [
+      // Each control node connects to multiple intelligence nodes
+      [30, 21],
+      [30, 22],
+      [30, 23],
+      [30, 24],
+      [31, 22],
+      [31, 23],
+      [31, 24],
+      [31, 25],
+      [31, 26],
+      [32, 24],
+      [32, 25],
+      [32, 26],
+      [32, 27],
+      [32, 28],
+      [33, 26],
+      [33, 27],
+      [33, 28],
+      [33, 29],
     ]
-    connections.push(...hidden2ToHidden3)
+    connections.push(...controlToIntelligence)
 
-    // Hidden layer 3 (30-33: 4 nodes) to Output layer (34-43: 10 nodes) - fully connected (40 connections)
-    for (let i = 30; i < 34; i++) {
-      for (let j = 34; j < 44; j++) {
-        connections.push([i, j])
-      }
-    }
+    // Intelligence layer (21-29: 9 nodes) to Output layer (34-43: 10 nodes) - ensure all outputs connected
+    const intelligenceToOutput = [
+      // Each intelligence node connects to multiple output nodes
+      [21, 34],
+      [21, 35],
+      [21, 36],
+      [22, 34],
+      [22, 35],
+      [22, 36],
+      [22, 37],
+      [23, 35],
+      [23, 36],
+      [23, 37],
+      [23, 38],
+      [24, 36],
+      [24, 37],
+      [24, 38],
+      [24, 39],
+      [25, 37],
+      [25, 38],
+      [25, 39],
+      [25, 40],
+      [25, 41], // Center connects to more
+      [26, 38],
+      [26, 39],
+      [26, 40],
+      [26, 41],
+      [27, 39],
+      [27, 40],
+      [27, 41],
+      [27, 42],
+      [28, 40],
+      [28, 41],
+      [28, 42],
+      [28, 43],
+      [29, 41],
+      [29, 42],
+      [29, 43],
+    ]
+    connections.push(...intelligenceToOutput)
 
     // Create simple connection lines (consistent color)
     const connectionLines: THREE.Line[] = []
@@ -1152,64 +1114,12 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
-      // Hidden Layer 1 (12 nodes) - 4x3 grid
+      // Hidden Layer 1 (12 nodes) - Processing Layer - 4x3 grid
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing * 2 + zOffset,
       },
-      {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: nodeSpacing + zOffset,
-      },
-      {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: 0 + zOffset,
-      },
-      {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: -nodeSpacing + zOffset,
-      },
-      {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: nodeSpacing * 2 + zOffset,
-      },
-      {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: nodeSpacing + zOffset,
-      },
-      { x: layerSpacing * 1.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
-      {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: -nodeSpacing + zOffset,
-      },
-      {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: nodeSpacing * 2 + zOffset,
-      },
-      {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: nodeSpacing + zOffset,
-      },
-      {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: 0 + zOffset,
-      },
-      {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: -nodeSpacing + zOffset,
-      },
-      // Hidden Layer 2 (9 nodes) - 3x3 grid
       {
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
@@ -1224,6 +1134,11 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
+      },
+      {
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
+        y: 0 + yOffset,
+        z: nodeSpacing * 2 + zOffset,
       },
       {
         x: layerSpacing * 0.75 + centerOffset + xOffset,
@@ -1239,6 +1154,11 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       {
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
+        z: nodeSpacing * 2 + zOffset,
+      },
+      {
+        x: layerSpacing * 0.75 + centerOffset + xOffset,
+        y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
@@ -1248,6 +1168,48 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         x: layerSpacing * 0.75 + centerOffset + xOffset,
+        y: -nodeSpacing * 2 + yOffset,
+        z: -nodeSpacing + zOffset,
+      },
+      // Hidden Layer 2 (9 nodes) - Intelligence Layer - 3x3 grid
+      {
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        y: nodeSpacing * 2 + yOffset,
+        z: nodeSpacing + zOffset,
+      },
+      {
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        y: nodeSpacing * 2 + yOffset,
+        z: 0 + zOffset,
+      },
+      {
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        y: nodeSpacing * 2 + yOffset,
+        z: -nodeSpacing + zOffset,
+      },
+      {
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        y: 0 + yOffset,
+        z: nodeSpacing + zOffset,
+      },
+      { x: layerSpacing * -0.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
+      {
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        y: 0 + yOffset,
+        z: -nodeSpacing + zOffset,
+      },
+      {
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        y: -nodeSpacing * 2 + yOffset,
+        z: nodeSpacing + zOffset,
+      },
+      {
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        y: -nodeSpacing * 2 + yOffset,
+        z: 0 + zOffset,
+      },
+      {
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
       },
@@ -1380,143 +1342,104 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       ]
       connectionPattern.push(...inputToHidden1)
 
-      // Hidden 1 to Hidden 2 - ensure all nodes connected (9-20 to 21-29)
-      const hidden1ToHidden2 = [
-        [9, 21],
-        [9, 22],
-        [9, 23],
-        [10, 21],
-        [10, 22],
-        [10, 24],
-        [11, 22],
-        [11, 23],
-        [11, 24],
-        [12, 23],
-        [12, 24],
-        [12, 25],
-        [13, 21],
-        [13, 25],
-        [13, 26],
-        [14, 22],
-        [14, 24],
-        [14, 25],
-        [14, 26],
-        [15, 23],
-        [15, 25],
-        [15, 26],
-        [16, 21],
-        [16, 22],
-        [16, 27],
-        [17, 22],
-        [17, 23],
-        [17, 24],
-        [18, 23],
-        [18, 24],
-        [18, 25],
-        [19, 24],
-        [19, 25],
-        [19, 26],
-        [20, 21],
-        [20, 25],
-        [20, 26],
-        // Ensure all hidden2 nodes receive at least one connection
-        [9, 28],
-        [10, 28],
-        [11, 28],
-        [12, 28],
-        [13, 28],
-        [14, 28],
-        [15, 28],
-        [16, 28],
-        [17, 28],
-        [18, 28],
-        [19, 28],
-        [20, 28],
-        [9, 29],
-        [10, 29],
-        [11, 29],
-        [12, 29],
-        [13, 29],
-        [14, 29],
-        [15, 29],
-        [16, 29],
-        [17, 29],
-        [18, 29],
-        [19, 29],
-        [20, 29],
+      // Processing to Control - connect processing (9-20) to control (30-33)
+      const processingToControlPattern = [
+        [9, 30],
+        [9, 31],
+        [10, 30],
+        [10, 31],
+        [10, 32],
+        [11, 31],
+        [11, 32],
+        [12, 30],
+        [12, 32],
+        [12, 33],
+        [13, 30],
+        [13, 31],
+        [13, 33],
+        [14, 31],
+        [14, 32],
+        [14, 33],
+        [15, 30],
+        [15, 32],
+        [16, 30],
+        [16, 31],
+        [16, 33],
+        [17, 31],
+        [17, 32],
+        [17, 33],
+        [18, 30],
+        [18, 32],
+        [18, 33],
+        [19, 31],
+        [19, 32],
+        [20, 30],
+        [20, 33],
       ]
-      connectionPattern.push(...hidden1ToHidden2)
+      connectionPattern.push(...processingToControlPattern)
 
-      // Hidden 2 to Hidden 3 - ensure all nodes connected (21-29 to 30-33)
-      const hidden2ToHidden3 = [
-        [21, 30],
-        [21, 31],
-        [22, 30],
-        [22, 31],
-        [22, 32],
-        [23, 31],
-        [23, 32],
-        [23, 33],
-        [24, 30],
-        [24, 31],
-        [24, 32],
-        [25, 31],
-        [25, 32],
-        [25, 33],
-        [26, 32],
-        [26, 33],
-        [27, 30],
-        [27, 31],
-        [28, 31],
-        [28, 32],
-        [29, 32],
-        [29, 33],
-        // Ensure all hidden3 nodes receive at least one connection from each hidden2 node
-        [21, 30],
-        [21, 31],
-        [21, 32],
-        [21, 33],
-        [22, 30],
-        [22, 31],
-        [22, 32],
-        [22, 33],
-        [23, 30],
-        [23, 31],
-        [23, 32],
-        [23, 33],
-        [24, 30],
-        [24, 31],
-        [24, 32],
-        [24, 33],
-        [25, 30],
-        [25, 31],
-        [25, 32],
-        [25, 33],
-        [26, 30],
-        [26, 31],
-        [26, 32],
-        [26, 33],
-        [27, 30],
-        [27, 31],
-        [27, 32],
-        [27, 33],
-        [28, 30],
-        [28, 31],
-        [28, 32],
-        [28, 33],
-        [29, 30],
-        [29, 31],
-        [29, 32],
-        [29, 33],
+      // Control to Intelligence - connect control (30-33) to intelligence (21-29)
+      const controlToIntelligencePattern = [
+        [30, 21],
+        [30, 22],
+        [30, 23],
+        [30, 24],
+        [31, 22],
+        [31, 23],
+        [31, 24],
+        [31, 25],
+        [31, 26],
+        [32, 24],
+        [32, 25],
+        [32, 26],
+        [32, 27],
+        [32, 28],
+        [33, 26],
+        [33, 27],
+        [33, 28],
+        [33, 29],
       ]
-      connectionPattern.push(...hidden2ToHidden3)
+      connectionPattern.push(...controlToIntelligencePattern)
 
-      // Hidden 3 to Output - fully connected (30-33 to 34-43)
-      for (let i = 30; i < 34; i++) {
-        for (let j = 34; j < 44; j++) {
-          connectionPattern.push([i, j])
-        }
-      }
+      // Intelligence to Output - connect intelligence (21-29) to output (34-43)
+      const intelligenceToOutputPattern = [
+        [21, 34],
+        [21, 35],
+        [21, 36],
+        [22, 34],
+        [22, 35],
+        [22, 36],
+        [22, 37],
+        [23, 35],
+        [23, 36],
+        [23, 37],
+        [23, 38],
+        [24, 36],
+        [24, 37],
+        [24, 38],
+        [24, 39],
+        [25, 37],
+        [25, 38],
+        [25, 39],
+        [25, 40],
+        [25, 41],
+        [26, 38],
+        [26, 39],
+        [26, 40],
+        [26, 41],
+        [27, 39],
+        [27, 40],
+        [27, 41],
+        [27, 42],
+        [28, 40],
+        [28, 41],
+        [28, 42],
+        [28, 43],
+        [29, 41],
+        [29, 42],
+        [29, 43],
+      ]
+      connectionPattern.push(...intelligenceToOutputPattern)
 
       if (connectionPattern[index]) {
         const fromNodeIndex = connectionPattern[index][0] * 2 // Multiply by 2 since we have box+outline pairs
