@@ -61,13 +61,13 @@ export default function TechCard({
       >
         {/* Floating Tag Header */}
         <motion.div
-          className={`absolute -top-3 left-6 z-10 px-4 py-2 bg-gradient-to-r ${colors.accent} rounded-lg shadow-lg`}
+          className={`absolute top-0 left-12 z-10 px-8 py-4 bg-gradient-to-r ${colors.accent} rounded-b-lg shadow-lg flex items-center justify-center`}
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <span className='text-zinc-900 font-bold text-sm tracking-wider uppercase'>
+          <span className='text-zinc-900 font-bold text-2xl tracking-wider uppercase'>
             {title}
           </span>
         </motion.div>
@@ -80,7 +80,9 @@ export default function TechCard({
         </div>
 
         {/* Content */}
-        <div className='relative z-5 p-8 pt-12'>{children}</div>
+        <div className='relative z-5 p-8 pt-20 flex-1 flex flex-col'>
+          {children}
+        </div>
       </motion.div>
     )
   }
@@ -89,24 +91,25 @@ export default function TechCard({
   if (variant === 'rotated') {
     return (
       <motion.div
-        className={`relative bg-gradient-to-br from-zinc-900/80 to-zinc-900/60 border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} overflow-hidden ml-12 ${className}`}
+        className={`relative bg-gradient-to-br from-zinc-900/80 to-zinc-900/60 border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} overflow-hidden ${className}`}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        {/* Rotated Header */}
+        {/* Rotated Header - positioned as a side tab */}
         <motion.div
-          className='absolute -left-8 top-1/2 -translate-y-1/2 z-10'
+          className='absolute left-2 top-12 z-10'
           initial={{ opacity: 0, rotate: -90, x: -20 }}
           whileInView={{ opacity: 1, rotate: -90, x: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.6 }}
+          style={{ transformOrigin: 'center center' }}
         >
           <div
-            className={`px-6 py-3 bg-gradient-to-r ${colors.accent} rounded-lg shadow-lg transform origin-center`}
+            className={`px-4 py-2 bg-gradient-to-r ${colors.accent} rounded-lg shadow-lg`}
           >
-            <span className='text-zinc-900 font-bold text-lg tracking-widest uppercase whitespace-nowrap'>
+            <span className='text-zinc-900 font-bold text-sm tracking-widest uppercase whitespace-nowrap'>
               {title}
             </span>
           </div>
@@ -122,7 +125,9 @@ export default function TechCard({
         </div>
 
         {/* Content */}
-        <div className='relative z-5 p-8'>{children}</div>
+        <div className='relative z-5 p-8 pl-12 flex-1 flex flex-col text-white'>
+          {children}
+        </div>
       </motion.div>
     )
   }
@@ -159,9 +164,9 @@ export default function TechCard({
         ></div>
 
         {/* Content with header overlay */}
-        <div className='relative z-10 p-8'>
+        <div className='relative z-10 p-8 flex-1 flex flex-col'>
           <motion.h3
-            className={`text-2xl font-bold ${colors.text} mb-6 tracking-wide uppercase`}
+            className={`text-2xl font-bold ${colors.text} mb-6 tracking-wide uppercase flex-shrink-0`}
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -170,7 +175,7 @@ export default function TechCard({
           >
             {title}
           </motion.h3>
-          {children}
+          <div className='flex-1 flex flex-col'>{children}</div>
         </div>
       </motion.div>
     )
@@ -228,7 +233,9 @@ export default function TechCard({
         ></div>
 
         {/* Content */}
-        <div className='relative z-5 p-8 pt-20'>{children}</div>
+        <div className='relative z-5 p-8 pt-20 flex-1 flex flex-col'>
+          {children}
+        </div>
       </motion.div>
     )
   }

@@ -147,32 +147,30 @@ export default function SkillsTools() {
         style={{ animationDelay: '2s' }}
       />
 
-      <div className='space-y-12'>
+      <div className='space-y-6 overflow-y-auto max-h-[60vh]'>
         {skillCategories.map((category, categoryIndex) => (
           <motion.div
             key={category.title}
             className='relative'
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: categoryIndex * 0.2 }}
+            transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
           >
             {/* Category header */}
-            <div className='flex items-center gap-4 mb-6'>
+            <div className='flex items-center gap-3 mb-4'>
               <motion.div
-                className={`p-3 bg-gradient-to-r ${category.color} rounded-xl text-white shadow-lg`}
-                whileHover={{ scale: 1.1, rotate: 5 }}
+                className={`p-2 bg-gradient-to-r ${category.color} rounded-lg text-white shadow-lg`}
+                whileHover={{ scale: 1.05, rotate: 5 }}
                 transition={{ duration: 0.3 }}
               >
                 {category.icon}
               </motion.div>
-              <h3 className='text-2xl font-bold text-white'>
-                {category.title}
-              </h3>
+              <h3 className='text-xl font-bold text-white'>{category.title}</h3>
             </div>
 
             {/* Skills pills */}
-            <div className='flex flex-wrap gap-3'>
+            <div className='flex flex-wrap gap-2'>
               {category.skills.map((skill, skillIndex) => (
                 <motion.div
                   key={skill}
@@ -189,8 +187,8 @@ export default function SkillsTools() {
                   whileHover={{ scale: 1.05, y: -2 }}
                 >
                   {/* Pill background */}
-                  <div className='relative px-4 py-2 bg-white/10 border border-white/20 rounded-full backdrop-blur-sm transition-all duration-300 group-hover:bg-white/20 group-hover:border-white/40'>
-                    <span className='text-sm font-medium text-zinc-300 group-hover:text-white transition-colors duration-300'>
+                  <div className='relative px-3 py-1.5 bg-white/10 border border-white/20 rounded-full backdrop-blur-sm transition-all duration-300 group-hover:bg-white/20 group-hover:border-white/40'>
+                    <span className='text-xs font-medium text-zinc-300 group-hover:text-white transition-colors duration-300'>
                       {skill}
                     </span>
                   </div>
@@ -206,40 +204,19 @@ export default function SkillsTools() {
             {/* Category separator line */}
             {categoryIndex < skillCategories.length - 1 && (
               <motion.div
-                className='mt-12 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent'
+                className='mt-6 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent'
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
                 transition={{
-                  duration: 0.8,
-                  delay: categoryIndex * 0.2 + 0.5,
+                  duration: 0.6,
+                  delay: categoryIndex * 0.1 + 0.3,
                 }}
               />
             )}
           </motion.div>
         ))}
       </div>
-
-      {/* Bottom decoration */}
-      <motion.div
-        className='flex justify-center mt-16'
-        initial={{ opacity: 0, scale: 0.8 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 1, duration: 0.6 }}
-      >
-        <div className='flex items-center gap-2'>
-          <div className='w-3 h-3 bg-gradient-to-r from-cyan-400 to-fuchsia-500 rounded-full animate-pulse' />
-          <div
-            className='w-2 h-2 bg-gradient-to-r from-fuchsia-400 to-emerald-500 rounded-full animate-pulse'
-            style={{ animationDelay: '0.5s' }}
-          />
-          <div
-            className='w-1.5 h-1.5 bg-gradient-to-r from-emerald-400 to-cyan-500 rounded-full animate-pulse'
-            style={{ animationDelay: '1s' }}
-          />
-        </div>
-      </motion.div>
     </PageSection>
   )
 }
