@@ -8,6 +8,7 @@ interface DataPipelineProps {
   layerSpacing?: number
   cinematicMode?: boolean
   positionShift?: number
+  verticalShift?: number
   className?: string
 }
 
@@ -17,6 +18,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   layerSpacing: externalLayerSpacing,
   cinematicMode = false,
   positionShift = 0,
+  verticalShift = 0,
   className: _className = '',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -70,7 +72,11 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       camera.position.set(offsetX, offsetY, offsetZ)
 
       // Look at a fixed point with adjustable position shift for consistent framing
-      const fixedLookAtPoint = new THREE.Vector3(-4 + positionShift, 0, 0)
+      const fixedLookAtPoint = new THREE.Vector3(
+        -4 + positionShift,
+        verticalShift,
+        0
+      )
       camera.lookAt(fixedLookAtPoint)
     } else {
       camera.position.set(0, 0, finalCameraDistance)
@@ -101,7 +107,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       controls.enableZoom = false
       controls.enablePan = false
       controls.enableRotate = false
-      controls.target.set(-4 + positionShift, 0, 0) // Match camera look-at target - fixed reference
+      controls.target.set(-4 + positionShift, verticalShift, 0) // Match camera look-at target - fixed reference
     } else {
       controls.enableZoom = true
       controls.enablePan = true
@@ -1058,6 +1064,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     zOffset,
     cinematicMode,
     positionShift,
+    verticalShift,
     // mousePosition.x,
     // mousePosition.y,
   ])
@@ -1076,12 +1083,16 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       cameraRef.current.position.set(offsetX, offsetY, offsetZ)
 
       // Consistent look-at target
-      const fixedLookAtPoint = new THREE.Vector3(-4 + positionShift, 0, 0)
+      const fixedLookAtPoint = new THREE.Vector3(
+        -4 + positionShift,
+        verticalShift,
+        0
+      )
       cameraRef.current.lookAt(fixedLookAtPoint)
 
       // Update controls target to match
       if (controlsRef.current) {
-        controlsRef.current.target.set(-4 + positionShift, 0, 0)
+        controlsRef.current.target.set(-4 + positionShift, verticalShift, 0)
       }
     } else {
       cameraRef.current.position.set(cameraXOffset, yOffset, cameraDistance)
@@ -1542,6 +1553,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     cameraDistance,
     cinematicMode,
     positionShift,
+    verticalShift,
     externalCameraDistance,
   ])
 
