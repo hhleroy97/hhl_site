@@ -29,7 +29,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   const [isDragging, setIsDragging] = useState(false)
   const [enableRotation, setEnableRotation] = useState(true)
   const [showControls, setShowControls] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }) // Disabled for stable cinematic mode
 
   // Store refs to update positions without recreating scene
   const sceneRef = useRef<THREE.Scene | null>(null)
@@ -858,17 +858,25 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       const time = Date.now() * 0.001
 
       if (cinematicMode) {
+        // Base cinematic rotation
+        const baseRotationY = THREE.MathUtils.degToRad(25)
+        const baseRotationX = THREE.MathUtils.degToRad(-5)
+
         // Cinematic idle motion - subtle breathing effect
         const breathingIntensity = 0.002
         const breathingSpeed = 0.0005
-        scene.rotation.y += Math.sin(time * breathingSpeed) * breathingIntensity
-        scene.rotation.x +=
+        const breathingY = Math.sin(time * breathingSpeed) * breathingIntensity
+        const breathingX =
           Math.cos(time * breathingSpeed * 0.7) * breathingIntensity * 0.5
 
-        // Gentle parallax based on mouse position (very low sensitivity)
-        const parallaxStrength = 0.0001
-        scene.rotation.y += (mousePosition.x - 0.5) * parallaxStrength
-        scene.rotation.x += (mousePosition.y - 0.5) * parallaxStrength * 0.5
+        // Disable parallax to prevent glitchy movement - just use breathing animation
+        // const parallaxStrength = 0.002
+        // const parallaxX = (mousePosition.x - 0.5) * parallaxStrength
+        // const parallaxY = (mousePosition.y - 0.5) * parallaxStrength * 0.3
+
+        // Apply just base rotation and breathing - stable and smooth
+        scene.rotation.y = baseRotationY + breathingY
+        scene.rotation.x = baseRotationX + breathingX
       }
 
       // Gentle node box animation with slow drift for background layer
@@ -970,18 +978,18 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     }
     animate()
 
-    // Mouse tracking for parallax (only in cinematic mode)
-    const handleParallaxMouseMove = (event: MouseEvent) => {
-      if (cinematicMode) {
-        const x = event.clientX / window.innerWidth
-        const y = event.clientY / window.innerHeight
-        setMousePosition({ x, y })
-      }
-    }
+    // Mouse tracking disabled for stable cinematic mode
+    // const handleParallaxMouseMove = (event: MouseEvent) => {
+    //   if (cinematicMode) {
+    //     const x = event.clientX / window.innerWidth
+    //     const y = event.clientY / window.innerHeight
+    //     setMousePosition({ x, y })
+    //   }
+    // }
 
-    if (cinematicMode) {
-      window.addEventListener('mousemove', handleParallaxMouseMove)
-    }
+    // if (cinematicMode) {
+    //   window.addEventListener('mousemove', handleParallaxMouseMove)
+    // }
 
     // Resize handler
     const handleResize = () => {
@@ -1006,9 +1014,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         window.removeEventListener('mousemove', handleMouseMove)
         window.removeEventListener('mouseup', handleMouseUp)
       }
-      if (cinematicMode) {
-        window.removeEventListener('mousemove', handleParallaxMouseMove)
-      }
+      // if (cinematicMode) {
+      //   window.removeEventListener('mousemove', handleParallaxMouseMove)
+      // }
       window.removeEventListener('resize', handleResize)
 
       scene.traverse((object: THREE.Object3D) => {
@@ -1042,8 +1050,8 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     yOffset,
     zOffset,
     cinematicMode,
-    mousePosition.x,
-    mousePosition.y,
+    // mousePosition.x,
+    // mousePosition.y,
   ])
 
   // Separate effect to update positions when offsets change
