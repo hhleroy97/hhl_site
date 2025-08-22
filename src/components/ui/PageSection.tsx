@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { ReactNode } from 'react'
+import TechCard from './TechCard'
 
 interface PageSectionProps {
   id: string
@@ -9,6 +10,7 @@ interface PageSectionProps {
   taglineColor?: 'cyan' | 'fuchsia' | 'emerald' | 'amber'
   children: ReactNode
   className?: string
+  cardVariant?: 'floating' | 'rotated' | 'background' | 'cutcorner'
 }
 
 export default function PageSection({
@@ -19,6 +21,7 @@ export default function PageSection({
   taglineColor = 'cyan',
   children,
   className = '',
+  cardVariant = 'floating',
 }: PageSectionProps) {
   const colorStyles = {
     cyan: {
@@ -82,14 +85,8 @@ export default function PageSection({
             {tagline}
           </motion.div>
 
-          {/* Large heading with consistent sizing */}
-          <motion.div
-            className='border-2 border-yellow-500 rounded-2xl p-6 bg-yellow-500/10'
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
+          {/* Tech-styled heading card */}
+          <TechCard title={tagline} variant={cardVariant} color={taglineColor}>
             <h2 className='text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
               {title}
               {subtitle && (
@@ -101,7 +98,7 @@ export default function PageSection({
                 </>
               )}
             </h2>
-          </motion.div>
+          </TechCard>
         </motion.div>
 
         {/* Page content */}
