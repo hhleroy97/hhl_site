@@ -23,7 +23,10 @@ export default function Hero() {
             <div className='h-6 bg-tech-dark-surface/50 rounded animate-pulse max-w-2xl'></div>
             <div className='space-y-4'>
               {[...Array(3)].map((_, i) => (
-                <div key={i} className='h-20 bg-tech-dark-surface/50 rounded-xl animate-pulse'></div>
+                <div
+                  key={i}
+                  className='h-20 bg-tech-dark-surface/50 rounded-xl animate-pulse'
+                ></div>
               ))}
             </div>
           </div>
@@ -85,22 +88,24 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                {hero.headline.split('intelligent').map((part, index, array) => (
-                  <span key={index}>
-                    {part}
-                    {index < array.length - 1 && (
-                      <span className='relative inline-block'>
-                        <span className='text-accentWarm relative z-10 text-glow-warm'>
-                          intelligent
+                {hero.headline
+                  .split('intelligent')
+                  .map((part, index, array) => (
+                    <span key={index}>
+                      {part}
+                      {index < array.length - 1 && (
+                        <span className='relative inline-block'>
+                          <span className='text-accentWarm relative z-10 text-glow-warm'>
+                            intelligent
+                          </span>
+                          {/* Single accent color glow */}
+                          <span className='absolute inset-0 text-accentWarm blur-sm opacity-40'>
+                            intelligent
+                          </span>
                         </span>
-                        {/* Single accent color glow */}
-                        <span className='absolute inset-0 text-accentWarm blur-sm opacity-40'>
-                          intelligent
-                        </span>
-                      </span>
-                    )}
-                  </span>
-                ))}
+                      )}
+                    </span>
+                  ))}
               </motion.h1>
 
               <motion.p
@@ -139,83 +144,238 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.0 }}
           >
-            {hero.metrics.map((metric, index) => {
-              const getSkillColor = (skill: string) => {
-                switch (skill) {
-                  case 'infra':
-                    return 'accentWarm'
-                  case 'ros2':
-                    return 'accentCool'
-                  case 'ml':
-                    return 'accentPurple'
-                  default:
-                    return 'accentWarm'
-                }
-              }
+            {/* AWS MAP Migration Achievement */}
+            <motion.div
+              className={`group relative p-4 md:p-6 rounded-2xl bg-tech-dark-surface/80 border border-accentWarm/20 
+                  transition-all duration-700 cursor-pointer overflow-hidden backdrop-blur-sm shadow-lg hover:shadow-xl`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+              whileHover={{
+                scale: 1.02,
+                y: -4,
+                borderColor: 'var(--tw-color-accentWarm-500)',
+                boxShadow: '0 0 20px rgba(var(--tw-color-accentWarm-500), 0.2)',
+                transition: { duration: 0.3, ease: 'easeOut' },
+              }}
+              whileTap={{ scale: 0.98 }}
+              onMouseEnter={() => triggerHighlight('infra')}
+              onMouseLeave={clearHighlight}
+            >
+              {/* Premium depth effects */}
+              <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] pointer-events-none' />
+              <div className='absolute -top-16 -right-16 w-32 h-32 bg-accentWarm/8 rounded-full blur-3xl pointer-events-none group-hover:bg-accentWarm/12 transition-all duration-700' />
+              <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accentWarm/40 to-transparent group-hover:via-accentWarm/60 transition-all duration-500' />
 
-              const skillColor = getSkillColor(metric.skill)
-
-              return (
-                <motion.div
-                  key={index}
-                  className={`group relative p-4 md:p-6 rounded-2xl bg-tech-dark-surface/80 border border-${skillColor}/20 
-                      transition-all duration-700 cursor-pointer overflow-hidden backdrop-blur-sm shadow-lg hover:shadow-xl`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1.2 + index * 0.15 }}
-                  whileHover={{
-                    scale: 1.02,
-                    y: -4,
-                    borderColor: `var(--tw-color-${skillColor}-500)`,
-                    boxShadow: `0 0 20px rgba(var(--tw-color-${skillColor}-500), 0.2)`,
-                    transition: { duration: 0.3, ease: 'easeOut' },
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                  onMouseEnter={() => triggerHighlight(metric.skill)}
-                  onMouseLeave={clearHighlight}
-                >
-                  {/* Premium depth effects */}
-                  <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] pointer-events-none' />
-                  <div
-                    className={`absolute -top-16 -right-16 w-32 h-32 bg-${skillColor}/8 rounded-full blur-3xl pointer-events-none group-hover:bg-${skillColor}/12 transition-all duration-700`}
-                  />
-                  <div
-                    className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-${skillColor}/40 to-transparent group-hover:via-${skillColor}/60 transition-all duration-500`}
-                  />
-
-                  <div className='flex items-center justify-between relative z-10'>
-                    <div className='space-y-2 md:space-y-3 flex-1'>
-                      <div
-                        className={`text-xl md:text-3xl font-black text-${skillColor} relative group-hover:scale-105 transition-transform duration-300`}
-                      >
-                        <span className='relative z-10'>{metric.title}</span>
-                        <span
-                          className={`absolute inset-0 text-${skillColor} opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-300`}
-                        >
-                          {metric.title}
-                        </span>
-                      </div>
-                      <div className='text-base md:text-lg font-bold text-text-primary group-hover:text-white transition-colors duration-300'>
-                        {metric.key}
-                      </div>
-                      <p className='text-xs md:text-sm text-text-secondary leading-[1.5] group-hover:text-text-primary transition-colors duration-300'>
-                        {metric.blurb}
-                      </p>
-                    </div>
-                    <div
-                      className={`relative w-4 h-4 md:w-5 md:h-5 rounded-full bg-${skillColor} flex-shrink-0 ml-6 group-hover:scale-125 transition-transform duration-300`}
-                    >
-                      <div
-                        className={`absolute inset-0 bg-${skillColor} rounded-full animate-ping opacity-40 group-hover:opacity-60`}
-                      ></div>
-                      <div
-                        className={`absolute -inset-1 bg-${skillColor} rounded-full blur-sm opacity-30 group-hover:opacity-50 transition-opacity duration-300`}
-                      ></div>
-                    </div>
+              <div className='flex items-center justify-between relative z-10'>
+                <div className='space-y-2 md:space-y-3 flex-1'>
+                  <div className='text-xl md:text-3xl font-black text-accentWarm relative group-hover:scale-105 transition-transform duration-300'>
+                    <span className='relative z-10'>$500K</span>
+                    <span className='absolute inset-0 text-accentWarm opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-300'>
+                      $500K
+                    </span>
                   </div>
-                </motion.div>
-              )
-            })}
+                  <div className='text-base md:text-lg font-bold text-text-primary group-hover:text-white transition-colors duration-300'>
+                    AWS MAP Migration
+                  </div>
+                  <p className='text-xs md:text-sm text-text-secondary leading-[1.5] group-hover:text-text-primary transition-colors duration-300'>
+                    Led AWS MAP–funded migration replacing third-party fleet
+                    manager with in-house cloud infrastructure.
+                  </p>
+                </div>
+                <div className='relative w-4 h-4 md:w-5 md:h-5 rounded-full bg-accentWarm flex-shrink-0 ml-6 group-hover:scale-125 transition-transform duration-300'>
+                  <div className='absolute inset-0 bg-accentWarm rounded-full animate-ping opacity-40 group-hover:opacity-60'></div>
+                  <div className='absolute -inset-1 bg-accentWarm rounded-full blur-sm opacity-30 group-hover:opacity-50 transition-opacity duration-300'></div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Real-Time Drone Telemetry Achievement */}
+            <motion.div
+              className={`group relative p-4 md:p-6 rounded-2xl bg-tech-dark-surface/80 border border-accentCool/20 
+                  transition-all duration-700 cursor-pointer overflow-hidden backdrop-blur-sm shadow-lg hover:shadow-xl`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.35 }}
+              whileHover={{
+                scale: 1.02,
+                y: -4,
+                borderColor: 'var(--tw-color-accentCool-500)',
+                boxShadow: '0 0 20px rgba(var(--tw-color-accentCool-500), 0.2)',
+                transition: { duration: 0.3, ease: 'easeOut' },
+              }}
+              whileTap={{ scale: 0.98 }}
+              onMouseEnter={() => triggerHighlight('ros2')}
+              onMouseLeave={clearHighlight}
+            >
+              {/* Premium depth effects */}
+              <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] pointer-events-none' />
+              <div className='absolute -top-16 -right-16 w-32 h-32 bg-accentCool/8 rounded-full blur-3xl pointer-events-none group-hover:bg-accentCool/12 transition-all duration-700' />
+              <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accentCool/40 to-transparent group-hover:via-accentCool/60 transition-all duration-500' />
+
+              <div className='flex items-center justify-between relative z-10'>
+                <div className='space-y-2 md:space-y-3 flex-1'>
+                  <div className='text-xl md:text-3xl font-black text-accentCool relative group-hover:scale-105 transition-transform duration-300'>
+                    <span className='relative z-10'>10M+</span>
+                    <span className='absolute inset-0 text-accentCool opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-300'>
+                      10M+
+                    </span>
+                  </div>
+                  <div className='text-base md:text-lg font-bold text-text-primary group-hover:text-white transition-colors duration-300'>
+                    Real-Time Drone Telemetry
+                  </div>
+                  <p className='text-xs md:text-sm text-text-secondary leading-[1.5] group-hover:text-text-primary transition-colors duration-300'>
+                    Built OTA, log ingestion, and telemetry pipelines via AWS
+                    IoT Core, Kinesis, S3, and Athena—scaling to 10M+
+                    requests/day at 99.9% uptime.
+                  </p>
+                </div>
+                <div className='relative w-4 h-4 md:w-5 md:h-5 rounded-full bg-accentCool flex-shrink-0 ml-6 group-hover:scale-125 transition-transform duration-300'>
+                  <div className='absolute inset-0 bg-accentCool rounded-full animate-ping opacity-40 group-hover:opacity-60'></div>
+                  <div className='absolute -inset-1 bg-accentCool rounded-full blur-sm opacity-30 group-hover:opacity-50 transition-opacity duration-300'></div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Bi-Directional Teleoperation Achievement */}
+            <motion.div
+              className={`group relative p-4 md:p-6 rounded-2xl bg-tech-dark-surface/80 border border-accentPurple/20 
+                  transition-all duration-700 cursor-pointer overflow-hidden backdrop-blur-sm shadow-lg hover:shadow-xl`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.5 }}
+              whileHover={{
+                scale: 1.02,
+                y: -4,
+                borderColor: 'var(--tw-color-accentPurple-500)',
+                boxShadow:
+                  '0 0 20px rgba(var(--tw-color-accentPurple-500), 0.2)',
+                transition: { duration: 0.3, ease: 'easeOut' },
+              }}
+              whileTap={{ scale: 0.98 }}
+              onMouseEnter={() => triggerHighlight('ml')}
+              onMouseLeave={clearHighlight}
+            >
+              {/* Premium depth effects */}
+              <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] pointer-events-none' />
+              <div className='absolute -top-16 -right-16 w-32 h-32 bg-accentPurple/8 rounded-full blur-3xl pointer-events-none group-hover:bg-accentPurple/12 transition-all duration-700' />
+              <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accentPurple/40 to-transparent group-hover:via-accentPurple/60 transition-all duration-500' />
+
+              <div className='flex items-center justify-between relative z-10'>
+                <div className='space-y-2 md:space-y-3 flex-1'>
+                  <div className='text-xl md:text-3xl font-black text-accentPurple relative group-hover:scale-105 transition-transform duration-300'>
+                    <span className='relative z-10'>Real-Time</span>
+                    <span className='absolute inset-0 text-accentPurple opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-300'>
+                      Real-Time
+                    </span>
+                  </div>
+                  <div className='text-base md:text-lg font-bold text-text-primary group-hover:text-white transition-colors duration-300'>
+                    Bi-Directional Teleoperation
+                  </div>
+                  <p className='text-xs md:text-sm text-text-secondary leading-[1.5] group-hover:text-text-primary transition-colors duration-300'>
+                    Engineered bi-directional links for cloud-to-robot
+                    teleoperation, enabling real-time control and future
+                    autonomy.
+                  </p>
+                </div>
+                <div className='relative w-4 h-4 md:w-5 md:h-5 rounded-full bg-accentPurple flex-shrink-0 ml-6 group-hover:scale-125 transition-transform duration-300'>
+                  <div className='absolute inset-0 bg-accentPurple rounded-full animate-ping opacity-40 group-hover:opacity-60'></div>
+                  <div className='absolute -inset-1 bg-accentPurple rounded-full blur-sm opacity-30 group-hover:opacity-50 transition-opacity duration-300'></div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Smart Lock Firmware Achievement */}
+            <motion.div
+              className={`group relative p-4 md:p-6 rounded-2xl bg-tech-dark-surface/80 border border-accentWarm/20 
+                  transition-all duration-700 cursor-pointer overflow-hidden backdrop-blur-sm shadow-lg hover:shadow-xl`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.65 }}
+              whileHover={{
+                scale: 1.02,
+                y: -4,
+                borderColor: 'var(--tw-color-accentWarm-500)',
+                boxShadow: '0 0 20px rgba(var(--tw-color-accentWarm-500), 0.2)',
+                transition: { duration: 0.3, ease: 'easeOut' },
+              }}
+              whileTap={{ scale: 0.98 }}
+              onMouseEnter={() => triggerHighlight('infra')}
+              onMouseLeave={clearHighlight}
+            >
+              {/* Premium depth effects */}
+              <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] pointer-events-none' />
+              <div className='absolute -top-16 -right-16 w-32 h-32 bg-accentWarm/8 rounded-full blur-3xl pointer-events-none group-hover:bg-accentWarm/12 transition-all duration-700' />
+              <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accentWarm/40 to-transparent group-hover:via-accentWarm/60 transition-all duration-500' />
+
+              <div className='flex items-center justify-between relative z-10'>
+                <div className='space-y-2 md:space-y-3 flex-1'>
+                  <div className='text-xl md:text-3xl font-black text-accentWarm relative group-hover:scale-105 transition-transform duration-300'>
+                    <span className='relative z-10'>Production</span>
+                    <span className='absolute inset-0 text-accentWarm opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-300'>
+                      Production
+                    </span>
+                  </div>
+                  <div className='text-base md:text-lg font-bold text-text-primary group-hover:text-white transition-colors duration-300'>
+                    Batteryless Smart Lock Firmware
+                  </div>
+                  <p className='text-xs md:text-sm text-text-secondary leading-[1.5] group-hover:text-text-primary transition-colors duration-300'>
+                    Delivered production firmware for NFC energy-harvesting
+                    smart lock systems—deployed in real-world customer settings.
+                  </p>
+                </div>
+                <div className='relative w-4 h-4 md:w-5 md:h-5 rounded-full bg-accentWarm flex-shrink-0 ml-6 group-hover:scale-125 transition-transform duration-300'>
+                  <div className='absolute inset-0 bg-accentWarm rounded-full animate-ping opacity-40 group-hover:opacity-60'></div>
+                  <div className='absolute -inset-1 bg-accentWarm rounded-full blur-sm opacity-30 group-hover:opacity-50 transition-opacity duration-300'></div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Team Leadership Achievement */}
+            <motion.div
+              className={`group relative p-4 md:p-6 rounded-2xl bg-tech-dark-surface/80 border border-accentCool/20 
+                  transition-all duration-700 cursor-pointer overflow-hidden backdrop-blur-sm shadow-lg hover:shadow-xl`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.8 }}
+              whileHover={{
+                scale: 1.02,
+                y: -4,
+                borderColor: 'var(--tw-color-accentCool-500)',
+                boxShadow: '0 0 20px rgba(var(--tw-color-accentCool-500), 0.2)',
+                transition: { duration: 0.3, ease: 'easeOut' },
+              }}
+              whileTap={{ scale: 0.98 }}
+              onMouseEnter={() => triggerHighlight('ros2')}
+              onMouseLeave={clearHighlight}
+            >
+              {/* Premium depth effects */}
+              <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] pointer-events-none' />
+              <div className='absolute -top-16 -right-16 w-32 h-32 bg-accentCool/8 rounded-full blur-3xl pointer-events-none group-hover:bg-accentCool/12 transition-all duration-700' />
+              <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accentCool/40 to-transparent group-hover:via-accentCool/60 transition-all duration-500' />
+
+              <div className='flex items-center justify-between relative z-10'>
+                <div className='space-y-2 md:space-y-3 flex-1'>
+                  <div className='text-xl md:text-3xl font-black text-accentCool relative group-hover:scale-105 transition-transform duration-300'>
+                    <span className='relative z-10'>6 Engineers</span>
+                    <span className='absolute inset-0 text-accentCool opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-300'>
+                      6 Engineers
+                    </span>
+                  </div>
+                  <div className='text-base md:text-lg font-bold text-text-primary group-hover:text-white transition-colors duration-300'>
+                    Team & Project Leadership
+                  </div>
+                  <p className='text-xs md:text-sm text-text-secondary leading-[1.5] group-hover:text-text-primary transition-colors duration-300'>
+                    Directed 6 engineers and shipped customer-facing systems
+                    from scope to release at early-stage startup.
+                  </p>
+                </div>
+                <div className='relative w-4 h-4 md:w-5 md:h-5 rounded-full bg-accentCool flex-shrink-0 ml-6 group-hover:scale-125 transition-transform duration-300'>
+                  <div className='absolute inset-0 bg-accentCool rounded-full animate-ping opacity-40 group-hover:opacity-60'></div>
+                  <div className='absolute -inset-1 bg-accentCool rounded-full blur-sm opacity-30 group-hover:opacity-50 transition-opacity duration-300'></div>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Refined CTAs - Clear Hierarchy */}
