@@ -32,6 +32,9 @@ const services = [
       'DynamoDB',
     ],
     color: 'from-cyan-500 to-blue-600',
+    bgGradient: 'from-cyan-500/10 to-blue-600/10',
+    borderColor: 'border-cyan-500/30',
+    glowColor: 'shadow-cyan-500/20',
   },
   {
     title: 'Real-Time Visuals',
@@ -62,6 +65,9 @@ const services = [
       'Shaders',
     ],
     color: 'from-fuchsia-500 to-purple-600',
+    bgGradient: 'from-fuchsia-500/10 to-purple-600/10',
+    borderColor: 'border-fuchsia-500/30',
+    glowColor: 'shadow-fuchsia-500/20',
   },
   {
     title: 'Product Strategy',
@@ -92,6 +98,9 @@ const services = [
       'Analytics',
     ],
     color: 'from-emerald-500 to-green-600',
+    bgGradient: 'from-emerald-500/10 to-green-600/10',
+    borderColor: 'border-emerald-500/30',
+    glowColor: 'shadow-emerald-500/20',
   },
 ]
 
@@ -101,90 +110,137 @@ export default function Services() {
       id='services'
       tagline='Services'
       taglineColor='cyan'
-      title='Engineering at the intersection of'
-      subtitle='art, insight, and autonomy'
+      title='Building systems that scale'
+      subtitle='and experiences that inspire'
+      cardVariant='floating'
     >
-      <div className='grid md:grid-cols-3 gap-8'>
-        {services.map((service, index) => (
-          <motion.div
-            key={service.title}
-            className='relative group'
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: index * 0.2 }}
-          >
-            {/* Card background with glow effect */}
-            <div className='absolute inset-0 bg-gradient-to-b from-white/5 to-white/[0.02] rounded-2xl border border-white/10 transition-all duration-500 group-hover:border-white/20 group-hover:from-white/10 group-hover:to-white/[0.05]' />
-            <div
-              className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl`}
-            />
-
-            {/* Card content */}
-            <div className='relative p-8 space-y-6'>
-              {/* Icon */}
+      <div className='max-w-7xl mx-auto'>
+        <div className='grid lg:grid-cols-3 gap-8'>
+          {services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              className='relative group'
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              {/* Enhanced Floating Card */}
               <motion.div
-                className={`inline-flex p-3 bg-gradient-to-br ${service.color} rounded-xl text-white`}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ duration: 0.3 }}
+                className={`relative p-8 rounded-2xl bg-gradient-to-br from-zinc-900/80 to-zinc-900/60 border ${service.borderColor} shadow-2xl ${service.glowColor} overflow-hidden group-hover:shadow-2xl transition-all duration-500`}
+                whileHover={{
+                  y: -8,
+                  scale: 1.02,
+                  transition: { duration: 0.3, ease: 'easeOut' },
+                }}
               >
-                {service.icon}
-              </motion.div>
+                {/* Animated background gradient */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${service.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                />
 
-              {/* Title */}
-              <h3 className='text-2xl font-bold text-white group-hover:text-cyan-100 transition-colors duration-300'>
-                {service.title}
-              </h3>
+                {/* Floating geometric elements */}
+                <div className='absolute top-4 right-4 w-16 h-16 border border-current opacity-10 rounded-full group-hover:opacity-20 transition-opacity duration-500' />
+                <div className='absolute bottom-4 left-4 w-8 h-8 border border-current opacity-10 group-hover:opacity-20 transition-opacity duration-500' />
 
-              {/* Description */}
-              <p className='text-zinc-300 leading-relaxed'>
-                {service.description}
-              </p>
-
-              {/* Outcomes */}
-              <div className='p-4 bg-white/5 rounded-xl border border-white/10'>
-                <p className='text-sm text-zinc-400 leading-relaxed'>
-                  <span className='text-emerald-400 font-medium'>Impact:</span>{' '}
-                  {service.outcomes}
-                </p>
-              </div>
-
-              {/* Technologies */}
-              <div className='flex flex-wrap gap-2'>
-                {service.technologies.map(tech => (
-                  <span
-                    key={tech}
-                    className='px-3 py-1 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-zinc-300 hover:bg-white/20 hover:text-white transition-all duration-300 cursor-default'
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* Hover effect arrow */}
-              <motion.div
-                className='absolute top-8 right-8 opacity-0 group-hover:opacity-100 text-cyan-400'
-                initial={{ x: -10 }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <svg
-                  className='w-5 h-5'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
+                {/* Enhanced Icon */}
+                <motion.div
+                  className={`relative z-10 w-16 h-16 rounded-2xl bg-gradient-to-r ${service.color} p-4 text-white shadow-lg mb-6 group-hover:shadow-xl transition-all duration-300`}
+                  whileHover={{
+                    rotate: 5,
+                    scale: 1.1,
+                    transition: { duration: 0.2, ease: 'easeOut' },
+                  }}
                 >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M17 8l4 4m0 0l-4 4m4-4H3'
-                  />
-                </svg>
+                  {service.icon}
+                </motion.div>
+
+                {/* Content */}
+                <div className='relative z-10 space-y-4'>
+                  {/* Enhanced Title */}
+                  <h3 className='text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-zinc-300 group-hover:bg-clip-text transition-all duration-300'>
+                    {service.title}
+                  </h3>
+
+                  {/* Enhanced Description */}
+                  <p className='text-zinc-300 leading-relaxed group-hover:text-zinc-200 transition-colors duration-300'>
+                    {service.description}
+                  </p>
+
+                  {/* Enhanced Outcomes */}
+                  <div className='p-4 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm'>
+                    <p className='text-sm text-zinc-300 font-medium'>
+                      <span className='text-emerald-400 font-semibold'>
+                        Outcome:{' '}
+                      </span>
+                      {service.outcomes}
+                    </p>
+                  </div>
+
+                  {/* Enhanced Technology Stack */}
+                  <div className='space-y-3'>
+                    <h4 className='text-sm font-semibold text-zinc-400 uppercase tracking-wide'>
+                      Technologies
+                    </h4>
+                    <div className='flex flex-wrap gap-2'>
+                      {service.technologies.map((tech, techIndex) => (
+                        <motion.span
+                          key={tech}
+                          className={`px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r ${service.color} text-white shadow-md backdrop-blur-sm border border-white/20`}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.1 + techIndex * 0.05,
+                          }}
+                          whileHover={{
+                            scale: 1.1,
+                            y: -2,
+                            transition: { duration: 0.2, ease: 'easeOut' },
+                          }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Enhanced glow effect on hover */}
+                <div
+                  className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${service.color} opacity-0 group-hover:opacity-5 blur-xl transition-opacity duration-500`}
+                />
               </motion.div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Enhanced Call to Action */}
+        <motion.div
+          className='mt-16 text-center'
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <motion.a
+            href='#contact'
+            className='inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white font-semibold rounded-xl shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-300 group'
+            whileHover={{
+              scale: 1.05,
+              y: -4,
+              transition: { duration: 0.2, ease: 'easeOut' },
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span className='relative z-10'>
+              Ready to Build Something Amazing?
+            </span>
+            {/* Enhanced glow effect */}
+            <div className='absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-fuchsia-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm' />
+          </motion.a>
+        </motion.div>
       </div>
     </PageSection>
   )
