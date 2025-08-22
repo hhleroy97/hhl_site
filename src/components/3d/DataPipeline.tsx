@@ -175,74 +175,74 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Data Sources (3x3 grid = 9 nodes) - Real-time sensor inputs
       {
         name: 'LiDAR',
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x34d399, // Emerald-400 - Input layer (front)
+        color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Camera',
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: 0 + zOffset,
-        color: 0x34d399, // Emerald-400 - Input layer (front)
+        color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'IMU',
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0x34d399, // Emerald-400 - Input layer (front)
+        color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'GPS',
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x34d399, // Emerald-400 - Input layer (front)
+        color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Radar',
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: 0 + zOffset,
-        color: 0x34d399, // Emerald-400 - Input layer (front)
+        color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Sonar',
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0x34d399, // Emerald-400 - Input layer (front)
+        color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Thermal',
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x34d399, // Emerald-400 - Input layer (front)
+        color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Telemetry',
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: 0 + zOffset,
-        color: 0x34d399, // Emerald-400 - Input layer (front)
+        color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Encoder',
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0x34d399, // Emerald-400 - Input layer (front)
+        color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
 
@@ -421,7 +421,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Control Layer (4 nodes) - High-level system control (2x2 grid, 4 nodes - complete)
       {
         name: 'System Monitor',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
@@ -429,7 +429,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Health Check',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
@@ -437,7 +437,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Load Balance',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
@@ -445,7 +445,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Auto Scale',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
@@ -455,82 +455,82 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Output Layer (10 nodes) - Real-world actions (5x2 grid, 10 nodes - complete)
       {
         name: 'Motor Control',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing * 2 + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
+        color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Navigation',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
+        color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Data Capture',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: 0 + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
+        color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Communication',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
+        color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Emergency Stop',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing * 2 + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
+        color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Mission Execute',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing * 2 + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
+        color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Status Report',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
+        color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Cloud Upload',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: 0 + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
+        color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Fleet Sync',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
+        color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'RTL Mode',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing * 2 + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
+        color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
     ]
@@ -1112,43 +1112,43 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     const basePositions = [
       // Input Layer (3x3 grid = 9 nodes)
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
       },
-      { x: layerSpacing * 3 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
+      { x: layerSpacing * -1.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
+        x: layerSpacing * -1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
@@ -1253,73 +1253,73 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       // Hidden Layer 3 (4 nodes) - Control Layer (2x2 grid)
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       // Output Layer (10 nodes) - 5x2 grid
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing * 2 + zOffset,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing * 2 + zOffset,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing * 2 + zOffset,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
+        x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing * 2 + zOffset,
       },
