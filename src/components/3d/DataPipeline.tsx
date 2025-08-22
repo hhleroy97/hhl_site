@@ -347,15 +347,15 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Intelligence Layer (9 nodes) - AI decision making (3x3 grid, 9 nodes - complete)
       {
         name: 'Navigation AI',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x22d3ee, // Cyan-400 - Intelligence layer (second)
+        color: 0x22d3ee, // Cyan-400 - Intelligence layer (fourth)
         type: 'hidden',
       },
       {
         name: 'Obstacle Avoid',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -363,7 +363,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Mission Plan',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -371,7 +371,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Behavior Tree',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -379,7 +379,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Deep RL',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: 0 + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -387,7 +387,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Fleet Coord',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -395,7 +395,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Anomaly Detect',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -403,7 +403,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Predictive',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -411,7 +411,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Optimization',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
@@ -421,7 +421,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Control Layer (4 nodes) - High-level system control (2x2 grid, 4 nodes - complete)
       {
         name: 'System Monitor',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
@@ -429,7 +429,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Health Check',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
@@ -437,7 +437,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Load Balance',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
@@ -445,7 +445,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       {
         name: 'Auto Scale',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
@@ -1211,64 +1211,64 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       },
       // Hidden Layer 2 (9 nodes) - Intelligence Layer - 3x3 grid
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
       },
-      { x: layerSpacing * 1.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
+      { x: layerSpacing * -0.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
       },
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
+        x: layerSpacing * -0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
       },
       // Hidden Layer 3 (4 nodes) - Control Layer (2x2 grid)
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
+        x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
       },
