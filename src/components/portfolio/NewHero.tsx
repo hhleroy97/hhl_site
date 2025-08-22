@@ -183,13 +183,13 @@ export default function NewHero() {
       {/* 3D Layer Spacing Control */}
       <div className='fixed top-4 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-4 pointer-events-auto'>
         <label className='block text-white text-sm mb-2'>
-          3D Layer Spacing: {layerDistance}
+          3D Layer Spacing: {layerDistance.toFixed(1)}
         </label>
         <input
           type='range'
-          min='1'
-          max='15'
-          step='0.5'
+          min='0.5'
+          max='25'
+          step='0.1'
           value={layerDistance}
           onChange={e => setLayerDistance(Number(e.target.value))}
           className='w-32 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider'
