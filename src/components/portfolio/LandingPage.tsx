@@ -30,7 +30,43 @@ export default function LandingPage() {
         </motion.div>
       </div>
 
-      <div className='container-custom relative z-20 pointer-events-none'>
+      {/* Full-width header section */}
+      <div className='relative z-20 pointer-events-none w-full'>
+        <div className='w-full px-4 md:px-8'>
+          <motion.div
+            className='space-y-6'
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Name - Full Width */}
+            <motion.h1
+              className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight w-full'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              <span className='bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-emerald-400 bg-clip-text text-transparent'>
+                Hartley LeRoy
+              </span>
+            </motion.h1>
+
+            {/* Role/Title - Full Width */}
+            <motion.p
+              className='text-xl md:text-2xl text-zinc-300 font-light w-full'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              Cloud & Creative Engineer — crafting end-to-end systems from edge
+              to interface.
+            </motion.p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Constrained content section */}
+      <div className='container-custom relative z-20 pointer-events-none mt-12'>
         <div className='grid lg:grid-cols-2 gap-12 items-center'>
           {/* Text content - shifted left */}
           <div className='max-w-2xl'>
@@ -38,31 +74,8 @@ export default function LandingPage() {
               className='space-y-8'
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
             >
-              {/* Name */}
-              <motion.h1
-                className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-              >
-                <span className='bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-emerald-400 bg-clip-text text-transparent'>
-                  Hartley LeRoy
-                </span>
-              </motion.h1>
-
-              {/* Role/Title - moved directly below name */}
-              <motion.p
-                className='text-xl md:text-2xl text-zinc-300 font-light'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-              >
-                Cloud & Creative Engineer — crafting end-to-end systems from
-                edge to interface.
-              </motion.p>
-
               {/* Main tagline */}
               <motion.h2
                 className='text-2xl md:text-3xl font-light text-white leading-relaxed max-w-3xl'
