@@ -60,56 +60,49 @@ export default function PageSection({
       <div className='absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-fuchsia-500/20 to-transparent' />
 
       <div className='container-custom relative z-10'>
-        {/* Standardized header section with fixed positioning */}
-        <div className='text-center mb-16'>
-          {/* Fixed position container for consistent placement */}
-          <div className='relative'>
-            {/* Rounded title card - fixed position from top */}
-            <motion.div
-              className={`inline-flex items-center gap-3 px-6 py-3 ${colors.bgColor} border ${colors.borderColor} border-red-500 border-2 rounded-full ${colors.textColor} text-lg font-medium`}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              style={{
-                position: 'fixed',
-                top: '25%', // Position in upper portion of screen, below navigation
-                left: '50%',
-                transform: 'translateX(-50%)',
-                zIndex: 50,
-              }}
-            >
-              <div
-                className={`w-3 h-3 ${colors.dotColor} rounded-full animate-pulse`}
-              />
-              {tagline}
-            </motion.div>
+        {/* Standardized header section */}
+        <motion.div
+          className='text-center mb-16'
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          {/* Rounded title card */}
+          <motion.div
+            className={`inline-flex items-center gap-3 px-6 py-3 ${colors.bgColor} border ${colors.borderColor} border-red-500 border-2 rounded-full ${colors.textColor} text-lg font-medium mb-6`}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <div
+              className={`w-3 h-3 ${colors.dotColor} rounded-full animate-pulse`}
+            />
+            {tagline}
+          </motion.div>
 
-            {/* Large heading with consistent sizing - fixed position */}
-            <motion.div
-              className='border-2 border-yellow-500 rounded-2xl p-6 bg-yellow-500/10'
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              style={{
-                marginTop: '80px', // Fixed space for title card above
-              }}
-            >
-              <h2 className='text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
-                {title}
-                {subtitle && (
-                  <>
-                    <br />
-                    <span className='bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent'>
-                      {subtitle}
-                    </span>
-                  </>
-                )}
-              </h2>
-            </motion.div>
-          </div>
-        </div>
+          {/* Large heading with consistent sizing */}
+          <motion.div
+            className='border-2 border-yellow-500 rounded-2xl p-6 bg-yellow-500/10'
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className='text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
+              {title}
+              {subtitle && (
+                <>
+                  <br />
+                  <span className='bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent'>
+                    {subtitle}
+                  </span>
+                </>
+              )}
+            </h2>
+          </motion.div>
+        </motion.div>
 
         {/* Page content */}
         {children}
