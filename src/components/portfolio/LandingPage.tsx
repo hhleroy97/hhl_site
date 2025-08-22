@@ -42,7 +42,7 @@ export default function LandingPage() {
             >
               {/* Name */}
               <motion.h1
-                className='text-6xl md:text-8xl font-bold tracking-tight'
+                className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
@@ -51,6 +51,17 @@ export default function LandingPage() {
                   Hartley LeRoy
                 </span>
               </motion.h1>
+
+              {/* Role/Title - moved directly below name */}
+              <motion.p
+                className='text-xl md:text-2xl text-zinc-300 font-light'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              >
+                Cloud & Creative Engineer — crafting end-to-end systems from
+                edge to interface.
+              </motion.p>
 
               {/* Main tagline */}
               <motion.h2
@@ -69,17 +80,6 @@ export default function LandingPage() {
                   infrastructure
                 </span> and <span className='font-bold'>imagination</span>.
               </motion.h2>
-
-              {/* Subtitle */}
-              <motion.p
-                className='text-xl text-zinc-300 max-w-2xl'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-              >
-                Cloud & Creative Engineer — crafting end-to-end systems from
-                edge to interface.
-              </motion.p>
 
               {/* Status and contact info */}
               <motion.div
