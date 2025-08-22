@@ -37,9 +37,9 @@ export default function LandingPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {/* Name - Centered within container */}
+              {/* Name - Left aligned */}
               <motion.h1
-                className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight w-full text-center'
+                className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight w-full text-left'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
