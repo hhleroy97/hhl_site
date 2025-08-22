@@ -4,21 +4,32 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 interface DataPipelineProps {
   interactive?: boolean
+  cameraDistance?: number
+  layerSpacing?: number
+  cinematicMode?: boolean
+  className?: string
 }
 
-const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
+const DataPipeline: React.FC<DataPipelineProps> = ({
+  interactive = true,
+  cameraDistance: externalCameraDistance,
+  layerSpacing: externalLayerSpacing,
+  cinematicMode = false,
+  className: _className = '',
+}) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [xOffset, setXOffset] = useState(0)
   const [yOffset, setYOffset] = useState(0)
   const [zOffset, setZOffset] = useState(0)
   const [cameraXOffset, setCameraXOffset] = useState(0)
-  const [layerSpacing, setLayerSpacing] = useState(6)
+  const [layerSpacing, setLayerSpacing] = useState(externalLayerSpacing || 6)
   const [nodeSpacing, setNodeSpacing] = useState(2.5)
   const [inputLayerSpacing, setInputLayerSpacing] = useState(2)
   const [cameraDistance, setCameraDistance] = useState(25)
   const [isDragging, setIsDragging] = useState(false)
   const [enableRotation, setEnableRotation] = useState(true)
   const [showControls, setShowControls] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   // Store refs to update positions without recreating scene
   const sceneRef = useRef<THREE.Scene | null>(null)
@@ -46,9 +57,22 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
     const height = container.clientHeight || window.innerHeight
     const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100)
 
-    // Position camera to view centered network
-    camera.position.set(0, 0, cameraDistance)
-    camera.lookAt(0, 0, 0)
+    // Position camera based on mode
+    const finalCameraDistance = externalCameraDistance || cameraDistance
+
+    if (cinematicMode) {
+      // Cinematic 3/4 angle view - offset to right and above
+      const offsetX = finalCameraDistance * 0.6 // Offset to the right
+      const offsetY = finalCameraDistance * 0.3 // Slightly above
+      const offsetZ = finalCameraDistance * 0.8 // Pull back slightly
+      camera.position.set(offsetX, offsetY, offsetZ)
+
+      // Look at a point slightly offset from center to create dynamic framing
+      camera.lookAt(2, 0, 0)
+    } else {
+      camera.position.set(0, 0, finalCameraDistance)
+      camera.lookAt(0, 0, 0)
+    }
 
     // Store camera reference
     cameraRef.current = camera
@@ -64,25 +88,55 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
     renderer.setSize(width, height)
     container.appendChild(renderer.domElement)
 
-    // Add orbit controls for free rotation
+    // Configure controls based on mode
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true
     controls.dampingFactor = 0.05
-    controls.enableZoom = true
-    controls.enablePan = true
-    controls.enableRotate = enableRotation
-    controls.target.set(0, 0, 0)
-    controls.maxDistance = 50
-    controls.minDistance = 5
-    controls.maxPolarAngle = Math.PI
-    controls.minPolarAngle = 0
+
+    if (cinematicMode) {
+      // Disable user controls in cinematic mode to maintain framing
+      controls.enableZoom = false
+      controls.enablePan = false
+      controls.enableRotate = false
+      controls.target.set(2, 0, 0) // Match camera look-at target
+    } else {
+      controls.enableZoom = true
+      controls.enablePan = true
+      controls.enableRotate = enableRotation
+      controls.target.set(0, 0, 0)
+      controls.maxDistance = 50
+      controls.minDistance = 5
+      controls.maxPolarAngle = Math.PI
+      controls.minPolarAngle = 0
+    }
+
     controlsRef.current = controls
 
-    // Lighting
-    scene.add(new THREE.AmbientLight(0xffffff, 0.6))
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8)
-    directionalLight.position.set(5, 5, 5)
-    scene.add(directionalLight)
+    // Lighting adjusted for cinematic mode
+    if (cinematicMode) {
+      scene.add(new THREE.AmbientLight(0xffffff, 0.4)) // Dimmer ambient light
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6) // Softer directional light
+      directionalLight.position.set(5, 5, 5)
+      scene.add(directionalLight)
+    } else {
+      scene.add(new THREE.AmbientLight(0xffffff, 0.6))
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8)
+      directionalLight.position.set(5, 5, 5)
+      scene.add(directionalLight)
+    }
+
+    // Apply cinematic transformations to the entire scene
+    if (cinematicMode) {
+      // Reduce scale by 25%
+      scene.scale.setScalar(0.75)
+
+      // Apply initial rotation for depth (25-30° on Y-axis, slight X tilt)
+      scene.rotation.set(
+        THREE.MathUtils.degToRad(-5), // Slight downward tilt
+        THREE.MathUtils.degToRad(25), // 25° rotation for depth
+        0
+      )
+    }
 
     // Create invisible wireframe container (for reference positioning only)
     const containerGeometry = new THREE.BoxGeometry(12, 6, 6)
@@ -477,7 +531,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       const material = new THREE.MeshLambertMaterial({
         color: node.color,
         transparent: true,
-        opacity: 0.9,
+        opacity: cinematicMode ? 0.675 : 0.9, // 75% of original opacity for cinematic mode
       })
       const box = new THREE.Mesh(geometry, material)
       box.position.set(node.x, node.y, node.z)
@@ -494,7 +548,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       const outlineMaterial = new THREE.MeshBasicMaterial({
         color: node.color,
         transparent: true,
-        opacity: 0.3,
+        opacity: cinematicMode ? 0.225 : 0.3, // 75% of original opacity for cinematic mode
         side: THREE.BackSide,
       })
       const outline = new THREE.Mesh(outlineGeometry, outlineMaterial)
@@ -706,7 +760,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       const material = new THREE.LineBasicMaterial({
         color: 0x666666, // Consistent gray color for all lines
         transparent: true,
-        opacity: 0.4,
+        opacity: cinematicMode ? 0.3 : 0.4, // 75% of original opacity for cinematic mode
       })
       const line = new THREE.Line(geometry, material)
       scene.add(line)
@@ -730,7 +784,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       const particleMaterial = new THREE.MeshLambertMaterial({
         color: from.color,
         transparent: true,
-        opacity: 0.9,
+        opacity: cinematicMode ? 0.675 : 0.9, // 75% of original opacity for cinematic mode
       })
       const particle = new THREE.Mesh(particleGeometry, particleMaterial)
 
@@ -801,14 +855,32 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
     // Animation loop
     let animationId: number
     const animate = () => {
+      const time = Date.now() * 0.001
+
+      if (cinematicMode) {
+        // Cinematic idle motion - subtle breathing effect
+        const breathingIntensity = 0.002
+        const breathingSpeed = 0.0005
+        scene.rotation.y += Math.sin(time * breathingSpeed) * breathingIntensity
+        scene.rotation.x +=
+          Math.cos(time * breathingSpeed * 0.7) * breathingIntensity * 0.5
+
+        // Gentle parallax based on mouse position (very low sensitivity)
+        const parallaxStrength = 0.0001
+        scene.rotation.y += (mousePosition.x - 0.5) * parallaxStrength
+        scene.rotation.x += (mousePosition.y - 0.5) * parallaxStrength * 0.5
+      }
+
       // Gentle node box animation with slow drift for background layer
       nodeBoxesRef.current.forEach((box, index) => {
         // Minimal rotation for premium, subtle motion
-        const time = Date.now() * 0.00005
+        const nodeTime = Date.now() * 0.00005
         const isMainBox = index % 2 === 0 // Every other is main box (not outline)
         if (isMainBox) {
-          box.rotation.y = Math.sin(time + index * 0.05) * 0.02
-          box.rotation.x = Math.cos(time * 0.5 + index * 0.03) * 0.015
+          const intensity = cinematicMode ? 0.01 : 0.02 // Reduce motion in cinematic mode
+          box.rotation.y = Math.sin(nodeTime + index * 0.05) * intensity
+          box.rotation.x =
+            Math.cos(nodeTime * 0.5 + index * 0.03) * intensity * 0.75
         }
       })
 
@@ -898,6 +970,19 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
     }
     animate()
 
+    // Mouse tracking for parallax (only in cinematic mode)
+    const handleMouseMove = (event: MouseEvent) => {
+      if (cinematicMode) {
+        const x = event.clientX / window.innerWidth
+        const y = event.clientY / window.innerHeight
+        setMousePosition({ x, y })
+      }
+    }
+
+    if (cinematicMode) {
+      window.addEventListener('mousemove', handleMouseMove)
+    }
+
     // Resize handler
     const handleResize = () => {
       const newWidth = container.clientWidth || window.innerWidth
@@ -920,6 +1005,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
         window.removeEventListener('mousedown', handleMouseDown)
         window.removeEventListener('mousemove', handleMouseMove)
         window.removeEventListener('mouseup', handleMouseUp)
+      }
+      if (cinematicMode) {
+        window.removeEventListener('mousemove', handleMouseMove)
       }
       window.removeEventListener('resize', handleResize)
 
@@ -944,6 +1032,8 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
   }, [
     interactive,
     cameraDistance,
+    externalCameraDistance,
+    externalLayerSpacing,
     enableRotation,
     inputLayerSpacing,
     layerSpacing,
@@ -951,6 +1041,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
     xOffset,
     yOffset,
     zOffset,
+    cinematicMode,
+    mousePosition.x,
+    mousePosition.y,
   ])
 
   // Separate effect to update positions when offsets change
@@ -1417,6 +1510,13 @@ const DataPipeline: React.FC<DataPipelineProps> = ({ interactive = true }) => {
       controlsRef.current.enableRotate = enableRotation
     }
   }, [enableRotation])
+
+  // Update internal layerSpacing when external prop changes
+  useEffect(() => {
+    if (externalLayerSpacing !== undefined) {
+      setLayerSpacing(externalLayerSpacing)
+    }
+  }, [externalLayerSpacing])
 
   return (
     <div className='relative w-full h-full'>
