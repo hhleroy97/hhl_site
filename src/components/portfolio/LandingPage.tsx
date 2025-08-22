@@ -7,10 +7,7 @@ export default function LandingPage() {
   const [positionShift, setPositionShift] = useState(-12.5)
   const [verticalShift, setVerticalShift] = useState(0)
   return (
-    <section
-      id='hero'
-      className='relative min-h-screen flex items-center py-24 overflow-hidden'
-    >
+    <section id='hero' className='relative min-h-screen py-24 overflow-hidden'>
       {/* Interactive Data Pipeline Visualization - Main Layer */}
       <div className='absolute inset-0 z-10'>
         <motion.div
@@ -31,7 +28,7 @@ export default function LandingPage() {
       </div>
 
       {/* Full-width header section */}
-      <div className='relative z-20 pointer-events-none w-full'>
+      <div className='relative z-20 pointer-events-none w-full pt-20'>
         <div className='w-full px-4 md:px-8'>
           <motion.div
             className='space-y-6'
