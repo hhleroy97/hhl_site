@@ -178,7 +178,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Input layer
+        color: 0x34d399, // Emerald-400 - Input layer (front)
         type: 'input',
       },
       {
@@ -186,7 +186,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: 0 + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Input layer
+        color: 0x34d399, // Emerald-400 - Input layer (front)
         type: 'input',
       },
       {
@@ -194,7 +194,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 3 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Input layer
+        color: 0x34d399, // Emerald-400 - Input layer (front)
         type: 'input',
       },
       {
@@ -202,7 +202,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 3 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Input layer
+        color: 0x34d399, // Emerald-400 - Input layer (front)
         type: 'input',
       },
       {
@@ -210,7 +210,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 3 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: 0 + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Input layer
+        color: 0x34d399, // Emerald-400 - Input layer (front)
         type: 'input',
       },
       {
@@ -218,7 +218,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 3 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Input layer
+        color: 0x34d399, // Emerald-400 - Input layer (front)
         type: 'input',
       },
       {
@@ -226,7 +226,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Input layer
+        color: 0x34d399, // Emerald-400 - Input layer (front)
         type: 'input',
       },
       {
@@ -234,7 +234,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: 0 + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Input layer
+        color: 0x34d399, // Emerald-400 - Input layer (front)
         type: 'input',
       },
       {
@@ -242,7 +242,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 3 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0xd946ef, // Fuchsia-500 - Input layer
+        color: 0x34d399, // Emerald-400 - Input layer (front)
         type: 'input',
       },
 
@@ -252,7 +252,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing * 2 + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
@@ -260,7 +260,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
@@ -268,7 +268,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
@@ -276,7 +276,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
@@ -284,7 +284,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing * 2 + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
@@ -292,7 +292,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
@@ -300,7 +300,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: 0 + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
@@ -308,7 +308,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
@@ -316,7 +316,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing * 2 + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
@@ -324,7 +324,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
@@ -332,7 +332,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
@@ -340,7 +340,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 1.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0xdb7edf, // Fuchsia-Cyan blend - Processing layer
+        color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
 
@@ -350,7 +350,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x22d3ee, // Cyan-400 - Intelligence layer
+        color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
@@ -358,7 +358,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
-        color: 0x22d3ee, // Cyan-400 - Intelligence layer
+        color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
@@ -366,7 +366,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0x22d3ee, // Cyan-400 - Intelligence layer
+        color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
@@ -374,7 +374,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x22d3ee, // Cyan-400 - Intelligence layer
+        color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
@@ -382,7 +382,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: 0 + zOffset,
-        color: 0x22d3ee, // Cyan-400 - Intelligence layer
+        color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
@@ -390,7 +390,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: 0 + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0x22d3ee, // Cyan-400 - Intelligence layer
+        color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
@@ -398,7 +398,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x22d3ee, // Cyan-400 - Intelligence layer
+        color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
@@ -406,7 +406,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: 0 + zOffset,
-        color: 0x22d3ee, // Cyan-400 - Intelligence layer
+        color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
@@ -414,7 +414,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: layerSpacing * 0.75 + centerOffset + xOffset,
         y: -nodeSpacing * 2 + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0x22d3ee, // Cyan-400 - Intelligence layer
+        color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
 
@@ -424,7 +424,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 0.25 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x2bd5c3, // Cyan-Emerald blend - Control layer
+        color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
         type: 'hidden',
       },
       {
@@ -432,7 +432,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 0.25 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0x2bd5c3, // Cyan-Emerald blend - Control layer
+        color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
         type: 'hidden',
       },
       {
@@ -440,7 +440,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 0.25 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x2bd5c3, // Cyan-Emerald blend - Control layer
+        color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
         type: 'hidden',
       },
       {
@@ -448,7 +448,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 0.25 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0x2bd5c3, // Cyan-Emerald blend - Control layer
+        color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
         type: 'hidden',
       },
 
@@ -458,7 +458,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 1.25 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing * 2 + zOffset,
-        color: 0x34d399, // Emerald-400 - Output layer
+        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
         type: 'output',
       },
       {
@@ -466,7 +466,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 1.25 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x34d399, // Emerald-400 - Output layer
+        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
         type: 'output',
       },
       {
@@ -474,7 +474,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 1.25 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: 0 + zOffset,
-        color: 0x34d399, // Emerald-400 - Output layer
+        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
         type: 'output',
       },
       {
@@ -482,7 +482,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 1.25 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0x34d399, // Emerald-400 - Output layer
+        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
         type: 'output',
       },
       {
@@ -490,7 +490,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 1.25 + centerOffset + xOffset,
         y: nodeSpacing + yOffset,
         z: -nodeSpacing * 2 + zOffset,
-        color: 0x34d399, // Emerald-400 - Output layer
+        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
         type: 'output',
       },
       {
@@ -498,7 +498,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 1.25 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing * 2 + zOffset,
-        color: 0x34d399, // Emerald-400 - Output layer
+        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
         type: 'output',
       },
       {
@@ -506,7 +506,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 1.25 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: nodeSpacing + zOffset,
-        color: 0x34d399, // Emerald-400 - Output layer
+        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
         type: 'output',
       },
       {
@@ -514,7 +514,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 1.25 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: 0 + zOffset,
-        color: 0x34d399, // Emerald-400 - Output layer
+        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
         type: 'output',
       },
       {
@@ -522,7 +522,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 1.25 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing + zOffset,
-        color: 0x34d399, // Emerald-400 - Output layer
+        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
         type: 'output',
       },
       {
@@ -530,7 +530,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         x: -layerSpacing * 1.25 + centerOffset + xOffset,
         y: -nodeSpacing + yOffset,
         z: -nodeSpacing * 2 + zOffset,
-        color: 0x34d399, // Emerald-400 - Output layer
+        color: 0xd946ef, // Fuchsia-500 - Output layer (back)
         type: 'output',
       },
     ]
