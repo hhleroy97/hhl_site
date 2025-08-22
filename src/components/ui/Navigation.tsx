@@ -50,7 +50,7 @@ export default function Navigation({
           {/* Logo */}
           <motion.a
             href='#'
-            className='text-xl font-bold bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent relative border-2 border-red-500 rounded px-2 py-1'
+            className='text-xl font-bold bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent relative'
             whileHover={{ scale: 1.05 }}
             onClick={e => {
               e.preventDefault()
@@ -84,7 +84,7 @@ export default function Navigation({
               return (
                 <button
                   key={sections ? item.id : item.href}
-                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 relative border-2 border-red-500 rounded ${
+                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 relative ${
                     isActive
                       ? 'text-cyan-400'
                       : 'text-zinc-300 hover:text-cyan-400'
@@ -126,7 +126,7 @@ export default function Navigation({
               target='_blank'
               rel='noopener noreferrer'
               onClick={handleResumeClick}
-              className='hidden sm:inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/20 hover:ring-white/40 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 border-2 border-red-500'
+              className='hidden sm:inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/20 hover:ring-white/40 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105'
             >
               Resume
             </a>
