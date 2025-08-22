@@ -1,13 +1,32 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import DataPipeline from '../3d/DataPipeline'
 
 export default function NewHero() {
+  const [layerDistance, setLayerDistance] = useState(6)
   return (
     <section
       id='hero'
       className='relative min-h-screen flex items-center py-24 overflow-hidden'
     >
-      <div className='container-custom relative z-10'>
+      {/* Interactive Data Pipeline Visualization - Main Layer */}
+      <div className='absolute inset-0 z-10'>
+        <motion.div
+          className='w-full h-full'
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.5, duration: 1 }}
+        >
+          <DataPipeline
+            className='w-full h-full'
+            layerSpacing={layerDistance}
+            cinematicMode={true}
+            interactive={false}
+          />
+        </motion.div>
+      </div>
+
+      <div className='container-custom relative z-20 pointer-events-none'>
         <div className='grid lg:grid-cols-2 gap-12 items-center'>
           {/* Text content - shifted left */}
           <div className='max-w-2xl'>
@@ -141,7 +160,7 @@ export default function NewHero() {
                   href='/docs/Hartley_LeRoy_Resume_Aug25.pdf'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='px-8 py-3 bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transform hover:scale-105 transition-all duration-300'
+                  className='px-8 py-3 bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transform hover:scale-105 transition-all duration-300 pointer-events-auto'
                   onError={e => {
                     const target = e.target as HTMLAnchorElement
                     target.href = '/docs/Hartley_LeRoy_Resume_Aug25.docx'
@@ -151,28 +170,30 @@ export default function NewHero() {
                 </a>
                 <a
                   href='#contact'
-                  className='px-8 py-3 border border-cyan-400/50 text-cyan-400 font-medium rounded-lg hover:bg-cyan-400/10 hover:border-cyan-400 transition-all duration-300'
+                  className='px-8 py-3 border border-cyan-400/50 text-cyan-400 font-medium rounded-lg hover:bg-cyan-400/10 hover:border-cyan-400 transition-all duration-300 pointer-events-auto'
                 >
                   Get in Touch
                 </a>
               </motion.div>
             </motion.div>
           </div>
-
-          {/* Interactive Data Pipeline Visualization */}
-          <div className='flex justify-center lg:justify-end'>
-            <motion.div
-              className='w-96 h-96 relative'
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 1 }}
-            >
-              <div className='w-full h-full rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-800/50 backdrop-blur-sm border border-white/10 overflow-hidden'>
-                <DataPipeline className='w-full h-full' />
-              </div>
-            </motion.div>
-          </div>
         </div>
+      </div>
+
+      {/* 3D Layer Spacing Control */}
+      <div className='fixed top-4 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-4 pointer-events-auto'>
+        <label className='block text-white text-sm mb-2'>
+          3D Layer Spacing: {layerDistance}
+        </label>
+        <input
+          type='range'
+          min='1'
+          max='15'
+          step='0.5'
+          value={layerDistance}
+          onChange={e => setLayerDistance(Number(e.target.value))}
+          className='w-32 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider'
+        />
       </div>
 
       {/* Background grid effect */}
