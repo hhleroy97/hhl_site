@@ -1,27 +1,130 @@
 import { motion } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import * as THREE from 'three'
+import React from 'react'
+
+// Import 3D components from the /3d folder
+import DataFlowViz from '../3d/DataFlowViz'
+import DataPipeline from '../3d/DataPipeline'
+import DataTransferArt from '../3d/DataTransferArt'
+import DataflowRibbons from '../3d/DataflowRibbons'
+import ImprovedBackground from '../3d/ImprovedBackground'
+import NeuralNetworkViz from '../3d/NeuralNetworkViz'
+import RetroDataFlow from '../3d/RetroDataFlow'
+import SimpleAnimatedBackground from '../3d/SimpleAnimatedBackground'
+import SimpleGrid from '../3d/SimpleGrid'
+import StackedPrisms from '../3d/StackedPrisms'
+import VisibleBackground from '../3d/VisibleBackground'
+import DataFlowBackground from '../3d/DataFlowBackground'
 
 const visualizations = [
   {
     id: 'dataPipeline',
     name: 'AWS Data Pipeline',
     file: 'DataPipelineVisualization.tsx',
+    type: 'builtin',
   },
   {
     id: 'neuralNetwork',
     name: 'Neural Network',
     file: 'NeuralNetworkVisualization.tsx',
+    type: 'builtin',
   },
   {
     id: 'cloudInfra',
     name: 'Cloud Infrastructure',
     file: 'CloudInfraVisualization.tsx',
+    type: 'builtin',
   },
   {
     id: 'dataFlow',
     name: 'Real-time Data Flow',
     file: 'DataFlowVisualization.tsx',
+    type: 'builtin',
+  },
+  {
+    id: 'dataFlowViz',
+    name: 'Data Flow Grid',
+    file: 'DataFlowViz.tsx',
+    component: DataFlowViz,
+    type: 'component',
+  },
+  {
+    id: 'dataPipelineComponent',
+    name: 'Interactive Data Pipeline',
+    file: 'DataPipeline.tsx',
+    component: DataPipeline,
+    type: 'component',
+  },
+  {
+    id: 'dataTransferArt',
+    name: 'Data Transfer Art',
+    file: 'DataTransferArt.tsx',
+    component: DataTransferArt,
+    type: 'component',
+  },
+  {
+    id: 'dataflowRibbons',
+    name: 'Dataflow Ribbons',
+    file: 'DataflowRibbons.tsx',
+    component: DataflowRibbons,
+    type: 'component',
+  },
+  {
+    id: 'improvedBackground',
+    name: 'Improved Background',
+    file: 'ImprovedBackground.tsx',
+    component: ImprovedBackground,
+    type: 'component',
+  },
+  {
+    id: 'neuralNetworkViz',
+    name: 'Neural Network Viz',
+    file: 'NeuralNetworkViz.tsx',
+    component: NeuralNetworkViz,
+    type: 'component',
+  },
+  {
+    id: 'retroDataFlow',
+    name: 'Retro Data Flow',
+    file: 'RetroDataFlow.tsx',
+    component: RetroDataFlow,
+    type: 'component',
+  },
+  {
+    id: 'simpleAnimatedBackground',
+    name: 'Simple Animated Background',
+    file: 'SimpleAnimatedBackground.tsx',
+    component: SimpleAnimatedBackground,
+    type: 'component',
+  },
+  {
+    id: 'simpleGrid',
+    name: 'Simple Grid',
+    file: 'SimpleGrid.tsx',
+    component: SimpleGrid,
+    type: 'component',
+  },
+  {
+    id: 'stackedPrisms',
+    name: 'Stacked Prisms',
+    file: 'StackedPrisms.tsx',
+    component: StackedPrisms,
+    type: 'component',
+  },
+  {
+    id: 'visibleBackground',
+    name: 'Visible Background',
+    file: 'VisibleBackground.tsx',
+    component: VisibleBackground,
+    type: 'component',
+  },
+  {
+    id: 'dataFlowBackground',
+    name: 'Data Flow Background',
+    file: 'DataFlowBackground.tsx',
+    component: DataFlowBackground,
+    type: 'component',
   },
 ]
 
@@ -304,7 +407,9 @@ export default function NewHero() {
   }
 
   useEffect(() => {
-    if (!mountRef.current) return
+    // Only run for builtin Three.js visualizations, not React components
+    const currentViz = visualizations[currentVisualization]
+    if (currentViz.type === 'component' || !mountRef.current) return
 
     // Scene setup
     const scene = new THREE.Scene()
@@ -322,7 +427,6 @@ export default function NewHero() {
     const dataFlows: THREE.Mesh[] = []
 
     // Create visualization based on current selection
-    const currentViz = visualizations[currentVisualization]
     switch (currentViz.id) {
       case 'dataPipeline':
         createDataPipelineVisualization(scene, components, dataFlows)
@@ -382,7 +486,9 @@ export default function NewHero() {
 
     // Cleanup
     return () => {
-      container.removeChild(renderer.domElement)
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement)
+      }
       renderer.dispose()
     }
   }, [currentVisualization])
@@ -573,11 +679,26 @@ export default function NewHero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5, duration: 1 }}
             >
-              <div
-                ref={mountRef}
-                className='w-full h-full rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-800/50 backdrop-blur-sm border border-white/10'
-              />
-              <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-fuchsia-500/10 to-emerald-500/10 rounded-2xl pointer-events-none' />
+              {visualizations[currentVisualization].type === 'component' ? (
+                <div className='w-full h-full rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-800/50 backdrop-blur-sm border border-white/10 overflow-hidden'>
+                  {visualizations[currentVisualization].component &&
+                    React.createElement(
+                      visualizations[currentVisualization]
+                        .component as React.ComponentType<any>,
+                      {
+                        className: 'w-full h-full',
+                      }
+                    )}
+                </div>
+              ) : (
+                <>
+                  <div
+                    ref={mountRef}
+                    className='w-full h-full rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-800/50 backdrop-blur-sm border border-white/10'
+                  />
+                  <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-fuchsia-500/10 to-emerald-500/10 rounded-2xl pointer-events-none' />
+                </>
+              )}
             </motion.div>
 
             {/* File Name Display */}
