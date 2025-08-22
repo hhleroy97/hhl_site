@@ -29,11 +29,10 @@
       "Bash(rsync:*)",
       "Bash(git tag:*)",
       "Bash(ssh:*)",
-      "Bash(git remote set-url:*)"
+      "Bash(git remote set-url:*)",
+      "Bash(git checkout:*)"
     ],
     "defaultMode": "acceptEdits",
-    "additionalDirectories": [
-      "/home/hartley/.ssh"
-    ]
+    "additionalDirectories": ["/home/hartley/.ssh"]
   }
 }

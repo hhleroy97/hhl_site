@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navigation from './ui/Navigation'
 import SlideshowNavigation from './ui/SlideshowNavigation'
-import NewHero from './portfolio/NewHero'
+import LandingPage from './portfolio/LandingPage'
 import Services from './portfolio/Services'
 import WorkExperience from './portfolio/WorkExperience'
 import NewAbout from './portfolio/NewAbout'
@@ -10,7 +10,7 @@ import SkillsTools from './portfolio/SkillsTools'
 import ContactFooter from './portfolio/ContactFooter'
 
 const sections = [
-  { id: 'hero', label: 'Home', component: NewHero },
+  { id: 'hero', label: 'Home', component: LandingPage },
   { id: 'services', label: 'Services', component: Services },
   { id: 'experience', label: 'Experience', component: WorkExperience },
   { id: 'about', label: 'About', component: NewAbout },

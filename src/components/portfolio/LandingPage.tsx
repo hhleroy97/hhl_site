@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import DataPipeline from '../3d/DataPipeline'
 
-export default function NewHero() {
+export default function LandingPage() {
   const [layerDistance, setLayerDistance] = useState(3.6)
   const [positionShift, setPositionShift] = useState(-12.5)
   const [verticalShift, setVerticalShift] = useState(0)
