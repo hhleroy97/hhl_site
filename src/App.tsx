@@ -1,10 +1,13 @@
 import SlideshowPortfolio from '@components/SlideshowPortfolio'
 import { VisualizationProvider } from './contexts/VisualizationContext'
+import { CardVariantProvider } from './context/CardVariantContext'
 
 export default function App() {
   return (
     <VisualizationProvider>
-      <SlideshowPortfolio />
+      <CardVariantProvider>
+        <SlideshowPortfolio />
+      </CardVariantProvider>
     </VisualizationProvider>
   )
 }

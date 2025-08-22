@@ -102,7 +102,7 @@
 @layer components {
   /* Container utility */
   .container-custom {
-    @apply max-w-7xl mx-auto px-6 md:px-8;
+    @apply max-w-[90vw] mx-auto px-3 md:px-4;
   }
 
   /* Button styles - new design system */
