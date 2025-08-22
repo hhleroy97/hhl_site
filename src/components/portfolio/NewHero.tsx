@@ -4,6 +4,7 @@ import DataPipeline from '../3d/DataPipeline'
 
 export default function NewHero() {
   const [layerDistance, setLayerDistance] = useState(6)
+  const [positionShift, setPositionShift] = useState(0)
   return (
     <section
       id='hero'
@@ -20,6 +21,7 @@ export default function NewHero() {
           <DataPipeline
             className='w-full h-full'
             layerSpacing={layerDistance}
+            positionShift={positionShift}
             cinematicMode={true}
             interactive={false}
           />
@@ -180,20 +182,41 @@ export default function NewHero() {
         </div>
       </div>
 
-      {/* 3D Layer Spacing Control */}
+      {/* 3D Controls */}
       <div className='fixed top-4 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-4 pointer-events-auto'>
-        <label className='block text-white text-sm mb-2'>
-          3D Layer Spacing: {layerDistance.toFixed(1)}
-        </label>
-        <input
-          type='range'
-          min='0.5'
-          max='25'
-          step='0.1'
-          value={layerDistance}
-          onChange={e => setLayerDistance(Number(e.target.value))}
-          className='w-32 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider'
-        />
+        <div className='space-y-4'>
+          {/* Layer Spacing Control */}
+          <div>
+            <label className='block text-white text-sm mb-2'>
+              Layer Spacing: {layerDistance.toFixed(1)}
+            </label>
+            <input
+              type='range'
+              min='0.5'
+              max='25'
+              step='0.1'
+              value={layerDistance}
+              onChange={e => setLayerDistance(Number(e.target.value))}
+              className='w-32 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider'
+            />
+          </div>
+
+          {/* Position Shift Control */}
+          <div>
+            <label className='block text-white text-sm mb-2'>
+              Position Shift: {positionShift.toFixed(1)}
+            </label>
+            <input
+              type='range'
+              min='-15'
+              max='15'
+              step='0.1'
+              value={positionShift}
+              onChange={e => setPositionShift(Number(e.target.value))}
+              className='w-32 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider'
+            />
+          </div>
+        </div>
       </div>
 
       {/* Background grid effect */}
