@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navigation from './ui/Navigation'
+import SlideshowNavigation from './ui/SlideshowNavigation'
 import NewHero from './portfolio/NewHero'
 import Services from './portfolio/Services'
 import WorkExperience from './portfolio/WorkExperience'
@@ -145,81 +146,14 @@ export default function SlideshowPortfolio() {
         </AnimatePresence>
       </div>
 
-      {/* Navigation Arrows */}
-      <div className='fixed right-8 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-4'>
-        {/* Up Arrow */}
-        <motion.button
-          onClick={prevSection}
-          disabled={currentSection === 0}
-          className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 ${
-            currentSection === 0
-              ? 'bg-white/5 text-zinc-600 cursor-not-allowed'
-              : 'bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400'
-          }`}
-          whileHover={currentSection > 0 ? { scale: 1.1 } : {}}
-          whileTap={currentSection > 0 ? { scale: 0.95 } : {}}
-        >
-          <svg
-            className='w-5 h-5'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth={2}
-              d='M5 15l7-7 7 7'
-            />
-          </svg>
-        </motion.button>
-
-        {/* Down Arrow */}
-        <motion.button
-          onClick={nextSection}
-          disabled={currentSection === sections.length - 1}
-          className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 ${
-            currentSection === sections.length - 1
-              ? 'bg-white/5 text-zinc-600 cursor-not-allowed'
-              : 'bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400'
-          }`}
-          whileHover={
-            currentSection < sections.length - 1 ? { scale: 1.1 } : {}
-          }
-          whileTap={currentSection < sections.length - 1 ? { scale: 0.95 } : {}}
-        >
-          <svg
-            className='w-5 h-5'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth={2}
-              d='M19 9l-7 7-7-7'
-            />
-          </svg>
-        </motion.button>
-      </div>
-
-      {/* Section Indicators */}
-      <div className='fixed left-8 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3'>
-        {sections.map((section, index) => (
-          <motion.button
-            key={section.id}
-            onClick={() => navigateToSection(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSection
-                ? 'bg-cyan-400 scale-125'
-                : 'bg-white/30 hover:bg-white/50'
-            }`}
-            whileHover={{ scale: index === currentSection ? 1.25 : 1.1 }}
-            aria-label={`Go to ${section.label}`}
-          />
-        ))}
-      </div>
+      {/* Combined Navigation */}
+      <SlideshowNavigation
+        currentSection={currentSection}
+        sections={sections}
+        onSectionChange={navigateToSection}
+        onPrevSection={prevSection}
+        onNextSection={nextSection}
+      />
 
       {/* Section Counter */}
       <div className='fixed bottom-8 right-8 z-40'>
