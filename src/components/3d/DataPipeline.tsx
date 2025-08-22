@@ -61,14 +61,14 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     const finalCameraDistance = externalCameraDistance || cameraDistance
 
     if (cinematicMode) {
-      // Cinematic 3/4 angle view - offset to right and above
-      const offsetX = finalCameraDistance * 0.6 // Offset to the right
+      // Cinematic 3/4 angle view - move camera left so vis appears more to the right
+      const offsetX = finalCameraDistance * -0.2 // Move camera to the left
       const offsetY = finalCameraDistance * 0.3 // Slightly above
       const offsetZ = finalCameraDistance * 0.8 // Pull back slightly
       camera.position.set(offsetX, offsetY, offsetZ)
 
-      // Look at a point slightly offset from center to create dynamic framing
-      camera.lookAt(2, 0, 0)
+      // Look at a point to the right to frame the visualization on the right side
+      camera.lookAt(8, 0, 0)
     } else {
       camera.position.set(0, 0, finalCameraDistance)
       camera.lookAt(0, 0, 0)
@@ -98,7 +98,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       controls.enableZoom = false
       controls.enablePan = false
       controls.enableRotate = false
-      controls.target.set(2, 0, 0) // Match camera look-at target
+      controls.target.set(8, 0, 0) // Match camera look-at target
     } else {
       controls.enableZoom = true
       controls.enablePan = true
