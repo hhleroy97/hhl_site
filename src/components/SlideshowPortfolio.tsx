@@ -116,12 +116,14 @@ export default function SlideshowPortfolio() {
 
   return (
     <div className='relative h-screen overflow-hidden bg-zinc-900 text-white'>
-      {/* Navigation - Updated to work with slideshow */}
-      <Navigation
-        currentSection={currentSection}
-        onSectionChange={navigateToSection}
-        sections={sections}
-      />
+      {/* Navigation - Hidden on landing page */}
+      {currentSection !== 0 && (
+        <Navigation
+          currentSection={currentSection}
+          onSectionChange={navigateToSection}
+          sections={sections}
+        />
+      )}
 
       {/* Main Content Area */}
       <div className='relative h-full'>
@@ -146,21 +148,52 @@ export default function SlideshowPortfolio() {
         </AnimatePresence>
       </div>
 
-      {/* Combined Navigation */}
-      <SlideshowNavigation
-        currentSection={currentSection}
-        sections={sections}
-        onSectionChange={navigateToSection}
-        onPrevSection={prevSection}
-        onNextSection={nextSection}
-      />
+      {/* Combined Navigation - Hidden on landing page */}
+      {currentSection !== 0 && (
+        <SlideshowNavigation
+          currentSection={currentSection}
+          sections={sections}
+          onSectionChange={navigateToSection}
+          onPrevSection={prevSection}
+          onNextSection={nextSection}
+        />
+      )}
 
-      {/* Section Counter */}
-      <div className='fixed bottom-8 right-8 z-40'>
-        <div className='px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-sm font-medium text-zinc-300'>
-          {currentSection + 1} / {sections.length}
+      {/* Landing Page Scroll Arrow */}
+      {currentSection === 0 && (
+        <motion.button
+          onClick={nextSection}
+          className='fixed bottom-12 left-1/2 -translate-x-1/2 z-40 p-4 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 hover:text-cyan-400 transition-all duration-300'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2, duration: 0.8 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <svg
+            className='w-6 h-6'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M19 14l-7 7m0 0l-7-7m7 7V3'
+            />
+          </svg>
+        </motion.button>
+      )}
+
+      {/* Section Counter - Hidden on landing page */}
+      {currentSection !== 0 && (
+        <div className='fixed bottom-8 right-8 z-40'>
+          <div className='px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-sm font-medium text-zinc-300'>
+            {currentSection + 1} / {sections.length}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Background elements */}
       <div className='fixed inset-0 pointer-events-none opacity-30'>
