@@ -147,7 +147,7 @@ export default function SkillsTools() {
         style={{ animationDelay: '2s' }}
       />
 
-      <div className='space-y-12 border-2 border-red-500 rounded-2xl p-6'>
+      <div className='space-y-12'>
         {skillCategories.map((category, categoryIndex) => (
           <motion.div
             key={category.title}

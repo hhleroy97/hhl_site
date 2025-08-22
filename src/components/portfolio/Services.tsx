@@ -104,7 +104,7 @@ export default function Services() {
       title='Engineering at the intersection of'
       subtitle='art, insight, and autonomy'
     >
-      <div className='grid md:grid-cols-3 gap-8 border-2 border-red-500 rounded-2xl p-6'>
+      <div className='grid md:grid-cols-3 gap-8'>
         {services.map((service, index) => (
           <motion.div
             key={service.title}
