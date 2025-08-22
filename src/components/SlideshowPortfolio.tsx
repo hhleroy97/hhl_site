@@ -151,7 +151,7 @@ export default function SlideshowPortfolio() {
         <motion.button
           onClick={prevSection}
           disabled={currentSection === 0}
-          className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 border-2 border-red-500 ${
+          className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 ${
             currentSection === 0
               ? 'bg-white/5 text-zinc-600 cursor-not-allowed'
               : 'bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400'
@@ -178,7 +178,7 @@ export default function SlideshowPortfolio() {
         <motion.button
           onClick={nextSection}
           disabled={currentSection === sections.length - 1}
-          className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 border-2 border-red-500 ${
+          className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 ${
             currentSection === sections.length - 1
               ? 'bg-white/5 text-zinc-600 cursor-not-allowed'
               : 'bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400'
@@ -210,7 +210,7 @@ export default function SlideshowPortfolio() {
           <motion.button
             key={section.id}
             onClick={() => navigateToSection(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 border-2 border-red-500 ${
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
               index === currentSection
                 ? 'bg-cyan-400 scale-125'
                 : 'bg-white/30 hover:bg-white/50'
@@ -223,7 +223,7 @@ export default function SlideshowPortfolio() {
 
       {/* Section Counter */}
       <div className='fixed bottom-8 right-8 z-40'>
-        <div className='px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-sm font-medium text-zinc-300 border-2 border-red-500'>
+        <div className='px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-sm font-medium text-zinc-300'>
           {currentSection + 1} / {sections.length}
         </div>
       </div>
