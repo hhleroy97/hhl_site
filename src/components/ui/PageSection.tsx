@@ -72,10 +72,11 @@ export default function PageSection({
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
               style={{
-                position: 'absolute',
-                top: '-64px', // Fixed distance from section top
+                position: 'fixed',
+                top: '96px', // Fixed distance from screen top
                 left: '50%',
                 transform: 'translateX(-50%)',
+                zIndex: 50,
               }}
             >
               <div
