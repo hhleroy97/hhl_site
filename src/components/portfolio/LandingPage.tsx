@@ -10,7 +10,7 @@ export default function LandingPage() {
   return (
     <section
       id='hero'
-      className={`relative min-h-screen py-24 overflow-hidden ${showBorders ? 'border-4 border-white' : ''}`}
+      className={`relative min-h-screen py-12 overflow-hidden ${showBorders ? 'border-4 border-white' : ''}`}
     >
       {/* Interactive Data Pipeline Visualization - Main Layer */}
       <div
@@ -41,7 +41,7 @@ export default function LandingPage() {
           className={`w-full flex justify-center px-4 md:px-8 overflow-visible ${showBorders ? 'border-4 border-yellow-500' : ''}`}
         >
           <div
-            className={`w-full max-w-6xl overflow-visible ${showBorders ? 'border-4 border-magenta-500' : ''}`}
+            className={`w-full max-w-7xl overflow-visible ${showBorders ? 'border-4 border-magenta-500' : ''}`}
           >
             <motion.div
               className={`space-y-6 overflow-visible ${showBorders ? 'border-4 border-orange-500' : ''}`}
@@ -56,34 +56,13 @@ export default function LandingPage() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1, duration: 0.8 }}
               >
-                {/* Status cards - positioned in top right of name card */}
-                <motion.div
-                  className={`absolute top-0 right-0 flex flex-row gap-4 text-sm md:text-base text-zinc-400 ${showBorders ? 'border-4 border-teal-500' : ''}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8, duration: 0.8 }}
-                >
-                  <div
-                    className={`flex items-center gap-2 ${showBorders ? 'border-4 border-red-400' : ''}`}
-                  >
-                    <div className='w-3 h-3 bg-emerald-400 rounded-full animate-pulse' />
-                    <span>Charlotte, NC</span>
-                  </div>
-                  <div
-                    className={`flex items-center gap-2 ${showBorders ? 'border-4 border-lime-400' : ''}`}
-                  >
-                    <div className='w-3 h-3 bg-cyan-400 rounded-full animate-pulse delay-300' />
-                    <span>Open to work</span>
-                  </div>
-                </motion.div>
-
                 <div
-                  className={`text-2xl md:text-3xl text-zinc-400 font-bold ${showBorders ? 'border-4 border-indigo-500' : ''}`}
+                  className={`text-2xl md:text-3xl text-zinc-400 font-bold text-left mb-4 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
                 >
                   Hi, I'm...
                 </div>
                 <div
-                  className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50'
+                  className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
                   style={{
                     lineHeight: '1',
                   }}
@@ -92,7 +71,7 @@ export default function LandingPage() {
                   <span style={{ color: '#22d3ee' }}>LeRoy</span>
                 </div>
 
-                {/* Sleek underline positioned separately */}
+                {/* Sleek underline positioned below name */}
                 <motion.div
                   className='absolute w-full h-1'
                   initial={{ scaleX: 0, opacity: 0 }}
@@ -110,9 +89,9 @@ export default function LandingPage() {
                 />
               </motion.div>
 
-              {/* Role/Title - Left aligned */}
+              {/* Role/Title - Centered */}
               <motion.p
-                className={`text-2xl md:text-3xl text-zinc-300 font-light text-left ${showBorders ? 'border-4 border-blue-500' : ''}`}
+                className={`text-2xl md:text-3xl text-zinc-300 font-light text-center mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
@@ -122,27 +101,9 @@ export default function LandingPage() {
               </motion.p>
             </motion.div>
 
-            {/* Main tagline */}
-            <motion.h2
-              className={`text-2xl md:text-3xl font-light text-white leading-relaxed max-w-3xl mb-8 ${showBorders ? 'border-4 border-pink-500' : ''}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              Turning data into{' '}
-              <span className='text-cyan-400 font-bold'>art</span>,{' '}
-              <span className='text-fuchsia-400 font-bold'>insights</span>, and{' '}
-              <span className='text-emerald-400 font-bold'>autonomy</span>
-              .
-              <br />
-              Bridging <span className='font-bold'>
-                infrastructure
-              </span> and <span className='font-bold'>imagination</span>.
-            </motion.h2>
-
             {/* Social Icons - Vertical Stack */}
             <motion.div
-              className={`flex flex-col gap-3 mb-8 w-1/3 ${showBorders ? 'border-4 border-cyan-400' : ''}`}
+              className={`flex flex-col gap-2 mb-8 w-[55%] mt-8 ${showBorders ? 'border-4 border-cyan-400' : ''}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.8 }}
@@ -197,6 +158,93 @@ export default function LandingPage() {
                   </svg>
                 </a>
               </div>
+
+              {/* Real Resume-Based Achievements */}
+              <motion.div
+                className={`mt-3 mb-3 ${showBorders ? 'border-4 border-purple-500' : ''}`}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                {/* Single Achievement Card */}
+                <motion.div
+                  className={`group relative p-6 md:p-8 rounded-none bg-black/20 backdrop-blur-sm border border-cyan-400/20 
+                      transition-all duration-700 cursor-pointer overflow-hidden shadow-lg hover:shadow-xl ${showBorders ? 'border-4 border-red-500' : ''}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  whileHover={{
+                    scale: 1.02,
+                    y: -4,
+                    borderColor: 'rgba(34, 211, 238, 0.4)',
+                    boxShadow: '0 0 20px rgba(34, 211, 238, 0.2)',
+                    transition: { duration: 0.3, ease: 'easeOut' },
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {/* Premium depth effects */}
+                  <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] pointer-events-none' />
+                  <div className='absolute -top-16 -right-16 w-32 h-32 bg-cyan-400/8 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-400/12 transition-all duration-700' />
+                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent group-hover:via-cyan-400/60 transition-all duration-500' />
+
+                  <div className='relative z-10'>
+                    <div className='text-2xl md:text-3xl font-light text-white leading-relaxed mb-4'>
+                      Turning data into{' '}
+                      <span className='text-cyan-400 font-bold'>art</span>,{' '}
+                      <span className='text-fuchsia-400 font-bold'>
+                        insights
+                      </span>
+                      , and{' '}
+                      <span className='text-emerald-400 font-bold'>
+                        autonomy
+                      </span>
+                      .
+                      <br />
+                      Bridging <span className='font-bold'>
+                        infrastructure
+                      </span>{' '}
+                      and <span className='font-bold'>imagination</span>.
+                    </div>
+
+                    <ul className='space-y-3 text-sm md:text-base text-zinc-300 leading-relaxed'>
+                      <li className='flex items-center gap-3'>
+                        <span className='text-gray-400 font-bold'>•</span>
+                        <span>
+                          Led a $500K AWS MAP-funded migration to in-house
+                          infrastructure
+                        </span>
+                      </li>
+                      <li className='flex items-center gap-3'>
+                        <span className='text-gray-400 font-bold'>•</span>
+                        <span>
+                          Built real-time telemetry and OTA pipelines processing
+                          10M+ events/day
+                        </span>
+                      </li>
+                      <li className='flex items-center gap-3'>
+                        <span className='text-gray-400 font-bold'>•</span>
+                        <span>
+                          Enabled bi-directional cloud-to-robot teleoperation
+                        </span>
+                      </li>
+                      <li className='flex items-center gap-3'>
+                        <span className='text-gray-400 font-bold'>•</span>
+                        <span>
+                          Delivered firmware for NFC energy-harvesting smart
+                          locks
+                        </span>
+                      </li>
+                      <li className='flex items-center gap-3'>
+                        <span className='text-gray-400 font-bold'>•</span>
+                        <span>
+                          Directed a 6-person team building internal and
+                          customer tools
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </motion.div>
+              </motion.div>
 
               {/* Action buttons - moved inside social container */}
               <motion.div
