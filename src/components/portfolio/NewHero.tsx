@@ -5,6 +5,7 @@ import DataPipeline from '../3d/DataPipeline'
 export default function NewHero() {
   const [layerDistance, setLayerDistance] = useState(3.6)
   const [positionShift, setPositionShift] = useState(-12.5)
+  const [verticalShift, setVerticalShift] = useState(0)
   return (
     <section
       id='hero'
@@ -22,6 +23,7 @@ export default function NewHero() {
             className='w-full h-full'
             layerSpacing={layerDistance}
             positionShift={positionShift}
+            verticalShift={verticalShift}
             cinematicMode={true}
             interactive={false}
           />
@@ -183,7 +185,7 @@ export default function NewHero() {
       </div>
 
       {/* 3D Controls */}
-      <div className='fixed top-4 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-4 pointer-events-auto'>
+      <div className='fixed bottom-4 left-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-4 pointer-events-auto'>
         <div className='space-y-4'>
           {/* Layer Spacing Control */}
           <div>
@@ -213,6 +215,22 @@ export default function NewHero() {
               step='0.1'
               value={positionShift}
               onChange={e => setPositionShift(Number(e.target.value))}
+              className='w-32 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider'
+            />
+          </div>
+
+          {/* Vertical Shift Control */}
+          <div>
+            <label className='block text-white text-sm mb-2'>
+              Vertical Shift: {verticalShift.toFixed(1)}
+            </label>
+            <input
+              type='range'
+              min='-10'
+              max='10'
+              step='0.1'
+              value={verticalShift}
+              onChange={e => setVerticalShift(Number(e.target.value))}
               className='w-32 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider'
             />
           </div>
