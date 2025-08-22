@@ -80,17 +80,19 @@ export default function PageSection({
           </motion.div>
 
           {/* Large heading with consistent sizing */}
-          <h2 className='text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
-            {title}
-            {subtitle && (
-              <>
-                <br />
-                <span className='bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent'>
-                  {subtitle}
-                </span>
-              </>
-            )}
-          </h2>
+          <div className='border-2 border-yellow-500 rounded-2xl p-6 bg-yellow-500/10'>
+            <h2 className='text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
+              {title}
+              {subtitle && (
+                <>
+                  <br />
+                  <span className='bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent'>
+                    {subtitle}
+                  </span>
+                </>
+              )}
+            </h2>
+          </div>
         </motion.div>
 
         {/* Page content */}
