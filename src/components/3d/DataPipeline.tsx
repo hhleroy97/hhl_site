@@ -69,8 +69,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       const offsetZ = finalCameraDistance * 0.8 // Pull back slightly
       camera.position.set(offsetX, offsetY, offsetZ)
 
-      // Look at a point with adjustable position shift
-      camera.lookAt(-4 + positionShift, 0, 0)
+      // Look at a fixed point with adjustable position shift for consistent framing
+      const fixedLookAtPoint = new THREE.Vector3(-4 + positionShift, 0, 0)
+      camera.lookAt(fixedLookAtPoint)
     } else {
       camera.position.set(0, 0, finalCameraDistance)
       camera.lookAt(0, 0, 0)
@@ -100,7 +101,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       controls.enableZoom = false
       controls.enablePan = false
       controls.enableRotate = false
-      controls.target.set(-4 + positionShift, 0, 0) // Match camera look-at target
+      controls.target.set(-4 + positionShift, 0, 0) // Match camera look-at target - fixed reference
     } else {
       controls.enableZoom = true
       controls.enablePan = true
@@ -159,10 +160,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     containerWireframeRef.current = containerWireframe
     sceneRef.current = scene
 
-    // Calculate center offset to keep visualization stable when spacing changes
-    // Network spans from layerSpacing * 3 to -layerSpacing * 1.25 = total range of 4.25 * layerSpacing
-    const networkCenter = (layerSpacing * 3 + -layerSpacing * 1.25) / 2
-    const centerOffset = -networkCenter // Offset to center the network at origin
+    // Fixed center offset to keep visualization stable when spacing changes
+    // Use a fixed reference point so camera doesn't jump when spacing changes
+    const centerOffset = 0 // Keep network centered at origin consistently
 
     // AI/ML System Architecture - representing your tech stack
     const nodes = [
@@ -1066,18 +1066,36 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   useEffect(() => {
     if (!sceneRef.current || !cameraRef.current) return
 
-    // Update camera position
-    cameraRef.current.position.set(cameraXOffset, yOffset, cameraDistance)
-    cameraRef.current.lookAt(0, 0, 0)
+    // Update camera position and maintain consistent look-at target
+    if (cinematicMode) {
+      // Maintain cinematic positioning
+      const finalCameraDistance = externalCameraDistance || cameraDistance
+      const offsetX = finalCameraDistance * 0.8 + cameraXOffset
+      const offsetY = finalCameraDistance * 0.3 + yOffset
+      const offsetZ = finalCameraDistance * 0.8
+      cameraRef.current.position.set(offsetX, offsetY, offsetZ)
+
+      // Consistent look-at target
+      const fixedLookAtPoint = new THREE.Vector3(-4 + positionShift, 0, 0)
+      cameraRef.current.lookAt(fixedLookAtPoint)
+
+      // Update controls target to match
+      if (controlsRef.current) {
+        controlsRef.current.target.set(-4 + positionShift, 0, 0)
+      }
+    } else {
+      cameraRef.current.position.set(cameraXOffset, yOffset, cameraDistance)
+      cameraRef.current.lookAt(0, 0, 0)
+    }
 
     // Update wireframe container position (invisible reference)
     if (containerWireframeRef.current) {
       containerWireframeRef.current.position.set(0, 0, 0)
     }
 
-    // Calculate center offset to keep visualization stable when spacing changes
-    const networkCenter = (layerSpacing * 3 + -layerSpacing * 1.25) / 2
-    const centerOffset = -networkCenter // Offset to center the network at origin
+    // Fixed center offset to keep visualization stable when spacing changes
+    // Use a fixed reference point so camera doesn't jump when spacing changes
+    const centerOffset = 0 // Keep network centered at origin consistently
 
     // Update node positions (boxes and outlines - every 2 items is a pair)
     const basePositions = [
@@ -1522,6 +1540,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     nodeSpacing,
     inputLayerSpacing,
     cameraDistance,
+    cinematicMode,
+    positionShift,
+    externalCameraDistance,
   ])
 
   // Separate effect to handle rotation toggle
