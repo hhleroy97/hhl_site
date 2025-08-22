@@ -70,7 +70,7 @@ export default function PageSection({
         >
           {/* Rounded title card */}
           <motion.div
-            className={`inline-flex items-center gap-3 px-6 py-3 ${colors.bgColor} border ${colors.borderColor} border-red-500 border-2 rounded-full ${colors.textColor} text-lg font-medium mb-6`}
+            className={`inline-flex items-center gap-3 px-6 py-3 ${colors.bgColor} border ${colors.borderColor} border-red-500 border-2 rounded-full ${colors.textColor} text-3xl font-medium mb-6`}
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
