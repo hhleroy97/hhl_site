@@ -7,6 +7,7 @@ interface DataPipelineProps {
   cameraDistance?: number
   layerSpacing?: number
   cinematicMode?: boolean
+  positionShift?: number
   className?: string
 }
 
@@ -15,6 +16,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   cameraDistance: externalCameraDistance,
   layerSpacing: externalLayerSpacing,
   cinematicMode = false,
+  positionShift = 0,
   className: _className = '',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -67,8 +69,8 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       const offsetZ = finalCameraDistance * 0.8 // Pull back slightly
       camera.position.set(offsetX, offsetY, offsetZ)
 
-      // Look at a point to the left to frame the visualization on the left side
-      camera.lookAt(-4, 0, 0)
+      // Look at a point with adjustable position shift
+      camera.lookAt(-4 + positionShift, 0, 0)
     } else {
       camera.position.set(0, 0, finalCameraDistance)
       camera.lookAt(0, 0, 0)
@@ -98,7 +100,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       controls.enableZoom = false
       controls.enablePan = false
       controls.enableRotate = false
-      controls.target.set(-4, 0, 0) // Match camera look-at target
+      controls.target.set(-4 + positionShift, 0, 0) // Match camera look-at target
     } else {
       controls.enableZoom = true
       controls.enablePan = true
@@ -1050,6 +1052,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     yOffset,
     zOffset,
     cinematicMode,
+    positionShift,
     // mousePosition.x,
     // mousePosition.y,
   ])
