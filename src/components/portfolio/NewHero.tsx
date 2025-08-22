@@ -3,8 +3,8 @@ import { useState } from 'react'
 import DataPipeline from '../3d/DataPipeline'
 
 export default function NewHero() {
-  const [layerDistance, setLayerDistance] = useState(6)
-  const [positionShift, setPositionShift] = useState(0)
+  const [layerDistance, setLayerDistance] = useState(3.75)
+  const [positionShift, setPositionShift] = useState(-12.5)
   return (
     <section
       id='hero'
