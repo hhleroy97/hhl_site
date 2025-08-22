@@ -7,11 +7,9 @@ import WorkExperience from './portfolio/WorkExperience'
 import NewAbout from './portfolio/NewAbout'
 import SkillsTools from './portfolio/SkillsTools'
 import ContactFooter from './portfolio/ContactFooter'
-import CardShowcase from './ui/CardShowcase'
 
 const sections = [
   { id: 'hero', label: 'Home', component: NewHero },
-  { id: 'cards', label: 'Cards', component: CardShowcase },
   { id: 'services', label: 'Services', component: Services },
   { id: 'experience', label: 'Experience', component: WorkExperience },
   { id: 'about', label: 'About', component: NewAbout },

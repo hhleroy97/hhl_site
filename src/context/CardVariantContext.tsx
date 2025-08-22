@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import React, { createContext, useContext, ReactNode } from 'react'
 
 type CardVariant = 'floating' | 'rotated' | 'background' | 'cutcorner'
 
@@ -12,7 +12,8 @@ const CardVariantContext = createContext<CardVariantContextType | undefined>(
 )
 
 export function CardVariantProvider({ children }: { children: ReactNode }) {
-  const [variant, setVariant] = useState<CardVariant>('floating')
+  const variant = 'floating' as const
+  const setVariant = () => {} // No-op since we're using floating only
 
   return (
     <CardVariantContext.Provider value={{ variant, setVariant }}>
