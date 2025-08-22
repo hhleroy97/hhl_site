@@ -73,7 +73,7 @@ export default function PageSection({
               transition={{ delay: 0.2, duration: 0.6 }}
               style={{
                 position: 'fixed',
-                top: '96px', // Fixed distance from screen top
+                top: '25%', // Position in upper portion of screen, below navigation
                 left: '50%',
                 transform: 'translateX(-50%)',
                 zIndex: 50,
