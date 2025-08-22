@@ -29,7 +29,7 @@ export default function LandingPage() {
 
       {/* Full-width header section */}
       <div className='relative z-20 pointer-events-none w-full pt-20'>
-        <div className='w-full px-4 md:px-8'>
+        <div className='w-full pl-8 md:pl-16 lg:pl-24 pr-4 md:pr-8'>
           <motion.div
             className='space-y-6'
             initial={{ opacity: 0, y: 30 }}
@@ -63,7 +63,7 @@ export default function LandingPage() {
       </div>
 
       {/* Content section - vertical layout */}
-      <div className='relative z-20 pointer-events-none mt-12 px-4 md:px-8'>
+      <div className='relative z-20 pointer-events-none mt-12 pl-8 md:pl-16 lg:pl-24 pr-4 md:pr-8'>
         <motion.div
           className='space-y-8 max-w-4xl'
           initial={{ opacity: 0, y: 30 }}
