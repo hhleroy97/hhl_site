@@ -971,7 +971,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     animate()
 
     // Mouse tracking for parallax (only in cinematic mode)
-    const handleMouseMove = (event: MouseEvent) => {
+    const handleParallaxMouseMove = (event: MouseEvent) => {
       if (cinematicMode) {
         const x = event.clientX / window.innerWidth
         const y = event.clientY / window.innerHeight
@@ -980,7 +980,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     }
 
     if (cinematicMode) {
-      window.addEventListener('mousemove', handleMouseMove)
+      window.addEventListener('mousemove', handleParallaxMouseMove)
     }
 
     // Resize handler
@@ -1007,7 +1007,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         window.removeEventListener('mouseup', handleMouseUp)
       }
       if (cinematicMode) {
-        window.removeEventListener('mousemove', handleMouseMove)
+        window.removeEventListener('mousemove', handleParallaxMouseMove)
       }
       window.removeEventListener('resize', handleResize)
 
