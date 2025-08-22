@@ -1,28 +1,39 @@
 import { motion } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import * as THREE from 'three'
+
+const visualizations = [
+  {
+    id: 'dataPipeline',
+    name: 'AWS Data Pipeline',
+    file: 'DataPipelineVisualization.tsx',
+  },
+  {
+    id: 'neuralNetwork',
+    name: 'Neural Network',
+    file: 'NeuralNetworkVisualization.tsx',
+  },
+  {
+    id: 'cloudInfra',
+    name: 'Cloud Infrastructure',
+    file: 'CloudInfraVisualization.tsx',
+  },
+  {
+    id: 'dataFlow',
+    name: 'Real-time Data Flow',
+    file: 'DataFlowVisualization.tsx',
+  },
+]
 
 export default function NewHero() {
   const mountRef = useRef<HTMLDivElement>(null)
+  const [currentVisualization, setCurrentVisualization] = useState(0)
 
-  useEffect(() => {
-    if (!mountRef.current) return
-
-    // Scene setup
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000)
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
-
-    const container = mountRef.current
-    const size = Math.min(container.clientWidth, container.clientHeight)
-    renderer.setSize(size, size)
-    renderer.setClearColor(0x000000, 0)
-    container.appendChild(renderer.domElement)
-
-    // Data pipeline components
-    const components: THREE.Group[] = []
-    const dataFlows: THREE.Mesh[] = []
-
+  const createDataPipelineVisualization = (
+    scene: THREE.Scene,
+    components: THREE.Group[],
+    dataFlows: THREE.Mesh[]
+  ) => {
     // Pipeline stages
     const stages = [
       { name: 'IoT', position: [-4, 2, 0], color: 0x06b6d4, shape: 'sphere' },
@@ -129,6 +140,203 @@ export default function NewHero() {
 
       scene.add(pipe)
     }
+  }
+
+  const createNeuralNetworkVisualization = (
+    scene: THREE.Scene,
+    components: THREE.Group[],
+    _dataFlows: THREE.Mesh[]
+  ) => {
+    // Neural network nodes
+    const layers = [
+      { count: 4, x: -3, color: 0x06b6d4 },
+      { count: 6, x: -1, color: 0x10b981 },
+      { count: 6, x: 1, color: 0x10b981 },
+      { count: 3, x: 3, color: 0xf59e0b },
+    ]
+
+    layers.forEach((layer, _layerIndex) => {
+      for (let i = 0; i < layer.count; i++) {
+        const group = new THREE.Group()
+        const geometry = new THREE.SphereGeometry(0.15, 12, 12)
+        const material = new THREE.MeshBasicMaterial({
+          color: layer.color,
+          transparent: true,
+          opacity: 0.8,
+        })
+
+        const mesh = new THREE.Mesh(geometry, material)
+        group.add(mesh)
+
+        const y = (i - (layer.count - 1) / 2) * 0.8
+        group.position.set(layer.x, y, 0)
+        scene.add(group)
+        components.push(group)
+      }
+    })
+
+    // Neural connections
+    const connectionGeometry = new THREE.CylinderGeometry(0.01, 0.01, 1, 4)
+    const connectionMaterial = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      opacity: 0.2,
+    })
+
+    for (let l = 0; l < layers.length - 1; l++) {
+      const currentLayer = layers[l]
+      const nextLayer = layers[l + 1]
+
+      for (let i = 0; i < currentLayer.count; i++) {
+        for (let j = 0; j < nextLayer.count; j++) {
+          const connection = new THREE.Mesh(
+            connectionGeometry,
+            connectionMaterial.clone()
+          )
+          const startY = (i - (currentLayer.count - 1) / 2) * 0.8
+          const endY = (j - (nextLayer.count - 1) / 2) * 0.8
+
+          const distance = Math.sqrt(
+            Math.pow(nextLayer.x - currentLayer.x, 2) +
+              Math.pow(endY - startY, 2)
+          )
+
+          connection.scale.y = distance
+          connection.position.set(
+            (currentLayer.x + nextLayer.x) / 2,
+            (startY + endY) / 2,
+            0
+          )
+
+          const angle = Math.atan2(endY - startY, nextLayer.x - currentLayer.x)
+          connection.rotation.z = angle - Math.PI / 2
+
+          scene.add(connection)
+        }
+      }
+    }
+  }
+
+  const createCloudInfraVisualization = (
+    scene: THREE.Scene,
+    components: THREE.Group[]
+  ) => {
+    // Cloud infrastructure components
+    const infraComponents = [
+      {
+        name: 'Load Balancer',
+        position: [0, 2, 0],
+        color: 0x06b6d4,
+        shape: 'box',
+      },
+      {
+        name: 'API Gateway',
+        position: [-2, 0, 0],
+        color: 0x10b981,
+        shape: 'cylinder',
+      },
+      {
+        name: 'Microservices',
+        position: [2, 0, 0],
+        color: 0xec4899,
+        shape: 'sphere',
+      },
+      { name: 'Database', position: [0, -2, 0], color: 0xf59e0b, shape: 'box' },
+    ]
+
+    infraComponents.forEach((component, _index) => {
+      const group = new THREE.Group()
+
+      let geometry: THREE.BufferGeometry
+      switch (component.shape) {
+        case 'sphere':
+          geometry = new THREE.SphereGeometry(0.4, 16, 16)
+          break
+        case 'cylinder':
+          geometry = new THREE.CylinderGeometry(0.3, 0.3, 0.8, 16)
+          break
+        default:
+          geometry = new THREE.BoxGeometry(0.6, 0.4, 0.6)
+      }
+
+      const material = new THREE.MeshBasicMaterial({
+        color: component.color,
+        transparent: true,
+        opacity: 0.7,
+      })
+
+      const mesh = new THREE.Mesh(geometry, material)
+      group.add(mesh)
+
+      group.position.set(...component.position)
+      scene.add(group)
+      components.push(group)
+    })
+  }
+
+  const createDataFlowVisualization = (
+    scene: THREE.Scene,
+    dataFlows: THREE.Mesh[]
+  ) => {
+    // Data flow streams
+    const streamCount = 30
+    const streamGeometry = new THREE.SphereGeometry(0.03, 6, 6)
+
+    for (let i = 0; i < streamCount; i++) {
+      const material = new THREE.MeshBasicMaterial({
+        color: [0x06b6d4, 0x10b981, 0xec4899, 0xf59e0b][
+          Math.floor(Math.random() * 4)
+        ],
+        transparent: true,
+        opacity: 0.8,
+      })
+
+      const stream = new THREE.Mesh(streamGeometry, material)
+      stream.position.set(
+        -6 + Math.random() * 12,
+        -3 + Math.random() * 6,
+        -3 + Math.random() * 6
+      )
+
+      scene.add(stream)
+      dataFlows.push(stream)
+    }
+  }
+
+  useEffect(() => {
+    if (!mountRef.current) return
+
+    // Scene setup
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000)
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
+
+    const container = mountRef.current
+    const size = Math.min(container.clientWidth, container.clientHeight)
+    renderer.setSize(size, size)
+    renderer.setClearColor(0x000000, 0)
+    container.appendChild(renderer.domElement)
+
+    // Clear scene and arrays
+    const components: THREE.Group[] = []
+    const dataFlows: THREE.Mesh[] = []
+
+    // Create visualization based on current selection
+    const currentViz = visualizations[currentVisualization]
+    switch (currentViz.id) {
+      case 'dataPipeline':
+        createDataPipelineVisualization(scene, components, dataFlows)
+        break
+      case 'neuralNetwork':
+        createNeuralNetworkVisualization(scene, components, dataFlows)
+        break
+      case 'cloudInfra':
+        createCloudInfraVisualization(scene, components)
+        break
+      case 'dataFlow':
+        createDataFlowVisualization(scene, dataFlows)
+        break
+    }
 
     camera.position.z = 8
     camera.position.y = 0
@@ -137,7 +345,7 @@ export default function NewHero() {
     const animate = () => {
       requestAnimationFrame(animate)
 
-      // Rotate the entire pipeline
+      // Rotate the entire scene
       scene.rotation.y += 0.003
       scene.rotation.x = Math.sin(Date.now() * 0.0005) * 0.1
 
@@ -148,18 +356,23 @@ export default function NewHero() {
         component.scale.setScalar(scale)
       })
 
-      // Animate data flow particles
-      dataFlows.forEach((particle, i) => {
+      // Animate data flows
+      dataFlows.forEach((flow, i) => {
         const time = Date.now() * 0.001
-        particle.position.x = -5 + ((time * 0.5 + i * 0.5) % 10)
-        particle.position.y += Math.sin(time + i) * 0.01
-        particle.position.z += Math.cos(time + i) * 0.01
+        if (currentViz.id === 'dataPipeline') {
+          flow.position.x = -5 + ((time * 0.5 + i * 0.5) % 10)
+          flow.position.y += Math.sin(time + i) * 0.01
+          flow.position.z += Math.cos(time + i) * 0.01
 
-        // Reset particle when it reaches the end
-        if (particle.position.x > 5) {
-          particle.position.x = -5
-          particle.position.y = -3 + Math.random() * 6
-          particle.position.z = -2 + Math.random() * 4
+          if (flow.position.x > 5) {
+            flow.position.x = -5
+            flow.position.y = -3 + Math.random() * 6
+            flow.position.z = -2 + Math.random() * 4
+          }
+        } else if (currentViz.id === 'dataFlow') {
+          flow.position.x += Math.sin(time + i) * 0.02
+          flow.position.y += Math.cos(time + i) * 0.02
+          flow.position.z += Math.sin(time * 0.5 + i) * 0.01
         }
       })
 
@@ -172,7 +385,7 @@ export default function NewHero() {
       container.removeChild(renderer.domElement)
       renderer.dispose()
     }
-  }, [])
+  }, [currentVisualization])
 
   return (
     <section
@@ -331,8 +544,29 @@ export default function NewHero() {
             </motion.div>
           </div>
 
-          {/* Three.js Neural Network Visualization */}
-          <div className='flex justify-center lg:justify-end'>
+          {/* Three.js Visualization with Dropdown */}
+          <div className='flex flex-col items-center lg:items-end gap-4'>
+            {/* Visualization Dropdown */}
+            <motion.div
+              className='relative'
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              <select
+                value={currentVisualization}
+                onChange={e => setCurrentVisualization(Number(e.target.value))}
+                className='px-4 py-2 bg-zinc-800/80 border border-white/20 rounded-lg text-white text-sm backdrop-blur-sm hover:bg-zinc-700/80 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400/50'
+              >
+                {visualizations.map((viz, index) => (
+                  <option key={viz.id} value={index} className='bg-zinc-800'>
+                    {viz.name}
+                  </option>
+                ))}
+              </select>
+            </motion.div>
+
+            {/* Visualization Container */}
             <motion.div
               className='w-96 h-96 relative'
               initial={{ opacity: 0, scale: 0.8 }}
@@ -344,6 +578,18 @@ export default function NewHero() {
                 className='w-full h-full rounded-2xl bg-gradient-to-br from-zinc-900/50 to-zinc-800/50 backdrop-blur-sm border border-white/10'
               />
               <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-fuchsia-500/10 to-emerald-500/10 rounded-2xl pointer-events-none' />
+            </motion.div>
+
+            {/* File Name Display */}
+            <motion.div
+              className='px-3 py-1.5 bg-zinc-800/60 border border-white/10 rounded-md backdrop-blur-sm'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+            >
+              <span className='text-xs text-zinc-400 font-mono'>
+                {visualizations[currentVisualization].file}
+              </span>
             </motion.div>
           </div>
         </div>
