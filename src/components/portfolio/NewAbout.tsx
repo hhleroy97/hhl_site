@@ -9,7 +9,7 @@ export default function NewAbout() {
       taglineColor='emerald'
       title='Bridging imagination and implementation'
     >
-      <div className='max-w-5xl mx-auto'>
+      <div className='max-w-5xl mx-auto border-2 border-red-500 rounded-2xl p-6'>
         <div className='grid lg:grid-cols-[1fr,300px] gap-16 items-center'>
           {/* Content */}
           <motion.div

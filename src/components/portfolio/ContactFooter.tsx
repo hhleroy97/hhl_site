@@ -57,7 +57,7 @@ export default function ContactFooter() {
         }}
       />
 
-      <div className='grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto'>
+      <div className='grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto border-2 border-red-500 rounded-2xl p-6'>
         {/* Contact Info */}
         <motion.div
           className='space-y-8'
