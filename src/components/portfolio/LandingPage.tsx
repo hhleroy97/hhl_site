@@ -29,16 +29,16 @@ export default function LandingPage() {
 
       {/* Full-width header section */}
       <div className='relative z-20 pointer-events-none w-full pt-20'>
-        <div className='w-full pl-16 md:pl-32 lg:pl-48 pr-4 md:pr-8'>
+        <div className='w-full px-4 md:px-8'>
           <motion.div
             className='space-y-6'
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Name - Full Width */}
+            {/* Name - Centered */}
             <motion.h1
-              className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight w-full'
+              className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight w-full text-center'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
@@ -48,9 +48,9 @@ export default function LandingPage() {
               </span>
             </motion.h1>
 
-            {/* Role/Title - Full Width */}
+            {/* Role/Title - Centered */}
             <motion.p
-              className='text-xl md:text-2xl text-zinc-300 font-light w-full'
+              className='text-xl md:text-2xl text-zinc-300 font-light w-full text-center'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}
@@ -63,7 +63,7 @@ export default function LandingPage() {
       </div>
 
       {/* Content section - vertical layout */}
-      <div className='relative z-20 pointer-events-none mt-12 pl-16 md:pl-32 lg:pl-48 pr-4 md:pr-8'>
+      <div className='relative z-20 pointer-events-none mt-12 pl-24 md:pl-48 lg:pl-64 pr-4 md:pr-8'>
         <motion.div
           className='space-y-8 max-w-4xl'
           initial={{ opacity: 0, y: 30 }}
