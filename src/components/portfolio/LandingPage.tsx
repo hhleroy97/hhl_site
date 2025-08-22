@@ -67,9 +67,9 @@ export default function LandingPage() {
 
       {/* Constrained content section */}
       <div className='container-custom relative z-20 pointer-events-none mt-12'>
-        <div className='grid lg:grid-cols-2 gap-12 items-center'>
-          {/* Text content - shifted left */}
-          <div className='max-w-2xl'>
+        <div className='flex flex-col items-start'>
+          {/* Text content - full width below header */}
+          <div className='w-full max-w-4xl'>
             <motion.div
               className='space-y-8'
               initial={{ opacity: 0, y: 30 }}
