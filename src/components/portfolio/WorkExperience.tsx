@@ -97,6 +97,7 @@ export default function WorkExperience() {
       taglineColor='fuchsia'
       title='Building systems that scale'
       subtitle='and experiences that inspire'
+      cardVariant='rotated'
     >
       {/* Carousel Container with Navigation */}
       <div className='relative max-w-6xl mx-auto flex items-center gap-8 border-2 border-red-500 rounded-2xl p-6'>

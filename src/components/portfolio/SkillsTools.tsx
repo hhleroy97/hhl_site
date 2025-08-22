@@ -134,6 +134,7 @@ export default function SkillsTools() {
       title='Technologies I work with'
       subtitle='across the stack'
       className='bg-gradient-to-b from-zinc-900/60 to-zinc-900/90'
+      cardVariant='cutcorner'
     >
       {/* Floating particles */}
       <div className='absolute top-20 left-20 w-2 h-2 bg-cyan-400 rounded-full animate-ping opacity-20' />
