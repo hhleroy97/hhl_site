@@ -8,7 +8,9 @@ export default function LandingPage() {
   const [positionShift] = useState(-12.5)
   const [verticalShift] = useState(0)
   const [showBorders, setShowBorders] = useState(false)
+  const [rotationX, setRotationX] = useState(0)
   const [rotationY, setRotationY] = useState(0)
+  const [rotationZ, setRotationZ] = useState(0)
   return (
     <section
       id='hero'
@@ -31,7 +33,9 @@ export default function LandingPage() {
             verticalShift={verticalShift}
             cinematicMode={true}
             interactive={true}
+            rotationX={rotationX}
             rotationY={rotationY}
+            rotationZ={rotationZ}
           />
         </motion.div>
       </div>
@@ -134,8 +138,31 @@ export default function LandingPage() {
             Neural Network Rotation
           </h3>
 
+          {/* X-Axis Rotation */}
           <div className='flex items-center gap-3'>
-            <label className='text-xs text-fuchsia-400 whitespace-nowrap'>
+            <label className='text-xs text-red-400 whitespace-nowrap w-12'>
+              X-Axis:
+            </label>
+            <input
+              type='range'
+              min='-180'
+              max='180'
+              step='1'
+              value={rotationX}
+              onChange={e => setRotationX(Number(e.target.value))}
+              className='flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer'
+              style={{
+                background: `linear-gradient(to right, #374151 0%, #ef4444 50%, #374151 100%)`,
+              }}
+            />
+            <span className='text-xs text-gray-400 w-10 text-right'>
+              {rotationX}°
+            </span>
+          </div>
+
+          {/* Y-Axis Rotation */}
+          <div className='flex items-center gap-3'>
+            <label className='text-xs text-green-400 whitespace-nowrap w-12'>
               Y-Axis:
             </label>
             <input
@@ -147,7 +174,7 @@ export default function LandingPage() {
               onChange={e => setRotationY(Number(e.target.value))}
               className='flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer'
               style={{
-                background: `linear-gradient(to right, #374151 0%, #d946ef 50%, #374151 100%)`,
+                background: `linear-gradient(to right, #374151 0%, #22c55e 50%, #374151 100%)`,
               }}
             />
             <span className='text-xs text-gray-400 w-10 text-right'>
@@ -155,12 +182,38 @@ export default function LandingPage() {
             </span>
           </div>
 
+          {/* Z-Axis Rotation */}
+          <div className='flex items-center gap-3'>
+            <label className='text-xs text-blue-400 whitespace-nowrap w-12'>
+              Z-Axis:
+            </label>
+            <input
+              type='range'
+              min='-180'
+              max='180'
+              step='1'
+              value={rotationZ}
+              onChange={e => setRotationZ(Number(e.target.value))}
+              className='flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer'
+              style={{
+                background: `linear-gradient(to right, #374151 0%, #3b82f6 50%, #374151 100%)`,
+              }}
+            />
+            <span className='text-xs text-gray-400 w-10 text-right'>
+              {rotationZ}°
+            </span>
+          </div>
+
           <div className='flex justify-center pt-2'>
             <button
-              onClick={() => setRotationY(0)}
+              onClick={() => {
+                setRotationX(0)
+                setRotationY(0)
+                setRotationZ(0)
+              }}
               className='px-3 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded transition-colors'
             >
-              Reset
+              Reset All
             </button>
           </div>
         </div>
