@@ -4,18 +4,10 @@ import DataPipeline from '../3d/DataPipeline'
 import InteractiveElements from './InteractiveElements'
 
 export default function LandingPage() {
-  const [layerDistance, setLayerDistance] = useState(3.6)
-  const [positionShift, setPositionShift] = useState(-12.5)
-  const [verticalShift, setVerticalShift] = useState(0)
+  const [layerDistance] = useState(3.6)
+  const [positionShift] = useState(-12.5)
+  const [verticalShift] = useState(0)
   const [showBorders, setShowBorders] = useState(false)
-
-  // Neural network positioning and rotation controls
-  const [positionX, setPositionX] = useState(0)
-  const [positionY, setPositionY] = useState(0)
-  const [positionZ, setPositionZ] = useState(0)
-  const [rotationX, setRotationX] = useState(0)
-  const [rotationY, setRotationY] = useState(0)
-  const [rotationZ, setRotationZ] = useState(0)
   return (
     <section
       id='hero'
@@ -37,13 +29,7 @@ export default function LandingPage() {
             positionShift={positionShift}
             verticalShift={verticalShift}
             cinematicMode={true}
-            interactive={false}
-            positionX={positionX}
-            positionY={positionY}
-            positionZ={positionZ}
-            rotationX={rotationX}
-            rotationY={rotationY}
-            rotationZ={rotationZ}
+            interactive={true}
           />
         </motion.div>
       </div>
@@ -135,171 +121,6 @@ export default function LandingPage() {
           />
           Show Layout Borders
         </label>
-      </div>
-
-      {/* Neural Network Controls - Bottom Right */}
-      <div
-        className={`fixed bottom-4 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-4 pointer-events-auto ${showBorders ? 'border-4 border-green-500' : ''}`}
-      >
-        <div className='space-y-3 text-white text-xs'>
-          <h3 className='text-sm font-bold text-cyan-400 mb-3'>
-            Neural Network Controls
-          </h3>
-
-          {/* Position Controls */}
-          <div className='space-y-2'>
-            <h4 className='text-xs font-semibold text-gray-300'>Position</h4>
-            <div className='flex flex-col gap-1'>
-              <div className='flex items-center gap-2'>
-                <label className='w-4 text-red-400'>X:</label>
-                <input
-                  type='range'
-                  min='-20'
-                  max='20'
-                  step='0.1'
-                  value={positionX}
-                  onChange={e => setPositionX(Number(e.target.value))}
-                  className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                />
-                <span className='w-8 text-xs text-gray-400'>
-                  {positionX.toFixed(1)}
-                </span>
-              </div>
-              <div className='flex items-center gap-2'>
-                <label className='w-4 text-green-400'>Y:</label>
-                <input
-                  type='range'
-                  min='-20'
-                  max='20'
-                  step='0.1'
-                  value={positionY}
-                  onChange={e => setPositionY(Number(e.target.value))}
-                  className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                />
-                <span className='w-8 text-xs text-gray-400'>
-                  {positionY.toFixed(1)}
-                </span>
-              </div>
-              <div className='flex items-center gap-2'>
-                <label className='w-4 text-blue-400'>Z:</label>
-                <input
-                  type='range'
-                  min='-20'
-                  max='20'
-                  step='0.1'
-                  value={positionZ}
-                  onChange={e => setPositionZ(Number(e.target.value))}
-                  className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                />
-                <span className='w-8 text-xs text-gray-400'>
-                  {positionZ.toFixed(1)}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Rotation Controls */}
-          <div className='space-y-2'>
-            <h4 className='text-xs font-semibold text-gray-300'>Rotation</h4>
-            <div className='flex flex-col gap-1'>
-              <div className='flex items-center gap-2'>
-                <label className='w-4 text-red-400'>X:</label>
-                <input
-                  type='range'
-                  min='-180'
-                  max='180'
-                  step='1'
-                  value={rotationX}
-                  onChange={e => setRotationX(Number(e.target.value))}
-                  className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                />
-                <span className='w-8 text-xs text-gray-400'>{rotationX}°</span>
-              </div>
-              <div className='flex items-center gap-2'>
-                <label className='w-4 text-green-400'>Y:</label>
-                <input
-                  type='range'
-                  min='-180'
-                  max='180'
-                  step='1'
-                  value={rotationY}
-                  onChange={e => setRotationY(Number(e.target.value))}
-                  className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                />
-                <span className='w-8 text-xs text-gray-400'>{rotationY}°</span>
-              </div>
-              <div className='flex items-center gap-2'>
-                <label className='w-4 text-blue-400'>Z:</label>
-                <input
-                  type='range'
-                  min='-180'
-                  max='180'
-                  step='1'
-                  value={rotationZ}
-                  onChange={e => setRotationZ(Number(e.target.value))}
-                  className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                />
-                <span className='w-8 text-xs text-gray-400'>{rotationZ}°</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Layer Controls */}
-          <div className='space-y-2 pt-2 border-t border-gray-600'>
-            <h4 className='text-xs font-semibold text-gray-300'>
-              Layer Settings
-            </h4>
-            <div className='flex flex-col gap-1'>
-              <div className='flex items-center gap-2'>
-                <label className='w-12 text-xs text-cyan-400'>Spacing:</label>
-                <input
-                  type='range'
-                  min='0.5'
-                  max='25'
-                  step='0.1'
-                  value={layerDistance}
-                  onChange={e => setLayerDistance(Number(e.target.value))}
-                  className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                />
-                <span className='w-8 text-xs text-gray-400'>
-                  {layerDistance.toFixed(1)}
-                </span>
-              </div>
-              <div className='flex items-center gap-2'>
-                <label className='w-12 text-xs text-fuchsia-400'>Shift:</label>
-                <input
-                  type='range'
-                  min='-15'
-                  max='15'
-                  step='0.1'
-                  value={positionShift}
-                  onChange={e => setPositionShift(Number(e.target.value))}
-                  className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                />
-                <span className='w-8 text-xs text-gray-400'>
-                  {positionShift.toFixed(1)}
-                </span>
-              </div>
-              <div className='flex items-center gap-2'>
-                <label className='w-12 text-xs text-emerald-400'>
-                  Vertical:
-                </label>
-                <input
-                  type='range'
-                  min='-10'
-                  max='10'
-                  step='0.1'
-                  value={verticalShift}
-                  onChange={e => setVerticalShift(Number(e.target.value))}
-                  className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                />
-                <span className='w-8 text-xs text-gray-400'>
-                  {verticalShift.toFixed(1)}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Background grid effect */}
