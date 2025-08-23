@@ -135,7 +135,7 @@ export default function LandingPage() {
 
       {/* Scroll indicator at bottom */}
       <motion.div
-        className='absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30 pointer-events-auto'
+        className='absolute bottom-16 left-1/2 transform -translate-x-1/2 z-[60] pointer-events-auto'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.5 }}
