@@ -13,6 +13,9 @@ interface DataPipelineProps {
   rotationX?: number
   rotationY?: number
   rotationZ?: number
+  positionX?: number
+  positionY?: number
+  positionZ?: number
 }
 
 const DataPipeline: React.FC<DataPipelineProps> = ({
@@ -26,6 +29,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   rotationX = 0,
   rotationY = 0,
   rotationZ = 0,
+  positionX = 0,
+  positionY = 0,
+  positionZ = 0,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [xOffset, setXOffset] = useState(0)
@@ -151,6 +157,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         THREE.MathUtils.degToRad(25) + THREE.MathUtils.degToRad(rotationY), // 25° rotation for depth + external Y rotation
         THREE.MathUtils.degToRad(rotationZ) // External Z rotation
       )
+
+      // Apply external position offset
+      scene.position.set(positionX, positionY, positionZ)
     }
 
     // Create invisible wireframe container (for reference positioning only)
@@ -1039,6 +1048,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     rotationX,
     rotationY,
     rotationZ,
+    positionX,
+    positionY,
+    positionZ,
     // mousePosition.x,
     // mousePosition.y,
   ])
