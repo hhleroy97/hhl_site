@@ -10,6 +10,7 @@ interface DataPipelineProps {
   positionShift?: number
   verticalShift?: number
   className?: string
+  rotationY?: number
 }
 
 const DataPipeline: React.FC<DataPipelineProps> = ({
@@ -20,6 +21,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   positionShift = 0,
   verticalShift = 0,
   className: _className = '',
+  rotationY = 0,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [xOffset, setXOffset] = useState(0)
@@ -139,10 +141,10 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Reduce scale by 25%
       scene.scale.setScalar(0.75)
 
-      // Apply initial rotation for depth (25-30° on Y-axis, slight X tilt)
+      // Apply initial rotation for depth (25-30° on Y-axis, slight X tilt) + external rotation
       scene.rotation.set(
         THREE.MathUtils.degToRad(-5), // Slight downward tilt
-        THREE.MathUtils.degToRad(25), // 25° rotation for depth
+        THREE.MathUtils.degToRad(25) + THREE.MathUtils.degToRad(rotationY), // 25° rotation for depth + external rotation
         0
       )
     }
@@ -849,8 +851,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         // const parallaxX = (mousePosition.x - 0.5) * parallaxStrength
         // const parallaxY = (mousePosition.y - 0.5) * parallaxStrength * 0.3
 
-        // Apply just base rotation and breathing - stable and smooth
-        scene.rotation.y = baseRotationY + breathingY
+        // Apply just base rotation and breathing - stable and smooth + external rotation
+        scene.rotation.y =
+          baseRotationY + breathingY + THREE.MathUtils.degToRad(rotationY)
         scene.rotation.x = baseRotationX + breathingX
       }
 
@@ -1027,6 +1030,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     cinematicMode,
     positionShift,
     verticalShift,
+    rotationY,
     // mousePosition.x,
     // mousePosition.y,
   ])
