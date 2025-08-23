@@ -8,6 +8,7 @@ export default function LandingPage() {
   const [positionShift] = useState(-12.5)
   const [verticalShift] = useState(0)
   const [showBorders, setShowBorders] = useState(false)
+  const [rotationY, setRotationY] = useState(0)
   return (
     <section
       id='hero'
@@ -22,6 +23,10 @@ export default function LandingPage() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
+          style={{
+            transform: `rotateY(${rotationY}deg)`,
+            transformStyle: 'preserve-3d',
+          }}
         >
           <DataPipeline
             className='w-full h-full'
@@ -121,6 +126,47 @@ export default function LandingPage() {
           />
           Show Layout Borders
         </label>
+      </div>
+
+      {/* Neural Network Rotation Control - Bottom Right */}
+      <div
+        className={`fixed bottom-4 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-4 pointer-events-auto ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+      >
+        <div className='space-y-3 text-white text-xs'>
+          <h3 className='text-sm font-bold text-cyan-400 mb-3'>
+            Neural Network Rotation
+          </h3>
+
+          <div className='flex items-center gap-3'>
+            <label className='text-xs text-fuchsia-400 whitespace-nowrap'>
+              Y-Axis:
+            </label>
+            <input
+              type='range'
+              min='-180'
+              max='180'
+              step='1'
+              value={rotationY}
+              onChange={e => setRotationY(Number(e.target.value))}
+              className='flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer'
+              style={{
+                background: `linear-gradient(to right, #374151 0%, #d946ef 50%, #374151 100%)`,
+              }}
+            />
+            <span className='text-xs text-gray-400 w-10 text-right'>
+              {rotationY}°
+            </span>
+          </div>
+
+          <div className='flex justify-center pt-2'>
+            <button
+              onClick={() => setRotationY(0)}
+              className='px-3 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded transition-colors'
+            >
+              Reset
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Background grid effect */}
