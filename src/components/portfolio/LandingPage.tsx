@@ -5,14 +5,14 @@ import InteractiveElements from './InteractiveElements'
 
 export default function LandingPage() {
   const [layerDistance] = useState(3.6)
-  const [positionShift, setPositionShift] = useState(-12.5)
-  const [verticalShift, setVerticalShift] = useState(0)
+  const [positionShift, setPositionShift] = useState(-9.7)
+  const [verticalShift, setVerticalShift] = useState(0.8)
   const [showBorders, setShowBorders] = useState(false)
-  const [rotationX, setRotationX] = useState(0)
-  const [rotationY, setRotationY] = useState(0)
-  const [rotationZ, setRotationZ] = useState(0)
-  const [positionX, setPositionX] = useState(0)
-  const [positionY, setPositionY] = useState(0)
+  const [rotationX, setRotationX] = useState(18)
+  const [rotationY, setRotationY] = useState(-37)
+  const [rotationZ, setRotationZ] = useState(30)
+  const [positionX, setPositionX] = useState(3.7)
+  const [positionY, setPositionY] = useState(-1.6)
   const [positionZ, setPositionZ] = useState(0)
   const [showNeuralControls, setShowNeuralControls] = useState(true)
   return (
@@ -334,14 +334,14 @@ export default function LandingPage() {
             <div className='flex gap-2 pt-2'>
               <button
                 onClick={() => {
-                  setPositionX(0)
-                  setPositionY(0)
+                  setPositionX(3.7)
+                  setPositionY(-1.6)
                   setPositionZ(0)
-                  setRotationX(0)
-                  setRotationY(0)
-                  setRotationZ(0)
-                  setPositionShift(-12.5)
-                  setVerticalShift(0)
+                  setRotationX(18)
+                  setRotationY(-37)
+                  setRotationZ(30)
+                  setPositionShift(-9.7)
+                  setVerticalShift(0.8)
                 }}
                 className='flex-1 px-2 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded transition-colors'
               >
