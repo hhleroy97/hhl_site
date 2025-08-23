@@ -23,10 +23,6 @@ export default function LandingPage() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          style={{
-            transform: `rotateY(${rotationY}deg)`,
-            transformStyle: 'preserve-3d',
-          }}
         >
           <DataPipeline
             className='w-full h-full'
@@ -35,6 +31,7 @@ export default function LandingPage() {
             verticalShift={verticalShift}
             cinematicMode={true}
             interactive={true}
+            rotationY={rotationY}
           />
         </motion.div>
       </div>
