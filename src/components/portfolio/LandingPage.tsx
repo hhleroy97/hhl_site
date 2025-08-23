@@ -146,10 +146,10 @@ export default function LandingPage() {
         </label>
       </div>
 
-      {/* Neural Network Transform Control - Bottom Right */}
+      {/* Neural Network Transform Control - Top Left */}
       {showNeuralControls && (
         <div
-          className={`fixed bottom-4 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-4 pointer-events-auto max-w-xs ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+          className={`fixed top-4 left-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg p-4 pointer-events-auto max-w-xs ${showBorders ? 'border-4 border-cyan-500' : ''}`}
         >
           <div className='space-y-4 text-white text-xs'>
             <h3 className='text-sm font-bold text-cyan-400 text-center'>
