@@ -83,7 +83,7 @@ export default function Navigation({
 
               return (
                 <button
-                  key={sections ? item.id : item.href}
+                  key={'id' in item ? item.id : item.href}
                   className={`px-3 py-2 text-sm font-medium transition-colors duration-200 relative ${
                     isActive
                       ? 'text-cyan-400'
@@ -94,7 +94,7 @@ export default function Navigation({
                     if (isSlideshow && onSectionChange) {
                       onSectionChange(itemIndex)
                     } else {
-                      const href = sections ? `#${item.id}` : item.href
+                      const href = 'id' in item ? `#${item.id}` : item.href
                       document.querySelector(href)?.scrollIntoView({
                         behavior: 'smooth',
                       })
@@ -179,7 +179,7 @@ export default function Navigation({
 
               return (
                 <button
-                  key={sections ? item.id : item.href}
+                  key={'id' in item ? item.id : item.href}
                   className={`block w-full text-left px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                     isActive
                       ? 'text-cyan-400 bg-white/10'
@@ -191,7 +191,7 @@ export default function Navigation({
                     if (isSlideshow && onSectionChange) {
                       onSectionChange(itemIndex)
                     } else {
-                      const href = sections ? `#${item.id}` : item.href
+                      const href = 'id' in item ? `#${item.id}` : item.href
                       document.querySelector(href)?.scrollIntoView({
                         behavior: 'smooth',
                       })

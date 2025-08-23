@@ -1,4 +1,5 @@
 // Performance monitoring and optimization utilities
+import * as THREE from 'three'
 export interface PerformanceMetrics {
   fps: number
   frameTime: number
@@ -87,8 +88,11 @@ class PerformanceMonitor {
     if (this.metrics.length === 0) return null
 
     const recentMetrics = this.metrics.slice(-frames)
-    const avgFps = recentMetrics.reduce((sum, m) => sum + m.fps, 0) / recentMetrics.length
-    const avgFrameTime = recentMetrics.reduce((sum, m) => sum + m.frameTime, 0) / recentMetrics.length
+    const avgFps =
+      recentMetrics.reduce((sum, m) => sum + m.fps, 0) / recentMetrics.length
+    const avgFrameTime =
+      recentMetrics.reduce((sum, m) => sum + m.frameTime, 0) /
+      recentMetrics.length
 
     return {
       fps: avgFps,
@@ -113,15 +117,24 @@ class PerformanceMonitor {
     const recommendations: string[] = []
 
     if (avgMetrics.fps < this.thresholds.lowFps) {
-      recommendations.push('Consider reducing 3D complexity or switching to lower performance mode')
+      recommendations.push(
+        'Consider reducing 3D complexity or switching to lower performance mode'
+      )
     }
 
     if (avgMetrics.frameTime > this.thresholds.maxFrameTime) {
-      recommendations.push('Frame time is high - consider optimizing render settings')
+      recommendations.push(
+        'Frame time is high - consider optimizing render settings'
+      )
     }
 
-    if (avgMetrics.memoryUsage && avgMetrics.memoryUsage > this.thresholds.maxMemoryUsage) {
-      recommendations.push('Memory usage is high - consider cleaning up unused resources')
+    if (
+      avgMetrics.memoryUsage &&
+      avgMetrics.memoryUsage > this.thresholds.maxMemoryUsage
+    ) {
+      recommendations.push(
+        'Memory usage is high - consider cleaning up unused resources'
+      )
     }
 
     return recommendations
@@ -229,15 +242,21 @@ export class ThreeJSPerformanceMonitor {
     const suggestions: string[] = []
 
     if (metrics.drawCalls && metrics.drawCalls > 100) {
-      suggestions.push('High draw calls - consider using instancing or merging geometries')
+      suggestions.push(
+        'High draw calls - consider using instancing or merging geometries'
+      )
     }
 
     if (metrics.triangles && metrics.triangles > 50000) {
-      suggestions.push('High triangle count - consider using LOD or reducing geometry complexity')
+      suggestions.push(
+        'High triangle count - consider using LOD or reducing geometry complexity'
+      )
     }
 
     if (metrics.memoryUsage && metrics.memoryUsage > 100 * 1024 * 1024) {
-      suggestions.push('High memory usage - dispose unused geometries and materials')
+      suggestions.push(
+        'High memory usage - dispose unused geometries and materials'
+      )
     }
 
     return suggestions
@@ -250,7 +269,7 @@ export const performanceMonitor = new PerformanceMonitor()
 // Auto-start monitoring in development
 if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
   performanceMonitor.start()
-  
+
   // Log metrics every 5 seconds in development
   setInterval(() => {
     performanceMonitor.logMetrics()
