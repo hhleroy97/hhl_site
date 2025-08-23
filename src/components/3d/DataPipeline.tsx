@@ -16,6 +16,10 @@ interface DataPipelineProps {
   positionX?: number
   positionY?: number
   positionZ?: number
+  xOffset?: number
+  yOffset?: number
+  zOffset?: number
+  onOffsetChange?: (xOffset: number, yOffset: number, zOffset: number) => void
 }
 
 const DataPipeline: React.FC<DataPipelineProps> = ({
@@ -32,11 +36,15 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   positionX = 0,
   positionY = 0,
   positionZ = 0,
+  xOffset: externalXOffset = 0,
+  yOffset: externalYOffset = 0,
+  zOffset: externalZOffset = 0,
+  onOffsetChange,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [xOffset, setXOffset] = useState(0)
-  const [yOffset, setYOffset] = useState(0)
-  const [zOffset, setZOffset] = useState(0)
+  const [xOffset, setXOffset] = useState(externalXOffset)
+  const [yOffset, setYOffset] = useState(externalYOffset)
+  const [zOffset, setZOffset] = useState(externalZOffset)
   const [cameraXOffset, setCameraXOffset] = useState(0)
   const [layerSpacing, setLayerSpacing] = useState(externalLayerSpacing || 6)
   const [nodeSpacing, setNodeSpacing] = useState(2.5)
@@ -820,8 +828,15 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         const deltaY = event.clientY - dragStartY
 
         // Update network position based on drag
-        setXOffset(prev => prev + deltaX * 0.1)
-        setYOffset(prev => prev - deltaY * 0.1)
+        const newXOffset = xOffset + deltaX * 0.1
+        const newYOffset = yOffset - deltaY * 0.1
+        setXOffset(newXOffset)
+        setYOffset(newYOffset)
+
+        // Call callback to update parent component
+        if (onOffsetChange) {
+          onOffsetChange(newXOffset, newYOffset, zOffset)
+        }
 
         // Update drag start position
         dragStartX = event.clientX
@@ -1051,6 +1066,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     positionX,
     positionY,
     positionZ,
+    externalXOffset,
+    externalYOffset,
+    externalZOffset,
     // mousePosition.x,
     // mousePosition.y,
   ])
@@ -1517,6 +1535,13 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       setLayerSpacing(externalLayerSpacing)
     }
   }, [externalLayerSpacing])
+
+  // Sync external offset values with internal state
+  useEffect(() => {
+    setXOffset(externalXOffset)
+    setYOffset(externalYOffset)
+    setZOffset(externalZOffset)
+  }, [externalXOffset, externalYOffset, externalZOffset])
 
   return (
     <div className='relative w-full h-full'>

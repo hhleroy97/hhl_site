@@ -15,6 +15,9 @@ export default function LandingPage() {
   const [positionY, setPositionY] = useState(-1.6)
   const [positionZ, setPositionZ] = useState(0)
   const [showNeuralControls, setShowNeuralControls] = useState(true)
+  const [dragOffsetX, setDragOffsetX] = useState(0)
+  const [dragOffsetY, setDragOffsetY] = useState(0)
+  const [dragOffsetZ, setDragOffsetZ] = useState(0)
   return (
     <section
       id='hero'
@@ -43,6 +46,14 @@ export default function LandingPage() {
             positionX={positionX}
             positionY={positionY}
             positionZ={positionZ}
+            xOffset={dragOffsetX}
+            yOffset={dragOffsetY}
+            zOffset={dragOffsetZ}
+            onOffsetChange={(x, y, z) => {
+              setDragOffsetX(x)
+              setDragOffsetY(y)
+              setDragOffsetZ(z)
+            }}
           />
         </motion.div>
       </div>
@@ -175,12 +186,16 @@ export default function LandingPage() {
                 </div>
                 <div className='text-blue-400'>Rot Z: {rotationZ}°</div>
               </div>
-              <div className='pt-1 border-t border-gray-600'>
+              <div className='pt-1 border-t border-gray-600 space-y-1'>
                 <div className='text-fuchsia-400 text-center'>
                   Shift: {positionShift.toFixed(1)}
                 </div>
                 <div className='text-emerald-400 text-center'>
                   Vertical: {verticalShift.toFixed(1)}
+                </div>
+                <div className='text-orange-400 text-center text-[10px]'>
+                  Drag: ({dragOffsetX.toFixed(1)}, {dragOffsetY.toFixed(1)},{' '}
+                  {dragOffsetZ.toFixed(1)})
                 </div>
               </div>
             </div>
@@ -342,6 +357,9 @@ export default function LandingPage() {
                   setRotationZ(30)
                   setPositionShift(-9.7)
                   setVerticalShift(0.8)
+                  setDragOffsetX(0)
+                  setDragOffsetY(0)
+                  setDragOffsetZ(0)
                 }}
                 className='flex-1 px-2 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded transition-colors'
               >
@@ -359,8 +377,11 @@ export default function LandingPage() {
                   console.log(
                     `Camera: Shift=${positionShift}, Vertical=${verticalShift}`
                   )
+                  console.log(
+                    `Drag Offsets: X=${dragOffsetX}, Y=${dragOffsetY}, Z=${dragOffsetZ}`
+                  )
                   alert(
-                    `Transform logged to console!\nPos: (${positionX}, ${positionY}, ${positionZ})\nRot: (${rotationX}°, ${rotationY}°, ${rotationZ}°)`
+                    `Transform logged to console!\nPos: (${positionX}, ${positionY}, ${positionZ})\nRot: (${rotationX}°, ${rotationY}°, ${rotationZ}°)\nDrag: (${dragOffsetX.toFixed(1)}, ${dragOffsetY.toFixed(1)}, ${dragOffsetZ.toFixed(1)})`
                   )
                 }}
                 className='flex-1 px-2 py-1 text-xs bg-cyan-700 hover:bg-cyan-600 text-white rounded transition-colors'
