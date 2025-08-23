@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 interface DataPipelineProps {
   interactive?: boolean
@@ -588,7 +588,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     const connections: [number, number][] = []
 
     // Input layer (0-8: 3x3 grid) to Hidden layer 1 (9-20: 12 nodes) - clear layer connections
-    const inputToHidden1 = [
+    const inputToHidden1: [number, number][] = [
       // Each input connects to 3-4 hidden nodes in a pattern
       [0, 9],
       [0, 10],
@@ -631,7 +631,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     connections.push(...inputToHidden1)
 
     // Processing layer (9-20: 12 nodes) to Control layer (30-33: 4 nodes) - ensure all nodes connected
-    const processingToControl = [
+    const processingToControl: [number, number][] = [
       // Each processing node connects to 2-3 control nodes
       [9, 30],
       [9, 31],
@@ -668,7 +668,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     connections.push(...processingToControl)
 
     // Control layer (30-33: 4 nodes) to Intelligence layer (21-29: 9 nodes) - ensure all nodes connected
-    const controlToIntelligence = [
+    const controlToIntelligence: [number, number][] = [
       // Each control node connects to multiple intelligence nodes
       [30, 21],
       [30, 22],
@@ -692,7 +692,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     connections.push(...controlToIntelligence)
 
     // Intelligence layer (21-29: 9 nodes) to Output layer (34-43: 10 nodes) - ensure all outputs connected
-    const intelligenceToOutput = [
+    const intelligenceToOutput: [number, number][] = [
       // Each intelligence node connects to multiple output nodes
       [21, 34],
       [21, 35],
@@ -1051,9 +1051,6 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     positionX,
     positionY,
     positionZ,
-    externalXOffset,
-    externalYOffset,
-    externalZOffset,
     // mousePosition.x,
     // mousePosition.y,
   ])
@@ -1534,11 +1531,11 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   }, [externalLayerSpacing])
 
   // Sync external offset values with internal state
-  useEffect(() => {
-    setXOffset(externalXOffset)
-    setYOffset(externalYOffset)
-    setZOffset(externalZOffset)
-  }, [externalXOffset, externalYOffset, externalZOffset])
+  // useEffect(() => {
+  //   setXOffset(externalXOffset)
+  //   setYOffset(externalYOffset)
+  //   setZOffset(externalZOffset)
+  // }, [externalXOffset, externalYOffset, externalZOffset])
 
   return (
     <div className='relative w-full h-full'>
