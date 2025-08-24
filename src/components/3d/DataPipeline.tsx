@@ -17,6 +17,11 @@ interface DataPipelineProps {
   positionY?: number
   positionZ?: number
   onOffsetChange?: (xOffset: number, yOffset: number, zOffset: number) => void
+  onRotationChange?: (
+    rotationX: number,
+    rotationY: number,
+    rotationZ: number
+  ) => void
 }
 
 const DataPipeline: React.FC<DataPipelineProps> = ({
@@ -34,6 +39,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   positionY = 0,
   positionZ = 0,
   onOffsetChange,
+  onRotationChange,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [cameraXOffset, setCameraXOffset] = useState(0)
@@ -801,12 +807,14 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     let isDraggingInternal = false
     let dragStartX = 0
     let dragStartY = 0
+    let isRotationMode = false
 
     const handleMouseDown = (event: MouseEvent) => {
       if (!interactive) return
       isDraggingInternal = true
       dragStartX = event.clientX
       dragStartY = event.clientY
+      isRotationMode = event.shiftKey || event.button === 2 // Shift key or right mouse button
       setIsDragging(true)
     }
 
@@ -818,9 +826,16 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         const deltaX = event.clientX - dragStartX
         const deltaY = event.clientY - dragStartY
 
-        // Call callback to update parent component directly
-        if (onOffsetChange) {
-          onOffsetChange(deltaX * 0.1, -deltaY * 0.1, 0)
+        if (isRotationMode) {
+          // Rotation mode: update rotation values
+          if (onRotationChange) {
+            onRotationChange(-deltaY * 0.5, deltaX * 0.5, 0)
+          }
+        } else {
+          // Position mode: update position values
+          if (onOffsetChange) {
+            onOffsetChange(deltaX * 0.1, -deltaY * 0.1, 0)
+          }
         }
 
         // Update drag start position
@@ -832,7 +847,13 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     const handleMouseUp = () => {
       if (!interactive) return
       isDraggingInternal = false
+      isRotationMode = false
       setIsDragging(false)
+    }
+
+    const handleContextMenu = (event: MouseEvent) => {
+      if (!interactive) return
+      event.preventDefault() // Prevent context menu on right-click drag
     }
 
     // Only add custom mouse handlers if rotation is disabled
@@ -840,6 +861,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       window.addEventListener('mousedown', handleMouseDown)
       window.addEventListener('mousemove', handleMouseMove)
       window.addEventListener('mouseup', handleMouseUp)
+      window.addEventListener('contextmenu', handleContextMenu)
     }
 
     // Animation loop
@@ -1006,6 +1028,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         window.removeEventListener('mousedown', handleMouseDown)
         window.removeEventListener('mousemove', handleMouseMove)
         window.removeEventListener('mouseup', handleMouseUp)
+        window.removeEventListener('contextmenu', handleContextMenu)
       }
       // if (cinematicMode) {
       //   window.removeEventListener('mousemove', handleParallaxMouseMove)
