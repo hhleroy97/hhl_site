@@ -48,6 +48,11 @@ export default function LandingPage() {
               setPositionY(prev => prev + y)
               setPositionZ(prev => prev + z)
             }}
+            onRotationChange={(x, y, z) => {
+              setRotationX(prev => prev + x)
+              setRotationY(prev => prev + y)
+              setRotationZ(prev => prev + z)
+            }}
           />
         </motion.div>
       </div>
@@ -160,6 +165,19 @@ export default function LandingPage() {
             <h3 className='text-sm font-bold text-cyan-400 text-center'>
               Neural Network Controls
             </h3>
+
+            {/* Drag Instructions */}
+            <div className='bg-gray-800/50 rounded p-2 text-[10px] text-gray-400'>
+              <div className='flex items-center gap-1'>
+                <span className='text-cyan-400'>🖱️</span>
+                <span>Drag: Move position</span>
+              </div>
+              <div className='flex items-center gap-1'>
+                <span className='text-yellow-400'>⇧+</span>
+                <span className='text-cyan-400'>🖱️</span>
+                <span>Shift+Drag: Rotate</span>
+              </div>
+            </div>
 
             {/* Current Transform Display */}
             <div className='bg-gray-900/50 rounded p-3 space-y-2'>
