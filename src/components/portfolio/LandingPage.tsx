@@ -11,8 +11,8 @@ export default function LandingPage() {
   const [rotationX, setRotationX] = useState(18)
   const [rotationY, setRotationY] = useState(-37)
   const [rotationZ, setRotationZ] = useState(30)
-  const [positionX, setPositionX] = useState(3.7)
-  const [positionY, setPositionY] = useState(-1.6)
+  const [positionX, setPositionX] = useState(0)
+  const [positionY, setPositionY] = useState(0)
   const [positionZ, setPositionZ] = useState(0)
   const [showNeuralControls, setShowNeuralControls] = useState(true)
   return (
