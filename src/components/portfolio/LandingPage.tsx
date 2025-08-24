@@ -5,12 +5,12 @@ import InteractiveElements from './InteractiveElements'
 
 export default function LandingPage() {
   const [layerDistance] = useState(3.6)
-  const [positionShift, setPositionShift] = useState(-9.7)
-  const [verticalShift, setVerticalShift] = useState(0.8)
+  const [positionShift, setPositionShift] = useState(0)
+  const [verticalShift, setVerticalShift] = useState(0)
   const [showBorders, setShowBorders] = useState(false)
-  const [rotationX, setRotationX] = useState(18)
-  const [rotationY, setRotationY] = useState(-37)
-  const [rotationZ, setRotationZ] = useState(30)
+  const [rotationX, setRotationX] = useState(0)
+  const [rotationY, setRotationY] = useState(0)
+  const [rotationZ, setRotationZ] = useState(0)
   const [positionX, setPositionX] = useState(0)
   const [positionY, setPositionY] = useState(0)
   const [positionZ, setPositionZ] = useState(0)
