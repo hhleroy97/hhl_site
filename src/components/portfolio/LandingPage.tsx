@@ -14,6 +14,7 @@ export default function LandingPage() {
   const [positionX, setPositionX] = useState(5.8)
   const [positionY, setPositionY] = useState(-1.2)
   const [positionZ, setPositionZ] = useState(0)
+  const [showBoundingBox, setShowBoundingBox] = useState(false)
   return (
     <section
       id='hero'
@@ -52,6 +53,7 @@ export default function LandingPage() {
               setRotationY(prev => prev + y)
               setRotationZ(prev => prev + z)
             }}
+            showBoundingBox={showBoundingBox}
           />
         </motion.div>
       </div>
@@ -338,6 +340,19 @@ export default function LandingPage() {
                 {verticalShift.toFixed(2)}
               </span>
             </div>
+          </div>
+
+          {/* Bounding Box Toggle */}
+          <div className='space-y-2'>
+            <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
+              <input
+                type='checkbox'
+                checked={showBoundingBox}
+                onChange={e => setShowBoundingBox(e.target.checked)}
+                className='w-3 h-3 text-red-500 bg-gray-700 border-gray-600 rounded focus:ring-red-500 focus:ring-2'
+              />
+              Show Bounding Box
+            </label>
           </div>
 
           {/* Action Buttons */}
