@@ -122,12 +122,12 @@ export default function LandingPage() {
         <div
           className={`grid grid-cols-2 w-full ${showBorders ? 'border-4 border-orange-500' : ''}`}
         >
-          <div className='w-full h-full flex justify-end'>
+          <div className='w-full h-full'>
             <InteractiveElements showBorders={showBorders} />
           </div>
           {/* Neural Network Visualization */}
           <motion.div
-            className={`w-[85%] h-full pointer-events-auto ${showBorders ? 'border-4 border-lime-500' : ''}`}
+            className={`w-full h-full pointer-events-auto ${showBorders ? 'border-4 border-lime-500' : ''}`}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, duration: 1 }}

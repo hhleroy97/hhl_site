@@ -9,7 +9,7 @@ export default function InteractiveElements({
 }: InteractiveElementsProps) {
   return (
     <motion.div
-      className={`flex flex-col gap-3 w-[85%] h-full ${showBorders ? 'border-4 border-cyan-400' : ''}`}
+      className={`flex flex-col gap-3 w-full h-full ${showBorders ? 'border-4 border-cyan-400' : ''}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.8, duration: 0.8 }}
