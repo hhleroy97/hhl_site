@@ -31,7 +31,7 @@ export default function LandingPage() {
       >
         {/* Greeting and Name container */}
         <div
-          className={`text-center overflow-visible ${showBorders ? 'border-4 border-emerald-500' : ''}`}
+          className={`text-left overflow-visible ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
           <div className='inline-block text-left'>
             {/* Greeting */}
