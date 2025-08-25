@@ -162,9 +162,9 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Neural Network Transform Control - Top Left */}
+      {/* Neural Network Transform Control - Top Right */}
       <div
-        className={`fixed top-4 left-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg pointer-events-auto transition-all duration-300 ${showBorders ? 'border-4 border-cyan-500' : ''} ${
+        className={`fixed top-4 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg pointer-events-auto transition-all duration-300 ${showBorders ? 'border-4 border-cyan-500' : ''} ${
           controlsMinimized ? 'p-2' : 'p-4 max-w-xs'
         }`}
       >
