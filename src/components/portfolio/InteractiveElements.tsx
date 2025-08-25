@@ -94,7 +94,7 @@ export default function InteractiveElements({
           <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:via-white/60 transition-all duration-300' />
 
           <div className='relative z-10'>
-            <div className='text-2xl md:text-3xl font-light text-white leading-relaxed mb-4'>
+            <div className='text-2xl md:text-3xl font-light text-white leading-relaxed mb-4 text-left'>
               Turning data into{' '}
               <span className='text-cyan-400 font-bold'>art</span>,{' '}
               <span className='text-fuchsia-400 font-bold'>insights</span>, and{' '}

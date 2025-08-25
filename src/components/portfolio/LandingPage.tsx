@@ -109,7 +109,7 @@ export default function LandingPage() {
 
         {/* Role/Title - Above Interactive Elements */}
         <motion.p
-          className={`text-2xl md:text-3xl text-zinc-300 font-light text-center mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+          className={`text-2xl md:text-3xl text-zinc-300 font-light text-left mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
