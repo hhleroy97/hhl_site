@@ -98,18 +98,15 @@ export default function LandingPage() {
                 <div
                   className={`name-container relative inline-block ${showBorders ? 'border-4 border-purple-500' : ''}`}
                 >
-                  {/* Mix blend mode text with background color match */}
+                  {/* Colored name text */}
                   <div
                     className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
                     style={{
                       lineHeight: '1',
-                      background: 'transparent',
-                      color: 'transparent',
-                      mixBlendMode: 'lighten',
-                      textShadow: '-1px 0 0 #d946ef, 1px 0 0 #22d3ee',
                     }}
                   >
-                    Hartley LeRoy
+                    <span style={{ color: '#d946ef' }}>Hartley</span>{' '}
+                    <span style={{ color: '#22d3ee' }}>LeRoy</span>
                   </div>
                 </div>
 
