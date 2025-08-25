@@ -23,6 +23,7 @@ interface DataPipelineProps {
     rotationZ: number
   ) => void
   showBoundingBox?: boolean
+  showOriginMarker?: boolean
 }
 
 const DataPipeline: React.FC<DataPipelineProps> = ({
@@ -42,19 +43,21 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   onOffsetChange,
   onRotationChange,
   showBoundingBox = false,
+  showOriginMarker = true,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [cameraXOffset] = useState(0)
   const [layerSpacing] = useState(externalLayerSpacing || 6)
   const [nodeSpacing] = useState(2.5)
   const [inputLayerSpacing] = useState(2)
-  const [cameraDistance] = useState(25)
+  const [cameraDistance] = useState(15)
   const [isDragging, setIsDragging] = useState(false)
   const [enableRotation] = useState(true)
   // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }) // Disabled for stable cinematic mode
 
   // Store refs to update positions without recreating scene
   const sceneRef = useRef<THREE.Scene | null>(null)
+  const neuralNetworkGroupRef = useRef<THREE.Group | null>(null)
   const nodeBoxesRef = useRef<THREE.Mesh[]>([])
   const containerWireframeRef = useRef<THREE.LineSegments | null>(null)
   const particlesRef = useRef<THREE.Mesh[]>([])
@@ -77,7 +80,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     // Camera setup centered on origin
     const width = container.clientWidth || window.innerWidth
     const height = container.clientHeight || window.innerHeight
-    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100)
+    const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 100)
 
     // Position camera based on mode
     const finalCameraDistance = externalCameraDistance || cameraDistance
@@ -152,25 +155,46 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       scene.add(directionalLight)
     }
 
-    // Apply cinematic transformations to the entire scene
+    // Create a group for neural network content that can be transformed
+    const neuralNetworkGroup = new THREE.Group()
+    scene.add(neuralNetworkGroup)
+    neuralNetworkGroupRef.current = neuralNetworkGroup
+
+    // Add origin marker to world space (not transformed with neural network)
+    if (showOriginMarker) {
+      const originGeometry = new THREE.SphereGeometry(0.2, 16, 12)
+      const originMaterial = new THREE.MeshBasicMaterial({
+        color: 0xff0000, // Red color
+        transparent: true,
+        opacity: 0.8,
+      })
+      const originMarker = new THREE.Mesh(originGeometry, originMaterial)
+      originMarker.position.set(0, 0, 0) // Explicitly set to origin
+      scene.add(originMarker) // Add directly to scene, not to neuralNetworkGroup
+    }
+
+    // Apply cinematic transformations to the neural network group only
     if (cinematicMode) {
       // Reduce scale by 25%
-      scene.scale.setScalar(0.75)
+      neuralNetworkGroup.scale.setScalar(0.75)
 
       // Apply initial rotation for depth (25-30° on Y-axis, slight X tilt) + external rotation
-      scene.rotation.set(
+      neuralNetworkGroup.rotation.set(
         THREE.MathUtils.degToRad(-5) + THREE.MathUtils.degToRad(rotationX), // Slight downward tilt + external X rotation
         THREE.MathUtils.degToRad(25) + THREE.MathUtils.degToRad(rotationY), // 25° rotation for depth + external Y rotation
         THREE.MathUtils.degToRad(rotationZ) // External Z rotation
       )
 
       // Apply external position offset
-      scene.position.set(positionX, positionY, positionZ)
+      neuralNetworkGroup.position.set(positionX, positionY, positionZ)
     }
 
+    // Network spans from -1.75 to 3 layerSpacing units, so center is at 0.625
+    const centerOffset = -0.625 * layerSpacing // Keep network centered at origin consistently
+
     // Calculate actual neural network bounds
-    const networkMinX = layerSpacing * -1.75 + positionX
-    const networkMaxX = layerSpacing * 3 + positionX
+    const networkMinX = layerSpacing * -1.75 + centerOffset + positionX
+    const networkMaxX = layerSpacing * 3 + centerOffset + positionX
     const networkMinY = -nodeSpacing * 2 + positionY
     const networkMaxY = nodeSpacing * 2 + positionY
     const networkMinZ = -nodeSpacing * 2 + positionZ
@@ -204,7 +228,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
 
     // Add bounding box to scene only if showBoundingBox is true
     if (showBoundingBox) {
-      scene.add(containerWireframe)
+      neuralNetworkGroup.add(containerWireframe)
     }
 
     // Store wireframe reference
@@ -213,7 +237,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
 
     // Fixed center offset to keep visualization stable when spacing changes
     // Use a fixed reference point so camera doesn't jump when spacing changes
-    const centerOffset = 0 // Keep network centered at origin consistently
+    // centerOffset already calculated above
 
     // AI/ML System Architecture - representing your tech stack
     const nodes = [
@@ -593,7 +617,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       })
       const box = new THREE.Mesh(geometry, material)
       box.position.set(node.x, node.y, node.z)
-      scene.add(box)
+      neuralNetworkGroup.add(box)
       nodeBoxes.push(box)
       nodeBoxesRef.current.push(box)
 
@@ -611,7 +635,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       })
       const outline = new THREE.Mesh(outlineGeometry, outlineMaterial)
       outline.position.copy(box.position)
-      scene.add(outline)
+      neuralNetworkGroup.add(outline)
       nodeBoxesRef.current.push(outline) // Track outline as well
     })
 
@@ -783,7 +807,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         opacity: cinematicMode ? 0.3 : 0.4, // 75% of original opacity for cinematic mode
       })
       const line = new THREE.Line(geometry, material)
-      scene.add(line)
+      neuralNetworkGroup.add(line)
       connectionLines.push(line)
       connectionLinesRef.current.push(line)
     })
@@ -821,7 +845,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         sourceColor: from.color, // Store the original source node color
       }
 
-      scene.add(particle)
+      neuralNetworkGroup.add(particle)
       particles.push(particle)
       particlesRef.current.push(particle)
     }
@@ -903,29 +927,36 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     const animate = () => {
       const time = Date.now() * 0.001
 
-      if (cinematicMode) {
-        // Base cinematic rotation
-        const baseRotationY = THREE.MathUtils.degToRad(25)
-        const baseRotationX = THREE.MathUtils.degToRad(-5)
+      // Apply rotations (work in both cinematic and non-cinematic modes)
+      if (neuralNetworkGroupRef.current) {
+        if (cinematicMode) {
+          // Base cinematic rotation
+          const baseRotationY = THREE.MathUtils.degToRad(25)
+          const baseRotationX = THREE.MathUtils.degToRad(-5)
 
-        // Cinematic idle motion - subtle breathing effect
-        const breathingIntensity = 0.002
-        const breathingSpeed = 0.0005
-        const breathingY = Math.sin(time * breathingSpeed) * breathingIntensity
-        const breathingX =
-          Math.cos(time * breathingSpeed * 0.7) * breathingIntensity * 0.5
+          // Cinematic idle motion - subtle breathing effect
+          const breathingIntensity = 0.002
+          const breathingSpeed = 0.0005
+          const breathingY =
+            Math.sin(time * breathingSpeed) * breathingIntensity
+          const breathingX =
+            Math.cos(time * breathingSpeed * 0.7) * breathingIntensity * 0.5
 
-        // Disable parallax to prevent glitchy movement - just use breathing animation
-        // const parallaxStrength = 0.002
-        // const parallaxX = (mousePosition.x - 0.5) * parallaxStrength
-        // const parallaxY = (mousePosition.y - 0.5) * parallaxStrength * 0.3
-
-        // Apply just base rotation and breathing - stable and smooth + external rotation
-        scene.rotation.x =
-          baseRotationX + breathingX + THREE.MathUtils.degToRad(rotationX)
-        scene.rotation.y =
-          baseRotationY + breathingY + THREE.MathUtils.degToRad(rotationY)
-        scene.rotation.z = THREE.MathUtils.degToRad(rotationZ)
+          neuralNetworkGroupRef.current.rotation.x =
+            baseRotationX + breathingX + THREE.MathUtils.degToRad(rotationX)
+          neuralNetworkGroupRef.current.rotation.y =
+            baseRotationY + breathingY + THREE.MathUtils.degToRad(rotationY)
+          neuralNetworkGroupRef.current.rotation.z =
+            THREE.MathUtils.degToRad(rotationZ)
+        } else {
+          // Direct rotation control in non-cinematic mode
+          neuralNetworkGroupRef.current.rotation.x =
+            THREE.MathUtils.degToRad(rotationX)
+          neuralNetworkGroupRef.current.rotation.y =
+            THREE.MathUtils.degToRad(rotationY)
+          neuralNetworkGroupRef.current.rotation.z =
+            THREE.MathUtils.degToRad(rotationZ)
+        }
       }
 
       // Gentle node box animation with slow drift for background layer
@@ -1145,8 +1176,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     // Update bounding box position and size based on current network bounds
     if (containerWireframeRef.current) {
       // Recalculate network bounds with current positions
-      const networkMinX = layerSpacing * -1.75 + positionX
-      const networkMaxX = layerSpacing * 3 + positionX
+      const centerOffset = -0.625 * layerSpacing
+      const networkMinX = layerSpacing * -1.75 + centerOffset + positionX
+      const networkMaxX = layerSpacing * 3 + centerOffset + positionX
       const networkMinY = -nodeSpacing * 2 + positionY
       const networkMaxY = nodeSpacing * 2 + positionY
       const networkMinZ = -nodeSpacing * 2 + positionZ
@@ -1173,7 +1205,8 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
 
     // Fixed center offset to keep visualization stable when spacing changes
     // Use a fixed reference point so camera doesn't jump when spacing changes
-    const centerOffset = 0 // Keep network centered at origin consistently
+    // Network spans from -1.75 to 3 layerSpacing units, so center is at 0.625
+    const centerOffset = -0.625 * layerSpacing // Keep network centered at origin consistently
 
     // Update node positions (boxes and outlines - every 2 items is a pair)
     const basePositions = [
