@@ -21,9 +21,9 @@ export default function LandingPage() {
       id='hero'
       className={`relative min-h-screen py-12 overflow-hidden ${showBorders ? 'border-4 border-white' : ''}`}
     >
-      {/* Interactive Data Pipeline Visualization - Main Layer */}
+      {/* Interactive Data Pipeline Visualization - Right Half */}
       <div
-        className={`absolute inset-0 z-10 ${showBorders ? 'border-4 border-red-500' : ''}`}
+        className={`absolute top-0 right-0 w-1/2 h-full z-10 ${showBorders ? 'border-4 border-red-500' : ''}`}
       >
         <motion.div
           className={`w-full h-full ${showBorders ? 'border-4 border-lime-500' : ''}`}
@@ -59,15 +59,15 @@ export default function LandingPage() {
         </motion.div>
       </div>
 
-      {/* Full-width content section with centered container */}
+      {/* Left half content section */}
       <div
-        className={`relative z-20 pointer-events-none w-full pt-8 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-1/2 h-full flex items-center pt-8 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
       >
         <div
-          className={`w-full flex justify-center px-4 md:px-8 overflow-visible ${showBorders ? 'border-4 border-yellow-500' : ''}`}
+          className={`w-full px-4 md:px-8 lg:px-12 overflow-visible ${showBorders ? 'border-4 border-yellow-500' : ''}`}
         >
           <div
-            className={`w-full max-w-7xl overflow-visible ${showBorders ? 'border-4 border-magenta-500' : ''}`}
+            className={`w-full overflow-visible ${showBorders ? 'border-4 border-magenta-500' : ''}`}
           >
             <motion.div
               className={`space-y-6 overflow-visible ${showBorders ? 'border-4 border-orange-500' : ''}`}
@@ -83,12 +83,12 @@ export default function LandingPage() {
                 transition={{ delay: 0.1, duration: 0.8 }}
               >
                 <div
-                  className={`text-2xl md:text-3xl text-zinc-400 font-bold text-left mb-2 ml-0 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
+                  className={`text-xl md:text-2xl text-zinc-400 font-bold text-left mb-2 ml-0 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
                 >
                   Hi, I'm...
                 </div>
                 <div
-                  className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
+                  className='text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight relative z-50 text-left'
                   style={{
                     lineHeight: '1',
                   }}
@@ -117,7 +117,7 @@ export default function LandingPage() {
 
               {/* Role/Title - Left aligned */}
               <motion.p
-                className={`text-2xl md:text-3xl text-zinc-300 font-light text-left mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+                className={`text-lg md:text-xl text-zinc-300 font-light text-left mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
@@ -434,7 +434,7 @@ export default function LandingPage() {
         }}
       />
 
-      {/* Scroll indicator at bottom */}
+      {/* Scroll indicator at bottom center - bridging content and next page */}
       <motion.div
         className='absolute bottom-16 left-1/2 transform -translate-x-1/2 z-[60] pointer-events-auto'
         initial={{ opacity: 0, y: 20 }}
