@@ -826,21 +826,28 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         const deltaX = event.clientX - dragStartX
         const deltaY = event.clientY - dragStartY
 
-        if (isRotationMode) {
-          // Rotation mode: update rotation values
-          if (onRotationChange) {
-            onRotationChange(-deltaY * 0.5, deltaX * 0.5, 0)
+        // Only update if there's significant movement to avoid jittery updates
+        if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
+          if (isRotationMode) {
+            // Rotation mode: update rotation values with smaller increments for smoother control
+            if (onRotationChange) {
+              requestAnimationFrame(() => {
+                onRotationChange(-deltaY * 0.3, deltaX * 0.3, 0)
+              })
+            }
+          } else {
+            // Position mode: update position values with smaller increments for smoother control
+            if (onOffsetChange) {
+              requestAnimationFrame(() => {
+                onOffsetChange(deltaX * 0.05, -deltaY * 0.05, 0)
+              })
+            }
           }
-        } else {
-          // Position mode: update position values
-          if (onOffsetChange) {
-            onOffsetChange(deltaX * 0.1, -deltaY * 0.1, 0)
-          }
-        }
 
-        // Update drag start position
-        dragStartX = event.clientX
-        dragStartY = event.clientY
+          // Update drag start position
+          dragStartX = event.clientX
+          dragStartY = event.clientY
+        }
       }
     }
 
