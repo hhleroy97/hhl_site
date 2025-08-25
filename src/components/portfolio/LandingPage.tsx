@@ -42,7 +42,7 @@ export default function LandingPage() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1, duration: 0.8 }}
             >
-              <div className='text-2xl md:text-3xl text-zinc-300 font-light'>
+              <div className='text-2xl md:text-3xl text-zinc-200 font-light'>
                 Hi, I'm...
               </div>
             </motion.div>
