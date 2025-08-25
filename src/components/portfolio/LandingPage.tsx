@@ -108,6 +108,23 @@ export default function LandingPage() {
                     <span style={{ color: '#d946ef' }}>Hartley</span>{' '}
                     <span style={{ color: '#22d3ee' }}>LeRoy</span>
                   </div>
+
+                  {/* Grid pattern overlay text - appears on top */}
+                  <div
+                    className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight absolute top-0 left-0 z-60 text-left pointer-events-none'
+                    style={{
+                      lineHeight: '1',
+                      background: '#0f172a',
+                      backgroundImage:
+                        'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)',
+                      backgroundSize: '50px 50px',
+                      WebkitBackgroundClip: 'text',
+                      backgroundClip: 'text',
+                      color: 'transparent',
+                    }}
+                  >
+                    <span>Hartley</span> <span>LeRoy</span>
+                  </div>
                 </div>
 
                 {/* Sleek underline positioned below name */}
