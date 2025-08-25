@@ -8,12 +8,12 @@ export default function LandingPage() {
   const [positionShift, setPositionShift] = useState(0)
   const [verticalShift, setVerticalShift] = useState(0)
   const [showBorders, setShowBorders] = useState(false)
-  const [rotationX, setRotationX] = useState(17.5)
+  const [rotationX, setRotationX] = useState(8)
   const [rotationY, setRotationY] = useState(-30)
   const [rotationZ, setRotationZ] = useState(0)
-  const [positionX, setPositionX] = useState(4.5)
-  const [positionY, setPositionY] = useState(-1.2)
-  const [positionZ, setPositionZ] = useState(0)
+  const [positionX, setPositionX] = useState(3.7)
+  const [positionY, setPositionY] = useState(-0.9)
+  const [positionZ, setPositionZ] = useState(-1.6)
   const [showBoundingBox, setShowBoundingBox] = useState(false)
   return (
     <section
@@ -363,10 +363,10 @@ export default function LandingPage() {
           <div className='flex gap-2 pt-2'>
             <button
               onClick={() => {
-                setPositionX(4.5)
-                setPositionY(-1.2)
-                setPositionZ(0)
-                setRotationX(17.5)
+                setPositionX(3.7)
+                setPositionY(-0.9)
+                setPositionZ(-1.6)
+                setRotationX(8)
                 setRotationY(-30)
                 setRotationZ(0)
                 setPositionShift(-9.7)
