@@ -91,27 +91,24 @@ export default function LandingPage() {
                 <div
                   className={`name-container relative inline-block ${showBorders ? 'border-4 border-purple-500' : ''}`}
                 >
-                  {/* Main colored name text */}
+                  {/* Mix blend mode text with grid pattern effect */}
                   <div
                     className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
                     style={{
                       lineHeight: '1',
+                      background:
+                        'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)',
+                      backgroundSize: '50px 50px',
+                      color: '#374151',
+                      mixBlendMode: 'lighten',
+                      textShadow: Array.from({ length: 15 }, (_, i) => {
+                        const offset = i + 1
+                        const color = i < 7 ? '#d946ef' : '#22d3ee'
+                        return `${offset}px ${offset}px 0 ${color}`
+                      }).join(', '),
                     }}
                   >
-                    <span style={{ color: '#d946ef' }}>Hartley</span>{' '}
-                    <span style={{ color: '#22d3ee' }}>LeRoy</span>
-                  </div>
-
-                  {/* Grid color duplicate text overlay */}
-                  <div
-                    className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight absolute top-0 left-0 pointer-events-none'
-                    style={{
-                      lineHeight: '1',
-                      color: 'rgba(6, 182, 212, 0.3)',
-                      zIndex: 100,
-                    }}
-                  >
-                    <span>Hartley</span> <span>LeRoy</span>
+                    Hartley LeRoy
                   </div>
                 </div>
 
