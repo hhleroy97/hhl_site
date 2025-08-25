@@ -20,7 +20,7 @@ export default function LandingPage() {
   const [overlayOffsetY, setOverlayOffsetY] = useState(-3.5)
   const [showOverlayText, setShowOverlayText] = useState(false)
   const [showOriginMarker, setShowOriginMarker] = useState(false)
-  const [nameTagOffsetX, setNameTagOffsetX] = useState(0)
+  const [nameTagOffsetX, setNameTagOffsetX] = useState(-15)
   return (
     <section
       id='hero'
@@ -474,7 +474,7 @@ export default function LandingPage() {
                     setVerticalShift(0)
                     setOverlayOffsetX(-7)
                     setOverlayOffsetY(-3.5)
-                    setNameTagOffsetX(0)
+                    setNameTagOffsetX(-15)
                   }}
                   className='flex-1 px-2 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded transition-colors'
                 >
