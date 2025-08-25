@@ -166,20 +166,42 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       scene.position.set(positionX, positionY, positionZ)
     }
 
-    // Create invisible wireframe container (for reference positioning only)
-    const containerGeometry = new THREE.BoxGeometry(12, 6, 6)
+    // Calculate actual neural network bounds
+    const networkMinX = layerSpacing * -1.75 + positionX
+    const networkMaxX = layerSpacing * 3 + positionX
+    const networkMinY = -nodeSpacing * 2 + positionY
+    const networkMaxY = nodeSpacing * 2 + positionY
+    const networkMinZ = -nodeSpacing * 2 + positionZ
+    const networkMaxZ = nodeSpacing * 2 + positionZ
+
+    const networkWidth = networkMaxX - networkMinX
+    const networkHeight = networkMaxY - networkMinY
+    const networkDepth = networkMaxZ - networkMinZ
+
+    // Create red bounding box wireframe (standard size, will be scaled later)
+    const containerGeometry = new THREE.BoxGeometry(1, 1, 1) // Unit cube
     const containerEdges = new THREE.EdgesGeometry(containerGeometry)
     const containerMaterial = new THREE.LineBasicMaterial({
       color: 0xff0000,
-      linewidth: 2,
-      visible: false,
+      linewidth: 3,
+      visible: true,
     })
     const containerWireframe = new THREE.LineSegments(
       containerEdges,
       containerMaterial
     )
-    containerWireframe.position.set(0, 0, 0)
-    // Don't add to scene - just keep reference for positioning
+
+    // Scale to actual network dimensions
+    containerWireframe.scale.set(networkWidth, networkHeight, networkDepth)
+
+    // Position the bounding box at the center of the network
+    const centerX = (networkMinX + networkMaxX) / 2
+    const centerY = (networkMinY + networkMaxY) / 2
+    const centerZ = (networkMinZ + networkMaxZ) / 2
+    containerWireframe.position.set(centerX, centerY, centerZ)
+
+    // Add bounding box to scene
+    scene.add(containerWireframe)
 
     // Store wireframe reference
     containerWireframeRef.current = containerWireframe
@@ -815,6 +837,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       dragStartY = event.clientY
       isRotationMode =
         event.shiftKey || event.button === 1 || event.button === 2 // Shift key, middle mouse button, or right mouse button
+
       setIsDragging(true)
     }
 
@@ -1115,9 +1138,33 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       cameraRef.current.lookAt(0, 0, 0)
     }
 
-    // Update wireframe container position (invisible reference)
+    // Update bounding box position and size based on current network bounds
     if (containerWireframeRef.current) {
-      containerWireframeRef.current.position.set(0, 0, 0)
+      // Recalculate network bounds with current positions
+      const networkMinX = layerSpacing * -1.75 + positionX
+      const networkMaxX = layerSpacing * 3 + positionX
+      const networkMinY = -nodeSpacing * 2 + positionY
+      const networkMaxY = nodeSpacing * 2 + positionY
+      const networkMinZ = -nodeSpacing * 2 + positionZ
+      const networkMaxZ = nodeSpacing * 2 + positionZ
+
+      // Update bounding box position to center of network
+      const centerX = (networkMinX + networkMaxX) / 2
+      const centerY = (networkMinY + networkMaxY) / 2
+      const centerZ = (networkMinZ + networkMaxZ) / 2
+      containerWireframeRef.current.position.set(centerX, centerY, centerZ)
+
+      // Update bounding box scale to match current network size
+      const networkWidth = networkMaxX - networkMinX
+      const networkHeight = networkMaxY - networkMinY
+      const networkDepth = networkMaxZ - networkMinZ
+
+      // Update scale to match new bounds (unit cube scaled to actual dimensions)
+      containerWireframeRef.current.scale.set(
+        networkWidth,
+        networkHeight,
+        networkDepth
+      )
     }
 
     // Fixed center offset to keep visualization stable when spacing changes
