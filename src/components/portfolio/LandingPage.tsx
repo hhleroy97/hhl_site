@@ -98,15 +98,13 @@ export default function LandingPage() {
                 <div
                   className={`name-container relative inline-block ${showBorders ? 'border-4 border-purple-500' : ''}`}
                 >
-                  {/* Mix blend mode text with grid pattern effect */}
+                  {/* Mix blend mode text with background color match */}
                   <div
                     className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
                     style={{
                       lineHeight: '1',
-                      background:
-                        'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)',
-                      backgroundSize: '50px 50px',
-                      color: '#374151',
+                      background: '#0f172a',
+                      color: '#0f172a',
                       mixBlendMode: 'lighten',
                       textShadow: Array.from({ length: 15 }, (_, i) => {
                         const offset = i + 1
