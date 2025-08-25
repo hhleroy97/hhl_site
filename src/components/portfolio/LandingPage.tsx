@@ -114,8 +114,7 @@ export default function LandingPage() {
                     className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight absolute top-0 left-0 pointer-events-none'
                     style={{
                       lineHeight: '1',
-                      background:
-                        'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px), #111111',
+                      background: '#1a1a2e',
                       backgroundSize: '50px 50px, 50px 50px, 100%',
                       WebkitBackgroundClip: 'text',
                       backgroundClip: 'text',
