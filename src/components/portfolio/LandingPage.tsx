@@ -91,6 +91,7 @@ export default function LandingPage() {
                 <div
                   className={`name-container relative inline-block ${showBorders ? 'border-4 border-purple-500' : ''}`}
                 >
+                  {/* Main colored name text */}
                   <div
                     className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
                     style={{
@@ -99,6 +100,17 @@ export default function LandingPage() {
                   >
                     <span style={{ color: '#d946ef' }}>Hartley</span>{' '}
                     <span style={{ color: '#22d3ee' }}>LeRoy</span>
+                  </div>
+
+                  {/* Black duplicate text overlay */}
+                  <div
+                    className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight absolute top-0 left-0 z-60 text-left pointer-events-none'
+                    style={{
+                      lineHeight: '1',
+                      color: 'black',
+                    }}
+                  >
+                    <span>Hartley</span> <span>LeRoy</span>
                   </div>
                 </div>
 
