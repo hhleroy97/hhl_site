@@ -50,10 +50,9 @@ export default function LandingPage() {
             {/* Name section */}
             <motion.div
               className={`text-left relative inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
-              style={{ transform: `translateX(${nameTagOffsetX}px)` }}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
+              initial={{ opacity: 0, y: 30, x: 0 }}
+              animate={{ opacity: 1, y: 0, x: nameTagOffsetX }}
+              transition={{ delay: 0.2, duration: 0.8, x: { duration: 0.1 } }}
             >
               {/* Colored name text */}
               <div
