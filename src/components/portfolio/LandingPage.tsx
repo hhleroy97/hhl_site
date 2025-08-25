@@ -106,11 +106,7 @@ export default function LandingPage() {
                       background: '#0f172a',
                       color: '#0f172a',
                       mixBlendMode: 'lighten',
-                      textShadow: Array.from({ length: 15 }, (_, i) => {
-                        const offset = i + 1
-                        const color = i < 7 ? '#d946ef' : '#22d3ee'
-                        return `${offset}px ${offset}px 0 ${color}`
-                      }).join(', '),
+                      textShadow: '-1px 0 0 #d946ef, 1px 0 0 #22d3ee',
                     }}
                   >
                     Hartley LeRoy
