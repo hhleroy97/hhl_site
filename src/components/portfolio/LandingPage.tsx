@@ -87,14 +87,17 @@ export default function LandingPage() {
                 >
                   Hi, I'm...
                 </div>
-                <div
-                  className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
-                  style={{
-                    lineHeight: '1',
-                  }}
-                >
-                  <span style={{ color: '#d946ef' }}>Hartley</span>{' '}
-                  <span style={{ color: '#22d3ee' }}>LeRoy</span>
+                {/* Name text container for styling */}
+                <div className='name-container relative inline-block'>
+                  <div
+                    className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
+                    style={{
+                      lineHeight: '1',
+                    }}
+                  >
+                    <span style={{ color: '#d946ef' }}>Hartley</span>{' '}
+                    <span style={{ color: '#22d3ee' }}>LeRoy</span>
+                  </div>
                 </div>
 
                 {/* Sleek underline positioned below name */}
