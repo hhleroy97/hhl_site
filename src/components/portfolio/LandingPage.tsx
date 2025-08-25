@@ -34,10 +34,7 @@ export default function LandingPage() {
         <div
           className={`text-left overflow-visible ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
-          <div
-            className='inline-block text-left'
-            style={{ transform: `translateX(${nameTagOffsetX}px)` }}
-          >
+          <div className='inline-block text-left'>
             {/* Greeting */}
             <motion.div
               className={`w-full text-left mb-0 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
@@ -53,6 +50,7 @@ export default function LandingPage() {
             {/* Name section */}
             <motion.div
               className={`text-left relative inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
+              style={{ transform: `translateX(${nameTagOffsetX}px)` }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
