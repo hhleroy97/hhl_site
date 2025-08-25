@@ -42,7 +42,7 @@ export default function LandingPage() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1, duration: 0.8 }}
             >
-              <div className='text-2xl md:text-3xl text-zinc-400 font-bold'>
+              <div className='text-2xl md:text-3xl text-zinc-300 font-light'>
                 Hi, I'm...
               </div>
             </motion.div>
@@ -110,7 +110,7 @@ export default function LandingPage() {
 
         {/* Role/Title - Above Interactive Elements */}
         <motion.p
-          className={`text-2xl md:text-3xl text-zinc-300 font-light text-left mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+          className={`text-2xl md:text-3xl text-zinc-200 font-light text-left mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
