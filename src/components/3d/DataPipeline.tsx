@@ -42,14 +42,13 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   onRotationChange,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [cameraXOffset, setCameraXOffset] = useState(0)
-  const [layerSpacing, setLayerSpacing] = useState(externalLayerSpacing || 6)
-  const [nodeSpacing, setNodeSpacing] = useState(2.5)
-  const [inputLayerSpacing, setInputLayerSpacing] = useState(2)
-  const [cameraDistance, setCameraDistance] = useState(25)
+  const [cameraXOffset] = useState(0)
+  const [layerSpacing] = useState(externalLayerSpacing || 6)
+  const [nodeSpacing] = useState(2.5)
+  const [inputLayerSpacing] = useState(2)
+  const [cameraDistance] = useState(25)
   const [isDragging, setIsDragging] = useState(false)
-  const [enableRotation, setEnableRotation] = useState(true)
-  const [showControls, setShowControls] = useState(false)
+  const [enableRotation] = useState(true)
   // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }) // Disabled for stable cinematic mode
 
   // Store refs to update positions without recreating scene
@@ -1553,13 +1552,6 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     }
   }, [enableRotation])
 
-  // Update internal layerSpacing when external prop changes
-  useEffect(() => {
-    if (externalLayerSpacing !== undefined) {
-      setLayerSpacing(externalLayerSpacing)
-    }
-  }, [externalLayerSpacing])
-
   // Sync external offset values with internal state
   // useEffect(() => {
   //   setXOffset(externalXOffset)
@@ -1577,153 +1569,6 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
           background: 'transparent',
         }}
       />
-
-      {/* Controls Toggle Button */}
-      <button
-        onClick={() => setShowControls(!showControls)}
-        className='absolute top-4 right-4 px-3 py-2 text-xs font-mono bg-tech-dark/80 text-tech-teal border border-tech-teal/20 rounded hover:bg-tech-teal/10 transition-all'
-      >
-        {showControls ? 'Hide Controls' : 'Show Controls'}
-      </button>
-
-      {/* Position Control Sliders */}
-      {showControls && (
-        <div className='absolute top-16 right-4 text-xs text-tech-text-muted font-mono bg-tech-dark/80 px-3 py-2 rounded border border-tech-teal/20'>
-          <div className='mb-2 text-tech-teal font-semibold'>
-            Network Position
-          </div>
-          <div className='flex flex-col gap-2 w-48'>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>X: {positionX.toFixed(1)}</label>
-              <input
-                type='range'
-                min='-50'
-                max='50'
-                step='0.5'
-                value={positionX}
-                onChange={e =>
-                  onOffsetChange &&
-                  onOffsetChange(Number(e.target.value) - positionX, 0, 0)
-                }
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Y: {positionY.toFixed(1)}</label>
-              <input
-                type='range'
-                min='-50'
-                max='50'
-                step='0.5'
-                value={positionY}
-                onChange={e =>
-                  onOffsetChange &&
-                  onOffsetChange(0, Number(e.target.value) - positionY, 0)
-                }
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Z: {positionZ.toFixed(1)}</label>
-              <input
-                type='range'
-                min='-50'
-                max='50'
-                step='0.5'
-                value={positionZ}
-                onChange={e =>
-                  onOffsetChange &&
-                  onOffsetChange(0, 0, Number(e.target.value) - positionZ)
-                }
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Cam: {cameraXOffset}</label>
-              <input
-                type='range'
-                min='-50'
-                max='50'
-                step='0.5'
-                value={cameraXOffset}
-                onChange={e => setCameraXOffset(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Spacing Control Sliders */}
-      {showControls && (
-        <div
-          className='absolute top-16 right-4 text-xs text-tech-text-muted font-mono bg-tech-dark/80 px-3 py-2 rounded border border-tech-teal/20'
-          style={{ top: '212px' }}
-        >
-          <div className='mb-2 text-tech-teal font-semibold'>
-            Network Spacing
-          </div>
-          <div className='flex flex-col gap-2 w-48'>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Layer: {layerSpacing}</label>
-              <input
-                type='range'
-                min='1'
-                max='10'
-                step='0.5'
-                value={layerSpacing}
-                onChange={e => setLayerSpacing(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Node: {nodeSpacing}</label>
-              <input
-                type='range'
-                min='0.5'
-                max='4'
-                step='0.1'
-                value={nodeSpacing}
-                onChange={e => setNodeSpacing(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Input: {inputLayerSpacing}</label>
-              <input
-                type='range'
-                min='0.5'
-                max='3'
-                step='0.1'
-                value={inputLayerSpacing}
-                onChange={e => setInputLayerSpacing(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Dist: {cameraDistance}</label>
-              <input
-                type='range'
-                min='5'
-                max='30'
-                step='1'
-                value={cameraDistance}
-                onChange={e => setCameraDistance(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Rotate</label>
-              <input
-                type='checkbox'
-                checked={enableRotation}
-                onChange={e => setEnableRotation(e.target.checked)}
-                className='w-4 h-4 bg-tech-dark rounded border border-tech-teal/30'
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
