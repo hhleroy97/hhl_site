@@ -103,8 +103,8 @@ export default function LandingPage() {
                     className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
                     style={{
                       lineHeight: '1',
-                      background: '#0f172a',
-                      color: '#0f172a',
+                      background: 'transparent',
+                      color: 'transparent',
                       mixBlendMode: 'lighten',
                       textShadow: '-1px 0 0 #d946ef, 1px 0 0 #22d3ee',
                     }}
