@@ -22,6 +22,7 @@ interface DataPipelineProps {
     rotationY: number,
     rotationZ: number
   ) => void
+  showBoundingBox?: boolean
 }
 
 const DataPipeline: React.FC<DataPipelineProps> = ({
@@ -40,6 +41,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   positionZ = 0,
   onOffsetChange,
   onRotationChange,
+  showBoundingBox = false,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [cameraXOffset] = useState(0)
@@ -200,8 +202,10 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     const centerZ = (networkMinZ + networkMaxZ) / 2
     containerWireframe.position.set(centerX, centerY, centerZ)
 
-    // Add bounding box to scene
-    scene.add(containerWireframe)
+    // Add bounding box to scene only if showBoundingBox is true
+    if (showBoundingBox) {
+      scene.add(containerWireframe)
+    }
 
     // Store wireframe reference
     containerWireframeRef.current = containerWireframe
@@ -1599,6 +1603,23 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       controlsRef.current.enableRotate = enableRotation
     }
   }, [enableRotation])
+
+  // Handle bounding box visibility changes
+  useEffect(() => {
+    if (containerWireframeRef.current && sceneRef.current) {
+      if (showBoundingBox) {
+        // Add bounding box to scene if not already present
+        if (
+          !sceneRef.current.children.includes(containerWireframeRef.current)
+        ) {
+          sceneRef.current.add(containerWireframeRef.current)
+        }
+      } else {
+        // Remove bounding box from scene
+        sceneRef.current.remove(containerWireframeRef.current)
+      }
+    }
+  }, [showBoundingBox])
 
   // Sync external offset values with internal state
   // useEffect(() => {
