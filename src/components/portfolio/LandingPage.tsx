@@ -136,18 +136,18 @@ export default function LandingPage() {
                   }}
                 />
               </motion.div>
-
-              {/* Role/Title - Left aligned */}
-              <motion.p
-                className={`text-2xl md:text-3xl text-zinc-300 font-light text-left mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-              >
-                <span className='font-bold'>Cloud & Creative Engineer</span> —
-                Crafting end-to-end systems from edge to interface.
-              </motion.p>
             </motion.div>
+
+            {/* Role/Title - Above Interactive Elements */}
+            <motion.p
+              className={`text-2xl md:text-3xl text-zinc-300 font-light text-left mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              <span className='font-bold'>Cloud & Creative Engineer</span> —
+              Crafting end-to-end systems from edge to interface.
+            </motion.p>
 
             {/* Interactive Elements */}
             <InteractiveElements showBorders={showBorders} />
