@@ -43,7 +43,7 @@ export default function LandingPage() {
               transition={{ delay: 0.1, duration: 0.8 }}
             >
               <div className='text-2xl md:text-3xl text-zinc-200 font-bold'>
-                Hi, I'm...
+                Hi, I'm ...
               </div>
             </motion.div>
 
