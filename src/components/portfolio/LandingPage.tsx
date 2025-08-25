@@ -115,7 +115,7 @@ export default function LandingPage() {
                     style={{
                       lineHeight: '1',
                       background:
-                        'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px), #0f172a',
+                        'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px), #000000',
                       backgroundSize: '50px 50px, 50px 50px, 100%',
                       WebkitBackgroundClip: 'text',
                       backgroundClip: 'text',
