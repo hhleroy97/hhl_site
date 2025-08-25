@@ -813,7 +813,8 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       isDraggingInternal = true
       dragStartX = event.clientX
       dragStartY = event.clientY
-      isRotationMode = event.shiftKey || event.button === 2 // Shift key or right mouse button
+      isRotationMode =
+        event.shiftKey || event.button === 1 || event.button === 2 // Shift key, middle mouse button, or right mouse button
       setIsDragging(true)
     }
 

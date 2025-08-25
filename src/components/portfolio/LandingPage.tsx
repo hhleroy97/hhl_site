@@ -158,12 +158,15 @@ export default function LandingPage() {
           <div className='bg-gray-800/50 rounded p-2 text-[10px] text-gray-400'>
             <div className='flex items-center gap-1'>
               <span className='text-cyan-400'>🖱️</span>
-              <span>Drag: Move position</span>
+              <span>Left-click drag: Move position</span>
             </div>
             <div className='flex items-center gap-1'>
-              <span className='text-yellow-400'>⇧+</span>
-              <span className='text-cyan-400'>🖱️</span>
-              <span>Shift+Drag: Rotate</span>
+              <span className='text-orange-400'>🖱️</span>
+              <span>Middle-click drag: Rotate</span>
+            </div>
+            <div className='flex items-center gap-1'>
+              <span className='text-yellow-400'>⇧+🖱️</span>
+              <span>Shift+drag: Also rotate</span>
             </div>
           </div>
 
