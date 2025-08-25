@@ -69,24 +69,31 @@ export default function LandingPage() {
           <div
             className={`w-full max-w-7xl overflow-visible ${showBorders ? 'border-4 border-magenta-500' : ''}`}
           >
+            {/* Greeting - Full width container */}
+            <motion.div
+              className={`w-full text-left mb-6 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.8 }}
+            >
+              <div className='text-2xl md:text-3xl text-zinc-400 font-bold'>
+                Hi, I'm...
+              </div>
+            </motion.div>
+
             <motion.div
               className={`space-y-6 overflow-visible ${showBorders ? 'border-4 border-orange-500' : ''}`}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {/* Greeting and Name - Left aligned */}
+              {/* Name section */}
               <motion.div
                 className='text-left relative overflow-visible'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.1, duration: 0.8 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
               >
-                <div
-                  className={`text-2xl md:text-3xl text-zinc-400 font-bold text-left mb-2 ml-0 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
-                >
-                  Hi, I'm...
-                </div>
                 {/* Name text container for styling */}
                 <div
                   className={`name-container relative inline-block ${showBorders ? 'border-4 border-purple-500' : ''}`}
