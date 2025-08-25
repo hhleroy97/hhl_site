@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import siteContent from '../content/site.json'
+import { projects } from '../data/projects'
 
 export interface SiteContent {
   meta: {
@@ -149,6 +150,14 @@ export function useNavigationContent() {
     navigation: content?.navigation,
     loading,
     error,
+  }
+}
+
+export function useProjectsContent() {
+  const loading = false
+  return {
+    projects,
+    loading,
   }
 }
 

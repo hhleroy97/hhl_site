@@ -1,22 +1,84 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import ProjectCard from '@components/ui/ProjectCard'
 import { useProjectsContent } from '@/hooks/useSiteContent'
+import { Project } from '@/types'
+
+// Simple Project Card Component
+function SimpleProjectCard({
+  project,
+  index,
+}: {
+  project: Project
+  index: number
+}) {
+  return (
+    <motion.div
+      key={project.id}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      className='bg-zinc-800/50 backdrop-blur-sm rounded-lg p-6 border border-zinc-700/50 hover:border-cyan-400/30 transition-all duration-300'
+    >
+      <h3 className='text-xl font-semibold text-white mb-3'>{project.title}</h3>
+      <p className='text-zinc-400 mb-4 line-clamp-3'>{project.description}</p>
+      <div className='flex flex-wrap gap-2 mb-4'>
+        {project.technologies.slice(0, 4).map(tech => (
+          <span
+            key={tech}
+            className='px-2 py-1 bg-cyan-400/10 text-cyan-400 rounded text-sm'
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+      <div className='flex gap-3'>
+        {project.demoUrl && (
+          <a
+            href={project.demoUrl}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-cyan-400 hover:text-cyan-300 transition-colors'
+          >
+            Demo
+          </a>
+        )}
+        {project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-zinc-400 hover:text-white transition-colors'
+          >
+            Code
+          </a>
+        )}
+      </div>
+    </motion.div>
+  )
+}
 
 export default function Projects() {
-  const [filter, setFilter] = useState<'all' | 'Infra' | 'Robotics' | 'ML'>('all')
+  const [filter, setFilter] = useState<'all' | 'Infra' | 'Robotics' | 'ML'>(
+    'all'
+  )
   const { projects, loading } = useProjectsContent()
 
   if (loading || !projects) {
     return (
-      <section id='projects' className='py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'>
+      <section
+        id='projects'
+        className='py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'
+      >
         <div className='max-w-7xl mx-auto'>
           <div className='space-y-8'>
             <div className='h-8 bg-tech-dark-surface/50 rounded animate-pulse'></div>
             <div className='h-4 bg-tech-dark-surface/50 rounded animate-pulse max-w-md mx-auto'></div>
             <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
               {[...Array(6)].map((_, i) => (
-                <div key={i} className='h-64 bg-tech-dark-surface/50 rounded-xl animate-pulse'></div>
+                <div
+                  key={i}
+                  className='h-64 bg-tech-dark-surface/50 rounded-xl animate-pulse'
+                ></div>
               ))}
             </div>
           </div>
@@ -26,18 +88,21 @@ export default function Projects() {
   }
 
   const filteredProjects = projects.filter(
-    project => filter === 'all' || project.tags.includes(filter)
+    project => filter === 'all' || project.category === filter.toLowerCase()
   )
 
   const featuredProjects = filteredProjects.filter(project => project.featured)
   const otherProjects = filteredProjects.filter(project => !project.featured)
 
   return (
-    <section id='projects' className='py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'>
+    <section
+      id='projects'
+      className='py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'
+    >
       {/* Background depth layer */}
       <div className='absolute inset-0 bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-dark opacity-90' />
       <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accentCool/5 via-transparent to-accentWarm/5' />
-      
+
       <div className='max-w-7xl mx-auto relative z-10'>
         {/* Section header - Enhanced with disciplined glow */}
         <motion.div
@@ -49,7 +114,9 @@ export default function Projects() {
         >
           <h2 className='text-h2 font-black text-text-primary mb-6 relative'>
             <span className='relative z-10'>Case Studies</span>
-            <span className='absolute inset-0 text-accentCool/20 blur-sm'>Case Studies</span>
+            <span className='absolute inset-0 text-accentCool/20 blur-sm'>
+              Case Studies
+            </span>
           </h2>
           <div className='w-24 h-1 bg-accentCool mx-auto mb-6 relative'>
             {/* Glow effect on accent line */}
@@ -72,7 +139,7 @@ export default function Projects() {
             {/* Depth effects */}
             <div className='absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-black/[0.02] rounded-xl pointer-events-none' />
             <div className='absolute -top-8 -right-8 w-16 h-16 bg-accentCool/8 rounded-full blur-2xl pointer-events-none'></div>
-            
+
             <div className='relative flex bg-transparent rounded-lg'>
               {(['all', 'Infra', 'Robotics', 'ML'] as const).map(filterType => (
                 <motion.button
@@ -83,10 +150,10 @@ export default function Projects() {
                       ? 'text-tech-dark bg-accentCool shadow-lg'
                       : 'text-accentCool hover:text-white hover:bg-accentCool/10'
                   }`}
-                  whileHover={{ 
+                  whileHover={{
                     scale: filter === filterType ? 1 : 1.02,
                     y: filter === filterType ? 0 : -2,
-                    transition: { duration: 0.2, ease: 'easeOut' }
+                    transition: { duration: 0.2, ease: 'easeOut' },
                   }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -118,7 +185,7 @@ export default function Projects() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <motion.h3 
+            <motion.h3
               className='text-h3 font-bold text-accentCool mb-8 text-center relative'
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -126,11 +193,17 @@ export default function Projects() {
               transition={{ duration: 0.6, delay: 0.5 }}
             >
               <span className='relative z-10'>Featured Projects</span>
-              <span className='absolute inset-0 text-accentCool blur-sm opacity-30'>Featured Projects</span>
+              <span className='absolute inset-0 text-accentCool blur-sm opacity-30'>
+                Featured Projects
+              </span>
             </motion.h3>
             <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
               {featuredProjects.map((project, index) => (
-                <ProjectCard key={project.slug} project={project} index={index} />
+                <SimpleProjectCard
+                  key={project.id}
+                  project={project}
+                  index={index}
+                />
               ))}
             </div>
           </motion.div>
@@ -144,7 +217,7 @@ export default function Projects() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <motion.h3 
+            <motion.h3
               className='text-h3 font-bold text-text-primary mb-8 text-center relative'
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -152,12 +225,14 @@ export default function Projects() {
               transition={{ duration: 0.6, delay: 0.7 }}
             >
               <span className='relative z-10'>Other Projects</span>
-              <span className='absolute inset-0 text-white blur-sm opacity-20'>Other Projects</span>
+              <span className='absolute inset-0 text-white blur-sm opacity-20'>
+                Other Projects
+              </span>
             </motion.h3>
             <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
               {otherProjects.map((project, index) => (
-                <ProjectCard
-                  key={project.slug}
+                <SimpleProjectCard
+                  key={project.id}
                   project={project}
                   index={index + featuredProjects.length}
                 />
@@ -181,17 +256,17 @@ export default function Projects() {
             className='group relative inline-flex items-center px-8 py-4 border-2 border-accentCool text-accentCool 
                      font-semibold rounded-xl hover:bg-accentCool hover:text-tech-dark 
                      transition-all duration-300 overflow-hidden backdrop-blur-sm'
-            whileHover={{ 
+            whileHover={{
               scale: 1.03,
               y: -3,
-              transition: { duration: 0.2, ease: 'easeOut' }
+              transition: { duration: 0.2, ease: 'easeOut' },
             }}
             whileTap={{ scale: 0.98 }}
           >
             {/* Button glow effects */}
             <div className='absolute inset-0 bg-accentCool blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-400'></div>
             <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10'></div>
-            
+
             <span className='relative z-10 mr-2'>View All on GitHub</span>
             <motion.span
               className='relative z-10'

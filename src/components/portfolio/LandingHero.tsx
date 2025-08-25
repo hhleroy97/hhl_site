@@ -153,17 +153,31 @@ export default function LandingHero() {
           transition={{ duration: 0.8, delay: 1 }}
           style={{ opacity: contentOpacity }}
         >
-          <motion.div
-            className='w-6 h-10 border-2 border-tech-teal rounded-full flex justify-center'
-            animate={{ opacity: [1, 0.5, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
+          <motion.button
+            onClick={() => {
+              const element = document.getElementById('experience')
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            className='p-3 text-tech-teal hover:text-tech-cyan transition-colors duration-300'
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <motion.div
-              className='w-1 h-3 bg-tech-teal rounded-full mt-2'
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </motion.div>
+            <svg
+              className='w-8 h-8'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={4}
+                d='M5 10l7 7 7-7'
+              />
+            </svg>
+          </motion.button>
         </motion.div>
       </section>
     </>
