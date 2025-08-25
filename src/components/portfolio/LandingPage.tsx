@@ -1,63 +1,61 @@
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useState, useRef } from 'react'
 import DataPipeline from '../3d/DataPipeline'
 import InteractiveElements from './InteractiveElements'
 
 export default function LandingPage() {
   const [layerDistance] = useState(3.6)
-  const [positionShift, setPositionShift] = useState(0)
-  const [verticalShift, setVerticalShift] = useState(0)
-  const [showBorders, setShowBorders] = useState(false)
-  const [rotationX, setRotationX] = useState(8)
-  const [rotationY, setRotationY] = useState(-30)
-  const [rotationZ, setRotationZ] = useState(0)
-  const [positionX, setPositionX] = useState(3.7)
-  const [positionY, setPositionY] = useState(-0.9)
-  const [positionZ, setPositionZ] = useState(-1.6)
-  const [showBoundingBox, setShowBoundingBox] = useState(false)
-  const [controlsMinimized, setControlsMinimized] = useState(false)
+  const [positionShift] = useState(0)
+  const [verticalShift] = useState(0)
+  const [showBorders] = useState(false)
+
+  // Fixed neural network positioning
+  const rotationX = 8
+  const rotationY = -30
+  const rotationZ = 0
+  const positionX = 3.7
+  const positionY = -0.9
+  const positionZ = -1.6
+  const showBoundingBox = false
+
+  // Parallax setup
+  const containerRef = useRef(null)
+  const { scrollY } = useScroll()
+  const parallaxY = useTransform(scrollY, [0, 1000], [0, -50])
+  const parallaxRotation = useTransform(scrollY, [0, 1000], [0, 5])
   return (
     <section
       id='hero'
       className={`relative min-h-screen py-12 overflow-hidden ${showBorders ? 'border-4 border-white' : ''}`}
     >
-      {/* Interactive Data Pipeline Visualization - Main Layer */}
-      <div
-        className={`absolute inset-0 z-10 ${showBorders ? 'border-4 border-red-500' : ''}`}
+      {/* Neural Network Visualization - Bottom Right Corner with Parallax */}
+      <motion.div
+        ref={containerRef}
+        className={`fixed bottom-4 right-4 w-80 h-60 z-10 ${showBorders ? 'border-4 border-red-500' : ''}`}
+        style={{
+          y: parallaxY,
+          rotateZ: parallaxRotation,
+        }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 0.6, scale: 1 }}
+        transition={{ delay: 0.5, duration: 1 }}
       >
-        <motion.div
-          className={`w-full h-full ${showBorders ? 'border-4 border-lime-500' : ''}`}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-        >
-          <DataPipeline
-            className='w-full h-full'
-            layerSpacing={layerDistance}
-            positionShift={positionShift}
-            verticalShift={verticalShift}
-            cinematicMode={true}
-            interactive={true}
-            rotationX={rotationX}
-            rotationY={rotationY}
-            rotationZ={rotationZ}
-            positionX={positionX}
-            positionY={positionY}
-            positionZ={positionZ}
-            onOffsetChange={(x, y, z) => {
-              setPositionX(prev => prev + x)
-              setPositionY(prev => prev + y)
-              setPositionZ(prev => prev + z)
-            }}
-            onRotationChange={(x, y, z) => {
-              setRotationX(prev => prev + x)
-              setRotationY(prev => prev + y)
-              setRotationZ(prev => prev + z)
-            }}
-            showBoundingBox={showBoundingBox}
-          />
-        </motion.div>
-      </div>
+        <DataPipeline
+          className='w-full h-full'
+          layerSpacing={layerDistance}
+          positionShift={positionShift}
+          verticalShift={verticalShift}
+          cinematicMode={true}
+          interactive={false}
+          rotationX={rotationX}
+          rotationY={rotationY}
+          rotationZ={rotationZ}
+          positionX={positionX}
+          positionY={positionY}
+          positionZ={positionZ}
+          showBoundingBox={showBoundingBox}
+        />
+      </motion.div>
 
       {/* Full-width content section with centered container */}
       <div
@@ -154,297 +152,6 @@ export default function LandingPage() {
 
             {/* Interactive Elements */}
             <InteractiveElements showBorders={showBorders} />
-          </div>
-        </div>
-      </div>
-
-      {/* Neural Network Transform Control - Top Right */}
-      <div
-        className={`fixed top-4 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg pointer-events-auto transition-all duration-300 ${showBorders ? 'border-4 border-cyan-500' : ''} ${
-          controlsMinimized ? 'p-2' : 'p-4 max-w-xs'
-        }`}
-      >
-        <div
-          className={`space-y-4 text-white text-xs ${controlsMinimized ? 'space-y-2' : ''}`}
-        >
-          <div className='flex items-center justify-between'>
-            <h3 className='text-sm font-bold text-cyan-400'>
-              Neural Network Controls
-            </h3>
-            <button
-              onClick={() => setControlsMinimized(!controlsMinimized)}
-              className='text-gray-400 hover:text-white transition-colors'
-              title={
-                controlsMinimized ? 'Expand controls' : 'Minimize controls'
-              }
-            >
-              {controlsMinimized ? '⬆️' : '⬇️'}
-            </button>
-          </div>
-
-          {!controlsMinimized && (
-            <>
-              {/* Drag Instructions */}
-              <div className='bg-gray-800/50 rounded p-2 text-[10px] text-gray-400'>
-                <div className='flex items-center gap-1'>
-                  <span className='text-cyan-400'>🖱️</span>
-                  <span>Left-click drag: Move position</span>
-                </div>
-                <div className='flex items-center gap-1'>
-                  <span className='text-orange-400'>🖱️</span>
-                  <span>Middle-click drag: Rotate</span>
-                </div>
-                <div className='flex items-center gap-1'>
-                  <span className='text-yellow-400'>⇧+🖱️</span>
-                  <span>Shift+drag: Also rotate</span>
-                </div>
-              </div>
-
-              {/* Current Transform Display */}
-              <div className='bg-gray-900/50 rounded p-3 space-y-2'>
-                <h4 className='text-xs font-semibold text-gray-300 text-center'>
-                  Current Transform
-                </h4>
-                <div className='grid grid-cols-2 gap-x-4 gap-y-1 text-[10px]'>
-                  <div className='text-red-400'>
-                    Pos X: {positionX.toFixed(2)}
-                  </div>
-                  <div className='text-red-400'>
-                    Rot X: {rotationX.toFixed(2)}°
-                  </div>
-                  <div className='text-green-400'>
-                    Pos Y: {positionY.toFixed(2)}
-                  </div>
-                  <div className='text-green-400'>
-                    Rot Y: {rotationY.toFixed(2)}°
-                  </div>
-                  <div className='text-blue-400'>
-                    Pos Z: {positionZ.toFixed(2)}
-                  </div>
-                  <div className='text-blue-400'>
-                    Rot Z: {rotationZ.toFixed(2)}°
-                  </div>
-                </div>
-                <div className='pt-1 border-t border-gray-600 space-y-1'>
-                  <div className='text-fuchsia-400 text-center'>
-                    Shift: {positionShift.toFixed(2)}
-                  </div>
-                  <div className='text-emerald-400 text-center'>
-                    Vertical: {verticalShift.toFixed(2)}
-                  </div>
-                </div>
-              </div>
-
-              {/* Position Controls */}
-              <div className='space-y-2'>
-                <h4 className='text-xs font-semibold text-gray-300'>
-                  Position
-                </h4>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-red-400 w-4'>X:</label>
-                  <input
-                    type='range'
-                    min='-20'
-                    max='20'
-                    step='0.01'
-                    value={positionX}
-                    onChange={e => setPositionX(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {positionX.toFixed(2)}
-                  </span>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-green-400 w-4'>Y:</label>
-                  <input
-                    type='range'
-                    min='-20'
-                    max='20'
-                    step='0.01'
-                    value={positionY}
-                    onChange={e => setPositionY(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {positionY.toFixed(2)}
-                  </span>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-blue-400 w-4'>Z:</label>
-                  <input
-                    type='range'
-                    min='-20'
-                    max='20'
-                    step='0.01'
-                    value={positionZ}
-                    onChange={e => setPositionZ(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {positionZ.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-
-              {/* Rotation Controls */}
-              <div className='space-y-2'>
-                <h4 className='text-xs font-semibold text-gray-300'>
-                  Rotation
-                </h4>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-red-400 w-4'>X:</label>
-                  <input
-                    type='range'
-                    min='-180'
-                    max='180'
-                    step='0.1'
-                    value={rotationX}
-                    onChange={e => setRotationX(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {rotationX.toFixed(2)}°
-                  </span>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-green-400 w-4'>Y:</label>
-                  <input
-                    type='range'
-                    min='-180'
-                    max='180'
-                    step='0.1'
-                    value={rotationY}
-                    onChange={e => setRotationY(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {rotationY.toFixed(2)}°
-                  </span>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-blue-400 w-4'>Z:</label>
-                  <input
-                    type='range'
-                    min='-180'
-                    max='180'
-                    step='0.1'
-                    value={rotationZ}
-                    onChange={e => setRotationZ(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {rotationZ.toFixed(2)}°
-                  </span>
-                </div>
-              </div>
-
-              {/* Camera Reference Controls */}
-              <div className='space-y-2'>
-                <h4 className='text-xs font-semibold text-gray-300'>
-                  Camera Reference
-                </h4>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-fuchsia-400 w-4'>S:</label>
-                  <input
-                    type='range'
-                    min='-20'
-                    max='20'
-                    step='0.01'
-                    value={positionShift}
-                    onChange={e => setPositionShift(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {positionShift.toFixed(2)}
-                  </span>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-emerald-400 w-4'>V:</label>
-                  <input
-                    type='range'
-                    min='-10'
-                    max='10'
-                    step='0.01'
-                    value={verticalShift}
-                    onChange={e => setVerticalShift(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {verticalShift.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className='flex gap-2 pt-2'>
-                <button
-                  onClick={() => {
-                    setPositionX(3.7)
-                    setPositionY(-0.9)
-                    setPositionZ(-1.6)
-                    setRotationX(8)
-                    setRotationY(-30)
-                    setRotationZ(0)
-                    setPositionShift(-9.7)
-                    setVerticalShift(0.8)
-                  }}
-                  className='flex-1 px-2 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded transition-colors'
-                >
-                  Reset All
-                </button>
-                <button
-                  onClick={() => {
-                    console.log('Current Neural Network Transform:')
-                    console.log(
-                      `Position: X=${positionX}, Y=${positionY}, Z=${positionZ}`
-                    )
-                    console.log(
-                      `Rotation: X=${rotationX}°, Y=${rotationY}°, Z=${rotationZ}°`
-                    )
-                    console.log(
-                      `Camera: Shift=${positionShift}, Vertical=${verticalShift}`
-                    )
-                    alert(
-                      `Transform logged to console!\nPos: (${positionX}, ${positionY}, ${positionZ})\nRot: (${rotationX}°, ${rotationY}°, ${rotationZ}°)`
-                    )
-                  }}
-                  className='flex-1 px-2 py-1 text-xs bg-cyan-700 hover:bg-cyan-600 text-white rounded transition-colors'
-                >
-                  Log Values
-                </button>
-              </div>
-            </>
-          )}
-
-          {/* Always visible toggles */}
-          <div className='space-y-2 pt-2 border-t border-gray-600'>
-            <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
-              <input
-                type='checkbox'
-                checked={showBorders}
-                onChange={e => setShowBorders(e.target.checked)}
-                className='w-3 h-3 text-cyan-500 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500 focus:ring-2'
-              />
-              Show Layout Borders
-            </label>
-            <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
-              <input
-                type='checkbox'
-                checked={showBoundingBox}
-                onChange={e => setShowBoundingBox(e.target.checked)}
-                className='w-3 h-3 text-red-500 bg-gray-700 border-gray-600 rounded focus:ring-red-500 focus:ring-2'
-              />
-              Show Bounding Box
-            </label>
           </div>
         </div>
       </div>
