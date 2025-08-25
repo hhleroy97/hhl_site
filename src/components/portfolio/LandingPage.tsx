@@ -20,6 +20,7 @@ export default function LandingPage() {
   const [overlayOffsetY, setOverlayOffsetY] = useState(-3.5)
   const [showOverlayText, setShowOverlayText] = useState(false)
   const [showOriginMarker, setShowOriginMarker] = useState(false)
+  const [nameTagOffsetX, setNameTagOffsetX] = useState(0)
   return (
     <section
       id='hero'
@@ -33,7 +34,10 @@ export default function LandingPage() {
         <div
           className={`text-left overflow-visible ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
-          <div className='inline-block text-left'>
+          <div
+            className='inline-block text-left'
+            style={{ transform: `translateX(${nameTagOffsetX}px)` }}
+          >
             {/* Greeting */}
             <motion.div
               className={`w-full text-left mb-0 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
@@ -242,6 +246,9 @@ export default function LandingPage() {
                   <div className='text-pink-400 text-center'>
                     Overlay Y: {overlayOffsetY.toFixed(1)}
                   </div>
+                  <div className='text-yellow-400 text-center'>
+                    NameTag X: {nameTagOffsetX.toFixed(1)}
+                  </div>
                 </div>
               </div>
 
@@ -355,6 +362,29 @@ export default function LandingPage() {
                 </div>
               </div>
 
+              {/* Name Tag Position Control */}
+              <div className='space-y-2'>
+                <h4 className='text-xs font-semibold text-gray-300'>
+                  Name Tag Position
+                </h4>
+
+                <div className='flex items-center gap-2'>
+                  <label className='text-xs text-yellow-400 w-4'>X:</label>
+                  <input
+                    type='range'
+                    min='-200'
+                    max='200'
+                    step='1'
+                    value={nameTagOffsetX}
+                    onChange={e => setNameTagOffsetX(Number(e.target.value))}
+                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
+                  />
+                  <span className='text-xs text-gray-400 w-8 text-right'>
+                    {nameTagOffsetX.toFixed(0)}
+                  </span>
+                </div>
+              </div>
+
               {/* Overlay Text Offset Controls */}
               <div className='space-y-2'>
                 <h4 className='text-xs font-semibold text-gray-300'>
@@ -447,6 +477,7 @@ export default function LandingPage() {
                     setVerticalShift(0)
                     setOverlayOffsetX(-7)
                     setOverlayOffsetY(-3.5)
+                    setNameTagOffsetX(0)
                   }}
                   className='flex-1 px-2 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded transition-colors'
                 >
