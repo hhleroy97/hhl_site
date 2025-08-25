@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 interface DataPipelineProps {
   interactive?: boolean
@@ -10,6 +10,19 @@ interface DataPipelineProps {
   positionShift?: number
   verticalShift?: number
   className?: string
+  rotationX?: number
+  rotationY?: number
+  rotationZ?: number
+  positionX?: number
+  positionY?: number
+  positionZ?: number
+  onOffsetChange?: (xOffset: number, yOffset: number, zOffset: number) => void
+  onRotationChange?: (
+    rotationX: number,
+    rotationY: number,
+    rotationZ: number
+  ) => void
+  showBoundingBox?: boolean
 }
 
 const DataPipeline: React.FC<DataPipelineProps> = ({
@@ -20,19 +33,24 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   positionShift = 0,
   verticalShift = 0,
   className: _className = '',
+  rotationX = 0,
+  rotationY = 0,
+  rotationZ = 0,
+  positionX = 0,
+  positionY = 0,
+  positionZ = 0,
+  onOffsetChange,
+  onRotationChange,
+  showBoundingBox = false,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [xOffset, setXOffset] = useState(0)
-  const [yOffset, setYOffset] = useState(0)
-  const [zOffset, setZOffset] = useState(0)
-  const [cameraXOffset, setCameraXOffset] = useState(0)
-  const [layerSpacing, setLayerSpacing] = useState(externalLayerSpacing || 6)
-  const [nodeSpacing, setNodeSpacing] = useState(2.5)
-  const [inputLayerSpacing, setInputLayerSpacing] = useState(2)
-  const [cameraDistance, setCameraDistance] = useState(25)
+  const [cameraXOffset] = useState(0)
+  const [layerSpacing] = useState(externalLayerSpacing || 6)
+  const [nodeSpacing] = useState(2.5)
+  const [inputLayerSpacing] = useState(2)
+  const [cameraDistance] = useState(25)
   const [isDragging, setIsDragging] = useState(false)
-  const [enableRotation, setEnableRotation] = useState(true)
-  const [showControls, setShowControls] = useState(false)
+  const [enableRotation] = useState(true)
   // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }) // Disabled for stable cinematic mode
 
   // Store refs to update positions without recreating scene
@@ -139,28 +157,55 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Reduce scale by 25%
       scene.scale.setScalar(0.75)
 
-      // Apply initial rotation for depth (25-30° on Y-axis, slight X tilt)
+      // Apply initial rotation for depth (25-30° on Y-axis, slight X tilt) + external rotation
       scene.rotation.set(
-        THREE.MathUtils.degToRad(-5), // Slight downward tilt
-        THREE.MathUtils.degToRad(25), // 25° rotation for depth
-        0
+        THREE.MathUtils.degToRad(-5) + THREE.MathUtils.degToRad(rotationX), // Slight downward tilt + external X rotation
+        THREE.MathUtils.degToRad(25) + THREE.MathUtils.degToRad(rotationY), // 25° rotation for depth + external Y rotation
+        THREE.MathUtils.degToRad(rotationZ) // External Z rotation
       )
+
+      // Apply external position offset
+      scene.position.set(positionX, positionY, positionZ)
     }
 
-    // Create invisible wireframe container (for reference positioning only)
-    const containerGeometry = new THREE.BoxGeometry(12, 6, 6)
+    // Calculate actual neural network bounds
+    const networkMinX = layerSpacing * -1.75 + positionX
+    const networkMaxX = layerSpacing * 3 + positionX
+    const networkMinY = -nodeSpacing * 2 + positionY
+    const networkMaxY = nodeSpacing * 2 + positionY
+    const networkMinZ = -nodeSpacing * 2 + positionZ
+    const networkMaxZ = nodeSpacing * 2 + positionZ
+
+    const networkWidth = networkMaxX - networkMinX
+    const networkHeight = networkMaxY - networkMinY
+    const networkDepth = networkMaxZ - networkMinZ
+
+    // Create red bounding box wireframe (standard size, will be scaled later)
+    const containerGeometry = new THREE.BoxGeometry(1, 1, 1) // Unit cube
     const containerEdges = new THREE.EdgesGeometry(containerGeometry)
     const containerMaterial = new THREE.LineBasicMaterial({
       color: 0xff0000,
-      linewidth: 2,
-      visible: false,
+      linewidth: 3,
+      visible: true,
     })
     const containerWireframe = new THREE.LineSegments(
       containerEdges,
       containerMaterial
     )
-    containerWireframe.position.set(0, 0, 0)
-    // Don't add to scene - just keep reference for positioning
+
+    // Scale to actual network dimensions
+    containerWireframe.scale.set(networkWidth, networkHeight, networkDepth)
+
+    // Position the bounding box at the center of the network
+    const centerX = (networkMinX + networkMaxX) / 2
+    const centerY = (networkMinY + networkMaxY) / 2
+    const centerZ = (networkMinZ + networkMaxZ) / 2
+    containerWireframe.position.set(centerX, centerY, centerZ)
+
+    // Add bounding box to scene only if showBoundingBox is true
+    if (showBoundingBox) {
+      scene.add(containerWireframe)
+    }
 
     // Store wireframe reference
     containerWireframeRef.current = containerWireframe
@@ -175,73 +220,73 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Data Sources (3x3 grid = 9 nodes) - Real-time sensor inputs
       {
         name: 'LiDAR',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
         color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Camera',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: 0 + positionZ,
         color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'IMU',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'GPS',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: nodeSpacing + positionZ,
         color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Radar',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: 0 + positionZ,
         color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Sonar',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Thermal',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
         color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Telemetry',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: 0 + positionZ,
         color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
       {
         name: 'Encoder',
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0x34d399, // Emerald-400 - Input layer (back)
         type: 'input',
       },
@@ -249,97 +294,97 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Processing Layer (12 nodes) - Real-time data processing (4x3 grid, 12 nodes)
       {
         name: 'SLAM',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: nodeSpacing * 2 + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
         name: 'CV Pipeline',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: nodeSpacing + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
         name: 'Object Detect',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: 0 + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
         name: 'Path Planning',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
         name: 'Kalman Filter',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: nodeSpacing * 2 + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
         name: 'Feature Map',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: nodeSpacing + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
         name: 'ML Inference',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: 0 + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
         name: 'Sensor Fusion',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
         name: 'State Estimation',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: nodeSpacing * 2 + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
         name: 'Motion Control',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: nodeSpacing + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
         name: 'Safety Check',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: 0 + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
       {
         name: 'Cloud Sync',
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0x2bd5c3, // Cyan-Emerald blend - Processing layer
         type: 'hidden',
       },
@@ -347,73 +392,73 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Intelligence Layer (9 nodes) - AI decision making (3x3 grid, 9 nodes - complete)
       {
         name: 'Navigation AI',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: nodeSpacing + positionZ,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (fourth)
         type: 'hidden',
       },
       {
         name: 'Obstacle Avoid',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: 0 + positionZ,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
         name: 'Mission Plan',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
         name: 'Behavior Tree',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: nodeSpacing + positionZ,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
         name: 'Deep RL',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: 0 + positionZ,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
         name: 'Fleet Coord',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
         name: 'Anomaly Detect',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: nodeSpacing + positionZ,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
         name: 'Predictive',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: 0 + positionZ,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
       {
         name: 'Optimization',
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0x22d3ee, // Cyan-400 - Intelligence layer (middle)
         type: 'hidden',
       },
@@ -421,33 +466,33 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Control Layer (4 nodes) - High-level system control (2x2 grid, 4 nodes - complete)
       {
         name: 'System Monitor',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 1.75 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
         type: 'hidden',
       },
       {
         name: 'Health Check',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 1.75 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
         type: 'hidden',
       },
       {
         name: 'Load Balance',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 1.75 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
         type: 'hidden',
       },
       {
         name: 'Auto Scale',
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 1.75 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0xdb7edf, // Fuchsia-Cyan blend - Control layer
         type: 'hidden',
       },
@@ -455,81 +500,81 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Output Layer (10 nodes) - Real-world actions (5x2 grid, 10 nodes - complete)
       {
         name: 'Motor Control',
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: nodeSpacing * 2 + positionZ,
         color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Navigation',
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
         color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Data Capture',
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: 0 + positionZ,
         color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Communication',
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Emergency Stop',
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: -nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: -nodeSpacing * 2 + positionZ,
         color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Mission Execute',
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: nodeSpacing * 2 + positionZ,
         color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Status Report',
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
         color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Cloud Upload',
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: 0 + positionZ,
         color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'Fleet Sync',
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
         color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
       {
         name: 'RTL Mode',
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: -nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: -nodeSpacing * 2 + positionZ,
         color: 0xd946ef, // Fuchsia-500 - Output layer (front)
         type: 'output',
       },
@@ -574,7 +619,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     const connections: [number, number][] = []
 
     // Input layer (0-8: 3x3 grid) to Hidden layer 1 (9-20: 12 nodes) - clear layer connections
-    const inputToHidden1 = [
+    const inputToHidden1: [number, number][] = [
       // Each input connects to 3-4 hidden nodes in a pattern
       [0, 9],
       [0, 10],
@@ -617,7 +662,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     connections.push(...inputToHidden1)
 
     // Processing layer (9-20: 12 nodes) to Control layer (30-33: 4 nodes) - ensure all nodes connected
-    const processingToControl = [
+    const processingToControl: [number, number][] = [
       // Each processing node connects to 2-3 control nodes
       [9, 30],
       [9, 31],
@@ -654,7 +699,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     connections.push(...processingToControl)
 
     // Control layer (30-33: 4 nodes) to Intelligence layer (21-29: 9 nodes) - ensure all nodes connected
-    const controlToIntelligence = [
+    const controlToIntelligence: [number, number][] = [
       // Each control node connects to multiple intelligence nodes
       [30, 21],
       [30, 22],
@@ -678,7 +723,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     connections.push(...controlToIntelligence)
 
     // Intelligence layer (21-29: 9 nodes) to Output layer (34-43: 10 nodes) - ensure all outputs connected
-    const intelligenceToOutput = [
+    const intelligenceToOutput: [number, number][] = [
       // Each intelligence node connects to multiple output nodes
       [21, 34],
       [21, 35],
@@ -787,12 +832,16 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     let isDraggingInternal = false
     let dragStartX = 0
     let dragStartY = 0
+    let isRotationMode = false
 
     const handleMouseDown = (event: MouseEvent) => {
       if (!interactive) return
       isDraggingInternal = true
       dragStartX = event.clientX
       dragStartY = event.clientY
+      isRotationMode =
+        event.shiftKey || event.button === 1 || event.button === 2 // Shift key, middle mouse button, or right mouse button
+
       setIsDragging(true)
     }
 
@@ -804,20 +853,41 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         const deltaX = event.clientX - dragStartX
         const deltaY = event.clientY - dragStartY
 
-        // Update network position based on drag
-        setXOffset(prev => prev + deltaX * 0.1)
-        setYOffset(prev => prev - deltaY * 0.1)
+        // Only update if there's significant movement to avoid jittery updates
+        if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
+          if (isRotationMode) {
+            // Rotation mode: update rotation values with smaller increments for smoother control
+            if (onRotationChange) {
+              requestAnimationFrame(() => {
+                onRotationChange(-deltaY * 0.3, deltaX * 0.3, 0)
+              })
+            }
+          } else {
+            // Position mode: update position values with smaller increments for smoother control
+            if (onOffsetChange) {
+              requestAnimationFrame(() => {
+                onOffsetChange(deltaX * 0.05, -deltaY * 0.05, 0)
+              })
+            }
+          }
 
-        // Update drag start position
-        dragStartX = event.clientX
-        dragStartY = event.clientY
+          // Update drag start position
+          dragStartX = event.clientX
+          dragStartY = event.clientY
+        }
       }
     }
 
     const handleMouseUp = () => {
       if (!interactive) return
       isDraggingInternal = false
+      isRotationMode = false
       setIsDragging(false)
+    }
+
+    const handleContextMenu = (event: MouseEvent) => {
+      if (!interactive) return
+      event.preventDefault() // Prevent context menu on right-click drag
     }
 
     // Only add custom mouse handlers if rotation is disabled
@@ -825,6 +895,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       window.addEventListener('mousedown', handleMouseDown)
       window.addEventListener('mousemove', handleMouseMove)
       window.addEventListener('mouseup', handleMouseUp)
+      window.addEventListener('contextmenu', handleContextMenu)
     }
 
     // Animation loop
@@ -849,9 +920,12 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         // const parallaxX = (mousePosition.x - 0.5) * parallaxStrength
         // const parallaxY = (mousePosition.y - 0.5) * parallaxStrength * 0.3
 
-        // Apply just base rotation and breathing - stable and smooth
-        scene.rotation.y = baseRotationY + breathingY
-        scene.rotation.x = baseRotationX + breathingX
+        // Apply just base rotation and breathing - stable and smooth + external rotation
+        scene.rotation.x =
+          baseRotationX + breathingX + THREE.MathUtils.degToRad(rotationX)
+        scene.rotation.y =
+          baseRotationY + breathingY + THREE.MathUtils.degToRad(rotationY)
+        scene.rotation.z = THREE.MathUtils.degToRad(rotationZ)
       }
 
       // Gentle node box animation with slow drift for background layer
@@ -988,6 +1062,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         window.removeEventListener('mousedown', handleMouseDown)
         window.removeEventListener('mousemove', handleMouseMove)
         window.removeEventListener('mouseup', handleMouseUp)
+        window.removeEventListener('contextmenu', handleContextMenu)
       }
       // if (cinematicMode) {
       //   window.removeEventListener('mousemove', handleParallaxMouseMove)
@@ -1021,12 +1096,18 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     inputLayerSpacing,
     layerSpacing,
     nodeSpacing,
-    xOffset,
-    yOffset,
-    zOffset,
+    positionX,
+    positionY,
+    positionZ,
     cinematicMode,
     positionShift,
     verticalShift,
+    rotationX,
+    rotationY,
+    rotationZ,
+    positionX,
+    positionY,
+    positionZ,
     // mousePosition.x,
     // mousePosition.y,
   ])
@@ -1040,7 +1121,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       // Maintain cinematic positioning
       const finalCameraDistance = externalCameraDistance || cameraDistance
       const offsetX = finalCameraDistance * 0.8 + cameraXOffset
-      const offsetY = finalCameraDistance * 0.3 + yOffset
+      const offsetY = finalCameraDistance * 0.3 + positionY
       const offsetZ = finalCameraDistance * 0.8
       cameraRef.current.position.set(offsetX, offsetY, offsetZ)
 
@@ -1057,13 +1138,37 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         controlsRef.current.target.set(-4 + positionShift, verticalShift, 0)
       }
     } else {
-      cameraRef.current.position.set(cameraXOffset, yOffset, cameraDistance)
+      cameraRef.current.position.set(cameraXOffset, positionY, cameraDistance)
       cameraRef.current.lookAt(0, 0, 0)
     }
 
-    // Update wireframe container position (invisible reference)
+    // Update bounding box position and size based on current network bounds
     if (containerWireframeRef.current) {
-      containerWireframeRef.current.position.set(0, 0, 0)
+      // Recalculate network bounds with current positions
+      const networkMinX = layerSpacing * -1.75 + positionX
+      const networkMaxX = layerSpacing * 3 + positionX
+      const networkMinY = -nodeSpacing * 2 + positionY
+      const networkMaxY = nodeSpacing * 2 + positionY
+      const networkMinZ = -nodeSpacing * 2 + positionZ
+      const networkMaxZ = nodeSpacing * 2 + positionZ
+
+      // Update bounding box position to center of network
+      const centerX = (networkMinX + networkMaxX) / 2
+      const centerY = (networkMinY + networkMaxY) / 2
+      const centerZ = (networkMinZ + networkMaxZ) / 2
+      containerWireframeRef.current.position.set(centerX, centerY, centerZ)
+
+      // Update bounding box scale to match current network size
+      const networkWidth = networkMaxX - networkMinX
+      const networkHeight = networkMaxY - networkMinY
+      const networkDepth = networkMaxZ - networkMinZ
+
+      // Update scale to match new bounds (unit cube scaled to actual dimensions)
+      containerWireframeRef.current.scale.set(
+        networkWidth,
+        networkHeight,
+        networkDepth
+      )
     }
 
     // Fixed center offset to keep visualization stable when spacing changes
@@ -1074,216 +1179,228 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     const basePositions = [
       // Input Layer (3x3 grid = 9 nodes)
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: 0 + positionZ,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: nodeSpacing + zOffset,
-      },
-      { x: layerSpacing * -1.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
-      {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * -1.75 + positionX,
+        y: 0 + positionY,
+        z: 0 + positionZ,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: -nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -1.75 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
+      },
+      {
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: 0 + positionZ,
+      },
+      {
+        x: layerSpacing * -1.75 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
       },
       // Hidden Layer 1 (12 nodes) - Processing Layer - 4x3 grid
       {
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: nodeSpacing * 2 + positionZ,
       },
       {
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: 0 + positionZ,
       },
       {
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: -nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: nodeSpacing * 2 + positionZ,
       },
       {
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: nodeSpacing + zOffset,
-      },
-      { x: layerSpacing * 0.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
-      {
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 0.75 + positionX,
+        y: 0 + positionY,
+        z: 0 + positionZ,
       },
       {
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: -nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: nodeSpacing * 2 + positionZ,
       },
       {
-        x: layerSpacing * 0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: nodeSpacing + positionZ,
+      },
+      {
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: 0 + positionZ,
+      },
+      {
+        x: layerSpacing * 0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: -nodeSpacing + positionZ,
       },
       // Hidden Layer 2 (9 nodes) - Intelligence Layer - 3x3 grid
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: 0 + positionZ,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: nodeSpacing * 2 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: nodeSpacing * 2 + positionY,
+        z: -nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: nodeSpacing + zOffset,
-      },
-      { x: layerSpacing * -0.75 + xOffset, y: 0 + yOffset, z: 0 + zOffset },
-      {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: 0 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * -0.75 + positionX,
+        y: 0 + positionY,
+        z: 0 + positionZ,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: 0 + positionY,
+        z: -nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -0.75 + centerOffset + xOffset,
-        y: -nodeSpacing * 2 + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: nodeSpacing + positionZ,
+      },
+      {
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: 0 + positionZ,
+      },
+      {
+        x: layerSpacing * -0.75 + centerOffset + positionX,
+        y: -nodeSpacing * 2 + positionY,
+        z: -nodeSpacing + positionZ,
       },
       // Hidden Layer 3 (4 nodes) - Control Layer (2x2 grid)
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 1.75 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 1.75 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 1.75 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 1.75 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 1.75 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
       },
       // Output Layer (10 nodes) - 5x2 grid
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: nodeSpacing * 2 + positionZ,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: 0 + positionZ,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: nodeSpacing + yOffset,
-        z: -nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: nodeSpacing + positionY,
+        z: -nodeSpacing * 2 + positionZ,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: nodeSpacing * 2 + positionZ,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: nodeSpacing + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: 0 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: 0 + positionZ,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: -nodeSpacing + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: -nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 3 + centerOffset + xOffset,
-        y: -nodeSpacing + yOffset,
-        z: -nodeSpacing * 2 + zOffset,
+        x: layerSpacing * 3 + centerOffset + positionX,
+        y: -nodeSpacing + positionY,
+        z: -nodeSpacing * 2 + positionZ,
       },
     ]
 
@@ -1466,9 +1583,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       }
     })
   }, [
-    xOffset,
-    yOffset,
-    zOffset,
+    positionX,
+    positionY,
+    positionZ,
     cameraXOffset,
     layerSpacing,
     nodeSpacing,
@@ -1487,12 +1604,29 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     }
   }, [enableRotation])
 
-  // Update internal layerSpacing when external prop changes
+  // Handle bounding box visibility changes
   useEffect(() => {
-    if (externalLayerSpacing !== undefined) {
-      setLayerSpacing(externalLayerSpacing)
+    if (containerWireframeRef.current && sceneRef.current) {
+      if (showBoundingBox) {
+        // Add bounding box to scene if not already present
+        if (
+          !sceneRef.current.children.includes(containerWireframeRef.current)
+        ) {
+          sceneRef.current.add(containerWireframeRef.current)
+        }
+      } else {
+        // Remove bounding box from scene
+        sceneRef.current.remove(containerWireframeRef.current)
+      }
     }
-  }, [externalLayerSpacing])
+  }, [showBoundingBox])
+
+  // Sync external offset values with internal state
+  // useEffect(() => {
+  //   setXOffset(externalXOffset)
+  //   setYOffset(externalYOffset)
+  //   setZOffset(externalZOffset)
+  // }, [externalXOffset, externalYOffset, externalZOffset])
 
   return (
     <div className='relative w-full h-full'>
@@ -1504,144 +1638,6 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
           background: 'transparent',
         }}
       />
-
-      {/* Controls Toggle Button */}
-      <button
-        onClick={() => setShowControls(!showControls)}
-        className='absolute top-4 right-4 px-3 py-2 text-xs font-mono bg-tech-dark/80 text-tech-teal border border-tech-teal/20 rounded hover:bg-tech-teal/10 transition-all'
-      >
-        {showControls ? 'Hide Controls' : 'Show Controls'}
-      </button>
-
-      {/* Position Control Sliders */}
-      {showControls && (
-        <div className='absolute top-16 right-4 text-xs text-tech-text-muted font-mono bg-tech-dark/80 px-3 py-2 rounded border border-tech-teal/20'>
-          <div className='mb-2 text-tech-teal font-semibold'>
-            Network Position
-          </div>
-          <div className='flex flex-col gap-2 w-48'>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>X: {xOffset}</label>
-              <input
-                type='range'
-                min='-50'
-                max='50'
-                step='0.5'
-                value={xOffset}
-                onChange={e => setXOffset(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Y: {yOffset}</label>
-              <input
-                type='range'
-                min='-50'
-                max='50'
-                step='0.5'
-                value={yOffset}
-                onChange={e => setYOffset(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Z: {zOffset}</label>
-              <input
-                type='range'
-                min='-50'
-                max='50'
-                step='0.5'
-                value={zOffset}
-                onChange={e => setZOffset(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Cam: {cameraXOffset}</label>
-              <input
-                type='range'
-                min='-50'
-                max='50'
-                step='0.5'
-                value={cameraXOffset}
-                onChange={e => setCameraXOffset(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Spacing Control Sliders */}
-      {showControls && (
-        <div
-          className='absolute top-16 right-4 text-xs text-tech-text-muted font-mono bg-tech-dark/80 px-3 py-2 rounded border border-tech-teal/20'
-          style={{ top: '212px' }}
-        >
-          <div className='mb-2 text-tech-teal font-semibold'>
-            Network Spacing
-          </div>
-          <div className='flex flex-col gap-2 w-48'>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Layer: {layerSpacing}</label>
-              <input
-                type='range'
-                min='1'
-                max='10'
-                step='0.5'
-                value={layerSpacing}
-                onChange={e => setLayerSpacing(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Node: {nodeSpacing}</label>
-              <input
-                type='range'
-                min='0.5'
-                max='4'
-                step='0.1'
-                value={nodeSpacing}
-                onChange={e => setNodeSpacing(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Input: {inputLayerSpacing}</label>
-              <input
-                type='range'
-                min='0.5'
-                max='3'
-                step='0.1'
-                value={inputLayerSpacing}
-                onChange={e => setInputLayerSpacing(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Dist: {cameraDistance}</label>
-              <input
-                type='range'
-                min='5'
-                max='30'
-                step='1'
-                value={cameraDistance}
-                onChange={e => setCameraDistance(Number(e.target.value))}
-                className='flex-1 h-1 bg-tech-dark rounded-lg appearance-none cursor-pointer'
-              />
-            </div>
-            <div className='flex items-center gap-2'>
-              <label className='w-12'>Rotate</label>
-              <input
-                type='checkbox'
-                checked={enableRotation}
-                onChange={e => setEnableRotation(e.target.checked)}
-                className='w-4 h-4 bg-tech-dark rounded border border-tech-teal/30'
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
