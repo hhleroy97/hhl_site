@@ -87,33 +87,14 @@ export default function LandingPage() {
                 >
                   Hi, I'm...
                 </div>
-                <div className='relative'>
-                  {/* Main name text */}
-                  <div
-                    className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
-                    style={{
-                      lineHeight: '1',
-                    }}
-                  >
-                    <span style={{ color: '#d946ef' }}>Hartley</span>{' '}
-                    <span style={{ color: '#22d3ee' }}>LeRoy</span>
-                  </div>
-
-                  {/* Background pattern overlay text - see through effect */}
-                  <div
-                    className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight absolute top-0 left-0 z-40 text-left pointer-events-none'
-                    style={{
-                      lineHeight: '1',
-                      backgroundImage:
-                        'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)',
-                      backgroundSize: '50px 50px',
-                      WebkitBackgroundClip: 'text',
-                      backgroundClip: 'text',
-                      color: 'transparent',
-                    }}
-                  >
-                    <span>Hartley</span> <span>LeRoy</span>
-                  </div>
+                <div
+                  className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
+                  style={{
+                    lineHeight: '1',
+                  }}
+                >
+                  <span style={{ color: '#d946ef' }}>Hartley</span>{' '}
+                  <span style={{ color: '#22d3ee' }}>LeRoy</span>
                 </div>
 
                 {/* Sleek underline positioned below name */}
