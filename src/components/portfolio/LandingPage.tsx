@@ -23,150 +23,142 @@ export default function LandingPage() {
   return (
     <section
       id='hero'
-      className={`relative min-h-screen py-12 overflow-hidden ${showBorders ? 'border-4 border-white' : ''}`}
+      className={`relative min-h-screen py-12 overflow-hidden flex justify-center ${showBorders ? 'border-4 border-white' : ''}`}
     >
-      {/* Full-width content section with centered container */}
+      {/* Main content container - 80% width */}
       <div
-        className={`relative z-20 pointer-events-none w-full pt-8 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-[80%] pt-8 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
       >
+        {/* Greeting and Name container */}
         <div
-          className={`w-full overflow-visible ${showBorders ? 'border-4 border-yellow-500' : ''}`}
+          className={`text-center overflow-visible ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
-          <div
-            className={`w-full overflow-visible ${showBorders ? 'border-4 border-magenta-500' : ''}`}
-          >
-            {/* Greeting and Name container */}
-            <div
-              className={`text-center overflow-visible ${showBorders ? 'border-4 border-emerald-500' : ''}`}
-            >
-              <div className='inline-block text-left'>
-                {/* Greeting */}
-                <motion.div
-                  className={`w-full text-left mb-0 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.1, duration: 0.8 }}
-                >
-                  <div className='text-2xl md:text-3xl text-zinc-400 font-bold'>
-                    Hi, I'm...
-                  </div>
-                </motion.div>
-
-                {/* Name section */}
-                <motion.div
-                  className={`text-left relative inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.8 }}
-                >
-                  {/* Colored name text */}
-                  <div
-                    className='font-bold tracking-tight relative z-50 text-left'
-                    style={{
-                      lineHeight: '1',
-                      fontSize: 'clamp(7.5rem, 15vw, 12.5rem)',
-                      background:
-                        'linear-gradient(90deg, #d946ef 0%, #22d3ee 100%)',
-                      backgroundClip: 'text',
-                      WebkitBackgroundClip: 'text',
-                      color: 'transparent',
-                    }}
-                  >
-                    <span>
-                      <span style={{ fontSize: '1.1em' }}>H</span>
-                      <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
-                    </span>{' '}
-                    <span>
-                      <span style={{ fontSize: '1.1em' }}>L</span>
-                      <span style={{ fontSize: '0.8em' }}>E</span>
-                      <span style={{ fontSize: '1.1em' }}>R</span>
-                      <span style={{ fontSize: '0.8em' }}>OY</span>
-                    </span>
-                  </div>
-
-                  {/* Background color overlay text */}
-                  {showOverlayText && (
-                    <div
-                      className='font-bold tracking-tight absolute pointer-events-none'
-                      style={{
-                        lineHeight: '1',
-                        fontSize: 'clamp(7.5rem, 15vw, 12.5rem)',
-                        color: 'rgb(24, 24, 27)',
-                        zIndex: 100,
-                        top: `${overlayOffsetY}px`,
-                        left: `${overlayOffsetX}px`,
-                      }}
-                    >
-                      <span>
-                        <span style={{ fontSize: '1.1em' }}>H</span>
-                        <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
-                      </span>{' '}
-                      <span>
-                        <span style={{ fontSize: '1.1em' }}>L</span>
-                        <span style={{ fontSize: '0.8em' }}>E</span>
-                        <span style={{ fontSize: '1.1em' }}>R</span>
-                        <span style={{ fontSize: '0.8em' }}>OY</span>
-                      </span>
-                    </div>
-                  )}
-                </motion.div>
-              </div>
-            </div>
-
-            {/* Role/Title - Above Interactive Elements */}
-            <motion.p
-              className={`text-2xl md:text-3xl text-zinc-300 font-light text-center mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+          <div className='inline-block text-left'>
+            {/* Greeting */}
+            <motion.div
+              className={`w-full text-left mb-0 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
+              transition={{ delay: 0.1, duration: 0.8 }}
             >
-              <span className='font-bold'>Cloud & Creative Engineer</span> —
-              Crafting end-to-end systems from edge to interface.
-            </motion.p>
-
-            {/* Interactive Elements - Two Column Layout */}
-            <div
-              className={`grid grid-cols-2 w-full px-8 ${showBorders ? 'border-4 border-orange-500' : ''}`}
-            >
-              <div className='w-full h-full flex justify-end'>
-                <InteractiveElements showBorders={showBorders} />
+              <div className='text-2xl md:text-3xl text-zinc-400 font-bold'>
+                Hi, I'm...
               </div>
-              {/* Neural Network Visualization */}
-              <motion.div
-                className={`w-[85%] h-full pointer-events-auto ${showBorders ? 'border-4 border-lime-500' : ''}`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5, duration: 1 }}
+            </motion.div>
+
+            {/* Name section */}
+            <motion.div
+              className={`text-left relative inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              {/* Colored name text */}
+              <div
+                className='font-bold tracking-tight relative z-50 text-left'
+                style={{
+                  lineHeight: '1',
+                  fontSize: 'clamp(7.5rem, 15vw, 12.5rem)',
+                  background:
+                    'linear-gradient(90deg, #d946ef 0%, #22d3ee 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                }}
               >
-                <DataPipeline
-                  className='w-full h-full'
-                  layerSpacing={layerDistance}
-                  positionShift={positionShift}
-                  verticalShift={verticalShift}
-                  cinematicMode={false}
-                  interactive={true}
-                  rotationX={rotationX}
-                  rotationY={rotationY}
-                  rotationZ={rotationZ}
-                  positionX={positionX}
-                  positionY={positionY}
-                  positionZ={positionZ}
-                  onOffsetChange={(x, y, z) => {
-                    setPositionX(prev => prev + x)
-                    setPositionY(prev => prev + y)
-                    setPositionZ(prev => prev + z)
+                <span>
+                  <span style={{ fontSize: '1.1em' }}>H</span>
+                  <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
+                </span>{' '}
+                <span>
+                  <span style={{ fontSize: '1.1em' }}>L</span>
+                  <span style={{ fontSize: '0.8em' }}>E</span>
+                  <span style={{ fontSize: '1.1em' }}>R</span>
+                  <span style={{ fontSize: '0.8em' }}>OY</span>
+                </span>
+              </div>
+
+              {/* Background color overlay text */}
+              {showOverlayText && (
+                <div
+                  className='font-bold tracking-tight absolute pointer-events-none'
+                  style={{
+                    lineHeight: '1',
+                    fontSize: 'clamp(7.5rem, 15vw, 12.5rem)',
+                    color: 'rgb(24, 24, 27)',
+                    zIndex: 100,
+                    top: `${overlayOffsetY}px`,
+                    left: `${overlayOffsetX}px`,
                   }}
-                  onRotationChange={(x, y, z) => {
-                    setRotationX(prev => prev + x)
-                    setRotationY(prev => prev + y)
-                    setRotationZ(prev => prev + z)
-                  }}
-                  showBoundingBox={showBoundingBox}
-                  showOriginMarker={showOriginMarker}
-                />
-              </motion.div>
-            </div>
+                >
+                  <span>
+                    <span style={{ fontSize: '1.1em' }}>H</span>
+                    <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
+                  </span>{' '}
+                  <span>
+                    <span style={{ fontSize: '1.1em' }}>L</span>
+                    <span style={{ fontSize: '0.8em' }}>E</span>
+                    <span style={{ fontSize: '1.1em' }}>R</span>
+                    <span style={{ fontSize: '0.8em' }}>OY</span>
+                  </span>
+                </div>
+              )}
+            </motion.div>
           </div>
+        </div>
+
+        {/* Role/Title - Above Interactive Elements */}
+        <motion.p
+          className={`text-2xl md:text-3xl text-zinc-300 font-light text-center mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+        >
+          <span className='font-bold'>Cloud & Creative Engineer</span> —
+          Crafting end-to-end systems from edge to interface.
+        </motion.p>
+
+        {/* Interactive Elements - Two Column Layout */}
+        <div
+          className={`grid grid-cols-2 w-full ${showBorders ? 'border-4 border-orange-500' : ''}`}
+        >
+          <div className='w-full h-full flex justify-end'>
+            <InteractiveElements showBorders={showBorders} />
+          </div>
+          {/* Neural Network Visualization */}
+          <motion.div
+            className={`w-[85%] h-full pointer-events-auto ${showBorders ? 'border-4 border-lime-500' : ''}`}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+          >
+            <DataPipeline
+              className='w-full h-full'
+              layerSpacing={layerDistance}
+              positionShift={positionShift}
+              verticalShift={verticalShift}
+              cinematicMode={false}
+              interactive={true}
+              rotationX={rotationX}
+              rotationY={rotationY}
+              rotationZ={rotationZ}
+              positionX={positionX}
+              positionY={positionY}
+              positionZ={positionZ}
+              onOffsetChange={(x, y, z) => {
+                setPositionX(prev => prev + x)
+                setPositionY(prev => prev + y)
+                setPositionZ(prev => prev + z)
+              }}
+              onRotationChange={(x, y, z) => {
+                setRotationX(prev => prev + x)
+                setRotationY(prev => prev + y)
+                setRotationZ(prev => prev + z)
+              }}
+              showBoundingBox={showBoundingBox}
+              showOriginMarker={showOriginMarker}
+            />
+          </motion.div>
         </div>
       </div>
 
