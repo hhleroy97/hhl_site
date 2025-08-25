@@ -107,7 +107,8 @@ export default function LandingPage() {
                     className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight absolute top-0 left-0 z-60 text-left pointer-events-none'
                     style={{
                       lineHeight: '1',
-                      color: 'black',
+                      color: '#000000',
+                      opacity: 0.8,
                     }}
                   >
                     <span>Hartley</span> <span>LeRoy</span>
