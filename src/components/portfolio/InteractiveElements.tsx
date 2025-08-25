@@ -9,7 +9,7 @@ export default function InteractiveElements({
 }: InteractiveElementsProps) {
   return (
     <motion.div
-      className={`flex flex-col gap-3 mb-8 w-[55%] mt-8 ${showBorders ? 'border-4 border-cyan-400' : ''}`}
+      className={`flex flex-col gap-3 w-full h-full ${showBorders ? 'border-4 border-cyan-400' : ''}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.8, duration: 0.8 }}
@@ -94,7 +94,7 @@ export default function InteractiveElements({
           <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:via-white/60 transition-all duration-300' />
 
           <div className='relative z-10'>
-            <div className='text-2xl md:text-3xl font-light text-white leading-relaxed mb-4'>
+            <div className='text-2xl md:text-3xl font-light text-white leading-relaxed mb-4 text-left'>
               Turning data into{' '}
               <span className='text-cyan-400 font-bold'>art</span>,{' '}
               <span className='text-fuchsia-400 font-bold'>insights</span>, and{' '}

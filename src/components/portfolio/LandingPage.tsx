@@ -8,128 +8,158 @@ export default function LandingPage() {
   const [positionShift, setPositionShift] = useState(0)
   const [verticalShift, setVerticalShift] = useState(0)
   const [showBorders, setShowBorders] = useState(false)
-  const [rotationX, setRotationX] = useState(8)
-  const [rotationY, setRotationY] = useState(-30)
+  const [rotationX, setRotationX] = useState(0)
+  const [rotationY, setRotationY] = useState(0)
   const [rotationZ, setRotationZ] = useState(0)
-  const [positionX, setPositionX] = useState(3.7)
-  const [positionY, setPositionY] = useState(-0.9)
-  const [positionZ, setPositionZ] = useState(-1.6)
+  const [positionX, setPositionX] = useState(0)
+  const [positionY, setPositionY] = useState(0)
+  const [positionZ, setPositionZ] = useState(-10)
   const [showBoundingBox, setShowBoundingBox] = useState(false)
-  const [controlsMinimized, setControlsMinimized] = useState(false)
+  const [controlsMinimized, setControlsMinimized] = useState(true)
+  const [overlayOffsetX, setOverlayOffsetX] = useState(-7)
+  const [overlayOffsetY, setOverlayOffsetY] = useState(-3.5)
+  const [showOverlayText, setShowOverlayText] = useState(false)
+  const [showOriginMarker, setShowOriginMarker] = useState(false)
+  const [nameTagOffsetX, setNameTagOffsetX] = useState(-15)
   return (
     <section
       id='hero'
-      className={`relative min-h-screen py-12 overflow-hidden ${showBorders ? 'border-4 border-white' : ''}`}
+      className={`relative min-h-screen py-12 overflow-hidden flex justify-center ${showBorders ? 'border-4 border-white' : ''}`}
     >
-      {/* Interactive Data Pipeline Visualization - Main Layer */}
+      {/* Main content container - 80% width */}
       <div
-        className={`absolute inset-0 z-10 ${showBorders ? 'border-4 border-red-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-[80%] pt-8 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
       >
-        <motion.div
-          className={`w-full h-full ${showBorders ? 'border-4 border-lime-500' : ''}`}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-        >
-          <DataPipeline
-            className='w-full h-full'
-            layerSpacing={layerDistance}
-            positionShift={positionShift}
-            verticalShift={verticalShift}
-            cinematicMode={true}
-            interactive={true}
-            rotationX={rotationX}
-            rotationY={rotationY}
-            rotationZ={rotationZ}
-            positionX={positionX}
-            positionY={positionY}
-            positionZ={positionZ}
-            onOffsetChange={(x, y, z) => {
-              setPositionX(prev => prev + x)
-              setPositionY(prev => prev + y)
-              setPositionZ(prev => prev + z)
-            }}
-            onRotationChange={(x, y, z) => {
-              setRotationX(prev => prev + x)
-              setRotationY(prev => prev + y)
-              setRotationZ(prev => prev + z)
-            }}
-            showBoundingBox={showBoundingBox}
-          />
-        </motion.div>
-      </div>
-
-      {/* Full-width content section with centered container */}
-      <div
-        className={`relative z-20 pointer-events-none w-full pt-8 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
-      >
+        {/* Greeting and Name container */}
         <div
-          className={`w-full flex justify-center px-4 md:px-8 overflow-visible ${showBorders ? 'border-4 border-yellow-500' : ''}`}
+          className={`text-left overflow-visible ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
-          <div
-            className={`w-full max-w-7xl overflow-visible ${showBorders ? 'border-4 border-magenta-500' : ''}`}
-          >
+          <div className='inline-block text-left'>
+            {/* Greeting */}
             <motion.div
-              className={`space-y-6 overflow-visible ${showBorders ? 'border-4 border-orange-500' : ''}`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              className={`w-full text-left mb-0 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.8 }}
             >
-              {/* Greeting and Name - Left aligned */}
-              <motion.div
-                className='text-left relative overflow-visible'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.1, duration: 0.8 }}
-              >
-                <div
-                  className={`text-2xl md:text-3xl text-zinc-400 font-bold text-left mb-2 ml-0 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
-                >
-                  Hi, I'm...
-                </div>
-                <div
-                  className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
-                  style={{
-                    lineHeight: '1',
-                  }}
-                >
-                  <span style={{ color: '#d946ef' }}>Hartley</span>{' '}
-                  <span style={{ color: '#22d3ee' }}>LeRoy</span>
-                </div>
-
-                {/* Sleek underline positioned below name */}
-                <motion.div
-                  className='absolute w-full h-1'
-                  initial={{ scaleX: 0, opacity: 0 }}
-                  animate={{ scaleX: 1, opacity: 1 }}
-                  transition={{ delay: 0.8, duration: 1.2, ease: 'easeOut' }}
-                  style={{
-                    bottom: '0px',
-                    left: '-10%',
-                    transformOrigin: 'center',
-                    width: '120%',
-                    zIndex: 0,
-                    background:
-                      'linear-gradient(to right, transparent 0%, #9ca3af 20%, #e5e7eb 80%, transparent 100%)',
-                  }}
-                />
-              </motion.div>
-
-              {/* Role/Title - Left aligned */}
-              <motion.p
-                className={`text-2xl md:text-3xl text-zinc-300 font-light text-left mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-              >
-                <span className='font-bold'>Cloud & Creative Engineer</span> —
-                Crafting end-to-end systems from edge to interface.
-              </motion.p>
+              <div className='text-2xl md:text-3xl text-zinc-200 font-bold'>
+                Hi, I'm ...
+              </div>
             </motion.div>
 
-            {/* Interactive Elements */}
+            {/* Name section */}
+            <motion.div
+              className={`text-left relative inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
+              initial={{ opacity: 0, y: 30, x: 0 }}
+              animate={{ opacity: 1, y: 0, x: nameTagOffsetX }}
+              transition={{ delay: 0.2, duration: 0.8, x: { duration: 0.1 } }}
+            >
+              {/* Colored name text */}
+              <div
+                className='font-bold tracking-tight relative z-50 text-left'
+                style={{
+                  lineHeight: '1',
+                  fontSize: 'clamp(7.5rem, 15vw, 12.5rem)',
+                  background:
+                    'linear-gradient(90deg, #d946ef 0%, #22d3ee 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                }}
+              >
+                <span>
+                  <span style={{ fontSize: '1.1em' }}>H</span>
+                  <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
+                </span>{' '}
+                <span>
+                  <span style={{ fontSize: '1.1em' }}>L</span>
+                  <span style={{ fontSize: '0.8em' }}>E</span>
+                  <span style={{ fontSize: '1.1em' }}>R</span>
+                  <span style={{ fontSize: '0.8em' }}>OY</span>
+                </span>
+              </div>
+
+              {/* Background color overlay text */}
+              {showOverlayText && (
+                <div
+                  className='font-bold tracking-tight absolute pointer-events-none'
+                  style={{
+                    lineHeight: '1',
+                    fontSize: 'clamp(7.5rem, 15vw, 12.5rem)',
+                    color: 'rgb(24, 24, 27)',
+                    zIndex: 100,
+                    top: `${overlayOffsetY}px`,
+                    left: `${overlayOffsetX}px`,
+                  }}
+                >
+                  <span>
+                    <span style={{ fontSize: '1.1em' }}>H</span>
+                    <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
+                  </span>{' '}
+                  <span>
+                    <span style={{ fontSize: '1.1em' }}>L</span>
+                    <span style={{ fontSize: '0.8em' }}>E</span>
+                    <span style={{ fontSize: '1.1em' }}>R</span>
+                    <span style={{ fontSize: '0.8em' }}>OY</span>
+                  </span>
+                </div>
+              )}
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Role/Title - Above Interactive Elements */}
+        <motion.p
+          className={`text-2xl md:text-3xl text-zinc-200 font-light text-left mb-8 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+        >
+          <span className='font-bold'>Cloud & Creative Engineer</span> —
+          Crafting end-to-end systems from edge to interface.
+        </motion.p>
+
+        {/* Interactive Elements - Two Column Layout */}
+        <div
+          className={`grid grid-cols-2 w-full ${showBorders ? 'border-4 border-orange-500' : ''}`}
+        >
+          <div className='w-full h-full'>
             <InteractiveElements showBorders={showBorders} />
           </div>
+          {/* Neural Network Visualization */}
+          <motion.div
+            className={`w-full h-full pointer-events-auto ${showBorders ? 'border-4 border-lime-500' : ''}`}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+          >
+            <DataPipeline
+              className='w-full h-full'
+              layerSpacing={layerDistance}
+              positionShift={positionShift}
+              verticalShift={verticalShift}
+              cinematicMode={false}
+              interactive={true}
+              rotationX={rotationX}
+              rotationY={rotationY}
+              rotationZ={rotationZ}
+              positionX={positionX}
+              positionY={positionY}
+              positionZ={positionZ}
+              onOffsetChange={(x, y, z) => {
+                setPositionX(prev => prev + x)
+                setPositionY(prev => prev + y)
+                setPositionZ(prev => prev + z)
+              }}
+              onRotationChange={(x, y, z) => {
+                setRotationX(prev => prev + x)
+                setRotationY(prev => prev + y)
+                setRotationZ(prev => prev + z)
+              }}
+              showBoundingBox={showBoundingBox}
+              showOriginMarker={showOriginMarker}
+            />
+          </motion.div>
         </div>
       </div>
 
@@ -206,6 +236,15 @@ export default function LandingPage() {
                   </div>
                   <div className='text-emerald-400 text-center'>
                     Vertical: {verticalShift.toFixed(2)}
+                  </div>
+                  <div className='text-orange-400 text-center'>
+                    Overlay X: {overlayOffsetX.toFixed(1)}
+                  </div>
+                  <div className='text-pink-400 text-center'>
+                    Overlay Y: {overlayOffsetY.toFixed(1)}
+                  </div>
+                  <div className='text-yellow-400 text-center'>
+                    NameTag X: {nameTagOffsetX.toFixed(1)}
                   </div>
                 </div>
               </div>
@@ -320,6 +359,68 @@ export default function LandingPage() {
                 </div>
               </div>
 
+              {/* Name Tag Position Control */}
+              <div className='space-y-2'>
+                <h4 className='text-xs font-semibold text-gray-300'>
+                  Name Tag Position
+                </h4>
+
+                <div className='flex items-center gap-2'>
+                  <label className='text-xs text-yellow-400 w-4'>X:</label>
+                  <input
+                    type='range'
+                    min='-200'
+                    max='200'
+                    step='1'
+                    value={nameTagOffsetX}
+                    onChange={e => setNameTagOffsetX(Number(e.target.value))}
+                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
+                  />
+                  <span className='text-xs text-gray-400 w-8 text-right'>
+                    {nameTagOffsetX.toFixed(0)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Overlay Text Offset Controls */}
+              <div className='space-y-2'>
+                <h4 className='text-xs font-semibold text-gray-300'>
+                  Overlay Text Offset
+                </h4>
+
+                <div className='flex items-center gap-2'>
+                  <label className='text-xs text-orange-400 w-4'>X:</label>
+                  <input
+                    type='range'
+                    min='-50'
+                    max='50'
+                    step='0.5'
+                    value={overlayOffsetX}
+                    onChange={e => setOverlayOffsetX(Number(e.target.value))}
+                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
+                  />
+                  <span className='text-xs text-gray-400 w-8 text-right'>
+                    {overlayOffsetX.toFixed(1)}
+                  </span>
+                </div>
+
+                <div className='flex items-center gap-2'>
+                  <label className='text-xs text-pink-400 w-4'>Y:</label>
+                  <input
+                    type='range'
+                    min='-50'
+                    max='50'
+                    step='0.5'
+                    value={overlayOffsetY}
+                    onChange={e => setOverlayOffsetY(Number(e.target.value))}
+                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
+                  />
+                  <span className='text-xs text-gray-400 w-8 text-right'>
+                    {overlayOffsetY.toFixed(1)}
+                  </span>
+                </div>
+              </div>
+
               {/* Camera Reference Controls */}
               <div className='space-y-2'>
                 <h4 className='text-xs font-semibold text-gray-300'>
@@ -363,14 +464,17 @@ export default function LandingPage() {
               <div className='flex gap-2 pt-2'>
                 <button
                   onClick={() => {
-                    setPositionX(3.7)
-                    setPositionY(-0.9)
-                    setPositionZ(-1.6)
-                    setRotationX(8)
-                    setRotationY(-30)
+                    setPositionX(0)
+                    setPositionY(0)
+                    setPositionZ(-10)
+                    setRotationX(0)
+                    setRotationY(0)
                     setRotationZ(0)
-                    setPositionShift(-9.7)
-                    setVerticalShift(0.8)
+                    setPositionShift(0)
+                    setVerticalShift(0)
+                    setOverlayOffsetX(-7)
+                    setOverlayOffsetY(-3.5)
+                    setNameTagOffsetX(-15)
                   }}
                   className='flex-1 px-2 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded transition-colors'
                 >
@@ -419,6 +523,24 @@ export default function LandingPage() {
                 className='w-3 h-3 text-red-500 bg-gray-700 border-gray-600 rounded focus:ring-red-500 focus:ring-2'
               />
               Show Bounding Box
+            </label>
+            <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
+              <input
+                type='checkbox'
+                checked={showOverlayText}
+                onChange={e => setShowOverlayText(e.target.checked)}
+                className='w-3 h-3 text-purple-500 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2'
+              />
+              Show Overlay Text
+            </label>
+            <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
+              <input
+                type='checkbox'
+                checked={showOriginMarker}
+                onChange={e => setShowOriginMarker(e.target.checked)}
+                className='w-3 h-3 text-red-500 bg-gray-700 border-gray-600 rounded focus:ring-red-500 focus:ring-2'
+              />
+              Show Origin Marker
             </label>
           </div>
         </div>
