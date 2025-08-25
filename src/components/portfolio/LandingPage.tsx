@@ -19,7 +19,7 @@ export default function LandingPage() {
   const [overlayOffsetX, setOverlayOffsetX] = useState(-7)
   const [overlayOffsetY, setOverlayOffsetY] = useState(-3.5)
   const [showOverlayText, setShowOverlayText] = useState(false)
-  const [showOriginMarker, setShowOriginMarker] = useState(true)
+  const [showOriginMarker, setShowOriginMarker] = useState(false)
   return (
     <section
       id='hero'
