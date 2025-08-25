@@ -102,14 +102,13 @@ export default function LandingPage() {
                     <span style={{ color: '#22d3ee' }}>LeRoy</span>
                   </div>
 
-                  {/* Black duplicate text overlay */}
+                  {/* Grid color duplicate text overlay */}
                   <div
                     className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight absolute top-0 left-0 pointer-events-none'
                     style={{
                       lineHeight: '1',
-                      color: '#000000',
+                      color: 'rgba(6, 182, 212, 0.3)',
                       zIndex: 100,
-                      textShadow: '0 0 5px rgba(255,255,255,0.5)',
                     }}
                   >
                     <span>Hartley</span> <span>LeRoy</span>
