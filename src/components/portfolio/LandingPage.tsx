@@ -88,7 +88,9 @@ export default function LandingPage() {
                   Hi, I'm...
                 </div>
                 {/* Name text container for styling */}
-                <div className='name-container relative inline-block'>
+                <div
+                  className={`name-container relative inline-block ${showBorders ? 'border-4 border-purple-500' : ''}`}
+                >
                   <div
                     className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight relative z-50 text-left'
                     style={{
