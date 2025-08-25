@@ -111,16 +111,17 @@ export default function LandingPage() {
 
                   {/* Grid pattern overlay text - appears on top */}
                   <div
-                    className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight absolute top-0 left-0 z-60 text-left pointer-events-none'
+                    className='text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight absolute top-0 left-0 pointer-events-none'
                     style={{
                       lineHeight: '1',
-                      background: '#0f172a',
-                      backgroundImage:
-                        'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)',
-                      backgroundSize: '50px 50px',
+                      background:
+                        'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px), #0f172a',
+                      backgroundSize: '50px 50px, 50px 50px, 100%',
                       WebkitBackgroundClip: 'text',
                       backgroundClip: 'text',
                       color: 'transparent',
+                      zIndex: 100,
+                      textShadow: 'none',
                     }}
                   >
                     <span>Hartley</span> <span>LeRoy</span>
