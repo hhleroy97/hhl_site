@@ -66,79 +66,132 @@ export default function NewAbout() {
 
               <div className='grid md:grid-cols-2 gap-3'>
                 <motion.div
-                  className='p-3 bg-gradient-to-br from-purple-500/10 to-purple-600/5 rounded-lg border border-purple-500/20'
+                  className='group p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden relative'
+                  whileHover={{
+                    scale: 1.02,
+                    y: -2,
+                    borderColor: 'rgba(255, 255, 255, 0.4)',
+                    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
+                    transition: { duration: 0.3, ease: 'easeOut' },
+                  }}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  <div className='flex items-center gap-2 mb-2'>
-                    <div className='w-2 h-2 bg-purple-400 rounded-full'></div>
-                    <h4 className='text-base font-semibold text-purple-400'>
-                      Systems Thinking
-                    </h4>
+                  {/* Enhanced depth effects */}
+                  <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+                  <div className='absolute -top-8 -right-8 w-16 h-16 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+                  <div className='relative z-10'>
+                    <div className='flex items-center gap-2 mb-2'>
+                      <div className='w-2 h-2 bg-purple-400 rounded-full'></div>
+                      <h4 className='text-base font-semibold text-purple-400'>
+                        Systems Thinking
+                      </h4>
+                    </div>
+                    <p className='text-zinc-300 text-xs leading-relaxed'>
+                      I architect solutions that scale from prototypes to
+                      production, always considering the full ecosystem impact.
+                    </p>
                   </div>
-                  <p className='text-zinc-300 text-xs leading-relaxed'>
-                    I architect solutions that scale from prototypes to
-                    production, always considering the full ecosystem impact.
-                  </p>
                 </motion.div>
 
                 <motion.div
-                  className='p-3 bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 rounded-lg border border-cyan-500/20'
+                  className='group p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden relative'
+                  whileHover={{
+                    scale: 1.02,
+                    y: -2,
+                    borderColor: 'rgba(255, 255, 255, 0.4)',
+                    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
+                    transition: { duration: 0.3, ease: 'easeOut' },
+                  }}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4, duration: 0.6 }}
                 >
-                  <div className='flex items-center gap-2 mb-2'>
-                    <div className='w-2 h-2 bg-cyan-400 rounded-full'></div>
-                    <h4 className='text-base font-semibold text-cyan-400'>
-                      Creative Problem Solving
-                    </h4>
+                  {/* Enhanced depth effects */}
+                  <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+                  <div className='absolute -top-8 -right-8 w-16 h-16 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+                  <div className='relative z-10'>
+                    <div className='flex items-center gap-2 mb-2'>
+                      <div className='w-2 h-2 bg-cyan-400 rounded-full'></div>
+                      <h4 className='text-base font-semibold text-cyan-400'>
+                        Creative Problem Solving
+                      </h4>
+                    </div>
+                    <p className='text-zinc-300 text-xs leading-relaxed'>
+                      Every technical challenge is an opportunity for
+                      innovation. I thrive on finding elegant solutions to
+                      complex problems.
+                    </p>
                   </div>
-                  <p className='text-zinc-300 text-xs leading-relaxed'>
-                    Every technical challenge is an opportunity for innovation.
-                    I thrive on finding elegant solutions to complex problems.
-                  </p>
                 </motion.div>
 
                 <motion.div
-                  className='p-3 bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 rounded-lg border border-emerald-500/20'
+                  className='group p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden relative'
+                  whileHover={{
+                    scale: 1.02,
+                    y: -2,
+                    borderColor: 'rgba(255, 255, 255, 0.4)',
+                    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
+                    transition: { duration: 0.3, ease: 'easeOut' },
+                  }}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.6, duration: 0.6 }}
                 >
-                  <div className='flex items-center gap-2 mb-2'>
-                    <div className='w-2 h-2 bg-emerald-400 rounded-full'></div>
-                    <h4 className='text-base font-semibold text-emerald-400'>
-                      Cross-Domain Expertise
-                    </h4>
+                  {/* Enhanced depth effects */}
+                  <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+                  <div className='absolute -top-8 -right-8 w-16 h-16 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+                  <div className='relative z-10'>
+                    <div className='flex items-center gap-2 mb-2'>
+                      <div className='w-2 h-2 bg-emerald-400 rounded-full'></div>
+                      <h4 className='text-base font-semibold text-emerald-400'>
+                        Cross-Domain Expertise
+                      </h4>
+                    </div>
+                    <p className='text-zinc-300 text-xs leading-relaxed'>
+                      From robotics to cloud systems to interactive visuals, I
+                      bring diverse perspectives to every project.
+                    </p>
                   </div>
-                  <p className='text-zinc-300 text-xs leading-relaxed'>
-                    From robotics to cloud systems to interactive visuals, I
-                    bring diverse perspectives to every project.
-                  </p>
                 </motion.div>
 
                 <motion.div
-                  className='p-3 bg-gradient-to-br from-zinc-500/10 to-zinc-600/5 rounded-lg border border-zinc-500/20'
+                  className='group p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden relative'
+                  whileHover={{
+                    scale: 1.02,
+                    y: -2,
+                    borderColor: 'rgba(255, 255, 255, 0.4)',
+                    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
+                    transition: { duration: 0.3, ease: 'easeOut' },
+                  }}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.8, duration: 0.6 }}
                 >
-                  <div className='flex items-center gap-2 mb-2'>
-                    <div className='w-2 h-2 bg-zinc-400 rounded-full'></div>
-                    <h4 className='text-base font-semibold text-zinc-400'>
-                      Human-Centered Design
-                    </h4>
+                  {/* Enhanced depth effects */}
+                  <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+                  <div className='absolute -top-8 -right-8 w-16 h-16 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+                  <div className='relative z-10'>
+                    <div className='flex items-center gap-2 mb-2'>
+                      <div className='w-2 h-2 bg-zinc-400 rounded-full'></div>
+                      <h4 className='text-base font-semibold text-zinc-400'>
+                        Human-Centered Design
+                      </h4>
+                    </div>
+                    <p className='text-zinc-300 text-xs leading-relaxed'>
+                      Technology should serve people. I build systems that are
+                      both powerful and intuitive to use.
+                    </p>
                   </div>
-                  <p className='text-zinc-300 text-xs leading-relaxed'>
-                    Technology should serve people. I build systems that are
-                    both powerful and intuitive to use.
-                  </p>
                 </motion.div>
               </div>
             </div>
@@ -164,7 +217,6 @@ export default function NewAbout() {
                     className='w-full h-full object-cover object-center'
                     loading='lazy'
                     onLoad={e => {
-                      console.log('Profile image loaded successfully')
                       e.currentTarget.style.opacity = '1'
                     }}
                     onError={e => {

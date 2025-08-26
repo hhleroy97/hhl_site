@@ -53,12 +53,17 @@ export default function TechCard({
   if (variant === 'floating') {
     return (
       <motion.div
-        className={`relative bg-gradient-to-br from-zinc-900/80 via-zinc-900/60 to-zinc-900/80 border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} backdrop-blur-sm overflow-hidden ${className}`}
+        className={`relative bg-black/30 backdrop-blur-md border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} overflow-hidden ${className}`}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
+        {/* Enhanced depth effects */}
+        <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+        <div className='absolute -top-32 -right-32 w-64 h-64 bg-white/8 rounded-full blur-3xl pointer-events-none' />
+        <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent' />
+
         {/* Floating Tag Header */}
         <motion.div
           className={`absolute top-0 left-12 z-10 px-8 py-4 bg-gradient-to-r ${colors.accent} rounded-b-lg shadow-lg flex items-center justify-center`}
@@ -76,7 +81,7 @@ export default function TechCard({
         </motion.div>
 
         {/* Content */}
-        <div className='relative z-5 p-8 pt-20 flex-1 flex flex-col'>
+        <div className='relative z-10 p-8 pt-20 flex-1 flex flex-col'>
           {children}
         </div>
       </motion.div>
@@ -87,12 +92,17 @@ export default function TechCard({
   if (variant === 'rotated') {
     return (
       <motion.div
-        className={`relative bg-gradient-to-br from-zinc-900/80 via-zinc-900/60 to-zinc-900/80 border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} backdrop-blur-sm overflow-hidden ${className}`}
+        className={`relative bg-black/30 backdrop-blur-md border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} overflow-hidden ${className}`}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
+        {/* Enhanced depth effects */}
+        <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+        <div className='absolute -top-32 -right-32 w-64 h-64 bg-white/8 rounded-full blur-3xl pointer-events-none' />
+        <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent' />
+
         {/* Rotated Header - positioned as a side tab */}
         <motion.div
           className='absolute left-2 top-12 z-10'
@@ -115,7 +125,7 @@ export default function TechCard({
         </motion.div>
 
         {/* Content */}
-        <div className='relative z-5 p-8 pl-12 flex-1 flex flex-col text-white'>
+        <div className='relative z-10 p-8 pl-12 flex-1 flex flex-col text-white'>
           {children}
         </div>
       </motion.div>
@@ -126,12 +136,17 @@ export default function TechCard({
   if (variant === 'background') {
     return (
       <motion.div
-        className={`relative bg-gradient-to-br from-zinc-900/80 via-zinc-900/60 to-zinc-900/80 border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} backdrop-blur-sm overflow-hidden ${className}`}
+        className={`relative bg-black/30 backdrop-blur-md border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} overflow-hidden ${className}`}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
+        {/* Enhanced depth effects */}
+        <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+        <div className='absolute -top-32 -right-32 w-64 h-64 bg-white/8 rounded-full blur-3xl pointer-events-none' />
+        <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent' />
+
         {/* Oversized Background Text */}
         <motion.div
           className='absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden'
@@ -170,7 +185,7 @@ export default function TechCard({
   if (variant === 'cutcorner') {
     return (
       <motion.div
-        className={`relative bg-gradient-to-br from-zinc-900/80 via-zinc-900/60 to-zinc-900/80 border ${colors.border} shadow-2xl ${colors.glow} backdrop-blur-sm overflow-hidden ${className}`}
+        className={`relative bg-black/30 backdrop-blur-md border ${colors.border} shadow-2xl ${colors.glow} overflow-hidden ${className}`}
         style={{
           clipPath:
             'polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 2rem 100%, 0 calc(100% - 2rem))',
@@ -180,6 +195,10 @@ export default function TechCard({
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
+        {/* Enhanced depth effects */}
+        <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+        <div className='absolute -top-32 -right-32 w-64 h-64 bg-white/8 rounded-full blur-3xl pointer-events-none' />
+        <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent' />
         {/* Header Block */}
         <motion.div
           className={`absolute top-0 left-0 right-16 h-16 bg-gradient-to-r ${colors.accent} flex items-center px-6`}
@@ -197,7 +216,7 @@ export default function TechCard({
         </motion.div>
 
         {/* Content */}
-        <div className='relative z-5 p-8 pt-20 flex-1 flex flex-col'>
+        <div className='relative z-10 p-8 pt-20 flex-1 flex flex-col'>
           {children}
         </div>
       </motion.div>

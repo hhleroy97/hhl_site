@@ -83,89 +83,115 @@ export default function WorkExperience() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               {/* Experience Card */}
-              <div className='relative bg-gradient-to-r from-white/5 to-white/[0.02] rounded-xl border border-white/10 p-4 hover:border-white/20 hover:from-white/10 hover:to-white/[0.05] transition-all duration-300 h-full'>
-                {/* Header with Company & Role */}
-                <div className='flex items-start justify-between mb-3'>
-                  <div className='flex items-center gap-3'>
-                    <div className='text-lg'>{exp.logo}</div>
-                    <div className='min-w-0'>
-                      <h3 className='text-base font-bold text-white truncate'>
-                        {exp.company}
-                      </h3>
-                      <p className='text-sm text-cyan-400 font-medium'>
-                        {exp.role}
-                      </p>
+              <motion.div
+                className='group relative bg-black/30 backdrop-blur-md rounded-xl border border-white/20 p-4 transition-all duration-300 h-full shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden'
+                whileHover={{
+                  scale: 1.01,
+                  y: -3,
+                  borderColor: 'rgba(255, 255, 255, 0.4)',
+                  boxShadow: '0 20px 35px rgba(0, 0, 0, 0.3)',
+                  transition: { duration: 0.3, ease: 'easeOut' },
+                }}
+              >
+                {/* Enhanced depth effects */}
+                <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+                <div className='absolute -top-15 -right-15 w-30 h-30 bg-white/10 rounded-full blur-3xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+                <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+                <div className='relative z-10'>
+                  {/* Header with Company & Role */}
+                  <div className='flex items-start justify-between mb-3'>
+                    <div className='flex items-center gap-3'>
+                      <div className='text-lg'>{exp.logo}</div>
+                      <div className='min-w-0'>
+                        <h3 className='text-base font-bold text-white truncate'>
+                          {exp.company}
+                        </h3>
+                        <p className='text-sm text-cyan-400 font-medium'>
+                          {exp.role}
+                        </p>
+                      </div>
+                    </div>
+                    <div className='text-right text-xs text-zinc-400 flex-shrink-0 ml-2'>
+                      <div className='font-medium'>{exp.period}</div>
+                      <div className='opacity-75'>{exp.location}</div>
                     </div>
                   </div>
-                  <div className='text-right text-xs text-zinc-400 flex-shrink-0 ml-2'>
-                    <div className='font-medium'>{exp.period}</div>
-                    <div className='opacity-75'>{exp.location}</div>
+
+                  {/* Highlights - Compact */}
+                  <div className='mb-3'>
+                    <ul className='space-y-1'>
+                      {exp.highlights.slice(0, 2).map((highlight, i) => (
+                        <li
+                          key={i}
+                          className='flex items-start gap-2 text-zinc-300 text-xs leading-relaxed'
+                        >
+                          <div className='w-1 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full mt-1.5 flex-shrink-0' />
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                      {exp.highlights.length > 2 && (
+                        <li className='flex items-start gap-2 text-zinc-400 text-xs'>
+                          <div className='w-1 h-1 bg-zinc-500 rounded-full mt-1.5 flex-shrink-0' />
+                          <span>
+                            +{exp.highlights.length - 2} more achievements
+                          </span>
+                        </li>
+                      )}
+                    </ul>
                   </div>
-                </div>
 
-                {/* Highlights - Compact */}
-                <div className='mb-3'>
-                  <ul className='space-y-1'>
-                    {exp.highlights.slice(0, 2).map((highlight, i) => (
-                      <li
-                        key={i}
-                        className='flex items-start gap-2 text-zinc-300 text-xs leading-relaxed'
+                  {/* Technologies - Compact Grid */}
+                  <div className='flex flex-wrap gap-1'>
+                    {exp.technologies.slice(0, 6).map(tech => (
+                      <span
+                        key={tech}
+                        className='px-2 py-0.5 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-zinc-300 hover:bg-white/20 hover:text-white transition-all duration-300'
                       >
-                        <div className='w-1 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full mt-1.5 flex-shrink-0' />
-                        <span>{highlight}</span>
-                      </li>
+                        {tech}
+                      </span>
                     ))}
-                    {exp.highlights.length > 2 && (
-                      <li className='flex items-start gap-2 text-zinc-400 text-xs'>
-                        <div className='w-1 h-1 bg-zinc-500 rounded-full mt-1.5 flex-shrink-0' />
-                        <span>
-                          +{exp.highlights.length - 2} more achievements
-                        </span>
-                      </li>
+                    {exp.technologies.length > 6 && (
+                      <span className='px-2 py-0.5 bg-zinc-700/50 border border-zinc-600/50 rounded-full text-xs text-zinc-400'>
+                        +{exp.technologies.length - 6}
+                      </span>
                     )}
-                  </ul>
+                  </div>
+
+                  {/* Hover Gradient Overlay */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r ${exp.color} rounded-xl opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none`}
+                  />
+
+                  {/* Hover Border Effect */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r ${exp.color} rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm -z-10`}
+                  />
                 </div>
-
-                {/* Technologies - Compact Grid */}
-                <div className='flex flex-wrap gap-1'>
-                  {exp.technologies.slice(0, 6).map(tech => (
-                    <span
-                      key={tech}
-                      className='px-2 py-0.5 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-zinc-300 hover:bg-white/20 hover:text-white transition-all duration-300'
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {exp.technologies.length > 6 && (
-                    <span className='px-2 py-0.5 bg-zinc-700/50 border border-zinc-600/50 rounded-full text-xs text-zinc-400'>
-                      +{exp.technologies.length - 6}
-                    </span>
-                  )}
-                </div>
-
-                {/* Hover Gradient Overlay */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-r ${exp.color} rounded-xl opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none`}
-                />
-
-                {/* Hover Border Effect */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-r ${exp.color} rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm -z-10`}
-                />
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
 
         {/* Career Progression Summary */}
         <motion.div
-          className='mt-6 p-4 bg-gradient-to-r from-white/5 to-white/[0.02] rounded-xl border border-white/10'
+          className='group mt-6 p-4 bg-black/30 backdrop-blur-md rounded-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden'
+          whileHover={{
+            scale: 1.01,
+            y: -2,
+            borderColor: 'rgba(255, 255, 255, 0.4)',
+            boxShadow: '0 20px 35px rgba(0, 0, 0, 0.3)',
+            transition: { duration: 0.3, ease: 'easeOut' },
+          }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <div className='flex items-center justify-between text-sm'>
+          {/* Enhanced depth effects */}
+          <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+          <div className='absolute -top-15 -right-15 w-30 h-30 bg-white/10 rounded-full blur-3xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+          <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+          <div className='relative z-10 flex items-center justify-between text-sm'>
             <div className='text-zinc-300'>
               <span className='text-emerald-400 font-medium'>4+ years</span> of
               experience across
