@@ -16,10 +16,10 @@ const sections = [
     component: LandingPage,
     props: (nextSection: () => void) => ({ onNextSection: nextSection }),
   },
-  { id: 'services', label: 'Services', component: Services },
-  { id: 'experience', label: 'Experience', component: WorkExperience },
   { id: 'about', label: 'About', component: NewAbout },
+  { id: 'experience', label: 'Experience', component: WorkExperience },
   { id: 'skills', label: 'Skills', component: SkillsTools },
+  { id: 'services', label: 'Services', component: Services },
   { id: 'contact', label: 'Contact', component: ContactFooter },
 ]
 
@@ -124,7 +124,7 @@ export default function SlideshowPortfolio() {
     : {}
 
   return (
-    <div className='relative h-screen overflow-hidden bg-zinc-900 text-white'>
+    <div className='relative h-screen overflow-hidden bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white'>
       {/* Navigation - Hidden on landing page */}
       {currentSection !== 0 && (
         <Navigation
@@ -184,22 +184,22 @@ export default function SlideshowPortfolio() {
           className='absolute inset-0 opacity-10'
           style={{
             backgroundImage:
-              'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)',
+              'linear-gradient(rgba(176, 106, 247, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(176, 106, 247, 0.3) 1px, transparent 1px)',
             backgroundSize: '50px 50px',
           }}
         />
 
         {/* Floating data streams */}
         <div
-          className='absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent animate-pulse'
+          className='absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-400/20 to-transparent animate-pulse'
           style={{ animationDuration: '3s' }}
         />
         <div
-          className='absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-fuchsia-400/20 to-transparent animate-pulse'
+          className='absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent animate-pulse'
           style={{ animationDuration: '4s', animationDelay: '1s' }}
         />
         <div
-          className='absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent animate-pulse'
+          className='absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-teal-400/20 to-transparent animate-pulse'
           style={{ animationDuration: '5s', animationDelay: '2s' }}
         />
       </div>

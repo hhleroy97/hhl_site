@@ -42,17 +42,17 @@ export default function ContactFooter() {
     <PageSection
       id='contact'
       tagline='Contact'
-      taglineColor='cyan'
+      taglineColor='emerald'
       title="Let's build something that moves —"
       subtitle='and moves people'
-      className='bg-gradient-to-b from-zinc-900/70 to-zinc-900/90'
+      className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
     >
       {/* Animated grid background */}
       <div
         className='absolute inset-0 opacity-5'
         style={{
           backgroundImage:
-            'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)',
+            'linear-gradient(rgba(176, 106, 247, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(176, 106, 247, 0.3) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
         }}
       />
@@ -75,7 +75,7 @@ export default function ContactFooter() {
             {/* Email with emphasis */}
             <div className='p-6 bg-gradient-to-r from-white/5 to-white/[0.02] rounded-2xl border border-white/10'>
               <div className='flex items-center gap-4'>
-                <div className='p-3 bg-gradient-to-r from-cyan-500 to-fuchsia-500 rounded-xl text-white'>
+                <div className='p-3 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-xl text-white'>
                   <svg
                     className='w-6 h-6'
                     fill='none'
@@ -94,7 +94,7 @@ export default function ContactFooter() {
                   <div className='text-sm text-zinc-400 mb-1'>Direct Email</div>
                   <a
                     href='mailto:hartley.leroy1997@gmail.com'
-                    className='text-lg font-medium text-cyan-400 hover:text-cyan-300 transition-colors'
+                    className='text-lg font-medium text-purple-400 hover:text-purple-300 transition-colors'
                   >
                     hartley.leroy1997@gmail.com
                   </a>
