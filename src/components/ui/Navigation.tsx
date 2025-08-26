@@ -8,10 +8,10 @@ interface NavigationProps {
 }
 
 const defaultNavItems = [
-  { href: '#services', label: 'Services' },
-  { href: '#experience', label: 'Experience' },
   { href: '#about', label: 'About' },
+  { href: '#experience', label: 'Experience' },
   { href: '#skills', label: 'Skills' },
+  { href: '#services', label: 'Services' },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -38,7 +38,7 @@ export default function Navigation({
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isSlideshow
-          ? 'bg-zinc-900/95 backdrop-blur-md border-b border-white/10'
+          ? 'bg-gradient-to-br from-zinc-950/95 via-zinc-900/95 to-black/95 backdrop-blur-md border-b border-white/10 shadow-xl'
           : 'bg-transparent'
       }`}
       initial={{ y: -100 }}
@@ -50,7 +50,7 @@ export default function Navigation({
           {/* Logo */}
           <motion.a
             href='#'
-            className='text-xl font-bold bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent relative'
+            className='text-xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent relative'
             whileHover={{ scale: 1.05 }}
             onClick={e => {
               e.preventDefault()
@@ -64,7 +64,7 @@ export default function Navigation({
             H.L
             {isSlideshow && currentSection === 0 && (
               <motion.div
-                className='absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-fuchsia-500'
+                className='absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400 to-cyan-400'
                 layoutId='activeTab'
                 initial={false}
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
@@ -86,8 +86,8 @@ export default function Navigation({
                   key={'id' in item ? item.id : item.href}
                   className={`px-3 py-2 text-sm font-medium transition-colors duration-200 relative ${
                     isActive
-                      ? 'text-cyan-400'
-                      : 'text-zinc-300 hover:text-cyan-400'
+                      ? 'text-purple-400'
+                      : 'text-zinc-300 hover:text-purple-400'
                   }`}
                   onClick={e => {
                     e.preventDefault()
@@ -104,7 +104,7 @@ export default function Navigation({
                   {label}
                   {isActive && (
                     <motion.div
-                      className='absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-fuchsia-500'
+                      className='absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400 to-cyan-400'
                       layoutId='activeTab'
                       initial={false}
                       transition={{
@@ -126,7 +126,7 @@ export default function Navigation({
               target='_blank'
               rel='noopener noreferrer'
               onClick={handleResumeClick}
-              className='hidden sm:inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/20 hover:ring-white/40 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105'
+              className='hidden sm:inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 hover:from-purple-500/30 hover:to-cyan-500/30 ring-1 ring-purple-400/30 hover:ring-purple-400/50 rounded-lg text-sm font-medium text-white transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-purple-500/20'
             >
               Resume
             </a>
@@ -134,7 +134,7 @@ export default function Navigation({
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className='md:hidden p-2 rounded-lg bg-white/10 ring-1 ring-white/20 hover:bg-white/20 transition-colors'
+              className='md:hidden p-2 rounded-lg bg-gradient-to-r from-purple-500/20 to-cyan-500/20 hover:from-purple-500/30 hover:to-cyan-500/30 ring-1 ring-purple-400/30 hover:ring-purple-400/50 transition-colors'
               aria-label='Toggle mobile menu'
             >
               <svg
@@ -162,8 +162,8 @@ export default function Navigation({
         <motion.div
           className={`md:hidden overflow-hidden ${
             isSlideshow
-              ? 'bg-zinc-900/95 backdrop-blur-md'
-              : 'bg-zinc-900/90 backdrop-blur-sm'
+              ? 'bg-gradient-to-br from-zinc-950/95 via-zinc-900/95 to-black/95 backdrop-blur-md'
+              : 'bg-gradient-to-br from-zinc-950/90 via-zinc-900/90 to-black/90 backdrop-blur-sm'
           }`}
           initial={false}
           animate={{ height: isMobileMenuOpen ? 'auto' : 0 }}
@@ -182,8 +182,8 @@ export default function Navigation({
                   key={'id' in item ? item.id : item.href}
                   className={`block w-full text-left px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                     isActive
-                      ? 'text-cyan-400 bg-white/10'
-                      : 'text-zinc-300 hover:text-cyan-400 hover:bg-white/5'
+                      ? 'text-purple-400 bg-gradient-to-r from-purple-500/20 to-cyan-500/20'
+                      : 'text-zinc-300 hover:text-purple-400 hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-cyan-500/10'
                   } rounded-lg mx-2`}
                   onClick={e => {
                     e.preventDefault()
@@ -207,7 +207,7 @@ export default function Navigation({
               target='_blank'
               rel='noopener noreferrer'
               onClick={handleResumeClick}
-              className='block mx-2 mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/20 rounded-lg text-sm font-medium text-center transition-all duration-200'
+              className='block mx-2 mt-4 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 hover:from-purple-500/30 hover:to-cyan-500/30 ring-1 ring-purple-400/30 hover:ring-purple-400/50 rounded-lg text-sm font-medium text-center text-white transition-all duration-200 hover:scale-105'
             >
               Resume
             </a>

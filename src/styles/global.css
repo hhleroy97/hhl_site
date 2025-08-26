@@ -4,24 +4,29 @@
 
 @layer base {
   :root {
-    --accent: 0 255 204; /* Cyan for primary accent */
-    --accent-secondary: 255 71 255; /* Fuchsia for secondary accent */
-    --background: 10 15 28; /* Deep dark background */
+    --accent: 176 106 247; /* Purple for primary accent */
+    --accent-secondary: 123 198 255; /* Cyan for secondary accent */
+    --background: 9 9 11; /* Deep dark background */
   }
 
   html {
-    @apply bg-zinc-900 text-white font-sans antialiased;
+    @apply bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white font-sans antialiased;
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-zinc-900 text-white;
+    @apply bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white;
     font-family:
       'Inter',
       system-ui,
       -apple-system,
       sans-serif;
-    background: rgb(10 15 28);
+    background: linear-gradient(
+      135deg,
+      rgb(9, 9, 11),
+      rgb(39, 39, 42),
+      rgb(0, 0, 0)
+    );
   }
 
   /* Custom scrollbar */
