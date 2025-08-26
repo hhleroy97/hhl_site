@@ -8,23 +8,51 @@ interface LandingPageProps {
 }
 
 export default function LandingPage({ onNextSection }: LandingPageProps) {
-  const [layerDistance] = useState(3.6)
+  const [layerDistance, setLayerDistance] = useState(3.6)
   const [positionShift, setPositionShift] = useState(0)
   const [verticalShift, setVerticalShift] = useState(0)
   const [showBorders, setShowBorders] = useState(false)
   const [rotationX, setRotationX] = useState(0)
   const [rotationY, setRotationY] = useState(0)
   const [rotationZ, setRotationZ] = useState(0)
-  const [positionX, setPositionX] = useState(0)
+  const [positionX, setPositionX] = useState(-1.6)
   const [positionY, setPositionY] = useState(0)
   const [positionZ, setPositionZ] = useState(-10)
   const [showBoundingBox, setShowBoundingBox] = useState(false)
-  const [controlsMinimized] = useState(true)
-  const [overlayOffsetX, setOverlayOffsetX] = useState(-7)
-  const [overlayOffsetY, setOverlayOffsetY] = useState(-3.5)
+  const [togglesMinimized, setTogglesMinimized] = useState(true)
+  const [overlayOffsetX] = useState(-7)
+  const [overlayOffsetY] = useState(-3.5)
   const [showOverlayText, setShowOverlayText] = useState(false)
   const [showOriginMarker, setShowOriginMarker] = useState(false)
-  const [nameTagOffsetX, setNameTagOffsetX] = useState(-15)
+  const [nameTagOffsetX] = useState(-15)
+
+  // Helper functions for number input controls
+  const incrementValue = (
+    setter: (value: number) => void,
+    current: number,
+    step: number = 0.1
+  ) => {
+    setter(Math.round((current + step) * 10) / 10)
+  }
+
+  const decrementValue = (
+    setter: (value: number) => void,
+    current: number,
+    step: number = 0.1
+  ) => {
+    setter(Math.round((current - step) * 10) / 10)
+  }
+
+  const handleNumberInput = (
+    setter: (value: number) => void,
+    value: string
+  ) => {
+    const num = parseFloat(value)
+    if (!isNaN(num)) {
+      setter(num)
+    }
+  }
+
   return (
     <section
       id='hero'
@@ -125,7 +153,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
         {/* Interactive Elements - Two Column Layout */}
         <div
-          className={`grid grid-cols-2 w-full gap-8 ${showBorders ? 'border-4 border-orange-500' : ''}`}
+          className={`grid grid-cols-2 w-full gap-16 ${showBorders ? 'border-4 border-orange-500' : ''}`}
         >
           <div className='w-full h-full'>
             <InteractiveElements showBorders={showBorders} />
@@ -150,384 +178,335 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
               positionX={positionX}
               positionY={positionY}
               positionZ={positionZ}
-              onOffsetChange={(x, y, z) => {
-                setPositionX(prev => prev + x)
-                setPositionY(prev => prev + y)
-                setPositionZ(prev => prev + z)
-              }}
-              onRotationChange={(x, y, z) => {
-                setRotationX(prev => prev + x)
-                setRotationY(prev => prev + y)
-                setRotationZ(prev => prev + z)
-              }}
               showBoundingBox={showBoundingBox}
               showOriginMarker={showOriginMarker}
+              enableMouseParallax={true}
             />
           </motion.div>
         </div>
       </div>
 
-      {/* Neural Network Transform Control - Top Right */}
+      {/* Debug Toggles - Top Left */}
       <div
-        className={`fixed top-4 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg pointer-events-auto transition-all duration-300 ${showBorders ? 'border-4 border-cyan-500' : ''} ${
-          controlsMinimized ? 'p-2' : 'p-4 max-w-xs'
+        className={`fixed top-4 left-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg pointer-events-auto transition-all duration-300 ${showBorders ? 'border-4 border-cyan-500' : ''} ${
+          togglesMinimized ? 'p-2' : 'p-4'
         }`}
       >
-        <div
-          className={`space-y-4 text-white text-xs ${controlsMinimized ? 'space-y-2' : ''}`}
-        >
+        <div className='space-y-2 text-white text-xs'>
           <div className='flex items-center justify-between'>
-            <h3 className='text-sm font-bold text-cyan-400'>
-              Neural Network Controls
-            </h3>
+            <h3 className='text-sm font-bold text-cyan-400'>Debug Controls</h3>
+            <button
+              onClick={() => setTogglesMinimized(!togglesMinimized)}
+              className='text-cyan-400 hover:text-cyan-300 transition-colors'
+            >
+              {togglesMinimized ? '▶' : '◀'}
+            </button>
           </div>
 
-          {!controlsMinimized && (
-            <>
-              {/* Drag Instructions */}
-              <div className='bg-gray-800/50 rounded p-2 text-[10px] text-gray-400'>
-                <div className='flex items-center gap-1'>
-                  <span className='text-cyan-400'>🖱️</span>
-                  <span>Left-click drag: Move position</span>
+          {!togglesMinimized && (
+            <div className='space-y-2 pt-2 border-t border-gray-600'>
+              {/* Position Display */}
+              <div className='text-xs text-cyan-400 font-mono space-y-2'>
+                <div className='flex items-center justify-between'>
+                  <span>Position X:</span>
+                  <div className='flex items-center gap-1'>
+                    <button
+                      onClick={() =>
+                        decrementValue(setPositionX, positionX, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      -
+                    </button>
+                    <input
+                      type='number'
+                      value={positionX}
+                      onChange={e =>
+                        handleNumberInput(setPositionX, e.target.value)
+                      }
+                      className='w-12 h-4 bg-gray-700 text-cyan-400 text-[10px] border border-gray-600 rounded px-1'
+                      step='0.1'
+                    />
+                    <button
+                      onClick={() =>
+                        incrementValue(setPositionX, positionX, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
-                <div className='flex items-center gap-1'>
-                  <span className='text-orange-400'>🖱️</span>
-                  <span>Middle-click drag: Rotate</span>
+                <div className='flex items-center justify-between'>
+                  <span>Position Y:</span>
+                  <div className='flex items-center gap-1'>
+                    <button
+                      onClick={() =>
+                        decrementValue(setPositionY, positionY, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      -
+                    </button>
+                    <input
+                      type='number'
+                      value={positionY}
+                      onChange={e =>
+                        handleNumberInput(setPositionY, e.target.value)
+                      }
+                      className='w-12 h-4 bg-gray-700 text-cyan-400 text-[10px] border border-gray-600 rounded px-1'
+                      step='0.1'
+                    />
+                    <button
+                      onClick={() =>
+                        incrementValue(setPositionY, positionY, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
-                <div className='flex items-center gap-1'>
-                  <span className='text-yellow-400'>⇧+🖱️</span>
-                  <span>Shift+drag: Also rotate</span>
+                <div className='flex items-center justify-between'>
+                  <span>Position Z:</span>
+                  <div className='flex items-center gap-1'>
+                    <button
+                      onClick={() =>
+                        decrementValue(setPositionZ, positionZ, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      -
+                    </button>
+                    <input
+                      type='number'
+                      value={positionZ}
+                      onChange={e =>
+                        handleNumberInput(setPositionZ, e.target.value)
+                      }
+                      className='w-12 h-4 bg-gray-700 text-cyan-400 text-[10px] border border-gray-600 rounded px-1'
+                      step='0.1'
+                    />
+                    <button
+                      onClick={() =>
+                        incrementValue(setPositionZ, positionZ, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className='flex items-center justify-between'>
+                  <span>Rotation X:</span>
+                  <div className='flex items-center gap-1'>
+                    <button
+                      onClick={() => decrementValue(setRotationX, rotationX, 1)}
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      -
+                    </button>
+                    <input
+                      type='number'
+                      value={rotationX}
+                      onChange={e =>
+                        handleNumberInput(setRotationX, e.target.value)
+                      }
+                      className='w-12 h-4 bg-gray-700 text-cyan-400 text-[10px] border border-gray-600 rounded px-1'
+                      step='1'
+                    />
+                    <button
+                      onClick={() => incrementValue(setRotationX, rotationX, 1)}
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className='flex items-center justify-between'>
+                  <span>Rotation Y:</span>
+                  <div className='flex items-center gap-1'>
+                    <button
+                      onClick={() => decrementValue(setRotationY, rotationY, 1)}
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      -
+                    </button>
+                    <input
+                      type='number'
+                      value={rotationY}
+                      onChange={e =>
+                        handleNumberInput(setRotationY, e.target.value)
+                      }
+                      className='w-12 h-4 bg-gray-700 text-cyan-400 text-[10px] border border-gray-600 rounded px-1'
+                      step='1'
+                    />
+                    <button
+                      onClick={() => incrementValue(setRotationY, rotationY, 1)}
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className='flex items-center justify-between'>
+                  <span>Rotation Z:</span>
+                  <div className='flex items-center gap-1'>
+                    <button
+                      onClick={() => decrementValue(setRotationZ, rotationZ, 1)}
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      -
+                    </button>
+                    <input
+                      type='number'
+                      value={rotationZ}
+                      onChange={e =>
+                        handleNumberInput(setRotationZ, e.target.value)
+                      }
+                      className='w-12 h-4 bg-gray-700 text-cyan-400 text-[10px] border border-gray-600 rounded px-1'
+                      step='1'
+                    />
+                    <button
+                      onClick={() => incrementValue(setRotationZ, rotationZ, 1)}
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className='flex items-center justify-between'>
+                  <span>Layer Distance:</span>
+                  <div className='flex items-center gap-1'>
+                    <button
+                      onClick={() =>
+                        decrementValue(setLayerDistance, layerDistance, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      -
+                    </button>
+                    <input
+                      type='number'
+                      value={layerDistance}
+                      onChange={e =>
+                        handleNumberInput(setLayerDistance, e.target.value)
+                      }
+                      className='w-12 h-4 bg-gray-700 text-cyan-400 text-[10px] border border-gray-600 rounded px-1'
+                      step='0.1'
+                    />
+                    <button
+                      onClick={() =>
+                        incrementValue(setLayerDistance, layerDistance, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className='flex items-center justify-between'>
+                  <span>Pos Shift:</span>
+                  <div className='flex items-center gap-1'>
+                    <button
+                      onClick={() =>
+                        decrementValue(setPositionShift, positionShift, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      -
+                    </button>
+                    <input
+                      type='number'
+                      value={positionShift}
+                      onChange={e =>
+                        handleNumberInput(setPositionShift, e.target.value)
+                      }
+                      className='w-12 h-4 bg-gray-700 text-cyan-400 text-[10px] border border-gray-600 rounded px-1'
+                      step='0.1'
+                    />
+                    <button
+                      onClick={() =>
+                        incrementValue(setPositionShift, positionShift, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className='flex items-center justify-between'>
+                  <span>Vert Shift:</span>
+                  <div className='flex items-center gap-1'>
+                    <button
+                      onClick={() =>
+                        decrementValue(setVerticalShift, verticalShift, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      -
+                    </button>
+                    <input
+                      type='number'
+                      value={verticalShift}
+                      onChange={e =>
+                        handleNumberInput(setVerticalShift, e.target.value)
+                      }
+                      className='w-12 h-4 bg-gray-700 text-cyan-400 text-[10px] border border-gray-600 rounded px-1'
+                      step='0.1'
+                    />
+                    <button
+                      onClick={() =>
+                        incrementValue(setVerticalShift, verticalShift, 0.1)
+                      }
+                      className='w-4 h-4 bg-gray-700 hover:bg-gray-600 rounded text-[10px]'
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              {/* Current Transform Display */}
-              <div className='bg-gray-900/50 rounded p-3 space-y-2'>
-                <h4 className='text-xs font-semibold text-gray-300 text-center'>
-                  Current Transform
-                </h4>
-                <div className='grid grid-cols-2 gap-x-4 gap-y-1 text-[10px]'>
-                  <div className='text-red-400'>
-                    Pos X: {positionX.toFixed(2)}
-                  </div>
-                  <div className='text-red-400'>
-                    Rot X: {rotationX.toFixed(2)}°
-                  </div>
-                  <div className='text-green-400'>
-                    Pos Y: {positionY.toFixed(2)}
-                  </div>
-                  <div className='text-green-400'>
-                    Rot Y: {rotationY.toFixed(2)}°
-                  </div>
-                  <div className='text-blue-400'>
-                    Pos Z: {positionZ.toFixed(2)}
-                  </div>
-                  <div className='text-blue-400'>
-                    Rot Z: {rotationZ.toFixed(2)}°
-                  </div>
-                </div>
-                <div className='pt-1 border-t border-gray-600 space-y-1'>
-                  <div className='text-fuchsia-400 text-center'>
-                    Shift: {positionShift.toFixed(2)}
-                  </div>
-                  <div className='text-emerald-400 text-center'>
-                    Vertical: {verticalShift.toFixed(2)}
-                  </div>
-                  <div className='text-orange-400 text-center'>
-                    Overlay X: {overlayOffsetX.toFixed(1)}
-                  </div>
-                  <div className='text-pink-400 text-center'>
-                    Overlay Y: {overlayOffsetY.toFixed(1)}
-                  </div>
-                  <div className='text-yellow-400 text-center'>
-                    NameTag X: {nameTagOffsetX.toFixed(1)}
-                  </div>
-                </div>
+              <div className='border-t border-gray-600 pt-2 space-y-2'>
+                <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
+                  <input
+                    type='checkbox'
+                    checked={showBorders}
+                    onChange={e => setShowBorders(e.target.checked)}
+                    className='w-3 h-3 text-cyan-500 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500 focus:ring-2'
+                  />
+                  Show Layout Borders
+                </label>
+                <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
+                  <input
+                    type='checkbox'
+                    checked={showBoundingBox}
+                    onChange={e => setShowBoundingBox(e.target.checked)}
+                    className='w-3 h-3 text-red-500 bg-gray-700 border-gray-600 rounded focus:ring-red-500 focus:ring-2'
+                  />
+                  Show Bounding Box
+                </label>
+                <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
+                  <input
+                    type='checkbox'
+                    checked={showOverlayText}
+                    onChange={e => setShowOverlayText(e.target.checked)}
+                    className='w-3 h-3 text-purple-500 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2'
+                  />
+                  Show Overlay Text
+                </label>
+                <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
+                  <input
+                    type='checkbox'
+                    checked={showOriginMarker}
+                    onChange={e => setShowOriginMarker(e.target.checked)}
+                    className='w-3 h-3 text-red-500 bg-gray-700 border-gray-600 rounded focus:ring-red-500 focus:ring-2'
+                  />
+                  Show Origin Marker
+                </label>
               </div>
-
-              {/* Position Controls */}
-              <div className='space-y-2'>
-                <h4 className='text-xs font-semibold text-gray-300'>
-                  Position
-                </h4>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-red-400 w-4'>X:</label>
-                  <input
-                    type='range'
-                    min='-20'
-                    max='20'
-                    step='0.01'
-                    value={positionX}
-                    onChange={e => setPositionX(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {positionX.toFixed(2)}
-                  </span>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-green-400 w-4'>Y:</label>
-                  <input
-                    type='range'
-                    min='-20'
-                    max='20'
-                    step='0.01'
-                    value={positionY}
-                    onChange={e => setPositionY(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {positionY.toFixed(2)}
-                  </span>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-blue-400 w-4'>Z:</label>
-                  <input
-                    type='range'
-                    min='-20'
-                    max='20'
-                    step='0.01'
-                    value={positionZ}
-                    onChange={e => setPositionZ(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {positionZ.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-
-              {/* Rotation Controls */}
-              <div className='space-y-2'>
-                <h4 className='text-xs font-semibold text-gray-300'>
-                  Rotation
-                </h4>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-red-400 w-4'>X:</label>
-                  <input
-                    type='range'
-                    min='-180'
-                    max='180'
-                    step='0.1'
-                    value={rotationX}
-                    onChange={e => setRotationX(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {rotationX.toFixed(2)}°
-                  </span>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-green-400 w-4'>Y:</label>
-                  <input
-                    type='range'
-                    min='-180'
-                    max='180'
-                    step='0.1'
-                    value={rotationY}
-                    onChange={e => setRotationY(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {rotationY.toFixed(2)}°
-                  </span>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-blue-400 w-4'>Z:</label>
-                  <input
-                    type='range'
-                    min='-180'
-                    max='180'
-                    step='0.1'
-                    value={rotationZ}
-                    onChange={e => setRotationZ(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {rotationZ.toFixed(2)}°
-                  </span>
-                </div>
-              </div>
-
-              {/* Name Tag Position Control */}
-              <div className='space-y-2'>
-                <h4 className='text-xs font-semibold text-gray-300'>
-                  Name Tag Position
-                </h4>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-yellow-400 w-4'>X:</label>
-                  <input
-                    type='range'
-                    min='-200'
-                    max='200'
-                    step='1'
-                    value={nameTagOffsetX}
-                    onChange={e => setNameTagOffsetX(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {nameTagOffsetX.toFixed(0)}
-                  </span>
-                </div>
-              </div>
-
-              {/* Overlay Text Offset Controls */}
-              <div className='space-y-2'>
-                <h4 className='text-xs font-semibold text-gray-300'>
-                  Overlay Text Offset
-                </h4>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-orange-400 w-4'>X:</label>
-                  <input
-                    type='range'
-                    min='-50'
-                    max='50'
-                    step='0.5'
-                    value={overlayOffsetX}
-                    onChange={e => setOverlayOffsetX(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {overlayOffsetX.toFixed(1)}
-                  </span>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-pink-400 w-4'>Y:</label>
-                  <input
-                    type='range'
-                    min='-50'
-                    max='50'
-                    step='0.5'
-                    value={overlayOffsetY}
-                    onChange={e => setOverlayOffsetY(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {overlayOffsetY.toFixed(1)}
-                  </span>
-                </div>
-              </div>
-
-              {/* Camera Reference Controls */}
-              <div className='space-y-2'>
-                <h4 className='text-xs font-semibold text-gray-300'>
-                  Camera Reference
-                </h4>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-fuchsia-400 w-4'>S:</label>
-                  <input
-                    type='range'
-                    min='-20'
-                    max='20'
-                    step='0.01'
-                    value={positionShift}
-                    onChange={e => setPositionShift(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {positionShift.toFixed(2)}
-                  </span>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                  <label className='text-xs text-emerald-400 w-4'>V:</label>
-                  <input
-                    type='range'
-                    min='-10'
-                    max='10'
-                    step='0.01'
-                    value={verticalShift}
-                    onChange={e => setVerticalShift(Number(e.target.value))}
-                    className='flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer'
-                  />
-                  <span className='text-xs text-gray-400 w-8 text-right'>
-                    {verticalShift.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className='flex gap-2 pt-2'>
-                <button
-                  onClick={() => {
-                    setPositionX(0)
-                    setPositionY(0)
-                    setPositionZ(-10)
-                    setRotationX(0)
-                    setRotationY(0)
-                    setRotationZ(0)
-                    setPositionShift(0)
-                    setVerticalShift(0)
-                    setOverlayOffsetX(-7)
-                    setOverlayOffsetY(-3.5)
-                    setNameTagOffsetX(-15)
-                  }}
-                  className='flex-1 px-2 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded transition-colors'
-                >
-                  Reset All
-                </button>
-                <button
-                  onClick={() => {
-                    alert(
-                      `Transform values:\nPos: (${positionX}, ${positionY}, ${positionZ})\nRot: (${rotationX}°, ${rotationY}°, ${rotationZ}°)`
-                    )
-                  }}
-                  className='flex-1 px-2 py-1 text-xs bg-cyan-700 hover:bg-cyan-600 text-white rounded transition-colors'
-                >
-                  Log Values
-                </button>
-              </div>
-            </>
+            </div>
           )}
-
-          {/* Always visible toggles */}
-          <div className='space-y-2 pt-2 border-t border-gray-600'>
-            <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
-              <input
-                type='checkbox'
-                checked={showBorders}
-                onChange={e => setShowBorders(e.target.checked)}
-                className='w-3 h-3 text-cyan-500 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500 focus:ring-2'
-              />
-              Show Layout Borders
-            </label>
-            <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
-              <input
-                type='checkbox'
-                checked={showBoundingBox}
-                onChange={e => setShowBoundingBox(e.target.checked)}
-                className='w-3 h-3 text-red-500 bg-gray-700 border-gray-600 rounded focus:ring-red-500 focus:ring-2'
-              />
-              Show Bounding Box
-            </label>
-            <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
-              <input
-                type='checkbox'
-                checked={showOverlayText}
-                onChange={e => setShowOverlayText(e.target.checked)}
-                className='w-3 h-3 text-purple-500 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2'
-              />
-              Show Overlay Text
-            </label>
-            <label className='flex items-center gap-2 text-white text-xs cursor-pointer'>
-              <input
-                type='checkbox'
-                checked={showOriginMarker}
-                onChange={e => setShowOriginMarker(e.target.checked)}
-                className='w-3 h-3 text-red-500 bg-gray-700 border-gray-600 rounded focus:ring-red-500 focus:ring-2'
-              />
-              Show Origin Marker
-            </label>
-          </div>
         </div>
       </div>
 
