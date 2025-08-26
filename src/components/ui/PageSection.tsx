@@ -51,8 +51,8 @@ export default function PageSection({
             className='min-h-[80vh] flex flex-col'
           >
             {/* Section header */}
-            <div className='text-center mb-12 flex-shrink-0'>
-              <h2 className='text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
+            <div className='text-center mb-6 flex-shrink-0'>
+              <h2 className='text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'>
                 {title}
                 {subtitle && (
                   <>

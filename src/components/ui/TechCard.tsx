@@ -149,9 +149,9 @@ export default function TechCard({
         </motion.div>
 
         {/* Content with header overlay */}
-        <div className='relative z-10 p-8 flex-1 flex flex-col'>
+        <div className='relative z-10 p-8 pt-4 flex-1 flex flex-col'>
           <motion.h3
-            className={`text-2xl font-black ${colors.text} mb-6 tracking-wide uppercase flex-shrink-0`}
+            className={`text-2xl font-black ${colors.text} mb-4 tracking-wide uppercase flex-shrink-0`}
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
