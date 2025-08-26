@@ -94,7 +94,7 @@ export default function WorkExperience() {
     <PageSection
       id='experience'
       tagline='Experience'
-      taglineColor='purple'
+      taglineColor='emerald'
       title='Building systems that scale'
       subtitle='and experiences that inspire'
       cardVariant='rotated'
