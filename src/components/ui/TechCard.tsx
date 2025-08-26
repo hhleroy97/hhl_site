@@ -5,7 +5,7 @@ interface TechCardProps {
   title: string
   children: ReactNode
   variant?: 'floating' | 'rotated' | 'background' | 'cutcorner'
-  color?: 'cyan' | 'fuchsia' | 'emerald' | 'amber'
+  color?: 'purple' | 'cyan' | 'teal' | 'emerald'
   className?: string
 }
 
@@ -17,6 +17,13 @@ export default function TechCard({
   className = '',
 }: TechCardProps) {
   const colorStyles = {
+    purple: {
+      accent: 'from-purple-400 to-cyan-500',
+      border: 'border-purple-500/30',
+      glow: 'shadow-purple-500/20',
+      text: 'text-purple-400',
+      bg: 'bg-purple-500/10',
+    },
     cyan: {
       accent: 'from-cyan-400 to-teal-500',
       border: 'border-cyan-500/30',
@@ -24,26 +31,19 @@ export default function TechCard({
       text: 'text-cyan-400',
       bg: 'bg-cyan-500/10',
     },
-    fuchsia: {
-      accent: 'from-purple-400 to-fuchsia-500',
-      border: 'border-purple-500/30',
-      glow: 'shadow-purple-500/20',
-      text: 'text-purple-400',
-      bg: 'bg-purple-500/10',
-    },
-    emerald: {
+    teal: {
       accent: 'from-teal-400 to-emerald-500',
       border: 'border-teal-500/30',
       glow: 'shadow-teal-500/20',
       text: 'text-teal-400',
       bg: 'bg-teal-500/10',
     },
-    amber: {
-      accent: 'from-purple-400 to-cyan-500',
-      border: 'border-purple-500/30',
-      glow: 'shadow-purple-500/20',
-      text: 'text-purple-400',
-      bg: 'bg-purple-500/10',
+    emerald: {
+      accent: 'from-emerald-400 to-green-500',
+      border: 'border-emerald-500/30',
+      glow: 'shadow-emerald-500/20',
+      text: 'text-emerald-400',
+      bg: 'bg-emerald-500/10',
     },
   }
 

@@ -130,7 +130,7 @@ export default function SkillsTools() {
     <PageSection
       id='skills'
       tagline='Skills'
-      taglineColor='amber'
+      taglineColor='purple'
       title='Technologies I work with'
       subtitle='across the stack'
       className='bg-gradient-to-b from-zinc-900/60 to-zinc-900/90'

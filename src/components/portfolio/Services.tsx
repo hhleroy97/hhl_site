@@ -100,7 +100,7 @@ export default function Services() {
     <PageSection
       id='services'
       tagline='Services'
-      taglineColor='fuchsia'
+      taglineColor='emerald'
       title='Engineering at the intersection of'
       subtitle='art, insight, and autonomy'
     >

@@ -8,7 +8,7 @@ interface PageSectionProps {
   title: string
   subtitle?: string
   tagline: string
-  taglineColor?: 'cyan' | 'fuchsia' | 'emerald' | 'amber'
+  taglineColor?: 'purple' | 'cyan' | 'teal' | 'emerald'
   children: ReactNode
   className?: string
   cardVariant?: 'floating' | 'rotated' | 'background' | 'cutcorner'
