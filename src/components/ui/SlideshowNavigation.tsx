@@ -19,10 +19,10 @@ export default function SlideshowNavigation({
   const sectionColors = {
     0: 'purple', // Home/Landing
     1: 'purple', // About
-    2: 'cyan', // Experience
-    3: 'teal', // Skills
-    4: 'teal', // Services
-    5: 'emerald', // Contact
+    2: 'purple', // Experience
+    3: 'cyan', // Skills
+    4: 'emerald', // Services
+    5: 'purple', // Contact
   }
 
   const getSectionColor = (index: number) => {
