@@ -21,7 +21,7 @@ export default function SlideshowNavigation({
     1: 'fuchsia', // Services
     2: 'cyan', // Experience
     3: 'emerald', // About
-    4: 'amber', // Skills
+    4: 'purple', // Skills (using purple to match first card gradient)
     5: 'emerald', // Contact
   }
 
