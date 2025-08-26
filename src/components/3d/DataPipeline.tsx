@@ -64,6 +64,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   const connectionLinesRef = useRef<THREE.Line[]>([])
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
   const controlsRef = useRef<OrbitControls | null>(null)
+  const connectionsRef = useRef<[number, number][]>([]) // Store connections for cross-effect access
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -640,11 +641,8 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     })
 
     // Neural network connections (selective connections for cleaner visualization)
-    const connections: [number, number][] = []
-
-    // Input layer (0-8: 3x3 grid) to Hidden layer 1 (9-20: 12 nodes) - clear layer connections
-    const inputToHidden1: [number, number][] = [
-      // Each input connects to 3-4 hidden nodes in a pattern
+    const connections: [number, number][] = [
+      // Input layer (0-8: 3x3 grid) to Processing layer (9-20: 12 nodes) - clear layer connections
       [0, 9],
       [0, 10],
       [0, 11],
@@ -665,7 +663,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       [4, 11],
       [4, 13],
       [4, 14],
-      [4, 16], // Center pixel connects to more
+      [4, 16],
       [5, 11],
       [5, 12],
       [5, 14],
@@ -682,110 +680,99 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       [8, 16],
       [8, 17],
       [8, 20],
-    ]
-    connections.push(...inputToHidden1)
 
-    // Processing layer (9-20: 12 nodes) to Control layer (30-33: 4 nodes) - ensure all nodes connected
-    const processingToControl: [number, number][] = [
-      // Each processing node connects to 2-3 control nodes
-      [9, 30],
-      [9, 31],
-      [10, 30],
-      [10, 31],
-      [10, 32],
-      [11, 31],
-      [11, 32],
-      [12, 30],
-      [12, 32],
-      [12, 33],
-      [13, 30],
-      [13, 31],
-      [13, 33],
-      [14, 31],
-      [14, 32],
-      [14, 33],
-      [15, 30],
-      [15, 32],
-      [16, 30],
-      [16, 31],
-      [16, 33],
-      [17, 31],
-      [17, 32],
-      [17, 33],
-      [18, 30],
-      [18, 32],
-      [18, 33],
-      [19, 31],
-      [19, 32],
-      [20, 30],
-      [20, 33],
-    ]
-    connections.push(...processingToControl)
+      // Processing layer (9-20: 12 nodes) to Intelligence layer (21-29: 9 nodes)
+      [9, 21],
+      [9, 22],
+      [9, 23],
+      [10, 21],
+      [10, 22],
+      [10, 23],
+      [10, 24],
+      [11, 22],
+      [11, 23],
+      [11, 24],
+      [12, 23],
+      [12, 24],
+      [12, 25],
+      [13, 21],
+      [13, 24],
+      [13, 25],
+      [13, 26],
+      [14, 22],
+      [14, 23],
+      [14, 25],
+      [14, 26],
+      [15, 24],
+      [15, 25],
+      [15, 26],
+      [15, 27],
+      [16, 23],
+      [16, 25],
+      [16, 26],
+      [16, 27],
+      [17, 25],
+      [17, 26],
+      [17, 27],
+      [17, 28],
+      [18, 26],
+      [18, 27],
+      [18, 28],
+      [18, 29],
+      [19, 27],
+      [19, 28],
+      [19, 29],
+      [20, 28],
+      [20, 29],
 
-    // Control layer (30-33: 4 nodes) to Intelligence layer (21-29: 9 nodes) - ensure all nodes connected
-    const controlToIntelligence: [number, number][] = [
-      // Each control node connects to multiple intelligence nodes
-      [30, 21],
-      [30, 22],
-      [30, 23],
-      [30, 24],
-      [31, 22],
-      [31, 23],
-      [31, 24],
-      [31, 25],
-      [31, 26],
-      [32, 24],
-      [32, 25],
-      [32, 26],
-      [32, 27],
-      [32, 28],
-      [33, 26],
-      [33, 27],
-      [33, 28],
-      [33, 29],
-    ]
-    connections.push(...controlToIntelligence)
+      // Intelligence layer (21-29: 9 nodes) to Control layer (30-33: 4 nodes)
+      [21, 30],
+      [21, 31],
+      [22, 30],
+      [22, 31],
+      [23, 30],
+      [23, 31],
+      [23, 32],
+      [24, 31],
+      [24, 32],
+      [25, 30],
+      [25, 31],
+      [25, 32],
+      [25, 33],
+      [26, 31],
+      [26, 32],
+      [26, 33],
+      [27, 32],
+      [27, 33],
+      [28, 32],
+      [28, 33],
+      [29, 33],
 
-    // Intelligence layer (21-29: 9 nodes) to Output layer (34-43: 10 nodes) - ensure all outputs connected
-    const intelligenceToOutput: [number, number][] = [
-      // Each intelligence node connects to multiple output nodes
-      [21, 34],
-      [21, 35],
-      [21, 36],
-      [22, 34],
-      [22, 35],
-      [22, 36],
-      [22, 37],
-      [23, 35],
-      [23, 36],
-      [23, 37],
-      [23, 38],
-      [24, 36],
-      [24, 37],
-      [24, 38],
-      [24, 39],
-      [25, 37],
-      [25, 38],
-      [25, 39],
-      [25, 40],
-      [25, 41], // Center connects to more
-      [26, 38],
-      [26, 39],
-      [26, 40],
-      [26, 41],
-      [27, 39],
-      [27, 40],
-      [27, 41],
-      [27, 42],
-      [28, 40],
-      [28, 41],
-      [28, 42],
-      [28, 43],
-      [29, 41],
-      [29, 42],
-      [29, 43],
+      // Control layer (30-33: 4 nodes) to Output layer (34-43: 10 nodes)
+      [30, 34],
+      [30, 35],
+      [30, 36],
+      [30, 37],
+      [30, 38],
+      [31, 35],
+      [31, 36],
+      [31, 37],
+      [31, 38],
+      [31, 39],
+      [32, 37],
+      [32, 38],
+      [32, 39],
+      [32, 40],
+      [32, 41],
+      [33, 39],
+      [33, 40],
+      [33, 41],
+      [33, 42],
+      [33, 43],
     ]
-    connections.push(...intelligenceToOutput)
+
+    // Store connections in ref for access from position update effect
+    connectionsRef.current = connections
 
     // Create simple connection lines (consistent color)
     const connectionLines: THREE.Line[] = []
@@ -1232,7 +1219,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -1.75 + positionX,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
         y: 0 + positionY,
         z: 0 + positionZ,
       },
@@ -1288,7 +1275,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 0.75 + positionX,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
         y: 0 + positionY,
         z: 0 + positionZ,
       },
@@ -1339,7 +1326,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -0.75 + positionX,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
         y: 0 + positionY,
         z: 0 + positionZ,
       },
@@ -1445,155 +1432,12 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       }
     })
 
-    // Update connection lines using neural network connections
+    // Update connection lines using the same connections array from scene creation
     connectionLinesRef.current.forEach((line, index) => {
-      // Get connections from the neural network pattern (selective connections)
-      const connectionPattern = []
-
-      // Input to Hidden 1 - selective connections (0-8 to 9-20)
-      const inputToHidden1 = [
-        [0, 9],
-        [0, 10],
-        [0, 11],
-        [0, 12],
-        [1, 9],
-        [1, 10],
-        [1, 11],
-        [1, 13],
-        [2, 10],
-        [2, 11],
-        [2, 12],
-        [2, 14],
-        [3, 9],
-        [3, 13],
-        [3, 14],
-        [3, 15],
-        [4, 10],
-        [4, 11],
-        [4, 13],
-        [4, 14],
-        [4, 16],
-        [5, 11],
-        [5, 12],
-        [5, 14],
-        [5, 17],
-        [6, 13],
-        [6, 14],
-        [6, 15],
-        [6, 18],
-        [7, 14],
-        [7, 15],
-        [7, 16],
-        [7, 19],
-        [8, 15],
-        [8, 16],
-        [8, 17],
-        [8, 20],
-      ]
-      connectionPattern.push(...inputToHidden1)
-
-      // Processing to Control - connect processing (9-20) to control (30-33)
-      const processingToControlPattern = [
-        [9, 30],
-        [9, 31],
-        [10, 30],
-        [10, 31],
-        [10, 32],
-        [11, 31],
-        [11, 32],
-        [12, 30],
-        [12, 32],
-        [12, 33],
-        [13, 30],
-        [13, 31],
-        [13, 33],
-        [14, 31],
-        [14, 32],
-        [14, 33],
-        [15, 30],
-        [15, 32],
-        [16, 30],
-        [16, 31],
-        [16, 33],
-        [17, 31],
-        [17, 32],
-        [17, 33],
-        [18, 30],
-        [18, 32],
-        [18, 33],
-        [19, 31],
-        [19, 32],
-        [20, 30],
-        [20, 33],
-      ]
-      connectionPattern.push(...processingToControlPattern)
-
-      // Control to Intelligence - connect control (30-33) to intelligence (21-29)
-      const controlToIntelligencePattern = [
-        [30, 21],
-        [30, 22],
-        [30, 23],
-        [30, 24],
-        [31, 22],
-        [31, 23],
-        [31, 24],
-        [31, 25],
-        [31, 26],
-        [32, 24],
-        [32, 25],
-        [32, 26],
-        [32, 27],
-        [32, 28],
-        [33, 26],
-        [33, 27],
-        [33, 28],
-        [33, 29],
-      ]
-      connectionPattern.push(...controlToIntelligencePattern)
-
-      // Intelligence to Output - connect intelligence (21-29) to output (34-43)
-      const intelligenceToOutputPattern = [
-        [21, 34],
-        [21, 35],
-        [21, 36],
-        [22, 34],
-        [22, 35],
-        [22, 36],
-        [22, 37],
-        [23, 35],
-        [23, 36],
-        [23, 37],
-        [23, 38],
-        [24, 36],
-        [24, 37],
-        [24, 38],
-        [24, 39],
-        [25, 37],
-        [25, 38],
-        [25, 39],
-        [25, 40],
-        [25, 41],
-        [26, 38],
-        [26, 39],
-        [26, 40],
-        [26, 41],
-        [27, 39],
-        [27, 40],
-        [27, 41],
-        [27, 42],
-        [28, 40],
-        [28, 41],
-        [28, 42],
-        [28, 43],
-        [29, 41],
-        [29, 42],
-        [29, 43],
-      ]
-      connectionPattern.push(...intelligenceToOutputPattern)
-
-      if (connectionPattern[index]) {
-        const fromNodeIndex = connectionPattern[index][0] * 2 // Multiply by 2 since we have box+outline pairs
-        const toNodeIndex = connectionPattern[index][1] * 2
+      if (connectionsRef.current[index]) {
+        const [fromIdx, toIdx] = connectionsRef.current[index]
+        const fromNodeIndex = fromIdx * 2 // Multiply by 2 since we have box+outline pairs
+        const toNodeIndex = toIdx * 2
         const fromNode = nodeBoxesRef.current[fromNodeIndex]
         const toNode = nodeBoxesRef.current[toNodeIndex]
 
