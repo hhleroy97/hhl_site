@@ -15,6 +15,19 @@ export default function SlideshowNavigation({
   onPrevSection,
   onNextSection,
 }: SlideshowNavigationProps) {
+  // Color mapping for each section based on their tagline colors
+  const sectionColors = {
+    0: 'purple', // Home/Landing
+    1: 'fuchsia', // Services
+    2: 'cyan', // Experience
+    3: 'emerald', // About
+    4: 'amber', // Skills
+    5: 'emerald', // Contact
+  }
+
+  const getSectionColor = (index: number) => {
+    return sectionColors[index as keyof typeof sectionColors] || 'purple'
+  }
   return (
     <div className='fixed right-8 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-4'>
       {/* Up Arrow */}
@@ -46,19 +59,23 @@ export default function SlideshowNavigation({
 
       {/* Section Indicators */}
       <div className='flex flex-col gap-3 py-4'>
-        {sections.map((section, index) => (
-          <motion.button
-            key={section.id}
-            onClick={() => onSectionChange(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSection
-                ? 'bg-purple-400 scale-125'
-                : 'bg-white/30 hover:bg-white/50'
-            }`}
-            whileHover={{ scale: index === currentSection ? 1.25 : 1.1 }}
-            aria-label={`Go to ${section.label}`}
-          />
-        ))}
+        {sections.map((section, index) => {
+          const sectionColor = getSectionColor(index)
+          const colorClass =
+            index === currentSection
+              ? `bg-${sectionColor}-400 scale-125`
+              : 'bg-white/30 hover:bg-white/50'
+
+          return (
+            <motion.button
+              key={section.id}
+              onClick={() => onSectionChange(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${colorClass}`}
+              whileHover={{ scale: index === currentSection ? 1.25 : 1.1 }}
+              aria-label={`Go to ${section.label}`}
+            />
+          )
+        })}
       </div>
 
       {/* Down Arrow */}
