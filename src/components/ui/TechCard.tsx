@@ -18,32 +18,32 @@ export default function TechCard({
 }: TechCardProps) {
   const colorStyles = {
     cyan: {
-      accent: 'from-cyan-400 to-cyan-600',
+      accent: 'from-cyan-400 to-teal-500',
       border: 'border-cyan-500/30',
       glow: 'shadow-cyan-500/20',
       text: 'text-cyan-400',
       bg: 'bg-cyan-500/10',
     },
     fuchsia: {
-      accent: 'from-fuchsia-400 to-fuchsia-600',
-      border: 'border-fuchsia-500/30',
-      glow: 'shadow-fuchsia-500/20',
-      text: 'text-fuchsia-400',
-      bg: 'bg-fuchsia-500/10',
+      accent: 'from-purple-400 to-fuchsia-500',
+      border: 'border-purple-500/30',
+      glow: 'shadow-purple-500/20',
+      text: 'text-purple-400',
+      bg: 'bg-purple-500/10',
     },
     emerald: {
-      accent: 'from-emerald-400 to-emerald-600',
-      border: 'border-emerald-500/30',
-      glow: 'shadow-emerald-500/20',
-      text: 'text-emerald-400',
-      bg: 'bg-emerald-500/10',
+      accent: 'from-teal-400 to-emerald-500',
+      border: 'border-teal-500/30',
+      glow: 'shadow-teal-500/20',
+      text: 'text-teal-400',
+      bg: 'bg-teal-500/10',
     },
     amber: {
-      accent: 'from-amber-400 to-amber-600',
-      border: 'border-amber-500/30',
-      glow: 'shadow-amber-500/20',
-      text: 'text-amber-400',
-      bg: 'bg-amber-500/10',
+      accent: 'from-purple-400 to-cyan-500',
+      border: 'border-purple-500/30',
+      glow: 'shadow-purple-500/20',
+      text: 'text-purple-400',
+      bg: 'bg-purple-500/10',
     },
   }
 
@@ -53,7 +53,7 @@ export default function TechCard({
   if (variant === 'floating') {
     return (
       <motion.div
-        className={`relative bg-gradient-to-br from-zinc-900/80 to-zinc-900/60 border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} overflow-hidden ${className}`}
+        className={`relative bg-gradient-to-br from-zinc-900/80 via-zinc-900/60 to-zinc-900/80 border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} backdrop-blur-sm overflow-hidden ${className}`}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -91,7 +91,7 @@ export default function TechCard({
   if (variant === 'rotated') {
     return (
       <motion.div
-        className={`relative bg-gradient-to-br from-zinc-900/80 to-zinc-900/60 border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} overflow-hidden ${className}`}
+        className={`relative bg-gradient-to-br from-zinc-900/80 via-zinc-900/60 to-zinc-900/80 border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} backdrop-blur-sm overflow-hidden ${className}`}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -136,7 +136,7 @@ export default function TechCard({
   if (variant === 'background') {
     return (
       <motion.div
-        className={`relative bg-gradient-to-br from-zinc-900/80 to-zinc-900/60 border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} overflow-hidden ${className}`}
+        className={`relative bg-gradient-to-br from-zinc-900/80 via-zinc-900/60 to-zinc-900/80 border ${colors.border} rounded-2xl shadow-2xl ${colors.glow} backdrop-blur-sm overflow-hidden ${className}`}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -185,7 +185,7 @@ export default function TechCard({
   if (variant === 'cutcorner') {
     return (
       <motion.div
-        className={`relative bg-gradient-to-br from-zinc-900/80 to-zinc-900/60 border ${colors.border} shadow-2xl ${colors.glow} overflow-hidden ${className}`}
+        className={`relative bg-gradient-to-br from-zinc-900/80 via-zinc-900/60 to-zinc-900/80 border ${colors.border} shadow-2xl ${colors.glow} backdrop-blur-sm overflow-hidden ${className}`}
         style={{
           clipPath:
             'polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 2rem 100%, 0 calc(100% - 2rem))',

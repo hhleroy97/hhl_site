@@ -19,7 +19,7 @@ const skillCategories = [
         />
       </svg>
     ),
-    color: 'from-cyan-400 to-blue-500',
+    color: 'from-purple-400 to-cyan-500',
     skills: [
       'AWS',
       'IoT Core',
@@ -50,7 +50,7 @@ const skillCategories = [
         />
       </svg>
     ),
-    color: 'from-emerald-400 to-green-500',
+    color: 'from-cyan-400 to-teal-500',
     skills: [
       'ROS2',
       'PX4',
@@ -80,7 +80,7 @@ const skillCategories = [
         />
       </svg>
     ),
-    color: 'from-fuchsia-400 to-purple-500',
+    color: 'from-teal-400 to-emerald-500',
     skills: [
       'TouchDesigner',
       'React Three Fiber',
