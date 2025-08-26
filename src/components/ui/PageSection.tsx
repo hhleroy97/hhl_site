@@ -30,8 +30,8 @@ export default function PageSection({
       id={id}
       className={`min-h-screen relative overflow-hidden flex items-center ${className}`}
     >
-      {/* Standard background effects */}
-      <div className='absolute inset-0 bg-gradient-to-b from-zinc-900/50 to-zinc-900/80' />
+      {/* Glossy background effects */}
+      <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
       <div className='absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent' />
       <div className='absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent' />
 

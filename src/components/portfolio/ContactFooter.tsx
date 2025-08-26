@@ -45,7 +45,7 @@ export default function ContactFooter() {
       taglineColor='emerald'
       title="Let's build something that moves —"
       subtitle='and moves people'
-      className='bg-gradient-to-b from-zinc-900/70 to-zinc-900/90'
+      className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
     >
       {/* Animated grid background */}
       <div
