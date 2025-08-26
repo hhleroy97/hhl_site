@@ -31,7 +31,7 @@ const services = [
       'Athena',
       'DynamoDB',
     ],
-    color: 'from-cyan-500 to-blue-600',
+    color: 'from-purple-500 to-cyan-500',
   },
   {
     title: 'Real-Time Visuals',
@@ -61,7 +61,7 @@ const services = [
       'WebGL',
       'Shaders',
     ],
-    color: 'from-fuchsia-500 to-purple-600',
+    color: 'from-cyan-500 to-teal-500',
   },
   {
     title: 'Product Strategy',
@@ -91,7 +91,7 @@ const services = [
       'Roadmapping',
       'Analytics',
     ],
-    color: 'from-emerald-500 to-green-600',
+    color: 'from-teal-500 to-emerald-500',
   },
 ]
 
@@ -100,7 +100,7 @@ export default function Services() {
     <PageSection
       id='services'
       tagline='Services'
-      taglineColor='cyan'
+      taglineColor='fuchsia'
       title='Engineering at the intersection of'
       subtitle='art, insight, and autonomy'
     >
@@ -114,10 +114,10 @@ export default function Services() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: index * 0.2 }}
           >
-            {/* Card background with glow effect */}
-            <div className='absolute inset-0 bg-gradient-to-b from-white/5 to-white/[0.02] rounded-2xl border border-white/10 transition-all duration-500 group-hover:border-white/20 group-hover:from-white/10 group-hover:to-white/[0.05]' />
+            {/* Glass card background */}
+            <div className='absolute inset-0 bg-gradient-to-br from-white/5 via-white/3 to-black/5 rounded-2xl border border-white/10 backdrop-blur-sm transition-all duration-500 group-hover:border-white/20 group-hover:from-white/8 group-hover:via-white/5 group-hover:to-black/8 shadow-xl group-hover:shadow-2xl group-hover:shadow-purple-500/10' />
             <div
-              className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl`}
+              className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-8 transition-opacity duration-500 rounded-2xl`}
             />
 
             {/* Card content */}
@@ -132,7 +132,7 @@ export default function Services() {
               </motion.div>
 
               {/* Title */}
-              <h3 className='text-2xl font-bold text-white group-hover:text-cyan-100 transition-colors duration-300'>
+              <h3 className='text-2xl font-bold text-white group-hover:text-purple-100 transition-colors duration-300'>
                 {service.title}
               </h3>
 
@@ -163,7 +163,7 @@ export default function Services() {
 
               {/* Hover effect arrow */}
               <motion.div
-                className='absolute top-8 right-8 opacity-0 group-hover:opacity-100 text-cyan-400'
+                className='absolute top-8 right-8 opacity-0 group-hover:opacity-100 text-purple-400'
                 initial={{ x: -10 }}
                 whileHover={{ x: 0 }}
                 transition={{ duration: 0.3 }}

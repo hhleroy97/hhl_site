@@ -50,7 +50,7 @@ export default function Navigation({
           {/* Logo */}
           <motion.a
             href='#'
-            className='text-xl font-bold bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent relative'
+            className='text-xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent relative'
             whileHover={{ scale: 1.05 }}
             onClick={e => {
               e.preventDefault()
@@ -64,7 +64,7 @@ export default function Navigation({
             H.L
             {isSlideshow && currentSection === 0 && (
               <motion.div
-                className='absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-fuchsia-500'
+                className='absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400 to-cyan-400'
                 layoutId='activeTab'
                 initial={false}
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
@@ -86,8 +86,8 @@ export default function Navigation({
                   key={'id' in item ? item.id : item.href}
                   className={`px-3 py-2 text-sm font-medium transition-colors duration-200 relative ${
                     isActive
-                      ? 'text-cyan-400'
-                      : 'text-zinc-300 hover:text-cyan-400'
+                      ? 'text-purple-400'
+                      : 'text-zinc-300 hover:text-purple-400'
                   }`}
                   onClick={e => {
                     e.preventDefault()

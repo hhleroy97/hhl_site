@@ -24,7 +24,7 @@ export default function SlideshowNavigation({
         className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 ${
           currentSection === 0
             ? 'bg-white/5 text-zinc-600 cursor-not-allowed'
-            : 'bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400'
+            : 'bg-white/10 text-white hover:bg-white/20 hover:text-purple-400'
         }`}
         whileHover={currentSection > 0 ? { scale: 1.1 } : {}}
         whileTap={currentSection > 0 ? { scale: 0.95 } : {}}
@@ -52,7 +52,7 @@ export default function SlideshowNavigation({
             onClick={() => onSectionChange(index)}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
               index === currentSection
-                ? 'bg-cyan-400 scale-125'
+                ? 'bg-purple-400 scale-125'
                 : 'bg-white/30 hover:bg-white/50'
             }`}
             whileHover={{ scale: index === currentSection ? 1.25 : 1.1 }}
@@ -68,7 +68,7 @@ export default function SlideshowNavigation({
         className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 ${
           currentSection === sections.length - 1
             ? 'bg-white/5 text-zinc-600 cursor-not-allowed'
-            : 'bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400'
+            : 'bg-white/10 text-white hover:bg-white/20 hover:text-purple-400'
         }`}
         whileHover={currentSection < sections.length - 1 ? { scale: 1.1 } : {}}
         whileTap={currentSection < sections.length - 1 ? { scale: 0.95 } : {}}

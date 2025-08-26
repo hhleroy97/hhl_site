@@ -23,7 +23,7 @@ export default function NewAbout() {
             <div className='prose prose-invert prose-xl max-w-none'>
               <p className='text-2xl text-zinc-300 leading-relaxed font-light mb-8'>
                 I'm a{' '}
-                <span className='text-cyan-400 font-medium'>
+                <span className='text-purple-400 font-medium'>
                   creative technologist
                 </span>{' '}
                 who engineers systems that move — and move people.
@@ -36,7 +36,7 @@ export default function NewAbout() {
                 crafting audio-reactive visuals, I help ideas become systems.
               </p>
 
-              <blockquote className='border-l-4 border-gradient-to-b border-cyan-400 pl-6 py-4 bg-white/5 rounded-r-lg'>
+              <blockquote className='border-l-4 border-gradient-to-b border-purple-400 pl-6 py-4 bg-white/5 rounded-r-lg'>
                 <p className='text-xl text-white font-medium italic'>
                   "The future belongs to those who can bridge the gap between
                   imagination and implementation."
@@ -57,7 +57,7 @@ export default function NewAbout() {
               {/* Main photo container */}
               <div className='w-64 h-80 relative overflow-hidden rounded-2xl bg-gradient-to-b from-white/10 to-white/5 border border-white/20'>
                 {/* Photo placeholder - replace with actual photo */}
-                <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-fuchsia-500/20 to-emerald-500/20'>
+                <div className='absolute inset-0 bg-gradient-to-br from-purple-500/20 via-cyan-500/20 to-emerald-500/20'>
                   <img
                     src='/src/assets/prof-pic-2.jpg'
                     alt='Hartley Leroy'
@@ -80,9 +80,9 @@ export default function NewAbout() {
               </div>
 
               {/* Floating elements */}
-              <div className='absolute -top-4 -right-4 w-6 h-6 rounded-full bg-cyan-400 animate-pulse shadow-lg shadow-cyan-400/50' />
+              <div className='absolute -top-4 -right-4 w-6 h-6 rounded-full bg-purple-400 animate-pulse shadow-lg shadow-purple-400/50' />
               <div
-                className='absolute -bottom-4 -left-4 w-4 h-4 rounded-full bg-fuchsia-500 animate-pulse shadow-lg shadow-fuchsia-500/50'
+                className='absolute -bottom-4 -left-4 w-4 h-4 rounded-full bg-cyan-500 animate-pulse shadow-lg shadow-cyan-500/50'
                 style={{ animationDelay: '1s' }}
               />
               <div
@@ -91,7 +91,7 @@ export default function NewAbout() {
               />
 
               {/* Glow effect */}
-              <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-fuchsia-500/10 to-emerald-500/10 blur-xl -z-10' />
+              <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 via-cyan-500/10 to-emerald-500/10 blur-xl -z-10' />
             </div>
           </motion.div>
         </div>
