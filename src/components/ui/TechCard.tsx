@@ -75,13 +75,6 @@ export default function TechCard({
           </span>
         </motion.div>
 
-        {/* Circuit pattern overlay */}
-        <div className='absolute inset-0 opacity-10'>
-          <div className='absolute top-4 right-4 w-16 h-16 border border-current rounded-full'></div>
-          <div className='absolute bottom-4 left-4 w-8 h-8 border border-current'></div>
-          <div className='absolute top-1/2 right-8 w-1 h-12 bg-current'></div>
-        </div>
-
         {/* Content */}
         <div className='relative z-5 p-8 pt-20 flex-1 flex flex-col'>
           {children}
@@ -121,15 +114,6 @@ export default function TechCard({
           </div>
         </motion.div>
 
-        {/* Tech grid pattern */}
-        <div className='absolute inset-0 opacity-5'>
-          <div className='grid grid-cols-8 h-full'>
-            {Array.from({ length: 64 }).map((_, i) => (
-              <div key={i} className='border-r border-b border-current'></div>
-            ))}
-          </div>
-        </div>
-
         {/* Content */}
         <div className='relative z-5 p-8 pl-12 flex-1 flex flex-col text-white'>
           {children}
@@ -163,11 +147,6 @@ export default function TechCard({
             {title}
           </span>
         </motion.div>
-
-        {/* Corner accent */}
-        <div
-          className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl ${colors.accent} opacity-20 rounded-bl-full`}
-        ></div>
 
         {/* Content with header overlay */}
         <div className='relative z-10 p-8 flex-1 flex flex-col'>
@@ -216,27 +195,6 @@ export default function TechCard({
             {title}
           </span>
         </motion.div>
-
-        {/* Circuit lines */}
-        <div className='absolute inset-0 opacity-20'>
-          <div
-            className={`absolute top-16 left-0 right-0 h-px bg-gradient-to-r ${colors.accent}`}
-          ></div>
-          <div
-            className={`absolute top-20 left-4 w-px h-8 bg-gradient-to-b ${colors.accent}`}
-          ></div>
-          <div
-            className={`absolute top-20 right-20 w-px h-8 bg-gradient-to-b ${colors.accent}`}
-          ></div>
-        </div>
-
-        {/* Corner cut accent */}
-        <div
-          className={`absolute top-0 right-0 w-8 h-8 bg-gradient-to-bl ${colors.accent} opacity-50`}
-        ></div>
-        <div
-          className={`absolute bottom-0 left-0 w-8 h-8 bg-gradient-to-tr ${colors.accent} opacity-50`}
-        ></div>
 
         {/* Content */}
         <div className='relative z-5 p-8 pt-20 flex-1 flex flex-col'>
