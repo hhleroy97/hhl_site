@@ -129,7 +129,7 @@ export default function InteractiveElements({
                 </span>
               </li>
               <li className='flex items-start gap-3 group/item'>
-                <span className='text-cyan-400 font-bold text-lg group-hover/item:text-cyan-300 transition-colors flex-shrink-0'>
+                <span className='text-purple-400 font-bold text-lg group-hover/item:text-purple-300 transition-colors flex-shrink-0'>
                   •
                 </span>
                 <span className='group-hover/item:text-white transition-colors'>
@@ -138,7 +138,7 @@ export default function InteractiveElements({
                 </span>
               </li>
               <li className='flex items-start gap-3 group/item'>
-                <span className='text-teal-400 font-bold text-lg group-hover/item:text-teal-300 transition-colors flex-shrink-0'>
+                <span className='text-purple-400 font-bold text-lg group-hover/item:text-purple-300 transition-colors flex-shrink-0'>
                   •
                 </span>
                 <span className='group-hover/item:text-white transition-colors'>
@@ -146,7 +146,7 @@ export default function InteractiveElements({
                 </span>
               </li>
               <li className='flex items-start gap-3 group/item'>
-                <span className='text-blue-400 font-bold text-lg group-hover/item:text-blue-300 transition-colors flex-shrink-0'>
+                <span className='text-purple-400 font-bold text-lg group-hover/item:text-purple-300 transition-colors flex-shrink-0'>
                   •
                 </span>
                 <span className='group-hover/item:text-white transition-colors'>
