@@ -18,11 +18,11 @@ export default function SlideshowNavigation({
   // Color mapping for each section based on their tagline colors
   const sectionColors = {
     0: 'purple', // Home/Landing
-    1: 'purple', // About
-    2: 'purple', // Experience
-    3: 'cyan', // Skills
-    4: 'emerald', // Services
-    5: 'purple', // Contact
+    1: 'cyan', // About
+    2: 'emerald', // Experience
+    3: 'purple', // Skills
+    4: 'cyan', // Services
+    5: 'emerald', // Contact
   }
 
   const getSectionColor = (index: number) => {
