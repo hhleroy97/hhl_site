@@ -3,95 +3,31 @@ import PageSection from '../ui/PageSection'
 
 const services = [
   {
-    title: 'Cloud & Data',
+    title: 'Cloud & Data Systems',
     description:
-      'AWS, Kinesis, telemetry ingestion, 10M+ req/day, sub-100ms latency',
-    outcomes:
-      'Reduced infrastructure costs 40% while scaling to handle 3x traffic growth.',
-    icon: (
-      <svg
-        className='w-8 h-8'
-        fill='none'
-        stroke='currentColor'
-        viewBox='0 0 24 24'
-      >
-        <path
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          strokeWidth={2}
-          d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10'
-        />
-      </svg>
-    ),
-    technologies: [
-      'AWS',
-      'Kinesis',
-      'IoT Core',
-      'Lambda',
-      'Athena',
-      'DynamoDB',
-    ],
-    color: 'from-purple-500 to-cyan-500',
+      'AWS • Kinesis • IoT Core • 10M+ events/day • Sub-100ms latency',
+    impact:
+      'Reduced infrastructure costs 40% while scaling to handle 3x traffic growth',
+    technologies: ['AWS', 'Kinesis', 'IoT Core', 'Lambda', 'DynamoDB'],
+    gradient: 'from-purple-500 to-cyan-500',
   },
   {
-    title: 'Real-Time Visuals',
-    description: 'TouchDesigner, Kinect/MIDI visuals, R3F interactivity',
-    outcomes:
-      'Created immersive experiences for 500+ person events, 99.9% uptime.',
-    icon: (
-      <svg
-        className='w-8 h-8'
-        fill='none'
-        stroke='currentColor'
-        viewBox='0 0 24 24'
-      >
-        <path
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          strokeWidth={2}
-          d='M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z'
-        />
-      </svg>
-    ),
-    technologies: [
-      'TouchDesigner',
-      'Three.js',
-      'Kinect',
-      'MIDI',
-      'WebGL',
-      'Shaders',
-    ],
-    color: 'from-cyan-500 to-teal-500',
+    title: 'Real-Time Visual Systems',
+    description:
+      'TouchDesigner • Kinect/MIDI • R3F • WebGL • Live performances',
+    impact:
+      'Created immersive experiences for 500+ person events with 99.9% uptime',
+    technologies: ['TouchDesigner', 'Three.js', 'Kinect', 'MIDI', 'WebGL'],
+    gradient: 'from-cyan-500 to-emerald-500',
   },
   {
-    title: 'Product Strategy',
-    description: 'Sprint planning, roadmap design, MVP scoping',
-    outcomes:
-      'Led 3 product launches, reduced time-to-market by 30% through agile processes.',
-    icon: (
-      <svg
-        className='w-8 h-8'
-        fill='none'
-        stroke='currentColor'
-        viewBox='0 0 24 24'
-      >
-        <path
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          strokeWidth={2}
-          d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'
-        />
-      </svg>
-    ),
-    technologies: [
-      'Agile',
-      'Scrum',
-      'Notion',
-      'Figma',
-      'Roadmapping',
-      'Analytics',
-    ],
-    color: 'from-teal-500 to-emerald-500',
+    title: 'Product Strategy & Execution',
+    description:
+      'Sprint planning • Roadmap design • MVP scoping • Team leadership',
+    impact:
+      'Led 3 product launches, reduced time-to-market by 30% through agile processes',
+    technologies: ['Agile', 'Scrum', 'Notion', 'Figma', 'Analytics'],
+    gradient: 'from-emerald-500 to-teal-500',
   },
 ]
 
@@ -101,90 +37,109 @@ export default function Services() {
       id='services'
       tagline='Services'
       taglineColor='cyan'
-      title='Engineering at the intersection of'
-      subtitle='art, insight, and autonomy'
+      title='Engineering at the Intersection'
+      subtitle='where art meets insight and autonomy'
     >
-      <div className='grid md:grid-cols-3 gap-8'>
+      {/* Ultra Compact Layout */}
+      <div className='max-w-5xl mx-auto space-y-2'>
         {services.map((service, index) => (
           <motion.div
             key={service.title}
-            className='relative group'
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className='group relative'
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: index * 0.2 }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
           >
-            {/* Glass card background */}
-            <div className='absolute inset-0 bg-gradient-to-br from-white/5 via-white/3 to-black/5 rounded-2xl border border-white/10 backdrop-blur-sm transition-all duration-500 group-hover:border-white/20 group-hover:from-white/8 group-hover:via-white/5 group-hover:to-black/8 shadow-xl group-hover:shadow-2xl group-hover:shadow-purple-500/10' />
-            <div
-              className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-8 transition-opacity duration-500 rounded-2xl`}
-            />
+            {/* Service Row - Ultra Compact */}
+            <div className='relative bg-gradient-to-r from-white/5 to-white/[0.02] rounded-lg border border-white/10 p-3 hover:border-white/20 hover:from-white/8 hover:to-white/[0.05] transition-all duration-300'>
+              <div className='flex items-start gap-3'>
+                {/* Icon - Smaller */}
+                <div
+                  className={`flex-shrink-0 w-2 h-2 bg-gradient-to-r ${service.gradient} rounded-full mt-1.5`}
+                ></div>
 
-            {/* Card content */}
-            <div className='relative p-8 space-y-6'>
-              {/* Icon */}
-              <motion.div
-                className={`inline-flex p-3 bg-gradient-to-br ${service.color} rounded-xl text-white`}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ duration: 0.3 }}
-              >
-                {service.icon}
-              </motion.div>
+                <div className='flex-1 min-w-0'>
+                  {/* Title & Description - Compact */}
+                  <div className='mb-2'>
+                    <h3 className='text-base font-bold text-white group-hover:text-purple-100 transition-colors mb-1'>
+                      {service.title}
+                    </h3>
+                    <p className='text-xs text-zinc-300 leading-relaxed mb-1'>
+                      {service.description}
+                    </p>
+                    {/* Impact - Inline */}
+                    <p className='text-xs text-emerald-400'>{service.impact}</p>
+                  </div>
 
-              {/* Title */}
-              <h3 className='text-2xl font-bold text-white group-hover:text-purple-100 transition-colors duration-300'>
-                {service.title}
-              </h3>
+                  {/* Technologies - Inline */}
+                  <div className='flex flex-wrap gap-1'>
+                    {service.technologies.map(tech => (
+                      <span
+                        key={tech}
+                        className='px-1.5 py-0.5 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-zinc-300'
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-              {/* Description */}
-              <p className='text-zinc-300 leading-relaxed'>
-                {service.description}
-              </p>
-
-              {/* Outcomes */}
-              <div className='p-4 bg-white/5 rounded-xl border border-white/10'>
-                <p className='text-sm text-zinc-400 leading-relaxed'>
-                  <span className='text-emerald-400 font-medium'>Impact:</span>{' '}
-                  {service.outcomes}
-                </p>
-              </div>
-
-              {/* Technologies */}
-              <div className='flex flex-wrap gap-2'>
-                {service.technologies.map(tech => (
-                  <span
-                    key={tech}
-                    className='px-3 py-1 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-zinc-300 hover:bg-white/20 hover:text-white transition-all duration-300 cursor-default'
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* Hover effect arrow */}
-              <motion.div
-                className='absolute top-8 right-8 opacity-0 group-hover:opacity-100 text-purple-400'
-                initial={{ x: -10 }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <svg
-                  className='w-5 h-5'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
+                {/* Arrow - Smaller */}
+                <motion.div
+                  className='flex-shrink-0 opacity-0 group-hover:opacity-100 text-cyan-400'
+                  whileHover={{ x: 2 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M17 8l4 4m0 0l-4 4m4-4H3'
-                  />
-                </svg>
-              </motion.div>
+                  <svg
+                    className='w-3 h-3'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M17 8l4 4m0 0l-4 4m4-4H3'
+                    />
+                  </svg>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         ))}
+
+        {/* Bottom CTA - Compact */}
+        <motion.div
+          className='mt-3 p-3 bg-gradient-to-r from-purple-500/10 via-cyan-500/10 to-teal-500/10 rounded-lg border border-white/10'
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <div className='flex items-center justify-between'>
+            <div className='text-xs text-zinc-300'>
+              <span className='text-white font-medium'>
+                Ready to build something extraordinary?
+              </span>
+              <span className='text-zinc-400 ml-2'>
+                Let's turn your vision into scalable reality.
+              </span>
+            </div>
+            <div className='flex gap-1'>
+              <div className='w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse'></div>
+              <div
+                className='w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse'
+                style={{ animationDelay: '0.5s' }}
+              ></div>
+              <div
+                className='w-1.5 h-1.5 bg-teal-400 rounded-full animate-pulse'
+                style={{ animationDelay: '1s' }}
+              ></div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </PageSection>
   )
