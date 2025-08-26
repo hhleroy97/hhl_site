@@ -6,7 +6,7 @@ export default function NewAbout() {
     <PageSection
       id='about'
       tagline='About'
-      taglineColor='teal'
+      taglineColor='purple'
       title='Bridging imagination and implementation'
       cardVariant='background'
     >
