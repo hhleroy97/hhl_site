@@ -16,10 +16,10 @@ const sections = [
     component: LandingPage,
     props: (nextSection: () => void) => ({ onNextSection: nextSection }),
   },
-  { id: 'services', label: 'Services', component: Services },
-  { id: 'experience', label: 'Experience', component: WorkExperience },
   { id: 'about', label: 'About', component: NewAbout },
+  { id: 'experience', label: 'Experience', component: WorkExperience },
   { id: 'skills', label: 'Skills', component: SkillsTools },
+  { id: 'services', label: 'Services', component: Services },
   { id: 'contact', label: 'Contact', component: ContactFooter },
 ]
 

@@ -8,10 +8,10 @@ interface NavigationProps {
 }
 
 const defaultNavItems = [
-  { href: '#services', label: 'Services' },
-  { href: '#experience', label: 'Experience' },
   { href: '#about', label: 'About' },
+  { href: '#experience', label: 'Experience' },
   { href: '#skills', label: 'Skills' },
+  { href: '#services', label: 'Services' },
   { href: '#contact', label: 'Contact' },
 ]
 
