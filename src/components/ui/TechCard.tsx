@@ -68,8 +68,8 @@ export default function TechCard({
           transition={{ delay: 0.2, duration: 0.5 }}
         >
           <span
-            className='text-zinc-900 font-bold text-2xl tracking-wider uppercase'
-            style={{ fontFamily: 'Orbitron, sans-serif' }}
+            className='text-zinc-900 font-black text-2xl tracking-wider uppercase'
+            style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: '900' }}
           >
             {title}
           </span>
@@ -113,8 +113,8 @@ export default function TechCard({
             className={`px-4 py-2 bg-gradient-to-r ${colors.accent} rounded-lg shadow-lg`}
           >
             <span
-              className='text-zinc-900 font-bold text-sm tracking-widest uppercase whitespace-nowrap'
-              style={{ fontFamily: 'Orbitron, sans-serif' }}
+              className='text-zinc-900 font-black text-sm tracking-widest uppercase whitespace-nowrap'
+              style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: '900' }}
             >
               {title}
             </span>
@@ -158,7 +158,7 @@ export default function TechCard({
         >
           <span
             className={`text-8xl md:text-9xl font-black ${colors.text} opacity-5 tracking-wider uppercase transform -rotate-12`}
-            style={{ fontFamily: 'Orbitron, sans-serif' }}
+            style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: '900' }}
           >
             {title}
           </span>
@@ -172,12 +172,12 @@ export default function TechCard({
         {/* Content with header overlay */}
         <div className='relative z-10 p-8 flex-1 flex flex-col'>
           <motion.h3
-            className={`text-2xl font-bold ${colors.text} mb-6 tracking-wide uppercase flex-shrink-0`}
+            className={`text-2xl font-black ${colors.text} mb-6 tracking-wide uppercase flex-shrink-0`}
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+            style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: '900' }}
           >
             {title}
           </motion.h3>
@@ -211,7 +211,7 @@ export default function TechCard({
         >
           <span
             className='text-zinc-900 font-black text-xl tracking-widest uppercase'
-            style={{ fontFamily: 'Orbitron, sans-serif' }}
+            style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: '900' }}
           >
             {title}
           </span>
