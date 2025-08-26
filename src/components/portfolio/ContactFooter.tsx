@@ -58,58 +58,86 @@ export default function ContactFooter() {
           viewport={{ once: true }}
         >
           {/* Email */}
-          <div className='flex items-center gap-3 p-3 bg-gradient-to-r from-white/5 to-white/[0.02] rounded-lg border border-white/10 hover:border-white/20 transition-all duration-300'>
-            <div className='p-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white'>
-              <svg
-                className='w-4 h-4'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
-                />
-              </svg>
-            </div>
-            <div className='text-left'>
-              <div className='text-xs text-zinc-400'>Direct Email</div>
-              <a
-                href='mailto:hartley.leroy1997@gmail.com'
-                className='text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors'
-              >
-                hartley.leroy1997@gmail.com
-              </a>
-            </div>
-          </div>
-
-          {/* Quick Chat */}
-          <div className='flex items-center gap-3 p-3 bg-gradient-to-r from-fuchsia-500/10 to-purple-500/10 rounded-lg border border-fuchsia-500/20'>
-            <div className='p-2 bg-gradient-to-r from-fuchsia-500 to-purple-500 rounded-lg text-white'>
-              <svg
-                className='w-4 h-4'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z'
-                />
-              </svg>
-            </div>
-            <div className='text-left'>
-              <div className='text-xs text-zinc-400'>Quick Chat</div>
-              <div className='text-sm font-medium text-zinc-300'>
-                20-min intro{' '}
-                <span className='text-zinc-500'>(coming soon)</span>
+          <motion.div
+            className='group flex items-center gap-3 p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden relative'
+            whileHover={{
+              scale: 1.01,
+              y: -2,
+              borderColor: 'rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
+          >
+            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+            <div className='absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+            <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+            <div className='relative z-10 flex items-center gap-3'>
+              <div className='p-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white'>
+                <svg
+                  className='w-4 h-4'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
+                  />
+                </svg>
+              </div>
+              <div className='text-left'>
+                <div className='text-xs text-zinc-400'>Direct Email</div>
+                <a
+                  href='mailto:hartley.leroy1997@gmail.com'
+                  className='text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors'
+                >
+                  hartley.leroy1997@gmail.com
+                </a>
               </div>
             </div>
-          </div>
+          </motion.div>
+
+          {/* Quick Chat */}
+          <motion.div
+            className='group flex items-center gap-3 p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden relative'
+            whileHover={{
+              scale: 1.01,
+              y: -2,
+              borderColor: 'rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
+          >
+            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+            <div className='absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+            <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+            <div className='relative z-10 flex items-center gap-3'>
+              <div className='p-2 bg-gradient-to-r from-fuchsia-500 to-purple-500 rounded-lg text-white'>
+                <svg
+                  className='w-4 h-4'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z'
+                  />
+                </svg>
+              </div>
+              <div className='text-left'>
+                <div className='text-xs text-zinc-400'>Quick Chat</div>
+                <div className='text-sm font-medium text-zinc-300'>
+                  20-min intro{' '}
+                  <span className='text-zinc-500'>(coming soon)</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* Contact Form - Ultra Compact */}
@@ -120,93 +148,108 @@ export default function ContactFooter() {
           transition={{ delay: 0.2, duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <div className='relative bg-gradient-to-b from-white/5 to-white/[0.02] rounded-lg border border-white/10 p-4'>
-            <form onSubmit={handleSubmit} className='space-y-3'>
-              {/* Ultra Compact Form Grid */}
-              <div className='grid md:grid-cols-2 gap-3'>
+          <motion.div
+            className='group relative bg-black/30 backdrop-blur-md rounded-lg border border-white/20 p-4 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden'
+            whileHover={{
+              scale: 1.005,
+              y: -3,
+              borderColor: 'rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
+          >
+            {/* Enhanced depth effects */}
+            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+            <div className='absolute -top-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+            <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+            <div className='relative z-10'>
+              <form onSubmit={handleSubmit} className='space-y-3'>
+                {/* Ultra Compact Form Grid */}
+                <div className='grid md:grid-cols-2 gap-3'>
+                  <input
+                    type='text'
+                    name='name'
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm text-sm'
+                    placeholder='Your name'
+                  />
+                  <input
+                    type='email'
+                    name='email'
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm text-sm'
+                    placeholder='your@email.com'
+                  />
+                </div>
+
                 <input
                   type='text'
-                  name='name'
-                  value={formData.name}
+                  name='subject'
+                  value={formData.subject}
                   onChange={handleChange}
                   required
-                  className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm text-sm'
-                  placeholder='Your name'
+                  className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors text-sm'
+                  placeholder='Project inquiry'
                 />
-                <input
-                  type='email'
-                  name='email'
-                  value={formData.email}
+
+                <textarea
+                  name='message'
+                  value={formData.message}
                   onChange={handleChange}
                   required
-                  className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm text-sm'
-                  placeholder='your@email.com'
+                  rows={2}
+                  className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors resize-none text-sm'
+                  placeholder='Tell me about your project and timeline...'
                 />
-              </div>
 
-              <input
-                type='text'
-                name='subject'
-                value={formData.subject}
-                onChange={handleChange}
-                required
-                className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors text-sm'
-                placeholder='Project inquiry'
-              />
+                <div className='flex items-center justify-between'>
+                  <button
+                    type='submit'
+                    disabled={isSubmitting}
+                    className='btn-primary disabled:opacity-50 disabled:cursor-not-allowed px-6 py-2'
+                  >
+                    <span className='text-sm'>
+                      {isSubmitting
+                        ? 'Sending...'
+                        : submitStatus === 'success'
+                          ? 'Message Sent!'
+                          : 'Send Message'}
+                    </span>
+                  </button>
 
-              <textarea
-                name='message'
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={2}
-                className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors resize-none text-sm'
-                placeholder='Tell me about your project and timeline...'
-              />
-
-              <div className='flex items-center justify-between'>
-                <button
-                  type='submit'
-                  disabled={isSubmitting}
-                  className='btn-primary disabled:opacity-50 disabled:cursor-not-allowed px-6 py-2'
-                >
-                  <span className='text-sm'>
-                    {isSubmitting
-                      ? 'Sending...'
-                      : submitStatus === 'success'
-                        ? 'Message Sent!'
-                        : 'Send Message'}
-                  </span>
-                </button>
-
-                {/* Status and tagline inline */}
-                <div className='text-xs text-zinc-400 flex items-center gap-2'>
-                  <span>Building the future, one system at a time</span>
-                  <div className='flex gap-1'>
-                    <div className='w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse'></div>
-                    <div
-                      className='w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse'
-                      style={{ animationDelay: '0.5s' }}
-                    ></div>
-                    <div
-                      className='w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse'
-                      style={{ animationDelay: '1s' }}
-                    ></div>
+                  {/* Status and tagline inline */}
+                  <div className='text-xs text-zinc-400 flex items-center gap-2'>
+                    <span>Building the future, one system at a time</span>
+                    <div className='flex gap-1'>
+                      <div className='w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse'></div>
+                      <div
+                        className='w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse'
+                        style={{ animationDelay: '0.5s' }}
+                      ></div>
+                      <div
+                        className='w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse'
+                        style={{ animationDelay: '1s' }}
+                      ></div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {submitStatus === 'success' && (
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className='text-emerald-400 text-sm text-center'
-                >
-                  Thanks! I'll get back to you within 24 hours.
-                </motion.p>
-              )}
-            </form>
-          </div>
+                {submitStatus === 'success' && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className='text-emerald-400 text-sm text-center'
+                  >
+                    Thanks! I'll get back to you within 24 hours.
+                  </motion.p>
+                )}
+              </form>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
 
