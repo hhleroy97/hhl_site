@@ -42,7 +42,7 @@ export default function ContactFooter() {
     <PageSection
       id='contact'
       tagline='Contact'
-      taglineColor='emerald'
+      taglineColor='purple'
       title="Let's build something that moves —"
       subtitle='and moves people'
       className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
