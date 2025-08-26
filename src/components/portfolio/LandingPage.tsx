@@ -3,7 +3,11 @@ import { useState } from 'react'
 import DataPipeline from '../3d/DataPipeline'
 import InteractiveElements from './InteractiveElements'
 
-export default function LandingPage() {
+interface LandingPageProps {
+  onNextSection?: () => void
+}
+
+export default function LandingPage({ onNextSection }: LandingPageProps) {
   const [layerDistance] = useState(3.6)
   const [positionShift, setPositionShift] = useState(0)
   const [verticalShift, setVerticalShift] = useState(0)
@@ -15,7 +19,7 @@ export default function LandingPage() {
   const [positionY, setPositionY] = useState(0)
   const [positionZ, setPositionZ] = useState(-10)
   const [showBoundingBox, setShowBoundingBox] = useState(false)
-  const [controlsMinimized, setControlsMinimized] = useState(true)
+  const [controlsMinimized] = useState(true)
   const [overlayOffsetX, setOverlayOffsetX] = useState(-7)
   const [overlayOffsetY, setOverlayOffsetY] = useState(-3.5)
   const [showOverlayText, setShowOverlayText] = useState(false)
@@ -121,7 +125,7 @@ export default function LandingPage() {
 
         {/* Interactive Elements - Two Column Layout */}
         <div
-          className={`grid grid-cols-2 w-full ${showBorders ? 'border-4 border-orange-500' : ''}`}
+          className={`grid grid-cols-2 w-full gap-8 ${showBorders ? 'border-4 border-orange-500' : ''}`}
         >
           <div className='w-full h-full'>
             <InteractiveElements showBorders={showBorders} />
@@ -176,15 +180,6 @@ export default function LandingPage() {
             <h3 className='text-sm font-bold text-cyan-400'>
               Neural Network Controls
             </h3>
-            <button
-              onClick={() => setControlsMinimized(!controlsMinimized)}
-              className='text-gray-400 hover:text-white transition-colors'
-              title={
-                controlsMinimized ? 'Expand controls' : 'Minimize controls'
-              }
-            >
-              {controlsMinimized ? '⬆️' : '⬇️'}
-            </button>
           </div>
 
           {!controlsMinimized && (
@@ -482,18 +477,8 @@ export default function LandingPage() {
                 </button>
                 <button
                   onClick={() => {
-                    console.log('Current Neural Network Transform:')
-                    console.log(
-                      `Position: X=${positionX}, Y=${positionY}, Z=${positionZ}`
-                    )
-                    console.log(
-                      `Rotation: X=${rotationX}°, Y=${rotationY}°, Z=${rotationZ}°`
-                    )
-                    console.log(
-                      `Camera: Shift=${positionShift}, Vertical=${verticalShift}`
-                    )
                     alert(
-                      `Transform logged to console!\nPos: (${positionX}, ${positionY}, ${positionZ})\nRot: (${rotationX}°, ${rotationY}°, ${rotationZ}°)`
+                      `Transform values:\nPos: (${positionX}, ${positionY}, ${positionZ})\nRot: (${rotationX}°, ${rotationY}°, ${rotationZ}°)`
                     )
                   }}
                   className='flex-1 px-2 py-1 text-xs bg-cyan-700 hover:bg-cyan-600 text-white rounded transition-colors'
@@ -558,24 +543,40 @@ export default function LandingPage() {
 
       {/* Scroll indicator at bottom */}
       <motion.div
-        className='absolute bottom-16 left-1/2 transform -translate-x-1/2 z-[60] pointer-events-auto'
+        className='absolute bottom-4 z-[80] pointer-events-auto'
+        style={{ left: 'calc(50% - 24px)' }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.5 }}
       >
         <motion.button
           onClick={() => {
-            const element = document.getElementById('experience')
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' })
+            if (onNextSection) {
+              onNextSection()
+            } else {
+              const element = document.getElementById('experience')
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth' })
+              }
             }
           }}
-          className='p-3 text-zinc-400 hover:text-cyan-400 transition-colors duration-300'
-          whileHover={{ scale: 1.1 }}
+          className='p-0 text-zinc-400 hover:text-cyan-400 transition-colors duration-300 relative group'
+          whileHover={{
+            scale: 1.1,
+            transition: {
+              scale: {
+                duration: 0.2,
+              },
+            },
+          }}
           whileTap={{ scale: 0.95 }}
         >
+          {/* Bottom glow effect */}
+          <div className='absolute bottom-[-12rem] left-1/2 transform -translate-x-1/2 w-screen h-48 bg-cyan-400/20 rounded-full blur-[120px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out pointer-events-none' />
+
+          {/* Main arrow */}
           <motion.svg
-            className='w-8 h-8'
+            className='w-12 h-12 relative z-10'
             fill='none'
             stroke='currentColor'
             viewBox='0 0 24 24'
@@ -594,11 +595,11 @@ export default function LandingPage() {
             <motion.path
               strokeLinecap='round'
               strokeLinejoin='round'
-              strokeWidth={4}
-              initial={{ d: 'M5 10l7 7 7-7' }}
+              strokeWidth={6}
+              initial={{ d: 'M2 10l10 7 10-7' }}
               animate={{
-                d: ['M5 10l7 7 7-7', 'M6 12l6 6 6-6'],
-                strokeWidth: [4, 2],
+                d: ['M2 10l10 7 10-7', 'M4 12l8 6 8-6'],
+                strokeWidth: [6, 3],
                 transition: {
                   duration: 0.8,
                   times: [0, 1],
@@ -608,6 +609,35 @@ export default function LandingPage() {
               }}
             />
           </motion.svg>
+
+          {/* Small arrow variations that pop out on hover */}
+          <svg
+            className='w-10 h-10 absolute bottom-3 left-1/2 transform -translate-x-1/2 z-5 opacity-0 group-hover:opacity-60 transition-all duration-300 delay-100 group-hover:-translate-y-1'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+          >
+            <path
+              strokeLinecap='butt'
+              strokeLinejoin='miter'
+              strokeWidth={2}
+              d='M4 12l8 6 8-6'
+            />
+          </svg>
+
+          <svg
+            className='w-8 h-8 absolute bottom-5 left-1/2 transform -translate-x-1/2 z-5 opacity-0 group-hover:opacity-40 transition-all duration-300 delay-200 group-hover:-translate-y-2'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+          >
+            <path
+              strokeLinecap='butt'
+              strokeLinejoin='miter'
+              strokeWidth={1.5}
+              d='M4 12l8 6 8-6'
+            />
+          </svg>
         </motion.button>
       </motion.div>
     </section>
