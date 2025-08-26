@@ -67,7 +67,10 @@ export default function TechCard({
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <span className='text-zinc-900 font-bold text-2xl tracking-wider uppercase'>
+          <span
+            className='text-zinc-900 font-bold text-2xl tracking-wider uppercase'
+            style={{ fontFamily: 'Orbitron, sans-serif' }}
+          >
             {title}
           </span>
         </motion.div>
@@ -109,7 +112,10 @@ export default function TechCard({
           <div
             className={`px-4 py-2 bg-gradient-to-r ${colors.accent} rounded-lg shadow-lg`}
           >
-            <span className='text-zinc-900 font-bold text-sm tracking-widest uppercase whitespace-nowrap'>
+            <span
+              className='text-zinc-900 font-bold text-sm tracking-widest uppercase whitespace-nowrap'
+              style={{ fontFamily: 'Orbitron, sans-serif' }}
+            >
               {title}
             </span>
           </div>
@@ -152,7 +158,7 @@ export default function TechCard({
         >
           <span
             className={`text-8xl md:text-9xl font-black ${colors.text} opacity-5 tracking-wider uppercase transform -rotate-12`}
-            style={{ fontFamily: 'Orbitron, monospace' }}
+            style={{ fontFamily: 'Orbitron, sans-serif' }}
           >
             {title}
           </span>
@@ -205,7 +211,7 @@ export default function TechCard({
         >
           <span
             className='text-zinc-900 font-black text-xl tracking-widest uppercase'
-            style={{ fontFamily: 'Russo One, sans-serif' }}
+            style={{ fontFamily: 'Orbitron, sans-serif' }}
           >
             {title}
           </span>
