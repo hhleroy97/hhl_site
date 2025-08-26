@@ -14,24 +14,24 @@ export default function NewAbout() {
       <div className='max-w-7xl mx-auto'>
         {/* Hero Statement */}
         <motion.div
-          className='text-center mb-16'
+          className='text-center mb-8'
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className='text-5xl md:text-6xl font-black mb-8 leading-tight'>
+          <h2 className='text-4xl md:text-5xl font-black mb-4 leading-tight'>
             I build systems that{' '}
             <span className='bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent'>
               move
             </span>
             <br />
-            <span className='text-4xl md:text-5xl font-light'>
+            <span className='text-3xl md:text-4xl font-light'>
               and move people
             </span>
           </h2>
 
-          <p className='text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed'>
+          <p className='text-lg text-zinc-400 max-w-3xl mx-auto leading-relaxed'>
             From autonomous fleets to audio-reactive visuals, I bridge the gap
             between
             <span className='text-purple-400 font-medium'>
@@ -45,14 +45,14 @@ export default function NewAbout() {
         <div className='grid lg:grid-cols-[2fr,1fr] gap-16 items-start'>
           {/* Left Column - Story & Philosophy */}
           <motion.div
-            className='space-y-12'
+            className='space-y-8'
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
             {/* Core Identity */}
-            <div className='space-y-6'>
+            <div className='space-y-4'>
               <h3 className='text-2xl font-bold text-white mb-4'>
                 The Creative Technologist
               </h3>
@@ -110,14 +110,14 @@ export default function NewAbout() {
             </motion.div>
 
             {/* Key Strengths */}
-            <div className='space-y-6'>
-              <h3 className='text-2xl font-bold text-white mb-6'>
+            <div className='space-y-4'>
+              <h3 className='text-2xl font-bold text-white mb-4'>
                 What Sets Me Apart
               </h3>
 
-              <div className='grid md:grid-cols-2 gap-6'>
+              <div className='grid md:grid-cols-2 gap-4'>
                 <motion.div
-                  className='p-6 bg-gradient-to-br from-purple-500/10 to-purple-600/5 rounded-xl border border-purple-500/20'
+                  className='p-4 bg-gradient-to-br from-purple-500/10 to-purple-600/5 rounded-xl border border-purple-500/20'
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -136,7 +136,7 @@ export default function NewAbout() {
                 </motion.div>
 
                 <motion.div
-                  className='p-6 bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 rounded-xl border border-cyan-500/20'
+                  className='p-4 bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 rounded-xl border border-cyan-500/20'
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -155,7 +155,7 @@ export default function NewAbout() {
                 </motion.div>
 
                 <motion.div
-                  className='p-6 bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 rounded-xl border border-emerald-500/20'
+                  className='p-4 bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 rounded-xl border border-emerald-500/20'
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -174,7 +174,7 @@ export default function NewAbout() {
                 </motion.div>
 
                 <motion.div
-                  className='p-6 bg-gradient-to-br from-zinc-500/10 to-zinc-600/5 rounded-xl border border-zinc-500/20'
+                  className='p-4 bg-gradient-to-br from-zinc-500/10 to-zinc-600/5 rounded-xl border border-zinc-500/20'
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -197,7 +197,7 @@ export default function NewAbout() {
 
           {/* Right Column - Visual Identity */}
           <motion.div
-            className='space-y-8'
+            className='space-y-6'
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -206,7 +206,7 @@ export default function NewAbout() {
             {/* Enhanced Photo Section */}
             <div className='relative'>
               {/* Main photo container with enhanced styling */}
-              <div className='relative w-80 h-96 overflow-hidden rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 border border-white/20 shadow-2xl'>
+              <div className='relative w-72 h-88 overflow-hidden rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 border border-white/20 shadow-2xl'>
                 {/* Photo with enhanced overlay */}
                 <div className='absolute inset-0 bg-gradient-to-br from-purple-500/20 via-cyan-500/20 to-emerald-500/20'>
                   <img
