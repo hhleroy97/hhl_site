@@ -16,14 +16,9 @@ interface DataPipelineProps {
   positionX?: number
   positionY?: number
   positionZ?: number
-  onOffsetChange?: (xOffset: number, yOffset: number, zOffset: number) => void
-  onRotationChange?: (
-    rotationX: number,
-    rotationY: number,
-    rotationZ: number
-  ) => void
   showBoundingBox?: boolean
   showOriginMarker?: boolean
+  enableMouseParallax?: boolean
 }
 
 const DataPipeline: React.FC<DataPipelineProps> = ({
@@ -40,10 +35,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   positionX = 0,
   positionY = 0,
   positionZ = 0,
-  onOffsetChange,
-  onRotationChange,
   showBoundingBox = false,
   showOriginMarker = true,
+  enableMouseParallax = true,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [cameraXOffset] = useState(0)
@@ -51,9 +45,8 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   const [nodeSpacing] = useState(2.5)
   const [inputLayerSpacing] = useState(2)
   const [cameraDistance] = useState(15)
-  const [isDragging, setIsDragging] = useState(false)
-  const [enableRotation] = useState(true)
-  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }) // Disabled for stable cinematic mode
+  const mousePositionRef = useRef({ x: 0, y: 0 })
+  const smoothMousePositionRef = useRef({ x: 0, y: 0 })
 
   // Store refs to update positions without recreating scene
   const sceneRef = useRef<THREE.Scene | null>(null)
@@ -64,6 +57,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   const connectionLinesRef = useRef<THREE.Line[]>([])
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
   const controlsRef = useRef<OrbitControls | null>(null)
+  const connectionsRef = useRef<[number, number][]>([]) // Store connections for cross-effect access
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -123,21 +117,15 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     controls.enableDamping = true
     controls.dampingFactor = 0.05
 
+    // Disable all user controls - we'll use mouse parallax instead
+    controls.enableZoom = false
+    controls.enablePan = false
+    controls.enableRotate = false
+
     if (cinematicMode) {
-      // Disable user controls in cinematic mode to maintain framing
-      controls.enableZoom = false
-      controls.enablePan = false
-      controls.enableRotate = false
       controls.target.set(-4 + positionShift, verticalShift, 0) // Match camera look-at target - fixed reference
     } else {
-      controls.enableZoom = true
-      controls.enablePan = true
-      controls.enableRotate = enableRotation
       controls.target.set(0, 0, 0)
-      controls.maxDistance = 50
-      controls.minDistance = 5
-      controls.maxPolarAngle = Math.PI
-      controls.minPolarAngle = 0
     }
 
     controlsRef.current = controls
@@ -639,153 +627,147 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       nodeBoxesRef.current.push(outline) // Track outline as well
     })
 
-    // Neural network connections (selective connections for cleaner visualization)
-    const connections: [number, number][] = []
+    // Neural network connections (proper left-to-right MLP flow)
+    // Layer positions: Input(-1.75) → Intelligence(-0.75) → Processing(0.75) → Control(1.75) → Output(3)
+    const connections: [number, number][] = [
+      // Input layer (0-8: 3x3 grid) to Intelligence layer (21-29: 9 nodes) - first hidden layer
+      [0, 21],
+      [0, 22],
+      [0, 23],
+      [1, 21],
+      [1, 22],
+      [1, 23],
+      [1, 24],
+      [2, 22],
+      [2, 23],
+      [2, 24],
+      [3, 21],
+      [3, 24],
+      [3, 25],
+      [3, 26],
+      [4, 22],
+      [4, 23],
+      [4, 24],
+      [4, 25],
+      [4, 26],
+      [5, 23],
+      [5, 24],
+      [5, 25],
+      [5, 26],
+      [5, 27],
+      [6, 24],
+      [6, 25],
+      [6, 26],
+      [6, 27],
+      [7, 25],
+      [7, 26],
+      [7, 27],
+      [7, 28],
+      [8, 26],
+      [8, 27],
+      [8, 28],
+      [8, 29],
 
-    // Input layer (0-8: 3x3 grid) to Hidden layer 1 (9-20: 12 nodes) - clear layer connections
-    const inputToHidden1: [number, number][] = [
-      // Each input connects to 3-4 hidden nodes in a pattern
-      [0, 9],
-      [0, 10],
-      [0, 11],
-      [0, 12],
-      [1, 9],
-      [1, 10],
-      [1, 11],
-      [1, 13],
-      [2, 10],
-      [2, 11],
-      [2, 12],
-      [2, 14],
-      [3, 9],
-      [3, 13],
-      [3, 14],
-      [3, 15],
-      [4, 10],
-      [4, 11],
-      [4, 13],
-      [4, 14],
-      [4, 16], // Center pixel connects to more
-      [5, 11],
-      [5, 12],
-      [5, 14],
-      [5, 17],
-      [6, 13],
-      [6, 14],
-      [6, 15],
-      [6, 18],
-      [7, 14],
-      [7, 15],
-      [7, 16],
-      [7, 19],
-      [8, 15],
-      [8, 16],
-      [8, 17],
-      [8, 20],
-    ]
-    connections.push(...inputToHidden1)
+      // Intelligence layer (21-29: 9 nodes) to Processing layer (9-20: 12 nodes) - second hidden layer
+      [21, 9],
+      [21, 10],
+      [21, 11],
+      [21, 12],
+      [22, 9],
+      [22, 10],
+      [22, 11],
+      [22, 13],
+      [23, 10],
+      [23, 11],
+      [23, 12],
+      [23, 14],
+      [24, 11],
+      [24, 12],
+      [24, 13],
+      [24, 14],
+      [24, 15],
+      [25, 12],
+      [25, 13],
+      [25, 14],
+      [25, 15],
+      [25, 16],
+      [26, 13],
+      [26, 14],
+      [26, 15],
+      [26, 16],
+      [26, 17],
+      [27, 14],
+      [27, 15],
+      [27, 16],
+      [27, 17],
+      [27, 18],
+      [28, 15],
+      [28, 16],
+      [28, 17],
+      [28, 18],
+      [28, 19],
+      [29, 17],
+      [29, 18],
+      [29, 19],
+      [29, 20],
 
-    // Processing layer (9-20: 12 nodes) to Control layer (30-33: 4 nodes) - ensure all nodes connected
-    const processingToControl: [number, number][] = [
-      // Each processing node connects to 2-3 control nodes
+      // Processing layer (9-20: 12 nodes) to Control layer (30-33: 4 nodes)
       [9, 30],
       [9, 31],
       [10, 30],
       [10, 31],
-      [10, 32],
+      [11, 30],
       [11, 31],
       [11, 32],
-      [12, 30],
+      [12, 31],
       [12, 32],
-      [12, 33],
       [13, 30],
       [13, 31],
-      [13, 33],
+      [13, 32],
       [14, 31],
       [14, 32],
       [14, 33],
       [15, 30],
       [15, 32],
-      [16, 30],
+      [15, 33],
       [16, 31],
+      [16, 32],
       [16, 33],
-      [17, 31],
+      [17, 30],
       [17, 32],
       [17, 33],
-      [18, 30],
+      [18, 31],
       [18, 32],
       [18, 33],
-      [19, 31],
       [19, 32],
-      [20, 30],
+      [19, 33],
       [20, 33],
-    ]
-    connections.push(...processingToControl)
 
-    // Control layer (30-33: 4 nodes) to Intelligence layer (21-29: 9 nodes) - ensure all nodes connected
-    const controlToIntelligence: [number, number][] = [
-      // Each control node connects to multiple intelligence nodes
-      [30, 21],
-      [30, 22],
-      [30, 23],
-      [30, 24],
-      [31, 22],
-      [31, 23],
-      [31, 24],
-      [31, 25],
-      [31, 26],
-      [32, 24],
-      [32, 25],
-      [32, 26],
-      [32, 27],
-      [32, 28],
-      [33, 26],
-      [33, 27],
-      [33, 28],
-      [33, 29],
+      // Control layer (30-33: 4 nodes) to Output layer (34-43: 10 nodes)
+      [30, 34],
+      [30, 35],
+      [30, 36],
+      [30, 37],
+      [30, 38],
+      [31, 35],
+      [31, 36],
+      [31, 37],
+      [31, 38],
+      [31, 39],
+      [32, 37],
+      [32, 38],
+      [32, 39],
+      [32, 40],
+      [32, 41],
+      [33, 39],
+      [33, 40],
+      [33, 41],
+      [33, 42],
+      [33, 43],
     ]
-    connections.push(...controlToIntelligence)
 
-    // Intelligence layer (21-29: 9 nodes) to Output layer (34-43: 10 nodes) - ensure all outputs connected
-    const intelligenceToOutput: [number, number][] = [
-      // Each intelligence node connects to multiple output nodes
-      [21, 34],
-      [21, 35],
-      [21, 36],
-      [22, 34],
-      [22, 35],
-      [22, 36],
-      [22, 37],
-      [23, 35],
-      [23, 36],
-      [23, 37],
-      [23, 38],
-      [24, 36],
-      [24, 37],
-      [24, 38],
-      [24, 39],
-      [25, 37],
-      [25, 38],
-      [25, 39],
-      [25, 40],
-      [25, 41], // Center connects to more
-      [26, 38],
-      [26, 39],
-      [26, 40],
-      [26, 41],
-      [27, 39],
-      [27, 40],
-      [27, 41],
-      [27, 42],
-      [28, 40],
-      [28, 41],
-      [28, 42],
-      [28, 43],
-      [29, 41],
-      [29, 42],
-      [29, 43],
-    ]
-    connections.push(...intelligenceToOutput)
+    // Store connections in ref for access from position update effect
+    connectionsRef.current = connections
 
     // Create simple connection lines (consistent color)
     const connectionLines: THREE.Line[] = []
@@ -804,7 +786,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       const material = new THREE.LineBasicMaterial({
         color: 0x374151, // Subtle gray-700 color for all lines
         transparent: true,
-        opacity: cinematicMode ? 0.3 : 0.4, // 75% of original opacity for cinematic mode
+        opacity: 0.1, // Start with subtle visibility for all connections
       })
       const line = new THREE.Line(geometry, material)
       neuralNetworkGroup.add(line)
@@ -814,112 +796,84 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
 
     // Data particles flowing through complex mesh network (created after connection lines)
     const particles: THREE.Mesh[] = []
-    const particleCount = 60 // More particles for complex network
+    const particleCount = 120 // Doubled particle count for more data flow
 
-    for (let i = 0; i < particleCount; i++) {
-      const particleGeometry = new THREE.SphereGeometry(0.08, 8, 6) // Slightly larger particles
+    // Ensure even distribution across all connections for consistent data flow
+    const connectionsPerParticle = Math.ceil(particleCount / connections.length)
+    let particleIndex = 0
 
-      // Assign each particle to a random connection path
-      const connectionIndex = Math.floor(Math.random() * connections.length)
-      const [fromIdx, toIdx] = connections[connectionIndex]
-      const from = nodes[fromIdx]
+    // Create particles with even distribution across all connections
+    for (
+      let connectionIdx = 0;
+      connectionIdx < connections.length && particleIndex < particleCount;
+      connectionIdx++
+    ) {
+      const [fromIdx, toIdx] = connections[connectionIdx]
+      const particlesForThisConnection = Math.min(
+        connectionsPerParticle,
+        particleCount - particleIndex
+      )
 
-      // Start with the color from the source node
-      const particleMaterial = new THREE.MeshLambertMaterial({
-        color: from.color,
-        transparent: true,
-        opacity: cinematicMode ? 0.675 : 0.9, // 75% of original opacity for cinematic mode
-      })
-      const particle = new THREE.Mesh(particleGeometry, particleMaterial)
+      for (let i = 0; i < particlesForThisConnection; i++) {
+        const particleGeometry = new THREE.SphereGeometry(0.06, 8, 6) // Slightly smaller for more particles
 
-      // Start at the 'from' node
-      particle.position.set(from.x, from.y, from.z)
+        const from = nodes[fromIdx]
+        const to = nodes[toIdx]
 
-      // Store path information using node indices instead of node objects
-      particle.userData = {
-        fromNodeIndex: fromIdx,
-        toNodeIndex: toIdx,
-        progress: Math.random(), // Random starting progress along path
-        speed: 0.0005 + Math.random() * 0.001,
-        connectionIndex: connectionIndex,
-        sourceColor: from.color, // Store the original source node color
+        // Start with the color from the source node with subtle glow
+        const particleMaterial = new THREE.MeshLambertMaterial({
+          color: from.color,
+          emissive: from.color,
+          emissiveIntensity: 0.25, // Slightly reduced glow for more particles
+          transparent: true,
+          opacity: cinematicMode ? 0.675 : 0.85, // Slightly reduced opacity for cleaner look
+        })
+        const particle = new THREE.Mesh(particleGeometry, particleMaterial)
+
+        // Stagger starting positions along the connection path for more natural flow
+        const startProgress =
+          i / particlesForThisConnection + (Math.random() * 0.3 - 0.15) // Spread particles along path
+        const startX = from.x + (to.x - from.x) * startProgress
+        const startY = from.y + (to.y - from.y) * startProgress
+        const startZ = from.z + (to.z - from.z) * startProgress
+        particle.position.set(startX, startY, startZ)
+
+        // Store path information using node indices instead of node objects
+        particle.userData = {
+          fromNodeIndex: fromIdx,
+          toNodeIndex: toIdx,
+          progress: startProgress, // Start at staggered position
+          speed: 0.0003 + Math.random() * 0.0004, // Slightly varied speeds
+          connectionIndex: connectionIdx,
+          sourceColor: from.color, // Store the original source node color
+          particleId: particleIndex, // Unique ID for varied behaviors
+          sizeVariation: 0.8 + Math.random() * 0.4, // Random size that stays constant (0.8 to 1.2)
+        }
+
+        neuralNetworkGroup.add(particle)
+        particles.push(particle)
+        particlesRef.current.push(particle)
+        particleIndex++
       }
-
-      neuralNetworkGroup.add(particle)
-      particles.push(particle)
-      particlesRef.current.push(particle)
     }
 
     // Text labels are handled via HTML overlay
 
-    // Mouse interaction for click-and-drag
-    let isDraggingInternal = false
-    let dragStartX = 0
-    let dragStartY = 0
-    let isRotationMode = false
+    // Mouse parallax interaction - track entire screen
+    const handleParallaxMouseMove = (event: MouseEvent) => {
+      if (!enableMouseParallax) return
 
-    const handleMouseDown = (event: MouseEvent) => {
-      if (!interactive) return
-      isDraggingInternal = true
-      dragStartX = event.clientX
-      dragStartY = event.clientY
-      isRotationMode =
-        event.shiftKey || event.button === 1 || event.button === 2 // Shift key, middle mouse button, or right mouse button
+      // Use entire screen area for smoother, continuous parallax
+      const x = (event.clientX / window.innerWidth) * 2 - 1 // -1 to 1
+      const y = -(event.clientY / window.innerHeight) * 2 + 1 // -1 to 1
 
-      setIsDragging(true)
+      // Update ref directly for immediate use in animation loop
+      mousePositionRef.current = { x, y }
     }
 
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!interactive) return
-
-      if (isDraggingInternal) {
-        // Calculate drag delta
-        const deltaX = event.clientX - dragStartX
-        const deltaY = event.clientY - dragStartY
-
-        // Only update if there's significant movement to avoid jittery updates
-        if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
-          if (isRotationMode) {
-            // Rotation mode: update rotation values with smaller increments for smoother control
-            if (onRotationChange) {
-              requestAnimationFrame(() => {
-                onRotationChange(-deltaY * 0.3, deltaX * 0.3, 0)
-              })
-            }
-          } else {
-            // Position mode: update position values with smaller increments for smoother control
-            if (onOffsetChange) {
-              requestAnimationFrame(() => {
-                onOffsetChange(deltaX * 0.05, -deltaY * 0.05, 0)
-              })
-            }
-          }
-
-          // Update drag start position
-          dragStartX = event.clientX
-          dragStartY = event.clientY
-        }
-      }
-    }
-
-    const handleMouseUp = () => {
-      if (!interactive) return
-      isDraggingInternal = false
-      isRotationMode = false
-      setIsDragging(false)
-    }
-
-    const handleContextMenu = (event: MouseEvent) => {
-      if (!interactive) return
-      event.preventDefault() // Prevent context menu on right-click drag
-    }
-
-    // Only add custom mouse handlers if rotation is disabled
-    if (interactive && !enableRotation) {
-      window.addEventListener('mousedown', handleMouseDown)
-      window.addEventListener('mousemove', handleMouseMove)
-      window.addEventListener('mouseup', handleMouseUp)
-      window.addEventListener('contextmenu', handleContextMenu)
+    // Add mouse parallax listener to entire window for smooth tracking
+    if (enableMouseParallax) {
+      window.addEventListener('mousemove', handleParallaxMouseMove)
     }
 
     // Animation loop
@@ -927,8 +881,34 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     const animate = () => {
       const time = Date.now() * 0.001
 
-      // Apply rotations (work in both cinematic and non-cinematic modes)
+      // Apply rotations with mouse parallax effect
       if (neuralNetworkGroupRef.current) {
+        // Smooth interpolation for buttery-smooth parallax
+        const lerpFactor = 0.08 // Controls smoothing speed
+        const targetMousePos = mousePositionRef.current
+        const currentSmoothPos = smoothMousePositionRef.current
+
+        // Lerp towards target position for smooth movement
+        currentSmoothPos.x +=
+          (targetMousePos.x - currentSmoothPos.x) * lerpFactor
+        currentSmoothPos.y +=
+          (targetMousePos.y - currentSmoothPos.y) * lerpFactor
+
+        // Mouse parallax effect - inverted movement (object moves away from cursor)
+        const parallaxIntensity = 0.08 // Moderate intensity (between 0.06 and 0.12)
+        // Much tighter top constraint to prevent cutoff
+        const clampedMouseY = Math.max(-0.95, Math.min(0.4, currentSmoothPos.y)) // Much tighter top (-0.4), looser bottom (-0.95)
+        const shiftedMouseY = clampedMouseY * 0.6 // Moderate vertical rotation
+        const parallaxX = enableMouseParallax
+          ? -shiftedMouseY * parallaxIntensity
+          : 0 // Inverted Y movement
+        // Horizontal rotation with increased sensitivity and inversion
+        const clampedMouseX = Math.max(-0.8, Math.min(0.8, currentSmoothPos.x)) // Constrain horizontal movement
+        const shiftedMouseX = clampedMouseX * 0.8 // Increased horizontal sensitivity
+        const parallaxY = enableMouseParallax
+          ? -shiftedMouseX * parallaxIntensity * -1
+          : 0 // Double inverted X movement (reversed direction)
+
         if (cinematicMode) {
           // Base cinematic rotation
           const baseRotationY = THREE.MathUtils.degToRad(25)
@@ -943,27 +923,59 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
             Math.cos(time * breathingSpeed * 0.7) * breathingIntensity * 0.5
 
           neuralNetworkGroupRef.current.rotation.x =
-            baseRotationX + breathingX + THREE.MathUtils.degToRad(rotationX)
+            baseRotationX +
+            breathingX +
+            THREE.MathUtils.degToRad(rotationX) +
+            parallaxX
           neuralNetworkGroupRef.current.rotation.y =
-            baseRotationY + breathingY + THREE.MathUtils.degToRad(rotationY)
+            baseRotationY +
+            breathingY +
+            THREE.MathUtils.degToRad(rotationY) +
+            parallaxY
           neuralNetworkGroupRef.current.rotation.z =
             THREE.MathUtils.degToRad(rotationZ)
         } else {
-          // Direct rotation control in non-cinematic mode
+          // Direct rotation control with parallax in non-cinematic mode
           neuralNetworkGroupRef.current.rotation.x =
-            THREE.MathUtils.degToRad(rotationX)
+            THREE.MathUtils.degToRad(rotationX) + parallaxX
           neuralNetworkGroupRef.current.rotation.y =
-            THREE.MathUtils.degToRad(rotationY)
+            THREE.MathUtils.degToRad(rotationY) + parallaxY
           neuralNetworkGroupRef.current.rotation.z =
             THREE.MathUtils.degToRad(rotationZ)
         }
       }
 
-      // Gentle node box animation with slow drift for background layer
+      // Very dramatic camera drift/breathing effect
+      if (cameraRef.current && !cinematicMode) {
+        const driftIntensity = 1.2 // Much more intense drift
+        const driftSpeed = 0.008 // Faster and more noticeable
+        const driftX = Math.sin(time * driftSpeed) * driftIntensity
+        const driftY = Math.cos(time * driftSpeed * 1.3) * driftIntensity * 0.7
+        const driftZ = Math.sin(time * driftSpeed * 0.7) * driftIntensity * 0.5
+
+        // Apply drift to camera position (additive to the base position)
+        const baseZ = externalCameraDistance || cameraDistance
+        cameraRef.current.position.set(driftX, driftY, baseZ + driftZ)
+
+        // Debug: log occasionally to verify it's running
+        if (Math.random() < 0.01) {
+          console.log(
+            'Camera drift - X:',
+            driftX.toFixed(3),
+            'Y:',
+            driftY.toFixed(3),
+            'Z:',
+            driftZ.toFixed(3)
+          )
+        }
+      }
+
+      // Gentle node box animation with slow drift and depth-based color shifting
       nodeBoxesRef.current.forEach((box, index) => {
         // Minimal rotation for premium, subtle motion
         const nodeTime = Date.now() * 0.00005
         const isMainBox = index % 2 === 0 // Every other is main box (not outline)
+
         if (isMainBox) {
           const intensity = cinematicMode ? 0.01 : 0.02 // Reduce motion in cinematic mode
           box.rotation.y = Math.sin(nodeTime + index * 0.05) * intensity
@@ -972,17 +984,18 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         }
       })
 
-      // Keep connection lines stable
-      connectionLinesRef.current.forEach(line => {
-        const material = line.material as THREE.LineBasicMaterial
-        material.opacity = 0.4
-      })
+      // Track which connections have active particles for line visibility
+      const activeConnections = new Set<number>()
 
-      // Animate data particles through network with slower, graceful motion
+      // Animate data particles through network with varied, consistent motion
       particlesRef.current.forEach(particle => {
         const userData = particle.userData
-        // Even slower particle speed for premium background feel
-        userData.progress += userData.speed * 0.5
+        // Varied particle speeds based on particle ID for more natural flow
+        const speedMultiplier = 0.6 + (userData.particleId % 3) * 0.2 // Vary speed by particle type
+        userData.progress += userData.speed * speedMultiplier
+
+        // Mark this connection as active
+        activeConnections.add(userData.connectionIndex)
 
         if (userData.progress <= 1) {
           // Get current node positions from the actual scene objects
@@ -1013,13 +1026,33 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
 
             if (particle.material instanceof THREE.MeshLambertMaterial) {
               particle.material.color.copy(interpolatedColor)
+              // Update emissive to match for consistent glow
+              particle.material.emissive.copy(interpolatedColor)
             }
           }
         } else {
-          // Particle reached destination, assign new random path from neural network connections
-          const newConnectionIndex = Math.floor(
-            Math.random() * connections.length
-          )
+          // Particle reached destination, assign new path ensuring consistent layer-to-layer flow
+          // Prefer connections that continue the forward flow through the network
+          const currentToNode = userData.toNodeIndex
+
+          // Find connections that start from the current destination node (forward flow)
+          const forwardConnections = connections
+            .map((conn, idx) => ({ conn, idx }))
+            .filter(({ conn }) => conn[0] === currentToNode)
+
+          let newConnectionIndex
+          if (forwardConnections.length > 0) {
+            // Prefer forward connections for consistent flow
+            const forwardConn =
+              forwardConnections[
+                Math.floor(Math.random() * forwardConnections.length)
+              ]
+            newConnectionIndex = forwardConn.idx
+          } else {
+            // Fallback to random connection if no forward connection exists
+            newConnectionIndex = Math.floor(Math.random() * connections.length)
+          }
+
           const [newFromIdx, newToIdx] = connections[newConnectionIndex]
           userData.fromNodeIndex = newFromIdx
           userData.toNodeIndex = newToIdx
@@ -1032,7 +1065,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
             particle.material.color.setHex(newFromNode.color)
           }
 
-          // Start at new 'from' node position
+          // Start at new 'from' node position with slight offset for natural flow
           const fromBox = nodeBoxesRef.current[newFromIdx * 2]
           if (fromBox) {
             particle.position.set(
@@ -1043,9 +1076,27 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
           }
         }
 
-        // Subtle particle motion for elegant background
-        particle.rotation.x += 0.005
-        particle.rotation.y += 0.008
+        // Varied particle rotation with constant size for better performance
+        const rotationSpeed = 0.003 + (userData.particleId % 4) * 0.002 // Vary rotation speeds
+        particle.rotation.x += rotationSpeed
+        particle.rotation.y += rotationSpeed * 1.5
+        particle.rotation.z += rotationSpeed * 0.7
+
+        // Apply constant size variation (calculated once, stored in userData)
+        particle.scale.setScalar(userData.sizeVariation)
+      })
+
+      // Update connection line visibility based on active particles
+      connectionLinesRef.current.forEach((line, index) => {
+        const isActive = activeConnections.has(index)
+        const targetOpacity = isActive ? 0.4 : 0.15 // Show connections with active particles more prominently
+
+        if (line.material instanceof THREE.LineBasicMaterial) {
+          // Smooth opacity transition
+          const currentOpacity = line.material.opacity
+          const opacityDiff = targetOpacity - currentOpacity
+          line.material.opacity = currentOpacity + opacityDiff * 0.15 // Smooth transition
+        }
       })
 
       // Update orbit controls
@@ -1089,15 +1140,9 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       if (controlsRef.current) {
         controlsRef.current.dispose()
       }
-      if (interactive && !enableRotation) {
-        window.removeEventListener('mousedown', handleMouseDown)
-        window.removeEventListener('mousemove', handleMouseMove)
-        window.removeEventListener('mouseup', handleMouseUp)
-        window.removeEventListener('contextmenu', handleContextMenu)
+      if (enableMouseParallax) {
+        window.removeEventListener('mousemove', handleParallaxMouseMove)
       }
-      // if (cinematicMode) {
-      //   window.removeEventListener('mousemove', handleParallaxMouseMove)
-      // }
       window.removeEventListener('resize', handleResize)
 
       scene.traverse((object: THREE.Object3D) => {
@@ -1123,7 +1168,6 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     cameraDistance,
     externalCameraDistance,
     externalLayerSpacing,
-    enableRotation,
     inputLayerSpacing,
     layerSpacing,
     nodeSpacing,
@@ -1232,7 +1276,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -1.75 + positionX,
+        x: layerSpacing * -1.75 + centerOffset + positionX,
         y: 0 + positionY,
         z: 0 + positionZ,
       },
@@ -1288,7 +1332,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * 0.75 + positionX,
+        x: layerSpacing * 0.75 + centerOffset + positionX,
         y: 0 + positionY,
         z: 0 + positionZ,
       },
@@ -1339,7 +1383,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         z: nodeSpacing + positionZ,
       },
       {
-        x: layerSpacing * -0.75 + positionX,
+        x: layerSpacing * -0.75 + centerOffset + positionX,
         y: 0 + positionY,
         z: 0 + positionZ,
       },
@@ -1445,155 +1489,12 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       }
     })
 
-    // Update connection lines using neural network connections
+    // Update connection lines using the same connections array from scene creation
     connectionLinesRef.current.forEach((line, index) => {
-      // Get connections from the neural network pattern (selective connections)
-      const connectionPattern = []
-
-      // Input to Hidden 1 - selective connections (0-8 to 9-20)
-      const inputToHidden1 = [
-        [0, 9],
-        [0, 10],
-        [0, 11],
-        [0, 12],
-        [1, 9],
-        [1, 10],
-        [1, 11],
-        [1, 13],
-        [2, 10],
-        [2, 11],
-        [2, 12],
-        [2, 14],
-        [3, 9],
-        [3, 13],
-        [3, 14],
-        [3, 15],
-        [4, 10],
-        [4, 11],
-        [4, 13],
-        [4, 14],
-        [4, 16],
-        [5, 11],
-        [5, 12],
-        [5, 14],
-        [5, 17],
-        [6, 13],
-        [6, 14],
-        [6, 15],
-        [6, 18],
-        [7, 14],
-        [7, 15],
-        [7, 16],
-        [7, 19],
-        [8, 15],
-        [8, 16],
-        [8, 17],
-        [8, 20],
-      ]
-      connectionPattern.push(...inputToHidden1)
-
-      // Processing to Control - connect processing (9-20) to control (30-33)
-      const processingToControlPattern = [
-        [9, 30],
-        [9, 31],
-        [10, 30],
-        [10, 31],
-        [10, 32],
-        [11, 31],
-        [11, 32],
-        [12, 30],
-        [12, 32],
-        [12, 33],
-        [13, 30],
-        [13, 31],
-        [13, 33],
-        [14, 31],
-        [14, 32],
-        [14, 33],
-        [15, 30],
-        [15, 32],
-        [16, 30],
-        [16, 31],
-        [16, 33],
-        [17, 31],
-        [17, 32],
-        [17, 33],
-        [18, 30],
-        [18, 32],
-        [18, 33],
-        [19, 31],
-        [19, 32],
-        [20, 30],
-        [20, 33],
-      ]
-      connectionPattern.push(...processingToControlPattern)
-
-      // Control to Intelligence - connect control (30-33) to intelligence (21-29)
-      const controlToIntelligencePattern = [
-        [30, 21],
-        [30, 22],
-        [30, 23],
-        [30, 24],
-        [31, 22],
-        [31, 23],
-        [31, 24],
-        [31, 25],
-        [31, 26],
-        [32, 24],
-        [32, 25],
-        [32, 26],
-        [32, 27],
-        [32, 28],
-        [33, 26],
-        [33, 27],
-        [33, 28],
-        [33, 29],
-      ]
-      connectionPattern.push(...controlToIntelligencePattern)
-
-      // Intelligence to Output - connect intelligence (21-29) to output (34-43)
-      const intelligenceToOutputPattern = [
-        [21, 34],
-        [21, 35],
-        [21, 36],
-        [22, 34],
-        [22, 35],
-        [22, 36],
-        [22, 37],
-        [23, 35],
-        [23, 36],
-        [23, 37],
-        [23, 38],
-        [24, 36],
-        [24, 37],
-        [24, 38],
-        [24, 39],
-        [25, 37],
-        [25, 38],
-        [25, 39],
-        [25, 40],
-        [25, 41],
-        [26, 38],
-        [26, 39],
-        [26, 40],
-        [26, 41],
-        [27, 39],
-        [27, 40],
-        [27, 41],
-        [27, 42],
-        [28, 40],
-        [28, 41],
-        [28, 42],
-        [28, 43],
-        [29, 41],
-        [29, 42],
-        [29, 43],
-      ]
-      connectionPattern.push(...intelligenceToOutputPattern)
-
-      if (connectionPattern[index]) {
-        const fromNodeIndex = connectionPattern[index][0] * 2 // Multiply by 2 since we have box+outline pairs
-        const toNodeIndex = connectionPattern[index][1] * 2
+      if (connectionsRef.current[index]) {
+        const [fromIdx, toIdx] = connectionsRef.current[index]
+        const fromNodeIndex = fromIdx * 2 // Multiply by 2 since we have box+outline pairs
+        const toNodeIndex = toIdx * 2
         const fromNode = nodeBoxesRef.current[fromNodeIndex]
         const toNode = nodeBoxesRef.current[toNodeIndex]
 
@@ -1630,13 +1531,6 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     externalCameraDistance,
   ])
 
-  // Separate effect to handle rotation toggle
-  useEffect(() => {
-    if (controlsRef.current) {
-      controlsRef.current.enableRotate = enableRotation
-    }
-  }, [enableRotation])
-
   // Handle bounding box visibility changes
   useEffect(() => {
     if (containerWireframeRef.current && sceneRef.current) {
@@ -1667,7 +1561,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
         ref={containerRef}
         className='absolute inset-0 w-full h-full overflow-hidden'
         style={{
-          cursor: interactive ? (isDragging ? 'grabbing' : 'grab') : 'default',
+          cursor: 'default',
           background: 'transparent',
         }}
       />

@@ -10,7 +10,12 @@ import SkillsTools from './portfolio/SkillsTools'
 import ContactFooter from './portfolio/ContactFooter'
 
 const sections = [
-  { id: 'hero', label: 'Home', component: LandingPage },
+  {
+    id: 'hero',
+    label: 'Home',
+    component: LandingPage,
+    props: (nextSection: () => void) => ({ onNextSection: nextSection }),
+  },
   { id: 'services', label: 'Services', component: Services },
   { id: 'experience', label: 'Experience', component: WorkExperience },
   { id: 'about', label: 'About', component: NewAbout },
@@ -113,6 +118,10 @@ export default function SlideshowPortfolio() {
   }
 
   const CurrentComponent = sections[currentSection].component
+  const currentSection_obj = sections[currentSection]
+  const componentProps = currentSection_obj.props
+    ? currentSection_obj.props(nextSection)
+    : {}
 
   return (
     <div className='relative h-screen overflow-hidden bg-zinc-900 text-white'>
@@ -142,7 +151,7 @@ export default function SlideshowPortfolio() {
             className='absolute inset-0 h-full'
           >
             <div className='h-screen overflow-y-auto'>
-              <CurrentComponent />
+              <CurrentComponent {...componentProps} />
             </div>
           </motion.div>
         </AnimatePresence>
@@ -157,33 +166,6 @@ export default function SlideshowPortfolio() {
           onPrevSection={prevSection}
           onNextSection={nextSection}
         />
-      )}
-
-      {/* Landing Page Scroll Arrow */}
-      {currentSection === 0 && (
-        <motion.button
-          onClick={nextSection}
-          className='fixed bottom-12 left-1/2 -translate-x-1/2 z-40 p-4 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 hover:text-cyan-400 transition-all duration-300'
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.8 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <svg
-            className='w-6 h-6'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth={2}
-              d='M19 14l-7 7m0 0l-7-7m7 7V3'
-            />
-          </svg>
-        </motion.button>
       )}
 
       {/* Section Counter - Hidden on landing page */}
