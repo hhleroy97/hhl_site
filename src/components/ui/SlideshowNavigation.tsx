@@ -21,7 +21,7 @@ export default function SlideshowNavigation({
     1: 'purple', // About
     2: 'cyan', // Experience
     3: 'teal', // Skills
-    4: 'cyan', // Services
+    4: 'teal', // Services
     5: 'emerald', // Contact
   }
 
