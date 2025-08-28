@@ -24,7 +24,10 @@ export default function NewAbout() {
           >
             {/* Core Identity */}
             <div className='space-y-3'>
-              <h3 className='text-2xl font-bold text-white mb-4'>
+              <h3
+                className='text-2xl font-bold text-white mb-4'
+                style={{ fontFamily: 'Orbitron, sans-serif' }}
+              >
                 The Creative Technologist
               </h3>
 

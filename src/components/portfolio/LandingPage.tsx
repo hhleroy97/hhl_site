@@ -222,109 +222,62 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
         }}
       />
 
-      {/* Enhanced Scroll indicator at bottom */}
-      <motion.div
-        className='absolute bottom-8 z-[80] pointer-events-auto'
-        style={{ left: 'calc(50% - 24px)' }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.8,
-          delay: 1.5,
-          easing: [0.25, 0.46, 0.45, 0.94],
-        }}
-      >
-        <motion.button
-          onClick={() => {
-            if (onNextSection) {
-              onNextSection()
-            } else {
-              const element = document.getElementById('experience')
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth' })
-              }
-            }
+      {/* Enhanced Navigation Area at bottom */}
+      <div className='absolute bottom-0 left-0 right-0 z-[80] flex flex-col items-center pointer-events-auto'>
+        {/* Call-to-action text with side arrows */}
+        <motion.div
+          className='mb-4 text-center'
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: 1.2,
+            easing: [0.25, 0.46, 0.45, 0.94],
           }}
-          className='p-0 text-zinc-400 hover:text-purple-400 transition-colors duration-300 relative group'
-          whileHover={{
-            scale: 1.1,
-            transition: {
-              scale: {
-                duration: 0.2,
-              },
-            },
-          }}
-          whileTap={{ scale: 0.95 }}
         >
-          {/* Enhanced bottom glow effect */}
-          <div className='absolute bottom-[-12rem] left-1/2 transform -translate-x-1/2 w-screen h-48 bg-purple-400/20 rounded-full blur-[120px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out pointer-events-none' />
-
-          {/* Enhanced main arrow */}
-          <motion.svg
-            className='w-12 h-12 relative z-10'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-            style={{ filter: 'none' }}
-            initial={{ scale: 1.2 }}
-            animate={{
-              scale: [1.2, 1],
-              transition: {
-                duration: 0.8,
-                times: [0, 1],
-                ease: 'easeInOut',
-                delay: 1.5,
-              },
-            }}
-          >
-            <motion.path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth={6}
-              initial={{ d: 'M2 10l10 7 10-7' }}
-              animate={{
-                d: ['M2 10l10 7 10-7', 'M4 12l8 6 8-6'],
-                strokeWidth: [6, 3],
-                transition: {
-                  duration: 0.8,
-                  times: [0, 1],
-                  ease: 'easeInOut',
-                  delay: 1.5,
-                },
+          <div className='flex flex-col items-center gap-2 group'>
+            {/* Main text */}
+            <motion.button
+              onClick={() => {
+                if (onNextSection) {
+                  onNextSection()
+                } else {
+                  const element = document.getElementById('experience')
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' })
+                  }
+                }
               }}
-            />
-          </motion.svg>
+              className='text-lg md:text-xl font-semibold text-zinc-500 hover:text-purple-400 px-4 transition-colors duration-300 cursor-pointer uppercase relative group'
+              style={{ fontFamily: 'Orbitron, sans-serif' }}
+            >
+              {/* Enhanced bottom glow effect */}
+              <div className='absolute bottom-[-8rem] left-1/2 transform -translate-x-1/2 w-screen h-32 bg-purple-400/30 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out pointer-events-none' />
+              <span style={{ fontSize: '1.1em' }}>[</span> Continue to site{' '}
+              <span style={{ fontSize: '1.1em' }}>]</span>
+            </motion.button>
+          </div>
+        </motion.div>
 
-          {/* Enhanced small arrow variations */}
-          <svg
-            className='w-10 h-10 absolute bottom-3 left-1/2 transform -translate-x-1/2 z-5 opacity-0 group-hover:opacity-60 transition-all duration-300 delay-100 group-hover:-translate-y-1'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path
-              strokeLinecap='butt'
-              strokeLinejoin='miter'
-              strokeWidth={2}
-              d='M4 12l8 6 8-6'
-            />
-          </svg>
-
-          <svg
-            className='w-8 h-8 absolute bottom-5 left-1/2 transform -translate-x-1/2 z-5 opacity-0 group-hover:opacity-40 transition-all duration-300 delay-200 group-hover:-translate-y-2'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path
-              strokeLinecap='butt'
-              strokeLinejoin='miter'
-              strokeWidth={1.5}
-              d='M4 12l8 6 8-6'
-            />
-          </svg>
-        </motion.button>
-      </motion.div>
+        {/* Subtle page indicator */}
+        <motion.div
+          className='mb-4 flex items-center gap-2'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: 1.4,
+            easing: [0.25, 0.46, 0.45, 0.94],
+          }}
+        >
+          <div className='w-2 h-2 bg-purple-400 rounded-full'></div>
+          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
+          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
+          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
+          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
+          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
+        </motion.div>
+      </div>
     </section>
   )
 }
