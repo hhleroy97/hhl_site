@@ -222,109 +222,170 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
         }}
       />
 
-      {/* Enhanced Scroll indicator at bottom */}
-      <motion.div
-        className='absolute bottom-8 z-[80] pointer-events-auto'
-        style={{ left: 'calc(50% - 24px)' }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.8,
-          delay: 1.5,
-          easing: [0.25, 0.46, 0.45, 0.94],
-        }}
-      >
-        <motion.button
-          onClick={() => {
-            if (onNextSection) {
-              onNextSection()
-            } else {
-              const element = document.getElementById('experience')
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth' })
-              }
-            }
+      {/* Enhanced Navigation Area at bottom */}
+      <div className='absolute bottom-0 left-0 right-0 z-[80] flex flex-col items-center pointer-events-auto'>
+        {/* Call-to-action text */}
+        <motion.div
+          className='mb-4 text-center'
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: 2,
+            easing: [0.25, 0.46, 0.45, 0.94],
           }}
-          className='p-0 text-zinc-400 hover:text-purple-400 transition-colors duration-300 relative group'
-          whileHover={{
-            scale: 1.1,
-            transition: {
-              scale: {
-                duration: 0.2,
-              },
-            },
-          }}
-          whileTap={{ scale: 0.95 }}
         >
-          {/* Enhanced bottom glow effect */}
-          <div className='absolute bottom-[-12rem] left-1/2 transform -translate-x-1/2 w-screen h-48 bg-purple-400/20 rounded-full blur-[120px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out pointer-events-none' />
-
-          {/* Enhanced main arrow */}
-          <motion.svg
-            className='w-12 h-12 relative z-10'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-            style={{ filter: 'none' }}
-            initial={{ scale: 1.2 }}
+          <motion.p
+            className='text-lg md:text-xl font-semibold text-zinc-300 mb-2 px-4'
             animate={{
-              scale: [1.2, 1],
+              opacity: [0.7, 1, 0.7],
               transition: {
-                duration: 0.8,
-                times: [0, 1],
+                duration: 2,
+                repeat: Infinity,
                 ease: 'easeInOut',
-                delay: 1.5,
               },
             }}
           >
-            <motion.path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth={6}
-              initial={{ d: 'M2 10l10 7 10-7' }}
+            Explore my work & experience
+          </motion.p>
+          <div className='flex items-center justify-center gap-2 text-sm text-zinc-400'>
+            <span>Scroll down</span>
+            <span className='text-purple-400'>•</span>
+            <span>Click arrow</span>
+            <span className='text-purple-400'>•</span>
+            <span>Use arrow keys</span>
+          </div>
+        </motion.div>
+
+        {/* Enhanced Scroll indicator */}
+        <motion.div
+          className='mb-8'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: 1.5,
+            easing: [0.25, 0.46, 0.45, 0.94],
+          }}
+        >
+          <motion.button
+            onClick={() => {
+              if (onNextSection) {
+                onNextSection()
+              } else {
+                const element = document.getElementById('experience')
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' })
+                }
+              }
+            }}
+            className='p-4 text-zinc-400 hover:text-purple-400 transition-colors duration-300 relative group rounded-full border border-zinc-600/30 hover:border-purple-400/50 bg-zinc-900/20 backdrop-blur-sm'
+            whileHover={{
+              scale: 1.1,
+              transition: {
+                scale: {
+                  duration: 0.2,
+                },
+              },
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {/* Enhanced bottom glow effect */}
+            <div className='absolute bottom-[-8rem] left-1/2 transform -translate-x-1/2 w-screen h-32 bg-purple-400/30 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out pointer-events-none' />
+
+            {/* Enhanced main arrow */}
+            <motion.svg
+              className='w-8 h-8 relative z-10'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
               animate={{
-                d: ['M2 10l10 7 10-7', 'M4 12l8 6 8-6'],
-                strokeWidth: [6, 3],
+                y: [0, 4, 0],
                 transition: {
-                  duration: 0.8,
-                  times: [0, 1],
+                  duration: 1.5,
+                  repeat: Infinity,
                   ease: 'easeInOut',
-                  delay: 1.5,
                 },
               }}
-            />
-          </motion.svg>
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2.5}
+                d='M19 14l-7 7m0 0l-7-7m7 7V3'
+              />
+            </motion.svg>
 
-          {/* Enhanced small arrow variations */}
-          <svg
-            className='w-10 h-10 absolute bottom-3 left-1/2 transform -translate-x-1/2 z-5 opacity-0 group-hover:opacity-60 transition-all duration-300 delay-100 group-hover:-translate-y-1'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path
-              strokeLinecap='butt'
-              strokeLinejoin='miter'
-              strokeWidth={2}
-              d='M4 12l8 6 8-6'
-            />
-          </svg>
+            {/* Floating arrow hints */}
+            <motion.svg
+              className='w-6 h-6 absolute -top-2 left-1/2 transform -translate-x-1/2 opacity-30'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+              animate={{
+                y: [0, 8, 0],
+                opacity: [0.3, 0, 0.3],
+                transition: {
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 0.3,
+                },
+              }}
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M19 14l-7 7m0 0l-7-7m7 7V3'
+              />
+            </motion.svg>
 
-          <svg
-            className='w-8 h-8 absolute bottom-5 left-1/2 transform -translate-x-1/2 z-5 opacity-0 group-hover:opacity-40 transition-all duration-300 delay-200 group-hover:-translate-y-2'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path
-              strokeLinecap='butt'
-              strokeLinejoin='miter'
-              strokeWidth={1.5}
-              d='M4 12l8 6 8-6'
-            />
-          </svg>
-        </motion.button>
-      </motion.div>
+            <motion.svg
+              className='w-4 h-4 absolute -top-4 left-1/2 transform -translate-x-1/2 opacity-20'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+              animate={{
+                y: [0, 12, 0],
+                opacity: [0.2, 0, 0.2],
+                transition: {
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 0.6,
+                },
+              }}
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={1.5}
+                d='M19 14l-7 7m0 0l-7-7m7 7V3'
+              />
+            </motion.svg>
+          </motion.button>
+        </motion.div>
+
+        {/* Subtle page indicator */}
+        <motion.div
+          className='mb-6 flex items-center gap-2'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: 2.2,
+            easing: [0.25, 0.46, 0.45, 0.94],
+          }}
+        >
+          <div className='w-2 h-2 bg-purple-400 rounded-full'></div>
+          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
+          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
+          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
+          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
+          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
+        </motion.div>
+      </div>
     </section>
   )
 }
