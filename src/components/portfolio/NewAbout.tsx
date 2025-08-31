@@ -1,13 +1,18 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import PageSection from '../ui/PageSection'
+import profileImage from '../../assets/prof-pic-no-bg.png'
 
 export default function NewAbout() {
+  const [positionX, setPositionX] = useState(62)
+  const [positionY, setPositionY] = useState(72)
+  const [scale, setScale] = useState(144)
   return (
     <PageSection
       id='about'
       tagline='About'
       taglineColor='cyan'
-      title='The Human Behind The Systems'
+      title='The human behind the systems'
       subtitle='where creativity meets computation'
       cardVariant='background'
     >
@@ -25,184 +30,112 @@ export default function NewAbout() {
             {/* Core Identity */}
             <div className='space-y-3'>
               <h3
-                className='text-2xl font-bold text-white mb-4'
+                className='text-2xl font-bold text-white mb-6'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
               >
                 The Creative Technologist
               </h3>
 
               <div className='prose prose-invert prose-lg max-w-none'>
-                <p className='text-lg text-zinc-300 leading-relaxed'>
+                <p className='text-lg text-zinc-300 leading-relaxed mb-6'>
                   I'm a{' '}
                   <span className='text-purple-400 font-semibold'>
                     creative technologist
                   </span>{' '}
-                  who sees technology as a canvas for human imagination. My work
-                  spans robotics, cloud systems, and interactive experiences —
-                  always with the goal of making complex systems feel intuitive
-                  and inspiring.
+                  who helps bring ambitious ideas to life at the crossroads of
+                  technology and creativity. From leading a $500K AWS migration
+                  to replace third-party systems and avoid vendor lock-in, to
+                  crafting immersive real-time data art and visualizations — my
+                  work blends engineering rigor with creative problem-solving.
+                </p>
+
+                <p className='text-lg text-zinc-300 leading-relaxed mb-6'>
+                  I love making complexity approachable, whether that means
+                  developing real-time data pipelines for connecting edge
+                  devices to the cloud, optimizing infrastructure for cost and
+                  latency, or designing visuals that make data feel alive.
+                  Clients and collaborators know me for versatility: I can
+                  architect backend pipelines in the morning and prototype
+                  engaging user-facing experiences in the afternoon.
                 </p>
 
                 <p className='text-lg text-zinc-300 leading-relaxed'>
-                  Whether I'm architecting autonomous fleets that navigate
-                  continents or crafting audio-reactive visuals that respond to
-                  music, I bring a unique blend of
+                  If you're tackling a project that requires both{' '}
                   <span className='text-cyan-400 font-medium'>
-                    {' '}
-                    technical rigor
+                    technical depth
                   </span>{' '}
-                  and
+                  and{' '}
                   <span className='text-emerald-400 font-medium'>
-                    {' '}
-                    artistic vision
-                  </span>{' '}
-                  to every project.
+                    creative vision
+                  </span>
+                  , let's talk — I specialize in bridging infrastructure and
+                  imagination.
                 </p>
               </div>
             </div>
 
-            {/* Key Strengths */}
-            <div className='space-y-3'>
-              <h3 className='text-xl font-bold text-white mb-3'>
-                What Sets Me Apart
+            {/* Hobbies and Interests */}
+            <div className='space-y-3 mt-12'>
+              <h3
+                className='text-2xl font-bold text-white mb-6'
+                style={{ fontFamily: 'Orbitron, sans-serif' }}
+              >
+                Beyond Code
               </h3>
 
-              <div className='grid md:grid-cols-2 gap-3'>
-                <motion.div
-                  className='group p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden relative'
-                  whileHover={{
-                    scale: 1.02,
-                    y: -2,
-                    borderColor: 'rgba(255, 255, 255, 0.4)',
-                    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
-                    transition: { duration: 0.3, ease: 'easeOut' },
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
-                >
-                  {/* Enhanced depth effects */}
-                  <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-                  <div className='absolute -top-8 -right-8 w-16 h-16 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
-                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
-                  <div className='relative z-10'>
-                    <div className='flex items-center gap-2 mb-2'>
-                      <div className='w-2 h-2 bg-purple-400 rounded-full'></div>
-                      <h4 className='text-base font-semibold text-purple-400'>
-                        Systems Thinking
-                      </h4>
-                    </div>
-                    <p className='text-zinc-300 text-xs leading-relaxed'>
-                      I architect solutions that scale from prototypes to
-                      production, always considering the full ecosystem impact.
-                    </p>
-                  </div>
-                </motion.div>
+              {/* Hobbies Grid */}
+              <div className='grid grid-cols-3 md:grid-cols-5 gap-4 justify-start'>
+                <div className='flex flex-col items-start group'>
+                  <span className='text-3xl mb-1 group-hover:scale-110 transition-transform duration-300'>
+                    🎵
+                  </span>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors'>
+                    Music
+                  </span>
+                </div>
 
-                <motion.div
-                  className='group p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden relative'
-                  whileHover={{
-                    scale: 1.02,
-                    y: -2,
-                    borderColor: 'rgba(255, 255, 255, 0.4)',
-                    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
-                    transition: { duration: 0.3, ease: 'easeOut' },
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4, duration: 0.6 }}
-                >
-                  {/* Enhanced depth effects */}
-                  <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-                  <div className='absolute -top-8 -right-8 w-16 h-16 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
-                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
-                  <div className='relative z-10'>
-                    <div className='flex items-center gap-2 mb-2'>
-                      <div className='w-2 h-2 bg-cyan-400 rounded-full'></div>
-                      <h4 className='text-base font-semibold text-cyan-400'>
-                        Creative Problem Solving
-                      </h4>
-                    </div>
-                    <p className='text-zinc-300 text-xs leading-relaxed'>
-                      Every technical challenge is an opportunity for
-                      innovation. I thrive on finding elegant solutions to
-                      complex problems.
-                    </p>
-                  </div>
-                </motion.div>
+                <div className='flex flex-col items-start group'>
+                  <span className='text-3xl mb-1 group-hover:scale-110 transition-transform duration-300'>
+                    🎨
+                  </span>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors'>
+                    Art
+                  </span>
+                </div>
 
-                <motion.div
-                  className='group p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden relative'
-                  whileHover={{
-                    scale: 1.02,
-                    y: -2,
-                    borderColor: 'rgba(255, 255, 255, 0.4)',
-                    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
-                    transition: { duration: 0.3, ease: 'easeOut' },
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6, duration: 0.6 }}
-                >
-                  {/* Enhanced depth effects */}
-                  <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-                  <div className='absolute -top-8 -right-8 w-16 h-16 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
-                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
-                  <div className='relative z-10'>
-                    <div className='flex items-center gap-2 mb-2'>
-                      <div className='w-2 h-2 bg-emerald-400 rounded-full'></div>
-                      <h4 className='text-base font-semibold text-emerald-400'>
-                        Cross-Domain Expertise
-                      </h4>
-                    </div>
-                    <p className='text-zinc-300 text-xs leading-relaxed'>
-                      From robotics to cloud systems to interactive visuals, I
-                      bring diverse perspectives to every project.
-                    </p>
-                  </div>
-                </motion.div>
+                <div className='flex flex-col items-start group'>
+                  <span className='text-3xl mb-1 group-hover:scale-110 transition-transform duration-300'>
+                    📚
+                  </span>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors'>
+                    Reading
+                  </span>
+                </div>
 
-                <motion.div
-                  className='group p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden relative'
-                  whileHover={{
-                    scale: 1.02,
-                    y: -2,
-                    borderColor: 'rgba(255, 255, 255, 0.4)',
-                    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
-                    transition: { duration: 0.3, ease: 'easeOut' },
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
-                >
-                  {/* Enhanced depth effects */}
-                  <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-                  <div className='absolute -top-8 -right-8 w-16 h-16 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
-                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
-                  <div className='relative z-10'>
-                    <div className='flex items-center gap-2 mb-2'>
-                      <div className='w-2 h-2 bg-zinc-400 rounded-full'></div>
-                      <h4 className='text-base font-semibold text-zinc-400'>
-                        Human-Centered Design
-                      </h4>
-                    </div>
-                    <p className='text-zinc-300 text-xs leading-relaxed'>
-                      Technology should serve people. I build systems that are
-                      both powerful and intuitive to use.
-                    </p>
-                  </div>
-                </motion.div>
+                <div className='flex flex-col items-start group'>
+                  <span className='text-3xl mb-1 group-hover:scale-110 transition-transform duration-300'>
+                    🏃
+                  </span>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors'>
+                    Fitness
+                  </span>
+                </div>
+
+                <div className='flex flex-col items-start group'>
+                  <span className='text-3xl mb-1 group-hover:scale-110 transition-transform duration-300'>
+                    ☕
+                  </span>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors'>
+                    Coffee
+                  </span>
+                </div>
               </div>
             </div>
           </motion.div>
 
           {/* Right Column - Visual Identity */}
           <motion.div
-            className='space-y-6'
+            className='flex flex-col items-center justify-center h-full space-y-6'
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -211,38 +144,55 @@ export default function NewAbout() {
             {/* Enhanced Photo Section */}
             <div className='relative'>
               {/* Main photo container with enhanced styling */}
-              <div className='relative w-64 h-80 overflow-hidden rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 border border-white/20 shadow-2xl'>
+              <div className='relative w-80 h-80 overflow-hidden rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 border border-white/20 shadow-2xl'>
                 {/* Photo with enhanced overlay */}
                 <div className='absolute inset-0 bg-gradient-to-br from-purple-500/20 via-cyan-500/20 to-emerald-500/20'>
-                  <img
-                    src='/prof-pic-2.jpg'
-                    alt='Hartley LeRoy - Creative Technologist'
-                    className='w-full h-full object-cover object-center'
-                    loading='lazy'
-                    onLoad={e => {
-                      e.currentTarget.style.opacity = '1'
-                    }}
-                    onError={e => {
-                      console.error('Error loading profile image:', e)
-                      const target = e.target as HTMLImageElement
-                      target.style.display = 'none'
-                      target.parentElement!.innerHTML = `
-                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500/20 via-cyan-500/20 to-emerald-500/20">
-                          <div class="text-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto mb-4 flex items-center justify-center">
-                              <span class="text-4xl font-bold text-white">HL</span>
-                            </div>
-                            <p class="text-white text-lg font-medium">Hartley LeRoy</p>
-                            <p class="text-zinc-300 text-sm">Creative Technologist</p>
-                          </div>
-                        </div>
-                      `
-                    }}
+                  <div
+                    className='relative w-full h-full'
                     style={{
-                      opacity: 0,
-                      transition: 'opacity 0.3s ease-in-out',
+                      transform: `translate(${(positionX - 50) * 2}px, ${(positionY - 50) * 2}px) scale(${scale / 100})`,
+                      transformOrigin: 'center',
                     }}
-                  />
+                  >
+                    <img
+                      src={profileImage}
+                      alt='Hartley LeRoy - Creative Technologist'
+                      className='w-full h-full object-contain'
+                      style={{
+                        opacity: 0,
+                        transition: 'opacity 0.3s ease-in-out',
+                      }}
+                      loading='lazy'
+                      onLoad={e => {
+                        console.log('Profile image loaded successfully')
+                        e.currentTarget.style.opacity = '1'
+                      }}
+                      onError={e => {
+                        console.error(
+                          'Error loading profile image from:',
+                          profileImage,
+                          e
+                        )
+                        const target = e.target as HTMLImageElement
+                        target.style.display = 'none'
+                        target.parentElement!.innerHTML = `
+                          <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500/20 via-cyan-500/20 to-emerald-500/20">
+                            <div class="text-center">
+                              <div class="w-32 h-32 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto mb-4 flex items-center justify-center">
+                                <span class="text-4xl font-bold text-white">HL</span>
+                              </div>
+                              <p class="text-white text-lg font-medium">Hartley LeRoy</p>
+                              <p class="text-zinc-300 text-sm">Creative Technologist</p>
+                            </div>
+                          </div>
+                        `
+                      }}
+                      style={{
+                        opacity: 0,
+                        transition: 'opacity 0.3s ease-in-out',
+                      }}
+                    />
+                  </div>
                 </div>
 
                 {/* Enhanced overlay effects */}
@@ -292,6 +242,91 @@ export default function NewAbout() {
 
               {/* Enhanced glow effect */}
               <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 via-cyan-500/10 to-emerald-500/10 blur-2xl -z-10' />
+            </div>
+
+            {/* Position Control Sliders */}
+            <div className='flex flex-col items-center space-y-3 mt-6 p-4 bg-black/30 backdrop-blur-md rounded-lg border border-white/20'>
+              <div className='text-sm font-medium text-zinc-300 mb-2'>
+                Adjust Photo Position
+              </div>
+              <div className='flex flex-col space-y-2 w-full max-w-xs'>
+                <div className='flex items-center justify-between'>
+                  <label className='text-xs text-zinc-400'>
+                    Left ↔ Right:
+                  </label>
+                  <span className='text-xs text-zinc-300'>{positionX}%</span>
+                </div>
+                <input
+                  type='range'
+                  min='0'
+                  max='100'
+                  value={positionX}
+                  onChange={e => {
+                    const newValue = Number(e.target.value)
+                    console.log('X Position changed to:', newValue)
+                    setPositionX(newValue)
+                  }}
+                  className='w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer'
+                />
+
+                <div className='flex items-center justify-between'>
+                  <label className='text-xs text-zinc-400'>Up ↕ Down:</label>
+                  <span className='text-xs text-zinc-300'>{positionY}%</span>
+                </div>
+                <input
+                  type='range'
+                  min='0'
+                  max='100'
+                  value={positionY}
+                  onChange={e => {
+                    const newValue = Number(e.target.value)
+                    console.log('Y Position changed to:', newValue)
+                    setPositionY(newValue)
+                  }}
+                  className='w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer'
+                />
+
+                <div className='flex items-center justify-between'>
+                  <label className='text-xs text-zinc-400'>Zoom:</label>
+                  <span className='text-xs text-zinc-300'>{scale}%</span>
+                </div>
+                <input
+                  type='range'
+                  min='50'
+                  max='200'
+                  value={scale}
+                  onChange={e => {
+                    const newValue = Number(e.target.value)
+                    console.log('Scale changed to:', newValue)
+                    setScale(newValue)
+                  }}
+                  className='w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer'
+                />
+
+                {/* Debug info */}
+                <div className='text-xs text-zinc-500 mt-2'>
+                  Position: {positionX}%, {positionY}% | Scale: {scale}%
+                </div>
+              </div>
+            </div>
+
+            {/* Location and Availability Tags */}
+            <div className='flex flex-col items-center space-y-3 mt-6'>
+              {/* Location Tag */}
+              <div className='flex items-center gap-2 px-4 py-2 bg-black/30 backdrop-blur-md rounded-full border border-white/20 shadow-lg'>
+                <span className='text-lg'>📍</span>
+                <span className='text-sm font-medium text-zinc-300'>
+                  Charlotte, NC
+                </span>
+              </div>
+
+              {/* Availability Tag */}
+              <div className='flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 backdrop-blur-md rounded-full border border-emerald-400/30 shadow-lg'>
+                <div className='w-2 h-2 bg-emerald-400 rounded-full animate-pulse'></div>
+                <span className='text-sm font-medium text-emerald-300'>
+                  Open to freelance & full-time
+                </span>
+              </div>
             </div>
           </motion.div>
         </div>
