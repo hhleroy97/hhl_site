@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Music, Gamepad2 } from 'lucide-react'
+import { Music, Gamepad2, MapPin } from 'lucide-react'
 import PageSection from '../ui/PageSection'
 import profileImage from '../../assets/prof-pic-no-bg.png'
 import pickleballImage from '../../assets/pickleball.png'
@@ -7,9 +7,10 @@ import hikeImage from '../../assets/hike.png'
 import snowboardImage from '../../assets/snowboard.png'
 
 export default function NewAbout() {
-  const positionX = 62
-  const positionY = 72
-  const scale = 144
+  const positionX = 19
+  const positionY = 94
+  const scale = 188
+
   return (
     <PageSection
       id='about'
@@ -42,6 +43,10 @@ export default function NewAbout() {
               <div className='prose prose-invert prose-lg max-w-none'>
                 <p className='text-lg text-zinc-300 leading-relaxed mb-6'>
                   I'm a{' '}
+                  <span className='text-cyan-400 font-semibold'>
+                    software developer
+                  </span>{' '}
+                  and{' '}
                   <span className='text-purple-400 font-semibold'>
                     creative technologist
                   </span>{' '}
@@ -159,13 +164,36 @@ export default function NewAbout() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Profile Photo */}
-            <div className='relative mb-6'>
-              <div className='w-72 h-72 rounded-2xl bg-gradient-to-br from-white/5 via-white/2 to-black/10 backdrop-blur-md border border-white/10 p-4 shadow-lg'>
+            <div className='relative w-72'>
+              <div className='w-72 h-72 rounded-t-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-4 shadow-xl relative overflow-hidden'>
+                {/* Animated gradient background */}
+                <div
+                  className='absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/5 to-emerald-500/10 rounded-xl animate-pulse'
+                  style={{ animationDuration: '4s' }}
+                />
+                <div className='absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent rounded-xl' />
+
+                {/* Floating particles effect */}
+                <div className='absolute inset-0 pointer-events-none'>
+                  <div
+                    className='absolute top-4 right-4 w-2 h-2 bg-cyan-400/60 rounded-full animate-pulse'
+                    style={{ animationDuration: '3s' }}
+                  />
+                  <div
+                    className='absolute bottom-6 left-6 w-1 h-1 bg-purple-400/40 rounded-full animate-pulse'
+                    style={{ animationDuration: '2s', animationDelay: '1s' }}
+                  />
+                  <div
+                    className='absolute top-12 left-4 w-1.5 h-1.5 bg-emerald-400/50 rounded-full animate-pulse'
+                    style={{ animationDuration: '4s', animationDelay: '2s' }}
+                  />
+                </div>
+
                 <div className='relative w-full h-full overflow-hidden rounded-xl'>
                   <div
                     className='relative w-full h-full'
                     style={{
-                      transform: `translate(${(positionX - 50) * 1.5}px, ${(positionY - 50) * 1.5}px) scale(${scale / 100})`,
+                      transform: `translate(${positionX}px, ${positionY}px) scale(${scale / 100})`,
                       transformOrigin: 'center',
                     }}
                   >
@@ -174,17 +202,11 @@ export default function NewAbout() {
                       alt='Hartley LeRoy - Creative Technologist'
                       className='w-full h-full object-contain'
                       loading='lazy'
-                      onLoad={e => {
-                        e.currentTarget.style.opacity = '1'
-                      }}
-                      style={{
-                        opacity: 0,
-                        transition: 'opacity 0.3s ease-in-out',
-                      }}
                     />
                   </div>
-                  {/* Subtle gradient overlay */}
-                  <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-xl' />
+                  {/* Enhanced gradient overlay */}
+                  <div className='absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-xl' />
+                  <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 rounded-xl' />
                 </div>
               </div>
 
@@ -192,7 +214,10 @@ export default function NewAbout() {
               <div className='absolute -top-2 -right-2'>
                 <div className='flex items-center gap-1.5 px-2 py-1 bg-emerald-500/90 backdrop-blur-sm rounded-md border border-emerald-400/30'>
                   <div className='w-1.5 h-1.5 bg-white rounded-full' />
-                  <span className='text-xs font-medium text-white'>
+                  <span
+                    className='text-sm font-bold text-white uppercase'
+                    style={{ fontFamily: 'Orbitron, sans-serif' }}
+                  >
                     Available
                   </span>
                 </div>
@@ -200,50 +225,52 @@ export default function NewAbout() {
             </div>
 
             {/* Profile Info */}
-            <div className='text-center mb-6'>
-              <h3 className='text-xl font-semibold text-white mb-1'>
+            <div className='w-72 text-center p-4 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl'>
+              <h3
+                className='text-xl font-semibold text-white mb-1'
+                style={{ fontFamily: 'Orbitron, sans-serif' }}
+              >
                 Hartley LeRoy
               </h3>
-              <p className='text-sm text-zinc-400 mb-3'>
-                Creative Technologist
-              </p>
 
-              {/* Location */}
-              <div className='flex items-center justify-center gap-1.5 text-zinc-500 text-sm'>
-                <svg
-                  className='w-4 h-4'
-                  fill='currentColor'
-                  viewBox='0 0 20 20'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z'
-                    clipRule='evenodd'
-                  />
-                </svg>
+              {/* Enhanced Location */}
+              <div className='flex items-center justify-center gap-2 text-zinc-400 text-sm'>
+                <MapPin className='w-4 h-4 text-cyan-400' />
                 <span>Charlotte, NC</span>
               </div>
             </div>
 
             {/* Work Status */}
-            <div className='w-full max-w-xs p-4 rounded-xl bg-gradient-to-br from-white/5 via-white/2 to-black/10 backdrop-blur-sm border border-white/10'>
-              <div className='text-center mb-3'>
-                <p className='text-sm font-medium text-white mb-1'>
-                  Open to opportunities
-                </p>
-                <p className='text-xs text-zinc-400'>
-                  Available for new projects
-                </p>
+            <div className='w-72 p-4 pb-6 rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
+              <div>
+                <div className='text-center mb-3'>
+                  <p className='text-sm font-medium text-white mb-1'>
+                    Open to opportunities
+                  </p>
+                  <p className='text-xs text-zinc-400'>
+                    Available for new projects
+                  </p>
+                </div>
+
+                {/* Status Pills */}
+                <div className='flex gap-2 justify-center mb-4'>
+                  <div className='px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-400/20 text-emerald-300 text-xs font-medium'>
+                    Freelance
+                  </div>
+                  <div className='px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-400/20 text-purple-300 text-xs font-medium'>
+                    Full-time
+                  </div>
+                </div>
               </div>
 
-              {/* Status Pills */}
-              <div className='flex gap-2 justify-center'>
-                <div className='px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-400/20 text-emerald-300 text-xs font-medium'>
-                  Freelance
-                </div>
-                <div className='px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-400/20 text-purple-300 text-xs font-medium'>
-                  Full-time
-                </div>
+              {/* Contact Button */}
+              <div className='mt-2 -mx-4 -mb-6'>
+                <a
+                  href='#contact'
+                  className='block w-full px-4 py-4 rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold text-lg text-center transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
+                >
+                  Get In Touch
+                </a>
               </div>
             </div>
           </motion.div>
