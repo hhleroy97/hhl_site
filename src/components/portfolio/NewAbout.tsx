@@ -84,7 +84,7 @@ export default function NewAbout() {
 
               {/* Hobbies Grid */}
               <div className='grid grid-cols-3 md:grid-cols-5 gap-4 justify-start'>
-                <div className='flex flex-col items-center group p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300'>
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <svg
                     className='w-8 h-8 mb-2 text-purple-400 group-hover:scale-110 group-hover:text-purple-300 transition-all duration-300'
                     fill='currentColor'
@@ -106,7 +106,7 @@ export default function NewAbout() {
                   </span>
                 </div>
 
-                <div className='flex flex-col items-center group p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300'>
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <svg
                     className='w-8 h-8 mb-2 text-cyan-400 group-hover:scale-110 group-hover:text-cyan-300 transition-all duration-300'
                     fill='currentColor'
@@ -123,7 +123,7 @@ export default function NewAbout() {
                   </span>
                 </div>
 
-                <div className='flex flex-col items-center group p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300'>
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <svg
                     className='w-8 h-8 mb-2 text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all duration-300'
                     fill='currentColor'
@@ -136,7 +136,7 @@ export default function NewAbout() {
                   </span>
                 </div>
 
-                <div className='flex flex-col items-center group p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300'>
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <svg
                     className='w-8 h-8 mb-2 text-orange-400 group-hover:scale-110 group-hover:text-orange-300 transition-all duration-300'
                     fill='none'
@@ -155,7 +155,7 @@ export default function NewAbout() {
                   </span>
                 </div>
 
-                <div className='flex flex-col items-center group p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300'>
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <svg
                     className='w-8 h-8 mb-2 text-amber-400 group-hover:scale-110 group-hover:text-amber-300 transition-all duration-300'
                     fill='currentColor'
