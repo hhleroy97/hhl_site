@@ -31,7 +31,8 @@
       "Bash(ssh:*)",
       "Bash(git remote set-url:*)",
       "Bash(git checkout:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(gh pr create:*)"
     ],
     "defaultMode": "acceptEdits",
     "additionalDirectories": ["/home/hartley/.ssh"]
