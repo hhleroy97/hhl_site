@@ -1,12 +1,11 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 import PageSection from '../ui/PageSection'
 import profileImage from '../../assets/prof-pic-no-bg.png'
 
 export default function NewAbout() {
-  const [positionX, setPositionX] = useState(62)
-  const [positionY, setPositionY] = useState(72)
-  const [scale, setScale] = useState(144)
+  const positionX = 62
+  const positionY = 72
+  const scale = 144
   return (
     <PageSection
       id='about'
@@ -164,7 +163,6 @@ export default function NewAbout() {
                       }}
                       loading='lazy'
                       onLoad={e => {
-                        console.log('Profile image loaded successfully')
                         e.currentTarget.style.opacity = '1'
                       }}
                       onError={e => {
@@ -242,72 +240,6 @@ export default function NewAbout() {
 
               {/* Enhanced glow effect */}
               <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 via-cyan-500/10 to-emerald-500/10 blur-2xl -z-10' />
-            </div>
-
-            {/* Position Control Sliders */}
-            <div className='flex flex-col items-center space-y-3 mt-6 p-4 bg-black/30 backdrop-blur-md rounded-lg border border-white/20'>
-              <div className='text-sm font-medium text-zinc-300 mb-2'>
-                Adjust Photo Position
-              </div>
-              <div className='flex flex-col space-y-2 w-full max-w-xs'>
-                <div className='flex items-center justify-between'>
-                  <label className='text-xs text-zinc-400'>
-                    Left ↔ Right:
-                  </label>
-                  <span className='text-xs text-zinc-300'>{positionX}%</span>
-                </div>
-                <input
-                  type='range'
-                  min='0'
-                  max='100'
-                  value={positionX}
-                  onChange={e => {
-                    const newValue = Number(e.target.value)
-                    console.log('X Position changed to:', newValue)
-                    setPositionX(newValue)
-                  }}
-                  className='w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer'
-                />
-
-                <div className='flex items-center justify-between'>
-                  <label className='text-xs text-zinc-400'>Up ↕ Down:</label>
-                  <span className='text-xs text-zinc-300'>{positionY}%</span>
-                </div>
-                <input
-                  type='range'
-                  min='0'
-                  max='100'
-                  value={positionY}
-                  onChange={e => {
-                    const newValue = Number(e.target.value)
-                    console.log('Y Position changed to:', newValue)
-                    setPositionY(newValue)
-                  }}
-                  className='w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer'
-                />
-
-                <div className='flex items-center justify-between'>
-                  <label className='text-xs text-zinc-400'>Zoom:</label>
-                  <span className='text-xs text-zinc-300'>{scale}%</span>
-                </div>
-                <input
-                  type='range'
-                  min='50'
-                  max='200'
-                  value={scale}
-                  onChange={e => {
-                    const newValue = Number(e.target.value)
-                    console.log('Scale changed to:', newValue)
-                    setScale(newValue)
-                  }}
-                  className='w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer'
-                />
-
-                {/* Debug info */}
-                <div className='text-xs text-zinc-500 mt-2'>
-                  Position: {positionX}%, {positionY}% | Scale: {scale}%
-                </div>
-              </div>
             </div>
 
             {/* Location and Availability Tags */}
