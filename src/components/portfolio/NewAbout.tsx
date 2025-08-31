@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Music, Gamepad2, Zap, Mountain, Snowflake } from 'lucide-react'
+import { Music, Gamepad2, CircleDot, User, PersonStanding } from 'lucide-react'
 import PageSection from '../ui/PageSection'
 import profileImage from '../../assets/prof-pic-no-bg.png'
 
@@ -100,21 +100,23 @@ export default function NewAbout() {
                 </div>
 
                 <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
-                  <Zap className='w-8 h-8 mb-2 text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all duration-300' />
+                  <div className='relative w-8 h-8 mb-2'>
+                    <CircleDot className='w-8 h-8 text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all duration-300' />
+                  </div>
                   <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Pickleball
                   </span>
                 </div>
 
                 <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
-                  <Mountain className='w-8 h-8 mb-2 text-orange-400 group-hover:scale-110 group-hover:text-orange-300 transition-all duration-300' />
+                  <User className='w-8 h-8 mb-2 text-orange-400 group-hover:scale-110 group-hover:text-orange-300 transition-all duration-300' />
                   <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Hiking
                   </span>
                 </div>
 
                 <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
-                  <Snowflake className='w-8 h-8 mb-2 text-blue-400 group-hover:scale-110 group-hover:text-blue-300 transition-all duration-300' />
+                  <PersonStanding className='w-8 h-8 mb-2 text-blue-400 group-hover:scale-110 group-hover:text-blue-300 transition-all duration-300' />
                   <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Snowboarding
                   </span>
