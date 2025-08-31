@@ -107,7 +107,7 @@ export default function NewAbout() {
                     className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
                     style={{
                       filter:
-                        'brightness(0) saturate(100%) invert(67%) sepia(32%) saturate(1292%) hue-rotate(124deg) brightness(91%) contrast(85%)',
+                        'invert(1) hue-rotate(135deg) saturate(2) brightness(0.8)',
                     }}
                   />
                   <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
