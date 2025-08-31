@@ -84,47 +84,90 @@ export default function NewAbout() {
 
               {/* Hobbies Grid */}
               <div className='grid grid-cols-3 md:grid-cols-5 gap-4 justify-start'>
-                <div className='flex flex-col items-start group'>
-                  <span className='text-3xl mb-1 group-hover:scale-110 transition-transform duration-300'>
-                    🎵
-                  </span>
-                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors'>
+                <div className='flex flex-col items-center group p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300'>
+                  <svg
+                    className='w-8 h-8 mb-2 text-purple-400 group-hover:scale-110 group-hover:text-purple-300 transition-all duration-300'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM15.657 6.343a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-1.929 5.657 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 12a7.971 7.971 0 00-1.343-4.243 1 1 0 010-1.414z'
+                      clipRule='evenodd'
+                    />
+                    <path
+                      fillRule='evenodd'
+                      d='M13.828 7.172a1 1 0 011.414 0A5.983 5.983 0 0117 12a5.983 5.983 0 01-1.758 4.828 1 1 0 11-1.414-1.414A3.987 3.987 0 0015 12a3.987 3.987 0 00-1.172-2.828 1 1 0 010-1.414z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Music
                   </span>
                 </div>
 
-                <div className='flex flex-col items-start group'>
-                  <span className='text-3xl mb-1 group-hover:scale-110 transition-transform duration-300'>
-                    🎨
-                  </span>
-                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors'>
+                <div className='flex flex-col items-center group p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300'>
+                  <svg
+                    className='w-8 h-8 mb-2 text-cyan-400 group-hover:scale-110 group-hover:text-cyan-300 transition-all duration-300'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Art
                   </span>
                 </div>
 
-                <div className='flex flex-col items-start group'>
-                  <span className='text-3xl mb-1 group-hover:scale-110 transition-transform duration-300'>
-                    📚
-                  </span>
-                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors'>
+                <div className='flex flex-col items-center group p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300'>
+                  <svg
+                    className='w-8 h-8 mb-2 text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all duration-300'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                  >
+                    <path d='M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z' />
+                  </svg>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Reading
                   </span>
                 </div>
 
-                <div className='flex flex-col items-start group'>
-                  <span className='text-3xl mb-1 group-hover:scale-110 transition-transform duration-300'>
-                    🏃
-                  </span>
-                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors'>
+                <div className='flex flex-col items-center group p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300'>
+                  <svg
+                    className='w-8 h-8 mb-2 text-orange-400 group-hover:scale-110 group-hover:text-orange-300 transition-all duration-300'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M13 10V3L4 14h7v7l9-11h-7z'
+                    />
+                  </svg>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Fitness
                   </span>
                 </div>
 
-                <div className='flex flex-col items-start group'>
-                  <span className='text-3xl mb-1 group-hover:scale-110 transition-transform duration-300'>
-                    ☕
-                  </span>
-                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors'>
+                <div className='flex flex-col items-center group p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300'>
+                  <svg
+                    className='w-8 h-8 mb-2 text-amber-400 group-hover:scale-110 group-hover:text-amber-300 transition-all duration-300'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M10 2a6 6 0 00-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 00.515 1.076 32.91 32.91 0 003.256.508 3.5 3.5 0 006.972 0 32.903 32.903 0 003.256-.508.75.75 0 00.515-1.076A11.448 11.448 0 0116 8a6 6 0 00-6-6zM8.05 14.943a33.54 33.54 0 003.9 0 2 2 0 01-3.9 0z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Coffee
                   </span>
                 </div>
