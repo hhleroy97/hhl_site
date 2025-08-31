@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Music, Gamepad2, User, PersonStanding } from 'lucide-react'
 import PageSection from '../ui/PageSection'
 import profileImage from '../../assets/prof-pic-no-bg.png'
+import pickleballImage from '../../assets/pickeball.png'
 
 export default function NewAbout() {
   const positionX = 62
@@ -100,26 +101,11 @@ export default function NewAbout() {
                 </div>
 
                 <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
-                  <svg
-                    className='w-8 h-8 mb-2 text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all duration-300'
-                    fill='currentColor'
-                    viewBox='0 0 100 100'
-                  >
-                    <g>
-                      {/* Paddle */}
-                      <path d='M25 65 C25 55, 35 45, 45 45 L65 45 C75 45, 85 55, 85 65 L85 75 C85 85, 75 95, 65 95 L45 95 C35 95, 25 85, 25 75 Z' />
-                      {/* Handle */}
-                      <rect x='50' y='85' width='8' height='20' rx='4' />
-                      {/* Ball */}
-                      <circle cx='75' cy='35' r='8' />
-                      {/* Holes in ball */}
-                      <circle cx='72' cy='32' r='1.5' fill='white' />
-                      <circle cx='78' cy='32' r='1.5' fill='white' />
-                      <circle cx='75' cy='38' r='1.5' fill='white' />
-                      <circle cx='72' cy='35' r='1.5' fill='white' />
-                      <circle cx='78' cy='38' r='1.5' fill='white' />
-                    </g>
-                  </svg>
+                  <img
+                    src={pickleballImage}
+                    alt='Pickleball'
+                    className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
+                  />
                   <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Pickleball
                   </span>
