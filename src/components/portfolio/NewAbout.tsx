@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Music, Gamepad2, User, PersonStanding } from 'lucide-react'
 import PageSection from '../ui/PageSection'
 import profileImage from '../../assets/prof-pic-no-bg.png'
-import pickleballImage from '../../assets/pickeball.png'
+import pickleballImage from '../../assets/pickleball.png'
 
 export default function NewAbout() {
   const positionX = 62
