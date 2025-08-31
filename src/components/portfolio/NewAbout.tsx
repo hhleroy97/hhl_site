@@ -159,13 +159,33 @@ export default function NewAbout() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Enhanced Photo Section */}
-            <div className='relative'>
+            <div className='relative group'>
+              {/* Animated glow ring */}
+              <div className='absolute -inset-1 bg-gradient-to-r from-purple-500/20 via-cyan-500/20 to-emerald-500/20 rounded-full blur-lg opacity-60 group-hover:opacity-100 transition-opacity duration-500' />
+
               {/* Main photo container with enhanced styling */}
-              <div className='relative w-80 h-80 overflow-hidden rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 border border-white/20 shadow-2xl'>
+              <div
+                className='relative w-80 h-80 overflow-hidden rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 border border-white/20 shadow-2xl group-hover:shadow-3xl transition-all duration-500'
+                style={{
+                  transformStyle: 'preserve-3d',
+                }}
+                onMouseMove={e => {
+                  const rect = e.currentTarget.getBoundingClientRect()
+                  const x = e.clientX - rect.left - rect.width / 2
+                  const y = e.clientY - rect.top - rect.height / 2
+                  const rotateX = (y / rect.height) * -10
+                  const rotateY = (x / rect.width) * 10
+                  e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform =
+                    'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)'
+                }}
+              >
                 {/* Photo with enhanced overlay */}
-                <div className='absolute inset-0 bg-gradient-to-br from-purple-500/20 via-cyan-500/20 to-emerald-500/20'>
+                <div className='absolute inset-0 bg-gradient-to-br from-purple-500/10 via-cyan-500/10 to-emerald-500/10'>
                   <div
-                    className='relative w-full h-full'
+                    className='relative w-full h-full transition-transform duration-700 ease-out group-hover:scale-105'
                     style={{
                       transform: `translate(${(positionX - 50) * 2}px, ${(positionY - 50) * 2}px) scale(${scale / 100})`,
                       transformOrigin: 'center',
@@ -203,17 +223,25 @@ export default function NewAbout() {
                           </div>
                         `
                       }}
-                      style={{
-                        opacity: 0,
-                        transition: 'opacity 0.3s ease-in-out',
-                      }}
                     />
                   </div>
                 </div>
 
-                {/* Enhanced overlay effects */}
-                <div className='absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent' />
-                <div className='absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-zinc-900/40' />
+                {/* Subtle overlay gradient for depth */}
+                <div className='absolute inset-0 bg-gradient-to-t from-zinc-900/20 via-transparent to-transparent' />
+
+                {/* Professional status overlay - TOP RIGHT CORNER */}
+                <div className='absolute -top-2 -right-2 z-10'>
+                  <div className='flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-500/90 to-cyan-500/90 backdrop-blur-md rounded-full border border-emerald-400/30 shadow-lg shadow-emerald-500/25'>
+                    <div className='relative'>
+                      <div className='w-2 h-2 bg-white rounded-full animate-pulse' />
+                      <div className='absolute inset-0 w-2 h-2 bg-white rounded-full animate-ping opacity-20' />
+                    </div>
+                    <span className='text-xs font-medium text-white'>
+                      Available
+                    </span>
+                  </div>
+                </div>
               </div>
 
               {/* Enhanced floating elements */}
@@ -257,25 +285,69 @@ export default function NewAbout() {
               />
 
               {/* Enhanced glow effect */}
-              <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 via-cyan-500/10 to-emerald-500/10 blur-2xl -z-10' />
+              <div className='absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/10 via-cyan-500/10 to-emerald-500/10 blur-2xl -z-10' />
+
+              {/* Location Badge - Positioned below photo, integrated */}
+              <div className='absolute -bottom-4 left-1/2 transform -translate-x-1/2 z-10'>
+                <div className='flex items-center gap-2 px-4 py-2 bg-black/40 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl'>
+                  <svg
+                    className='w-4 h-4 text-cyan-400'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                  <span className='text-sm font-medium text-white'>
+                    Charlotte, NC
+                  </span>
+                </div>
+              </div>
             </div>
 
-            {/* Location and Availability Tags */}
-            <div className='flex flex-col items-center space-y-3 mt-6'>
-              {/* Location Tag */}
-              <div className='flex items-center gap-2 px-4 py-2 bg-black/30 backdrop-blur-md rounded-full border border-white/20 shadow-lg'>
-                <span className='text-lg'>📍</span>
-                <span className='text-sm font-medium text-zinc-300'>
-                  Charlotte, NC
-                </span>
-              </div>
-
-              {/* Availability Tag */}
-              <div className='flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 backdrop-blur-md rounded-full border border-emerald-400/30 shadow-lg'>
-                <div className='w-2 h-2 bg-emerald-400 rounded-full animate-pulse'></div>
-                <span className='text-sm font-medium text-emerald-300'>
-                  Open to freelance & full-time
-                </span>
+            {/* Enhanced Work Status Card */}
+            <div className='mt-8 p-4 rounded-2xl bg-gradient-to-r from-white/5 to-white/2 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 group/status'>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-3'>
+                  <div className='p-2 rounded-xl bg-gradient-to-r from-purple-500/20 to-cyan-500/20 group-hover/status:from-purple-500/30 group-hover/status:to-cyan-500/30 transition-all duration-300'>
+                    <svg
+                      className='w-5 h-5 text-cyan-400'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6'
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className='text-sm font-medium text-white'>
+                      Work Status
+                    </h4>
+                    <p className='text-xs text-zinc-400'>
+                      Open to opportunities
+                    </p>
+                  </div>
+                </div>
+                <div className='flex gap-2'>
+                  <div className='group/pill cursor-pointer'>
+                    <div className='px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-medium hover:bg-emerald-500/30 hover:border-emerald-400/50 transition-all duration-200'>
+                      Freelance
+                    </div>
+                  </div>
+                  <div className='group/pill cursor-pointer'>
+                    <div className='px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-xs font-medium hover:bg-purple-500/30 hover:border-purple-400/50 transition-all duration-200'>
+                      Full-time
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
