@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion'
-import { Music, Gamepad2, PersonStanding } from 'lucide-react'
+import { Music, Gamepad2 } from 'lucide-react'
 import PageSection from '../ui/PageSection'
 import profileImage from '../../assets/prof-pic-no-bg.png'
 import pickleballImage from '../../assets/pickleball.png'
 import hikeImage from '../../assets/hike.png'
+import snowboardImage from '../../assets/snowboard.png'
 
 export default function NewAbout() {
   const positionX = 62
@@ -132,7 +133,15 @@ export default function NewAbout() {
                 </div>
 
                 <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
-                  <PersonStanding className='w-8 h-8 mb-2 text-blue-400 group-hover:scale-110 group-hover:text-blue-300 transition-all duration-300' />
+                  <img
+                    src={snowboardImage}
+                    alt='Snowboarding'
+                    className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
+                    style={{
+                      filter:
+                        'brightness(0) saturate(100%) invert(59%) sepia(92%) saturate(1686%) hue-rotate(182deg) brightness(97%) contrast(94%)',
+                    }}
+                  />
                   <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Snowboarding
                   </span>
