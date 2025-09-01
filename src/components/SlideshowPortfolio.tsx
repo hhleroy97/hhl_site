@@ -25,17 +25,70 @@ const sections = [
 export default function SlideshowPortfolio() {
   const [currentSection, setCurrentSection] = useState(0)
   const [direction, setDirection] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [transitionProgress, setTransitionProgress] = useState(0)
 
   const navigateToSection = useCallback(
     (index: number) => {
-      if (index !== currentSection && index >= 0 && index < sections.length) {
-        setDirection(index > currentSection ? 1 : -1)
-        setCurrentSection(index)
-        // Update URL hash
-        window.history.pushState(null, '', `#${sections[index].id}`)
+      if (
+        index !== currentSection &&
+        index >= 0 &&
+        index < sections.length &&
+        !isTransitioning
+      ) {
+        const newDirection = index > currentSection ? 1 : -1
+        setDirection(newDirection)
+        setIsTransitioning(true)
+        setTransitionProgress(0)
+
+        const startSection = currentSection
+        const targetSection = index
+        const distance = Math.abs(targetSection - startSection)
+        const duration = Math.min(1200 + distance * 400, 3000) // Variable duration based on distance
+
+        const startTime = Date.now()
+
+        const animateTransition = () => {
+          const elapsed = Date.now() - startTime
+          const progress = Math.min(elapsed / duration, 1)
+
+          // Smooth easing function
+          const easeProgress = 1 - Math.pow(1 - progress, 3)
+          setTransitionProgress(easeProgress)
+
+          // Calculate intermediate section for smooth progression
+          const intermediateSection =
+            startSection + (targetSection - startSection) * easeProgress
+          const roundedSection =
+            newDirection > 0
+              ? Math.floor(intermediateSection)
+              : Math.ceil(intermediateSection)
+
+          // Update current section during transition
+          if (
+            roundedSection !== currentSection &&
+            roundedSection >= 0 &&
+            roundedSection < sections.length
+          ) {
+            setCurrentSection(roundedSection)
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(animateTransition)
+          } else {
+            // Complete transition
+            setCurrentSection(targetSection)
+            setIsTransitioning(false)
+            setTransitionProgress(0)
+            // Update URL hash
+            window.history.pushState(null, '', `#${sections[targetSection].id}`)
+          }
+        }
+
+        requestAnimationFrame(animateTransition)
       }
     },
-    [currentSection]
+    [currentSection, isTransitioning]
   )
 
   // Navigate by section ID (for hash routing)
@@ -50,16 +103,16 @@ export default function SlideshowPortfolio() {
   )
 
   const nextSection = useCallback(() => {
-    if (currentSection < sections.length - 1) {
+    if (currentSection < sections.length - 1 && !isTransitioning) {
       navigateToSection(currentSection + 1)
     }
-  }, [currentSection, navigateToSection])
+  }, [currentSection, navigateToSection, isTransitioning])
 
   const prevSection = useCallback(() => {
-    if (currentSection > 0) {
+    if (currentSection > 0 && !isTransitioning) {
       navigateToSection(currentSection - 1)
     }
-  }, [currentSection, navigateToSection])
+  }, [currentSection, navigateToSection, isTransitioning])
 
   // Handle initial hash and hash changes
   useEffect(() => {
@@ -108,7 +161,7 @@ export default function SlideshowPortfolio() {
     const cooldownTime = 1500
 
     const handleWheel = (e: WheelEvent) => {
-      if (isScrolling) return
+      if (isScrolling || isTransitioning) return
 
       e.preventDefault()
 
@@ -132,7 +185,7 @@ export default function SlideshowPortfolio() {
 
     window.addEventListener('wheel', handleWheel, { passive: false })
     return () => window.removeEventListener('wheel', handleWheel)
-  }, [nextSection, prevSection])
+  }, [nextSection, prevSection, isTransitioning])
 
   const slideVariants = {
     enter: (direction: number) => ({
@@ -166,6 +219,8 @@ export default function SlideshowPortfolio() {
           sections={sections}
           onPrevSection={prevSection}
           onNextSection={nextSection}
+          isTransitioning={isTransitioning}
+          transitionProgress={transitionProgress}
         />
       )}
 
