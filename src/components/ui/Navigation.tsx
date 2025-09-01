@@ -31,6 +31,23 @@ export default function Navigation({
   onPrevSection,
   onNextSection,
 }: NavigationProps = {}) {
+  // Get current section's color based on currentSection index
+  const getCurrentSectionColor = () => {
+    const sectionColorMap = {
+      0: 'text-white', // hero
+      1: 'text-cyan-400', // about
+      2: 'text-emerald-400', // experience
+      3: 'text-purple-400', // skills
+      4: 'text-cyan-400', // services
+      5: 'text-cyan-400', // contact (keeping original cyan)
+    }
+    return (
+      sectionColorMap[currentSection as keyof typeof sectionColorMap] ||
+      'text-white'
+    )
+  }
+
+  const currentSectionColor = getCurrentSectionColor()
   const [isSlideshow] = useState(Boolean(sections && onSectionChange))
   const [isNavReady, setIsNavReady] = useState(false)
   const [activeSection, setActiveSection] = useState<string>('')
@@ -228,7 +245,9 @@ export default function Navigation({
                       whileHover={isNavReady ? { scale: 1.02 } : {}}
                       whileTap={isNavReady ? { scale: 0.98 } : {}}
                     >
-                      <ChevronUp className='w-6 h-6 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                      <ChevronUp
+                        className={`w-6 h-6 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                      />
                     </motion.button>
                   ) : (
                     <>
@@ -252,7 +271,9 @@ export default function Navigation({
                             : {}
                         }
                       >
-                        <ChevronUp className='w-6 h-6 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                        <ChevronUp
+                          className={`w-6 h-6 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                        />
                       </motion.button>
 
                       {/* Bottom half - Down arrow */}
@@ -281,7 +302,9 @@ export default function Navigation({
                             : {}
                         }
                       >
-                        <ChevronDown className='w-6 h-6 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                        <ChevronDown
+                          className={`w-6 h-6 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                        />
                       </motion.button>
                     </>
                   )}
@@ -467,7 +490,9 @@ export default function Navigation({
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <ChevronUp className='w-4 h-4 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                      <ChevronUp
+                        className={`w-4 h-4 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                      />
                     </motion.button>
                   ) : (
                     <>
@@ -483,7 +508,9 @@ export default function Navigation({
                         whileHover={currentSection > 0 ? { scale: 1.02 } : {}}
                         whileTap={currentSection > 0 ? { scale: 0.98 } : {}}
                       >
-                        <ChevronUp className='w-4 h-4 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                        <ChevronUp
+                          className={`w-4 h-4 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                        />
                       </motion.button>
 
                       {/* Bottom half - Down arrow */}
@@ -508,7 +535,9 @@ export default function Navigation({
                             : {}
                         }
                       >
-                        <ChevronDown className='w-4 h-4 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                        <ChevronDown
+                          className={`w-4 h-4 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                        />
                       </motion.button>
                     </>
                   )}
