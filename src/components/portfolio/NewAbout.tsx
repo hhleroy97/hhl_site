@@ -93,61 +93,61 @@ export default function NewAbout() {
 
               {/* Hobbies Grid */}
               <div className='grid grid-cols-3 md:grid-cols-5 gap-4 justify-start'>
-                <div className='flex flex-col items-center p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl'>
-                  <Music className='w-8 h-8 mb-2 text-purple-400' />
-                  <span className='text-sm text-zinc-400 text-center'>
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
+                  <Music className='w-8 h-8 mb-2 text-purple-400 group-hover:scale-110 group-hover:text-purple-300 transition-all duration-300' />
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Music Production
                   </span>
                 </div>
 
-                <div className='flex flex-col items-center p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl'>
-                  <Gamepad2 className='w-8 h-8 mb-2 text-cyan-400' />
-                  <span className='text-sm text-zinc-400 text-center'>
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
+                  <Gamepad2 className='w-8 h-8 mb-2 text-cyan-400 group-hover:scale-110 group-hover:text-cyan-300 transition-all duration-300' />
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Video Games
                   </span>
                 </div>
 
-                <div className='flex flex-col items-center p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl'>
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <img
                     src={pickleballImage}
                     alt='Pickleball'
-                    className='w-8 h-8 mb-2'
+                    className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
                     style={{
                       filter:
                         'brightness(0) saturate(100%) invert(67%) sepia(32%) saturate(1292%) hue-rotate(124deg) brightness(91%) contrast(85%)',
                     }}
                   />
-                  <span className='text-sm text-zinc-400 text-center'>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Pickleball
                   </span>
                 </div>
 
-                <div className='flex flex-col items-center p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl'>
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <img
                     src={hikeImage}
                     alt='Hiking'
-                    className='w-8 h-8 mb-2'
+                    className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
                     style={{
                       filter:
                         'brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(606%) hue-rotate(359deg) brightness(99%) contrast(88%)',
                     }}
                   />
-                  <span className='text-sm text-zinc-400 text-center'>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Hiking
                   </span>
                 </div>
 
-                <div className='flex flex-col items-center p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl'>
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <img
                     src={snowboardImage}
                     alt='Snowboarding'
-                    className='w-8 h-8 mb-2'
+                    className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
                     style={{
                       filter:
                         'brightness(0) saturate(100%) invert(59%) sepia(92%) saturate(1686%) hue-rotate(182deg) brightness(97%) contrast(94%)',
                     }}
                   />
-                  <span className='text-sm text-zinc-400 text-center'>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Snowboarding
                   </span>
                 </div>
@@ -239,12 +239,10 @@ export default function NewAbout() {
               <div className='mt-2 -mx-3 -mb-6'>
                 <a
                   href='#contact'
-                  className='block w-full rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
+                  className='block w-full px-4 py-3 rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold text-lg text-center transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
                   style={{ fontFamily: 'Orbitron, sans-serif' }}
                 >
-                  <div className='px-4 py-3 bg-black/10 backdrop-blur-sm rounded-b-2xl text-white font-semibold text-lg text-center'>
-                    Get In Touch
-                  </div>
+                  Get In Touch
                 </a>
               </div>
             </div>

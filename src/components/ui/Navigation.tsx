@@ -312,24 +312,22 @@ export default function Navigation({
               <motion.button
                 onClick={() => handleNavClick('contact', 4)}
                 disabled={!isNavReady}
-                className={`relative rounded-full transition-all duration-200 ${
+                className={`relative px-4 py-2 rounded-full transition-all duration-200 ${
                   isActive('contact', 4)
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
+                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
                     : isNavReady
-                      ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 cursor-pointer'
-                      : 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 opacity-50 cursor-not-allowed'
+                      ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 cursor-pointer'
+                      : 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 opacity-50 cursor-not-allowed'
                 }`}
                 whileHover={isNavReady ? { scale: 1.02 } : {}}
                 whileTap={isNavReady ? { scale: 0.98 } : {}}
               >
-                <div className='px-4 py-2 bg-black/10 backdrop-blur-sm rounded-full text-white'>
-                  <span
-                    className='text-sm font-bold'
-                    style={{ fontFamily: 'Orbitron, sans-serif' }}
-                  >
-                    Contact
-                  </span>
-                </div>
+                <span
+                  className='text-sm font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
+                  Contact
+                </span>
               </motion.button>
             </div>
 
@@ -363,33 +361,20 @@ export default function Navigation({
                   <motion.button
                     key={item.id}
                     onClick={() => handleNavClick(item.id, index)}
-                    className={`relative rounded-xl transition-all duration-200 ${
+                    className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
                       active
-                        ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25'
+                        ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25'
                         : 'text-zinc-300 hover:text-white hover:bg-white/10'
                     }`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    {active ? (
-                      <div className='flex flex-col items-center p-2 bg-black/10 backdrop-blur-sm rounded-xl text-white'>
-                        <span
-                          className='text-xs font-bold'
-                          style={{ fontFamily: 'Orbitron, sans-serif' }}
-                        >
-                          {item.label}
-                        </span>
-                      </div>
-                    ) : (
-                      <div className='flex flex-col items-center p-2'>
-                        <span
-                          className='text-xs font-bold'
-                          style={{ fontFamily: 'Orbitron, sans-serif' }}
-                        >
-                          {item.label}
-                        </span>
-                      </div>
-                    )}
+                    <span
+                      className='text-xs font-bold'
+                      style={{ fontFamily: 'Orbitron, sans-serif' }}
+                    >
+                      {item.label}
+                    </span>
                   </motion.button>
                 )
               })}
@@ -397,33 +382,20 @@ export default function Navigation({
               {/* Mobile Contact CTA */}
               <motion.button
                 onClick={() => handleNavClick('contact', 4)}
-                className={`relative rounded-xl transition-all duration-200 ${
+                className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
                   isActive('contact', 4)
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
+                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
                     : 'text-zinc-300 hover:text-white hover:bg-white/10'
                 }`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {isActive('contact', 4) ? (
-                  <div className='flex flex-col items-center p-2 bg-black/10 backdrop-blur-sm rounded-xl text-white'>
-                    <span
-                      className='text-xs font-bold'
-                      style={{ fontFamily: 'Orbitron, sans-serif' }}
-                    >
-                      Contact
-                    </span>
-                  </div>
-                ) : (
-                  <div className='flex flex-col items-center p-2'>
-                    <span
-                      className='text-xs font-bold'
-                      style={{ fontFamily: 'Orbitron, sans-serif' }}
-                    >
-                      Contact
-                    </span>
-                  </div>
-                )}
+                <span
+                  className='text-xs font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
+                  Contact
+                </span>
               </motion.button>
             </div>
 
