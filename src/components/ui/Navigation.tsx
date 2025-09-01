@@ -31,6 +31,74 @@ export default function Navigation({
   onPrevSection,
   onNextSection,
 }: NavigationProps = {}) {
+  // Color morphing state
+  const [colorTransition, setColorTransition] = useState({
+    isTransitioning: false,
+    progress: 0,
+    fromSection: 0,
+    toSection: 0,
+  })
+
+  // Color interpolation function
+  const interpolateColor = (
+    color1: string,
+    color2: string,
+    progress: number
+  ) => {
+    // Simple color interpolation for common Tailwind colors
+    const colorMap = {
+      'text-white': [255, 255, 255],
+      'text-cyan-400': [34, 211, 238],
+      'text-emerald-400': [52, 211, 153],
+      'text-purple-400': [196, 181, 253],
+    }
+
+    const c1 = colorMap[color1 as keyof typeof colorMap] || [255, 255, 255]
+    const c2 = colorMap[color2 as keyof typeof colorMap] || [255, 255, 255]
+
+    const r = Math.round(c1[0] + (c2[0] - c1[0]) * progress)
+    const g = Math.round(c1[1] + (c2[1] - c1[1]) * progress)
+    const b = Math.round(c1[2] + (c2[2] - c1[2]) * progress)
+
+    return `rgb(${r}, ${g}, ${b})`
+  }
+
+  // Get dynamic text color based on transition state
+  const getDynamicTextColor = () => {
+    if (colorTransition.isTransitioning) {
+      const fromColors = getSectionColors(colorTransition.fromSection)
+      const toColors = getSectionColors(colorTransition.toSection)
+
+      return {
+        style: {
+          color: interpolateColor(
+            fromColors.text,
+            toColors.text,
+            colorTransition.progress
+          ),
+        },
+      }
+    }
+    return { className: getCurrentSectionColors().text }
+  }
+
+  // Get section colors by index
+  const getSectionColors = (sectionIndex: number) => {
+    const sectionColorMap = {
+      0: { text: 'text-white' }, // hero
+      1: { text: 'text-cyan-400' }, // about
+      2: { text: 'text-emerald-400' }, // experience
+      3: { text: 'text-purple-400' }, // skills
+      4: { text: 'text-cyan-400' }, // services
+      5: { text: 'text-cyan-400' }, // contact
+    }
+    return (
+      sectionColorMap[sectionIndex as keyof typeof sectionColorMap] || {
+        text: 'text-white',
+      }
+    )
+  }
+
   // Get current section's colors based on currentSection index
   const getCurrentSectionColors = () => {
     const sectionColorMap = {
@@ -79,8 +147,52 @@ export default function Navigation({
   const [isSlideshow] = useState(Boolean(sections && onSectionChange))
   const [isNavReady, setIsNavReady] = useState(false)
   const [activeSection, setActiveSection] = useState<string>('')
+  const [prevCurrentSection, setPrevCurrentSection] = useState(currentSection)
   const yOffset = -70
   const arcLength = 0
+
+  // Track section changes and trigger color morphing
+  useEffect(() => {
+    if (prevCurrentSection !== currentSection) {
+      setColorTransition({
+        isTransitioning: true,
+        progress: 0,
+        fromSection: prevCurrentSection,
+        toSection: currentSection,
+      })
+
+      // Animate the color transition over 600ms
+      const startTime = Date.now()
+      const duration = 600
+
+      const animateColor = () => {
+        const elapsed = Date.now() - startTime
+        const progress = Math.min(elapsed / duration, 1)
+
+        // Easing function for smooth transition
+        const easeProgress = 1 - Math.pow(1 - progress, 3)
+
+        setColorTransition(prev => ({
+          ...prev,
+          progress: easeProgress,
+        }))
+
+        if (progress < 1) {
+          requestAnimationFrame(animateColor)
+        } else {
+          setColorTransition({
+            isTransitioning: false,
+            progress: 0,
+            fromSection: currentSection,
+            toSection: currentSection,
+          })
+        }
+      }
+
+      requestAnimationFrame(animateColor)
+      setPrevCurrentSection(currentSection)
+    }
+  }, [currentSection, prevCurrentSection])
 
   // Scroll-based active section detection for non-slideshow mode
   useEffect(() => {
@@ -274,7 +386,8 @@ export default function Navigation({
                       whileTap={isNavReady ? { scale: 0.98 } : {}}
                     >
                       <ChevronUp
-                        className={`w-6 h-6 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                        {...getDynamicTextColor()}
+                        className={`w-6 h-6 ${colorTransition.isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                       />
                     </motion.button>
                   ) : (
@@ -300,7 +413,8 @@ export default function Navigation({
                         }
                       >
                         <ChevronUp
-                          className={`w-6 h-6 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                          {...getDynamicTextColor()}
+                          className={`w-6 h-6 ${colorTransition.isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                         />
                       </motion.button>
 
@@ -331,7 +445,8 @@ export default function Navigation({
                         }
                       >
                         <ChevronDown
-                          className={`w-6 h-6 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                          {...getDynamicTextColor()}
+                          className={`w-6 h-6 ${colorTransition.isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                         />
                       </motion.button>
                     </>
@@ -528,7 +643,8 @@ export default function Navigation({
                       whileTap={{ scale: 0.98 }}
                     >
                       <ChevronUp
-                        className={`w-4 h-4 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                        {...getDynamicTextColor()}
+                        className={`w-4 h-4 ${colorTransition.isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                       />
                     </motion.button>
                   ) : (
@@ -546,7 +662,8 @@ export default function Navigation({
                         whileTap={currentSection > 0 ? { scale: 0.98 } : {}}
                       >
                         <ChevronUp
-                          className={`w-4 h-4 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                          {...getDynamicTextColor()}
+                          className={`w-4 h-4 ${colorTransition.isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                         />
                       </motion.button>
 
@@ -573,7 +690,8 @@ export default function Navigation({
                         }
                       >
                         <ChevronDown
-                          className={`w-4 h-4 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                          {...getDynamicTextColor()}
+                          className={`w-4 h-4 ${colorTransition.isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                         />
                       </motion.button>
                     </>
