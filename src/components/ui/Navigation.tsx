@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronUp, ChevronDown } from 'lucide-react'
 
@@ -27,8 +27,53 @@ export default function Navigation({
 }: NavigationProps = {}) {
   const [isSlideshow] = useState(Boolean(sections && onSectionChange))
   const [isNavReady, setIsNavReady] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('')
   const yOffset = -70
   const arcLength = 0
+
+  // Scroll-based active section detection for non-slideshow mode
+  useEffect(() => {
+    if (isSlideshow) return
+
+    const handleScroll = () => {
+      const sections = navItems.map(item => item.id)
+      const scrollPosition = window.scrollY + 100 // Offset for better detection
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sections[i])
+        if (element) {
+          const elementTop = element.offsetTop
+          const elementBottom = elementTop + element.offsetHeight
+
+          if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+            console.log(
+              'Setting active section:',
+              sections[i],
+              'scrollPosition:',
+              scrollPosition,
+              'elementTop:',
+              elementTop,
+              'elementBottom:',
+              elementBottom
+            )
+            setActiveSection(sections[i])
+            break
+          }
+        }
+      }
+    }
+
+    // Add a small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      window.addEventListener('scroll', handleScroll)
+      handleScroll() // Check initial position
+    }, 100)
+
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isSlideshow])
 
   const handleNavClick = (itemId: string, index: number) => {
     if (isSlideshow && onSectionChange) {
@@ -45,7 +90,18 @@ export default function Navigation({
     if (isSlideshow) {
       return currentSection === index + 1 // +1 because we skip hero section
     }
-    return false // For non-slideshow mode, we'll implement scroll detection later
+    const active = activeSection === itemId
+    if (itemId === 'contact') {
+      console.log(
+        'Contact active check:',
+        active,
+        'activeSection:',
+        activeSection,
+        'itemId:',
+        itemId
+      )
+    }
+    return active
   }
 
   return (
@@ -129,51 +185,76 @@ export default function Navigation({
                   }}
                 />
                 <div className='relative w-24 h-24'>
-                  {/* Top half - Up arrow */}
-                  <motion.button
-                    onClick={onPrevSection}
-                    disabled={currentSection === 0 || !isNavReady}
-                    className={`absolute top-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-t-full flex items-center justify-center transition-all duration-300 ${
-                      currentSection === 0 || !isNavReady
-                        ? 'opacity-50 cursor-not-allowed'
-                        : 'hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 cursor-pointer'
-                    }`}
-                    whileHover={
-                      currentSection > 0 && isNavReady ? { scale: 1.05 } : {}
-                    }
-                    whileTap={
-                      currentSection > 0 && isNavReady ? { scale: 0.95 } : {}
-                    }
-                  >
-                    <ChevronUp className='w-6 h-6 text-white' />
-                  </motion.button>
+                  {/* Full circle - Up arrow (when on last section) */}
+                  {currentSection === (sections?.length || 1) - 1 ? (
+                    <motion.button
+                      onClick={onPrevSection}
+                      disabled={!isNavReady}
+                      className={`absolute inset-0 w-24 h-24 bg-black/40 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center transition-all duration-300 group ${
+                        !isNavReady
+                          ? 'opacity-50 cursor-not-allowed'
+                          : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                      }`}
+                      whileHover={isNavReady ? { scale: 1.05 } : {}}
+                      whileTap={isNavReady ? { scale: 0.95 } : {}}
+                    >
+                      <ChevronUp className='w-6 h-6 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                    </motion.button>
+                  ) : (
+                    <>
+                      {/* Top half - Up arrow */}
+                      <motion.button
+                        onClick={onPrevSection}
+                        disabled={currentSection === 0 || !isNavReady}
+                        className={`absolute top-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-t-full flex items-center justify-center transition-all duration-300 group ${
+                          currentSection === 0 || !isNavReady
+                            ? 'opacity-50 cursor-not-allowed'
+                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                        }`}
+                        whileHover={
+                          currentSection > 0 && isNavReady
+                            ? { scale: 1.05 }
+                            : {}
+                        }
+                        whileTap={
+                          currentSection > 0 && isNavReady
+                            ? { scale: 0.95 }
+                            : {}
+                        }
+                      >
+                        <ChevronUp className='w-6 h-6 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                      </motion.button>
 
-                  {/* Bottom half - Down arrow */}
-                  <motion.button
-                    onClick={onNextSection}
-                    disabled={
-                      currentSection === (sections?.length || 1) - 1 ||
-                      !isNavReady
-                    }
-                    className={`absolute bottom-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-b-full flex items-center justify-center transition-all duration-300 ${
-                      currentSection === (sections?.length || 1) - 1 ||
-                      !isNavReady
-                        ? 'opacity-50 cursor-not-allowed'
-                        : 'hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-400 cursor-pointer'
-                    }`}
-                    whileHover={
-                      currentSection < (sections?.length || 1) - 1 && isNavReady
-                        ? { scale: 1.05 }
-                        : {}
-                    }
-                    whileTap={
-                      currentSection < (sections?.length || 1) - 1 && isNavReady
-                        ? { scale: 0.95 }
-                        : {}
-                    }
-                  >
-                    <ChevronDown className='w-6 h-6 text-white' />
-                  </motion.button>
+                      {/* Bottom half - Down arrow */}
+                      <motion.button
+                        onClick={onNextSection}
+                        disabled={
+                          currentSection === (sections?.length || 1) - 1 ||
+                          !isNavReady
+                        }
+                        className={`absolute bottom-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-b-full flex items-center justify-center transition-all duration-300 group ${
+                          currentSection === (sections?.length || 1) - 1 ||
+                          !isNavReady
+                            ? 'opacity-50 cursor-not-allowed'
+                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                        }`}
+                        whileHover={
+                          currentSection < (sections?.length || 1) - 1 &&
+                          isNavReady
+                            ? { scale: 1.05 }
+                            : {}
+                        }
+                        whileTap={
+                          currentSection < (sections?.length || 1) - 1 &&
+                          isNavReady
+                            ? { scale: 0.95 }
+                            : {}
+                        }
+                      >
+                        <ChevronDown className='w-6 h-6 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                      </motion.button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -211,9 +292,11 @@ export default function Navigation({
                 onClick={() => handleNavClick('contact', 4)}
                 disabled={!isNavReady}
                 className={`relative px-4 py-2 rounded-full transition-all duration-200 ${
-                  isNavReady
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 cursor-pointer'
-                    : 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 opacity-50 cursor-not-allowed'
+                  isActive('contact', 4)
+                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
+                    : isNavReady
+                      ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 cursor-pointer'
+                      : 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 opacity-50 cursor-not-allowed'
                 }`}
                 whileHover={isNavReady ? { scale: 1.05 } : {}}
                 whileTap={isNavReady ? { scale: 0.95 } : {}}
@@ -265,7 +348,7 @@ export default function Navigation({
                 onClick={() => handleNavClick('contact', 4)}
                 className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
                   isActive('contact', 4)
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25'
+                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
                     : 'text-zinc-300 hover:text-white hover:bg-white/10'
                 }`}
                 whileHover={{ scale: 1.05 }}
@@ -291,43 +374,59 @@ export default function Navigation({
                   }}
                 />
                 <div className='relative w-16 h-16'>
-                  {/* Top half - Up arrow */}
-                  <motion.button
-                    onClick={onPrevSection}
-                    disabled={currentSection === 0}
-                    className={`absolute top-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border border-white/20 rounded-t-full flex items-center justify-center transition-all duration-300 ${
-                      currentSection === 0
-                        ? 'opacity-50 cursor-not-allowed'
-                        : 'hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 cursor-pointer'
-                    }`}
-                    whileHover={currentSection > 0 ? { scale: 1.05 } : {}}
-                    whileTap={currentSection > 0 ? { scale: 0.95 } : {}}
-                  >
-                    <ChevronUp className='w-4 h-4 text-white' />
-                  </motion.button>
+                  {/* Full circle - Up arrow (when on last section) */}
+                  {currentSection === (sections?.length || 1) - 1 ? (
+                    <motion.button
+                      onClick={onPrevSection}
+                      className={`absolute inset-0 w-16 h-16 bg-black/40 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center transition-all duration-300 group hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer`}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <ChevronUp className='w-4 h-4 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                    </motion.button>
+                  ) : (
+                    <>
+                      {/* Top half - Up arrow */}
+                      <motion.button
+                        onClick={onPrevSection}
+                        disabled={currentSection === 0}
+                        className={`absolute top-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border border-white/20 rounded-t-full flex items-center justify-center transition-all duration-300 group ${
+                          currentSection === 0
+                            ? 'opacity-50 cursor-not-allowed'
+                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                        }`}
+                        whileHover={currentSection > 0 ? { scale: 1.05 } : {}}
+                        whileTap={currentSection > 0 ? { scale: 0.95 } : {}}
+                      >
+                        <ChevronUp className='w-4 h-4 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                      </motion.button>
 
-                  {/* Bottom half - Down arrow */}
-                  <motion.button
-                    onClick={onNextSection}
-                    disabled={currentSection === (sections?.length || 1) - 1}
-                    className={`absolute bottom-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border border-white/20 rounded-b-full flex items-center justify-center transition-all duration-300 ${
-                      currentSection === (sections?.length || 1) - 1
-                        ? 'opacity-50 cursor-not-allowed'
-                        : 'hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-400 cursor-pointer'
-                    }`}
-                    whileHover={
-                      currentSection < (sections?.length || 1) - 1
-                        ? { scale: 1.05 }
-                        : {}
-                    }
-                    whileTap={
-                      currentSection < (sections?.length || 1) - 1
-                        ? { scale: 0.95 }
-                        : {}
-                    }
-                  >
-                    <ChevronDown className='w-4 h-4 text-white' />
-                  </motion.button>
+                      {/* Bottom half - Down arrow */}
+                      <motion.button
+                        onClick={onNextSection}
+                        disabled={
+                          currentSection === (sections?.length || 1) - 1
+                        }
+                        className={`absolute bottom-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border border-white/20 rounded-b-full flex items-center justify-center transition-all duration-300 group ${
+                          currentSection === (sections?.length || 1) - 1
+                            ? 'opacity-50 cursor-not-allowed'
+                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                        }`}
+                        whileHover={
+                          currentSection < (sections?.length || 1) - 1
+                            ? { scale: 1.05 }
+                            : {}
+                        }
+                        whileTap={
+                          currentSection < (sections?.length || 1) - 1
+                            ? { scale: 0.95 }
+                            : {}
+                        }
+                      >
+                        <ChevronDown className='w-4 h-4 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                      </motion.button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
