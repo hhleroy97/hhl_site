@@ -26,7 +26,7 @@ export default function InteractiveElements({
           href='https://github.com/hhleroy97'
           target='_blank'
           rel='noopener noreferrer'
-          className={`flex items-center justify-center gap-3 flex-1 h-14 rounded-l-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-purple-400/15 hover:border-purple-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-yellow-400' : ''}`}
+          className={`flex items-center justify-center gap-3 flex-1 h-14 rounded-tl-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-purple-400/15 hover:border-purple-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-yellow-400' : ''}`}
           aria-label='GitHub profile'
         >
           <svg className='w-7 h-7' fill='#B06AF7' viewBox='0 0 20 20'>
@@ -56,7 +56,7 @@ export default function InteractiveElements({
         </a>
         <a
           href='mailto:hartley.leroy1997@gmail.com'
-          className={`flex items-center justify-center gap-3 flex-1 h-14 rounded-r-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-teal-400/15 hover:border-teal-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-orange-400' : ''}`}
+          className={`flex items-center justify-center gap-3 flex-1 h-14 rounded-tr-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-teal-400/15 hover:border-teal-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-orange-400' : ''}`}
           aria-label='Email contact'
         >
           <svg
@@ -91,7 +91,7 @@ export default function InteractiveElements({
       >
         {/* Enhanced Achievement Card - Compact */}
         <motion.div
-          className={`group relative p-6 md:p-8 rounded-xl bg-black/30 backdrop-blur-md border border-white/20 
+          className={`group relative p-6 md:p-8 bg-black/30 backdrop-blur-md border border-white/20 
               transition-all duration-300 cursor-pointer overflow-hidden shadow-xl hover:shadow-2xl ${showBorders ? 'border-4 border-red-500' : ''}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -170,6 +170,12 @@ export default function InteractiveElements({
         }}
       >
         <a
+          href='#contact'
+          className={`flex-1 h-14 px-6 bg-gradient-to-r from-purple-500 from-10% via-cyan-500 via-50% to-cyan-500 to-90% text-white font-semibold rounded-bl-xl hover:shadow-xl hover:shadow-purple-500/30 transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center border border-white/20 text-xl tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
+        >
+          Get in Touch
+        </a>
+        <a
           href='#experience'
           onClick={e => {
             e.preventDefault()
@@ -178,15 +184,9 @@ export default function InteractiveElements({
               element.scrollIntoView({ behavior: 'smooth' })
             }
           }}
-          className={`flex-1 h-14 px-6 bg-gradient-to-r from-purple-500 from-10% via-cyan-500 via-50% to-cyan-500 to-90% text-white font-semibold rounded-l-xl hover:shadow-xl hover:shadow-purple-500/30 transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center border border-white/20 text-xl tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
+          className={`flex-1 h-14 px-6 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold rounded-br-xl hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-xl tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
         >
           View Experience
-        </a>
-        <a
-          href='#contact'
-          className={`flex-1 h-14 px-6 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold rounded-r-xl hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-xl tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
-        >
-          Contact Form
         </a>
       </motion.div>
     </motion.div>

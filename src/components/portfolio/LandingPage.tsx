@@ -28,14 +28,14 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
   return (
     <section
       id='hero'
-      className={`relative min-h-screen overflow-hidden flex justify-center ${showBorders ? 'border-4 border-white' : ''}`}
+      className={`relative min-h-screen overflow-hidden flex flex-col justify-between ${showBorders ? 'border-4 border-white' : ''}`}
     >
       {/* Enhanced Background with subtle gradient */}
       <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
 
-      {/* Main content container - Improved spacing and layout */}
+      {/* Top content container */}
       <div
-        className={`relative z-20 pointer-events-none w-[85%] max-w-7xl pt-8 pb-24 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-[85%] max-w-7xl mx-auto pt-8 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
@@ -172,10 +172,15 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             </span>
           </p>
         </motion.div>
+      </div>
 
+      {/* Center content container - Interactive elements and 3D visuals */}
+      <div
+        className={`relative z-20 pointer-events-none w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible -mt-16 ${showBorders ? 'border-4 border-green-500' : ''}`}
+      >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div
-          className={`grid grid-cols-1 lg:grid-cols-2 w-full gap-6 lg:gap-16 items-start ${showBorders ? 'border-4 border-orange-500' : ''}`}
+          className={`grid grid-cols-1 lg:grid-cols-2 w-full gap-6 lg:gap-16 items-center ${showBorders ? 'border-4 border-orange-500' : ''}`}
         >
           <div className='w-full'>
             <InteractiveElements showBorders={showBorders} />
@@ -223,7 +228,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       />
 
       {/* Enhanced Navigation Area at bottom */}
-      <div className='absolute bottom-0 left-0 right-0 z-[80] flex flex-col items-center pointer-events-auto'>
+      <div className='relative z-[80] flex flex-col items-center pointer-events-auto pb-8'>
         {/* Call-to-action text with side arrows */}
         <motion.div
           className='mb-4 text-center'
@@ -253,8 +258,25 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             >
               {/* Enhanced bottom glow effect */}
               <div className='absolute bottom-[-8rem] left-1/2 transform -translate-x-1/2 w-screen h-32 bg-purple-400/30 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out pointer-events-none' />
-              <span style={{ fontSize: '1.1em' }}>[</span> Continue to site{' '}
-              <span style={{ fontSize: '1.1em' }}>]</span>
+              <span
+                style={{
+                  fontSize: '2.2em',
+                  verticalAlign: 'middle',
+                  lineHeight: '1',
+                }}
+              >
+                [
+              </span>{' '}
+              Continue to site{' '}
+              <span
+                style={{
+                  fontSize: '2.2em',
+                  verticalAlign: 'middle',
+                  lineHeight: '1',
+                }}
+              >
+                ]
+              </span>
             </motion.button>
           </div>
         </motion.div>
