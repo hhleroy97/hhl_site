@@ -248,7 +248,7 @@ export default function Navigation({
               className={`absolute left-1/2 transform -translate-x-1/2`}
               style={{ top: `${yOffset}px` }}
             >
-              <div className='relative w-32 h-32 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-lg shadow-cyan-400/15'>
+              <div className='relative w-32 h-32 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
                 <div
                   className='absolute inset-0 rounded-full'
                   style={{
@@ -498,7 +498,7 @@ export default function Navigation({
               className={`md:hidden absolute left-1/2 transform -translate-x-1/2`}
               style={{ top: `${yOffset}px` }}
             >
-              <div className='relative w-20 h-20 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center'>
+              <div className='relative w-20 h-20 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
                 <div
                   className='absolute inset-0 rounded-full'
                   style={{
