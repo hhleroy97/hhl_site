@@ -169,7 +169,7 @@ export default function Navigation({
                     disabled={!isNavReady}
                     className={`relative px-4 py-2 rounded-full transition-all duration-200 border-2 ${
                       active
-                        ? `bg-gradient-to-r ${gradient} text-white shadow-lg border-transparent`
+                        ? `bg-gradient-to-r ${gradient} shadow-lg border-white/30 ring-2 ring-white/20 ring-offset-2 ring-offset-black/50`
                         : `text-zinc-300 bg-black/20 backdrop-blur-sm border-white/20 ${
                             isNavReady
                               ? 'hover:border-white/50 hover:text-white hover:shadow-md hover:bg-black/30 cursor-pointer'
@@ -180,7 +180,11 @@ export default function Navigation({
                     whileTap={isNavReady ? { scale: 0.98 } : {}}
                   >
                     <span
-                      className='text-sm font-bold'
+                      className={`text-sm font-bold ${
+                        active
+                          ? `bg-gradient-to-r ${gradient} bg-clip-text text-transparent`
+                          : ''
+                      }`}
                       style={{ fontFamily: 'Orbitron, sans-serif' }}
                     >
                       {item.label}
@@ -294,7 +298,7 @@ export default function Navigation({
                     disabled={!isNavReady}
                     className={`relative px-4 py-2 rounded-full transition-all duration-200 border-2 ${
                       active
-                        ? `bg-gradient-to-r ${gradient} text-white shadow-lg border-transparent`
+                        ? `bg-gradient-to-r ${gradient} shadow-lg border-white/30 ring-2 ring-white/20 ring-offset-2 ring-offset-black/50`
                         : `text-zinc-300 bg-black/20 backdrop-blur-sm border-white/20 ${
                             isNavReady
                               ? 'hover:border-white/50 hover:text-white hover:shadow-md hover:bg-black/30 cursor-pointer'
@@ -305,7 +309,11 @@ export default function Navigation({
                     whileTap={isNavReady ? { scale: 0.98 } : {}}
                   >
                     <span
-                      className='text-sm font-bold'
+                      className={`text-sm font-bold ${
+                        active
+                          ? `bg-gradient-to-r ${gradient} bg-clip-text text-transparent`
+                          : ''
+                      }`}
                       style={{ fontFamily: 'Orbitron, sans-serif' }}
                     >
                       {item.label}
@@ -320,16 +328,16 @@ export default function Navigation({
                 disabled={!isNavReady}
                 className={`relative px-4 py-2 rounded-full transition-all duration-200 ${
                   isActive('contact', 4)
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
+                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
                     : isNavReady
-                      ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 cursor-pointer'
-                      : 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 opacity-50 cursor-not-allowed'
+                      ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 cursor-pointer'
+                      : 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 opacity-50 cursor-not-allowed'
                 }`}
                 whileHover={isNavReady ? { scale: 1.02 } : {}}
                 whileTap={isNavReady ? { scale: 0.98 } : {}}
               >
                 <span
-                  className='text-sm font-bold'
+                  className='text-sm font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent'
                   style={{ fontFamily: 'Orbitron, sans-serif' }}
                 >
                   Contact
@@ -371,14 +379,18 @@ export default function Navigation({
                     onClick={() => handleNavClick(item.id, index)}
                     className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
                       active
-                        ? `bg-gradient-to-r ${gradient} text-white shadow-lg`
+                        ? `bg-gradient-to-r ${gradient} shadow-lg ring-2 ring-white/20 ring-offset-2 ring-offset-black/50`
                         : 'text-zinc-300 hover:text-white hover:bg-white/10'
                     }`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <span
-                      className='text-xs font-bold'
+                      className={`text-xs font-bold ${
+                        active
+                          ? `bg-gradient-to-r ${gradient} bg-clip-text text-transparent`
+                          : ''
+                      }`}
                       style={{ fontFamily: 'Orbitron, sans-serif' }}
                     >
                       {item.label}
@@ -392,14 +404,18 @@ export default function Navigation({
                 onClick={() => handleNavClick('contact', 4)}
                 className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
                   isActive('contact', 4)
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
+                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
                     : 'text-zinc-300 hover:text-white hover:bg-white/10'
                 }`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <span
-                  className='text-xs font-bold'
+                  className={`text-xs font-bold ${
+                    isActive('contact', 4)
+                      ? 'bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent'
+                      : ''
+                  }`}
                   style={{ fontFamily: 'Orbitron, sans-serif' }}
                 >
                   Contact
