@@ -245,7 +245,8 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             <motion.button
               onClick={() => {
                 if (onNextSection) {
-                  onNextSection()
+                  // Use hash routing instead
+                  window.location.hash = 'about'
                 } else {
                   const element = document.getElementById('experience')
                   if (element) {
