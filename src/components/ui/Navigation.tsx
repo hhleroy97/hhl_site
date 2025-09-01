@@ -147,13 +147,29 @@ export default function Navigation({
   const [isSlideshow] = useState(Boolean(sections && onSectionChange))
   const [isNavReady, setIsNavReady] = useState(false)
   const [activeSection, setActiveSection] = useState<string>('')
-  const [prevCurrentSection, setPrevCurrentSection] = useState(currentSection)
+  const [prevCurrentSection, setPrevCurrentSection] = useState<number | null>(
+    null
+  )
   const yOffset = -70
   const arcLength = 0
 
   // Track section changes and trigger color morphing
   useEffect(() => {
+    // Initialize prevCurrentSection on first render
+    if (prevCurrentSection === null) {
+      setPrevCurrentSection(currentSection)
+      return
+    }
+
+    // Trigger animation when section changes
     if (prevCurrentSection !== currentSection) {
+      console.log(
+        'Section changed from',
+        prevCurrentSection,
+        'to',
+        currentSection
+      )
+
       setColorTransition({
         isTransitioning: true,
         progress: 0,
