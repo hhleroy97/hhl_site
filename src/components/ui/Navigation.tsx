@@ -170,7 +170,7 @@ export default function Navigation({
       {/* Glassmorphism container */}
       <div className='max-w-[72vw] mx-auto px-3 md:px-4 relative'>
         {/* Glassmorphism background */}
-        <div className='absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-t-full border-t border-l border-r border-white/20 shadow-xl' />
+        <div className='absolute inset-0 bg-gradient-to-bl from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-t-full border-t border-l border-r border-white/20 shadow-xl' />
 
         {/* Content */}
         <div className='relative py-4'>
@@ -249,7 +249,7 @@ export default function Navigation({
               className={`absolute left-1/2 transform -translate-x-1/2`}
               style={{ top: `${yOffset}px` }}
             >
-              <div className='relative w-32 h-32 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
+              <div className='relative w-32 h-32 bg-gradient-to-bl from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
                 <div
                   className='absolute inset-0 rounded-full'
                   style={{
@@ -508,7 +508,7 @@ export default function Navigation({
               className={`md:hidden absolute left-1/2 transform -translate-x-1/2`}
               style={{ top: `${yOffset}px` }}
             >
-              <div className='relative w-20 h-20 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
+              <div className='relative w-20 h-20 bg-gradient-to-bl from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
                 <div
                   className='absolute inset-0 rounded-full'
                   style={{
