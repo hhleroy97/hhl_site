@@ -31,23 +31,50 @@ export default function Navigation({
   onPrevSection,
   onNextSection,
 }: NavigationProps = {}) {
-  // Get current section's color based on currentSection index
-  const getCurrentSectionColor = () => {
+  // Get current section's colors based on currentSection index
+  const getCurrentSectionColors = () => {
     const sectionColorMap = {
-      0: 'text-white', // hero
-      1: 'text-cyan-400', // about
-      2: 'text-emerald-400', // experience
-      3: 'text-purple-400', // skills
-      4: 'text-cyan-400', // services
-      5: 'text-cyan-400', // contact (keeping original cyan)
+      0: {
+        text: 'text-white',
+        border: 'border-white/20',
+        hoverBorder: 'hover:border-white/50',
+      }, // hero
+      1: {
+        text: 'text-cyan-400',
+        border: 'border-cyan-400/30',
+        hoverBorder: 'hover:border-cyan-400/50',
+      }, // about
+      2: {
+        text: 'text-emerald-400',
+        border: 'border-emerald-400/30',
+        hoverBorder: 'hover:border-emerald-400/50',
+      }, // experience
+      3: {
+        text: 'text-purple-400',
+        border: 'border-purple-400/30',
+        hoverBorder: 'hover:border-purple-400/50',
+      }, // skills
+      4: {
+        text: 'text-cyan-400',
+        border: 'border-cyan-400/30',
+        hoverBorder: 'hover:border-cyan-400/50',
+      }, // services
+      5: {
+        text: 'text-cyan-400',
+        border: 'border-cyan-400/30',
+        hoverBorder: 'hover:border-cyan-400/50',
+      }, // contact
     }
     return (
-      sectionColorMap[currentSection as keyof typeof sectionColorMap] ||
-      'text-white'
+      sectionColorMap[currentSection as keyof typeof sectionColorMap] || {
+        text: 'text-white',
+        border: 'border-white/20',
+        hoverBorder: 'hover:border-white/50',
+      }
     )
   }
 
-  const currentSectionColor = getCurrentSectionColor()
+  const currentSectionColors = getCurrentSectionColors()
   const [isSlideshow] = useState(Boolean(sections && onSectionChange))
   const [isNavReady, setIsNavReady] = useState(false)
   const [activeSection, setActiveSection] = useState<string>('')
@@ -237,16 +264,16 @@ export default function Navigation({
                     <motion.button
                       onClick={onPrevSection}
                       disabled={!isNavReady}
-                      className={`absolute inset-0 w-24 h-24 bg-black/40 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center transition-all duration-300 group ${
+                      className={`absolute inset-0 w-24 h-24 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group ${
                         !isNavReady
                           ? 'opacity-50 cursor-not-allowed'
-                          : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                          : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
                       }`}
                       whileHover={isNavReady ? { scale: 1.02 } : {}}
                       whileTap={isNavReady ? { scale: 0.98 } : {}}
                     >
                       <ChevronUp
-                        className={`w-6 h-6 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                        className={`w-6 h-6 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                       />
                     </motion.button>
                   ) : (
@@ -255,10 +282,10 @@ export default function Navigation({
                       <motion.button
                         onClick={onPrevSection}
                         disabled={currentSection === 0 || !isNavReady}
-                        className={`absolute top-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-t-full flex items-center justify-center transition-all duration-300 group ${
+                        className={`absolute top-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group ${
                           currentSection === 0 || !isNavReady
                             ? 'opacity-50 cursor-not-allowed'
-                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                            : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
                         }`}
                         whileHover={
                           currentSection > 0 && isNavReady
@@ -272,7 +299,7 @@ export default function Navigation({
                         }
                       >
                         <ChevronUp
-                          className={`w-6 h-6 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                          className={`w-6 h-6 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                         />
                       </motion.button>
 
@@ -283,11 +310,11 @@ export default function Navigation({
                           currentSection === (sections?.length || 1) - 1 ||
                           !isNavReady
                         }
-                        className={`absolute bottom-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-b-full flex items-center justify-center transition-all duration-300 group ${
+                        className={`absolute bottom-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group ${
                           currentSection === (sections?.length || 1) - 1 ||
                           !isNavReady
                             ? 'opacity-50 cursor-not-allowed'
-                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                            : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
                         }`}
                         whileHover={
                           currentSection < (sections?.length || 1) - 1 &&
@@ -303,7 +330,7 @@ export default function Navigation({
                         }
                       >
                         <ChevronDown
-                          className={`w-6 h-6 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                          className={`w-6 h-6 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                         />
                       </motion.button>
                     </>
@@ -486,12 +513,12 @@ export default function Navigation({
                   {currentSection === (sections?.length || 1) - 1 ? (
                     <motion.button
                       onClick={onPrevSection}
-                      className={`absolute inset-0 w-16 h-16 bg-black/40 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center transition-all duration-300 group hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer`}
+                      className={`absolute inset-0 w-16 h-16 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group ${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <ChevronUp
-                        className={`w-4 h-4 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                        className={`w-4 h-4 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                       />
                     </motion.button>
                   ) : (
@@ -500,16 +527,16 @@ export default function Navigation({
                       <motion.button
                         onClick={onPrevSection}
                         disabled={currentSection === 0}
-                        className={`absolute top-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border border-white/20 rounded-t-full flex items-center justify-center transition-all duration-300 group ${
+                        className={`absolute top-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group ${
                           currentSection === 0
                             ? 'opacity-50 cursor-not-allowed'
-                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                            : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
                         }`}
                         whileHover={currentSection > 0 ? { scale: 1.02 } : {}}
                         whileTap={currentSection > 0 ? { scale: 0.98 } : {}}
                       >
                         <ChevronUp
-                          className={`w-4 h-4 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                          className={`w-4 h-4 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                         />
                       </motion.button>
 
@@ -519,10 +546,10 @@ export default function Navigation({
                         disabled={
                           currentSection === (sections?.length || 1) - 1
                         }
-                        className={`absolute bottom-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border border-white/20 rounded-b-full flex items-center justify-center transition-all duration-300 group ${
+                        className={`absolute bottom-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group ${
                           currentSection === (sections?.length || 1) - 1
                             ? 'opacity-50 cursor-not-allowed'
-                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                            : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
                         }`}
                         whileHover={
                           currentSection < (sections?.length || 1) - 1
@@ -536,7 +563,7 @@ export default function Navigation({
                         }
                       >
                         <ChevronDown
-                          className={`w-4 h-4 ${currentSectionColor} transition-colors duration-200 group-hover:scale-110`}
+                          className={`w-4 h-4 ${currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
                         />
                       </motion.button>
                     </>
