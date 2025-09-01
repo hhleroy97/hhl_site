@@ -387,22 +387,31 @@ export default function Navigation({
               <motion.button
                 onClick={() => handleNavClick('contact', 4)}
                 disabled={!isNavReady}
-                className={`relative px-4 py-2 rounded-full transition-all duration-200 ${
+                className={`relative px-4 py-2 rounded-full transition-all duration-200 border-2 ${
                   isActive('contact', 4)
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
+                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50 border-white/30'
                     : isNavReady
-                      ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 cursor-pointer'
-                      : 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 opacity-50 cursor-not-allowed'
+                      ? 'text-zinc-300 bg-black/20 backdrop-blur-sm border-white/20 hover:border-white/50 hover:text-white hover:shadow-md hover:bg-black/30 cursor-pointer'
+                      : 'text-zinc-300 bg-black/20 backdrop-blur-sm border-white/20 opacity-50 cursor-not-allowed'
                 }`}
                 whileHover={isNavReady ? { scale: 1.02 } : {}}
                 whileTap={isNavReady ? { scale: 0.98 } : {}}
               >
-                <span
-                  className='text-sm font-bold text-black'
-                  style={{ fontFamily: 'Orbitron, sans-serif' }}
-                >
-                  Contact
-                </span>
+                {isActive('contact', 4) ? (
+                  <span
+                    className='text-sm font-bold text-black'
+                    style={{ fontFamily: 'Orbitron, sans-serif' }}
+                  >
+                    Contact
+                  </span>
+                ) : (
+                  <span
+                    className='text-sm font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent'
+                    style={{ fontFamily: 'Orbitron, sans-serif' }}
+                  >
+                    Contact
+                  </span>
+                )}
               </motion.button>
             </div>
 
@@ -485,7 +494,7 @@ export default function Navigation({
                   </span>
                 ) : (
                   <span
-                    className='text-xs font-bold'
+                    className='text-xs font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent'
                     style={{ fontFamily: 'Orbitron, sans-serif' }}
                   >
                     Contact
