@@ -28,14 +28,14 @@ export default function PageSection({
   return (
     <section
       id={id}
-      className={`min-h-screen relative overflow-hidden flex items-center ${className}`}
+      className={`min-h-screen relative overflow-hidden flex items-start pt-2 ${className}`}
     >
       {/* Glossy background effects */}
       <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
       <div className='absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent' />
       <div className='absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent' />
 
-      <div className='container-custom relative z-10 w-full py-16'>
+      <div className='container-custom relative z-10 w-full py-12 pb-24'>
         {/* Complete section wrapped in TechCard */}
         <motion.div
           className='h-full'

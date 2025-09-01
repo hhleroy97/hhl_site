@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navigation from './ui/Navigation'
-import SlideshowNavigation from './ui/SlideshowNavigation'
 import LandingPage from './portfolio/LandingPage'
 import Services from './portfolio/Services'
 import WorkExperience from './portfolio/WorkExperience'
@@ -131,6 +130,8 @@ export default function SlideshowPortfolio() {
           currentSection={currentSection}
           onSectionChange={navigateToSection}
           sections={sections}
+          onPrevSection={prevSection}
+          onNextSection={nextSection}
         />
       )}
 
@@ -150,32 +151,12 @@ export default function SlideshowPortfolio() {
             }}
             className='absolute inset-0 h-full'
           >
-            <div className='h-screen overflow-y-auto'>
+            <div className='h-screen overflow-y-auto pb-24'>
               <CurrentComponent {...componentProps} />
             </div>
           </motion.div>
         </AnimatePresence>
       </div>
-
-      {/* Combined Navigation - Hidden on landing page */}
-      {currentSection !== 0 && (
-        <SlideshowNavigation
-          currentSection={currentSection}
-          sections={sections}
-          onSectionChange={navigateToSection}
-          onPrevSection={prevSection}
-          onNextSection={nextSection}
-        />
-      )}
-
-      {/* Section Counter - Hidden on landing page */}
-      {currentSection !== 0 && (
-        <div className='fixed bottom-8 right-8 z-40'>
-          <div className='px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-sm font-medium text-zinc-300'>
-            {currentSection + 1} / {sections.length}
-          </div>
-        </div>
-      )}
 
       {/* Background elements */}
       <div className='fixed inset-0 pointer-events-none opacity-30'>

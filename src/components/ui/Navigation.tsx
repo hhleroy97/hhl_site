@@ -1,219 +1,441 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { ChevronUp, ChevronDown } from 'lucide-react'
 
 interface NavigationProps {
   currentSection?: number
   onSectionChange?: (index: number) => void
   sections?: Array<{ id: string; label: string; component: any }>
+  onPrevSection?: () => void
+  onNextSection?: () => void
 }
 
-const defaultNavItems = [
-  { href: '#about', label: 'About' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#services', label: 'Services' },
-  { href: '#contact', label: 'Contact' },
+const navItems = [
+  { id: 'about', label: 'About' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'services', label: 'Services' },
+  { id: 'contact', label: 'Contact' },
 ]
 
 export default function Navigation({
   currentSection = 0,
   onSectionChange,
   sections,
+  onPrevSection,
+  onNextSection,
 }: NavigationProps = {}) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isSlideshow] = useState(Boolean(sections && onSectionChange))
+  const [isNavReady, setIsNavReady] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('')
+  const yOffset = -70
+  const arcLength = 0
 
-  // Use provided sections or fall back to default nav items
-  const navItems = sections ? sections.slice(1) : defaultNavItems // Skip hero section for nav
-  const isSlideshow = Boolean(sections && onSectionChange)
+  // Scroll-based active section detection for non-slideshow mode
+  useEffect(() => {
+    if (isSlideshow) return
 
-  const handleResumeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // Try PDF first, fallback to DOCX if not found
-    const link = e.currentTarget
-    link.addEventListener('error', () => {
-      link.href = '/docs/Hartley_LeRoy_Resume_Aug25.docx'
-    })
+    const handleScroll = () => {
+      const sections = navItems.map(item => item.id)
+      const scrollPosition = window.scrollY + 100 // Offset for better detection
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sections[i])
+        if (element) {
+          const elementTop = element.offsetTop
+          const elementBottom = elementTop + element.offsetHeight
+
+          if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+            console.log(
+              'Setting active section:',
+              sections[i],
+              'scrollPosition:',
+              scrollPosition,
+              'elementTop:',
+              elementTop,
+              'elementBottom:',
+              elementBottom
+            )
+            setActiveSection(sections[i])
+            break
+          }
+        }
+      }
+    }
+
+    // Add a small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      window.addEventListener('scroll', handleScroll)
+      handleScroll() // Check initial position
+    }, 100)
+
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isSlideshow])
+
+  const handleNavClick = (itemId: string, index: number) => {
+    if (isSlideshow && onSectionChange) {
+      onSectionChange(index + 1) // +1 because we skip hero section
+    } else {
+      const element = document.getElementById(itemId)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
+
+  const isActive = (itemId: string, index: number) => {
+    if (isSlideshow) {
+      return currentSection === index + 1 // +1 because we skip hero section
+    }
+    const active = activeSection === itemId
+    if (itemId === 'contact') {
+      console.log(
+        'Contact active check:',
+        active,
+        'activeSection:',
+        activeSection,
+        'itemId:',
+        itemId
+      )
+    }
+    return active
   }
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isSlideshow
-          ? 'bg-gradient-to-br from-zinc-950/95 via-zinc-900/95 to-black/95 backdrop-blur-md border-b border-white/10 shadow-xl'
-          : 'bg-transparent'
-      }`}
-      initial={{ y: -100 }}
+      className='fixed bottom-0 left-0 right-0 z-50'
+      initial={{ y: 150 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.6, delay: 0.8 }}
+      onAnimationComplete={() => setIsNavReady(true)}
     >
-      <div className='container-custom'>
-        <div className='flex items-center justify-between h-16'>
-          {/* Logo */}
-          <motion.a
-            href='#'
-            className='text-xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent relative'
-            whileHover={{ scale: 1.05 }}
-            onClick={e => {
-              e.preventDefault()
-              if (isSlideshow && onSectionChange) {
-                onSectionChange(0)
-              } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' })
-              }
-            }}
-          >
-            H.L
-            {isSlideshow && currentSection === 0 && (
-              <motion.div
-                className='absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400 to-cyan-400'
-                layoutId='activeTab'
-                initial={false}
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              />
-            )}
-          </motion.a>
+      {/* Glassmorphism container */}
+      <div className='max-w-[72vw] mx-auto px-3 md:px-4 relative'>
+        {/* Glassmorphism background */}
+        <div className='absolute inset-0 bg-black/30 backdrop-blur-md rounded-t-full border-t border-l border-r border-white/20 shadow-lg shadow-cyan-400/20' />
 
-          {/* Desktop Navigation */}
-          <div className='hidden md:flex items-center space-x-8'>
-            {navItems.map((item, index) => {
-              const itemIndex = sections ? index + 1 : index // Adjust for hero section
-              const isActive = isSlideshow
-                ? currentSection === itemIndex
-                : false
-              const label = sections ? item.label : item.label
-
-              return (
-                <button
-                  key={'id' in item ? item.id : item.href}
-                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 relative ${
-                    isActive
-                      ? 'text-purple-400'
-                      : 'text-zinc-300 hover:text-purple-400'
-                  }`}
-                  onClick={e => {
-                    e.preventDefault()
-                    if (isSlideshow && onSectionChange) {
-                      onSectionChange(itemIndex)
-                    } else {
-                      const href = 'id' in item ? `#${item.id}` : item.href
-                      document.querySelector(href)?.scrollIntoView({
-                        behavior: 'smooth',
-                      })
-                    }
-                  }}
-                >
-                  {label}
-                  {isActive && (
-                    <motion.div
-                      className='absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400 to-cyan-400'
-                      layoutId='activeTab'
-                      initial={false}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 300,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-                </button>
-              )
-            })}
-          </div>
-
-          {/* Resume Button */}
-          <div className='flex items-center gap-4'>
-            <a
-              href='/docs/Hartley_LeRoy_Resume_Aug25.pdf'
-              target='_blank'
-              rel='noopener noreferrer'
-              onClick={handleResumeClick}
-              className='hidden sm:inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 hover:from-purple-500/30 hover:to-cyan-500/30 ring-1 ring-purple-400/30 hover:ring-purple-400/50 rounded-lg text-sm font-medium text-white transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-purple-500/20'
-            >
-              Resume
-            </a>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className='md:hidden p-2 rounded-lg bg-gradient-to-r from-purple-500/20 to-cyan-500/20 hover:from-purple-500/30 hover:to-cyan-500/30 ring-1 ring-purple-400/30 hover:ring-purple-400/50 transition-colors'
-              aria-label='Toggle mobile menu'
-            >
-              <svg
-                width='20'
-                height='20'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                className={`transition-transform duration-200 ${
-                  isMobileMenuOpen ? 'rotate-90' : 'rotate-0'
+        {/* Content */}
+        <div className='relative py-4'>
+          <div className='flex justify-between items-center w-full'>
+            {/* Left Navigation Items */}
+            <div className='hidden md:flex items-center justify-evenly w-[calc(50%-4rem)] space-x-4'>
+              {/* Home Button */}
+              <motion.button
+                onClick={() => {
+                  if (isSlideshow && onSectionChange) {
+                    onSectionChange(0)
+                  } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                  }
+                }}
+                disabled={!isNavReady}
+                className={`relative px-4 py-2 rounded-full text-zinc-300 bg-black/20 backdrop-blur-sm border border-white/20 transition-all duration-200 ${
+                  isNavReady
+                    ? 'hover:border-cyan-400/50 hover:text-white hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                    : 'opacity-50 cursor-not-allowed'
                 }`}
+                whileHover={isNavReady ? { scale: 1.05 } : {}}
+                whileTap={isNavReady ? { scale: 0.95 } : {}}
               >
-                {isMobileMenuOpen ? (
-                  <path d='M18 6 6 18M6 6l12 12' />
-                ) : (
-                  <path d='M3 12h18M3 6h18M3 18h18' />
-                )}
-              </svg>
-            </button>
+                <span className='text-sm font-medium'>Home</span>
+              </motion.button>
+
+              {navItems.slice(0, 2).map((item, index) => {
+                const active = isActive(item.id, index)
+
+                return (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => handleNavClick(item.id, index)}
+                    disabled={!isNavReady}
+                    className={`relative px-4 py-2 rounded-full transition-all duration-200 ${
+                      active
+                        ? 'text-cyan-400 bg-black/40 backdrop-blur-sm border-2 border-cyan-400/60 shadow-lg shadow-cyan-400/20'
+                        : `text-zinc-300 bg-black/20 backdrop-blur-sm border border-white/20 ${
+                            isNavReady
+                              ? 'hover:border-cyan-400/50 hover:text-white hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                              : 'opacity-50 cursor-not-allowed'
+                          }`
+                    }`}
+                    whileHover={isNavReady ? { scale: 1.05 } : {}}
+                    whileTap={isNavReady ? { scale: 0.95 } : {}}
+                  >
+                    <span className='text-sm font-medium'>{item.label}</span>
+                  </motion.button>
+                )
+              })}
+            </div>
+
+            {/* Center Semi-Circle Navigation */}
+            <div
+              className={`absolute left-1/2 transform -translate-x-1/2`}
+              style={{ top: `${yOffset}px` }}
+            >
+              <div className='relative w-32 h-32 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-lg shadow-cyan-400/15'>
+                <div
+                  className='absolute inset-0 rounded-full'
+                  style={{
+                    background: `conic-gradient(from 0deg, rgba(255,255,255,0.2) 0deg, rgba(255,255,255,0.2) ${(arcLength / 100) * 180}deg, transparent ${(arcLength / 100) * 180}deg, transparent 360deg)`,
+                    mask: 'radial-gradient(circle, transparent 15px, black 16px)',
+                    WebkitMask:
+                      'radial-gradient(circle, transparent 15px, black 16px)',
+                  }}
+                />
+                <div className='relative w-24 h-24'>
+                  {/* Full circle - Up arrow (when on last section) */}
+                  {currentSection === (sections?.length || 1) - 1 ? (
+                    <motion.button
+                      onClick={onPrevSection}
+                      disabled={!isNavReady}
+                      className={`absolute inset-0 w-24 h-24 bg-black/40 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center transition-all duration-300 group ${
+                        !isNavReady
+                          ? 'opacity-50 cursor-not-allowed'
+                          : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                      }`}
+                      whileHover={isNavReady ? { scale: 1.05 } : {}}
+                      whileTap={isNavReady ? { scale: 0.95 } : {}}
+                    >
+                      <ChevronUp className='w-6 h-6 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                    </motion.button>
+                  ) : (
+                    <>
+                      {/* Top half - Up arrow */}
+                      <motion.button
+                        onClick={onPrevSection}
+                        disabled={currentSection === 0 || !isNavReady}
+                        className={`absolute top-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-t-full flex items-center justify-center transition-all duration-300 group ${
+                          currentSection === 0 || !isNavReady
+                            ? 'opacity-50 cursor-not-allowed'
+                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                        }`}
+                        whileHover={
+                          currentSection > 0 && isNavReady
+                            ? { scale: 1.05 }
+                            : {}
+                        }
+                        whileTap={
+                          currentSection > 0 && isNavReady
+                            ? { scale: 0.95 }
+                            : {}
+                        }
+                      >
+                        <ChevronUp className='w-6 h-6 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                      </motion.button>
+
+                      {/* Bottom half - Down arrow */}
+                      <motion.button
+                        onClick={onNextSection}
+                        disabled={
+                          currentSection === (sections?.length || 1) - 1 ||
+                          !isNavReady
+                        }
+                        className={`absolute bottom-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-b-full flex items-center justify-center transition-all duration-300 group ${
+                          currentSection === (sections?.length || 1) - 1 ||
+                          !isNavReady
+                            ? 'opacity-50 cursor-not-allowed'
+                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                        }`}
+                        whileHover={
+                          currentSection < (sections?.length || 1) - 1 &&
+                          isNavReady
+                            ? { scale: 1.05 }
+                            : {}
+                        }
+                        whileTap={
+                          currentSection < (sections?.length || 1) - 1 &&
+                          isNavReady
+                            ? { scale: 0.95 }
+                            : {}
+                        }
+                      >
+                        <ChevronDown className='w-6 h-6 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                      </motion.button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Navigation Items */}
+            <div className='hidden md:flex items-center justify-evenly w-[calc(50%-4rem)] space-x-4'>
+              {navItems.slice(2, 4).map((item, index) => {
+                const actualIndex = index + 2 // Adjust for the slice
+                const active = isActive(item.id, actualIndex)
+
+                return (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => handleNavClick(item.id, actualIndex)}
+                    disabled={!isNavReady}
+                    className={`relative px-4 py-2 rounded-full transition-all duration-200 ${
+                      active
+                        ? 'text-cyan-400 bg-black/40 backdrop-blur-sm border-2 border-cyan-400/60 shadow-lg shadow-cyan-400/20'
+                        : `text-zinc-300 bg-black/20 backdrop-blur-sm border border-white/20 ${
+                            isNavReady
+                              ? 'hover:border-cyan-400/50 hover:text-white hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                              : 'opacity-50 cursor-not-allowed'
+                          }`
+                    }`}
+                    whileHover={isNavReady ? { scale: 1.05 } : {}}
+                    whileTap={isNavReady ? { scale: 0.95 } : {}}
+                  >
+                    <span className='text-sm font-medium'>{item.label}</span>
+                  </motion.button>
+                )
+              })}
+
+              {/* Contact CTA */}
+              <motion.button
+                onClick={() => handleNavClick('contact', 4)}
+                disabled={!isNavReady}
+                className={`relative px-4 py-2 rounded-full transition-all duration-200 ${
+                  isActive('contact', 4)
+                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
+                    : isNavReady
+                      ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 cursor-pointer'
+                      : 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 opacity-50 cursor-not-allowed'
+                }`}
+                whileHover={isNavReady ? { scale: 1.05 } : {}}
+                whileTap={isNavReady ? { scale: 0.95 } : {}}
+              >
+                <span className='text-sm font-medium'>Contact</span>
+              </motion.button>
+            </div>
+
+            {/* Mobile Navigation */}
+            <div className='md:hidden flex items-center justify-around w-full space-x-1'>
+              {/* Mobile Home Button */}
+              <motion.button
+                onClick={() => {
+                  if (isSlideshow && onSectionChange) {
+                    onSectionChange(0)
+                  } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                  }
+                }}
+                className='relative flex flex-col items-center p-2 rounded-xl text-zinc-300 hover:text-white hover:bg-white/10 transition-all duration-200'
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className='text-xs font-medium'>Home</span>
+              </motion.button>
+
+              {navItems.map((item, index) => {
+                const active = isActive(item.id, index)
+
+                return (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => handleNavClick(item.id, index)}
+                    className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
+                      active
+                        ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25'
+                        : 'text-zinc-300 hover:text-white hover:bg-white/10'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className='text-xs font-medium'>{item.label}</span>
+                  </motion.button>
+                )
+              })}
+
+              {/* Mobile Contact CTA */}
+              <motion.button
+                onClick={() => handleNavClick('contact', 4)}
+                className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
+                  isActive('contact', 4)
+                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
+                    : 'text-zinc-300 hover:text-white hover:bg-white/10'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className='text-xs font-medium'>Contact</span>
+              </motion.button>
+            </div>
+
+            {/* Mobile Center Semi-Circle Navigation */}
+            <div
+              className={`md:hidden absolute left-1/2 transform -translate-x-1/2`}
+              style={{ top: `${yOffset}px` }}
+            >
+              <div className='relative w-20 h-20 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center'>
+                <div
+                  className='absolute inset-0 rounded-full'
+                  style={{
+                    background: `conic-gradient(from 0deg, rgba(255,255,255,0.2) 0deg, rgba(255,255,255,0.2) ${arcLength}deg, transparent ${arcLength}deg, transparent 360deg)`,
+                    mask: 'radial-gradient(circle, transparent 9px, black 10px)',
+                    WebkitMask:
+                      'radial-gradient(circle, transparent 9px, black 10px)',
+                  }}
+                />
+                <div className='relative w-16 h-16'>
+                  {/* Full circle - Up arrow (when on last section) */}
+                  {currentSection === (sections?.length || 1) - 1 ? (
+                    <motion.button
+                      onClick={onPrevSection}
+                      className={`absolute inset-0 w-16 h-16 bg-black/40 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center transition-all duration-300 group hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer`}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <ChevronUp className='w-4 h-4 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                    </motion.button>
+                  ) : (
+                    <>
+                      {/* Top half - Up arrow */}
+                      <motion.button
+                        onClick={onPrevSection}
+                        disabled={currentSection === 0}
+                        className={`absolute top-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border border-white/20 rounded-t-full flex items-center justify-center transition-all duration-300 group ${
+                          currentSection === 0
+                            ? 'opacity-50 cursor-not-allowed'
+                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                        }`}
+                        whileHover={currentSection > 0 ? { scale: 1.05 } : {}}
+                        whileTap={currentSection > 0 ? { scale: 0.95 } : {}}
+                      >
+                        <ChevronUp className='w-4 h-4 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                      </motion.button>
+
+                      {/* Bottom half - Down arrow */}
+                      <motion.button
+                        onClick={onNextSection}
+                        disabled={
+                          currentSection === (sections?.length || 1) - 1
+                        }
+                        className={`absolute bottom-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border border-white/20 rounded-b-full flex items-center justify-center transition-all duration-300 group ${
+                          currentSection === (sections?.length || 1) - 1
+                            ? 'opacity-50 cursor-not-allowed'
+                            : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                        }`}
+                        whileHover={
+                          currentSection < (sections?.length || 1) - 1
+                            ? { scale: 1.05 }
+                            : {}
+                        }
+                        whileTap={
+                          currentSection < (sections?.length || 1) - 1
+                            ? { scale: 0.95 }
+                            : {}
+                        }
+                      >
+                        <ChevronDown className='w-4 h-4 text-white transition-colors duration-200 group-hover:text-cyan-400' />
+                      </motion.button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        <motion.div
-          className={`md:hidden overflow-hidden ${
-            isSlideshow
-              ? 'bg-gradient-to-br from-zinc-950/95 via-zinc-900/95 to-black/95 backdrop-blur-md'
-              : 'bg-gradient-to-br from-zinc-950/90 via-zinc-900/90 to-black/90 backdrop-blur-sm'
-          }`}
-          initial={false}
-          animate={{ height: isMobileMenuOpen ? 'auto' : 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <div className='py-4 space-y-2'>
-            {navItems.map((item, index) => {
-              const itemIndex = sections ? index + 1 : index // Adjust for hero section
-              const isActive = isSlideshow
-                ? currentSection === itemIndex
-                : false
-              const label = sections ? item.label : item.label
-
-              return (
-                <button
-                  key={'id' in item ? item.id : item.href}
-                  className={`block w-full text-left px-4 py-2 text-sm font-medium transition-colors duration-200 ${
-                    isActive
-                      ? 'text-purple-400 bg-gradient-to-r from-purple-500/20 to-cyan-500/20'
-                      : 'text-zinc-300 hover:text-purple-400 hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-cyan-500/10'
-                  } rounded-lg mx-2`}
-                  onClick={e => {
-                    e.preventDefault()
-                    setIsMobileMenuOpen(false)
-                    if (isSlideshow && onSectionChange) {
-                      onSectionChange(itemIndex)
-                    } else {
-                      const href = 'id' in item ? `#${item.id}` : item.href
-                      document.querySelector(href)?.scrollIntoView({
-                        behavior: 'smooth',
-                      })
-                    }
-                  }}
-                >
-                  {label}
-                </button>
-              )
-            })}
-            <a
-              href='/docs/Hartley_LeRoy_Resume_Aug25.pdf'
-              target='_blank'
-              rel='noopener noreferrer'
-              onClick={handleResumeClick}
-              className='block mx-2 mt-4 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 hover:from-purple-500/30 hover:to-cyan-500/30 ring-1 ring-purple-400/30 hover:ring-purple-400/50 rounded-lg text-sm font-medium text-center text-white transition-all duration-200 hover:scale-105'
-            >
-              Resume
-            </a>
-          </div>
-        </motion.div>
       </div>
+
+      {/* Subtle shadow/glow under nav */}
+      <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none' />
     </motion.nav>
   )
 }
