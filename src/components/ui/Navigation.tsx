@@ -5,6 +5,7 @@ import { ChevronUp, ChevronDown } from 'lucide-react'
 interface NavigationProps {
   currentSection?: number
   onSectionChange?: (index: number) => void
+  onSectionChangeById?: (sectionId: string) => void
   sections?: Array<{ id: string; label: string; component: any }>
   onPrevSection?: () => void
   onNextSection?: () => void
@@ -21,6 +22,7 @@ const navItems = [
 export default function Navigation({
   currentSection = 0,
   onSectionChange,
+  onSectionChangeById,
   sections,
   onPrevSection,
   onNextSection,
@@ -76,7 +78,11 @@ export default function Navigation({
   }, [isSlideshow])
 
   const handleNavClick = (itemId: string, index: number) => {
-    if (isSlideshow && onSectionChange) {
+    if (isSlideshow && onSectionChangeById) {
+      // Use hash-based routing for slideshow mode
+      window.location.hash = itemId
+    } else if (isSlideshow && onSectionChange) {
+      // Fallback to index-based navigation
       onSectionChange(index + 1) // +1 because we skip hero section
     } else {
       const element = document.getElementById(itemId)
@@ -125,8 +131,8 @@ export default function Navigation({
               {/* Home Button */}
               <motion.button
                 onClick={() => {
-                  if (isSlideshow && onSectionChange) {
-                    onSectionChange(0)
+                  if (isSlideshow) {
+                    window.location.hash = 'hero'
                   } else {
                     window.scrollTo({ top: 0, behavior: 'smooth' })
                   }
@@ -330,8 +336,8 @@ export default function Navigation({
               {/* Mobile Home Button */}
               <motion.button
                 onClick={() => {
-                  if (isSlideshow && onSectionChange) {
-                    onSectionChange(0)
+                  if (isSlideshow) {
+                    window.location.hash = 'hero'
                   } else {
                     window.scrollTo({ top: 0, behavior: 'smooth' })
                   }

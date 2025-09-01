@@ -31,9 +31,22 @@ export default function SlideshowPortfolio() {
       if (index !== currentSection && index >= 0 && index < sections.length) {
         setDirection(index > currentSection ? 1 : -1)
         setCurrentSection(index)
+        // Update URL hash
+        window.history.pushState(null, '', `#${sections[index].id}`)
       }
     },
     [currentSection]
+  )
+
+  // Navigate by section ID (for hash routing)
+  const navigateToSectionById = useCallback(
+    (sectionId: string) => {
+      const index = sections.findIndex(section => section.id === sectionId)
+      if (index !== -1) {
+        navigateToSection(index)
+      }
+    },
+    [navigateToSection]
   )
 
   const nextSection = useCallback(() => {
@@ -47,6 +60,26 @@ export default function SlideshowPortfolio() {
       navigateToSection(currentSection - 1)
     }
   }, [currentSection, navigateToSection])
+
+  // Handle initial hash and hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1) // Remove the '#'
+      if (hash) {
+        navigateToSectionById(hash)
+      }
+    }
+
+    // Handle initial hash on mount
+    const initialHash = window.location.hash.slice(1)
+    if (initialHash) {
+      navigateToSectionById(initialHash)
+    }
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [navigateToSectionById])
 
   // Keyboard navigation
   useEffect(() => {
@@ -129,6 +162,7 @@ export default function SlideshowPortfolio() {
         <Navigation
           currentSection={currentSection}
           onSectionChange={navigateToSection}
+          onSectionChangeById={navigateToSectionById}
           sections={sections}
           onPrevSection={prevSection}
           onNextSection={nextSection}
