@@ -12,10 +12,14 @@ interface NavigationProps {
 }
 
 const navItems = [
-  { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'services', label: 'Services' },
+  { id: 'about', label: 'About', gradient: 'from-cyan-400 to-teal-400' },
+  {
+    id: 'experience',
+    label: 'Experience',
+    gradient: 'from-emerald-400 to-teal-500',
+  },
+  { id: 'skills', label: 'Skills', gradient: 'from-purple-400 to-pink-500' },
+  { id: 'services', label: 'Services', gradient: 'from-cyan-400 to-blue-500' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -156,6 +160,7 @@ export default function Navigation({
 
               {navItems.slice(0, 2).map((item, index) => {
                 const active = isActive(item.id, index)
+                const gradient = item.gradient || 'from-cyan-400 to-purple-500'
 
                 return (
                   <motion.button
@@ -164,10 +169,10 @@ export default function Navigation({
                     disabled={!isNavReady}
                     className={`relative px-4 py-2 rounded-full transition-all duration-200 border-2 ${
                       active
-                        ? 'text-cyan-400 bg-black/40 backdrop-blur-sm border-cyan-400/60 shadow-lg shadow-cyan-400/20'
+                        ? `bg-gradient-to-r ${gradient} text-white shadow-lg border-transparent`
                         : `text-zinc-300 bg-black/20 backdrop-blur-sm border-white/20 ${
                             isNavReady
-                              ? 'hover:border-cyan-400/50 hover:text-white hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                              ? 'hover:border-white/50 hover:text-white hover:shadow-md hover:bg-black/30 cursor-pointer'
                               : 'opacity-50 cursor-not-allowed'
                           }`
                     }`}
@@ -280,6 +285,7 @@ export default function Navigation({
               {navItems.slice(2, 4).map((item, index) => {
                 const actualIndex = index + 2 // Adjust for the slice
                 const active = isActive(item.id, actualIndex)
+                const gradient = item.gradient || 'from-cyan-400 to-purple-500'
 
                 return (
                   <motion.button
@@ -288,10 +294,10 @@ export default function Navigation({
                     disabled={!isNavReady}
                     className={`relative px-4 py-2 rounded-full transition-all duration-200 border-2 ${
                       active
-                        ? 'text-cyan-400 bg-black/40 backdrop-blur-sm border-cyan-400/60 shadow-lg shadow-cyan-400/20'
+                        ? `bg-gradient-to-r ${gradient} text-white shadow-lg border-transparent`
                         : `text-zinc-300 bg-black/20 backdrop-blur-sm border-white/20 ${
                             isNavReady
-                              ? 'hover:border-cyan-400/50 hover:text-white hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
+                              ? 'hover:border-white/50 hover:text-white hover:shadow-md hover:bg-black/30 cursor-pointer'
                               : 'opacity-50 cursor-not-allowed'
                           }`
                     }`}
@@ -357,13 +363,15 @@ export default function Navigation({
               {navItems.map((item, index) => {
                 const active = isActive(item.id, index)
 
+                const gradient = item.gradient || 'from-cyan-400 to-purple-500'
+
                 return (
                   <motion.button
                     key={item.id}
                     onClick={() => handleNavClick(item.id, index)}
                     className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
                       active
-                        ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25'
+                        ? `bg-gradient-to-r ${gradient} text-white shadow-lg`
                         : 'text-zinc-300 hover:text-white hover:bg-white/10'
                     }`}
                     whileHover={{ scale: 1.02 }}
