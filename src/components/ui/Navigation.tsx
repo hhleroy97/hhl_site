@@ -179,16 +179,21 @@ export default function Navigation({
                     whileHover={isNavReady ? { scale: 1.02 } : {}}
                     whileTap={isNavReady ? { scale: 0.98 } : {}}
                   >
-                    <span
-                      className={`text-sm font-bold ${
-                        active
-                          ? `bg-gradient-to-r ${gradient} bg-clip-text text-transparent`
-                          : ''
-                      }`}
-                      style={{ fontFamily: 'Orbitron, sans-serif' }}
-                    >
-                      {item.label}
-                    </span>
+                    {active ? (
+                      <span
+                        className='text-sm font-bold text-black'
+                        style={{ fontFamily: 'Orbitron, sans-serif' }}
+                      >
+                        {item.label}
+                      </span>
+                    ) : (
+                      <span
+                        className='text-sm font-bold'
+                        style={{ fontFamily: 'Orbitron, sans-serif' }}
+                      >
+                        {item.label}
+                      </span>
+                    )}
                   </motion.button>
                 )
               })}
@@ -308,16 +313,21 @@ export default function Navigation({
                     whileHover={isNavReady ? { scale: 1.02 } : {}}
                     whileTap={isNavReady ? { scale: 0.98 } : {}}
                   >
-                    <span
-                      className={`text-sm font-bold ${
-                        active
-                          ? `bg-gradient-to-r ${gradient} bg-clip-text text-transparent`
-                          : ''
-                      }`}
-                      style={{ fontFamily: 'Orbitron, sans-serif' }}
-                    >
-                      {item.label}
-                    </span>
+                    {active ? (
+                      <span
+                        className='text-sm font-bold text-black'
+                        style={{ fontFamily: 'Orbitron, sans-serif' }}
+                      >
+                        {item.label}
+                      </span>
+                    ) : (
+                      <span
+                        className='text-sm font-bold'
+                        style={{ fontFamily: 'Orbitron, sans-serif' }}
+                      >
+                        {item.label}
+                      </span>
+                    )}
                   </motion.button>
                 )
               })}
@@ -337,7 +347,7 @@ export default function Navigation({
                 whileTap={isNavReady ? { scale: 0.98 } : {}}
               >
                 <span
-                  className='text-sm font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent'
+                  className='text-sm font-bold text-black'
                   style={{ fontFamily: 'Orbitron, sans-serif' }}
                 >
                   Contact
@@ -385,16 +395,21 @@ export default function Navigation({
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span
-                      className={`text-xs font-bold ${
-                        active
-                          ? `bg-gradient-to-r ${gradient} bg-clip-text text-transparent`
-                          : ''
-                      }`}
-                      style={{ fontFamily: 'Orbitron, sans-serif' }}
-                    >
-                      {item.label}
-                    </span>
+                    {active ? (
+                      <span
+                        className='text-xs font-bold text-black'
+                        style={{ fontFamily: 'Orbitron, sans-serif' }}
+                      >
+                        {item.label}
+                      </span>
+                    ) : (
+                      <span
+                        className='text-xs font-bold'
+                        style={{ fontFamily: 'Orbitron, sans-serif' }}
+                      >
+                        {item.label}
+                      </span>
+                    )}
                   </motion.button>
                 )
               })}
@@ -410,16 +425,21 @@ export default function Navigation({
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span
-                  className={`text-xs font-bold ${
-                    isActive('contact', 4)
-                      ? 'bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent'
-                      : ''
-                  }`}
-                  style={{ fontFamily: 'Orbitron, sans-serif' }}
-                >
-                  Contact
-                </span>
+                {isActive('contact', 4) ? (
+                  <span
+                    className='text-xs font-bold text-black'
+                    style={{ fontFamily: 'Orbitron, sans-serif' }}
+                  >
+                    Contact
+                  </span>
+                ) : (
+                  <span
+                    className='text-xs font-bold'
+                    style={{ fontFamily: 'Orbitron, sans-serif' }}
+                  >
+                    Contact
+                  </span>
+                )}
               </motion.button>
             </div>
 
