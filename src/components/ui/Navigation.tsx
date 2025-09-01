@@ -132,15 +132,20 @@ export default function Navigation({
                   }
                 }}
                 disabled={!isNavReady}
-                className={`relative px-4 py-2 rounded-full text-zinc-300 bg-black/20 backdrop-blur-sm border border-white/20 transition-all duration-200 ${
+                className={`relative px-4 py-2 rounded-full text-zinc-300 bg-black/20 backdrop-blur-sm border-2 border-white/20 transition-all duration-200 ${
                   isNavReady
                     ? 'hover:border-cyan-400/50 hover:text-white hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
                     : 'opacity-50 cursor-not-allowed'
                 }`}
-                whileHover={isNavReady ? { scale: 1.05 } : {}}
-                whileTap={isNavReady ? { scale: 0.95 } : {}}
+                whileHover={isNavReady ? { scale: 1.02 } : {}}
+                whileTap={isNavReady ? { scale: 0.98 } : {}}
               >
-                <span className='text-sm font-medium'>Home</span>
+                <span
+                  className='text-sm font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
+                  Home
+                </span>
               </motion.button>
 
               {navItems.slice(0, 2).map((item, index) => {
@@ -151,19 +156,24 @@ export default function Navigation({
                     key={item.id}
                     onClick={() => handleNavClick(item.id, index)}
                     disabled={!isNavReady}
-                    className={`relative px-4 py-2 rounded-full transition-all duration-200 ${
+                    className={`relative px-4 py-2 rounded-full transition-all duration-200 border-2 ${
                       active
-                        ? 'text-cyan-400 bg-black/40 backdrop-blur-sm border-2 border-cyan-400/60 shadow-lg shadow-cyan-400/20'
-                        : `text-zinc-300 bg-black/20 backdrop-blur-sm border border-white/20 ${
+                        ? 'text-cyan-400 bg-black/40 backdrop-blur-sm border-cyan-400/60 shadow-lg shadow-cyan-400/20'
+                        : `text-zinc-300 bg-black/20 backdrop-blur-sm border-white/20 ${
                             isNavReady
                               ? 'hover:border-cyan-400/50 hover:text-white hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
                               : 'opacity-50 cursor-not-allowed'
                           }`
                     }`}
-                    whileHover={isNavReady ? { scale: 1.05 } : {}}
-                    whileTap={isNavReady ? { scale: 0.95 } : {}}
+                    whileHover={isNavReady ? { scale: 1.02 } : {}}
+                    whileTap={isNavReady ? { scale: 0.98 } : {}}
                   >
-                    <span className='text-sm font-medium'>{item.label}</span>
+                    <span
+                      className='text-sm font-bold'
+                      style={{ fontFamily: 'Orbitron, sans-serif' }}
+                    >
+                      {item.label}
+                    </span>
                   </motion.button>
                 )
               })}
@@ -195,8 +205,8 @@ export default function Navigation({
                           ? 'opacity-50 cursor-not-allowed'
                           : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
                       }`}
-                      whileHover={isNavReady ? { scale: 1.05 } : {}}
-                      whileTap={isNavReady ? { scale: 0.95 } : {}}
+                      whileHover={isNavReady ? { scale: 1.02 } : {}}
+                      whileTap={isNavReady ? { scale: 0.98 } : {}}
                     >
                       <ChevronUp className='w-6 h-6 text-white transition-colors duration-200 group-hover:text-cyan-400' />
                     </motion.button>
@@ -213,12 +223,12 @@ export default function Navigation({
                         }`}
                         whileHover={
                           currentSection > 0 && isNavReady
-                            ? { scale: 1.05 }
+                            ? { scale: 1.02 }
                             : {}
                         }
                         whileTap={
                           currentSection > 0 && isNavReady
-                            ? { scale: 0.95 }
+                            ? { scale: 0.98 }
                             : {}
                         }
                       >
@@ -241,13 +251,13 @@ export default function Navigation({
                         whileHover={
                           currentSection < (sections?.length || 1) - 1 &&
                           isNavReady
-                            ? { scale: 1.05 }
+                            ? { scale: 1.02 }
                             : {}
                         }
                         whileTap={
                           currentSection < (sections?.length || 1) - 1 &&
                           isNavReady
-                            ? { scale: 0.95 }
+                            ? { scale: 0.98 }
                             : {}
                         }
                       >
@@ -270,19 +280,24 @@ export default function Navigation({
                     key={item.id}
                     onClick={() => handleNavClick(item.id, actualIndex)}
                     disabled={!isNavReady}
-                    className={`relative px-4 py-2 rounded-full transition-all duration-200 ${
+                    className={`relative px-4 py-2 rounded-full transition-all duration-200 border-2 ${
                       active
-                        ? 'text-cyan-400 bg-black/40 backdrop-blur-sm border-2 border-cyan-400/60 shadow-lg shadow-cyan-400/20'
-                        : `text-zinc-300 bg-black/20 backdrop-blur-sm border border-white/20 ${
+                        ? 'text-cyan-400 bg-black/40 backdrop-blur-sm border-cyan-400/60 shadow-lg shadow-cyan-400/20'
+                        : `text-zinc-300 bg-black/20 backdrop-blur-sm border-white/20 ${
                             isNavReady
                               ? 'hover:border-cyan-400/50 hover:text-white hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
                               : 'opacity-50 cursor-not-allowed'
                           }`
                     }`}
-                    whileHover={isNavReady ? { scale: 1.05 } : {}}
-                    whileTap={isNavReady ? { scale: 0.95 } : {}}
+                    whileHover={isNavReady ? { scale: 1.02 } : {}}
+                    whileTap={isNavReady ? { scale: 0.98 } : {}}
                   >
-                    <span className='text-sm font-medium'>{item.label}</span>
+                    <span
+                      className='text-sm font-bold'
+                      style={{ fontFamily: 'Orbitron, sans-serif' }}
+                    >
+                      {item.label}
+                    </span>
                   </motion.button>
                 )
               })}
@@ -298,10 +313,15 @@ export default function Navigation({
                       ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 cursor-pointer'
                       : 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 opacity-50 cursor-not-allowed'
                 }`}
-                whileHover={isNavReady ? { scale: 1.05 } : {}}
-                whileTap={isNavReady ? { scale: 0.95 } : {}}
+                whileHover={isNavReady ? { scale: 1.02 } : {}}
+                whileTap={isNavReady ? { scale: 0.98 } : {}}
               >
-                <span className='text-sm font-medium'>Contact</span>
+                <span
+                  className='text-sm font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
+                  Contact
+                </span>
               </motion.button>
             </div>
 
@@ -317,10 +337,15 @@ export default function Navigation({
                   }
                 }}
                 className='relative flex flex-col items-center p-2 rounded-xl text-zinc-300 hover:text-white hover:bg-white/10 transition-all duration-200'
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <span className='text-xs font-medium'>Home</span>
+                <span
+                  className='text-xs font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
+                  Home
+                </span>
               </motion.button>
 
               {navItems.map((item, index) => {
@@ -335,10 +360,15 @@ export default function Navigation({
                         ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25'
                         : 'text-zinc-300 hover:text-white hover:bg-white/10'
                     }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <span className='text-xs font-medium'>{item.label}</span>
+                    <span
+                      className='text-xs font-bold'
+                      style={{ fontFamily: 'Orbitron, sans-serif' }}
+                    >
+                      {item.label}
+                    </span>
                   </motion.button>
                 )
               })}
@@ -351,10 +381,15 @@ export default function Navigation({
                     ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
                     : 'text-zinc-300 hover:text-white hover:bg-white/10'
                 }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <span className='text-xs font-medium'>Contact</span>
+                <span
+                  className='text-xs font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
+                  Contact
+                </span>
               </motion.button>
             </div>
 
@@ -379,8 +414,8 @@ export default function Navigation({
                     <motion.button
                       onClick={onPrevSection}
                       className={`absolute inset-0 w-16 h-16 bg-black/40 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center transition-all duration-300 group hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer`}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       <ChevronUp className='w-4 h-4 text-white transition-colors duration-200 group-hover:text-cyan-400' />
                     </motion.button>
@@ -395,8 +430,8 @@ export default function Navigation({
                             ? 'opacity-50 cursor-not-allowed'
                             : 'hover:border-cyan-400/50 hover:text-cyan-400 hover:shadow-md hover:shadow-cyan-400/10 hover:bg-black/30 cursor-pointer'
                         }`}
-                        whileHover={currentSection > 0 ? { scale: 1.05 } : {}}
-                        whileTap={currentSection > 0 ? { scale: 0.95 } : {}}
+                        whileHover={currentSection > 0 ? { scale: 1.02 } : {}}
+                        whileTap={currentSection > 0 ? { scale: 0.98 } : {}}
                       >
                         <ChevronUp className='w-4 h-4 text-white transition-colors duration-200 group-hover:text-cyan-400' />
                       </motion.button>
@@ -414,12 +449,12 @@ export default function Navigation({
                         }`}
                         whileHover={
                           currentSection < (sections?.length || 1) - 1
-                            ? { scale: 1.05 }
+                            ? { scale: 1.02 }
                             : {}
                         }
                         whileTap={
                           currentSection < (sections?.length || 1) - 1
-                            ? { scale: 0.95 }
+                            ? { scale: 0.98 }
                             : {}
                         }
                       >

@@ -16,13 +16,13 @@ export default function NewAbout() {
       id='about'
       tagline='About'
       taglineColor='cyan'
-      title='The human behind the systems'
-      subtitle='where creativity meets computation'
+      title='The human behind the systems where'
+      subtitle='creativity meets computation'
       cardVariant='background'
     >
-      <div className='max-w-7xl mx-auto'>
+      <div className='w-full max-w-[95vw] mx-auto px-4'>
         {/* Main Content Grid */}
-        <div className='grid lg:grid-cols-[3fr,1fr] gap-12 items-start'>
+        <div className='grid lg:grid-cols-[3fr,1fr] gap-12 items-start relative'>
           {/* Left Column - Story & Philosophy */}
           <motion.div
             className='space-y-6'
@@ -157,7 +157,8 @@ export default function NewAbout() {
 
           {/* Right Column - Professional Profile */}
           <motion.div
-            className='flex flex-col items-center justify-start h-full'
+            className='flex flex-col items-center justify-start sticky top-8'
+            style={{ height: 'fit-content' }}
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -172,22 +173,6 @@ export default function NewAbout() {
                   style={{ animationDuration: '4s' }}
                 />
                 <div className='absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent rounded-xl' />
-
-                {/* Floating particles effect */}
-                <div className='absolute inset-0 pointer-events-none'>
-                  <div
-                    className='absolute top-4 right-4 w-2 h-2 bg-cyan-400/60 rounded-full animate-pulse'
-                    style={{ animationDuration: '3s' }}
-                  />
-                  <div
-                    className='absolute bottom-6 left-6 w-1 h-1 bg-purple-400/40 rounded-full animate-pulse'
-                    style={{ animationDuration: '2s', animationDelay: '1s' }}
-                  />
-                  <div
-                    className='absolute top-12 left-4 w-1.5 h-1.5 bg-emerald-400/50 rounded-full animate-pulse'
-                    style={{ animationDuration: '4s', animationDelay: '2s' }}
-                  />
-                </div>
 
                 <div className='relative w-full h-full overflow-hidden rounded-xl'>
                   <div
@@ -209,23 +194,10 @@ export default function NewAbout() {
                   <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 rounded-xl' />
                 </div>
               </div>
-
-              {/* Available Status */}
-              <div className='absolute -top-2 -right-2'>
-                <div className='flex items-center gap-1.5 px-2 py-1 bg-emerald-500/90 backdrop-blur-sm rounded-md border border-emerald-400/30'>
-                  <div className='w-1.5 h-1.5 bg-white rounded-full' />
-                  <span
-                    className='text-sm font-bold text-white uppercase'
-                    style={{ fontFamily: 'Orbitron, sans-serif' }}
-                  >
-                    Available
-                  </span>
-                </div>
-              </div>
             </div>
 
             {/* Profile Info */}
-            <div className='w-72 text-center p-4 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl'>
+            <div className='w-72 text-center p-3 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl'>
               <h3
                 className='text-xl font-semibold text-white mb-1'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
@@ -241,7 +213,7 @@ export default function NewAbout() {
             </div>
 
             {/* Work Status */}
-            <div className='w-72 p-4 pb-6 rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
+            <div className='w-72 p-3 pb-4 rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
               <div>
                 <div className='text-center mb-3'>
                   <p className='text-sm font-medium text-white mb-1'>
@@ -264,10 +236,11 @@ export default function NewAbout() {
               </div>
 
               {/* Contact Button */}
-              <div className='mt-2 -mx-4 -mb-6'>
+              <div className='mt-2 -mx-3 -mb-6'>
                 <a
                   href='#contact'
-                  className='block w-full px-4 py-4 rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold text-lg text-center transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
+                  className='block w-full px-4 py-3 rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold text-lg text-center transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
                 >
                   Get In Touch
                 </a>
