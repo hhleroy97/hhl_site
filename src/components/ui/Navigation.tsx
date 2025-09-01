@@ -169,7 +169,7 @@ export default function Navigation({
       {/* Glassmorphism container */}
       <div className='max-w-[72vw] mx-auto px-3 md:px-4 relative'>
         {/* Glassmorphism background */}
-        <div className='absolute inset-0 bg-black/30 backdrop-blur-md rounded-t-full border-t border-l border-r border-white/20 shadow-lg shadow-cyan-400/20' />
+        <div className='absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-t-full border-t border-l border-r border-white/20 shadow-xl' />
 
         {/* Content */}
         <div className='relative py-4'>
@@ -264,10 +264,10 @@ export default function Navigation({
                     <motion.button
                       onClick={onPrevSection}
                       disabled={!isNavReady}
-                      className={`absolute inset-0 w-24 h-24 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group ${
+                      className={`absolute inset-0 w-24 h-24 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
                         !isNavReady
                           ? 'opacity-50 cursor-not-allowed'
-                          : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
+                          : `${currentSectionColors.hoverBorder} hover:shadow-2xl cursor-pointer`
                       }`}
                       whileHover={isNavReady ? { scale: 1.02 } : {}}
                       whileTap={isNavReady ? { scale: 0.98 } : {}}
@@ -282,7 +282,7 @@ export default function Navigation({
                       <motion.button
                         onClick={onPrevSection}
                         disabled={currentSection === 0 || !isNavReady}
-                        className={`absolute top-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group ${
+                        className={`absolute top-0 left-0 w-24 h-12 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
                           currentSection === 0 || !isNavReady
                             ? 'opacity-50 cursor-not-allowed'
                             : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
@@ -310,7 +310,7 @@ export default function Navigation({
                           currentSection === (sections?.length || 1) - 1 ||
                           !isNavReady
                         }
-                        className={`absolute bottom-0 left-0 w-24 h-12 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group ${
+                        className={`absolute bottom-0 left-0 w-24 h-12 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
                           currentSection === (sections?.length || 1) - 1 ||
                           !isNavReady
                             ? 'opacity-50 cursor-not-allowed'
@@ -513,7 +513,7 @@ export default function Navigation({
                   {currentSection === (sections?.length || 1) - 1 ? (
                     <motion.button
                       onClick={onPrevSection}
-                      className={`absolute inset-0 w-16 h-16 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group ${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`}
+                      className={`absolute inset-0 w-16 h-16 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group shadow-xl ${currentSectionColors.hoverBorder} hover:shadow-2xl cursor-pointer`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -527,7 +527,7 @@ export default function Navigation({
                       <motion.button
                         onClick={onPrevSection}
                         disabled={currentSection === 0}
-                        className={`absolute top-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group ${
+                        className={`absolute top-0 left-0 w-16 h-8 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
                           currentSection === 0
                             ? 'opacity-50 cursor-not-allowed'
                             : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
@@ -546,7 +546,7 @@ export default function Navigation({
                         disabled={
                           currentSection === (sections?.length || 1) - 1
                         }
-                        className={`absolute bottom-0 left-0 w-16 h-8 bg-black/40 backdrop-blur-sm border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group ${
+                        className={`absolute bottom-0 left-0 w-16 h-8 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
                           currentSection === (sections?.length || 1) - 1
                             ? 'opacity-50 cursor-not-allowed'
                             : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
