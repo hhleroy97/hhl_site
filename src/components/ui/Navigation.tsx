@@ -31,33 +31,6 @@ export default function Navigation({
   onPrevSection,
   onNextSection,
 }: NavigationProps = {}) {
-  // Animation state for section transitions
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [transitionFrom, setTransitionFrom] = useState<number | null>(null)
-  const [transitionTo, setTransitionTo] = useState<number | null>(null)
-
-  // Track previous section for animation
-  const [prevSection, setPrevSection] = useState(currentSection)
-
-  // Detect section changes and trigger animation
-  useEffect(() => {
-    if (prevSection !== currentSection) {
-      setTransitionFrom(prevSection)
-      setTransitionTo(currentSection)
-      setIsTransitioning(true)
-      setPrevSection(currentSection)
-
-      // Reset transition state after animation completes
-      const timer = setTimeout(() => {
-        setIsTransitioning(false)
-        setTransitionFrom(null)
-        setTransitionTo(null)
-      }, 800) // Total animation duration
-
-      return () => clearTimeout(timer)
-    }
-  }, [currentSection, prevSection])
-
   // Get current section's colors based on currentSection index
   const getCurrentSectionColors = () => {
     const sectionColorMap = {
@@ -102,22 +75,6 @@ export default function Navigation({
   }
 
   const currentSectionColors = getCurrentSectionColors()
-
-  // Get gradient for any section index
-  const getSectionGradient = (sectionIndex: number) => {
-    const gradientMap = {
-      0: 'from-white/80 to-white/60', // hero
-      1: 'from-cyan-400 to-teal-400', // about
-      2: 'from-emerald-400 to-teal-500', // experience
-      3: 'from-purple-400 to-pink-500', // skills
-      4: 'from-cyan-400 to-blue-500', // services
-      5: 'from-cyan-400 to-purple-500', // contact
-    }
-    return (
-      gradientMap[sectionIndex as keyof typeof gradientMap] ||
-      'from-cyan-400 to-purple-500'
-    )
-  }
 
   const [isSlideshow] = useState(Boolean(sections && onSectionChange))
   const [isNavReady, setIsNavReady] = useState(false)
@@ -215,67 +172,6 @@ export default function Navigation({
         {/* Glassmorphism background */}
         <div className='absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-t-full border-t border-l border-r border-white/20 shadow-xl' />
 
-        {/* Animated Section Transition Overlay */}
-        {isTransitioning && transitionTo !== null && (
-          <>
-            {/* Growing circle overlay */}
-            <motion.div
-              className={`absolute inset-0 bg-gradient-to-r ${getSectionGradient(transitionTo)} rounded-t-full`}
-              initial={{
-                scale: 0,
-                opacity: 0,
-              }}
-              animate={{
-                scale: [0, 0.1, 0.3, 1.2, 1],
-                opacity: [0, 0.4, 0.6, 0.3, 0.1],
-              }}
-              transition={{
-                duration: 0.8,
-                times: [0, 0.2, 0.4, 0.8, 1],
-                ease: [0.23, 1, 0.32, 1],
-              }}
-              style={{
-                transformOrigin: 'center',
-                mixBlendMode: 'overlay',
-                zIndex: 1,
-              }}
-            />
-
-            {/* Traveling indicator dot */}
-            <motion.div
-              className={`absolute w-3 h-3 bg-gradient-to-r ${getSectionGradient(transitionTo)} rounded-full shadow-lg`}
-              initial={{
-                scale: 0.3,
-                opacity: 1,
-                x:
-                  transitionFrom !== null && transitionFrom < transitionTo
-                    ? '-60px'
-                    : transitionFrom !== null && transitionFrom > transitionTo
-                      ? '60px'
-                      : '0px',
-                y: '20px',
-              }}
-              animate={{
-                scale: [0.3, 1, 1.5, 0],
-                opacity: [1, 1, 0.8, 0],
-                x: '0px',
-                y: '20px',
-              }}
-              transition={{
-                duration: 0.5,
-                times: [0, 0.3, 0.7, 1],
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              style={{
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-                zIndex: 2,
-              }}
-            />
-          </>
-        )}
-
         {/* Content */}
         <div className='relative py-4'>
           <div className='flex justify-between items-center w-full'>
@@ -353,22 +249,7 @@ export default function Navigation({
               className={`absolute left-1/2 transform -translate-x-1/2`}
               style={{ top: `${yOffset}px` }}
             >
-              <motion.div
-                className='relative w-32 h-32 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'
-                animate={
-                  isTransitioning
-                    ? {
-                        scale: [1, 1.05, 1],
-                        borderColor: [
-                          `rgba(255, 255, 255, 0.2)`,
-                          `rgba(255, 255, 255, 0.4)`,
-                          `rgba(255, 255, 255, 0.2)`,
-                        ],
-                      }
-                    : {}
-                }
-                transition={{ duration: 0.8, ease: 'easeInOut' }}
-              >
+              <div className='relative w-32 h-32 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
                 <div
                   className='absolute inset-0 rounded-full'
                   style={{
@@ -384,7 +265,7 @@ export default function Navigation({
                     <motion.button
                       onClick={onPrevSection}
                       disabled={!isNavReady}
-                      className={`absolute inset-0 w-24 h-24 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
+                      className={`absolute inset-0 w-24 h-24 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
                         !isNavReady
                           ? 'opacity-50 cursor-not-allowed'
                           : `${currentSectionColors.hoverBorder} hover:shadow-2xl cursor-pointer`
@@ -402,7 +283,7 @@ export default function Navigation({
                       <motion.button
                         onClick={onPrevSection}
                         disabled={currentSection === 0 || !isNavReady}
-                        className={`absolute top-0 left-0 w-24 h-12 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
+                        className={`absolute top-0 left-0 w-24 h-12 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
                           currentSection === 0 || !isNavReady
                             ? 'opacity-50 cursor-not-allowed'
                             : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
@@ -430,7 +311,7 @@ export default function Navigation({
                           currentSection === (sections?.length || 1) - 1 ||
                           !isNavReady
                         }
-                        className={`absolute bottom-0 left-0 w-24 h-12 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
+                        className={`absolute bottom-0 left-0 w-24 h-12 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
                           currentSection === (sections?.length || 1) - 1 ||
                           !isNavReady
                             ? 'opacity-50 cursor-not-allowed'
@@ -456,7 +337,7 @@ export default function Navigation({
                     </>
                   )}
                 </div>
-              </motion.div>
+              </div>
             </div>
 
             {/* Right Navigation Items */}
@@ -618,22 +499,7 @@ export default function Navigation({
               className={`md:hidden absolute left-1/2 transform -translate-x-1/2`}
               style={{ top: `${yOffset}px` }}
             >
-              <motion.div
-                className='relative w-20 h-20 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'
-                animate={
-                  isTransitioning
-                    ? {
-                        scale: [1, 1.05, 1],
-                        borderColor: [
-                          `rgba(255, 255, 255, 0.2)`,
-                          `rgba(255, 255, 255, 0.4)`,
-                          `rgba(255, 255, 255, 0.2)`,
-                        ],
-                      }
-                    : {}
-                }
-                transition={{ duration: 0.8, ease: 'easeInOut' }}
-              >
+              <div className='relative w-20 h-20 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
                 <div
                   className='absolute inset-0 rounded-full'
                   style={{
@@ -648,7 +514,7 @@ export default function Navigation({
                   {currentSection === (sections?.length || 1) - 1 ? (
                     <motion.button
                       onClick={onPrevSection}
-                      className={`absolute inset-0 w-16 h-16 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group shadow-xl ${currentSectionColors.hoverBorder} hover:shadow-2xl cursor-pointer`}
+                      className={`absolute inset-0 w-16 h-16 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group shadow-xl ${currentSectionColors.hoverBorder} hover:shadow-2xl cursor-pointer`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -662,7 +528,7 @@ export default function Navigation({
                       <motion.button
                         onClick={onPrevSection}
                         disabled={currentSection === 0}
-                        className={`absolute top-0 left-0 w-16 h-8 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
+                        className={`absolute top-0 left-0 w-16 h-8 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
                           currentSection === 0
                             ? 'opacity-50 cursor-not-allowed'
                             : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
@@ -681,7 +547,7 @@ export default function Navigation({
                         disabled={
                           currentSection === (sections?.length || 1) - 1
                         }
-                        className={`absolute bottom-0 left-0 w-16 h-8 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
+                        className={`absolute bottom-0 left-0 w-16 h-8 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
                           currentSection === (sections?.length || 1) - 1
                             ? 'opacity-50 cursor-not-allowed'
                             : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
@@ -704,7 +570,7 @@ export default function Navigation({
                     </>
                   )}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
