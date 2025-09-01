@@ -35,7 +35,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
       {/* Main content container - Improved spacing and layout */}
       <div
-        className={`relative z-20 pointer-events-none w-[85%] max-w-7xl pt-16 pb-8 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-[85%] max-w-7xl pt-8 pb-24 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
@@ -259,24 +259,8 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
           </div>
         </motion.div>
 
-        {/* Subtle page indicator */}
-        <motion.div
-          className='mb-4 flex items-center gap-2'
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            delay: 1.4,
-            easing: [0.25, 0.46, 0.45, 0.94],
-          }}
-        >
-          <div className='w-2 h-2 bg-purple-400 rounded-full'></div>
-          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
-          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
-          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
-          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
-          <div className='w-2 h-2 bg-zinc-600 rounded-full'></div>
-        </motion.div>
+        {/* Spacing to replace the removed dots */}
+        <div className='mb-4'></div>
       </div>
     </section>
   )
