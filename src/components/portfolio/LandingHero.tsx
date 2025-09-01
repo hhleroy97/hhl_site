@@ -100,11 +100,13 @@ export default function LandingHero() {
               >
                 <motion.a
                   href='#experience'
-                  className='px-10 py-5 rounded-lg bg-gradient-to-r from-tech-teal to-tech-cyan text-tech-dark font-bold text-center transition-all hover:shadow-lg text-lg'
+                  className='rounded-lg bg-gradient-to-r from-tech-teal to-tech-cyan transition-all hover:shadow-lg'
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  View Experience
+                  <div className='px-10 py-5 bg-black/10 backdrop-blur-sm rounded-lg text-tech-dark font-bold text-center text-lg'>
+                    View Experience
+                  </div>
                 </motion.a>
                 <motion.a
                   href='#contact'
