@@ -48,7 +48,7 @@ export default function SlideshowPortfolio() {
         // Extended transition state to match navigation color morphing duration
         setTimeout(() => {
           setIsTransitioning(false)
-        }, 450)
+        }, 200)
       }
     },
     [currentSection, isTransitioning]
@@ -197,8 +197,8 @@ export default function SlideshowPortfolio() {
             animate='center'
             exit='exit'
             transition={{
-              y: { type: 'spring', stiffness: 200, damping: 25, duration: 0.4 },
-              opacity: { duration: 0.4 },
+              y: { type: 'spring', stiffness: 300, damping: 30, duration: 0.3 },
+              opacity: { duration: 0.2 },
             }}
             className='absolute inset-0 h-full'
           >
