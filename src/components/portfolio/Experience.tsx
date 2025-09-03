@@ -253,7 +253,7 @@ export default function WorkExperienceTimelineHorizontal() {
               {experiences.map((exp, index) => (
                 <div
                   key={`exp-dot-${index}`}
-                  className='w-3 h-3 bg-orange-400 rounded-full border-2 border-black/50 shadow-lg'
+                  className='w-3 h-3 bg-cyan-400 rounded-full border-2 border-black/50 shadow-lg'
                 ></div>
               ))}
             </div>
