@@ -73,7 +73,7 @@ export default function SkillsTools() {
       title='Technologies I Work With'
       subtitle='across the full stack'
       className='bg-gradient-to-b from-zinc-900/60 to-zinc-900/90'
-      cardVariant='cutcorner'
+      cardVariant='floating'
     >
       {/* Ultra Compact Grid */}
       <div className='max-w-6xl mx-auto'>

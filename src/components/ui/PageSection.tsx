@@ -22,8 +22,10 @@ export default function PageSection({
   taglineColor = 'cyan',
   children,
   className = '',
+  cardVariant,
 }: PageSectionProps) {
   const { variant } = useCardVariant()
+  const selectedVariant = cardVariant || variant
 
   return (
     <section
@@ -46,7 +48,7 @@ export default function PageSection({
         >
           <TechCard
             title={tagline}
-            variant={variant}
+            variant={selectedVariant}
             color={taglineColor}
             className='min-h-[80vh] flex flex-col'
           >
@@ -73,6 +75,24 @@ export default function PageSection({
                             </span>
                           )
                         } else if (word.toLowerCase() === 'computation') {
+                          return (
+                            <span key={index}>
+                              <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>
+                                {word}
+                              </span>
+                              {!isLast && ' '}
+                            </span>
+                          )
+                        } else if (word.toLowerCase() === 'offerings') {
+                          return (
+                            <span key={index}>
+                              <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
+                                {word}
+                              </span>
+                              {!isLast && ' '}
+                            </span>
+                          )
+                        } else if (word.toLowerCase() === 'inspire') {
                           return (
                             <span key={index}>
                               <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>

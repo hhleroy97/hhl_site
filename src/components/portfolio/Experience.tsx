@@ -56,14 +56,23 @@ const experiences = [
       'Delivered institutional investor reports on blockchain tokenomics',
       'Developed Python/SQL research tools for data analysis',
     ],
-    technologies: ['Python', 'SQL', 'Research', 'Blockchain', 'JAMA Publication'],
+    technologies: [
+      'Python',
+      'SQL',
+      'Research',
+      'Blockchain',
+      'JAMA Publication',
+    ],
     type: 'research' as const,
   },
 ]
 
 export default function Experience() {
   return (
-    <section id='experience' className='min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'>
+    <section
+      id='experience'
+      className='min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'
+    >
       {/* Background depth layer */}
       <div className='absolute inset-0 bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-dark opacity-95' />
       <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accentPurple/5 via-transparent to-accentWarm/5' />
@@ -78,11 +87,12 @@ export default function Experience() {
           transition={{ duration: 0.8 }}
         >
           <h2 className='text-h2 font-bold text-text-primary mb-4'>
-            Work <span className='text-accentPurple text-glow-purple'>Experience</span>
+            <span className='text-gradient'>offerings</span> that{' '}
+            <span className='text-gradient'>inspire</span>
           </h2>
           <div className='w-24 h-1 bg-accentPurple mx-auto mb-6' />
           <p className='text-body text-text-secondary max-w-2xl mx-auto'>
-            My professional journey across robotics, product management, and research
+            My professional journey and expertise to inspire your next project
           </p>
         </motion.div>
 
