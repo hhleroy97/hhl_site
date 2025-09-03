@@ -2,41 +2,21 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { X } from 'lucide-react'
 import PageSection from '../ui/PageSection'
-
-// Company Logo Component with Fallback
-const CompanyLogo = ({
-  logo,
-  logoFallback,
-  company,
-  className = '',
-}: {
-  logo: string
-  logoFallback: string
-  company: string
-  className?: string
-}) => {
-  const [imageError, setImageError] = useState(false)
-
-  if (imageError || !logo) {
-    return <span className={`text-2xl ${className}`}>{logoFallback}</span>
-  }
-
-  return (
-    <img
-      src={logo}
-      alt={`${company} logo`}
-      className={`w-8 h-8 object-contain ${className}`}
-      onError={() => setImageError(true)}
-    />
-  )
-}
+import JobCard from '../ui/JobCard'
+import fdaLogo from '../../assets/fda-logo.png'
+import softhreadLogo from '../../assets/Softhread_Logo.jpg'
+import delphiLogo from '../../assets/DELPHI-DIGITAL-MASTER-LOGO.jpg'
+import firstTurnLogo from '../../assets/first_turn_innovations_llc_logo.jpg'
+import kissLogo from '../../assets/kiss_logo.png'
+import lucidBotsLogo from '../../assets/lucid-bots-logo.png'
 
 const experiences = [
   {
     company: 'FDA (ORISE Fellow)',
-    role: 'Research Fellow',
-    period: 'Aug 2020 - Aug 2021',
-    location: 'Miami, FL',
+    title: 'Research Fellow',
+    timeframe: 'Aug 2020 - Aug 2021',
+    location: 'Remote',
+    logo: fdaLogo,
     description:
       "Supported the research and planning for FDA's AI and blockchain initiatives. Assisted in data coordination across multiple medical device registries and internal working groups.",
     keyContributions: [
@@ -52,15 +32,14 @@ const experiences = [
       'Research',
       'Medical Innovation',
     ],
-    logo: '/images/logos/fda-logo.svg',
-    logoFallback: '🏛️',
     color: 'from-indigo-500 to-purple-500',
   },
   {
     company: 'Softhread',
-    role: 'Software Engineer',
-    period: 'Nov 2020 - Nov 2021',
-    location: 'Miami, FL',
+    title: 'Software Engineer',
+    timeframe: 'Nov 2020 - Nov 2021',
+    location: 'Remote',
+    logo: softhreadLogo,
     description:
       'Built front-end components and interfaces for a privacy-focused blockchain platform designed to protect health information. Collaborated across engineering teams to deliver performant, modular portals.',
     keyContributions: [
@@ -77,15 +56,14 @@ const experiences = [
       'API Design',
       'UI/UX',
     ],
-    logo: '/images/logos/softhread-logo.png',
-    logoFallback: '🔐',
     color: 'from-blue-500 to-indigo-500',
   },
   {
     company: 'Delphi Digital',
-    role: 'Web 3.0 Infrastructure Research Analyst',
-    period: 'Aug 2021 - Oct 2022',
+    title: 'Web 3.0 Infrastructure Research Analyst',
+    timeframe: 'Aug 2021 - Oct 2022',
     location: 'Remote',
+    logo: delphiLogo,
     description:
       'Performed technical and economic research on blockchain protocols. Delivered actionable insights to institutional investors through reports and data visualizations.',
     keyContributions: [
@@ -101,15 +79,14 @@ const experiences = [
       'Research',
       'Data Visualization',
     ],
-    logo: '/images/logos/delphi-digital-logo.png',
-    logoFallback: '🔍',
     color: 'from-emerald-500 to-blue-500',
   },
   {
     company: 'First Turn Innovations',
-    role: 'Prototype Engineer',
-    period: 'Feb 2023 - Sep 2023',
+    title: 'Prototype Engineer',
+    timeframe: 'Feb 2023 - Sep 2023',
     location: 'Huntersville, NC',
+    logo: firstTurnLogo,
     description:
       'Developed hardware/software prototypes for early-stage products. Translated vague design ideas into testable MVPs and conducted feasibility studies to validate technical direction.',
     keyContributions: [
@@ -125,15 +102,14 @@ const experiences = [
       'Rapid Prototyping',
       'Feasibility Studies',
     ],
-    logo: '/images/logos/first-turn-logo.png',
-    logoFallback: '🔧',
     color: 'from-teal-500 to-emerald-500',
   },
   {
     company: 'Keep it Simple Storage',
-    role: 'Project Manager - Software',
-    period: 'Sep 2023 - Sep 2024',
+    title: 'Project Manager - Software',
+    timeframe: 'Sep 2023 - Sep 2024',
     location: 'Charlotte, NC',
+    logo: kissLogo,
     description:
       'Led product development for internal tools and customer-facing systems. Managed a team of 6 engineers, aligning technical implementation with business and operational goals.',
     keyContributions: [
@@ -150,15 +126,14 @@ const experiences = [
       'Cloud Tooling',
       'Documentation',
     ],
-    logo: '/images/logos/keep-it-simple-logo.png',
-    logoFallback: '📦',
     color: 'from-cyan-500 to-teal-500',
   },
   {
     company: 'Lucid Bots',
-    role: 'Software Engineer - Robotics Fleet Management',
-    period: 'Sep 2024 - Jul 2025',
+    title: 'Software Engineer - Robotics Fleet Management',
+    timeframe: 'Sep 2024 - Jul 2025',
     location: 'Charlotte, NC',
+    logo: lucidBotsLogo,
     description:
       'Led coordination of functional requirements, data ingestion architecture, and knowledge transfer between internal teams and external developers to build out cloud infrastructure for a drone fleet management system enabling the company to move away from 3rd party offerings.',
     keyContributions: [
@@ -177,8 +152,6 @@ const experiences = [
       'ROS2',
       'PX4',
     ],
-    logo: '/images/logos/lucid-bots-logo.png',
-    logoFallback: '🤖',
     color: 'from-purple-500 to-cyan-500',
   },
 ]
@@ -193,71 +166,96 @@ export default function WorkExperienceTimelineHorizontal() {
       id='experience'
       tagline='Experience'
       taglineColor='emerald'
-      title='Building Systems That Scale'
+      title='Building systems that scale'
       subtitle='and offerings that inspire'
       cardVariant='floating'
     >
-      <div className='max-w-7xl mx-auto px-4'>
-        {/* Horizontal Timeline - Full Width */}
-        <div className='relative'>
-          {/* Timeline Line */}
-          <div className='absolute top-20 left-12 right-12 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent'></div>
+      <div className='max-w-full mx-auto px-2'>
+        {/* Click hint */}
+        <div className='text-center text-zinc-400 text-sm mb-12'>
+          Click any company to explore details
+        </div>
 
-          {/* Timeline Nodes - Spread Wider */}
-          <div className='grid grid-cols-6 gap-4 px-8'>
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={`${exp.company}-${index}`}
-                className='flex flex-col items-center cursor-pointer group relative'
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                onClick={() => setSelectedIndex(index)}
-              >
-                {/* Node */}
-                <motion.div
-                  className={`w-16 h-16 rounded-full bg-black/50 backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-2xl mb-6 shadow-xl relative z-10 group-hover:scale-110 transition-transform duration-300`}
-                  whileHover={{ scale: 1.15 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${exp.color} rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-300`}
-                  ></div>
-                  <div className='relative z-10'>
-                    <CompanyLogo
-                      logo={exp.logo}
-                      logoFallback={exp.logoFallback}
-                      company={exp.company}
-                    />
-                  </div>
-                </motion.div>
+        {/* Timeline Container */}
+        <div className='relative mb-16'>
+          {/* Main Timeline Line - Extended to 2026 with arrow */}
+          <div className='relative h-px bg-gradient-to-r from-cyan-400/30 via-cyan-400/60 to-cyan-400/40 mx-4'>
+            {/* Extended line for 2026 */}
+            <div className='absolute right-0 top-0 w-16 h-px bg-gradient-to-r from-cyan-400/60 to-cyan-400/30'></div>
 
-                {/* Company & Period */}
-                <div className='text-center max-w-full px-2'>
-                  <h3 className='text-base font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300 leading-tight'>
-                    {exp.company}
-                  </h3>
-                  <p className='text-sm text-zinc-400 leading-tight mb-1'>
-                    {exp.period}
-                  </p>
-                  <p className='text-xs text-zinc-500 leading-tight'>
-                    {exp.location}
-                  </p>
-                </div>
+            {/* Arrow pointing right at the very end - aligned with line */}
+            <div className='absolute right-0 top-1/2 transform translate-x-full -translate-y-1/2 w-0 h-0 border-l-[10px] border-l-cyan-400/60 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent'></div>
 
-                {/* Hover glow */}
+            {/* Year markers with dots - centered on line */}
+            <div className='absolute left-0 right-16 top-1/2 transform -translate-y-1/2 flex justify-between items-center'>
+              {/* Year marker dots */}
+              <div className='relative'>
+                <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                  2020
+                </span>
+              </div>
+              <div className='relative'>
+                <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                  2021
+                </span>
+              </div>
+              <div className='relative'>
+                <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                  2022
+                </span>
+              </div>
+              <div className='relative'>
+                <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                  2023
+                </span>
+              </div>
+              <div className='relative'>
+                <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                  2024
+                </span>
+              </div>
+              <div className='relative'>
+                <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                  2025
+                </span>
+              </div>
+            </div>
+
+            {/* Experience dots positioned along the line */}
+            <div className='absolute left-0 right-16 top-1/2 transform -translate-y-1/2 flex justify-between items-center'>
+              {experiences.map((exp, index) => (
                 <div
-                  className={`absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 bg-gradient-to-br ${exp.color} rounded-full opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300`}
+                  key={`exp-dot-${index}`}
+                  className='w-3 h-3 bg-orange-400 rounded-full border-2 border-black/50 shadow-lg'
                 ></div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Simple Click hint */}
-        <div className='text-center text-zinc-400 text-sm mt-8'>
-          Click any company to explore details
+        {/* Job Cards Grid - Below Timeline */}
+        <div className='grid grid-cols-6 gap-6 px-4'>
+          {experiences.map((exp, index) => (
+            <div key={`${exp.company}-${index}`} className='relative'>
+              {/* Connecting line from timeline to job card */}
+              <div className='absolute left-1/2 -top-16 w-px h-14 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
+
+              <JobCard
+                logo={exp.logo}
+                company={exp.company}
+                title={exp.title}
+                location={exp.location}
+                index={index}
+                onClick={() => setSelectedIndex(index)}
+              />
+            </div>
+          ))}
         </div>
       </div>
 
@@ -299,16 +297,30 @@ export default function WorkExperienceTimelineHorizontal() {
                     <div className='relative z-10'>
                       {/* Header */}
                       <div className='flex items-start gap-6 mb-8'>
-                        <div className='text-5xl'>{exp.logo}</div>
+                        <div className='flex items-center justify-center'>
+                          {typeof exp.logo === 'string' &&
+                          (exp.logo.startsWith('/') ||
+                            exp.logo.startsWith('data:') ||
+                            exp.logo.includes('.') ||
+                            exp.logo.startsWith('blob:')) ? (
+                            <img
+                              src={exp.logo}
+                              alt={`${exp.company} logo`}
+                              className='w-20 h-20 object-contain'
+                            />
+                          ) : (
+                            <span className='text-5xl'>{exp.logo}</span>
+                          )}
+                        </div>
                         <div className='flex-1'>
                           <h2 className='text-3xl font-bold text-white mb-2'>
                             {exp.company}
                           </h2>
                           <p className='text-xl text-cyan-400 font-semibold mb-2'>
-                            {exp.role}
+                            {exp.title}
                           </p>
                           <div className='flex items-center gap-4 text-zinc-400'>
-                            <span className='font-medium'>{exp.period}</span>
+                            <span className='font-medium'>{exp.timeframe}</span>
                             <span>•</span>
                             <span>{exp.location}</span>
                           </div>
