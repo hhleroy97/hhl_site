@@ -172,8 +172,11 @@ export default function WorkExperienceTimelineHorizontal() {
     >
       <div className='max-w-full mx-auto px-2'>
         {/* Click hint */}
-        <div className='text-center text-zinc-400 text-sm mb-12'>
-          Click any company to explore details
+        <div
+          className='text-center text-white text-base mb-16 mt-8'
+          style={{ fontFamily: 'Orbitron, sans-serif' }}
+        >
+          Click any company to learn more
         </div>
 
         {/* Timeline Container */}
