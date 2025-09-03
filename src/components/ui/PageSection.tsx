@@ -22,8 +22,10 @@ export default function PageSection({
   taglineColor = 'cyan',
   children,
   className = '',
+  cardVariant,
 }: PageSectionProps) {
   const { variant } = useCardVariant()
+  const selectedVariant = cardVariant || variant
 
   return (
     <section
@@ -46,7 +48,7 @@ export default function PageSection({
         >
           <TechCard
             title={tagline}
-            variant={variant}
+            variant={selectedVariant}
             color={taglineColor}
             className='min-h-[80vh] flex flex-col'
           >
