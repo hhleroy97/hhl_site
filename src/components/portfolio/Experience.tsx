@@ -253,7 +253,6 @@ export default function WorkExperienceTimelineHorizontal() {
                 location={exp.location}
                 index={index}
                 onClick={() => setSelectedIndex(index)}
-                isInnerJob={index >= 1 && index <= 4}
               />
             </div>
           ))}
