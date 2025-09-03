@@ -193,8 +193,8 @@ export default function WorkExperienceTimelineHorizontal() {
       id='experience'
       tagline='Experience'
       taglineColor='emerald'
-      title='offerings that inspire'
-      subtitle=''
+      title='Building Systems That Scale'
+      subtitle='and offerings that inspire'
       cardVariant='floating'
     >
       <div className='max-w-7xl mx-auto px-4'>
