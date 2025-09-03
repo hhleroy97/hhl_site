@@ -45,10 +45,10 @@ export default function SlideshowPortfolio() {
         // Update URL hash
         window.history.pushState(null, '', `#${sections[index].id}`)
 
-        // Brief transition state for framer motion animations
+        // Extended transition state to match navigation color morphing duration
         setTimeout(() => {
           setIsTransitioning(false)
-        }, 100)
+        }, 450)
       }
     },
     [currentSection, isTransitioning]
@@ -197,8 +197,8 @@ export default function SlideshowPortfolio() {
             animate='center'
             exit='exit'
             transition={{
-              y: { type: 'spring', stiffness: 300, damping: 30 },
-              opacity: { duration: 0.3 },
+              y: { type: 'spring', stiffness: 200, damping: 25, duration: 0.4 },
+              opacity: { duration: 0.4 },
             }}
             className='absolute inset-0 h-full'
           >
