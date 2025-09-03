@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Navigation from './ui/Navigation'
 import LandingPage from './portfolio/LandingPage'
 import Services from './portfolio/Services'
-import WorkExperience from './portfolio/WorkExperience_Timeline_Horizontal'
-import NewAbout from './portfolio/NewAbout'
-import SkillsTools from './portfolio/SkillsTools'
-import ContactFooter from './portfolio/ContactFooter'
+import Experience from './portfolio/Experience'
+import About from './portfolio/About'
+import Skills from './portfolio/Skills'
+import Contact from './portfolio/Contact'
 
 const sections = [
   {
@@ -15,11 +15,11 @@ const sections = [
     component: LandingPage,
     props: (nextSection: () => void) => ({ onNextSection: nextSection }),
   },
-  { id: 'about', label: 'About', component: NewAbout },
-  { id: 'experience', label: 'Experience', component: WorkExperience },
-  { id: 'skills', label: 'Skills', component: SkillsTools },
+  { id: 'about', label: 'About', component: About },
+  { id: 'experience', label: 'Experience', component: Experience },
+  { id: 'skills', label: 'Skills', component: Skills },
   { id: 'services', label: 'Services', component: Services },
-  { id: 'contact', label: 'Contact', component: ContactFooter },
+  { id: 'contact', label: 'Contact', component: Contact },
 ]
 
 export default function SlideshowPortfolio() {

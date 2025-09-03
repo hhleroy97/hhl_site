@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { useContactContent } from '@/hooks/useSiteContent'
+import { motion } from 'framer-motion'
+import PageSection from '../ui/PageSection'
 
-export default function Contact() {
+export default function ContactFooter() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,237 +10,258 @@ export default function Contact() {
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-
-  const { contact, loading } = useContactContent()
+  const [submitStatus, setSubmitStatus] = useState<
+    'idle' | 'success' | 'error'
+  >('idle')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
+
     // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setIsSubmitting(false)
+    await new Promise(resolve => setTimeout(resolve, 1000))
+
     setSubmitStatus('success')
-    
-    // Reset form after success
-    setTimeout(() => {
-      setFormData({ name: '', email: '', subject: '', message: '' })
-      setSubmitStatus('idle')
-    }, 3000)
+    setIsSubmitting(false)
+    setFormData({ name: '', email: '', subject: '', message: '' })
+
+    // Reset success message after 3 seconds
+    setTimeout(() => setSubmitStatus('idle'), 3000)
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }))
   }
 
-  if (loading || !contact) {
-    return (
-      <section id='contact' className='min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'>
-        <div className='max-w-7xl mx-auto w-full'>
-          <div className='space-y-8'>
-            <div className='h-8 bg-tech-dark-surface/50 rounded animate-pulse'></div>
-            <div className='h-4 bg-tech-dark-surface/50 rounded animate-pulse max-w-md mx-auto'></div>
-            <div className='grid gap-6 md:grid-cols-2'>
-              <div className='h-64 bg-tech-dark-surface/50 rounded-xl animate-pulse'></div>
-              <div className='space-y-4'>
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className='h-12 bg-tech-dark-surface/50 rounded animate-pulse'></div>
-                ))}
+  return (
+    <PageSection
+      id='contact'
+      tagline='Contact'
+      taglineColor='emerald'
+      title="Let's Build Something That Moves"
+      subtitle='and moves people'
+      className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
+    >
+      {/* Ultra Compact Layout */}
+      <div className='max-w-4xl mx-auto'>
+        {/* Contact Methods - Horizontal */}
+        <motion.div
+          className='grid md:grid-cols-2 gap-3 mb-4'
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          {/* Email */}
+          <motion.div
+            className='group flex items-center gap-3 p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden relative'
+            whileHover={{
+              scale: 1.01,
+              y: -2,
+              borderColor: 'rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
+          >
+            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+            <div className='absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+            <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+            <div className='relative z-10 flex items-center gap-3'>
+              <div className='p-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white'>
+                <svg
+                  className='w-4 h-4'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
+                  />
+                </svg>
+              </div>
+              <div className='text-left'>
+                <div className='text-xs text-zinc-400'>Direct Email</div>
+                <a
+                  href='mailto:hartley.leroy1997@gmail.com'
+                  className='text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors'
+                >
+                  hartley.leroy1997@gmail.com
+                </a>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-    )
-  }
+          </motion.div>
 
-  return (
-    <section id='contact' className='min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden'>
-      {/* Background depth layer */}
-      <div className='absolute inset-0 bg-gradient-to-br from-tech-dark via-tech-dark-alt to-tech-dark opacity-95' />
-      <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accentWarm/5 via-transparent to-accentCool/5' />
-
-      <div className='max-w-7xl mx-auto w-full relative z-10'>
-        {/* Section header */}
-        <motion.div
-          className='text-center mb-16'
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className='text-h2 font-bold text-text-primary mb-4'>
-            Get In <span className='text-accentWarm text-glow-warm'>Touch</span>
-          </h2>
-          <div className='w-24 h-1 bg-accentWarm mx-auto mb-6' />
-          <p className='text-body text-text-secondary max-w-2xl mx-auto'>
-            {contact.hook}
-          </p>
+          {/* Quick Chat */}
+          <motion.div
+            className='group flex items-center gap-3 p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden relative'
+            whileHover={{
+              scale: 1.01,
+              y: -2,
+              borderColor: 'rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
+          >
+            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+            <div className='absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+            <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+            <div className='relative z-10 flex items-center gap-3'>
+              <div className='p-2 bg-gradient-to-r from-fuchsia-500 to-purple-500 rounded-lg text-white'>
+                <svg
+                  className='w-4 h-4'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z'
+                  />
+                </svg>
+              </div>
+              <div className='text-left'>
+                <div className='text-xs text-zinc-400'>Quick Chat</div>
+                <div className='text-sm font-medium text-zinc-300'>
+                  20-min intro{' '}
+                  <span className='text-zinc-500'>(coming soon)</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
 
-        <div className='grid gap-12 lg:grid-cols-2 items-start'>
-          {/* Contact form */}
+        {/* Contact Form - Ultra Compact */}
+        <motion.div
+          className='relative'
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           <motion.div
-            className='space-y-6'
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            className='group relative bg-black/30 backdrop-blur-md rounded-lg border border-white/20 p-4 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden'
+            whileHover={{
+              scale: 1.005,
+              y: -3,
+              borderColor: 'rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
           >
-            <form onSubmit={handleSubmit} className='space-y-6'>
-              <div className='grid gap-6 md:grid-cols-2'>
-                <div>
-                  <label htmlFor='name' className='block text-sm font-semibold text-text-primary mb-2'>
-                    {contact.form.name}
-                  </label>
+            {/* Enhanced depth effects */}
+            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+            <div className='absolute -top-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+            <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+            <div className='relative z-10'>
+              <form onSubmit={handleSubmit} className='space-y-3'>
+                {/* Ultra Compact Form Grid */}
+                <div className='grid md:grid-cols-2 gap-3'>
                   <input
                     type='text'
-                    id='name'
                     name='name'
                     value={formData.name}
-                    onChange={handleInputChange}
+                    onChange={handleChange}
                     required
-                    className='w-full px-4 py-3 bg-tech-dark-surface/80 border border-accentWarm/20 rounded-xl 
-                             text-text-primary placeholder-text-muted focus:border-accentWarm focus:ring-2 
-                             focus:ring-accentWarm/20 focus:outline-none transition-all duration-300 backdrop-blur-sm'
+                    className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm text-sm'
                     placeholder='Your name'
                   />
-                </div>
-                <div>
-                  <label htmlFor='email' className='block text-sm font-semibold text-text-primary mb-2'>
-                    {contact.form.email}
-                  </label>
                   <input
                     type='email'
-                    id='email'
                     name='email'
                     value={formData.email}
-                    onChange={handleInputChange}
+                    onChange={handleChange}
                     required
-                    className='w-full px-4 py-3 bg-tech-dark-surface/80 border border-accentWarm/20 rounded-xl 
-                             text-text-primary placeholder-text-muted focus:border-accentWarm focus:ring-2 
-                             focus:ring-accentWarm/20 focus:outline-none transition-all duration-300 backdrop-blur-sm'
-                    placeholder='your.email@example.com'
+                    className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm text-sm'
+                    placeholder='your@email.com'
                   />
                 </div>
-              </div>
-              
-              <div>
-                <label htmlFor='subject' className='block text-sm font-semibold text-text-primary mb-2'>
-                  {contact.form.subject}
-                </label>
+
                 <input
                   type='text'
-                  id='subject'
                   name='subject'
                   value={formData.subject}
-                  onChange={handleInputChange}
+                  onChange={handleChange}
                   required
-                  className='w-full px-4 py-3 bg-tech-dark-surface/80 border border-accentWarm/20 rounded-xl 
-                           text-text-primary placeholder-text-muted focus:border-accentWarm focus:ring-2 
-                           focus:ring-accentWarm/20 focus:outline-none transition-all duration-300 backdrop-blur-sm'
+                  className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors text-sm'
                   placeholder='Project inquiry'
                 />
-              </div>
-              
-              <div>
-                <label htmlFor='message' className='block text-sm font-semibold text-text-primary mb-2'>
-                  {contact.form.message}
-                </label>
+
                 <textarea
-                  id='message'
                   name='message'
                   value={formData.message}
-                  onChange={handleInputChange}
+                  onChange={handleChange}
                   required
-                  rows={6}
-                  className='w-full px-4 py-3 bg-tech-dark-surface/80 border border-accentWarm/20 rounded-xl 
-                           text-text-primary placeholder-text-muted focus:border-accentWarm focus:ring-2 
-                           focus:ring-accentWarm/20 focus:outline-none transition-all duration-300 backdrop-blur-sm resize-none'
-                  placeholder='Tell me about your project...'
+                  rows={2}
+                  className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors resize-none text-sm'
+                  placeholder='Tell me about your project and timeline...'
                 />
-              </div>
-              
-              <motion.button
-                type='submit'
-                disabled={isSubmitting}
-                className='w-full px-6 py-4 bg-accentWarm text-tech-dark font-semibold rounded-xl 
-                         hover:bg-accentWarm/90 focus:ring-2 focus:ring-accentWarm/20 focus:outline-none 
-                         transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {isSubmitting ? contact.form.sending : contact.form.submit}
-              </motion.button>
-            </form>
 
-            {submitStatus === 'success' && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className='p-4 bg-green-500/20 border border-green-500/30 rounded-xl text-green-400 text-center'
-              >
-                {contact.form.success}
-              </motion.div>
-            )}
-          </motion.div>
-
-          {/* Contact info */}
-          <motion.div
-            className='space-y-8'
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <div className='space-y-6'>
-              <h3 className='text-h3 font-semibold text-text-primary'>Contact Information</h3>
-              
-              <div className='space-y-4'>
-                <div className='flex items-center space-x-3'>
-                  <div className='w-2 h-2 bg-accentWarm rounded-full'></div>
-                  <span className='text-body text-text-secondary'>{contact.info.email}</span>
-                </div>
-                <div className='flex items-center space-x-3'>
-                  <div className='w-2 h-2 bg-accentWarm rounded-full'></div>
-                  <span className='text-body text-text-secondary'>{contact.info.location}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className='space-y-6'>
-              <h3 className='text-h3 font-semibold text-text-primary'>Connect</h3>
-              
-              <div className='grid gap-4'>
-                {contact.social.map((social, index) => (
-                  <motion.a
-                    key={social.name}
-                    href={social.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='flex items-center space-x-3 p-4 bg-tech-dark-surface/50 border border-accentWarm/10 
-                             rounded-xl hover:border-accentWarm/30 hover:bg-tech-dark-surface/70 
-                             transition-all duration-300 backdrop-blur-sm'
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
-                    whileHover={{ scale: 1.02, x: 5 }}
+                <div className='flex items-center justify-between'>
+                  <button
+                    type='submit'
+                    disabled={isSubmitting}
+                    className='btn-primary disabled:opacity-50 disabled:cursor-not-allowed px-6 py-2'
                   >
-                    <span className='text-accentWarm'>{social.icon}</span>
-                    <span className='text-body text-text-secondary'>{social.name}</span>
-                  </motion.a>
-                ))}
-              </div>
+                    <span className='text-sm'>
+                      {isSubmitting
+                        ? 'Sending...'
+                        : submitStatus === 'success'
+                          ? 'Message Sent!'
+                          : 'Send Message'}
+                    </span>
+                  </button>
+
+                  {/* Status and tagline inline */}
+                  <div className='text-xs text-zinc-400 flex items-center gap-2'>
+                    <span>Building the future, one system at a time</span>
+                    <div className='flex gap-1'>
+                      <div className='w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse'></div>
+                      <div
+                        className='w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse'
+                        style={{ animationDelay: '0.5s' }}
+                      ></div>
+                      <div
+                        className='w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse'
+                        style={{ animationDelay: '1s' }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+
+                {submitStatus === 'success' && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className='text-emerald-400 text-sm text-center'
+                  >
+                    Thanks! I'll get back to you within 24 hours.
+                  </motion.p>
+                )}
+              </form>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+
+      {/* Animated grid background */}
+      <div
+        className='absolute inset-0 opacity-5'
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(176, 106, 247, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(176, 106, 247, 0.3) 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+        }}
+      />
+    </PageSection>
   )
 }
