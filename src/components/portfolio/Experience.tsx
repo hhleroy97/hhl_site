@@ -257,7 +257,7 @@ export default function WorkExperienceTimelineHorizontal() {
           {experiences.map((exp, index) => (
             <div key={`${exp.company}-${index}`} className='relative'>
               {/* Connecting line from timeline to job card */}
-              <div className='absolute left-1/2 -top-20 w-px h-18 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
+              <div className='absolute left-1/2 -top-16 w-px h-14 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
 
               <JobCard
                 logo={exp.logo}
