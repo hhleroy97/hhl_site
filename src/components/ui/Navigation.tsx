@@ -396,7 +396,7 @@ export default function Navigation({
                     <motion.button
                       onClick={onPrevSection}
                       disabled={!isNavReady}
-                      className={`absolute inset-0 w-24 h-24 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
+                      className={`absolute inset-0 w-24 h-24 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group shadow-xl overflow-hidden ${
                         !isNavReady
                           ? 'opacity-50 cursor-not-allowed'
                           : `${currentSectionColors.hoverBorder} hover:shadow-2xl cursor-pointer`
@@ -404,10 +404,12 @@ export default function Navigation({
                       whileHover={isNavReady ? { scale: 1.02 } : {}}
                       whileTap={isNavReady ? { scale: 0.98 } : {}}
                     >
-                      <ChevronUp
-                        {...getDynamicTextColor()}
-                        className={`w-6 h-6 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
-                      />
+                      <div className='w-6 h-6 flex items-center justify-center overflow-hidden'>
+                        <ChevronUp
+                          {...getDynamicTextColor()}
+                          className={`w-6 h-6 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                        />
+                      </div>
                     </motion.button>
                   ) : (
                     <>
@@ -415,7 +417,7 @@ export default function Navigation({
                       <motion.button
                         onClick={onPrevSection}
                         disabled={currentSection === 0 || !isNavReady}
-                        className={`absolute top-0 left-0 w-24 h-12 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
+                        className={`absolute top-0 left-0 w-24 h-12 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group shadow-xl overflow-hidden ${
                           currentSection === 0 || !isNavReady
                             ? 'opacity-50 cursor-not-allowed'
                             : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
@@ -431,10 +433,12 @@ export default function Navigation({
                             : {}
                         }
                       >
-                        <ChevronUp
-                          {...getDynamicTextColor()}
-                          className={`w-6 h-6 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
-                        />
+                        <div className='w-6 h-6 flex items-center justify-center overflow-hidden'>
+                          <ChevronUp
+                            {...getDynamicTextColor()}
+                            className={`w-6 h-6 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                          />
+                        </div>
                       </motion.button>
 
                       {/* Bottom half - Down arrow */}
@@ -444,7 +448,7 @@ export default function Navigation({
                           currentSection === (sections?.length || 1) - 1 ||
                           !isNavReady
                         }
-                        className={`absolute bottom-0 left-0 w-24 h-12 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
+                        className={`absolute bottom-0 left-0 w-24 h-12 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group shadow-xl overflow-hidden ${
                           currentSection === (sections?.length || 1) - 1 ||
                           !isNavReady
                             ? 'opacity-50 cursor-not-allowed'
@@ -463,10 +467,12 @@ export default function Navigation({
                             : {}
                         }
                       >
-                        <ChevronDown
-                          {...getDynamicTextColor()}
-                          className={`w-6 h-6 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
-                        />
+                        <div className='w-6 h-6 flex items-center justify-center overflow-hidden'>
+                          <ChevronDown
+                            {...getDynamicTextColor()}
+                            className={`w-6 h-6 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                          />
+                        </div>
                       </motion.button>
                     </>
                   )}
@@ -657,14 +663,16 @@ export default function Navigation({
                   {currentSection === (sections?.length || 1) - 1 ? (
                     <motion.button
                       onClick={onPrevSection}
-                      className={`absolute inset-0 w-16 h-16 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group shadow-xl ${currentSectionColors.hoverBorder} hover:shadow-2xl cursor-pointer`}
+                      className={`absolute inset-0 w-16 h-16 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-full flex items-center justify-center transition-all duration-300 group shadow-xl overflow-hidden ${currentSectionColors.hoverBorder} hover:shadow-2xl cursor-pointer`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <ChevronUp
-                        {...getDynamicTextColor()}
-                        className={`w-4 h-4 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
-                      />
+                      <div className='w-4 h-4 flex items-center justify-center overflow-hidden'>
+                        <ChevronUp
+                          {...getDynamicTextColor()}
+                          className={`w-4 h-4 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                        />
+                      </div>
                     </motion.button>
                   ) : (
                     <>
@@ -672,7 +680,7 @@ export default function Navigation({
                       <motion.button
                         onClick={onPrevSection}
                         disabled={currentSection === 0}
-                        className={`absolute top-0 left-0 w-16 h-8 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
+                        className={`absolute top-0 left-0 w-16 h-8 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-t-full flex items-center justify-center transition-all duration-300 group shadow-xl overflow-hidden ${
                           currentSection === 0
                             ? 'opacity-50 cursor-not-allowed'
                             : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
@@ -680,10 +688,12 @@ export default function Navigation({
                         whileHover={currentSection > 0 ? { scale: 1.02 } : {}}
                         whileTap={currentSection > 0 ? { scale: 0.98 } : {}}
                       >
-                        <ChevronUp
-                          {...getDynamicTextColor()}
-                          className={`w-4 h-4 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
-                        />
+                        <div className='w-4 h-4 flex items-center justify-center overflow-hidden'>
+                          <ChevronUp
+                            {...getDynamicTextColor()}
+                            className={`w-4 h-4 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                          />
+                        </div>
                       </motion.button>
 
                       {/* Bottom half - Down arrow */}
@@ -692,7 +702,7 @@ export default function Navigation({
                         disabled={
                           currentSection === (sections?.length || 1) - 1
                         }
-                        className={`absolute bottom-0 left-0 w-16 h-8 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group shadow-xl ${
+                        className={`absolute bottom-0 left-0 w-16 h-8 bg-black/50 backdrop-blur-md border ${currentSectionColors.border} rounded-b-full flex items-center justify-center transition-all duration-300 group shadow-xl overflow-hidden ${
                           currentSection === (sections?.length || 1) - 1
                             ? 'opacity-50 cursor-not-allowed'
                             : `${currentSectionColors.hoverBorder} hover:shadow-md hover:bg-black/30 cursor-pointer`
@@ -708,10 +718,12 @@ export default function Navigation({
                             : {}
                         }
                       >
-                        <ChevronDown
-                          {...getDynamicTextColor()}
-                          className={`w-4 h-4 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
-                        />
+                        <div className='w-4 h-4 flex items-center justify-center overflow-hidden'>
+                          <ChevronDown
+                            {...getDynamicTextColor()}
+                            className={`w-4 h-4 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                          />
+                        </div>
                       </motion.button>
                     </>
                   )}
