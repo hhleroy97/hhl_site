@@ -252,14 +252,6 @@ export default function WorkExperienceTimelineHorizontal() {
           </div>
         </div>
 
-        {/* Click hint */}
-        <div
-          className='text-center text-white text-base mb-12'
-          style={{ fontFamily: 'Orbitron, sans-serif' }}
-        >
-          Click any company to learn more
-        </div>
-
         {/* Job Cards Grid - Below Timeline */}
         <div className='grid grid-cols-6 gap-6 px-4'>
           {experiences.map((exp, index) => (
@@ -277,6 +269,14 @@ export default function WorkExperienceTimelineHorizontal() {
               />
             </div>
           ))}
+        </div>
+
+        {/* Click hint */}
+        <div
+          className='text-center text-white text-base mt-12'
+          style={{ fontFamily: 'Orbitron, sans-serif' }}
+        >
+          Click any company to learn more
         </div>
       </div>
 
