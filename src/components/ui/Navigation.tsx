@@ -31,7 +31,7 @@ export default function Navigation({
   sections,
   onPrevSection,
   onNextSection,
-  isTransitioning = false,
+  isTransitioning: _isTransitioning = false,
 }: NavigationProps = {}) {
   // Color morphing state
   const [colorTransition, setColorTransition] = useState({
@@ -65,7 +65,7 @@ export default function Navigation({
     return `rgb(${r}, ${g}, ${b})`
   }
 
-  // Get dynamic text color based on transition state
+  // Get dynamic text color based on transition state - always return inline style for consistency
   const getDynamicTextColor = () => {
     if (colorTransition.isTransitioning) {
       // Use internal transition state for individual section changes
@@ -82,7 +82,22 @@ export default function Navigation({
         },
       }
     }
-    return { className: getCurrentSectionColors().text }
+
+    // Always use inline style to prevent style/className switching lag
+    const currentColors = getCurrentSectionColors()
+    const colorValue = getColorValue(currentColors.text)
+    return { style: { color: colorValue } }
+  }
+
+  // Convert Tailwind color class to actual color value
+  const getColorValue = (colorClass: string) => {
+    const colorMap = {
+      'text-white': 'rgb(255, 255, 255)',
+      'text-cyan-400': 'rgb(34, 211, 238)',
+      'text-emerald-400': 'rgb(52, 211, 153)',
+      'text-purple-400': 'rgb(196, 181, 253)',
+    }
+    return colorMap[colorClass as keyof typeof colorMap] || 'rgb(255, 255, 255)'
   }
 
   // Get section colors by index
@@ -407,7 +422,7 @@ export default function Navigation({
                       <div className='w-6 h-6 flex items-center justify-center overflow-hidden'>
                         <ChevronUp
                           {...getDynamicTextColor()}
-                          className={`w-6 h-6 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                          className='w-6 h-6 transition-all duration-200 group-hover:scale-110'
                         />
                       </div>
                     </motion.button>
@@ -436,7 +451,7 @@ export default function Navigation({
                         <div className='w-6 h-6 flex items-center justify-center overflow-hidden'>
                           <ChevronUp
                             {...getDynamicTextColor()}
-                            className={`w-6 h-6 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                            className='w-6 h-6 transition-all duration-200 group-hover:scale-110'
                           />
                         </div>
                       </motion.button>
@@ -470,7 +485,7 @@ export default function Navigation({
                         <div className='w-6 h-6 flex items-center justify-center overflow-hidden'>
                           <ChevronDown
                             {...getDynamicTextColor()}
-                            className={`w-6 h-6 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                            className='w-6 h-6 transition-all duration-200 group-hover:scale-110'
                           />
                         </div>
                       </motion.button>
@@ -670,7 +685,7 @@ export default function Navigation({
                       <div className='w-4 h-4 flex items-center justify-center overflow-hidden'>
                         <ChevronUp
                           {...getDynamicTextColor()}
-                          className={`w-4 h-4 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                          className='w-4 h-4 transition-all duration-200 group-hover:scale-110'
                         />
                       </div>
                     </motion.button>
@@ -691,7 +706,7 @@ export default function Navigation({
                         <div className='w-4 h-4 flex items-center justify-center overflow-hidden'>
                           <ChevronUp
                             {...getDynamicTextColor()}
-                            className={`w-4 h-4 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                            className='w-4 h-4 transition-all duration-200 group-hover:scale-110'
                           />
                         </div>
                       </motion.button>
@@ -721,7 +736,7 @@ export default function Navigation({
                         <div className='w-4 h-4 flex items-center justify-center overflow-hidden'>
                           <ChevronDown
                             {...getDynamicTextColor()}
-                            className={`w-4 h-4 ${colorTransition.isTransitioning || isTransitioning ? '' : currentSectionColors.text} transition-colors duration-200 group-hover:scale-110`}
+                            className='w-4 h-4 transition-all duration-200 group-hover:scale-110'
                           />
                         </div>
                       </motion.button>
