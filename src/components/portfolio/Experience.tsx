@@ -171,8 +171,16 @@ export default function WorkExperienceTimelineHorizontal() {
       cardVariant='floating'
     >
       <div className='max-w-full mx-auto px-2'>
+        {/* Click hint */}
+        <div
+          className='text-center text-white text-xl font-bold mb-12 mt-4'
+          style={{ fontFamily: 'Orbitron, sans-serif' }}
+        >
+          Click any company to learn more
+        </div>
+
         {/* Timeline Container */}
-        <div className='relative mb-8 mt-4'>
+        <div className='relative mb-16'>
           {/* Main Timeline Line - Extended to 2026 with arrow */}
           <div className='relative h-px bg-gradient-to-r from-cyan-400/30 via-cyan-400/60 to-cyan-400/40 mx-4'>
             {/* Extended line for 2026 */}
@@ -269,14 +277,6 @@ export default function WorkExperienceTimelineHorizontal() {
               />
             </div>
           ))}
-        </div>
-
-        {/* Click hint */}
-        <div
-          className='text-center text-white text-xl font-bold mt-12'
-          style={{ fontFamily: 'Orbitron, sans-serif' }}
-        >
-          Click any company to learn more
         </div>
       </div>
 
