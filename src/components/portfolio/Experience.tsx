@@ -177,7 +177,7 @@ export default function WorkExperienceTimelineHorizontal() {
         </div>
 
         {/* Timeline Container */}
-        <div className='relative mb-16'>
+        <div className='relative mb-20 mt-8'>
           {/* Main Timeline Line - Extended to 2026 with arrow */}
           <div className='relative h-px bg-gradient-to-r from-cyan-400/30 via-cyan-400/60 to-cyan-400/40 mx-4'>
             {/* Extended line for 2026 */}
@@ -244,7 +244,7 @@ export default function WorkExperienceTimelineHorizontal() {
           {experiences.map((exp, index) => (
             <div key={`${exp.company}-${index}`} className='relative'>
               {/* Connecting line from timeline to job card */}
-              <div className='absolute left-1/2 -top-16 w-px h-14 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
+              <div className='absolute left-1/2 -top-20 w-px h-18 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
 
               <JobCard
                 logo={exp.logo}
