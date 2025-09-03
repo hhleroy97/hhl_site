@@ -60,7 +60,7 @@ const experiences = [
   },
   {
     company: 'Delphi Digital',
-    title: 'Web 3.0 Infrastructure Research Analyst',
+    title: 'Research Analyst',
     timeframe: 'Aug 2021 - Oct 2022',
     location: 'Remote',
     logo: delphiLogo,
@@ -130,7 +130,7 @@ const experiences = [
   },
   {
     company: 'Lucid Bots',
-    title: 'Software Engineer - Robotics Fleet Management',
+    title: 'Software Engineer - Fleet Management',
     timeframe: 'Sep 2024 - Jul 2025',
     location: 'Charlotte, NC',
     logo: lucidBotsLogo,
