@@ -1,205 +1,243 @@
 import { motion } from 'framer-motion'
+import PageSection from '../ui/PageSection'
 
-interface SkillCategory {
-  category: string
-  description: string
-  skills: {
-    name: string
-    level: number
-    color: string
-    icon?: string
-  }[]
-}
+const skillCategories = [
+  {
+    title: 'Cloud & Infrastructure',
+    icon: '☁️',
+    color: 'from-purple-400 to-cyan-500',
+    skills: [
+      'AWS',
+      'IoT Core',
+      'Kinesis',
+      'Athena',
+      'Lambda',
+      'DynamoDB',
+      'S3',
+      'CloudWatch',
+    ],
+  },
+  {
+    title: 'Systems & Robotics',
+    icon: '🤖',
+    color: 'from-cyan-400 to-teal-500',
+    skills: [
+      'ROS2',
+      'PX4',
+      'OTA Updates',
+      'Telemetry',
+      'MQTT',
+      'Protocol Buffers',
+      'Docker',
+      'Linux',
+    ],
+  },
+  {
+    title: 'Visual & Creative Tech',
+    icon: '🎨',
+    color: 'from-teal-400 to-emerald-500',
+    skills: [
+      'TouchDesigner',
+      'React Three Fiber',
+      'Three.js',
+      'Kinect',
+      'MIDI',
+      'WebGL',
+      'Shaders',
+      'Processing',
+    ],
+  },
+  {
+    title: 'Product & Strategy',
+    icon: '📊',
+    color: 'from-amber-400 to-orange-500',
+    skills: [
+      'Agile',
+      'Scrum',
+      'Notion',
+      'Roadmapping',
+      'Figma',
+      'Analytics',
+      'User Research',
+      'A/B Testing',
+    ],
+  },
+]
 
-export default function Skills() {
-  const skillCategories: SkillCategory[] = [
-    {
-      category: 'AI & Machine Learning',
-      description: 'Intelligent systems and real-time ML pipelines',
-      skills: [
-        { name: 'Computer Vision', level: 85, color: 'tech-teal' },
-        { name: 'TensorFlow/PyTorch', level: 80, color: 'tech-blue' },
-        { name: 'Real-time ML Pipelines', level: 90, color: 'tech-cyan' },
-        { name: 'Edge AI Deployment', level: 85, color: 'tech-purple' },
-      ],
-    },
-    {
-      category: 'Robotics & Autonomous Systems',
-      description: 'ROS2-based drone fleets and autonomous navigation',
-      skills: [
-        { name: 'ROS2/PX4 Drones', level: 95, color: 'tech-teal' },
-        { name: 'Autonomous Navigation', level: 90, color: 'tech-blue' },
-        { name: 'Sensor Fusion', level: 85, color: 'tech-cyan' },
-        { name: 'Fleet Management', level: 90, color: 'tech-purple' },
-      ],
-    },
-    {
-      category: 'Cloud & Data Architecture',
-      description: 'AWS IoT infrastructure and real-time data processing',
-      skills: [
-        { name: 'AWS IoT Core/Kinesis', level: 95, color: 'tech-teal' },
-        { name: 'Real-time Telemetry', level: 90, color: 'tech-blue' },
-        { name: 'Python/Embedded C', level: 95, color: 'tech-cyan' },
-        { name: 'Infrastructure as Code', level: 85, color: 'tech-purple' },
-      ],
-    },
-    {
-      category: 'Creative Technology',
-      description: 'Innovation at the intersection of art and engineering',
-      skills: [
-        { name: 'Creative Problem Solving', level: 95, color: 'tech-teal' },
-        { name: 'Rapid Prototyping', level: 90, color: 'tech-blue' },
-        { name: 'Cross-disciplinary Design', level: 85, color: 'tech-cyan' },
-        { name: 'Technology Innovation', level: 90, color: 'tech-purple' },
-      ],
-    },
-  ]
-
+export default function SkillsTools() {
   return (
-    <section className='relative py-20 px-6 lg:px-8 overflow-hidden'>
-      {/* Background decorative elements */}
-      <div className='absolute inset-0'>
-        <div className='absolute top-20 left-10 w-72 h-72 bg-tech-teal/5 rounded-full filter blur-3xl' />
-        <div className='absolute bottom-20 right-10 w-96 h-96 bg-tech-purple/5 rounded-full filter blur-3xl' />
-      </div>
-
-      <div className='relative max-w-7xl mx-auto'>
-        {/* Section Header */}
-        <motion.div
-          className='text-center mb-16'
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className='text-4xl lg:text-5xl font-display font-bold text-text-primary mb-6'>
-            Creative Technology
-            <span className='text-gradient-primary ml-3'>& AI Engineering</span>
-          </h2>
-          <p className='text-xl text-tech-text-secondary max-w-3xl mx-auto leading-relaxed'>
-            Building intelligent autonomous systems at Lucid Bots. Expertise spans AI/ML pipelines, 
-            robotics engineering, and creative problem-solving for next-generation drone technologies.
-          </p>
-        </motion.div>
-
-        {/* Skills Grid */}
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12'>
+    <PageSection
+      id='skills'
+      tagline='Skills'
+      taglineColor='purple'
+      title='Technologies I Work With'
+      subtitle='across the full stack'
+      className='bg-gradient-to-b from-zinc-900/60 to-zinc-900/90'
+      cardVariant='floating'
+    >
+      {/* Ultra Compact Grid */}
+      <div className='max-w-6xl mx-auto'>
+        {/* Skills Matrix - Compact 2x2 */}
+        <div className='grid md:grid-cols-2 gap-3'>
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
-              key={category.category}
-              className='card-elevated p-8 group hover:bg-tech-dark-elevated/80 transition-all duration-300'
-              initial={{ opacity: 0, y: 40 }}
+              key={category.title}
+              className='group'
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
             >
-              {/* Category Header */}
-              <div className='mb-6'>
-                <h3 className='text-2xl font-display font-bold text-text-primary mb-3 group-hover:text-tech-teal transition-colors'>
-                  {category.category}
-                </h3>
-                <p className='text-tech-text-secondary text-sm leading-relaxed'>
-                  {category.description}
-                </p>
-              </div>
+              {/* Category Card - Ultra Compact */}
+              <motion.div
+                className='group relative bg-black/30 backdrop-blur-md rounded-lg border border-white/20 p-3 transition-all duration-300 h-full shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden'
+                whileHover={{
+                  scale: 1.01,
+                  y: -2,
+                  borderColor: 'rgba(255, 255, 255, 0.4)',
+                  boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
+                  transition: { duration: 0.3, ease: 'easeOut' },
+                }}
+              >
+                {/* Enhanced depth effects */}
+                <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+                <div className='absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+                <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+                <div className='relative z-10'>
+                  {/* Category Header - Minimal */}
+                  <div className='flex items-center gap-2 mb-2'>
+                    <div className='text-sm'>{category.icon}</div>
+                    <h3 className='text-sm font-bold text-white'>
+                      {category.title}
+                    </h3>
+                  </div>
 
-              {/* Skills List */}
-              <div className='space-y-4'>
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
-                    key={skill.name}
-                    className='relative'
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.5,
-                      delay: categoryIndex * 0.1 + skillIndex * 0.05,
-                    }}
-                  >
-                    {/* Skill Name & Level */}
-                    <div className='flex justify-between items-center mb-2'>
-                      <span className='text-text-primary font-medium'>
-                        {skill.name}
-                      </span>
-                      <span className={`text-${skill.color} text-sm font-mono`}>
-                        {skill.level}%
-                      </span>
-                    </div>
-
-                    {/* Progress Bar */}
-                    <div className='relative h-2 bg-tech-dark-surface rounded-full overflow-hidden'>
+                  {/* Skills Ultra Compact - 4 columns */}
+                  <div className='grid grid-cols-4 gap-1'>
+                    {category.skills.slice(0, 8).map((skill, skillIndex) => (
                       <motion.div
-                        className={`absolute top-0 left-0 h-full bg-${skill.color} rounded-full`}
-                        style={{
-                          boxShadow: `0 0 8px var(--tw-color-${skill.color})`,
-                        }}
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
+                        key={skill}
+                        className='group/skill relative'
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{
-                          duration: 1,
-                          delay: categoryIndex * 0.1 + skillIndex * 0.1 + 0.3,
-                          ease: 'easeOut',
+                          duration: 0.4,
+                          delay: categoryIndex * 0.1 + skillIndex * 0.02,
+                          type: 'spring',
+                          stiffness: 150,
                         }}
-                      />
+                        whileHover={{ scale: 1.02, y: -1 }}
+                      >
+                        {/* Skill Pill - Ultra Small */}
+                        <div className='relative px-1.5 py-0.5 bg-white/10 border border-white/20 rounded-md backdrop-blur-sm transition-all duration-300 group-hover/skill:bg-white/15 group-hover/skill:border-white/30'>
+                          <span className='text-xs font-medium text-zinc-300 group-hover/skill:text-white transition-colors duration-300 truncate block'>
+                            {skill}
+                          </span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
 
-                      {/* Subtle pulse effect */}
-                      <motion.div
-                        className={`absolute top-0 left-0 h-full bg-${skill.color} rounded-full opacity-30`}
-                        initial={{ width: 0, opacity: 0.3 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        animate={{
-                          opacity: [0.3, 0.6, 0.3],
-                        }}
-                        transition={{
-                          width: {
-                            duration: 1,
-                            delay: categoryIndex * 0.1 + skillIndex * 0.1 + 0.3,
-                            ease: 'easeOut',
-                          },
-                          opacity: {
-                            duration: 2,
-                            repeat: Infinity,
-                            delay: 1,
-                          },
-                        }}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Decorative Corner */}
-              <div className='absolute top-4 right-4 w-8 h-8'>
-                <div
-                  className={`w-2 h-2 bg-tech-teal rounded-full opacity-60 group-hover:opacity-100 transition-opacity`}
-                />
-                <div
-                  className={`w-1 h-1 bg-tech-cyan rounded-full mt-1 ml-1 opacity-40 group-hover:opacity-80 transition-opacity`}
-                />
-              </div>
+                  {/* Category Color Accent */}
+                  <div
+                    className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${category.color} rounded-b-lg opacity-0 group-hover:opacity-60 transition-opacity duration-300`}
+                  />
+                </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
 
-        {/* Bottom CTA Section */}
+        {/* Skills Summary - Ultra Compact */}
         <motion.div
-          className='text-center mt-16'
-          initial={{ opacity: 0, y: 30 }}
+          className='mt-3 grid grid-cols-4 gap-2'
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <div className='inline-flex items-center space-x-2 px-6 py-3 bg-tech-dark-surface/50 rounded-full border border-tech-teal/20'>
-            <div className='status-online' />
-            <span className='text-tech-text-secondary font-medium'>
-              Available for new opportunities
-            </span>
-          </div>
+          <motion.div
+            className='group text-center p-2 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg cursor-pointer overflow-hidden relative'
+            whileHover={{
+              scale: 1.02,
+              y: -1,
+              borderColor: 'rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
+          >
+            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+            <div className='absolute -top-5 -right-5 w-10 h-10 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+            <div className='relative z-10'>
+              <div className='text-sm font-bold text-purple-400'>32+</div>
+              <div className='text-xs text-zinc-400'>Technologies</div>
+            </div>
+          </motion.div>
+          <motion.div
+            className='group text-center p-2 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg cursor-pointer overflow-hidden relative'
+            whileHover={{
+              scale: 1.02,
+              y: -1,
+              borderColor: 'rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
+          >
+            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+            <div className='absolute -top-5 -right-5 w-10 h-10 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+            <div className='relative z-10'>
+              <div className='text-sm font-bold text-cyan-400'>4+</div>
+              <div className='text-xs text-zinc-400'>Years Experience</div>
+            </div>
+          </motion.div>
+          <motion.div
+            className='group text-center p-2 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg cursor-pointer overflow-hidden relative'
+            whileHover={{
+              scale: 1.02,
+              y: -1,
+              borderColor: 'rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
+          >
+            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+            <div className='absolute -top-5 -right-5 w-10 h-10 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+            <div className='relative z-10'>
+              <div className='text-sm font-bold text-teal-400'>Multi</div>
+              <div className='text-xs text-zinc-400'>Domain Expert</div>
+            </div>
+          </motion.div>
+          <motion.div
+            className='group text-center p-2 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-lg cursor-pointer overflow-hidden relative'
+            whileHover={{
+              scale: 1.02,
+              y: -1,
+              borderColor: 'rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
+          >
+            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
+            <div className='absolute -top-5 -right-5 w-10 h-10 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
+            <div className='relative z-10'>
+              <div className='text-sm font-bold text-amber-400'>Full</div>
+              <div className='text-xs text-zinc-400'>Stack Coverage</div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
-    </section>
+
+      {/* Background Accent Elements - Minimal */}
+      <div className='absolute top-20 left-20 w-1 h-1 bg-purple-400 rounded-full animate-ping opacity-20' />
+      <div
+        className='absolute top-40 right-32 w-1 h-1 bg-cyan-400 rounded-full animate-ping opacity-20'
+        style={{ animationDelay: '1s' }}
+      />
+      <div
+        className='absolute bottom-32 left-1/4 w-1 h-1 bg-teal-400 rounded-full animate-ping opacity-20'
+        style={{ animationDelay: '2s' }}
+      />
+    </PageSection>
   )
 }

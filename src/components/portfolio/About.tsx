@@ -1,246 +1,254 @@
 import { motion } from 'framer-motion'
+import { Music, Gamepad2, MapPin } from 'lucide-react'
+import PageSection from '../ui/PageSection'
+import profileImage from '../../assets/prof-pic-no-bg.png'
+import pickleballImage from '../../assets/pickleball.png'
+import hikeImage from '../../assets/hike.png'
+import snowboardImage from '../../assets/snowboard.png'
 
-export default function About() {
+export default function NewAbout() {
+  const positionX = 19
+  const positionY = 94
+  const scale = 188
+
   return (
-    <section id='about' className='py-20 px-4 sm:px-6 lg:px-8'>
-      <div className='max-w-7xl mx-auto'>
-        <motion.div
-          className='text-center mb-16'
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className='text-4xl sm:text-5xl font-cyber font-bold text-white mb-4'>
-            ABOUT <span className='text-tech-neon'>ME</span>
-          </h2>
-          <div className='w-24 h-1 bg-tech-neon mx-auto' />
-        </motion.div>
-
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'>
-          {/* Photo/Avatar Section */}
+    <PageSection
+      id='about'
+      tagline='About'
+      taglineColor='cyan'
+      title='The human behind the systems where'
+      subtitle='creativity meets computation'
+      cardVariant='floating'
+    >
+      <div className='w-full max-w-[95vw] mx-auto px-4'>
+        {/* Main Content Grid */}
+        <div className='grid lg:grid-cols-[3fr,1fr] gap-12 items-start relative'>
+          {/* Left Column - Story & Philosophy */}
           <motion.div
-            className='flex justify-center lg:justify-start'
+            className='space-y-6'
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8 }}
           >
-            <div className='relative'>
-              {/* Professional Photo with 3D-inspired border */}
-              <div className='relative w-80 h-80'>
-                {/* Main border ring - matches 3D design */}
-                <div className='absolute inset-2 rounded-full border-2 border-tech-teal/80 animate-pulse'></div>
+            {/* Core Identity */}
+            <div className='space-y-3'>
+              <h3
+                className='text-2xl font-bold text-white mb-6'
+                style={{ fontFamily: 'Orbitron, sans-serif' }}
+              >
+                The Creative Technologist
+              </h3>
 
-                {/* Secondary border rings */}
-                <div className='absolute inset-0 rounded-full border border-tech-cyan/40'></div>
-                <div className='absolute inset-4 rounded-full border border-tech-purple/30'></div>
+              <div className='prose prose-invert prose-lg max-w-none'>
+                <p className='text-lg text-zinc-300 leading-relaxed mb-6'>
+                  I'm a{' '}
+                  <span className='text-cyan-400 font-semibold'>
+                    software developer
+                  </span>{' '}
+                  and{' '}
+                  <span className='text-purple-400 font-semibold'>
+                    creative technologist
+                  </span>{' '}
+                  who helps bring ambitious ideas to life at the crossroads of
+                  technology and creativity. From leading a $500K AWS migration
+                  to replace third-party systems and avoid vendor lock-in, to
+                  crafting immersive real-time data art and visualizations — my
+                  work blends engineering rigor with creative problem-solving.
+                </p>
 
-                {/* Octahedral accent points - positioned on circular perimeter */}
-                {/* Top - 0° */}
-                <div
-                  className='absolute w-3 h-3 rotate-45 border-2 border-tech-teal bg-tech-teal/30 animate-pulse'
-                  style={{
-                    top: '8px',
-                    left: '50%',
-                    transform: 'translateX(-50%) rotate(45deg)',
-                  }}
-                ></div>
-                {/* Top-right - 45° */}
-                <div
-                  className='absolute w-3 h-3 rotate-45 border-2 border-tech-cyan bg-tech-cyan/30 animate-pulse'
-                  style={{ top: '25px', right: '25px', animationDelay: '0.2s' }}
-                ></div>
-                {/* Right - 90° */}
-                <div
-                  className='absolute w-3 h-3 rotate-45 border-2 border-tech-purple bg-tech-purple/30 animate-pulse'
-                  style={{
-                    top: '50%',
-                    right: '8px',
-                    transform: 'translateY(-50%) rotate(45deg)',
-                    animationDelay: '0.4s',
-                  }}
-                ></div>
-                {/* Bottom-right - 135° */}
-                <div
-                  className='absolute w-3 h-3 rotate-45 border-2 border-tech-teal bg-tech-teal/30 animate-pulse'
-                  style={{
-                    bottom: '25px',
-                    right: '25px',
-                    animationDelay: '0.6s',
-                  }}
-                ></div>
-                {/* Bottom - 180° */}
-                <div
-                  className='absolute w-3 h-3 rotate-45 border-2 border-tech-cyan bg-tech-cyan/30 animate-pulse'
-                  style={{
-                    bottom: '8px',
-                    left: '50%',
-                    transform: 'translateX(-50%) rotate(45deg)',
-                    animationDelay: '0.8s',
-                  }}
-                ></div>
-                {/* Bottom-left - 225° */}
-                <div
-                  className='absolute w-3 h-3 rotate-45 border-2 border-tech-purple bg-tech-purple/30 animate-pulse'
-                  style={{ bottom: '25px', left: '25px', animationDelay: '1s' }}
-                ></div>
-                {/* Left - 270° */}
-                <div
-                  className='absolute w-3 h-3 rotate-45 border-2 border-tech-teal bg-tech-teal/30 animate-pulse'
-                  style={{
-                    top: '50%',
-                    left: '8px',
-                    transform: 'translateY(-50%) rotate(45deg)',
-                    animationDelay: '1.2s',
-                  }}
-                ></div>
-                {/* Top-left - 315° */}
-                <div
-                  className='absolute w-3 h-3 rotate-45 border-2 border-tech-cyan bg-tech-cyan/30 animate-pulse'
-                  style={{ top: '25px', left: '25px', animationDelay: '1.4s' }}
-                ></div>
+                <p className='text-lg text-zinc-300 leading-relaxed mb-6'>
+                  I love making complexity approachable, whether that means
+                  developing real-time data pipelines for connecting edge
+                  devices to the cloud, optimizing infrastructure for cost and
+                  latency, or designing visuals that make data feel alive.
+                  Clients and collaborators know me for versatility: I can
+                  architect backend pipelines in the morning and prototype
+                  engaging user-facing experiences in the afternoon.
+                </p>
 
-                {/* Corner L-shaped brackets - positioned on the circle */}
-                <div
-                  className='absolute w-6 h-6 border-l-2 border-t-2 border-tech-cyan/60 animate-pulse'
-                  style={{ top: '60px', left: '60px' }}
-                ></div>
-                <div
-                  className='absolute w-6 h-6 border-r-2 border-t-2 border-tech-cyan/60 animate-pulse'
-                  style={{ top: '60px', right: '60px', animationDelay: '0.3s' }}
-                ></div>
-                <div
-                  className='absolute w-6 h-6 border-l-2 border-b-2 border-tech-cyan/60 animate-pulse'
-                  style={{
-                    bottom: '60px',
-                    left: '60px',
-                    animationDelay: '0.6s',
-                  }}
-                ></div>
-                <div
-                  className='absolute w-6 h-6 border-r-2 border-b-2 border-tech-cyan/60 animate-pulse'
-                  style={{
-                    bottom: '60px',
-                    right: '60px',
-                    animationDelay: '0.9s',
-                  }}
-                ></div>
+                <p className='text-lg text-zinc-300 leading-relaxed'>
+                  If you're tackling a project that requires both{' '}
+                  <span className='text-cyan-400 font-medium'>
+                    technical depth
+                  </span>{' '}
+                  and{' '}
+                  <span className='text-emerald-400 font-medium'>
+                    creative vision
+                  </span>
+                  , let's talk — I specialize in bridging infrastructure and
+                  imagination.
+                </p>
+              </div>
+            </div>
 
-                {/* Image container */}
-                <div className='relative w-full h-full rounded-full bg-gradient-to-br from-tech-teal/20 to-tech-cyan/20 flex items-center justify-center overflow-hidden shadow-2xl'>
+            {/* Hobbies and Interests */}
+            <div className='space-y-3 mt-12'>
+              <h3
+                className='text-2xl font-bold text-white mb-6'
+                style={{ fontFamily: 'Orbitron, sans-serif' }}
+              >
+                Beyond Code
+              </h3>
+
+              {/* Hobbies Grid */}
+              <div className='grid grid-cols-3 md:grid-cols-5 gap-4 justify-start'>
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
+                  <Music className='w-8 h-8 mb-2 text-purple-400 group-hover:scale-110 group-hover:text-purple-300 transition-all duration-300' />
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
+                    Music Production
+                  </span>
+                </div>
+
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
+                  <Gamepad2 className='w-8 h-8 mb-2 text-cyan-400 group-hover:scale-110 group-hover:text-cyan-300 transition-all duration-300' />
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
+                    Video Games
+                  </span>
+                </div>
+
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <img
-                    src='/src/assets/prof-pic-2.jpg'
-                    alt='Hartley H. Leroy - Creative Technologist & AI Engineer'
-                    className='w-full h-full object-cover'
+                    src={pickleballImage}
+                    alt='Pickleball'
+                    className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
                     style={{
-                      imageRendering: 'optimize-quality',
-                      transform: 'translateX(-20px) scale(1.2)',
+                      filter:
+                        'brightness(0) saturate(100%) invert(67%) sepia(32%) saturate(1292%) hue-rotate(124deg) brightness(91%) contrast(85%)',
                     }}
                   />
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
+                    Pickleball
+                  </span>
+                </div>
+
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
+                  <img
+                    src={hikeImage}
+                    alt='Hiking'
+                    className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
+                    style={{
+                      filter:
+                        'brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(606%) hue-rotate(359deg) brightness(99%) contrast(88%)',
+                    }}
+                  />
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
+                    Hiking
+                  </span>
+                </div>
+
+                <div className='flex flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
+                  <img
+                    src={snowboardImage}
+                    alt='Snowboarding'
+                    className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
+                    style={{
+                      filter:
+                        'brightness(0) saturate(100%) invert(59%) sepia(92%) saturate(1686%) hue-rotate(182deg) brightness(97%) contrast(94%)',
+                    }}
+                  />
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
+                    Snowboarding
+                  </span>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Bio Content */}
+          {/* Right Column - Professional Profile */}
           <motion.div
-            className='space-y-6'
+            className='flex flex-col items-center justify-start sticky top-8'
+            style={{ height: 'fit-content' }}
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className='space-y-4 text-gray-300 font-display text-lg leading-relaxed'>
-              <p>
-                I'm a{' '}
-                <span className='text-tech-neon font-semibold'>
-                  creative technologist
-                </span>{' '}
-                passionate about building intelligent systems that merge AI,
-                robotics, and data engineering. Currently at Lucid Bots, I
-                architect autonomous drone fleets with real-time machine
-                learning capabilities that revolutionize how robots perceive and
-                interact with the world.
-              </p>
+            {/* Profile Photo */}
+            <div className='relative w-72'>
+              <div className='w-72 h-72 rounded-t-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-4 shadow-xl relative overflow-hidden'>
+                {/* Animated gradient background */}
+                <div
+                  className='absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/5 to-emerald-500/10 rounded-xl animate-pulse'
+                  style={{ animationDuration: '4s' }}
+                />
+                <div className='absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent rounded-xl' />
 
-              <p>
-                My unique approach combines{' '}
-                <span className='text-tech-pink font-semibold'>
-                  creative problem-solving
-                </span>{' '}
-                with cutting-edge technology. From engineering{' '}
-                <span className='text-tech-purple font-semibold'>
-                  $500K AWS IoT infrastructures
-                </span>{' '}
-                to designing ROS2-based autonomous systems, I bridge the gap
-                between visionary concepts and production-ready solutions.
-              </p>
-
-              <p>
-                I thrive at the intersection of{' '}
-                <span className='text-tech-cyan font-semibold'>
-                  AI innovation and practical engineering
-                </span>
-                . Whether it's optimizing real-time telemetry pipelines,
-                implementing computer vision algorithms, or leading
-                cross-functional teams, I bring both technical expertise and
-                creative vision to every challenge.
-              </p>
+                <div className='relative w-full h-full overflow-hidden rounded-xl'>
+                  <div
+                    className='relative w-full h-full'
+                    style={{
+                      transform: `translate(${positionX}px, ${positionY}px) scale(${scale / 100})`,
+                      transformOrigin: 'center',
+                    }}
+                  >
+                    <img
+                      src={profileImage}
+                      alt='Hartley LeRoy - Creative Technologist'
+                      className='w-full h-full object-contain'
+                      loading='lazy'
+                    />
+                  </div>
+                  {/* Enhanced gradient overlay */}
+                  <div className='absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-xl' />
+                  <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 rounded-xl' />
+                </div>
+              </div>
             </div>
 
-            {/* Skills highlight */}
-            <motion.div
-              className='grid grid-cols-2 sm:grid-cols-3 gap-4 mt-8'
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              {[
-                'AI/ML Engineering',
-                'Robotics (ROS2)',
-                'Creative Technology',
-                'AWS IoT Architecture',
-                'Computer Vision',
-                'Autonomous Systems',
-              ].map((skill, index) => (
-                <motion.div
-                  key={skill}
-                  className='px-4 py-2 bg-tech-dark-alt border border-tech-neon/30 rounded-lg text-center'
-                  whileHover={{
-                    scale: 1.05,
-                    borderColor: '#00ffff',
-                    boxShadow: '0 0 10px rgba(0, 255, 255, 0.3)',
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                >
-                  <span className='text-sm font-cyber font-semibold text-tech-neon'>
-                    {skill}
-                  </span>
-                </motion.div>
-              ))}
-            </motion.div>
+            {/* Profile Info */}
+            <div className='w-72 text-center p-3 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl'>
+              <h3
+                className='text-xl font-semibold text-white mb-1'
+                style={{ fontFamily: 'Orbitron, sans-serif' }}
+              >
+                Hartley LeRoy
+              </h3>
 
-            {/* Personal touch */}
-            <motion.div
-              className='pt-6 border-t border-tech-neon/20'
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              <p className='text-gray-400 font-display italic'>
-                "The future belongs to those who can bridge the gap between
-                imagination and implementation."
-              </p>
-            </motion.div>
+              {/* Enhanced Location */}
+              <div className='flex items-center justify-center gap-2 text-zinc-400 text-sm'>
+                <MapPin className='w-4 h-4 text-cyan-400' />
+                <span>Charlotte, NC</span>
+              </div>
+            </div>
+
+            {/* Work Status */}
+            <div className='w-72 p-3 pb-4 rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
+              <div>
+                <div className='text-center mb-3'>
+                  <p className='text-sm font-medium text-white mb-1'>
+                    Open to opportunities
+                  </p>
+                  <p className='text-xs text-zinc-400'>
+                    Available for new projects
+                  </p>
+                </div>
+
+                {/* Status Pills */}
+                <div className='flex gap-2 justify-center mb-4'>
+                  <div className='px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-400/20 text-emerald-300 text-xs font-medium'>
+                    Freelance
+                  </div>
+                  <div className='px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-400/20 text-purple-300 text-xs font-medium'>
+                    Full-time
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Button */}
+              <div className='mt-2 -mx-3 -mb-6'>
+                <a
+                  href='#contact'
+                  className='block w-full px-4 py-3 rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold text-lg text-center transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
+                  Get In Touch
+                </a>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
-    </section>
+    </PageSection>
   )
 }
