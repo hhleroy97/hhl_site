@@ -28,6 +28,7 @@ export default function InteractiveElements({
           rel='noopener noreferrer'
           className={`flex items-center justify-center gap-3 flex-1 h-14 rounded-tl-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-purple-400/15 hover:border-purple-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-yellow-400' : ''}`}
           aria-label='GitHub profile'
+          style={{ fontFamily: 'Orbitron, sans-serif' }}
         >
           <svg className='w-7 h-7' fill='#B06AF7' viewBox='0 0 20 20'>
             <path
@@ -46,6 +47,7 @@ export default function InteractiveElements({
           rel='noopener noreferrer'
           className={`flex items-center justify-center gap-3 flex-1 h-14 bg-black/30 backdrop-blur-md border border-white/20 hover:bg-cyan-400/15 hover:border-cyan-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-magenta-400' : ''}`}
           aria-label='LinkedIn profile'
+          style={{ fontFamily: 'Orbitron, sans-serif' }}
         >
           <svg className='w-7 h-7' fill='#7BC6FF' viewBox='0 0 24 24'>
             <path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z' />
@@ -58,6 +60,7 @@ export default function InteractiveElements({
           href='mailto:hartley.leroy1997@gmail.com'
           className={`flex items-center justify-center gap-3 flex-1 h-14 rounded-tr-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-teal-400/15 hover:border-teal-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-orange-400' : ''}`}
           aria-label='Email contact'
+          style={{ fontFamily: 'Orbitron, sans-serif' }}
         >
           <svg
             className='w-7 h-7'
@@ -172,19 +175,14 @@ export default function InteractiveElements({
         <a
           href='#contact'
           className={`flex-1 h-14 px-6 bg-gradient-to-r from-purple-500 from-10% via-cyan-500 via-50% to-cyan-500 to-90% text-white font-semibold rounded-bl-xl hover:shadow-xl hover:shadow-purple-500/30 transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center border border-white/20 text-xl tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
+          style={{ fontFamily: 'Orbitron, sans-serif' }}
         >
           Get in Touch
         </a>
         <a
           href='#experience'
-          onClick={e => {
-            e.preventDefault()
-            const element = document.getElementById('experience')
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' })
-            }
-          }}
           className={`flex-1 h-14 px-6 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold rounded-br-xl hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-xl tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
+          style={{ fontFamily: 'Orbitron, sans-serif' }}
         >
           View Experience
         </a>

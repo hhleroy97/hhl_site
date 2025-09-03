@@ -25,28 +25,77 @@ const sections = [
 export default function SlideshowPortfolio() {
   const [currentSection, setCurrentSection] = useState(0)
   const [direction, setDirection] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   const navigateToSection = useCallback(
     (index: number) => {
-      if (index !== currentSection && index >= 0 && index < sections.length) {
-        setDirection(index > currentSection ? 1 : -1)
+      if (
+        index !== currentSection &&
+        index >= 0 &&
+        index < sections.length &&
+        !isTransitioning
+      ) {
+        const newDirection = index > currentSection ? 1 : -1
+        setDirection(newDirection)
+        setIsTransitioning(true)
+
+        // Immediate section change - no progressive animation
         setCurrentSection(index)
+
+        // Update URL hash
+        window.history.pushState(null, '', `#${sections[index].id}`)
+
+        // Brief transition state for framer motion animations
+        setTimeout(() => {
+          setIsTransitioning(false)
+        }, 100)
       }
     },
-    [currentSection]
+    [currentSection, isTransitioning]
+  )
+
+  // Navigate by section ID (for hash routing)
+  const navigateToSectionById = useCallback(
+    (sectionId: string) => {
+      const index = sections.findIndex(section => section.id === sectionId)
+      if (index !== -1) {
+        navigateToSection(index)
+      }
+    },
+    [navigateToSection]
   )
 
   const nextSection = useCallback(() => {
-    if (currentSection < sections.length - 1) {
+    if (currentSection < sections.length - 1 && !isTransitioning) {
       navigateToSection(currentSection + 1)
     }
-  }, [currentSection, navigateToSection])
+  }, [currentSection, navigateToSection, isTransitioning])
 
   const prevSection = useCallback(() => {
-    if (currentSection > 0) {
+    if (currentSection > 0 && !isTransitioning) {
       navigateToSection(currentSection - 1)
     }
-  }, [currentSection, navigateToSection])
+  }, [currentSection, navigateToSection, isTransitioning])
+
+  // Handle initial hash and hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1) // Remove the '#'
+      if (hash) {
+        navigateToSectionById(hash)
+      }
+    }
+
+    // Handle initial hash on mount
+    const initialHash = window.location.hash.slice(1)
+    if (initialHash) {
+      navigateToSectionById(initialHash)
+    }
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [navigateToSectionById])
 
   // Keyboard navigation
   useEffect(() => {
@@ -75,7 +124,7 @@ export default function SlideshowPortfolio() {
     const cooldownTime = 1500
 
     const handleWheel = (e: WheelEvent) => {
-      if (isScrolling) return
+      if (isScrolling || isTransitioning) return
 
       e.preventDefault()
 
@@ -99,7 +148,7 @@ export default function SlideshowPortfolio() {
 
     window.addEventListener('wheel', handleWheel, { passive: false })
     return () => window.removeEventListener('wheel', handleWheel)
-  }, [nextSection, prevSection])
+  }, [nextSection, prevSection, isTransitioning])
 
   const slideVariants = {
     enter: (direction: number) => ({
@@ -129,9 +178,11 @@ export default function SlideshowPortfolio() {
         <Navigation
           currentSection={currentSection}
           onSectionChange={navigateToSection}
+          onSectionChangeById={navigateToSectionById}
           sections={sections}
           onPrevSection={prevSection}
           onNextSection={nextSection}
+          isTransitioning={isTransitioning}
         />
       )}
 
