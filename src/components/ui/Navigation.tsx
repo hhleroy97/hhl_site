@@ -180,9 +180,9 @@ export default function Navigation({
         toSection: currentSection,
       })
 
-      // Animate the color transition over 600ms
+      // Animate the color transition over 450ms
       const startTime = Date.now()
-      const duration = 600
+      const duration = 450
 
       const animateColor = () => {
         const elapsed = Date.now() - startTime
