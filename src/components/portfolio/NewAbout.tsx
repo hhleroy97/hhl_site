@@ -18,7 +18,7 @@ export default function NewAbout() {
       taglineColor='cyan'
       title='The human behind the systems where'
       subtitle='creativity meets computation'
-      cardVariant='background'
+      cardVariant='floating'
     >
       <div className='w-full max-w-[95vw] mx-auto px-4'>
         {/* Main Content Grid */}
