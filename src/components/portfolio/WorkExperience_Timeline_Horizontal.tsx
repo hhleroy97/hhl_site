@@ -195,7 +195,7 @@ export default function WorkExperienceTimelineHorizontal() {
       taglineColor='emerald'
       title='offerings that inspire'
       subtitle=''
-      cardVariant='rotated'
+      cardVariant='floating'
     >
       <div className='max-w-7xl mx-auto px-4'>
         {/* Horizontal Timeline - Full Width */}
