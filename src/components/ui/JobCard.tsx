@@ -28,7 +28,7 @@ export default function JobCard({
     >
       {/* Company Logo Node */}
       <motion.div
-        className='w-16 h-16 rounded-full bg-white backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-2xl mb-6 shadow-xl relative z-10 group-hover:scale-110 transition-transform duration-300'
+        className='w-20 h-20 rounded-full bg-white backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-2xl mb-8 shadow-xl relative z-10 group-hover:scale-110 transition-transform duration-300'
         whileHover={{ scale: 1.15 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -42,7 +42,7 @@ export default function JobCard({
             <img
               src={logo}
               alt={`${company} logo`}
-              className='w-10 h-10 object-contain'
+              className='w-12 h-12 object-contain'
             />
           ) : (
             <span className='text-2xl'>{logo}</span>
@@ -62,7 +62,7 @@ export default function JobCard({
       </div>
 
       {/* Hover glow effect */}
-      <div className='absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 bg-gradient-to-br from-cyan-500/30 to-purple-500/30 rounded-full opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300'></div>
+      <div className='absolute top-0 left-1/2 -translate-x-1/2 w-20 h-20 bg-gradient-to-br from-cyan-500/30 to-purple-500/30 rounded-full opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300'></div>
     </motion.div>
   )
 }
