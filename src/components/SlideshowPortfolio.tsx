@@ -26,7 +26,6 @@ export default function SlideshowPortfolio() {
   const [currentSection, setCurrentSection] = useState(0)
   const [direction, setDirection] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
-  const [transitionProgress, setTransitionProgress] = useState(0)
 
   const navigateToSection = useCallback(
     (index: number) => {
@@ -39,53 +38,17 @@ export default function SlideshowPortfolio() {
         const newDirection = index > currentSection ? 1 : -1
         setDirection(newDirection)
         setIsTransitioning(true)
-        setTransitionProgress(0)
 
-        const startSection = currentSection
-        const targetSection = index
-        const distance = Math.abs(targetSection - startSection)
-        const duration = Math.min(1200 + distance * 400, 3000) // Variable duration based on distance
+        // Immediate section change - no progressive animation
+        setCurrentSection(index)
 
-        const startTime = Date.now()
+        // Update URL hash
+        window.history.pushState(null, '', `#${sections[index].id}`)
 
-        const animateTransition = () => {
-          const elapsed = Date.now() - startTime
-          const progress = Math.min(elapsed / duration, 1)
-
-          // Smooth easing function
-          const easeProgress = 1 - Math.pow(1 - progress, 3)
-          setTransitionProgress(easeProgress)
-
-          // Calculate intermediate section for smooth progression
-          const intermediateSection =
-            startSection + (targetSection - startSection) * easeProgress
-          const roundedSection =
-            newDirection > 0
-              ? Math.floor(intermediateSection)
-              : Math.ceil(intermediateSection)
-
-          // Update current section during transition
-          if (
-            roundedSection !== currentSection &&
-            roundedSection >= 0 &&
-            roundedSection < sections.length
-          ) {
-            setCurrentSection(roundedSection)
-          }
-
-          if (progress < 1) {
-            requestAnimationFrame(animateTransition)
-          } else {
-            // Complete transition
-            setCurrentSection(targetSection)
-            setIsTransitioning(false)
-            setTransitionProgress(0)
-            // Update URL hash
-            window.history.pushState(null, '', `#${sections[targetSection].id}`)
-          }
-        }
-
-        requestAnimationFrame(animateTransition)
+        // Brief transition state for framer motion animations
+        setTimeout(() => {
+          setIsTransitioning(false)
+        }, 100)
       }
     },
     [currentSection, isTransitioning]
@@ -220,7 +183,6 @@ export default function SlideshowPortfolio() {
           onPrevSection={prevSection}
           onNextSection={nextSection}
           isTransitioning={isTransitioning}
-          transitionProgress={transitionProgress}
         />
       )}
 

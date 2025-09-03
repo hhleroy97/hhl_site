@@ -10,7 +10,6 @@ interface NavigationProps {
   onPrevSection?: () => void
   onNextSection?: () => void
   isTransitioning?: boolean
-  transitionProgress?: number
 }
 
 const navItems = [
@@ -33,7 +32,6 @@ export default function Navigation({
   onPrevSection,
   onNextSection,
   isTransitioning = false,
-  transitionProgress = 0,
 }: NavigationProps = {}) {
   // Color morphing state
   const [colorTransition, setColorTransition] = useState({
@@ -67,28 +65,9 @@ export default function Navigation({
     return `rgb(${r}, ${g}, ${b})`
   }
 
-  // Get dynamic text color based on transition state (use external transition if available)
+  // Get dynamic text color based on transition state
   const getDynamicTextColor = () => {
-    const useExternalTransition = isTransitioning && transitionProgress > 0
-
-    if (useExternalTransition) {
-      // Use external transition state from SlideshowPortfolio
-      const currentColors = getSectionColors(currentSection)
-      // For smooth scrolling, we'll use a simple color interpolation based on progress
-      const nextSection =
-        currentSection + 1 < 6 ? currentSection + 1 : currentSection
-      const nextColors = getSectionColors(nextSection)
-
-      return {
-        style: {
-          color: interpolateColor(
-            currentColors.text,
-            nextColors.text,
-            transitionProgress
-          ),
-        },
-      }
-    } else if (colorTransition.isTransitioning) {
+    if (colorTransition.isTransitioning) {
       // Use internal transition state for individual section changes
       const fromColors = getSectionColors(colorTransition.fromSection)
       const toColors = getSectionColors(colorTransition.toSection)
