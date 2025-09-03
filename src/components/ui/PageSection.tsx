@@ -53,10 +53,40 @@ export default function PageSection({
             {/* Section header */}
             <div className='text-center mb-6 flex-shrink-0'>
               <h2
-                className='text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
+                className='text-4xl md:text-5xl font-bold mb-4'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
               >
-                {title}
+                {title.split(' ').map((word, index, array) => {
+                  const isLast = index === array.length - 1
+                  if (word.toLowerCase() === 'offerings') {
+                    return (
+                      <span key={index}>
+                        <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
+                          {word}
+                        </span>
+                        {!isLast && ' '}
+                      </span>
+                    )
+                  } else if (word.toLowerCase() === 'inspire') {
+                    return (
+                      <span key={index}>
+                        <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>
+                          {word}
+                        </span>
+                        {!isLast && ' '}
+                      </span>
+                    )
+                  }
+                  return (
+                    <span
+                      key={index}
+                      className='bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
+                    >
+                      {word}
+                      {!isLast && ' '}
+                    </span>
+                  )
+                })}
                 {subtitle && (
                   <>
                     <br />
@@ -73,6 +103,24 @@ export default function PageSection({
                             </span>
                           )
                         } else if (word.toLowerCase() === 'computation') {
+                          return (
+                            <span key={index}>
+                              <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>
+                                {word}
+                              </span>
+                              {!isLast && ' '}
+                            </span>
+                          )
+                        } else if (word.toLowerCase() === 'offerings') {
+                          return (
+                            <span key={index}>
+                              <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
+                                {word}
+                              </span>
+                              {!isLast && ' '}
+                            </span>
+                          )
+                        } else if (word.toLowerCase() === 'inspire') {
                           return (
                             <span key={index}>
                               <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>
