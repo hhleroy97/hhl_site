@@ -191,37 +191,55 @@ export default function WorkExperienceTimelineHorizontal() {
               {/* Year marker dots */}
               <div className='relative'>
                 <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                <span
+                  className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
                   2020
                 </span>
               </div>
               <div className='relative'>
                 <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                <span
+                  className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
                   2021
                 </span>
               </div>
               <div className='relative'>
                 <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                <span
+                  className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
                   2022
                 </span>
               </div>
               <div className='relative'>
                 <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                <span
+                  className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
                   2023
                 </span>
               </div>
               <div className='relative'>
                 <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                <span
+                  className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
                   2024
                 </span>
               </div>
               <div className='relative'>
                 <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                <span className='absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-zinc-500 font-medium'>
+                <span
+                  className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
                   2025
                 </span>
               </div>
