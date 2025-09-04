@@ -233,7 +233,7 @@ export default function ContactFooter() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className='w-full px-4 py-3 bg-gradient-to-r from-white/[0.05] to-white/[0.08] border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-purple-400/60 focus:ring-2 focus:ring-purple-400/20 focus:bg-gradient-to-r focus:from-white/[0.08] focus:to-white/[0.12] transition-all duration-300 backdrop-blur-sm text-base'
+                      className='w-full px-4 py-3 bg-black/50 border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-purple-400/60 focus:ring-2 focus:ring-purple-400/20 focus:bg-black/60 transition-all duration-300 backdrop-blur-sm text-base'
                       placeholder='Your full name'
                     />
                   </div>
@@ -247,7 +247,7 @@ export default function ContactFooter() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className='w-full px-4 py-3 bg-gradient-to-r from-white/[0.05] to-white/[0.08] border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20 focus:bg-gradient-to-r focus:from-white/[0.08] focus:to-white/[0.12] transition-all duration-300 backdrop-blur-sm text-base'
+                      className='w-full px-4 py-3 bg-black/50 border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20 focus:bg-black/60 transition-all duration-300 backdrop-blur-sm text-base'
                       placeholder='your@company.com'
                     />
                   </div>
@@ -260,7 +260,7 @@ export default function ContactFooter() {
                       value={formData.service}
                       onChange={handleChange}
                       required
-                      className='w-full px-4 py-3 bg-gradient-to-r from-white/[0.05] to-white/[0.08] border border-white/20 rounded-xl text-white focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-gradient-to-r focus:from-white/[0.08] focus:to-white/[0.12] transition-all duration-300 backdrop-blur-sm text-base'
+                      className='w-full px-4 py-3 bg-black/50 border border-white/20 rounded-xl text-white focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 backdrop-blur-sm text-base'
                     >
                       <option value='' className='bg-zinc-900 text-zinc-300'>
                         Select a service you're interested in
@@ -288,7 +288,7 @@ export default function ContactFooter() {
                     onChange={handleChange}
                     required
                     rows={3}
-                    className='w-full px-4 py-3 bg-gradient-to-r from-white/[0.05] to-white/[0.08] border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-purple-400/60 focus:ring-2 focus:ring-purple-400/20 focus:bg-gradient-to-r focus:from-white/[0.08] focus:to-white/[0.12] transition-all duration-300 backdrop-blur-sm resize-none text-base'
+                    className='w-full px-4 py-3 bg-black/50 border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-purple-400/60 focus:ring-2 focus:ring-purple-400/20 focus:bg-black/60 transition-all duration-300 backdrop-blur-sm resize-none text-base'
                     placeholder={getPlaceholderText()}
                   />
                 </div>
