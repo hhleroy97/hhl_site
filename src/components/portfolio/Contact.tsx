@@ -238,7 +238,7 @@ export default function ContactFooter() {
                       value={service.id}
                       className='bg-zinc-900 text-zinc-300'
                     >
-                      {service.name} ({service.price})
+                      {service.name}
                     </option>
                   ))}
                 </select>
