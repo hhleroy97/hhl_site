@@ -78,9 +78,9 @@ export default function Services() {
       subtitle=''
     >
       {/* Services Header */}
-      <div className='text-center mb-12 flex-shrink-0'>
+      <div className='text-center mb-6 flex-shrink-0'>
         <h2
-          className='text-4xl md:text-5xl font-bold mb-4'
+          className='text-3xl md:text-4xl font-bold mb-3'
           style={{ fontFamily: 'Orbitron, sans-serif' }}
         >
           <span className='text-white'>Professional Services</span>
@@ -89,7 +89,7 @@ export default function Services() {
             From Consultation to Delivery
           </span>
         </h2>
-        <p className='text-lg text-zinc-400 max-w-2xl mx-auto'>
+        <p className='text-base text-zinc-400 max-w-2xl mx-auto'>
           Transform your ideas into reality with expert development services.
           Start with a free consultation to discuss your project needs.
         </p>
@@ -97,7 +97,7 @@ export default function Services() {
 
       {/* Service Cards - Full Width Row */}
       <div className='w-full'>
-        <div className='flex flex-col md:flex-row gap-2 md:gap-1 h-auto md:h-[70vh] min-h-[400px]'>
+        <div className='flex flex-col md:flex-row gap-2 md:gap-1 h-auto md:h-[45vh] min-h-[350px]'>
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -118,34 +118,6 @@ export default function Services() {
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom CTA Section */}
-        <motion.div
-          className='mt-16 text-center'
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <div className='bg-black/30 backdrop-blur-md border border-white/20 rounded-lg p-8 max-w-2xl mx-auto'>
-            <h3 className='text-2xl font-bold text-white mb-4'>
-              Ready to Get Started?
-            </h3>
-            <p className='text-zinc-300 mb-6'>
-              Every project begins with understanding your unique needs. Book a
-              free 15-minute consultation to discuss your vision and get a
-              custom quote.
-            </p>
-            <motion.button
-              className='bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleServiceSelect('consultation')}
-            >
-              Schedule Free Consultation
-            </motion.button>
-          </div>
-        </motion.div>
       </div>
     </PageSection>
   )
