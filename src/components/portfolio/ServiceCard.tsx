@@ -8,6 +8,7 @@ interface ServiceCardProps {
   icon: ReactNode
   isHighlighted?: boolean
   onSelect?: () => void
+  serviceId?: string
 }
 
 export default function ServiceCard({
@@ -17,30 +18,19 @@ export default function ServiceCard({
   icon,
   isHighlighted = false,
   onSelect,
+  serviceId,
 }: ServiceCardProps) {
   return (
     <motion.div
-      className={`group relative h-full ${
+      className={`group relative h-full mx-2 ${
         isHighlighted
           ? 'bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border-2 border-purple-400/60'
           : 'bg-black/30 border border-white/20'
-      } backdrop-blur-md rounded-lg p-3 md:p-4 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden`}
-      whileHover={{
-        scale: 1.01,
-        y: -2,
-        borderColor: isHighlighted
-          ? 'rgba(147, 51, 234, 0.8)'
-          : 'rgba(255, 255, 255, 0.4)',
-        boxShadow: isHighlighted
-          ? '0 20px 40px rgba(147, 51, 234, 0.3)'
-          : '0 15px 30px rgba(0, 0, 0, 0.3)',
-        transition: { duration: 0.3, ease: 'easeOut' },
-      }}
-      onClick={onSelect}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      } backdrop-blur-md rounded-lg p-3 md:p-4 transition-all duration-300 shadow-xl hover:shadow-2xl overflow-visible`}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
     >
       {/* Enhanced depth effects */}
       <div className='absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-black/[0.05] pointer-events-none' />
@@ -58,65 +48,81 @@ export default function ServiceCard({
       />
 
       <div className='relative z-10 flex flex-col h-full'>
-        {/* Pricing - At very top */}
-        <div
-          className={`text-center mb-2 ${
-            isHighlighted ? 'text-purple-200' : 'text-cyan-400'
-          }`}
-        >
-          <div className='text-base md:text-lg font-bold'>{price}</div>
-          {price === 'FREE' && (
-            <div className='text-xs text-emerald-400 font-medium'>
-              Limited Time
-            </div>
-          )}
+        {/* Title Section */}
+        <div className='flex items-center justify-center mb-3'>
+          <h3
+            className={`text-base md:text-lg font-bold text-center ${
+              isHighlighted
+                ? 'text-white group-hover:text-purple-100'
+                : 'text-white group-hover:text-cyan-100'
+            } transition-colors whitespace-pre-line`}
+          >
+            {title}
+          </h3>
         </div>
 
-        {/* Icon - Centered */}
-        <div className='flex flex-col items-center mb-3'>
+        {/* Icon and Description Container - Takes remaining space */}
+        <div className='flex flex-col flex-grow justify-center items-center mb-3 space-y-4'>
+          {/* Icon - Fixed position */}
           <div
             className={`flex items-center justify-center w-12 h-12 rounded-lg ${
               isHighlighted
                 ? 'bg-gradient-to-r from-purple-500 to-cyan-500'
                 : 'bg-gradient-to-r from-purple-500/60 to-cyan-500/60'
-            } text-white text-xl`}
+            } text-white text-xl flex-shrink-0`}
           >
-            {icon}
+            <div className='flex items-center justify-center w-full h-full'>
+              {icon}
+            </div>
           </div>
+
+          {/* Description */}
+          <p className='text-xs md:text-sm text-zinc-300 leading-snug text-center px-2 flex-grow flex items-center'>
+            {description}
+          </p>
         </div>
 
-        {/* Title */}
-        <h3
-          className={`text-base md:text-lg font-bold mb-2 text-center ${
-            isHighlighted
-              ? 'text-white group-hover:text-purple-100'
-              : 'text-white group-hover:text-cyan-100'
-          } transition-colors`}
-        >
-          {title}
-        </h3>
+        {/* Pricing and CTA Section - Fixed at bottom */}
+        <div className='flex flex-col items-center space-y-2 mt-auto'>
+          {/* Pricing */}
+          <div
+            className={`text-center ${
+              isHighlighted ? 'text-purple-200' : 'text-cyan-400'
+            }`}
+          >
+            <div className='text-base md:text-lg font-bold'>{price}</div>
+            {price === 'FREE' && (
+              <div className='text-xs text-emerald-400 font-medium'>
+                Limited Time
+              </div>
+            )}
+          </div>
 
-        {/* Description */}
-        <p className='text-xs md:text-sm text-zinc-300 leading-snug flex-grow mb-3 text-center'>
-          {description}
-        </p>
-
-        {/* CTA Button */}
-        <motion.button
-          className={`w-full py-2 px-3 rounded-lg font-medium text-xs md:text-sm transition-all duration-300 ${
-            isHighlighted
-              ? 'bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-white'
-              : 'bg-white/10 hover:bg-white/20 text-white border border-white/30 hover:border-white/50'
-          }`}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          {price === 'FREE' ? 'Schedule Free Call' : 'Get Quote'}
-        </motion.button>
+          {/* CTA Button */}
+          <motion.button
+            className={`w-full py-2 px-3 rounded-lg font-medium text-xs md:text-sm transition-all duration-300 ${
+              isHighlighted
+                ? 'bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-white'
+                : 'bg-white/10 hover:bg-white/20 text-white border border-white/30 hover:border-white/50'
+            }`}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={e => {
+              e.stopPropagation()
+              onSelect?.()
+            }}
+          >
+            {price === 'FREE'
+              ? 'Schedule Free Call'
+              : serviceId === 'advisory'
+                ? 'Request Call'
+                : 'Get Quote'}
+          </motion.button>
+        </div>
 
         {/* Highlight indicator for free consultation */}
         {isHighlighted && (
-          <div className='absolute -top-2 -right-2'>
+          <div className='absolute -top-8 -right-8 z-50'>
             <div className='bg-gradient-to-r from-purple-500 to-cyan-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg'>
               POPULAR
             </div>
