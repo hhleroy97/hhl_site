@@ -177,42 +177,6 @@ const skillCategories = [
   },
 ]
 
-const StarRating = ({ rating }: { rating: number }) => {
-  const stars = []
-  for (let i = 1; i <= 3; i++) {
-    if (i <= rating) {
-      stars.push(
-        <span key={i} className='text-yellow-400'>
-          ★
-        </span>
-      )
-    } else if (i - 0.5 <= rating) {
-      stars.push(
-        <span key={i} className='text-yellow-400 relative'>
-          <span className='absolute inset-0 overflow-hidden w-1/2'>★</span>
-          <span className='text-zinc-600'>★</span>
-        </span>
-      )
-    } else {
-      stars.push(
-        <span key={i} className='text-zinc-600'>
-          ★
-        </span>
-      )
-    }
-  }
-  return <div className='flex text-sm'>{stars}</div>
-}
-
-const getEndorsementBadge = (count: number) => {
-  if (count === 0) return null
-  return (
-    <div className='bg-gradient-to-r from-purple-500 to-cyan-500 text-white text-xs rounded px-1 font-bold'>
-      {count}
-    </div>
-  )
-}
-
 export default function SkillsTools() {
   const [activeCategory, setActiveCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -483,28 +447,18 @@ export default function SkillsTools() {
                         }}
                         whileHover={{ scale: 1.02 }}
                       >
-                        {/* Header with icon and endorsement */}
-                        <div className='flex items-center justify-between mb-2'>
+                        {/* Header with icon */}
+                        <div className='flex items-center mb-3'>
                           <IconWrapper
                             IconComponent={skill.IconComponent}
                             size={18}
                           />
-                          {skill.endorsements > 0 &&
-                            getEndorsementBadge(skill.endorsements)}
                         </div>
 
                         {/* Skill Name */}
-                        <h4 className='text-sm font-semibold text-white mb-2 leading-tight'>
+                        <h4 className='text-sm font-semibold text-white leading-tight'>
                           {skill.name}
                         </h4>
-
-                        {/* Rating and Category */}
-                        <div className='flex items-center justify-between'>
-                          <StarRating rating={skill.stars} />
-                          <span className='text-xs text-zinc-400'>
-                            {skill.category}
-                          </span>
-                        </div>
                       </motion.div>
                     ))}
                   </div>
