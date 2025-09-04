@@ -551,6 +551,28 @@ export default function SkillsTools() {
           </div>
         </motion.div>
 
+        {/* All Skills Button - Top Left */}
+        <motion.div
+          className='mb-4 flex justify-start'
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <motion.button
+            onClick={() => setActiveCategory('all')}
+            className={`px-3 py-2 rounded-md transition-all duration-300 text-xs flex items-center gap-2 whitespace-nowrap ${
+              activeCategory === 'all'
+                ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
+                : 'bg-black/30 border border-white/20 text-zinc-300 hover:bg-white/10'
+            }`}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            🔍 All Skills ({totalSkills})
+          </motion.button>
+        </motion.div>
+
         {/* Main Content Layout */}
         <div className='flex gap-4'>
           {/* Category Sidebar */}
@@ -560,20 +582,8 @@ export default function SkillsTools() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            style={{ minHeight: '28rem' }}
+            style={{ minHeight: '20rem' }}
           >
-            <motion.button
-              onClick={() => setActiveCategory('all')}
-              className={`px-2 py-1 rounded-md transition-all duration-300 text-xs text-left whitespace-nowrap ${
-                activeCategory === 'all'
-                  ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
-                  : 'bg-black/30 border border-white/20 text-zinc-300 hover:bg-white/10'
-              }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              🔍 All Skills ({totalSkills})
-            </motion.button>
             {skillCategories.map(category => {
               const categorySkillCount = category.skills.length
               return (
@@ -598,7 +608,7 @@ export default function SkillsTools() {
           </motion.div>
 
           {/* Skills Table and Radar Chart */}
-          <div className='flex-1 flex gap-4' style={{ minHeight: '28rem' }}>
+          <div className='flex-1 flex gap-4' style={{ minHeight: '20rem' }}>
             {/* Skills Table */}
             <div className='flex-1'>
               <AnimatePresence mode='wait'>
@@ -609,7 +619,7 @@ export default function SkillsTools() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4 }}
-                  style={{ minHeight: '28rem' }}
+                  style={{ minHeight: '20rem' }}
                 >
                   {/* Skills Grid */}
                   <div className='p-4 flex-1'>
@@ -711,7 +721,7 @@ export default function SkillsTools() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              style={{ minHeight: '28rem' }}
+              style={{ minHeight: '20rem' }}
             >
               <h3 className='text-sm font-bold text-white mb-3 text-center'>
                 Skill Overview
