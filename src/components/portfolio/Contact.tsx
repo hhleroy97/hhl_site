@@ -223,7 +223,12 @@ export default function ContactFooter() {
 
                   {/* Status and tagline inline */}
                   <div className='text-xs text-zinc-400 flex items-center gap-2'>
-                    <span>Building the future, one system at a time</span>
+                    <span>
+                      Infrastructure, intelligence, and interactivity—
+                      <span className='bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent font-medium'>
+                        wired together
+                      </span>
+                    </span>
                     <div className='flex gap-1'>
                       <div className='w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse'></div>
                       <div
