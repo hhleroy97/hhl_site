@@ -204,22 +204,6 @@ export default function ContactFooter() {
             <div className='absolute -bottom-32 -left-32 w-64 h-64 bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl pointer-events-none group-hover:from-cyan-500/30 group-hover:to-purple-500/30 transition-all duration-700' />
             <div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-400/60 through-cyan-400/60 to-transparent group-hover:via-purple-400/80 group-hover:through-cyan-400/80 transition-all duration-300' />
             <div className='relative z-10'>
-              {/* Form Header */}
-              <div className='text-center mb-6'>
-                <h3
-                  className='text-xl md:text-2xl font-bold text-white mb-2'
-                  style={{ fontFamily: 'Orbitron, sans-serif' }}
-                >
-                  <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
-                    Start Your Project
-                  </span>
-                </h3>
-                <p className='text-zinc-400 text-base max-w-lg mx-auto'>
-                  Tell me about your vision and I'll get back to you within 24
-                  hours with next steps.
-                </p>
-              </div>
-
               <form onSubmit={handleSubmit} className='space-y-4'>
                 {/* Professional Form Grid */}
                 <div className='grid md:grid-cols-3 gap-4'>
@@ -287,7 +271,7 @@ export default function ContactFooter() {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={3}
+                    rows={6}
                     className='w-full px-4 py-3 bg-black/50 border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-purple-400/60 focus:ring-2 focus:ring-purple-400/20 focus:bg-black/60 transition-all duration-300 backdrop-blur-sm resize-none text-base'
                     placeholder={getPlaceholderText()}
                   />
