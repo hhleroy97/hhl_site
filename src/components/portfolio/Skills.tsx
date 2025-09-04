@@ -369,15 +369,15 @@ export default function SkillsTools() {
       <div className='w-full px-4'>
         {/* Top Bar - Search Only */}
         <motion.div
-          className='mb-4'
+          className='mb-4 flex justify-center'
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           {/* Search Bar */}
-          <div className='relative'>
-            <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+          <div className='relative max-w-md w-full'>
+            <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none'>
               <svg
                 className='h-4 w-4 text-zinc-400'
                 fill='none'
@@ -397,7 +397,7 @@ export default function SkillsTools() {
               placeholder='Search skills...'
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className='w-full pl-9 pr-4 py-2 bg-black/30 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm text-sm'
+              className='w-full pl-10 pr-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/15 hover:bg-white/15 transition-all duration-300 text-sm'
             />
           </div>
         </motion.div>
