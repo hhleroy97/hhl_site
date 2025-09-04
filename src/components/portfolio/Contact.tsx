@@ -75,14 +75,14 @@ export default function ContactFooter() {
         className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
       >
         <div className='max-w-7xl mx-auto w-full px-4'>
-          <div className='relative bg-gradient-to-br from-white/[0.08] via-black/50 to-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/20 p-8 shadow-2xl overflow-hidden min-h-[600px] flex items-center'>
+          <div className='relative bg-gradient-to-br from-white/[0.08] via-black/50 to-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/20 p-6 shadow-2xl overflow-hidden min-h-[500px] flex items-center'>
             {/* Glassmorphism effects */}
             <div className='absolute inset-0 bg-gradient-to-br from-emerald-500/[0.03] via-transparent to-teal-500/[0.03] pointer-events-none' />
             <div className='absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl pointer-events-none' />
             <div className='absolute -bottom-32 -left-32 w-64 h-64 bg-gradient-to-tr from-teal-500/10 to-emerald-500/10 rounded-full blur-3xl pointer-events-none' />
 
             {submitStatus === 'success' ? (
-              <div className='relative z-10 text-center w-full py-12'>
+              <div className='relative z-10 text-center w-full py-8'>
                 <div className='mb-6'>
                   <div className='w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4'>
                     <svg
@@ -126,7 +126,7 @@ export default function ContactFooter() {
             ) : (
               <form onSubmit={handleSubmit} className='relative z-10 w-full'>
                 {/* Form Fields in Row Layout */}
-                <div className='space-y-6 mb-8'>
+                <div className='space-y-5 mb-6'>
                   {/* Name and Email Row */}
                   <div className='grid grid-cols-2 gap-6'>
                     {/* First Name */}
@@ -231,7 +231,7 @@ export default function ContactFooter() {
                 </div>
 
                 {/* Message Field - Full Width Below */}
-                <div className='mb-8'>
+                <div className='mb-6'>
                   <label className='text-zinc-300 text-base font-medium block mb-3'>
                     Message
                   </label>
