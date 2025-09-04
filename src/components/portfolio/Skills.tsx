@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import PageSection from '../ui/PageSection'
 // Technology-specific icons from react-icons
 import {
-  SiReact,
   SiVuedotjs,
   SiJavascript,
   SiTypescript,
@@ -27,33 +26,44 @@ import {
   SiProcessingfoundation,
   SiMidi,
   SiC,
-  SiJupyter,
-  SiPandas,
   SiNumpy,
   SiPytorch,
+  SiJira,
+  SiGithub,
+} from 'react-icons/si'
+import { MdFlightTakeoff } from 'react-icons/md'
+import { VscVscode } from 'react-icons/vsc'
+import {
+  SiGit,
+  SiGitlab,
+  SiBitbucket,
+  SiJest,
+  SiReact,
+  SiFigma,
+  SiAdobexd,
+  SiTrello,
+  SiBlender,
+  SiArduino,
+  SiRaspberrypi,
 } from 'react-icons/si'
 // Fallback Lucide icons for skills without specific tech icons
 import {
   Users,
   Target,
-  Palette,
   Rocket,
   Globe,
   Cpu,
   Monitor,
   Terminal,
   GitBranch,
-  Zap,
   Eye,
   Network,
   Wifi,
-  Crown,
   Mic,
   MessageCircle,
   Lightbulb,
   Handshake,
   Search,
-  Crosshair,
   BookOpen,
   FileText,
   Clipboard,
@@ -64,15 +74,28 @@ import {
   Brush,
   Sparkles,
   Waves,
-  Signal,
   ChevronLeft,
   ChevronRight,
+  Gamepad2,
+  Award,
+  BarChart3,
+  Calculator,
+  Mail,
+  Brain,
+  AlertTriangle,
+  Music,
+  Zap,
+  DollarSign,
+  Presentation,
+  Database,
+  Code,
+  Palette,
 } from 'lucide-react'
 
 const skillCategories = [
   {
-    id: 'fullstack',
-    title: 'Full Stack',
+    id: 'softwaredev',
+    title: 'Software Development',
     IconComponent: Rocket,
     color: 'from-purple-400 to-cyan-500',
     skills: [
@@ -92,14 +115,6 @@ const skillCategories = [
       { name: 'Linux', endorsements: 0, stars: 2.5 },
       { name: 'Three.js', endorsements: 0, stars: 2 },
       { name: 'WebGL', endorsements: 0, stars: 2 },
-    ],
-  },
-  {
-    id: 'clouddata',
-    title: 'Cloud & Data',
-    IconComponent: Globe,
-    color: 'from-cyan-400 to-teal-500',
-    skills: [
       { name: 'AWS', endorsements: 0, stars: 2.5 },
       { name: 'IoT Core', endorsements: 0, stars: 2.5 },
       { name: 'Lambda', endorsements: 0, stars: 2.5 },
@@ -107,7 +122,14 @@ const skillCategories = [
       { name: 'Data Analysis', endorsements: 0, stars: 3 },
       { name: 'Data Science', endorsements: 0, stars: 2.5 },
       { name: 'Machine Learning', endorsements: 1, stars: 2.5 },
+      { name: 'TensorFlow', endorsements: 0, stars: 2 },
+      { name: 'AI', endorsements: 0, stars: 2.5 },
+      { name: 'Cursor', endorsements: 0, stars: 2.5 },
+      { name: 'Claude Code', endorsements: 0, stars: 2.5 },
+      { name: 'GitHub', endorsements: 0, stars: 3 },
+      { name: 'VS Code', endorsements: 0, stars: 3 },
       { name: 'Computer Vision', endorsements: 0, stars: 2.5 },
+      { name: 'OpenCV', endorsements: 0, stars: 2.5 },
       { name: 'Neural Networks', endorsements: 0, stars: 2.5 },
       { name: 'SQL', endorsements: 0, stars: 2.5 },
       { name: 'Data Pipelines', endorsements: 0, stars: 2 },
@@ -116,6 +138,62 @@ const skillCategories = [
       { name: 'ROS2', endorsements: 0, stars: 3 },
       { name: 'MQTT', endorsements: 0, stars: 2.5 },
       { name: 'Telemetry', endorsements: 0, stars: 2.5 },
+      { name: 'OTA Updates', endorsements: 0, stars: 2.5 },
+      { name: 'Robotic Systems', endorsements: 0, stars: 3 },
+      { name: 'Documentation', endorsements: 0, stars: 2.5 },
+      { name: 'R&D', endorsements: 0, stars: 3 },
+      { name: 'Wireless Comms', endorsements: 0, stars: 2.5 },
+      { name: 'Digital Signal Processing', endorsements: 1, stars: 2.5 },
+      { name: 'Beautiful Soup', endorsements: 0, stars: 2 },
+      { name: 'Selenium', endorsements: 0, stars: 2 },
+      { name: 'Git', endorsements: 0, stars: 3 },
+      { name: 'GitLab', endorsements: 0, stars: 2.5 },
+      { name: 'Bitbucket', endorsements: 0, stars: 2.5 },
+      { name: 'Jest', endorsements: 0, stars: 2 },
+      { name: 'Unit Testing', endorsements: 0, stars: 2.5 },
+      { name: 'Integration Testing', endorsements: 0, stars: 2 },
+      { name: 'MongoDB', endorsements: 0, stars: 2 },
+      { name: 'PostgreSQL', endorsements: 0, stars: 2 },
+      { name: 'Redis', endorsements: 0, stars: 2 },
+      { name: 'Firebase', endorsements: 0, stars: 2 },
+      { name: 'Express.js', endorsements: 0, stars: 2.5 },
+      { name: 'Django', endorsements: 0, stars: 2 },
+      { name: 'Flask', endorsements: 0, stars: 2 },
+      { name: 'FastAPI', endorsements: 0, stars: 2 },
+      { name: 'React Native', endorsements: 0, stars: 2 },
+      { name: 'Figma', endorsements: 0, stars: 2.5 },
+      { name: 'Adobe XD', endorsements: 0, stars: 2 },
+    ],
+  },
+  {
+    id: 'projectmgmt',
+    title: 'Project Mgmt',
+    IconComponent: Target,
+    color: 'from-emerald-400 to-blue-500',
+    skills: [
+      { name: 'Agile', endorsements: 0, stars: 2.5 },
+      { name: 'Notion', endorsements: 0, stars: 2 },
+      { name: 'Jira', endorsements: 0, stars: 2.5 },
+      { name: 'Sprint Planning', endorsements: 0, stars: 2.5 },
+      { name: 'Scrum', endorsements: 0, stars: 2.5 },
+      { name: 'Team Coordination', endorsements: 0, stars: 2.5 },
+      { name: 'Kanban', endorsements: 0, stars: 2.5 },
+      { name: 'Lean', endorsements: 0, stars: 2 },
+      { name: 'Waterfall', endorsements: 0, stars: 2 },
+      { name: 'Hybrid', endorsements: 0, stars: 2 },
+      { name: 'Trello', endorsements: 0, stars: 2.5 },
+      { name: 'Risk Management', endorsements: 0, stars: 2.5 },
+      { name: 'Resource Planning', endorsements: 0, stars: 2.5 },
+      { name: 'Budget Management', endorsements: 0, stars: 2 },
+      { name: 'Stakeholder Management', endorsements: 0, stars: 2.5 },
+      { name: 'Client Relations', endorsements: 0, stars: 2.5 },
+      { name: 'Vendor Management', endorsements: 0, stars: 2 },
+      { name: 'Technical Writing', endorsements: 0, stars: 2.5 },
+      { name: 'Process Documentation', endorsements: 0, stars: 2.5 },
+      { name: 'SOPs', endorsements: 0, stars: 2 },
+      { name: 'Project Metrics', endorsements: 0, stars: 2 },
+      { name: 'KPI Tracking', endorsements: 0, stars: 2 },
+      { name: 'Performance Analysis', endorsements: 0, stars: 2 },
     ],
   },
   {
@@ -126,59 +204,62 @@ const skillCategories = [
     skills: [
       { name: 'Team Leadership', endorsements: 8, stars: 3 },
       { name: 'Public Speaking', endorsements: 8, stars: 2.5 },
-      { name: 'Communication', endorsements: 1, stars: 3 },
-      { name: 'Creative Problem', endorsements: 1, stars: 3 },
-      { name: 'Collaborative', endorsements: 2, stars: 3 },
-      { name: 'Detail Oriented', endorsements: 3, stars: 3 },
-      { name: 'Cross-func Lead', endorsements: 0, stars: 2.5 },
-      { name: 'Coordination', endorsements: 0, stars: 2.5 },
+      { name: 'Cross-functional Communication', endorsements: 1, stars: 3 },
+      { name: 'Creative Problem Solving', endorsements: 1, stars: 3 },
+      { name: 'Team Collaboration', endorsements: 2, stars: 3 },
+      { name: 'Attention to Detail', endorsements: 3, stars: 3 },
       { name: 'Knowledge Mgmt', endorsements: 0, stars: 2.5 },
       { name: 'Peer Tutoring', endorsements: 1, stars: 2.5 },
       { name: 'Presentations', endorsements: 0, stars: 2.5 },
-    ],
-  },
-  {
-    id: 'projectmgmt',
-    title: 'Project Mgmt',
-    IconComponent: Target,
-    color: 'from-emerald-400 to-blue-500',
-    skills: [
-      { name: 'Project Mgmt', endorsements: 0, stars: 2.5 },
-      { name: 'Agile', endorsements: 0, stars: 2.5 },
-      { name: 'Research', endorsements: 0, stars: 3 },
-      { name: 'Tech Writing', endorsements: 0, stars: 2.5 },
-      { name: 'Tech Docs', endorsements: 0, stars: 2.5 },
-      { name: 'Notion', endorsements: 0, stars: 2 },
-      { name: 'Drone Piloting', endorsements: 0, stars: 2.5 },
-      { name: 'Drones', endorsements: 0, stars: 2.5 },
-      { name: 'Robot Systems', endorsements: 0, stars: 3 },
-      { name: 'OTA Updates', endorsements: 0, stars: 2.5 },
+      { name: 'Academic Writing', endorsements: 0, stars: 2.5 },
+      { name: 'Excel', endorsements: 0, stars: 2.5 },
+      { name: 'PowerPoint', endorsements: 0, stars: 2.5 },
+      { name: 'Word', endorsements: 0, stars: 2.5 },
+      { name: 'Google Sheets', endorsements: 0, stars: 2.5 },
+      { name: 'Google Slides', endorsements: 0, stars: 2.5 },
+      { name: 'Strategic Thinking', endorsements: 0, stars: 2.5 },
+      { name: 'Root Cause Analysis', endorsements: 0, stars: 2.5 },
+      { name: 'Design Thinking', endorsements: 0, stars: 2 },
+      { name: 'Innovation', endorsements: 0, stars: 2.5 },
+      { name: 'Change Management', endorsements: 0, stars: 2 },
+      { name: 'Learning Agility', endorsements: 0, stars: 2.5 },
+      { name: 'Resilience', endorsements: 0, stars: 2.5 },
     ],
   },
   {
     id: 'creative',
-    title: 'Creative',
-    IconComponent: Palette,
+    title: 'Other',
+    IconComponent: Sparkles,
     color: 'from-blue-400 to-purple-500',
     skills: [
       { name: 'Digital Art', endorsements: 0, stars: 2 },
       { name: 'Music Production', endorsements: 1, stars: 2.5 },
-      { name: 'Creativity', endorsements: 4, stars: 3 },
       { name: 'TouchDesigner', endorsements: 0, stars: 2.5 },
       { name: 'R3F', endorsements: 0, stars: 2 },
       { name: 'Kinect', endorsements: 0, stars: 2 },
       { name: 'MIDI', endorsements: 0, stars: 2.5 },
       { name: 'Processing', endorsements: 0, stars: 2 },
       { name: 'Shaders', endorsements: 0, stars: 2 },
-      { name: 'Wireless Comms', endorsements: 0, stars: 2.5 },
-      { name: 'Signal Processing', endorsements: 0, stars: 2.5 },
-      { name: 'DSP', endorsements: 1, stars: 2.5 },
+      { name: 'Drone Piloting', endorsements: 0, stars: 2.5 },
+      { name: 'Drones', endorsements: 0, stars: 2.5 },
+      { name: 'Part 107 License', endorsements: 0, stars: 3 },
+      { name: 'Blender', endorsements: 0, stars: 2 },
+      { name: 'Adobe Photoshop', endorsements: 0, stars: 2 },
+      { name: 'Adobe Illustrator', endorsements: 0, stars: 2 },
+      { name: 'Photo Editing', endorsements: 0, stars: 2.5 },
+      { name: 'FL Studio', endorsements: 0, stars: 2 },
+      { name: 'Ableton Live', endorsements: 0, stars: 2 },
+      { name: 'Sound Design', endorsements: 0, stars: 2.5 },
+      { name: 'Composition', endorsements: 0, stars: 2.5 },
+      { name: 'Arduino', endorsements: 0, stars: 2.5 },
+      { name: 'Raspberry Pi', endorsements: 0, stars: 2.5 },
+      { name: 'Component Selection', endorsements: 0, stars: 2.5 },
     ],
   },
 ]
 
 export default function SkillsTools() {
-  const [activeCategory, setActiveCategory] = useState('all')
+  const [activeCategory, setActiveCategory] = useState('softwaredev')
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(0)
 
@@ -190,26 +271,39 @@ export default function SkillsTools() {
 
     // Technology-specific brand colors
     const colorMap: { [key: string]: string } = {
-      SiReact: '#61DAFB', // React cyan
-      SiVuedotjs: '#4FC08D', // Vue green
-      SiJavascript: '#F7DF1E', // JavaScript yellow
-      SiTypescript: '#3178C6', // TypeScript blue
-      SiHtml5: '#E34F26', // HTML5 orange
-      SiCss3: '#1572B6', // CSS3 blue
-      SiPython: '#3776AB', // Python blue
-      SiNodedotjs: '#339933', // Node.js green
-      SiDocker: '#2496ED', // Docker blue
-      SiLinux: '#FCC624', // Linux yellow
-      SiAmazon: '#FF9900', // AWS orange
-      SiTensorflow: '#FF6F00', // TensorFlow orange
-      SiOpencv: '#5C3EE8', // OpenCV purple
-      SiPytorch: '#EE4C2C', // PyTorch red
-      SiMysql: '#4479A1', // MySQL blue
-      SiMqtt: '#660066', // MQTT purple
-      SiRos: '#22314E', // ROS dark blue
-      SiNotion: '#000000', // Notion black
-      SiC: '#A8B9CC', // C language gray-blue
-      SiThreedotjs: '#000000', // Three.js black
+      SiReact: '#ffffff', // React white
+      SiVuedotjs: '#ffffff', // Vue white
+      SiJavascript: '#ffffff', // JavaScript white
+      SiTypescript: '#ffffff', // TypeScript white
+      SiHtml5: '#ffffff', // HTML5 white
+      SiCss3: '#ffffff', // CSS3 white
+      SiPython: '#ffffff', // Python white
+      SiNodedotjs: '#ffffff', // Node.js white
+      SiDocker: '#ffffff', // Docker white
+      SiLinux: '#ffffff', // Linux white
+      SiAmazon: '#ffffff', // AWS white
+      SiTensorflow: '#ffffff', // TensorFlow white
+      SiOpencv: '#ffffff', // OpenCV white
+      SiPytorch: '#ffffff', // PyTorch white
+      SiMysql: '#ffffff', // MySQL white
+      SiMqtt: '#ffffff', // MQTT white
+      SiRos: '#ffffff', // ROS2 white
+      SiNotion: '#ffffff', // Notion white
+      SiC: '#ffffff', // C language white
+      SiThreedotjs: '#ffffff', // Three.js white
+
+      // New specific icon colors
+      SiGit: '#ffffff', // Git white
+      SiGitlab: '#ffffff', // GitLab white
+      SiBitbucket: '#ffffff', // Bitbucket white
+      SiJest: '#ffffff', // Jest white
+      SiFigma: '#ffffff', // Figma white
+      SiAdobexd: '#ffffff', // Adobe XD white
+      SiTrello: '#ffffff', // Trello white
+      SiBlender: '#ffffff', // Blender white
+      SiArduino: '#ffffff', // Arduino white
+      SiRaspberrypi: '#ffffff', // Raspberry Pi white
+      SiSelenium: '#ffffff', // Selenium white
     }
 
     return colorMap[iconName] || '#ffffff' // Default to white for unmatched icons
@@ -262,11 +356,18 @@ export default function SkillsTools() {
 
       // Data & Analytics
       SQL: SiMysql,
-      'Machine Learning': SiTensorflow,
-      'Computer Vision': SiOpencv,
+      'Machine Learning': Brain,
+      TensorFlow: SiTensorflow,
+      AI: Brain,
+      Cursor: Brain,
+      'Claude Code': Brain,
+      GitHub: SiGithub,
+      'VS Code': VscVscode,
+      'Computer Vision': Eye,
+      OpenCV: SiOpencv,
       'Neural Networks': SiPytorch,
-      'Data Science': SiJupyter,
-      'Data Analysis': SiPandas,
+      'Data Science': BarChart3,
+      'Data Analysis': Calculator,
       'Statistical Analysis': SiNumpy,
 
       // Communication & IoT
@@ -282,7 +383,8 @@ export default function SkillsTools() {
 
       // Productivity & Management
       Notion: SiNotion,
-      'Tech Docs': FileCode,
+      Jira: SiJira,
+      Documentation: FileCode,
       'Project Mgmt': Clipboard,
 
       // Fallback Lucide icons for skills without specific tech icons
@@ -292,32 +394,100 @@ export default function SkillsTools() {
       'IoT Core': Wifi,
       'Data Pipelines': GitBranch,
       'Image Processing': Eye,
-      Telemetry: Signal,
-      'Team Leadership': Crown,
+      Telemetry: Mail,
+      'Team Leadership': Users,
       'Public Speaking': Mic,
       Communication: MessageCircle,
-      'Creative Problem': Lightbulb,
-      Collaborative: Handshake,
-      'Detail Oriented': Search,
-      'Cross-func Lead': Target,
-      Coordination: Network,
-      'Knowledge Mgmt': BookOpen,
-      'Peer Tutoring': Users,
-      Presentations: Monitor,
+      'Creative Problem Solving': Lightbulb,
+      'Team Collaboration': Handshake,
+      'Attention to Detail': Search,
+      'Cross-functional Communication': MessageCircle,
+      'Team Coordination': Network,
+      'Knowledge Mgmt': FileText,
+      'Peer Tutoring': BookOpen,
+      Presentations: Presentation,
       Agile: RotateCcw,
-      Research: Microscope,
-      'Tech Writing': FileText,
-      'Drone Piloting': Crosshair,
-      Drones: Zap,
-      'Robot Systems': Cpu,
+      'Sprint Planning': Target,
+      Scrum: Users,
+      'R&D': Microscope,
+      'Academic Writing': FileText,
+      'Drone Piloting': Gamepad2,
+      Drones: MdFlightTakeoff,
+      'Part 107 License': Award,
+      'Robotic Systems': Cpu,
       'OTA Updates': Smartphone,
       'Digital Art': Brush,
-      Creativity: Sparkles,
       R3F: SiThreedotjs,
       Shaders: Sparkles,
       'Wireless Comms': Wifi,
-      'Signal Processing': Waves,
-      DSP: Signal,
+      'Digital Signal Processing': Waves,
+
+      // New Software Development Skills
+      'Beautiful Soup': Brain,
+      Selenium: Brain,
+      Git: SiGit,
+      GitLab: SiGitlab,
+      Bitbucket: SiBitbucket,
+      Jest: SiJest,
+      'Unit Testing': Brain,
+      'Integration Testing': Brain,
+      MongoDB: Database,
+      PostgreSQL: Database,
+      Redis: Database,
+      Firebase: Database,
+      'Express.js': Code,
+      Django: Code,
+      Flask: Code,
+      FastAPI: Code,
+      'React Native': Smartphone,
+      Figma: SiFigma,
+      'Adobe XD': SiAdobexd,
+
+      // New Project Management Skills
+      Kanban: RotateCcw,
+      Lean: Zap,
+      Waterfall: Waves,
+      Hybrid: RotateCcw,
+      Trello: SiTrello,
+      'Risk Management': AlertTriangle,
+      'Resource Planning': Users,
+      'Budget Management': DollarSign,
+      'Stakeholder Management': Users,
+      'Client Relations': Handshake,
+      'Vendor Management': Users,
+      'Technical Writing': FileText,
+      'Process Documentation': FileText,
+      SOPs: FileText,
+      'Project Metrics': BarChart3,
+      'KPI Tracking': Target,
+      'Performance Analysis': BarChart3,
+
+      // New Soft Skills
+      Excel: Calculator,
+      PowerPoint: Monitor,
+      Word: FileText,
+      'Google Sheets': Calculator,
+      'Google Slides': Monitor,
+      'Strategic Thinking': Brain,
+      'Root Cause Analysis': Search,
+      'Design Thinking': Lightbulb,
+      Innovation: Sparkles,
+      'Change Management': RotateCcw,
+      'Learning Agility': Brain,
+      Resilience: Zap,
+
+      // New Creative Skills
+      Blender: SiBlender,
+      'Adobe Photoshop': Palette,
+      'Adobe Illustrator': Palette,
+      'Photo Editing': Eye,
+      'FL Studio': Music,
+      'Ableton Live': Music,
+      'Sound Design': Music,
+      Composition: Music,
+      Arduino: SiArduino,
+      'Raspberry Pi': SiRaspberrypi,
+      'Component Selection': Search,
     }
     return iconMap[skillName] || Terminal
   }
@@ -333,14 +503,16 @@ export default function SkillsTools() {
   )
 
   // Filter skills based on active category and search query
-  const filteredSkills = allSkills.filter(skill => {
-    const matchesCategory =
-      activeCategory === 'all' || skill.categoryId === activeCategory
-    const matchesSearch = skill.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase())
-    return matchesCategory && matchesSearch
-  })
+  const filteredSkills = allSkills
+    .filter(skill => {
+      const matchesCategory =
+        activeCategory === 'all' || skill.categoryId === activeCategory
+      const matchesSearch = skill.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
+      return matchesCategory && matchesSearch
+    })
+    .sort((a, b) => a.name.localeCompare(b.name))
 
   // Reset page when filters change
   useEffect(() => {
@@ -354,7 +526,31 @@ export default function SkillsTools() {
     (currentPage + 1) * SKILLS_PER_PAGE
   )
 
-  const totalSkills = allSkills.length
+  // Get animation delay - diagonal fan-out for full pages, sequential for partial pages
+  const getAnimationDelay = (index: number) => {
+    if (paginatedSkills.length >= 24) {
+      // Full page: diagonal fan-out effect
+      const row = Math.floor(index / 8)
+      const col = index % 8
+      const diagonalDistance = row + col
+      return diagonalDistance * 0.1
+    } else {
+      // Partial page: sequential left-to-right like reading
+      return index * 0.05
+    }
+  }
+
+  // Get filtered counts for each category based on current search
+  const getFilteredCountForCategory = (categoryId: string) => {
+    return allSkills.filter(skill => {
+      const matchesCategory =
+        categoryId === 'all' || skill.categoryId === categoryId
+      const matchesSearch = skill.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
+      return matchesCategory && matchesSearch
+    }).length
+  }
 
   return (
     <PageSection
@@ -425,14 +621,18 @@ export default function SkillsTools() {
                 ? 'bg-black/30 text-white rounded-t-lg backdrop-blur-md border border-white/20 border-b-0'
                 : 'bg-white/5 text-zinc-300 hover:bg-white/10 rounded-t-lg border border-white/10 border-b-0 hover:border-white/20'
             }`}
+            style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 'bold' }}
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
           >
-            🔍 All Skills ({totalSkills})
+            All Skills{' '}
+            <span className='text-blue-400 font-normal'>
+              ({getFilteredCountForCategory('all')})
+            </span>
           </motion.button>
 
           {skillCategories.map(category => {
-            const categorySkillCount = category.skills.length
+            const categorySkillCount = getFilteredCountForCategory(category.id)
             return (
               <motion.button
                 key={category.id}
@@ -442,12 +642,19 @@ export default function SkillsTools() {
                     ? 'bg-black/30 text-white rounded-t-lg backdrop-blur-md border border-white/20 border-b-0'
                     : 'bg-white/5 text-zinc-300 hover:bg-white/10 rounded-t-lg border border-white/10 border-b-0 hover:border-white/20'
                 }`}
+                style={{
+                  fontFamily: 'Orbitron, sans-serif',
+                  fontWeight: 'bold',
+                }}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
               >
                 <IconWrapper IconComponent={category.IconComponent} size={16} />
                 <span>
-                  {category.title} ({categorySkillCount})
+                  {category.title}{' '}
+                  <span className='text-blue-400 font-normal'>
+                    ({categorySkillCount})
+                  </span>
                 </span>
               </motion.button>
             )
@@ -468,48 +675,71 @@ export default function SkillsTools() {
             >
               {/* Skills Grid */}
               <div className='p-4 flex-1 flex flex-col'>
-                <div className='grid grid-cols-8 grid-rows-3 gap-3 flex-1'>
-                  {Array.from({ length: 24 }, (_, index) => {
-                    const skill = paginatedSkills[index]
+                {filteredSkills.length === 0 ? (
+                  <div className='flex-1 flex items-center justify-center'>
+                    <motion.div
+                      className='text-center'
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <h3 className='text-lg font-semibold text-white mb-1'>
+                        {searchQuery ? 'Skill not found :/' : 'No skills found'}
+                      </h3>
+                      <p className='text-zinc-400 text-sm'>
+                        {searchQuery
+                          ? ''
+                          : 'Try selecting a different category'}
+                      </p>
+                    </motion.div>
+                  </div>
+                ) : (
+                  <div
+                    className='grid grid-cols-8 grid-rows-3 gap-3'
+                    style={{ minHeight: '24rem' }}
+                  >
+                    {Array.from({ length: 24 }, (_, index) => {
+                      const skill = paginatedSkills[index]
 
-                    if (skill) {
-                      return (
-                        <motion.div
-                          key={skill.name}
-                          className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center h-full'
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{
-                            duration: 0.3,
-                            delay: index * 0.02,
-                          }}
-                          whileHover={{ scale: 1.02 }}
-                        >
-                          {/* Centered icon */}
-                          <div className='mb-3'>
-                            <IconWrapper
-                              IconComponent={skill.IconComponent}
-                              size={36}
-                            />
-                          </div>
+                      if (skill) {
+                        return (
+                          <motion.div
+                            key={skill.name}
+                            className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center h-full'
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                              duration: 0.3,
+                              delay: getAnimationDelay(index),
+                            }}
+                            whileHover={{ scale: 1.02 }}
+                          >
+                            {/* Centered icon */}
+                            <div className='mb-3'>
+                              <IconWrapper
+                                IconComponent={skill.IconComponent}
+                                size={36}
+                              />
+                            </div>
 
-                          {/* Centered skill name */}
-                          <h4 className='text-sm font-semibold text-white leading-tight'>
-                            {skill.name}
-                          </h4>
-                        </motion.div>
-                      )
-                    } else {
-                      // Empty placeholder slot
-                      return (
-                        <div
-                          key={`empty-${index}`}
-                          className='bg-transparent rounded-lg h-full'
-                        />
-                      )
-                    }
-                  })}
-                </div>
+                            {/* Centered skill name */}
+                            <h4 className='text-sm font-semibold text-white leading-tight'>
+                              {skill.name}
+                            </h4>
+                          </motion.div>
+                        )
+                      } else {
+                        // Empty placeholder slot
+                        return (
+                          <div
+                            key={`empty-${index}`}
+                            className='bg-transparent rounded-lg h-full'
+                          />
+                        )
+                      }
+                    })}
+                  </div>
+                )}
               </div>
 
               {/* Pagination Controls */}
@@ -565,24 +795,6 @@ export default function SkillsTools() {
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {/* No Results Message */}
-        {filteredSkills.length === 0 && (
-          <motion.div
-            className='text-center py-8'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
-          >
-            <div className='text-4xl mb-2'>🔍</div>
-            <h3 className='text-lg font-semibold text-white mb-1'>
-              No skills found
-            </h3>
-            <p className='text-zinc-400 text-sm'>
-              Try adjusting your search or selecting a different category
-            </p>
-          </motion.div>
-        )}
       </div>
 
       {/* Background Elements */}
