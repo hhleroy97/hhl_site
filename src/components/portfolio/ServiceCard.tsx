@@ -58,28 +58,30 @@ export default function ServiceCard({
       />
 
       <div className='relative z-10 flex flex-col h-full'>
-        {/* Icon - Centered at top */}
+        {/* Pricing - At very top */}
+        <div
+          className={`text-center mb-3 ${
+            isHighlighted ? 'text-purple-200' : 'text-cyan-400'
+          }`}
+        >
+          <div className='text-lg md:text-xl font-bold'>{price}</div>
+          {price === 'FREE' && (
+            <div className='text-xs text-emerald-400 font-medium'>
+              Limited Time
+            </div>
+          )}
+        </div>
+
+        {/* Icon - Centered */}
         <div className='flex flex-col items-center mb-4'>
           <div
-            className={`flex items-center justify-center w-16 h-16 rounded-lg mb-3 ${
+            className={`flex items-center justify-center w-16 h-16 rounded-lg ${
               isHighlighted
                 ? 'bg-gradient-to-r from-purple-500 to-cyan-500'
                 : 'bg-gradient-to-r from-purple-500/60 to-cyan-500/60'
             } text-white text-2xl`}
           >
             {icon}
-          </div>
-          <div
-            className={`text-center ${
-              isHighlighted ? 'text-purple-200' : 'text-cyan-400'
-            }`}
-          >
-            <div className='text-lg md:text-xl font-bold'>{price}</div>
-            {price === 'FREE' && (
-              <div className='text-xs text-emerald-400 font-medium'>
-                Limited Time
-              </div>
-            )}
           </div>
         </div>
 
