@@ -1,11 +1,25 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import emailjs from '@emailjs/browser'
 import PageSection from '../ui/PageSection'
+
+const services = [
+  { id: 'consultation', name: 'Free 15-Minute Consultation', price: 'FREE' },
+  { id: 'advisory', name: 'Technical Advisory Call', price: '$199/hr' },
+  { id: 'code-review', name: 'Code Review & Optimization', price: '$499+' },
+  { id: 'mvp', name: 'MVP Development', price: '$4,999-9,999' },
+  { id: 'fullstack', name: 'Full-Stack Web Application', price: '$9,999+' },
+  {
+    id: 'interactive',
+    name: 'Real-Time Interactive Systems',
+    price: '$9,999+',
+  },
+]
 
 export default function ContactFooter() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    service: '',
     subject: '',
     message: '',
   })
@@ -14,23 +28,72 @@ export default function ContactFooter() {
     'idle' | 'success' | 'error'
   >('idle')
 
+  // Pre-populate service selection from URL parameters
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const serviceParam = urlParams.get('service')
+    if (serviceParam && services.find(s => s.id === serviceParam)) {
+      setFormData(prev => ({ ...prev, service: serviceParam }))
+    }
+  }, [])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    try {
+      // EmailJS configuration from environment variables
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
-    setSubmitStatus('success')
-    setIsSubmitting(false)
-    setFormData({ name: '', email: '', subject: '', message: '' })
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error(
+          'EmailJS configuration missing. Please check your environment variables.'
+        )
+      }
 
-    // Reset success message after 3 seconds
-    setTimeout(() => setSubmitStatus('idle'), 3000)
+      // Prepare template parameters
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        service:
+          services.find(s => s.id === formData.service)?.name ||
+          formData.service,
+        message: formData.message,
+        to_email: 'hartley.leroy1997@gmail.com',
+      }
+
+      // Send email using EmailJS
+      await emailjs.send(serviceId, templateId, templateParams, publicKey)
+
+      setSubmitStatus('success')
+      setFormData({
+        name: '',
+        email: '',
+        service: '',
+        subject: '',
+        message: '',
+      })
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000)
+    } catch (error) {
+      console.error('Failed to send email:', error)
+      setSubmitStatus('error')
+
+      // Reset error message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setFormData(prev => ({
       ...prev,
@@ -39,234 +102,250 @@ export default function ContactFooter() {
   }
 
   return (
-    <PageSection
-      id='contact'
-      tagline='Contact'
-      taglineColor='emerald'
-      title="Let's Build Something That Moves"
-      subtitle='and moves people'
-      className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
-    >
-      {/* Ultra Compact Layout */}
-      <div className='max-w-4xl mx-auto'>
-        {/* Contact Methods - Horizontal */}
-        <motion.div
-          className='grid md:grid-cols-2 gap-3 mb-4'
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          {/* Email */}
-          <motion.div
-            className='group flex items-center gap-3 p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden relative'
-            whileHover={{
-              scale: 1.01,
-              y: -2,
-              borderColor: 'rgba(255, 255, 255, 0.4)',
-              boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
-              transition: { duration: 0.3, ease: 'easeOut' },
-            }}
-          >
-            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-            <div className='absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
-            <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
-            <div className='relative z-10 flex items-center gap-3'>
-              <div className='p-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white'>
-                <svg
-                  className='w-4 h-4'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
-                  />
-                </svg>
-              </div>
-              <div className='text-left'>
-                <div className='text-xs text-zinc-400'>Direct Email</div>
-                <a
-                  href='mailto:hartley.leroy1997@gmail.com'
-                  className='text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors'
-                >
-                  hartley.leroy1997@gmail.com
-                </a>
-              </div>
-            </div>
-          </motion.div>
+    <>
+      {/* Top-screen alert for email copied */}
 
-          {/* Quick Chat */}
-          <motion.div
-            className='group flex items-center gap-3 p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden relative'
-            whileHover={{
-              scale: 1.01,
-              y: -2,
-              borderColor: 'rgba(255, 255, 255, 0.4)',
-              boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
-              transition: { duration: 0.3, ease: 'easeOut' },
-            }}
-          >
-            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-            <div className='absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
-            <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
-            <div className='relative z-10 flex items-center gap-3'>
-              <div className='p-2 bg-gradient-to-r from-fuchsia-500 to-purple-500 rounded-lg text-white'>
-                <svg
-                  className='w-4 h-4'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z'
-                  />
-                </svg>
-              </div>
-              <div className='text-left'>
-                <div className='text-xs text-zinc-400'>Quick Chat</div>
-                <div className='text-sm font-medium text-zinc-300'>
-                  20-min intro{' '}
-                  <span className='text-zinc-500'>(coming soon)</span>
+      <PageSection
+        id='contact'
+        tagline='Contact'
+        taglineColor='emerald'
+        title=''
+        subtitle='Ready to bring your idea into reality?'
+        className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
+      >
+        <div className='max-w-7xl mx-auto w-full px-4'>
+          <div className='relative bg-gradient-to-br from-white/[0.08] via-black/50 to-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/20 p-6 shadow-2xl overflow-hidden min-h-[500px] flex items-center'>
+            {/* Glassmorphism effects */}
+            <div className='absolute inset-0 bg-gradient-to-br from-emerald-500/[0.03] via-transparent to-teal-500/[0.03] pointer-events-none' />
+            <div className='absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl pointer-events-none' />
+            <div className='absolute -bottom-32 -left-32 w-64 h-64 bg-gradient-to-tr from-teal-500/10 to-emerald-500/10 rounded-full blur-3xl pointer-events-none' />
+
+            {submitStatus === 'success' ? (
+              <div className='relative z-10 text-center w-full py-8'>
+                <div className='mb-6'>
+                  <div className='w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4'>
+                    <svg
+                      className='w-8 h-8 text-white'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M5 13l4 4L19 7'
+                      />
+                    </svg>
+                  </div>
+                  <h3 className='text-2xl font-semibold text-white mb-2'>
+                    Message Sent Successfully!
+                  </h3>
+                  <p className='text-zinc-300 text-lg'>
+                    Thank you for reaching out! I'll review your request and get
+                    back to you within 24 hours with next steps.
+                  </p>
                 </div>
+                <button
+                  onClick={() => {
+                    setSubmitStatus('idle')
+                    setFormData({
+                      name: '',
+                      email: '',
+                      service: '',
+                      subject: '',
+                      message: '',
+                    })
+                  }}
+                  className='inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl text-white font-medium transition-all duration-300'
+                >
+                  Send Another Message
+                </button>
               </div>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Contact Form - Ultra Compact */}
-        <motion.div
-          className='relative'
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <motion.div
-            className='group relative bg-black/30 backdrop-blur-md rounded-lg border border-white/20 p-4 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden'
-            whileHover={{
-              scale: 1.005,
-              y: -3,
-              borderColor: 'rgba(255, 255, 255, 0.4)',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
-              transition: { duration: 0.3, ease: 'easeOut' },
-            }}
-          >
-            {/* Enhanced depth effects */}
-            <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-            <div className='absolute -top-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
-            <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
-            <div className='relative z-10'>
-              <form onSubmit={handleSubmit} className='space-y-3'>
-                {/* Ultra Compact Form Grid */}
-                <div className='grid md:grid-cols-2 gap-3'>
-                  <input
-                    type='text'
-                    name='name'
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm text-sm'
-                    placeholder='Your name'
-                  />
-                  <input
-                    type='email'
-                    name='email'
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm text-sm'
-                    placeholder='your@email.com'
-                  />
+            ) : submitStatus === 'error' ? (
+              <div className='relative z-10 text-center w-full py-8'>
+                <div className='mb-6'>
+                  <div className='w-16 h-16 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4'>
+                    <svg
+                      className='w-8 h-8 text-white'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M6 18L18 6M6 6l12 12'
+                      />
+                    </svg>
+                  </div>
+                  <h3 className='text-2xl font-semibold text-white mb-2'>
+                    Message Failed to Send
+                  </h3>
+                  <p className='text-zinc-300 text-lg mb-4'>
+                    Sorry, there was an issue sending your message. Please try
+                    again or contact me directly at{' '}
+                    <a
+                      href='mailto:hartley.leroy1997@gmail.com'
+                      className='text-emerald-400 hover:text-emerald-300 transition-colors'
+                    >
+                      hartley.leroy1997@gmail.com
+                    </a>
+                  </p>
                 </div>
+                <button
+                  onClick={() => setSubmitStatus('idle')}
+                  className='inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl text-white font-medium transition-all duration-300'
+                >
+                  Try Again
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className='relative z-10 w-full'>
+                {/* Form Fields in Row Layout */}
+                <div className='space-y-5 mb-6'>
+                  {/* Name and Email Row */}
+                  <div className='grid grid-cols-2 gap-6'>
+                    {/* First Name */}
+                    <div>
+                      <label className='text-zinc-300 text-base font-medium block mb-3'>
+                        First Name
+                      </label>
+                      <input
+                        type='text'
+                        name='name'
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
+                        placeholder='Your first name'
+                      />
+                    </div>
 
-                <input
-                  type='text'
-                  name='subject'
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors text-sm'
-                  placeholder='Project inquiry'
-                />
+                    {/* Email Address */}
+                    <div>
+                      <label className='text-zinc-300 text-base font-medium block mb-3'>
+                        Email Address
+                      </label>
+                      <input
+                        type='email'
+                        name='email'
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
+                        placeholder='your@company.com'
+                      />
+                    </div>
+                  </div>
 
-                <textarea
-                  name='message'
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={2}
-                  className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors resize-none text-sm'
-                  placeholder='Tell me about your project and timeline...'
-                />
+                  {/* Subject and Service Row */}
+                  <div className='grid grid-cols-2 gap-6'>
+                    {/* Subject */}
+                    <div>
+                      <label className='text-zinc-300 text-base font-medium block mb-3'>
+                        Subject
+                      </label>
+                      <input
+                        type='text'
+                        name='subject'
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
+                        placeholder='Brief description of your inquiry'
+                      />
+                    </div>
 
-                <div className='flex items-center justify-between'>
-                  <button
-                    type='submit'
-                    disabled={isSubmitting}
-                    className='btn-primary disabled:opacity-50 disabled:cursor-not-allowed px-6 py-2'
-                  >
-                    <span className='text-sm'>
-                      {isSubmitting
-                        ? 'Sending...'
-                        : submitStatus === 'success'
-                          ? 'Message Sent!'
-                          : 'Send Message'}
-                    </span>
-                  </button>
-
-                  {/* Status and tagline inline */}
-                  <div className='text-xs text-zinc-400 flex items-center gap-2'>
-                    <span>
-                      Infrastructure, intelligence, and interactivity—
-                      <span className='bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent font-medium'>
-                        wired together
-                      </span>
-                    </span>
-                    <div className='flex gap-1'>
-                      <div className='w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse'></div>
-                      <div
-                        className='w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse'
-                        style={{ animationDelay: '0.5s' }}
-                      ></div>
-                      <div
-                        className='w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse'
-                        style={{ animationDelay: '1s' }}
-                      ></div>
+                    {/* Service of Interest */}
+                    <div>
+                      <label className='text-zinc-300 text-base font-medium block mb-3'>
+                        Service of Interest
+                      </label>
+                      <div className='relative'>
+                        <select
+                          name='service'
+                          value={formData.service}
+                          onChange={handleChange}
+                          required
+                          className='w-full px-4 py-3 pr-10 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30 appearance-none cursor-pointer'
+                        >
+                          <option
+                            value=''
+                            className='bg-zinc-900 text-zinc-300'
+                          >
+                            Select a service
+                          </option>
+                          {services.map(service => (
+                            <option
+                              key={service.id}
+                              value={service.id}
+                              className='bg-zinc-900 text-zinc-300 py-2'
+                            >
+                              {service.name}
+                            </option>
+                          ))}
+                        </select>
+                        {/* Custom dropdown arrow */}
+                        <div className='absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none'>
+                          <svg
+                            className='w-5 h-5 text-zinc-400'
+                            fill='none'
+                            stroke='currentColor'
+                            viewBox='0 0 24 24'
+                          >
+                            <path
+                              strokeLinecap='round'
+                              strokeLinejoin='round'
+                              strokeWidth={2}
+                              d='M19 9l-7 7-7-7'
+                            />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                {submitStatus === 'success' && (
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className='text-emerald-400 text-sm text-center'
-                  >
-                    Thanks! I'll get back to you within 24 hours.
-                  </motion.p>
-                )}
-              </form>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
+                {/* Message Field - Full Width Below */}
+                <div className='mb-6'>
+                  <label className='text-zinc-300 text-base font-medium block mb-3'>
+                    Message
+                  </label>
+                  <textarea
+                    name='message'
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={6}
+                    className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 resize-none focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
+                    placeholder='Tell me about your project, timeline, and any specific requirements...'
+                  />
+                </div>
 
-      {/* Animated grid background */}
-      <div
-        className='absolute inset-0 opacity-5'
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(176, 106, 247, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(176, 106, 247, 0.3) 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-        }}
-      />
-    </PageSection>
+                {/* Submit Button */}
+                <div className='pt-4'>
+                  <button
+                    type='submit'
+                    disabled={isSubmitting}
+                    className='w-full py-4 px-8 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 text-lg'
+                  >
+                    {isSubmitting ? (
+                      <div className='flex items-center justify-center gap-3'>
+                        <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
+                        <span>Sending Your Message...</span>
+                      </div>
+                    ) : (
+                      'Send Message'
+                    )}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      </PageSection>
+    </>
   )
 }

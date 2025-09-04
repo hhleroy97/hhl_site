@@ -63,10 +63,16 @@ const services = [
 ]
 
 export default function Services() {
-  const handleServiceSelect = () => {
-    console.log('Button clicked - navigating to contact!')
+  const handleServiceSelect = (serviceId?: string) => {
+    // Navigate with service parameter if provided
+    if (serviceId) {
+      // Update the URL with the service parameter
+      const url = new URL(window.location.href)
+      url.searchParams.set('service', serviceId)
+      window.history.replaceState({}, '', url.toString())
+    }
 
-    // Simple hash navigation
+    // Navigate to contact section
     window.location.hash = '#contact'
 
     // Force scroll after a tiny delay
@@ -126,7 +132,7 @@ export default function Services() {
                 price={service.price}
                 icon={service.icon}
                 isHighlighted={service.isHighlighted}
-                onSelect={handleServiceSelect}
+                onSelect={() => handleServiceSelect(service.id)}
                 serviceId={service.id}
               />
             </motion.div>

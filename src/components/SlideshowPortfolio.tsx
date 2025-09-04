@@ -201,8 +201,12 @@ export default function SlideshowPortfolio() {
               opacity: { duration: 0.2 },
             }}
             className='absolute inset-0 h-full'
+            style={{ pointerEvents: 'auto' }}
           >
-            <div className='h-screen overflow-y-auto pb-24'>
+            <div
+              className='h-screen overflow-y-auto pb-24'
+              style={{ pointerEvents: 'auto' }}
+            >
               <CurrentComponent {...componentProps} />
             </div>
           </motion.div>
