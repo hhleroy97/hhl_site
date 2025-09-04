@@ -63,11 +63,13 @@ const services = [
 ]
 
 export default function Services() {
-  const handleServiceSelect = () => {
-    console.log('Button clicked - navigating to contact!')
-
-    // Simple hash navigation
-    window.location.hash = '#contact'
+  const handleServiceSelect = (serviceId?: string) => {
+    // Navigate with service parameter if provided
+    if (serviceId) {
+      window.location.href = `#contact?service=${serviceId}`
+    } else {
+      window.location.hash = '#contact'
+    }
 
     // Force scroll after a tiny delay
     setTimeout(() => {
@@ -126,7 +128,7 @@ export default function Services() {
                 price={service.price}
                 icon={service.icon}
                 isHighlighted={service.isHighlighted}
-                onSelect={handleServiceSelect}
+                onSelect={() => handleServiceSelect(service.id)}
                 serviceId={service.id}
               />
             </motion.div>
