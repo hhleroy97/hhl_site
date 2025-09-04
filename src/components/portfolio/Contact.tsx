@@ -81,156 +81,191 @@ export default function ContactFooter() {
             <div className='absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl pointer-events-none' />
             <div className='absolute -bottom-32 -left-32 w-64 h-64 bg-gradient-to-tr from-teal-500/10 to-emerald-500/10 rounded-full blur-3xl pointer-events-none' />
 
-            <form onSubmit={handleSubmit} className='relative z-10'>
-              {/* 2x2 Grid Layout */}
-              <div className='grid grid-cols-2 gap-6 mb-8'>
-                {/* Left Column */}
-                <div className='space-y-6'>
-                  {/* First Name */}
-                  <div>
-                    <label className='text-zinc-300 text-base font-medium block mb-3'>
-                      First Name
-                    </label>
-                    <input
-                      type='text'
-                      name='name'
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
-                      placeholder='Your first name'
-                    />
+            {submitStatus === 'success' ? (
+              <div className='relative z-10 text-center py-12'>
+                <div className='mb-6'>
+                  <div className='w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4'>
+                    <svg
+                      className='w-8 h-8 text-white'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M5 13l4 4L19 7'
+                      />
+                    </svg>
                   </div>
-
-                  {/* Subject */}
-                  <div>
-                    <label className='text-zinc-300 text-base font-medium block mb-3'>
-                      Subject
-                    </label>
-                    <input
-                      type='text'
-                      name='subject'
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
-                      placeholder='Brief description of your inquiry'
-                    />
-                  </div>
+                  <h3 className='text-2xl font-semibold text-white mb-2'>
+                    Message Sent Successfully!
+                  </h3>
+                  <p className='text-zinc-300 text-lg'>
+                    Thank you for reaching out! I'll review your request and get
+                    back to you within 24 hours with next steps.
+                  </p>
                 </div>
-
-                {/* Right Column */}
-                <div className='space-y-6'>
-                  {/* Email Address */}
-                  <div>
-                    <label className='text-zinc-300 text-base font-medium block mb-3'>
-                      Email Address
-                    </label>
-                    <input
-                      type='email'
-                      name='email'
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
-                      placeholder='your@company.com'
-                    />
-                  </div>
-
-                  {/* Service of Interest */}
-                  <div>
-                    <label className='text-zinc-300 text-base font-medium block mb-3'>
-                      Service of Interest
-                    </label>
-                    <div className='relative'>
-                      <select
-                        name='service'
-                        value={formData.service}
+                <button
+                  onClick={() => {
+                    setSubmitStatus('idle')
+                    setFormData({
+                      name: '',
+                      email: '',
+                      service: '',
+                      subject: '',
+                      message: '',
+                    })
+                  }}
+                  className='inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl text-white font-medium transition-all duration-300'
+                >
+                  Send Another Message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className='relative z-10'>
+                {/* 2x2 Grid Layout */}
+                <div className='grid grid-cols-2 gap-6 mb-8'>
+                  {/* Left Column */}
+                  <div className='space-y-6'>
+                    {/* First Name */}
+                    <div>
+                      <label className='text-zinc-300 text-base font-medium block mb-3'>
+                        First Name
+                      </label>
+                      <input
+                        type='text'
+                        name='name'
+                        value={formData.name}
                         onChange={handleChange}
                         required
-                        className='w-full px-4 py-3 pr-10 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30 appearance-none cursor-pointer'
-                      >
-                        <option value='' className='bg-zinc-900 text-zinc-300'>
-                          Select a service
-                        </option>
-                        {services.map(service => (
-                          <option
-                            key={service.id}
-                            value={service.id}
-                            className='bg-zinc-900 text-zinc-300 py-2'
-                          >
-                            {service.name}
-                          </option>
-                        ))}
-                      </select>
-                      {/* Custom dropdown arrow */}
-                      <div className='absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none'>
-                        <svg
-                          className='w-5 h-5 text-zinc-400'
-                          fill='none'
-                          stroke='currentColor'
-                          viewBox='0 0 24 24'
+                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
+                        placeholder='Your first name'
+                      />
+                    </div>
+
+                    {/* Subject */}
+                    <div>
+                      <label className='text-zinc-300 text-base font-medium block mb-3'>
+                        Subject
+                      </label>
+                      <input
+                        type='text'
+                        name='subject'
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
+                        placeholder='Brief description of your inquiry'
+                      />
+                    </div>
+                  </div>
+
+                  {/* Right Column */}
+                  <div className='space-y-6'>
+                    {/* Email Address */}
+                    <div>
+                      <label className='text-zinc-300 text-base font-medium block mb-3'>
+                        Email Address
+                      </label>
+                      <input
+                        type='email'
+                        name='email'
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
+                        placeholder='your@company.com'
+                      />
+                    </div>
+
+                    {/* Service of Interest */}
+                    <div>
+                      <label className='text-zinc-300 text-base font-medium block mb-3'>
+                        Service of Interest
+                      </label>
+                      <div className='relative'>
+                        <select
+                          name='service'
+                          value={formData.service}
+                          onChange={handleChange}
+                          required
+                          className='w-full px-4 py-3 pr-10 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30 appearance-none cursor-pointer'
                         >
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth={2}
-                            d='M19 9l-7 7-7-7'
-                          />
-                        </svg>
+                          <option
+                            value=''
+                            className='bg-zinc-900 text-zinc-300'
+                          >
+                            Select a service
+                          </option>
+                          {services.map(service => (
+                            <option
+                              key={service.id}
+                              value={service.id}
+                              className='bg-zinc-900 text-zinc-300 py-2'
+                            >
+                              {service.name}
+                            </option>
+                          ))}
+                        </select>
+                        {/* Custom dropdown arrow */}
+                        <div className='absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none'>
+                          <svg
+                            className='w-5 h-5 text-zinc-400'
+                            fill='none'
+                            stroke='currentColor'
+                            viewBox='0 0 24 24'
+                          >
+                            <path
+                              strokeLinecap='round'
+                              strokeLinejoin='round'
+                              strokeWidth={2}
+                              d='M19 9l-7 7-7-7'
+                            />
+                          </svg>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Message Field - Full Width Below */}
-              <div className='mb-8'>
-                <label className='text-zinc-300 text-base font-medium block mb-3'>
-                  Message
-                </label>
-                <textarea
-                  name='message'
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 resize-none focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
-                  placeholder='Tell me about your project, timeline, and any specific requirements...'
-                />
-              </div>
+                {/* Message Field - Full Width Below */}
+                <div className='mb-8'>
+                  <label className='text-zinc-300 text-base font-medium block mb-3'>
+                    Message
+                  </label>
+                  <textarea
+                    name='message'
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={6}
+                    className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 resize-none focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
+                    placeholder='Tell me about your project, timeline, and any specific requirements...'
+                  />
+                </div>
 
-              {/* Submit Button */}
-              <div className='pt-4'>
-                <button
-                  type='submit'
-                  disabled={isSubmitting}
-                  className='w-full py-4 px-8 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 text-lg'
-                >
-                  {isSubmitting ? (
-                    <div className='flex items-center justify-center gap-3'>
-                      <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
-                      <span>Sending Your Message...</span>
-                    </div>
-                  ) : (
-                    'Send Message'
-                  )}
-                </button>
-              </div>
-            </form>
+                {/* Submit Button */}
+                <div className='pt-4'>
+                  <button
+                    type='submit'
+                    disabled={isSubmitting}
+                    className='w-full py-4 px-8 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 text-lg'
+                  >
+                    {isSubmitting ? (
+                      <div className='flex items-center justify-center gap-3'>
+                        <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
+                        <span>Sending Your Message...</span>
+                      </div>
+                    ) : (
+                      'Send Message'
+                    )}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
-
-          {submitStatus === 'success' && (
-            <div className='mt-6 p-4 bg-emerald-900/20 border border-emerald-500/30 rounded-lg text-center'>
-              <p className='text-emerald-300 font-medium text-lg mb-2'>
-                🎉 Thank you for reaching out!
-              </p>
-              <p className='text-zinc-300'>
-                I'll review your request and get back to you within 24 hours
-                with next steps. Check your email for confirmation.
-              </p>
-            </div>
-          )}
         </div>
       </PageSection>
     </>
