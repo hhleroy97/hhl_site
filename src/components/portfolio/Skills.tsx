@@ -551,19 +551,20 @@ export default function SkillsTools() {
           </div>
         </motion.div>
 
-        {/* Category Tabs */}
-        <motion.div
-          className='mb-4 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 p-3'
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          <div className='flex flex-wrap gap-2'>
-            {/* All Skills Button */}
+        {/* Main Content Layout */}
+        <div className='flex gap-4'>
+          {/* Category Sidebar */}
+          <motion.div
+            className='flex flex-col justify-between min-w-fit bg-black/20 backdrop-blur-md rounded-lg border border-white/20 p-3'
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            style={{ minHeight: '28rem' }}
+          >
             <motion.button
               onClick={() => setActiveCategory('all')}
-              className={`px-3 py-2 rounded-md transition-all duration-300 text-xs flex items-center gap-2 whitespace-nowrap ${
+              className={`px-2 py-1 rounded-md transition-all duration-300 text-xs text-left whitespace-nowrap ${
                 activeCategory === 'all'
                   ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
                   : 'bg-black/30 border border-white/20 text-zinc-300 hover:bg-white/10'
@@ -573,8 +574,6 @@ export default function SkillsTools() {
             >
               🔍 All Skills ({totalSkills})
             </motion.button>
-
-            {/* Category Buttons */}
             {skillCategories.map(category => {
               const categorySkillCount = category.skills.length
               return (
@@ -596,13 +595,10 @@ export default function SkillsTools() {
                 </motion.button>
               )
             })}
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Main Content Layout */}
-        <div className='flex gap-4'>
           {/* Skills Table and Radar Chart */}
-          <div className='flex-1 flex gap-4'>
+          <div className='flex-1 flex gap-4' style={{ minHeight: '28rem' }}>
             {/* Skills Table */}
             <div className='flex-1'>
               <AnimatePresence mode='wait'>
@@ -613,6 +609,7 @@ export default function SkillsTools() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4 }}
+                  style={{ minHeight: '28rem' }}
                 >
                   {/* Skills Grid */}
                   <div className='p-4 flex-1'>
@@ -714,6 +711,7 @@ export default function SkillsTools() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
+              style={{ minHeight: '28rem' }}
             >
               <h3 className='text-sm font-bold text-white mb-3 text-center'>
                 Skill Overview
