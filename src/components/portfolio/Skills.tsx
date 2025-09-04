@@ -397,7 +397,7 @@ export default function SkillsTools() {
               placeholder='Search skills...'
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className='w-full pl-10 pr-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/15 hover:bg-white/15 transition-all duration-300 text-sm'
+              className='w-full pl-10 pr-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-zinc-400 focus:border-cyan-400 focus:bg-white/15 hover:bg-white/15 transition-all duration-300 text-sm focus:outline-none'
             />
           </div>
         </motion.div>
