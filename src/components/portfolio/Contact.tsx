@@ -264,7 +264,7 @@ export default function ContactFooter() {
 
                 <div className='space-y-2'>
                   <label className='text-zinc-300 text-sm font-medium block'>
-                    Project Details
+                    Message Contents
                   </label>
                   <textarea
                     name='message'
