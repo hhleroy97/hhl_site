@@ -135,7 +135,10 @@ export default function PageSection({
                                 {!isLast && ' '}
                               </span>
                             )
-                          } else if (word.toLowerCase() === 'reality') {
+                          } else if (
+                            word.toLowerCase() === 'reality' ||
+                            word.toLowerCase() === 'reality?'
+                          ) {
                             return (
                               <span key={index}>
                                 <span className='bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent'>
