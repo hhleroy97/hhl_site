@@ -80,7 +80,7 @@ export default function ContactFooter() {
       id='contact'
       tagline='Contact'
       taglineColor='emerald'
-      title='Ready to bring your ideal into reality?'
+      title='Ready to bring your idea into reality?'
       subtitle=''
       className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
     >
@@ -332,7 +332,7 @@ export default function ContactFooter() {
                   <div className='text-center mt-4'>
                     <p className='text-zinc-400 text-sm'>
                       <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent font-medium'>
-                        Ready to bring your ideal into reality?
+                        Ready to bring your idea into reality?
                       </span>
                     </p>
                     <div className='flex justify-center gap-2 mt-2'>
