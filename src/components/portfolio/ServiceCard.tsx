@@ -20,14 +20,14 @@ export default function ServiceCard({
 }: ServiceCardProps) {
   return (
     <motion.div
-      className={`group relative ${
+      className={`group relative h-full ${
         isHighlighted
           ? 'bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border-2 border-purple-400/60'
           : 'bg-black/30 border border-white/20'
-      } backdrop-blur-md rounded-lg p-6 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden`}
+      } backdrop-blur-md rounded-lg p-4 md:p-6 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden`}
       whileHover={{
-        scale: 1.02,
-        y: -4,
+        scale: 1.01,
+        y: -2,
         borderColor: isHighlighted
           ? 'rgba(147, 51, 234, 0.8)'
           : 'rgba(255, 255, 255, 0.4)',
@@ -58,23 +58,23 @@ export default function ServiceCard({
       />
 
       <div className='relative z-10 flex flex-col h-full'>
-        {/* Icon and Price */}
-        <div className='flex items-start justify-between mb-4'>
+        {/* Icon - Centered at top */}
+        <div className='flex flex-col items-center mb-4'>
           <div
-            className={`flex items-center justify-center w-12 h-12 rounded-lg ${
+            className={`flex items-center justify-center w-16 h-16 rounded-lg mb-3 ${
               isHighlighted
                 ? 'bg-gradient-to-r from-purple-500 to-cyan-500'
                 : 'bg-gradient-to-r from-purple-500/60 to-cyan-500/60'
-            } text-white text-xl`}
+            } text-white text-2xl`}
           >
             {icon}
           </div>
           <div
-            className={`text-right ${
+            className={`text-center ${
               isHighlighted ? 'text-purple-200' : 'text-cyan-400'
             }`}
           >
-            <div className='text-lg font-bold'>{price}</div>
+            <div className='text-lg md:text-xl font-bold'>{price}</div>
             {price === 'FREE' && (
               <div className='text-xs text-emerald-400 font-medium'>
                 Limited Time
@@ -85,7 +85,7 @@ export default function ServiceCard({
 
         {/* Title */}
         <h3
-          className={`text-xl font-bold mb-3 ${
+          className={`text-lg md:text-xl font-bold mb-3 text-center ${
             isHighlighted
               ? 'text-white group-hover:text-purple-100'
               : 'text-white group-hover:text-cyan-100'
@@ -95,7 +95,7 @@ export default function ServiceCard({
         </h3>
 
         {/* Description */}
-        <p className='text-sm text-zinc-300 leading-relaxed flex-grow mb-4'>
+        <p className='text-sm text-zinc-300 leading-relaxed flex-grow mb-4 text-center'>
           {description}
         </p>
 
