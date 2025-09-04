@@ -465,12 +465,12 @@ export default function SkillsTools() {
                 style={{ minHeight: '30rem' }}
               >
                 {/* Skills Grid */}
-                <div className='p-4 flex-1'>
-                  <div className='grid grid-cols-8 gap-3 h-full'>
+                <div className='p-4 flex-1 flex flex-col'>
+                  <div className='grid grid-cols-8 gap-3 flex-1 auto-rows-fr'>
                     {paginatedSkills.map((skill, index) => (
                       <motion.div
                         key={skill.name}
-                        className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center'
+                        className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center h-full'
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{
