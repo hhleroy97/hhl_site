@@ -1,8 +1,7 @@
-import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
-import { X } from 'lucide-react'
 import PageSection from '../ui/PageSection'
 import JobCard from '../ui/JobCard'
+import JobView from '../JobView'
 import fdaLogo from '../../assets/fda-logo.png'
 import softhreadLogo from '../../assets/Softhread_Logo.jpg'
 import delphiLogo from '../../assets/DELPHI-DIGITAL-MASTER-LOGO.jpg'
@@ -12,11 +11,13 @@ import lucidBotsLogo from '../../assets/lucid-bots-logo.png'
 
 const experiences = [
   {
-    company: 'FDA (ORISE Fellow)',
+    company: 'FDA',
     title: 'Research Fellow',
     timeframe: 'Aug 2020 - Aug 2021',
-    location: 'Remote',
+    location: 'Oakridge, Virginia, USA',
+    workType: 'Remote',
     logo: fdaLogo,
+    industry: 'Healthcare & Government',
     description:
       "Supported the research and planning for FDA's AI and blockchain initiatives. Assisted in data coordination across multiple medical device registries and internal working groups.",
     keyContributions: [
@@ -38,8 +39,10 @@ const experiences = [
     company: 'Softhread',
     title: 'Software Engineer',
     timeframe: 'Nov 2020 - Nov 2021',
-    location: 'Remote',
+    location: 'Miami, Florida, USA',
+    workType: 'Remote',
     logo: softhreadLogo,
+    industry: 'Healthcare Technology',
     description:
       'Built front-end components and interfaces for a privacy-focused blockchain platform designed to protect health information. Collaborated across engineering teams to deliver performant, modular portals.',
     keyContributions: [
@@ -62,8 +65,10 @@ const experiences = [
     company: 'Delphi Digital',
     title: 'Research Analyst',
     timeframe: 'Aug 2021 - Oct 2022',
-    location: 'Remote',
+    location: 'New York City, New York, USA',
+    workType: 'Remote',
     logo: delphiLogo,
+    industry: 'Financial Services',
     description:
       'Performed technical and economic research on blockchain protocols. Delivered actionable insights to institutional investors through reports and data visualizations.',
     keyContributions: [
@@ -85,8 +90,10 @@ const experiences = [
     company: 'First Turn Innovations',
     title: 'Prototype Engineer',
     timeframe: 'Feb 2023 - Sep 2023',
-    location: 'Huntersville, NC',
+    location: 'Huntersville, NC, USA',
+    workType: 'Hybrid',
     logo: firstTurnLogo,
+    industry: 'Product Development',
     description:
       'Developed hardware/software prototypes for early-stage products. Translated vague design ideas into testable MVPs and conducted feasibility studies to validate technical direction.',
     keyContributions: [
@@ -108,8 +115,10 @@ const experiences = [
     company: 'Keep it Simple Storage',
     title: 'Project Manager - Software',
     timeframe: 'Sep 2023 - Sep 2024',
-    location: 'Charlotte, NC',
+    location: 'Charlotte, NC, USA',
+    workType: 'Hybrid',
     logo: kissLogo,
+    industry: 'Storage Solutions',
     description:
       'Led product development for internal tools and customer-facing systems. Managed a team of 6 engineers, aligning technical implementation with business and operational goals.',
     keyContributions: [
@@ -132,8 +141,10 @@ const experiences = [
     company: 'Lucid Bots',
     title: 'Software Engineer - Fleet Management',
     timeframe: 'Sep 2024 - Jul 2025',
-    location: 'Charlotte, NC',
+    location: 'Charlotte, NC, USA',
+    workType: 'Hybrid',
     logo: lucidBotsLogo,
+    industry: 'Robotics & Automation',
     description:
       'Led coordination of functional requirements, data ingestion architecture, and knowledge transfer between internal teams and external developers to build out cloud infrastructure for a drone fleet management system enabling the company to move away from 3rd party offerings.',
     keyContributions: [
@@ -158,8 +169,15 @@ const experiences = [
 
 export default function WorkExperienceTimelineHorizontal() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+  const [clickedCardPosition, setClickedCardPosition] = useState<{
+    x: number
+    y: number
+  } | null>(null)
 
-  const closeExpanded = () => setSelectedIndex(null)
+  const closeExpanded = () => {
+    setSelectedIndex(null)
+    setClickedCardPosition(null)
+  }
 
   return (
     <PageSection
@@ -171,16 +189,8 @@ export default function WorkExperienceTimelineHorizontal() {
       cardVariant='floating'
     >
       <div className='max-w-full mx-auto px-2'>
-        {/* Click hint */}
-        <div
-          className='text-center text-white text-xl font-bold mb-12 mt-4'
-          style={{ fontFamily: 'Orbitron, sans-serif' }}
-        >
-          Click any company to learn more
-        </div>
-
         {/* Timeline Container */}
-        <div className='relative mb-16'>
+        <div className='relative mb-16 mt-4'>
           {/* Main Timeline Line - Extended to 2026 with arrow */}
           <div className='relative h-px bg-gradient-to-r from-cyan-400/30 via-cyan-400/60 to-cyan-400/40 mx-4'>
             {/* Extended line for 2026 */}
@@ -250,7 +260,7 @@ export default function WorkExperienceTimelineHorizontal() {
 
             {/* Experience dots positioned along the line */}
             <div className='absolute left-0 right-16 top-1/2 transform -translate-y-1/2 flex justify-between items-center'>
-              {experiences.map((exp, index) => (
+              {experiences.map((_, index) => (
                 <div
                   key={`exp-dot-${index}`}
                   className='w-3 h-3 bg-cyan-400 rounded-full border-2 border-black/50 shadow-lg'
@@ -261,7 +271,7 @@ export default function WorkExperienceTimelineHorizontal() {
         </div>
 
         {/* Job Cards Grid - Below Timeline */}
-        <div className='grid grid-cols-6 gap-6 px-4'>
+        <div className='group/cards grid grid-cols-6 gap-6 px-4'>
           {experiences.map((exp, index) => (
             <div key={`${exp.company}-${index}`} className='relative'>
               {/* Connecting line from timeline to job card */}
@@ -272,132 +282,40 @@ export default function WorkExperienceTimelineHorizontal() {
                 company={exp.company}
                 title={exp.title}
                 location={exp.location}
+                workType={exp.workType}
+                industry={exp.industry}
                 index={index}
-                onClick={() => setSelectedIndex(index)}
+                onClick={event => {
+                  const rect = event.currentTarget.getBoundingClientRect()
+                  setClickedCardPosition({
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2,
+                  })
+                  setSelectedIndex(index)
+                }}
               />
             </div>
           ))}
         </div>
+
+        {/* Click hint */}
+        <div
+          className='text-center text-white text-xl font-bold mt-20 mb-8 flex items-center justify-center gap-2'
+          style={{ fontFamily: 'Orbitron, sans-serif' }}
+        >
+          <span className='text-3xl text-white'>[</span>
+          <span>Click on any company to learn more</span>
+          <span className='text-3xl text-white'>]</span>
+        </div>
       </div>
 
-      {/* Expanded Experience Modal */}
-      <AnimatePresence>
-        {selectedIndex !== null && (
-          <motion.div
-            className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeExpanded}
-          >
-            <motion.div
-              className='bg-black/90 backdrop-blur-md rounded-3xl border border-white/20 p-8 max-w-6xl w-[90vw] max-h-[85vh] overflow-y-auto shadow-2xl'
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              onClick={e => e.stopPropagation()}
-            >
-              {(() => {
-                const exp = experiences[selectedIndex]
-                return (
-                  <>
-                    {/* Close Button */}
-                    <button
-                      onClick={closeExpanded}
-                      className='absolute top-6 right-6 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-300'
-                    >
-                      <X className='w-5 h-5 text-white' />
-                    </button>
-
-                    {/* Background Effects */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${exp.color} opacity-5 rounded-3xl`}
-                    ></div>
-                    <div className='absolute -top-20 -right-20 w-40 h-40 bg-white/5 rounded-full blur-3xl'></div>
-
-                    <div className='relative z-10'>
-                      {/* Header */}
-                      <div className='flex items-start gap-6 mb-8'>
-                        <div className='flex items-center justify-center'>
-                          {typeof exp.logo === 'string' &&
-                          (exp.logo.startsWith('/') ||
-                            exp.logo.startsWith('data:') ||
-                            exp.logo.includes('.') ||
-                            exp.logo.startsWith('blob:')) ? (
-                            <img
-                              src={exp.logo}
-                              alt={`${exp.company} logo`}
-                              className='w-20 h-20 object-contain'
-                            />
-                          ) : (
-                            <span className='text-5xl'>{exp.logo}</span>
-                          )}
-                        </div>
-                        <div className='flex-1'>
-                          <h2 className='text-3xl font-bold text-white mb-2'>
-                            {exp.company}
-                          </h2>
-                          <p className='text-xl text-cyan-400 font-semibold mb-2'>
-                            {exp.title}
-                          </p>
-                          <div className='flex items-center gap-4 text-zinc-400'>
-                            <span className='font-medium'>{exp.timeframe}</span>
-                            <span>•</span>
-                            <span>{exp.location}</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Description */}
-                      <div className='mb-8'>
-                        <p className='text-zinc-300 leading-relaxed text-lg'>
-                          {exp.description}
-                        </p>
-                      </div>
-
-                      {/* Key Contributions */}
-                      <div className='mb-8'>
-                        <h3 className='text-white font-bold mb-4 text-xl'>
-                          Key Contributions
-                        </h3>
-                        <ul className='space-y-3'>
-                          {exp.keyContributions.map((contribution, i) => (
-                            <li key={i} className='flex items-start gap-3'>
-                              <div
-                                className={`w-2 h-2 bg-gradient-to-r ${exp.color} rounded-full mt-2 flex-shrink-0`}
-                              ></div>
-                              <span className='text-zinc-300 leading-relaxed'>
-                                {contribution}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Technologies */}
-                      <div>
-                        <h3 className='text-white font-bold mb-4 text-xl'>
-                          Technologies & Skills
-                        </h3>
-                        <div className='flex flex-wrap gap-3'>
-                          {exp.technologies.map(tech => (
-                            <span
-                              key={tech}
-                              className='px-4 py-2 bg-white/10 border border-white/20 rounded-xl font-medium text-zinc-300 hover:bg-white/20 hover:text-white transition-all duration-300'
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )
-              })()}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Job View Modal */}
+      <JobView
+        isOpen={selectedIndex !== null}
+        onClose={closeExpanded}
+        experience={selectedIndex !== null ? experiences[selectedIndex] : null}
+        clickedPosition={clickedCardPosition}
+      />
     </PageSection>
   )
 }
