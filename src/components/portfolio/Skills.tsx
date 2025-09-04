@@ -403,7 +403,7 @@ export default function SkillsTools() {
         </motion.div>
 
         {/* Main Content Layout */}
-        <div className='flex gap-4'>
+        <div className='flex gap-4 items-stretch'>
           {/* Category Sidebar */}
           <motion.div
             className='flex flex-col gap-2 min-w-fit bg-black/20 backdrop-blur-md rounded-lg border border-white/20 p-3'
@@ -411,7 +411,6 @@ export default function SkillsTools() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            style={{ minHeight: '24rem' }}
           >
             {/* All Skills Button */}
             <motion.button
@@ -458,12 +457,12 @@ export default function SkillsTools() {
             <AnimatePresence mode='wait'>
               <motion.div
                 key={activeCategory + searchQuery}
-                className='bg-black/30 backdrop-blur-md rounded-lg border border-white/20 overflow-hidden'
+                className='bg-black/30 backdrop-blur-md rounded-lg border border-white/20 overflow-hidden flex flex-col'
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.4 }}
-                style={{ minHeight: '20rem' }}
+                style={{ minHeight: '30rem' }}
               >
                 {/* Skills Grid */}
                 <div className='p-4 flex-1'>
