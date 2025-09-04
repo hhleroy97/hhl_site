@@ -182,7 +182,7 @@ export default function SkillsTools() {
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(0)
 
-  const SKILLS_PER_PAGE = 12
+  const SKILLS_PER_PAGE = 24
 
   // Get technology-specific colors
   const getTechColor = (IconComponent: React.ComponentType) => {
@@ -453,7 +453,7 @@ export default function SkillsTools() {
           </motion.div>
 
           {/* Skills Table */}
-          <div className='flex-1 max-w-4xl'>
+          <div className='flex-1'>
             <AnimatePresence mode='wait'>
               <motion.div
                 key={activeCategory + searchQuery}
@@ -466,7 +466,7 @@ export default function SkillsTools() {
               >
                 {/* Skills Grid */}
                 <div className='p-4 flex-1'>
-                  <div className='grid grid-cols-6 gap-3 h-full'>
+                  <div className='grid grid-cols-8 gap-3 h-full'>
                     {paginatedSkills.map((skill, index) => (
                       <motion.div
                         key={skill.name}
