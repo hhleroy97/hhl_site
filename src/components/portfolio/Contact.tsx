@@ -1,18 +1,40 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import PageSection from '../ui/PageSection'
+
+const services = [
+  { id: 'consultation', name: 'Free 15-Minute Consultation', price: 'FREE' },
+  { id: 'advisory', name: 'Technical Advisory Call', price: '$199/hr' },
+  { id: 'code-review', name: 'Code Review & Optimization', price: '$499+' },
+  { id: 'mvp', name: 'MVP Development', price: '$4,999-9,999' },
+  { id: 'fullstack', name: 'Full-Stack Web Application', price: '$9,999+' },
+  {
+    id: 'interactive',
+    name: 'Real-Time Interactive Systems',
+    price: '$9,999+',
+  },
+]
 
 export default function ContactFooter() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: '',
+    service: '',
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<
     'idle' | 'success' | 'error'
   >('idle')
+
+  // Pre-populate service selection from URL parameters
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const serviceParam = urlParams.get('service')
+    if (serviceParam && services.find(s => s.id === serviceParam)) {
+      setFormData(prev => ({ ...prev, service: serviceParam }))
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -23,14 +45,16 @@ export default function ContactFooter() {
 
     setSubmitStatus('success')
     setIsSubmitting(false)
-    setFormData({ name: '', email: '', subject: '', message: '' })
+    setFormData({ name: '', email: '', service: '', message: '' })
 
     // Reset success message after 3 seconds
     setTimeout(() => setSubmitStatus('idle'), 3000)
   }
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setFormData(prev => ({
       ...prev,
@@ -38,13 +62,26 @@ export default function ContactFooter() {
     }))
   }
 
+  const getPlaceholderText = () => {
+    switch (formData.service) {
+      case 'consultation':
+        return 'What would you like to discuss during our free consultation?'
+      case 'advisory':
+        return 'What technical challenges are you facing?'
+      case 'code-review':
+        return 'Tell me about your codebase and what you would like reviewed...'
+      default:
+        return 'Describe your project, timeline, and any specific requirements...'
+    }
+  }
+
   return (
     <PageSection
       id='contact'
       tagline='Contact'
       taglineColor='emerald'
-      title="Let's Build Something That Moves"
-      subtitle='and moves people'
+      title='Ready to Transform Your Vision?'
+      subtitle="Let's discuss your project and bring your ideas to life"
       className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
     >
       {/* Ultra Compact Layout */}
@@ -99,7 +136,7 @@ export default function ContactFooter() {
             </div>
           </motion.div>
 
-          {/* Quick Chat */}
+          {/* Response Time */}
           <motion.div
             className='group flex items-center gap-3 p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden relative'
             whileHover={{
@@ -114,7 +151,7 @@ export default function ContactFooter() {
             <div className='absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
             <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
             <div className='relative z-10 flex items-center gap-3'>
-              <div className='p-2 bg-gradient-to-r from-fuchsia-500 to-purple-500 rounded-lg text-white'>
+              <div className='p-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg text-white'>
                 <svg
                   className='w-4 h-4'
                   fill='none'
@@ -125,15 +162,14 @@ export default function ContactFooter() {
                     strokeLinecap='round'
                     strokeLinejoin='round'
                     strokeWidth={2}
-                    d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z'
+                    d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
                   />
                 </svg>
               </div>
               <div className='text-left'>
-                <div className='text-xs text-zinc-400'>Quick Chat</div>
-                <div className='text-sm font-medium text-zinc-300'>
-                  20-min intro{' '}
-                  <span className='text-zinc-500'>(coming soon)</span>
+                <div className='text-xs text-zinc-400'>Fast Response</div>
+                <div className='text-sm font-medium text-emerald-300'>
+                  Within 24 hours
                 </div>
               </div>
             </div>
@@ -173,7 +209,7 @@ export default function ContactFooter() {
                     onChange={handleChange}
                     required
                     className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm text-sm'
-                    placeholder='Your name'
+                    placeholder='Your full name'
                   />
                   <input
                     type='email'
@@ -182,19 +218,30 @@ export default function ContactFooter() {
                     onChange={handleChange}
                     required
                     className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm text-sm'
-                    placeholder='your@email.com'
+                    placeholder='your@company.com'
                   />
                 </div>
 
-                <input
-                  type='text'
-                  name='subject'
-                  value={formData.subject}
+                <select
+                  name='service'
+                  value={formData.service}
                   onChange={handleChange}
                   required
-                  className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors text-sm'
-                  placeholder='Project inquiry'
-                />
+                  className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors text-sm'
+                >
+                  <option value='' className='bg-zinc-900 text-zinc-300'>
+                    Select a service you're interested in
+                  </option>
+                  {services.map(service => (
+                    <option
+                      key={service.id}
+                      value={service.id}
+                      className='bg-zinc-900 text-zinc-300'
+                    >
+                      {service.name} ({service.price})
+                    </option>
+                  ))}
+                </select>
 
                 <textarea
                   name='message'
@@ -203,7 +250,7 @@ export default function ContactFooter() {
                   required
                   rows={2}
                   className='w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors resize-none text-sm'
-                  placeholder='Tell me about your project and timeline...'
+                  placeholder={getPlaceholderText()}
                 />
 
                 <div className='flex items-center justify-between'>
@@ -221,12 +268,13 @@ export default function ContactFooter() {
                     </span>
                   </button>
 
-                  {/* Status and tagline inline */}
+                  {/* Business tagline */}
                   <div className='text-xs text-zinc-400 flex items-center gap-2'>
                     <span>
-                      Infrastructure, intelligence, and interactivity—
+                      Ready to bring your vision to life?
                       <span className='bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent font-medium'>
-                        wired together
+                        {' '}
+                        Let's build it together.
                       </span>
                     </span>
                     <div className='flex gap-1'>
@@ -249,7 +297,8 @@ export default function ContactFooter() {
                     animate={{ opacity: 1, y: 0 }}
                     className='text-emerald-400 text-sm text-center'
                   >
-                    Thanks! I'll get back to you within 24 hours.
+                    Perfect! I'll review your request and get back to you within
+                    24 hours with next steps.
                   </motion.p>
                 )}
               </form>
