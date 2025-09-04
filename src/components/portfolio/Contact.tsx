@@ -88,7 +88,7 @@ export default function ContactFooter() {
                 <div className='space-y-6'>
                   {/* First Name */}
                   <div>
-                    <label className='text-zinc-300 text-sm font-medium block mb-3'>
+                    <label className='text-zinc-300 text-base font-medium block mb-3'>
                       First Name
                     </label>
                     <input
@@ -104,7 +104,7 @@ export default function ContactFooter() {
 
                   {/* Subject */}
                   <div>
-                    <label className='text-zinc-300 text-sm font-medium block mb-3'>
+                    <label className='text-zinc-300 text-base font-medium block mb-3'>
                       Subject
                     </label>
                     <input
@@ -123,7 +123,7 @@ export default function ContactFooter() {
                 <div className='space-y-6'>
                   {/* Email Address */}
                   <div>
-                    <label className='text-zinc-300 text-sm font-medium block mb-3'>
+                    <label className='text-zinc-300 text-base font-medium block mb-3'>
                       Email Address
                     </label>
                     <input
@@ -139,7 +139,7 @@ export default function ContactFooter() {
 
                   {/* Service of Interest */}
                   <div>
-                    <label className='text-zinc-300 text-sm font-medium block mb-3'>
+                    <label className='text-zinc-300 text-base font-medium block mb-3'>
                       Service of Interest
                     </label>
                     <select
@@ -168,7 +168,7 @@ export default function ContactFooter() {
 
               {/* Message Field - Full Width Below */}
               <div className='mb-8'>
-                <label className='text-zinc-300 text-sm font-medium block mb-3'>
+                <label className='text-zinc-300 text-base font-medium block mb-3'>
                   Message
                 </label>
                 <textarea
