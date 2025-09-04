@@ -108,7 +108,7 @@ export default function Navigation({
       2: { text: 'text-emerald-400' }, // experience
       3: { text: 'text-purple-400' }, // skills
       4: { text: 'text-cyan-400' }, // services
-      5: { text: 'text-cyan-400' }, // contact
+      5: { text: 'text-emerald-400' }, // contact
     }
     return (
       sectionColorMap[sectionIndex as keyof typeof sectionColorMap] || {
@@ -146,9 +146,9 @@ export default function Navigation({
         hoverBorder: 'hover:border-cyan-400/50',
       }, // services
       5: {
-        text: 'text-cyan-400',
-        border: 'border-cyan-400/30',
-        hoverBorder: 'hover:border-cyan-400/50',
+        text: 'text-emerald-400',
+        border: 'border-emerald-400/30',
+        hoverBorder: 'hover:border-emerald-400/50',
       }, // contact
     }
     return (
@@ -544,7 +544,7 @@ export default function Navigation({
                 disabled={!isNavReady}
                 className={`relative px-4 py-2 rounded-full transition-all duration-200 border-2 ${
                   isActive('contact', 4)
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50 border-white/30'
+                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 shadow-lg shadow-emerald-400/25 ring-2 ring-emerald-400/50 ring-offset-2 ring-offset-black/50 border-white/30'
                     : isNavReady
                       ? 'text-zinc-300 bg-black/20 backdrop-blur-sm border-white/20 hover:border-white/50 hover:text-white hover:shadow-md hover:bg-black/30 cursor-pointer'
                       : 'text-zinc-300 bg-black/20 backdrop-blur-sm border-white/20 opacity-50 cursor-not-allowed'
@@ -561,7 +561,7 @@ export default function Navigation({
                   </span>
                 ) : (
                   <span
-                    className='text-sm font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent'
+                    className='text-sm font-bold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent'
                     style={{ fontFamily: 'Orbitron, sans-serif' }}
                   >
                     Contact
@@ -634,7 +634,7 @@ export default function Navigation({
                 onClick={() => handleNavClick('contact', 4)}
                 className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
                   isActive('contact', 4)
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 shadow-lg shadow-cyan-400/25 ring-2 ring-cyan-400/50 ring-offset-2 ring-offset-black/50'
+                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 shadow-lg shadow-emerald-400/25 ring-2 ring-emerald-400/50 ring-offset-2 ring-offset-black/50'
                     : 'text-zinc-300 hover:text-white hover:bg-white/10'
                 }`}
                 whileHover={{ scale: 1.02 }}
@@ -649,7 +649,7 @@ export default function Navigation({
                   </span>
                 ) : (
                   <span
-                    className='text-xs font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent'
+                    className='text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent'
                     style={{ fontFamily: 'Orbitron, sans-serif' }}
                   >
                     Contact
