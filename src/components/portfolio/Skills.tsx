@@ -184,7 +184,38 @@ export default function SkillsTools() {
 
   const SKILLS_PER_PAGE = 12
 
-  // Icon wrapper component to handle different prop formats and preserve colors
+  // Get technology-specific colors
+  const getTechColor = (IconComponent: React.ComponentType) => {
+    const iconName = IconComponent.name
+
+    // Technology-specific brand colors
+    const colorMap: { [key: string]: string } = {
+      SiReact: '#61DAFB', // React cyan
+      SiVuedotjs: '#4FC08D', // Vue green
+      SiJavascript: '#F7DF1E', // JavaScript yellow
+      SiTypescript: '#3178C6', // TypeScript blue
+      SiHtml5: '#E34F26', // HTML5 orange
+      SiCss3: '#1572B6', // CSS3 blue
+      SiPython: '#3776AB', // Python blue
+      SiNodedotjs: '#339933', // Node.js green
+      SiDocker: '#2496ED', // Docker blue
+      SiLinux: '#FCC624', // Linux yellow
+      SiAmazon: '#FF9900', // AWS orange
+      SiTensorflow: '#FF6F00', // TensorFlow orange
+      SiOpencv: '#5C3EE8', // OpenCV purple
+      SiPytorch: '#EE4C2C', // PyTorch red
+      SiMysql: '#4479A1', // MySQL blue
+      SiMqtt: '#660066', // MQTT purple
+      SiRos: '#22314E', // ROS dark blue
+      SiNotion: '#000000', // Notion black
+      SiC: '#A8B9CC', // C language gray-blue
+      SiThreedotjs: '#000000', // Three.js black
+    }
+
+    return colorMap[iconName] || '#ffffff' // Default to white for unmatched icons
+  }
+
+  // Icon wrapper component to handle different prop formats and colors
   const IconWrapper = ({
     IconComponent,
     size,
@@ -192,12 +223,14 @@ export default function SkillsTools() {
     IconComponent: React.ComponentType<any>
     size: number
   }) => {
+    const color = getTechColor(IconComponent)
+
     return (
       <div
         style={{ width: size, height: size }}
         className='flex items-center justify-center'
       >
-        <IconComponent size={size} />
+        <IconComponent size={size} style={{ color }} />
       </div>
     )
   }
