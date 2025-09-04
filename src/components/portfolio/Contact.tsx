@@ -331,10 +331,8 @@ export default function ContactFooter() {
                   {/* Professional tagline */}
                   <div className='text-center mt-4'>
                     <p className='text-zinc-400 text-sm'>
-                      Ready to bring your vision to life?
                       <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent font-medium'>
-                        {' '}
-                        Let's build something incredible together.
+                        Ready to bring your ideal into reality?
                       </span>
                     </p>
                     <div className='flex justify-center gap-2 mt-2'>
