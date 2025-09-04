@@ -184,7 +184,7 @@ export default function SkillsTools() {
 
   const SKILLS_PER_PAGE = 12
 
-  // Icon wrapper component to handle different prop formats
+  // Icon wrapper component to handle different prop formats and preserve colors
   const IconWrapper = ({
     IconComponent,
     size,
@@ -192,7 +192,14 @@ export default function SkillsTools() {
     IconComponent: React.ComponentType<any>
     size: number
   }) => {
-    return <IconComponent size={size} style={{ width: size, height: size }} />
+    return (
+      <div
+        style={{ width: size, height: size }}
+        className='flex items-center justify-center'
+      >
+        <IconComponent size={size} />
+      </div>
+    )
   }
 
   // Professional technology-specific icon mapping
@@ -438,7 +445,7 @@ export default function SkillsTools() {
                     {paginatedSkills.map((skill, index) => (
                       <motion.div
                         key={skill.name}
-                        className='bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-3 hover:bg-white/5 hover:border-white/20 transition-all duration-200'
+                        className='bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-3 hover:bg-white/5 hover:border-white/20 transition-all duration-200 flex flex-col items-center justify-center text-center'
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{
@@ -447,15 +454,15 @@ export default function SkillsTools() {
                         }}
                         whileHover={{ scale: 1.02 }}
                       >
-                        {/* Header with icon */}
-                        <div className='flex items-center mb-3'>
+                        {/* Centered icon */}
+                        <div className='mb-3'>
                           <IconWrapper
                             IconComponent={skill.IconComponent}
-                            size={18}
+                            size={24}
                           />
                         </div>
 
-                        {/* Skill Name */}
+                        {/* Centered skill name */}
                         <h4 className='text-sm font-semibold text-white leading-tight'>
                           {skill.name}
                         </h4>
