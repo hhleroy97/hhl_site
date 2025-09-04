@@ -95,14 +95,15 @@ export default function Services() {
         </p>
       </div>
 
-      {/* Service Cards Grid */}
-      <div className='max-w-7xl mx-auto'>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+      {/* Service Cards - Full Width Row */}
+      <div className='w-full'>
+        <div className='flex flex-col md:flex-row gap-2 md:gap-1 h-auto md:h-[70vh] min-h-[400px]'>
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              className='flex-1 min-w-0'
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
