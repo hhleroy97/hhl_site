@@ -110,6 +110,94 @@ export default function ContactFooter() {
             <div className='absolute -bottom-32 -left-32 w-64 h-64 bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl pointer-events-none group-hover:from-cyan-500/30 group-hover:to-purple-500/30 transition-all duration-700' />
             <div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-400/60 through-cyan-400/60 to-transparent group-hover:via-purple-400/80 group-hover:through-cyan-400/80 transition-all duration-300' />
             <div className='relative z-10'>
+              {/* Contact Methods - Top of Form */}
+              <div className='grid md:grid-cols-2 gap-4 mb-6'>
+                {/* Email */}
+                <motion.div
+                  className='group relative p-4 bg-gradient-to-br from-purple-500/10 via-black/40 to-cyan-500/10 backdrop-blur-xl rounded-xl border border-white/10 transition-all duration-300 shadow-lg hover:shadow-purple-500/20 cursor-pointer overflow-hidden'
+                  whileHover={{
+                    scale: 1.01,
+                    y: -2,
+                    borderColor: 'rgba(147, 51, 234, 0.3)',
+                    boxShadow: '0 15px 30px rgba(147, 51, 234, 0.15)',
+                    transition: { duration: 0.3, ease: 'easeOut' },
+                  }}
+                >
+                  <div className='absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-black/5 pointer-events-none' />
+                  <div className='absolute -top-10 -right-10 w-20 h-20 bg-purple-500/20 rounded-full blur-2xl pointer-events-none group-hover:bg-purple-500/30 transition-all duration-500' />
+                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-purple-400/80 to-transparent group-hover:via-purple-400 transition-all duration-300' />
+                  <div className='relative z-10 flex items-center gap-3'>
+                    <div className='p-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white shadow-lg'>
+                      <svg
+                        className='w-4 h-4'
+                        fill='none'
+                        stroke='currentColor'
+                        viewBox='0 0 24 24'
+                      >
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          strokeWidth={2}
+                          d='M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
+                        />
+                      </svg>
+                    </div>
+                    <div className='text-left'>
+                      <div className='text-xs text-zinc-400 font-medium'>
+                        Direct Email
+                      </div>
+                      <a
+                        href='mailto:hartley.leroy1997@gmail.com'
+                        className='text-sm font-semibold text-purple-300 hover:text-purple-200 transition-colors'
+                      >
+                        hartley.leroy1997@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Response Time */}
+                <motion.div
+                  className='group relative p-4 bg-gradient-to-br from-emerald-500/10 via-black/40 to-teal-500/10 backdrop-blur-xl rounded-xl border border-white/10 transition-all duration-300 shadow-lg hover:shadow-emerald-500/20 cursor-pointer overflow-hidden'
+                  whileHover={{
+                    scale: 1.01,
+                    y: -2,
+                    borderColor: 'rgba(16, 185, 129, 0.3)',
+                    boxShadow: '0 15px 30px rgba(16, 185, 129, 0.15)',
+                    transition: { duration: 0.3, ease: 'easeOut' },
+                  }}
+                >
+                  <div className='absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-black/5 pointer-events-none' />
+                  <div className='absolute -top-10 -right-10 w-20 h-20 bg-emerald-500/20 rounded-full blur-2xl pointer-events-none group-hover:bg-emerald-500/30 transition-all duration-500' />
+                  <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent group-hover:via-emerald-400 transition-all duration-300' />
+                  <div className='relative z-10 flex items-center gap-3'>
+                    <div className='p-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg text-white shadow-lg'>
+                      <svg
+                        className='w-4 h-4'
+                        fill='none'
+                        stroke='currentColor'
+                        viewBox='0 0 24 24'
+                      >
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          strokeWidth={2}
+                          d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
+                        />
+                      </svg>
+                    </div>
+                    <div className='text-left'>
+                      <div className='text-xs text-zinc-400 font-medium'>
+                        Fast Response
+                      </div>
+                      <div className='text-sm font-semibold text-emerald-300'>
+                        Within 24 hours
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+
               <form onSubmit={handleSubmit} className='space-y-4'>
                 {/* Professional Form Grid */}
                 <div className='grid md:grid-cols-3 gap-4'>
@@ -217,94 +305,6 @@ export default function ContactFooter() {
                       <span>Send Message</span>
                     )}
                   </motion.button>
-                </div>
-
-                {/* Contact Methods - Inside Form */}
-                <div className='grid md:grid-cols-2 gap-4 mt-4'>
-                  {/* Email */}
-                  <motion.div
-                    className='group relative p-4 bg-gradient-to-br from-purple-500/10 via-black/40 to-cyan-500/10 backdrop-blur-xl rounded-xl border border-white/10 transition-all duration-300 shadow-lg hover:shadow-purple-500/20 cursor-pointer overflow-hidden'
-                    whileHover={{
-                      scale: 1.01,
-                      y: -2,
-                      borderColor: 'rgba(147, 51, 234, 0.3)',
-                      boxShadow: '0 15px 30px rgba(147, 51, 234, 0.15)',
-                      transition: { duration: 0.3, ease: 'easeOut' },
-                    }}
-                  >
-                    <div className='absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-black/5 pointer-events-none' />
-                    <div className='absolute -top-10 -right-10 w-20 h-20 bg-purple-500/20 rounded-full blur-2xl pointer-events-none group-hover:bg-purple-500/30 transition-all duration-500' />
-                    <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-purple-400/80 to-transparent group-hover:via-purple-400 transition-all duration-300' />
-                    <div className='relative z-10 flex items-center gap-3'>
-                      <div className='p-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white shadow-lg'>
-                        <svg
-                          className='w-4 h-4'
-                          fill='none'
-                          stroke='currentColor'
-                          viewBox='0 0 24 24'
-                        >
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth={2}
-                            d='M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
-                          />
-                        </svg>
-                      </div>
-                      <div className='text-left'>
-                        <div className='text-xs text-zinc-400 font-medium'>
-                          Direct Email
-                        </div>
-                        <a
-                          href='mailto:hartley.leroy1997@gmail.com'
-                          className='text-sm font-semibold text-purple-300 hover:text-purple-200 transition-colors'
-                        >
-                          hartley.leroy1997@gmail.com
-                        </a>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Response Time */}
-                  <motion.div
-                    className='group relative p-4 bg-gradient-to-br from-emerald-500/10 via-black/40 to-teal-500/10 backdrop-blur-xl rounded-xl border border-white/10 transition-all duration-300 shadow-lg hover:shadow-emerald-500/20 cursor-pointer overflow-hidden'
-                    whileHover={{
-                      scale: 1.01,
-                      y: -2,
-                      borderColor: 'rgba(16, 185, 129, 0.3)',
-                      boxShadow: '0 15px 30px rgba(16, 185, 129, 0.15)',
-                      transition: { duration: 0.3, ease: 'easeOut' },
-                    }}
-                  >
-                    <div className='absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-black/5 pointer-events-none' />
-                    <div className='absolute -top-10 -right-10 w-20 h-20 bg-emerald-500/20 rounded-full blur-2xl pointer-events-none group-hover:bg-emerald-500/30 transition-all duration-500' />
-                    <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent group-hover:via-emerald-400 transition-all duration-300' />
-                    <div className='relative z-10 flex items-center gap-3'>
-                      <div className='p-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg text-white shadow-lg'>
-                        <svg
-                          className='w-4 h-4'
-                          fill='none'
-                          stroke='currentColor'
-                          viewBox='0 0 24 24'
-                        >
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth={2}
-                            d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
-                          />
-                        </svg>
-                      </div>
-                      <div className='text-left'>
-                        <div className='text-xs text-zinc-400 font-medium'>
-                          Fast Response
-                        </div>
-                        <div className='text-sm font-semibold text-emerald-300'>
-                          Within 24 hours
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
                 </div>
 
                 {submitStatus === 'success' && (
