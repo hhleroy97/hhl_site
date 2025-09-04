@@ -13,7 +13,7 @@ import {
 const services = [
   {
     id: 'consultation',
-    title: 'Free 15-Minute Consultation',
+    title: 'Free 15-Minute\nConsultation',
     description:
       'Quick discovery call to understand your project needs and explore how we can work together',
     price: 'FREE',
@@ -22,51 +22,60 @@ const services = [
   },
   {
     id: 'advisory',
-    title: 'Technical Advisory Call',
+    title: 'Technical Advisory\nCall',
     description:
       'Strategic guidance on technology decisions, architecture review, or problem-solving session',
-    price: '$150/hr',
+    price: '$199/hr',
     icon: <FaLightbulb />,
   },
   {
     id: 'code-review',
-    title: 'Code Review & Optimization',
+    title: 'Code Review &\nOptimization',
     description:
       'Comprehensive review of your existing codebase with optimization recommendations and security analysis',
-    price: '$200-500',
+    price: '$499+',
     icon: <FaSearchengin />,
   },
   {
     id: 'mvp',
-    title: 'MVP Development',
+    title: 'MVP\nDevelopment',
     description:
       'End-to-end development of your minimum viable product using modern tech stack',
-    price: '$3,000-8,000',
+    price: '$4,999-9,999',
     icon: <FaRocket />,
   },
   {
     id: 'fullstack',
-    title: 'Full-Stack Web Application',
+    title: 'Full-Stack Web\nApplication',
     description:
       'Complete web application development with frontend, backend, database, and deployment',
-    price: '$8,000-25,000',
+    price: '$9,999+',
     icon: <FaGlobe />,
   },
   {
     id: 'interactive',
-    title: 'Real-Time Interactive Systems',
+    title: 'Real-Time Interactive\nSystems',
     description:
       'Custom interactive installations, real-time visual systems, and IoT integrations',
-    price: '$10,000-30,000',
+    price: '$9,999+',
     icon: <FaBolt />,
   },
 ]
 
 export default function Services() {
-  const handleServiceSelect = (serviceId: string) => {
-    // TODO: Implement Calendly integration for consultation
-    // TODO: Implement quote request for other services
-    console.log(`Selected service: ${serviceId}`)
+  const handleServiceSelect = () => {
+    console.log('Button clicked - navigating to contact!')
+
+    // Simple hash navigation
+    window.location.hash = '#contact'
+
+    // Force scroll after a tiny delay
+    setTimeout(() => {
+      const contactElement = document.getElementById('contact')
+      if (contactElement) {
+        contactElement.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, 100)
   }
 
   return (
@@ -78,9 +87,9 @@ export default function Services() {
       subtitle=''
     >
       {/* Services Header */}
-      <div className='text-center mb-6 flex-shrink-0'>
+      <div className='text-center mb-6 flex-shrink-0 -mt-6'>
         <h2
-          className='text-3xl md:text-4xl font-bold mb-3'
+          className='text-4xl md:text-5xl font-bold mb-3'
           style={{ fontFamily: 'Orbitron, sans-serif' }}
         >
           <span className='text-white'>Professional Services</span>
@@ -97,15 +106,19 @@ export default function Services() {
 
       {/* Service Cards - Full Width Row */}
       <div className='w-full'>
-        <div className='flex flex-col md:flex-row gap-2 md:gap-1 h-auto md:h-[45vh] min-h-[350px]'>
+        <div className='flex flex-col md:flex-row gap-2 md:gap-1 h-auto md:h-[50.6vh] min-h-[393px]'>
           {services.map((service, index) => (
             <motion.div
               key={service.id}
               className='flex-1 min-w-0'
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.15,
+                ease: 'easeOut',
+              }}
             >
               <ServiceCard
                 title={service.title}
@@ -113,7 +126,8 @@ export default function Services() {
                 price={service.price}
                 icon={service.icon}
                 isHighlighted={service.isHighlighted}
-                onSelect={() => handleServiceSelect(service.id)}
+                onSelect={handleServiceSelect}
+                serviceId={service.id}
               />
             </motion.div>
           ))}
