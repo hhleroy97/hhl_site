@@ -1,29 +1,52 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageSection from '../ui/PageSection'
+// Technology-specific icons from react-icons
 import {
-  Code2,
-  Database,
-  Cloud,
-  Brain,
+  SiReact,
+  SiVuedotjs,
+  SiJavascript,
+  SiTypescript,
+  SiHtml5,
+  SiCss3,
+  SiPython,
+  SiNodedotjs,
+  SiDocker,
+  SiLinux,
+  SiThreedotjs,
+  SiWebgl,
+  SiAmazon,
+  SiAmazons3,
+  SiAwslambda,
+  SiMqtt,
+  SiRos,
+  SiMysql,
+  SiTensorflow,
+  SiOpencv,
+  SiNotion,
+  SiProcessingfoundation,
+  SiMidi,
+  SiC,
+  SiJupyter,
+  SiPandas,
+  SiNumpy,
+  SiPytorch,
+} from 'react-icons/si'
+// Fallback Lucide icons for skills without specific tech icons
+import {
   Users,
   Target,
   Palette,
   Rocket,
   Globe,
-  Server,
   Cpu,
   Monitor,
-  Layers,
   Terminal,
   GitBranch,
   Zap,
   Eye,
-  BarChart3,
-  TrendingUp,
   Network,
   Wifi,
-  Radio,
   Crown,
   Mic,
   MessageCircle,
@@ -31,7 +54,6 @@ import {
   Handshake,
   Search,
   Crosshair,
-  CircuitBoard,
   BookOpen,
   FileText,
   Clipboard,
@@ -40,13 +62,9 @@ import {
   FileCode,
   Smartphone,
   Brush,
-  Music,
   Sparkles,
-  Play,
-  Gamepad2,
   Waves,
   Signal,
-  Activity,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react'
@@ -202,40 +220,74 @@ export default function SkillsTools() {
 
   const SKILLS_PER_PAGE = 12
 
-  // Professional Lucide icon mapping
+  // Icon wrapper component to handle different prop formats
+  const IconWrapper = ({
+    IconComponent,
+    size,
+  }: {
+    IconComponent: React.ComponentType<any>
+    size: number
+  }) => {
+    return <IconComponent size={size} style={{ width: size, height: size }} />
+  }
+
+  // Professional technology-specific icon mapping
   const getSkillIcon = (skillName: string) => {
     const iconMap: { [key: string]: React.ComponentType } = {
-      'React.js': Code2,
-      'Vue.js': Code2,
-      JavaScript: Code2,
-      TypeScript: Code2,
-      HTML: Monitor,
-      CSS: Palette,
-      Python: Terminal,
-      'Node.js': Server,
+      // Frontend Technologies
+      'React.js': SiReact,
+      'Vue.js': SiVuedotjs,
+      JavaScript: SiJavascript,
+      TypeScript: SiTypescript,
+      HTML: SiHtml5,
+      CSS: SiCss3,
+      'Three.js': SiThreedotjs,
+      WebGL: SiWebgl,
+
+      // Backend Technologies
+      Python: SiPython,
+      'Node.js': SiNodedotjs,
+      'Embedded C': SiC,
+
+      // Infrastructure & DevOps
+      Docker: SiDocker,
+      Linux: SiLinux,
+      AWS: SiAmazon,
+      Lambda: SiAwslambda,
+      S3: SiAmazons3,
+
+      // Data & Analytics
+      SQL: SiMysql,
+      'Machine Learning': SiTensorflow,
+      'Computer Vision': SiOpencv,
+      'Neural Networks': SiPytorch,
+      'Data Science': SiJupyter,
+      'Data Analysis': SiPandas,
+      'Statistical Analysis': SiNumpy,
+
+      // Communication & IoT
+      MQTT: SiMqtt,
+      ROS2: SiRos,
+
+      // Creative & Multimedia
+      'Music Production': Brush,
+      MIDI: SiMidi,
+      TouchDesigner: Monitor,
+      Kinect: Eye,
+      Processing: SiProcessingfoundation,
+
+      // Productivity & Management
+      Notion: SiNotion,
+      'Tech Docs': FileCode,
+      'Project Mgmt': Clipboard,
+
+      // Fallback Lucide icons for skills without specific tech icons
       APIs: Network,
       'Web Applications': Globe,
       'Embedded Systems': Cpu,
-      'Embedded C': CircuitBoard,
-      Docker: Layers,
-      Linux: Terminal,
-      'Three.js': Gamepad2,
-      WebGL: Zap,
-      AWS: Cloud,
       'IoT Core': Wifi,
-      Lambda: Zap,
-      S3: Database,
-      'Data Analysis': BarChart3,
-      'Data Science': Microscope,
-      'Machine Learning': Brain,
-      'Computer Vision': Eye,
-      'Neural Networks': Brain,
-      SQL: Database,
       'Data Pipelines': GitBranch,
       'Image Processing': Eye,
-      'Statistical Analysis': TrendingUp,
-      ROS2: Cpu,
-      MQTT: Radio,
       Telemetry: Signal,
       'Team Leadership': Crown,
       'Public Speaking': Mic,
@@ -248,33 +300,25 @@ export default function SkillsTools() {
       'Knowledge Mgmt': BookOpen,
       'Peer Tutoring': Users,
       Presentations: Monitor,
-      'Project Mgmt': Clipboard,
       Agile: RotateCcw,
       Research: Microscope,
       'Tech Writing': FileText,
-      'Tech Docs': FileCode,
-      Notion: FileText,
       'Drone Piloting': Crosshair,
       Drones: Zap,
       'Robot Systems': Cpu,
       'OTA Updates': Smartphone,
       'Digital Art': Brush,
-      'Music Production': Music,
       Creativity: Sparkles,
-      TouchDesigner: Play,
-      R3F: Code2,
-      Kinect: Activity,
-      MIDI: Music,
-      Processing: Brush,
+      R3F: SiThreedotjs,
       Shaders: Sparkles,
       'Wireless Comms': Wifi,
       'Signal Processing': Waves,
       DSP: Signal,
     }
-    return iconMap[skillName] || Code2
+    return iconMap[skillName] || Terminal
   }
 
-  // Get all skills from all categories with Lucide icons
+  // Get all skills from all categories with technology-specific icons
   const allSkills = skillCategories.flatMap(category =>
     category.skills.map(skill => ({
       ...skill,
@@ -400,7 +444,10 @@ export default function SkillsTools() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <category.IconComponent size={16} />
+                  <IconWrapper
+                    IconComponent={category.IconComponent}
+                    size={16}
+                  />
                   <span>
                     {category.title} ({categorySkillCount})
                   </span>
@@ -438,7 +485,10 @@ export default function SkillsTools() {
                       >
                         {/* Header with icon and endorsement */}
                         <div className='flex items-center justify-between mb-2'>
-                          <skill.IconComponent size={18} />
+                          <IconWrapper
+                            IconComponent={skill.IconComponent}
+                            size={18}
+                          />
                           {skill.endorsements > 0 &&
                             getEndorsementBadge(skill.endorsements)}
                         </div>
