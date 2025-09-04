@@ -466,33 +466,47 @@ export default function SkillsTools() {
               >
                 {/* Skills Grid */}
                 <div className='p-4 flex-1 flex flex-col'>
-                  <div className='grid grid-cols-8 gap-3 flex-1 auto-rows-fr'>
-                    {paginatedSkills.map((skill, index) => (
-                      <motion.div
-                        key={skill.name}
-                        className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center h-full'
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{
-                          duration: 0.3,
-                          delay: index * 0.02,
-                        }}
-                        whileHover={{ scale: 1.02 }}
-                      >
-                        {/* Centered icon */}
-                        <div className='mb-3'>
-                          <IconWrapper
-                            IconComponent={skill.IconComponent}
-                            size={36}
-                          />
-                        </div>
+                  <div className='grid grid-cols-8 grid-rows-3 gap-3 flex-1'>
+                    {Array.from({ length: 24 }, (_, index) => {
+                      const skill = paginatedSkills[index]
 
-                        {/* Centered skill name */}
-                        <h4 className='text-sm font-semibold text-white leading-tight'>
-                          {skill.name}
-                        </h4>
-                      </motion.div>
-                    ))}
+                      if (skill) {
+                        return (
+                          <motion.div
+                            key={skill.name}
+                            className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center h-full'
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                              duration: 0.3,
+                              delay: index * 0.02,
+                            }}
+                            whileHover={{ scale: 1.02 }}
+                          >
+                            {/* Centered icon */}
+                            <div className='mb-3'>
+                              <IconWrapper
+                                IconComponent={skill.IconComponent}
+                                size={36}
+                              />
+                            </div>
+
+                            {/* Centered skill name */}
+                            <h4 className='text-sm font-semibold text-white leading-tight'>
+                              {skill.name}
+                            </h4>
+                          </motion.div>
+                        )
+                      } else {
+                        // Empty placeholder slot
+                        return (
+                          <div
+                            key={`empty-${index}`}
+                            className='bg-transparent rounded-lg h-full'
+                          />
+                        )
+                      }
+                    })}
                   </div>
                 </div>
 
