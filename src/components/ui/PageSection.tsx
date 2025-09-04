@@ -12,6 +12,7 @@ interface PageSectionProps {
   children: ReactNode
   className?: string
   cardVariant?: 'floating' | 'rotated' | 'background' | 'cutcorner'
+  isHomePage?: boolean
 }
 
 export default function PageSection({
@@ -23,6 +24,7 @@ export default function PageSection({
   children,
   className = '',
   cardVariant,
+  isHomePage = false,
 }: PageSectionProps) {
   const { variant } = useCardVariant()
   const selectedVariant = cardVariant || variant
@@ -37,7 +39,9 @@ export default function PageSection({
       <div className='absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent' />
       <div className='absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent' />
 
-      <div className='container-custom relative z-10 w-full pt-8 pb-24'>
+      <div
+        className={`container-custom relative z-10 w-full pt-8 ${isHomePage ? 'pb-8' : 'pb-32'}`}
+      >
         {/* Complete section wrapped in TechCard */}
         <motion.div
           className='h-full'
