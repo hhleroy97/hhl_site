@@ -404,7 +404,7 @@ export default function SkillsTools() {
 
         {/* Category Tabs */}
         <motion.div
-          className='flex'
+          className='flex gap-1'
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -413,10 +413,10 @@ export default function SkillsTools() {
           {/* All Skills Tab */}
           <motion.button
             onClick={() => setActiveCategory('all')}
-            className={`flex-1 px-4 py-3 transition-all duration-300 text-sm flex items-center justify-center gap-2 whitespace-nowrap ${
+            className={`flex-1 px-4 py-3 transition-all duration-300 text-sm font-medium flex items-center justify-center gap-2 whitespace-nowrap ${
               activeCategory === 'all'
-                ? 'bg-black/30 text-white rounded-t-lg backdrop-blur-md border-t border-l border-r border-white/20 border-b-0'
-                : 'bg-white/5 text-zinc-300 hover:bg-white/10 rounded-t-lg border-b-2 border-transparent hover:border-white/20'
+                ? 'bg-black/30 text-white rounded-t-lg backdrop-blur-md border border-white/20 border-b-0'
+                : 'bg-white/5 text-zinc-300 hover:bg-white/10 rounded-t-lg border border-white/10 border-b-0 hover:border-white/20'
             }`}
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
@@ -430,10 +430,10 @@ export default function SkillsTools() {
               <motion.button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex-1 px-4 py-3 transition-all duration-300 flex items-center justify-center gap-2 text-sm whitespace-nowrap ${
+                className={`flex-1 px-4 py-3 transition-all duration-300 flex items-center justify-center gap-2 text-sm font-medium whitespace-nowrap ${
                   activeCategory === category.id
-                    ? 'bg-black/30 text-white rounded-t-lg backdrop-blur-md border-t border-l border-r border-white/20 border-b-0'
-                    : 'bg-white/5 text-zinc-300 hover:bg-white/10 rounded-t-lg border-b-2 border-transparent hover:border-white/20'
+                    ? 'bg-black/30 text-white rounded-t-lg backdrop-blur-md border border-white/20 border-b-0'
+                    : 'bg-white/5 text-zinc-300 hover:bg-white/10 rounded-t-lg border border-white/10 border-b-0 hover:border-white/20'
                 }`}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
