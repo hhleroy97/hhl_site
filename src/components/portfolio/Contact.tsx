@@ -85,10 +85,10 @@ export default function ContactFooter() {
       className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
     >
       {/* Professional Contact Layout */}
-      <div className='max-w-6xl mx-auto'>
+      <div className='max-w-7xl mx-auto'>
         {/* Contact Methods - Above Form */}
         <motion.div
-          className='grid md:grid-cols-2 gap-6 mb-8 max-w-4xl mx-auto'
+          className='grid md:grid-cols-2 gap-6 mb-6 max-w-5xl mx-auto'
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -189,7 +189,7 @@ export default function ContactFooter() {
           viewport={{ once: true }}
         >
           <motion.div
-            className='group relative bg-gradient-to-br from-white/[0.08] via-black/50 to-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/20 p-8 md:p-12 shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 overflow-hidden'
+            className='group relative bg-gradient-to-br from-white/[0.08] via-black/50 to-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/20 p-6 md:p-8 shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 overflow-hidden'
             whileHover={{
               scale: 1.002,
               borderColor: 'rgba(147, 51, 234, 0.3)',
@@ -205,24 +205,24 @@ export default function ContactFooter() {
             <div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-400/60 through-cyan-400/60 to-transparent group-hover:via-purple-400/80 group-hover:through-cyan-400/80 transition-all duration-300' />
             <div className='relative z-10'>
               {/* Form Header */}
-              <div className='text-center mb-8'>
+              <div className='text-center mb-6'>
                 <h3
-                  className='text-2xl md:text-3xl font-bold text-white mb-3'
+                  className='text-xl md:text-2xl font-bold text-white mb-2'
                   style={{ fontFamily: 'Orbitron, sans-serif' }}
                 >
                   <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
                     Start Your Project
                   </span>
                 </h3>
-                <p className='text-zinc-400 text-lg max-w-md mx-auto'>
+                <p className='text-zinc-400 text-base max-w-lg mx-auto'>
                   Tell me about your vision and I'll get back to you within 24
                   hours with next steps.
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className='space-y-6'>
+              <form onSubmit={handleSubmit} className='space-y-4'>
                 {/* Professional Form Grid */}
-                <div className='grid md:grid-cols-2 gap-6'>
+                <div className='grid md:grid-cols-3 gap-4'>
                   <div className='space-y-2'>
                     <label className='text-zinc-300 text-sm font-medium block'>
                       Full Name
@@ -251,32 +251,31 @@ export default function ContactFooter() {
                       placeholder='your@company.com'
                     />
                   </div>
-                </div>
-
-                <div className='space-y-2'>
-                  <label className='text-zinc-300 text-sm font-medium block'>
-                    Service Interest
-                  </label>
-                  <select
-                    name='service'
-                    value={formData.service}
-                    onChange={handleChange}
-                    required
-                    className='w-full px-4 py-3 bg-gradient-to-r from-white/[0.05] to-white/[0.08] border border-white/20 rounded-xl text-white focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-gradient-to-r focus:from-white/[0.08] focus:to-white/[0.12] transition-all duration-300 backdrop-blur-sm text-base'
-                  >
-                    <option value='' className='bg-zinc-900 text-zinc-300'>
-                      Select a service you're interested in
-                    </option>
-                    {services.map(service => (
-                      <option
-                        key={service.id}
-                        value={service.id}
-                        className='bg-zinc-900 text-zinc-300'
-                      >
-                        {service.name}
+                  <div className='space-y-2'>
+                    <label className='text-zinc-300 text-sm font-medium block'>
+                      Service Interest
+                    </label>
+                    <select
+                      name='service'
+                      value={formData.service}
+                      onChange={handleChange}
+                      required
+                      className='w-full px-4 py-3 bg-gradient-to-r from-white/[0.05] to-white/[0.08] border border-white/20 rounded-xl text-white focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-gradient-to-r focus:from-white/[0.08] focus:to-white/[0.12] transition-all duration-300 backdrop-blur-sm text-base'
+                    >
+                      <option value='' className='bg-zinc-900 text-zinc-300'>
+                        Select a service you're interested in
                       </option>
-                    ))}
-                  </select>
+                      {services.map(service => (
+                        <option
+                          key={service.id}
+                          value={service.id}
+                          className='bg-zinc-900 text-zinc-300'
+                        >
+                          {service.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
 
                 <div className='space-y-2'>
@@ -288,17 +287,17 @@ export default function ContactFooter() {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={4}
+                    rows={3}
                     className='w-full px-4 py-3 bg-gradient-to-r from-white/[0.05] to-white/[0.08] border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-purple-400/60 focus:ring-2 focus:ring-purple-400/20 focus:bg-gradient-to-r focus:from-white/[0.08] focus:to-white/[0.12] transition-all duration-300 backdrop-blur-sm resize-none text-base'
                     placeholder={getPlaceholderText()}
                   />
                 </div>
 
-                <div className='pt-4'>
+                <div className='pt-2'>
                   <motion.button
                     type='submit'
                     disabled={isSubmitting}
-                    className='w-full py-4 px-8 bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-lg hover:shadow-purple-500/25 transition-all duration-300 text-lg'
+                    className='w-full py-3 px-8 bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-lg hover:shadow-purple-500/25 transition-all duration-300 text-base'
                     whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                     whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                   >
@@ -330,7 +329,7 @@ export default function ContactFooter() {
                   </motion.button>
 
                   {/* Professional tagline */}
-                  <div className='text-center mt-6'>
+                  <div className='text-center mt-4'>
                     <p className='text-zinc-400 text-sm'>
                       Ready to bring your vision to life?
                       <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent font-medium'>
@@ -338,14 +337,14 @@ export default function ContactFooter() {
                         Let's build something incredible together.
                       </span>
                     </p>
-                    <div className='flex justify-center gap-2 mt-3'>
-                      <div className='w-2 h-2 bg-emerald-400 rounded-full animate-pulse'></div>
+                    <div className='flex justify-center gap-2 mt-2'>
+                      <div className='w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse'></div>
                       <div
-                        className='w-2 h-2 bg-cyan-400 rounded-full animate-pulse'
+                        className='w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse'
                         style={{ animationDelay: '0.5s' }}
                       ></div>
                       <div
-                        className='w-2 h-2 bg-purple-400 rounded-full animate-pulse'
+                        className='w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse'
                         style={{ animationDelay: '1s' }}
                       ></div>
                     </div>
@@ -356,9 +355,9 @@ export default function ContactFooter() {
                   <motion.div
                     initial={{ opacity: 0, y: 20, scale: 0.9 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    className='mt-6 p-4 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-400/20 rounded-xl text-center'
+                    className='mt-4 p-3 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-400/20 rounded-xl text-center'
                   >
-                    <p className='text-emerald-400 text-lg font-medium mb-2'>
+                    <p className='text-emerald-400 text-base font-medium mb-1'>
                       🎉 Thank you for reaching out!
                     </p>
                     <p className='text-zinc-300 text-sm'>
