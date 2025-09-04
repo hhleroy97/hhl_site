@@ -327,26 +327,6 @@ export default function ContactFooter() {
                       <span>Send Message</span>
                     )}
                   </motion.button>
-
-                  {/* Professional tagline */}
-                  <div className='text-center mt-4'>
-                    <p className='text-zinc-400 text-sm'>
-                      <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent font-medium'>
-                        Ready to bring your idea into reality?
-                      </span>
-                    </p>
-                    <div className='flex justify-center gap-2 mt-2'>
-                      <div className='w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse'></div>
-                      <div
-                        className='w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse'
-                        style={{ animationDelay: '0.5s' }}
-                      ></div>
-                      <div
-                        className='w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse'
-                        style={{ animationDelay: '1s' }}
-                      ></div>
-                    </div>
-                  </div>
                 </div>
 
                 {submitStatus === 'success' && (
