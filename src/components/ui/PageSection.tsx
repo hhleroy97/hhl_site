@@ -63,52 +63,73 @@ export default function PageSection({
                   <>
                     <br />
                     <span className='text-zinc-300'>
-                      {subtitle.split(' ').map((word, index, array) => {
-                        const isLast = index === array.length - 1
-                        if (word.toLowerCase() === 'creativity') {
+                      {subtitle
+                        .split(/(\s+|—)/)
+                        .filter(part => part.trim())
+                        .map((word, index, array) => {
+                          const isLast = index === array.length - 1
+                          if (word.toLowerCase() === 'creativity') {
+                            return (
+                              <span key={index}>
+                                <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
+                                  {word}
+                                </span>
+                                {!isLast && ' '}
+                              </span>
+                            )
+                          } else if (word.toLowerCase() === 'computation') {
+                            return (
+                              <span key={index}>
+                                <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>
+                                  {word}
+                                </span>
+                                {!isLast && ' '}
+                              </span>
+                            )
+                          } else if (word.toLowerCase() === 'offerings') {
+                            return (
+                              <span key={index}>
+                                <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
+                                  {word}
+                                </span>
+                                {!isLast && ' '}
+                              </span>
+                            )
+                          } else if (word.toLowerCase() === 'inspire') {
+                            return (
+                              <span key={index}>
+                                <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>
+                                  {word}
+                                </span>
+                                {!isLast && ' '}
+                              </span>
+                            )
+                          } else if (word.toLowerCase() === 'wired') {
+                            return (
+                              <span key={index}>
+                                <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
+                                  {word}
+                                </span>
+                                {!isLast && ' '}
+                              </span>
+                            )
+                          } else if (word.toLowerCase() === 'together') {
+                            return (
+                              <span key={index}>
+                                <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
+                                  {word}
+                                </span>
+                                {!isLast && ' '}
+                              </span>
+                            )
+                          }
                           return (
                             <span key={index}>
-                              <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
-                                {word}
-                              </span>
+                              {word}
                               {!isLast && ' '}
                             </span>
                           )
-                        } else if (word.toLowerCase() === 'computation') {
-                          return (
-                            <span key={index}>
-                              <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>
-                                {word}
-                              </span>
-                              {!isLast && ' '}
-                            </span>
-                          )
-                        } else if (word.toLowerCase() === 'offerings') {
-                          return (
-                            <span key={index}>
-                              <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
-                                {word}
-                              </span>
-                              {!isLast && ' '}
-                            </span>
-                          )
-                        } else if (word.toLowerCase() === 'inspire') {
-                          return (
-                            <span key={index}>
-                              <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>
-                                {word}
-                              </span>
-                              {!isLast && ' '}
-                            </span>
-                          )
-                        }
-                        return (
-                          <span key={index}>
-                            {word}
-                            {!isLast && ' '}
-                          </span>
-                        )
-                      })}
+                        })}
                     </span>
                   </>
                 )}
