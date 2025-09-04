@@ -196,14 +196,75 @@ const getEndorsementBadge = (count: number) => {
 }
 
 // Radar Chart Component
-const SkillRadarChart = () => {
-  const skillStats = [
-    { label: 'Frontend', value: 90, color: 'from-purple-400 to-cyan-500' },
-    { label: 'Backend', value: 85, color: 'from-cyan-400 to-teal-500' },
-    { label: 'Cloud/Data', value: 80, color: 'from-teal-400 to-emerald-500' },
-    { label: 'Leadership', value: 95, color: 'from-emerald-400 to-blue-500' },
-    { label: 'Creative', value: 75, color: 'from-blue-400 to-purple-500' },
-  ]
+const SkillRadarChart = ({ activeCategory }: { activeCategory: string }) => {
+  // Calculate category averages dynamically
+  const calculateCategoryAverage = (categoryId: string) => {
+    const category = skillCategories.find(cat => cat.id === categoryId)
+    if (!category) return 0
+    const avgStars =
+      category.skills.reduce((sum, skill) => sum + skill.stars, 0) /
+      category.skills.length
+    return Math.round((avgStars / 3) * 100) // Convert 0-3 stars to 0-100%
+  }
+
+  const getSkillStats = () => {
+    if (activeCategory === 'all') {
+      // Show all categories when "all" is selected
+      return [
+        {
+          label: 'Full Stack',
+          value: calculateCategoryAverage('fullstack'),
+          color: 'from-purple-400 to-cyan-500',
+        },
+        {
+          label: 'Cloud/Data',
+          value: calculateCategoryAverage('clouddata'),
+          color: 'from-cyan-400 to-teal-500',
+        },
+        {
+          label: 'Soft Skills',
+          value: calculateCategoryAverage('softskills'),
+          color: 'from-teal-400 to-emerald-500',
+        },
+        {
+          label: 'Project Mgmt',
+          value: calculateCategoryAverage('projectmgmt'),
+          color: 'from-emerald-400 to-blue-500',
+        },
+        {
+          label: 'Creative',
+          value: calculateCategoryAverage('creative'),
+          color: 'from-blue-400 to-purple-500',
+        },
+      ]
+    } else {
+      // Show individual skills when a specific category is selected
+      const category = skillCategories.find(cat => cat.id === activeCategory)
+      if (!category) return []
+
+      // Take top 5 skills from the category, pad with empty if needed
+      const topSkills = category.skills
+        .sort((a, b) => b.stars - a.stars)
+        .slice(0, 5)
+
+      // Pad to exactly 5 items for consistent pentagon shape
+      while (topSkills.length < 5) {
+        topSkills.push({ name: '', stars: 0, endorsements: 0 })
+      }
+
+      return topSkills.map(skill => ({
+        label: skill.name
+          ? skill.name.length > 12
+            ? skill.name.substring(0, 12) + '...'
+            : skill.name
+          : '',
+        value: Math.round((skill.stars / 3) * 100),
+        color: category.color,
+      }))
+    }
+  }
+
+  const skillStats = getSkillStats()
 
   const size = 200
   const center = size / 2
@@ -654,7 +715,17 @@ export default function SkillsTools() {
                 Skill Overview
               </h3>
               <div className='flex justify-center'>
-                <SkillRadarChart />
+                <AnimatePresence mode='wait'>
+                  <motion.div
+                    key={activeCategory}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <SkillRadarChart activeCategory={activeCategory} />
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </motion.div>
           </div>
