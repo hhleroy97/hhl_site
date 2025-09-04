@@ -66,10 +66,14 @@ export default function Services() {
   const handleServiceSelect = (serviceId?: string) => {
     // Navigate with service parameter if provided
     if (serviceId) {
-      window.location.href = `#contact?service=${serviceId}`
-    } else {
-      window.location.hash = '#contact'
+      // Update the URL with the service parameter
+      const url = new URL(window.location.href)
+      url.searchParams.set('service', serviceId)
+      window.history.replaceState({}, '', url.toString())
     }
+
+    // Navigate to contact section
+    window.location.hash = '#contact'
 
     // Force scroll after a tiny delay
     setTimeout(() => {
