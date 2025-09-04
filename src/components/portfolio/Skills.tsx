@@ -402,167 +402,161 @@ export default function SkillsTools() {
           </div>
         </motion.div>
 
-        {/* Main Content Layout */}
-        <div className='flex gap-4 items-stretch'>
-          {/* Category Sidebar */}
-          <motion.div
-            className='flex flex-col gap-2 min-w-fit bg-black/20 backdrop-blur-md rounded-lg border border-white/20 p-3'
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+        {/* Category Tabs */}
+        <motion.div
+          className='mb-4 flex flex-wrap gap-2 justify-center'
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          {/* All Skills Tab */}
+          <motion.button
+            onClick={() => setActiveCategory('all')}
+            className={`px-4 py-2 rounded-t-lg transition-all duration-300 text-sm flex items-center gap-2 whitespace-nowrap border-b-2 ${
+              activeCategory === 'all'
+                ? 'bg-white/15 text-white border-cyan-400'
+                : 'bg-white/5 text-zinc-300 hover:bg-white/10 border-transparent hover:border-white/20'
+            }`}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            {/* All Skills Button */}
-            <motion.button
-              onClick={() => setActiveCategory('all')}
-              className={`px-3 py-2 rounded-md transition-all duration-300 text-xs flex items-center gap-2 whitespace-nowrap ${
-                activeCategory === 'all'
-                  ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
-                  : 'bg-black/30 border border-white/20 text-zinc-300 hover:bg-white/10'
-              }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              🔍 All Skills ({totalSkills})
-            </motion.button>
+            🔍 All Skills ({totalSkills})
+          </motion.button>
 
-            {skillCategories.map(category => {
-              const categorySkillCount = category.skills.length
-              return (
-                <motion.button
-                  key={category.id}
-                  onClick={() => setActiveCategory(category.id)}
-                  className={`px-3 py-2 rounded-md transition-all duration-300 flex items-center gap-2 text-xs whitespace-nowrap ${
-                    activeCategory === category.id
-                      ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
-                      : 'bg-black/30 border border-white/20 text-zinc-300 hover:bg-white/10'
-                  }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <IconWrapper
-                    IconComponent={category.IconComponent}
-                    size={16}
-                  />
-                  <span>
-                    {category.title} ({categorySkillCount})
-                  </span>
-                </motion.button>
-              )
-            })}
-          </motion.div>
-
-          {/* Skills Table */}
-          <div className='flex-1'>
-            <AnimatePresence mode='wait'>
-              <motion.div
-                key={activeCategory + searchQuery}
-                className='bg-black/30 backdrop-blur-md rounded-lg border border-white/20 overflow-hidden flex flex-col'
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-                style={{ minHeight: '30rem' }}
+          {skillCategories.map(category => {
+            const categorySkillCount = category.skills.length
+            return (
+              <motion.button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`px-4 py-2 rounded-t-lg transition-all duration-300 flex items-center gap-2 text-sm whitespace-nowrap border-b-2 ${
+                  activeCategory === category.id
+                    ? 'bg-white/15 text-white border-cyan-400'
+                    : 'bg-white/5 text-zinc-300 hover:bg-white/10 border-transparent hover:border-white/20'
+                }`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                {/* Skills Grid */}
-                <div className='p-4 flex-1 flex flex-col'>
-                  <div className='grid grid-cols-8 grid-rows-3 gap-3 flex-1'>
-                    {Array.from({ length: 24 }, (_, index) => {
-                      const skill = paginatedSkills[index]
+                <IconWrapper IconComponent={category.IconComponent} size={16} />
+                <span>
+                  {category.title} ({categorySkillCount})
+                </span>
+              </motion.button>
+            )
+          })}
+        </motion.div>
 
-                      if (skill) {
-                        return (
-                          <motion.div
-                            key={skill.name}
-                            className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center h-full'
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{
-                              duration: 0.3,
-                              delay: index * 0.02,
-                            }}
-                            whileHover={{ scale: 1.02 }}
-                          >
-                            {/* Centered icon */}
-                            <div className='mb-3'>
-                              <IconWrapper
-                                IconComponent={skill.IconComponent}
-                                size={36}
-                              />
-                            </div>
+        {/* Skills Table */}
+        <div className='w-full'>
+          <AnimatePresence mode='wait'>
+            <motion.div
+              key={activeCategory + searchQuery}
+              className='bg-black/30 backdrop-blur-md rounded-lg border border-white/20 overflow-hidden flex flex-col'
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              style={{ minHeight: '30rem' }}
+            >
+              {/* Skills Grid */}
+              <div className='p-4 flex-1 flex flex-col'>
+                <div className='grid grid-cols-8 grid-rows-3 gap-3 flex-1'>
+                  {Array.from({ length: 24 }, (_, index) => {
+                    const skill = paginatedSkills[index]
 
-                            {/* Centered skill name */}
-                            <h4 className='text-sm font-semibold text-white leading-tight'>
-                              {skill.name}
-                            </h4>
-                          </motion.div>
-                        )
-                      } else {
-                        // Empty placeholder slot
-                        return (
-                          <div
-                            key={`empty-${index}`}
-                            className='bg-transparent rounded-lg h-full'
-                          />
+                    if (skill) {
+                      return (
+                        <motion.div
+                          key={skill.name}
+                          className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center h-full'
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.02,
+                          }}
+                          whileHover={{ scale: 1.02 }}
+                        >
+                          {/* Centered icon */}
+                          <div className='mb-3'>
+                            <IconWrapper
+                              IconComponent={skill.IconComponent}
+                              size={36}
+                            />
+                          </div>
+
+                          {/* Centered skill name */}
+                          <h4 className='text-sm font-semibold text-white leading-tight'>
+                            {skill.name}
+                          </h4>
+                        </motion.div>
+                      )
+                    } else {
+                      // Empty placeholder slot
+                      return (
+                        <div
+                          key={`empty-${index}`}
+                          className='bg-transparent rounded-lg h-full'
+                        />
+                      )
+                    }
+                  })}
+                </div>
+              </div>
+
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className='flex justify-center items-center p-4 bg-black/10 border-t border-white/10'>
+                  <div className='flex items-center gap-2'>
+                    <button
+                      onClick={() =>
+                        setCurrentPage(Math.max(0, currentPage - 1))
+                      }
+                      disabled={currentPage === 0}
+                      className={`w-6 h-6 rounded flex items-center justify-center transition-all ${
+                        currentPage === 0
+                          ? 'bg-black/20 text-zinc-600 cursor-not-allowed'
+                          : 'bg-black/30 text-zinc-300 hover:bg-white/10'
+                      }`}
+                    >
+                      <ChevronLeft size={14} />
+                    </button>
+
+                    {Array.from({ length: totalPages }, (_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setCurrentPage(i)}
+                        className={`w-6 h-6 rounded text-xs transition-all ${
+                          i === currentPage
+                            ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
+                            : 'bg-black/30 text-zinc-400 hover:bg-white/10'
+                        }`}
+                      >
+                        {i + 1}
+                      </button>
+                    ))}
+
+                    <button
+                      onClick={() =>
+                        setCurrentPage(
+                          Math.min(totalPages - 1, currentPage + 1)
                         )
                       }
-                    })}
+                      disabled={currentPage === totalPages - 1}
+                      className={`w-6 h-6 rounded flex items-center justify-center transition-all ${
+                        currentPage === totalPages - 1
+                          ? 'bg-black/20 text-zinc-600 cursor-not-allowed'
+                          : 'bg-black/30 text-zinc-300 hover:bg-white/10'
+                      }`}
+                    >
+                      <ChevronRight size={14} />
+                    </button>
                   </div>
                 </div>
-
-                {/* Pagination Controls */}
-                {totalPages > 1 && (
-                  <div className='flex justify-center items-center p-4 bg-black/10 border-t border-white/10'>
-                    <div className='flex items-center gap-2'>
-                      <button
-                        onClick={() =>
-                          setCurrentPage(Math.max(0, currentPage - 1))
-                        }
-                        disabled={currentPage === 0}
-                        className={`w-6 h-6 rounded flex items-center justify-center transition-all ${
-                          currentPage === 0
-                            ? 'bg-black/20 text-zinc-600 cursor-not-allowed'
-                            : 'bg-black/30 text-zinc-300 hover:bg-white/10'
-                        }`}
-                      >
-                        <ChevronLeft size={14} />
-                      </button>
-
-                      {Array.from({ length: totalPages }, (_, i) => (
-                        <button
-                          key={i}
-                          onClick={() => setCurrentPage(i)}
-                          className={`w-6 h-6 rounded text-xs transition-all ${
-                            i === currentPage
-                              ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
-                              : 'bg-black/30 text-zinc-400 hover:bg-white/10'
-                          }`}
-                        >
-                          {i + 1}
-                        </button>
-                      ))}
-
-                      <button
-                        onClick={() =>
-                          setCurrentPage(
-                            Math.min(totalPages - 1, currentPage + 1)
-                          )
-                        }
-                        disabled={currentPage === totalPages - 1}
-                        className={`w-6 h-6 rounded flex items-center justify-center transition-all ${
-                          currentPage === totalPages - 1
-                            ? 'bg-black/20 text-zinc-600 cursor-not-allowed'
-                            : 'bg-black/30 text-zinc-300 hover:bg-white/10'
-                        }`}
-                      >
-                        <ChevronRight size={14} />
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* No Results Message */}
