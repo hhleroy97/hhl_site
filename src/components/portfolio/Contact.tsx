@@ -153,7 +153,7 @@ export default function ContactFooter() {
               <div className='absolute inset-0 bg-gradient-to-br from-purple-500/[0.03] via-transparent to-cyan-500/[0.03] pointer-events-none' />
               <div className='absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-full blur-3xl pointer-events-none group-hover:from-purple-500/30 group-hover:to-cyan-500/30 transition-all duration-700' />
               <div className='absolute -bottom-32 -left-32 w-64 h-64 bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl pointer-events-none group-hover:from-cyan-500/30 group-hover:to-purple-500/30 transition-all duration-700' />
-              <div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-400/60 through-cyan-400/60 to-transparent group-hover:via-purple-400/80 group-hover:through-cyan-400/80 transition-all duration-300' />
+              <div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-400/60 to-cyan-400/60 group-hover:via-purple-400/80 group-hover:to-cyan-400/80 transition-all duration-300' />
               <div className='relative z-10'>
                 {/* Contact Methods - Top of Form */}
                 <div className='grid md:grid-cols-2 gap-4 mb-6'>
