@@ -68,7 +68,7 @@ export default function PageSection({
                     <br />
                     <span className='text-zinc-300'>
                       {subtitle
-                        .split(/(\s+|—)/)
+                        .split(/(\s+|—|[.!?])/)
                         .filter(part => part.trim())
                         .map((word, index, array) => {
                           const isLast = index === array.length - 1
