@@ -195,204 +195,6 @@ const getEndorsementBadge = (count: number) => {
   )
 }
 
-// Radar Chart Component
-const SkillRadarChart = ({ activeCategory }: { activeCategory: string }) => {
-  // Calculate category averages dynamically
-  const calculateCategoryAverage = (categoryId: string) => {
-    const category = skillCategories.find(cat => cat.id === categoryId)
-    if (!category) return 0
-    const avgStars =
-      category.skills.reduce((sum, skill) => sum + skill.stars, 0) /
-      category.skills.length
-    return Math.round((avgStars / 3) * 100) // Convert 0-3 stars to 0-100%
-  }
-
-  const getSkillStats = () => {
-    if (activeCategory === 'all') {
-      // Show all categories when "all" is selected
-      return [
-        {
-          label: 'Full Stack',
-          value: calculateCategoryAverage('fullstack'),
-          color: 'from-purple-400 to-cyan-500',
-        },
-        {
-          label: 'Cloud/Data',
-          value: calculateCategoryAverage('clouddata'),
-          color: 'from-cyan-400 to-teal-500',
-        },
-        {
-          label: 'Soft Skills',
-          value: calculateCategoryAverage('softskills'),
-          color: 'from-teal-400 to-emerald-500',
-        },
-        {
-          label: 'Project Mgmt',
-          value: calculateCategoryAverage('projectmgmt'),
-          color: 'from-emerald-400 to-blue-500',
-        },
-        {
-          label: 'Creative',
-          value: calculateCategoryAverage('creative'),
-          color: 'from-blue-400 to-purple-500',
-        },
-      ]
-    } else {
-      // Show individual skills when a specific category is selected
-      const category = skillCategories.find(cat => cat.id === activeCategory)
-      if (!category) return []
-
-      // Take top 5 skills from the category, pad with empty if needed
-      const topSkills = category.skills
-        .sort((a, b) => b.stars - a.stars)
-        .slice(0, 5)
-
-      // Pad to exactly 5 items for consistent pentagon shape
-      while (topSkills.length < 5) {
-        topSkills.push({ name: '', stars: 0, endorsements: 0 })
-      }
-
-      return topSkills.map(skill => ({
-        label: skill.name
-          ? skill.name.length > 12
-            ? skill.name.substring(0, 12) + '...'
-            : skill.name
-          : '',
-        value: Math.round((skill.stars / 3) * 100),
-        color: category.color,
-      }))
-    }
-  }
-
-  const skillStats = getSkillStats()
-
-  const size = 200
-  const center = size / 2
-  const maxRadius = size * 0.35
-  const levels = 5
-
-  // Generate pentagon points
-  const getPolygonPoints = (radius: number) => {
-    const points = []
-    for (let i = 0; i < skillStats.length; i++) {
-      const angle = (i * 2 * Math.PI) / skillStats.length - Math.PI / 2
-      const x = center + radius * Math.cos(angle)
-      const y = center + radius * Math.sin(angle)
-      points.push([x, y])
-    }
-    return points
-  }
-
-  // Generate value points based on skill levels
-  const getValuePoints = () => {
-    const points = []
-    for (let i = 0; i < skillStats.length; i++) {
-      const angle = (i * 2 * Math.PI) / skillStats.length - Math.PI / 2
-      const radius = (skillStats[i].value / 100) * maxRadius
-      const x = center + radius * Math.cos(angle)
-      const y = center + radius * Math.sin(angle)
-      points.push([x, y])
-    }
-    return points
-  }
-
-  const valuePoints = getValuePoints()
-
-  return (
-    <div className='relative'>
-      <svg width={size} height={size} className='drop-shadow-lg'>
-        {/* Background grid levels */}
-        {Array.from({ length: levels }, (_, i) => {
-          const radius = maxRadius * ((i + 1) / levels)
-          const points = getPolygonPoints(radius)
-          return (
-            <polygon
-              key={i}
-              points={points.map(p => p.join(',')).join(' ')}
-              fill='none'
-              stroke='rgba(255, 255, 255, 0.1)'
-              strokeWidth='1'
-            />
-          )
-        })}
-
-        {/* Radial lines */}
-        {skillStats.map((_, i) => {
-          const angle = (i * 2 * Math.PI) / skillStats.length - Math.PI / 2
-          const x = center + maxRadius * Math.cos(angle)
-          const y = center + maxRadius * Math.sin(angle)
-          return (
-            <line
-              key={i}
-              x1={center}
-              y1={center}
-              x2={x}
-              y2={y}
-              stroke='rgba(255, 255, 255, 0.1)'
-              strokeWidth='1'
-            />
-          )
-        })}
-
-        {/* Skill value area */}
-        <polygon
-          points={valuePoints.map(p => p.join(',')).join(' ')}
-          fill='url(#radarGradient)'
-          stroke='rgba(124, 58, 237, 0.8)'
-          strokeWidth='2'
-          className='animate-pulse'
-        />
-
-        {/* Skill points */}
-        {valuePoints.map((point, i) => (
-          <circle
-            key={i}
-            cx={point[0]}
-            cy={point[1]}
-            r='4'
-            fill='white'
-            stroke='rgba(124, 58, 237, 1)'
-            strokeWidth='2'
-            className='drop-shadow-md'
-          />
-        ))}
-
-        {/* Gradient definition */}
-        <defs>
-          <radialGradient id='radarGradient' cx='50%' cy='50%' r='50%'>
-            <stop offset='0%' stopColor='rgba(168, 85, 247, 0.4)' />
-            <stop offset='100%' stopColor='rgba(59, 130, 246, 0.1)' />
-          </radialGradient>
-        </defs>
-      </svg>
-
-      {/* Labels */}
-      {skillStats.map((skill, i) => {
-        const angle = (i * 2 * Math.PI) / skillStats.length - Math.PI / 2
-        const labelRadius = maxRadius + 20
-        const x = center + labelRadius * Math.cos(angle)
-        const y = center + labelRadius * Math.sin(angle)
-
-        return (
-          <div
-            key={i}
-            className='absolute text-xs font-semibold text-white transform -translate-x-1/2 -translate-y-1/2'
-            style={{
-              left: x,
-              top: y,
-            }}
-          >
-            <div className='text-center'>
-              <div>{skill.label}</div>
-              <div className='text-xs text-zinc-400'>{skill.value}%</div>
-            </div>
-          </div>
-        )
-      })}
-    </div>
-  )
-}
-
 export default function SkillsTools() {
   const [activeCategory, setActiveCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -607,139 +409,109 @@ export default function SkillsTools() {
             })}
           </motion.div>
 
-          {/* Skills Table and Radar Chart */}
-          <div className='flex-1 flex gap-4' style={{ minHeight: '20rem' }}>
-            {/* Skills Table */}
-            <div className='flex-1'>
-              <AnimatePresence mode='wait'>
-                <motion.div
-                  key={activeCategory + searchQuery}
-                  className='bg-black/30 backdrop-blur-md rounded-lg border border-white/20 overflow-hidden'
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4 }}
-                  style={{ minHeight: '20rem' }}
-                >
-                  {/* Skills Grid */}
-                  <div className='p-4 flex-1'>
-                    <div className='grid grid-cols-3 gap-3 h-full'>
-                      {paginatedSkills.map((skill, index) => (
-                        <motion.div
-                          key={skill.name}
-                          className='bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-3 hover:bg-white/5 hover:border-white/20 transition-all duration-200'
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{
-                            duration: 0.3,
-                            delay: index * 0.02,
-                          }}
-                          whileHover={{ scale: 1.02 }}
+          {/* Skills Table */}
+          <div className='flex-1'>
+            <AnimatePresence mode='wait'>
+              <motion.div
+                key={activeCategory + searchQuery}
+                className='bg-black/30 backdrop-blur-md rounded-lg border border-white/20 overflow-hidden'
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                style={{ minHeight: '20rem' }}
+              >
+                {/* Skills Grid */}
+                <div className='p-4 flex-1'>
+                  <div className='grid grid-cols-4 gap-3 h-full'>
+                    {paginatedSkills.map((skill, index) => (
+                      <motion.div
+                        key={skill.name}
+                        className='bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-3 hover:bg-white/5 hover:border-white/20 transition-all duration-200'
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: index * 0.02,
+                        }}
+                        whileHover={{ scale: 1.02 }}
+                      >
+                        {/* Header with icon and endorsement */}
+                        <div className='flex items-center justify-between mb-2'>
+                          <skill.IconComponent size={18} />
+                          {skill.endorsements > 0 &&
+                            getEndorsementBadge(skill.endorsements)}
+                        </div>
+
+                        {/* Skill Name */}
+                        <h4 className='text-sm font-semibold text-white mb-2 leading-tight'>
+                          {skill.name}
+                        </h4>
+
+                        {/* Rating and Category */}
+                        <div className='flex items-center justify-between'>
+                          <StarRating rating={skill.stars} />
+                          <span className='text-xs text-zinc-400'>
+                            {skill.category}
+                          </span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className='flex justify-center items-center p-4 bg-black/10 border-t border-white/10'>
+                    <div className='flex items-center gap-2'>
+                      <button
+                        onClick={() =>
+                          setCurrentPage(Math.max(0, currentPage - 1))
+                        }
+                        disabled={currentPage === 0}
+                        className={`w-6 h-6 rounded flex items-center justify-center transition-all ${
+                          currentPage === 0
+                            ? 'bg-black/20 text-zinc-600 cursor-not-allowed'
+                            : 'bg-black/30 text-zinc-300 hover:bg-white/10'
+                        }`}
+                      >
+                        <ChevronLeft size={14} />
+                      </button>
+
+                      {Array.from({ length: totalPages }, (_, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setCurrentPage(i)}
+                          className={`w-6 h-6 rounded text-xs transition-all ${
+                            i === currentPage
+                              ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
+                              : 'bg-black/30 text-zinc-400 hover:bg-white/10'
+                          }`}
                         >
-                          {/* Header with icon and endorsement */}
-                          <div className='flex items-center justify-between mb-2'>
-                            <skill.IconComponent size={18} />
-                            {skill.endorsements > 0 &&
-                              getEndorsementBadge(skill.endorsements)}
-                          </div>
-
-                          {/* Skill Name */}
-                          <h4 className='text-sm font-semibold text-white mb-2 leading-tight'>
-                            {skill.name}
-                          </h4>
-
-                          {/* Rating and Category */}
-                          <div className='flex items-center justify-between'>
-                            <StarRating rating={skill.stars} />
-                            <span className='text-xs text-zinc-400'>
-                              {skill.category}
-                            </span>
-                          </div>
-                        </motion.div>
+                          {i + 1}
+                        </button>
                       ))}
+
+                      <button
+                        onClick={() =>
+                          setCurrentPage(
+                            Math.min(totalPages - 1, currentPage + 1)
+                          )
+                        }
+                        disabled={currentPage === totalPages - 1}
+                        className={`w-6 h-6 rounded flex items-center justify-center transition-all ${
+                          currentPage === totalPages - 1
+                            ? 'bg-black/20 text-zinc-600 cursor-not-allowed'
+                            : 'bg-black/30 text-zinc-300 hover:bg-white/10'
+                        }`}
+                      >
+                        <ChevronRight size={14} />
+                      </button>
                     </div>
                   </div>
-
-                  {/* Pagination Controls */}
-                  {totalPages > 1 && (
-                    <div className='flex justify-center items-center p-4 bg-black/10 border-t border-white/10'>
-                      <div className='flex items-center gap-2'>
-                        <button
-                          onClick={() =>
-                            setCurrentPage(Math.max(0, currentPage - 1))
-                          }
-                          disabled={currentPage === 0}
-                          className={`w-6 h-6 rounded flex items-center justify-center transition-all ${
-                            currentPage === 0
-                              ? 'bg-black/20 text-zinc-600 cursor-not-allowed'
-                              : 'bg-black/30 text-zinc-300 hover:bg-white/10'
-                          }`}
-                        >
-                          <ChevronLeft size={14} />
-                        </button>
-
-                        {Array.from({ length: totalPages }, (_, i) => (
-                          <button
-                            key={i}
-                            onClick={() => setCurrentPage(i)}
-                            className={`w-6 h-6 rounded text-xs transition-all ${
-                              i === currentPage
-                                ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
-                                : 'bg-black/30 text-zinc-400 hover:bg-white/10'
-                            }`}
-                          >
-                            {i + 1}
-                          </button>
-                        ))}
-
-                        <button
-                          onClick={() =>
-                            setCurrentPage(
-                              Math.min(totalPages - 1, currentPage + 1)
-                            )
-                          }
-                          disabled={currentPage === totalPages - 1}
-                          className={`w-6 h-6 rounded flex items-center justify-center transition-all ${
-                            currentPage === totalPages - 1
-                              ? 'bg-black/20 text-zinc-600 cursor-not-allowed'
-                              : 'bg-black/30 text-zinc-300 hover:bg-white/10'
-                          }`}
-                        >
-                          <ChevronRight size={14} />
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Skill Radar Chart - Right Side */}
-            <motion.div
-              className='w-72 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 p-4 flex flex-col items-center justify-center'
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              style={{ minHeight: '20rem' }}
-            >
-              <h3 className='text-sm font-bold text-white mb-3 text-center'>
-                Skill Overview
-              </h3>
-              <div className='flex justify-center'>
-                <AnimatePresence mode='wait'>
-                  <motion.div
-                    key={activeCategory}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <SkillRadarChart activeCategory={activeCategory} />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </motion.div>
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
