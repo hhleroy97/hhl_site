@@ -404,7 +404,7 @@ export default function SkillsTools() {
 
         {/* Category Tabs */}
         <motion.div
-          className='mb-4 flex flex-wrap gap-2 justify-center'
+          className='flex'
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -413,13 +413,13 @@ export default function SkillsTools() {
           {/* All Skills Tab */}
           <motion.button
             onClick={() => setActiveCategory('all')}
-            className={`px-4 py-2 rounded-t-lg transition-all duration-300 text-sm flex items-center gap-2 whitespace-nowrap border-b-2 ${
+            className={`flex-1 px-4 py-3 transition-all duration-300 text-sm flex items-center justify-center gap-2 whitespace-nowrap ${
               activeCategory === 'all'
-                ? 'bg-white/15 text-white border-cyan-400'
-                : 'bg-white/5 text-zinc-300 hover:bg-white/10 border-transparent hover:border-white/20'
+                ? 'bg-black/30 text-white rounded-t-lg backdrop-blur-md border-t border-l border-r border-white/20 border-b-0'
+                : 'bg-white/5 text-zinc-300 hover:bg-white/10 rounded-t-lg border-b-2 border-transparent hover:border-white/20'
             }`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
           >
             🔍 All Skills ({totalSkills})
           </motion.button>
@@ -430,13 +430,13 @@ export default function SkillsTools() {
               <motion.button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`px-4 py-2 rounded-t-lg transition-all duration-300 flex items-center gap-2 text-sm whitespace-nowrap border-b-2 ${
+                className={`flex-1 px-4 py-3 transition-all duration-300 flex items-center justify-center gap-2 text-sm whitespace-nowrap ${
                   activeCategory === category.id
-                    ? 'bg-white/15 text-white border-cyan-400'
-                    : 'bg-white/5 text-zinc-300 hover:bg-white/10 border-transparent hover:border-white/20'
+                    ? 'bg-black/30 text-white rounded-t-lg backdrop-blur-md border-t border-l border-r border-white/20 border-b-0'
+                    : 'bg-white/5 text-zinc-300 hover:bg-white/10 rounded-t-lg border-b-2 border-transparent hover:border-white/20'
                 }`}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
               >
                 <IconWrapper IconComponent={category.IconComponent} size={16} />
                 <span>
@@ -452,7 +452,7 @@ export default function SkillsTools() {
           <AnimatePresence mode='wait'>
             <motion.div
               key={activeCategory + searchQuery}
-              className='bg-black/30 backdrop-blur-md rounded-lg border border-white/20 overflow-hidden flex flex-col'
+              className='bg-black/30 backdrop-blur-md rounded-b-lg rounded-tr-lg border-b border-l border-r border-white/20 overflow-hidden flex flex-col'
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
