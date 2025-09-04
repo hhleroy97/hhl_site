@@ -453,7 +453,7 @@ export default function SkillsTools() {
           </motion.div>
 
           {/* Skills Table */}
-          <div className='flex-1'>
+          <div className='flex-1 max-w-4xl'>
             <AnimatePresence mode='wait'>
               <motion.div
                 key={activeCategory + searchQuery}
@@ -483,7 +483,7 @@ export default function SkillsTools() {
                         <div className='mb-3'>
                           <IconWrapper
                             IconComponent={skill.IconComponent}
-                            size={24}
+                            size={36}
                           />
                         </div>
 
