@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import emailjs from '@emailjs/browser'
 import PageSection from '../ui/PageSection'
 
 const services = [
@@ -40,15 +41,53 @@ export default function ContactFooter() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    try {
+      // EmailJS configuration from environment variables
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
-    setSubmitStatus('success')
-    setIsSubmitting(false)
-    setFormData({ name: '', email: '', service: '', subject: '', message: '' })
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error(
+          'EmailJS configuration missing. Please check your environment variables.'
+        )
+      }
 
-    // Reset success message after 3 seconds
-    setTimeout(() => setSubmitStatus('idle'), 3000)
+      // Prepare template parameters
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        service:
+          services.find(s => s.id === formData.service)?.name ||
+          formData.service,
+        message: formData.message,
+        to_email: 'hartley.leroy1997@gmail.com',
+      }
+
+      // Send email using EmailJS
+      await emailjs.send(serviceId, templateId, templateParams, publicKey)
+
+      setSubmitStatus('success')
+      setFormData({
+        name: '',
+        email: '',
+        service: '',
+        subject: '',
+        message: '',
+      })
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000)
+    } catch (error) {
+      console.error('Failed to send email:', error)
+      setSubmitStatus('error')
+
+      // Reset error message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (
@@ -121,6 +160,45 @@ export default function ContactFooter() {
                   className='inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl text-white font-medium transition-all duration-300'
                 >
                   Send Another Message
+                </button>
+              </div>
+            ) : submitStatus === 'error' ? (
+              <div className='relative z-10 text-center w-full py-8'>
+                <div className='mb-6'>
+                  <div className='w-16 h-16 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4'>
+                    <svg
+                      className='w-8 h-8 text-white'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M6 18L18 6M6 6l12 12'
+                      />
+                    </svg>
+                  </div>
+                  <h3 className='text-2xl font-semibold text-white mb-2'>
+                    Message Failed to Send
+                  </h3>
+                  <p className='text-zinc-300 text-lg mb-4'>
+                    Sorry, there was an issue sending your message. Please try
+                    again or contact me directly at{' '}
+                    <a
+                      href='mailto:hartley.leroy1997@gmail.com'
+                      className='text-emerald-400 hover:text-emerald-300 transition-colors'
+                    >
+                      hartley.leroy1997@gmail.com
+                    </a>
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSubmitStatus('idle')}
+                  className='inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl text-white font-medium transition-all duration-300'
+                >
+                  Try Again
                 </button>
               </div>
             ) : (
