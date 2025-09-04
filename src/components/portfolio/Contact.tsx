@@ -142,26 +142,44 @@ export default function ContactFooter() {
                     <label className='text-zinc-300 text-base font-medium block mb-3'>
                       Service of Interest
                     </label>
-                    <select
-                      name='service'
-                      value={formData.service}
-                      onChange={handleChange}
-                      required
-                      className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
-                    >
-                      <option value='' className='bg-zinc-900 text-zinc-300'>
-                        Select a service
-                      </option>
-                      {services.map(service => (
-                        <option
-                          key={service.id}
-                          value={service.id}
-                          className='bg-zinc-900 text-zinc-300'
-                        >
-                          {service.name}
+                    <div className='relative'>
+                      <select
+                        name='service'
+                        value={formData.service}
+                        onChange={handleChange}
+                        required
+                        className='w-full px-4 py-3 pr-10 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30 appearance-none cursor-pointer'
+                      >
+                        <option value='' className='bg-zinc-900 text-zinc-300'>
+                          Select a service
                         </option>
-                      ))}
-                    </select>
+                        {services.map(service => (
+                          <option
+                            key={service.id}
+                            value={service.id}
+                            className='bg-zinc-900 text-zinc-300 py-2'
+                          >
+                            {service.name}
+                          </option>
+                        ))}
+                      </select>
+                      {/* Custom dropdown arrow */}
+                      <div className='absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none'>
+                        <svg
+                          className='w-5 h-5 text-zinc-400'
+                          fill='none'
+                          stroke='currentColor'
+                          viewBox='0 0 24 24'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth={2}
+                            d='M19 9l-7 7-7-7'
+                          />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
