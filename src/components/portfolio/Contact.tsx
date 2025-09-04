@@ -80,8 +80,8 @@ export default function ContactFooter() {
       id='contact'
       tagline='Contact'
       taglineColor='emerald'
-      title='Ready to bring your idea into reality?'
-      subtitle=''
+      title=''
+      subtitle='Ready to bring your idea into reality?'
       className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
     >
       {/* Professional Contact Layout */}

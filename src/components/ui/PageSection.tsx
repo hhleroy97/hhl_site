@@ -126,6 +126,24 @@ export default function PageSection({
                                 {!isLast && ' '}
                               </span>
                             )
+                          } else if (word.toLowerCase() === 'idea') {
+                            return (
+                              <span key={index}>
+                                <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
+                                  {word}
+                                </span>
+                                {!isLast && ' '}
+                              </span>
+                            )
+                          } else if (word.toLowerCase() === 'reality') {
+                            return (
+                              <span key={index}>
+                                <span className='bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent'>
+                                  {word}
+                                </span>
+                                {!isLast && ' '}
+                              </span>
+                            )
                           }
                           return (
                             <span key={index}>
