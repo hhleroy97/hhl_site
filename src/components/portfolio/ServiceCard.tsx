@@ -24,7 +24,7 @@ export default function ServiceCard({
         isHighlighted
           ? 'bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border-2 border-purple-400/60'
           : 'bg-black/30 border border-white/20'
-      } backdrop-blur-md rounded-lg p-4 md:p-6 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden`}
+      } backdrop-blur-md rounded-lg p-3 md:p-4 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden`}
       whileHover={{
         scale: 1.01,
         y: -2,
@@ -60,11 +60,11 @@ export default function ServiceCard({
       <div className='relative z-10 flex flex-col h-full'>
         {/* Pricing - At very top */}
         <div
-          className={`text-center mb-3 ${
+          className={`text-center mb-2 ${
             isHighlighted ? 'text-purple-200' : 'text-cyan-400'
           }`}
         >
-          <div className='text-lg md:text-xl font-bold'>{price}</div>
+          <div className='text-base md:text-lg font-bold'>{price}</div>
           {price === 'FREE' && (
             <div className='text-xs text-emerald-400 font-medium'>
               Limited Time
@@ -73,13 +73,13 @@ export default function ServiceCard({
         </div>
 
         {/* Icon - Centered */}
-        <div className='flex flex-col items-center mb-4'>
+        <div className='flex flex-col items-center mb-3'>
           <div
-            className={`flex items-center justify-center w-16 h-16 rounded-lg ${
+            className={`flex items-center justify-center w-12 h-12 rounded-lg ${
               isHighlighted
                 ? 'bg-gradient-to-r from-purple-500 to-cyan-500'
                 : 'bg-gradient-to-r from-purple-500/60 to-cyan-500/60'
-            } text-white text-2xl`}
+            } text-white text-xl`}
           >
             {icon}
           </div>
@@ -87,7 +87,7 @@ export default function ServiceCard({
 
         {/* Title */}
         <h3
-          className={`text-lg md:text-xl font-bold mb-3 text-center ${
+          className={`text-base md:text-lg font-bold mb-2 text-center ${
             isHighlighted
               ? 'text-white group-hover:text-purple-100'
               : 'text-white group-hover:text-cyan-100'
@@ -97,13 +97,13 @@ export default function ServiceCard({
         </h3>
 
         {/* Description */}
-        <p className='text-sm text-zinc-300 leading-relaxed flex-grow mb-4 text-center'>
+        <p className='text-xs md:text-sm text-zinc-300 leading-snug flex-grow mb-3 text-center'>
           {description}
         </p>
 
         {/* CTA Button */}
         <motion.button
-          className={`w-full py-3 px-4 rounded-lg font-medium text-sm transition-all duration-300 ${
+          className={`w-full py-2 px-3 rounded-lg font-medium text-xs md:text-sm transition-all duration-300 ${
             isHighlighted
               ? 'bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-white'
               : 'bg-white/10 hover:bg-white/20 text-white border border-white/30 hover:border-white/50'
