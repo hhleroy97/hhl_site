@@ -17,6 +17,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@octokit/oauth-app": "^8.0.1",
     "@octokit/rest": "^22.0.0",
     "@react-three/drei": "^9.122.0",
