@@ -72,6 +72,8 @@ export default function PageSection({
                         .filter(part => part.trim())
                         .map((word, index, array) => {
                           const isLast = index === array.length - 1
+                          const nextPart = array[index + 1]
+                          const isPunctuation = /^[.!?]$/.test(nextPart)
                           if (word.toLowerCase() === 'creativity') {
                             return (
                               <span key={index}>
@@ -135,18 +137,22 @@ export default function PageSection({
                                 {!isLast && ' '}
                               </span>
                             )
-                          } else if (
-                            word.toLowerCase() === 'reality' ||
-                            word.toLowerCase() === 'reality?'
-                          ) {
+                          } else if (word.toLowerCase() === 'reality') {
                             return (
                               <span key={index}>
                                 <span className='bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent'>
                                   {word}
+                                  {isPunctuation ? nextPart : ''}
                                 </span>
-                                {!isLast && ' '}
+                                {!isLast && !isPunctuation && ' '}
                               </span>
                             )
+                          } else if (
+                            /^[.!?]$/.test(word) &&
+                            array[index - 1]?.toLowerCase() === 'reality'
+                          ) {
+                            // Skip rendering punctuation that's already included with 'reality'
+                            return null
                           }
                           return (
                             <span key={index}>
