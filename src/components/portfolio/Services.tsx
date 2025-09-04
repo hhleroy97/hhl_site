@@ -1,37 +1,74 @@
 import { motion } from 'framer-motion'
 import PageSection from '../ui/PageSection'
+import ServiceCard from './ServiceCard'
+import {
+  FaCalendarAlt,
+  FaLightbulb,
+  FaSearchengin,
+  FaRocket,
+  FaGlobe,
+  FaBolt,
+} from 'react-icons/fa'
 
 const services = [
   {
-    title: 'Cloud & Data Systems',
+    id: 'consultation',
+    title: 'Free 15-Minute Consultation',
     description:
-      'AWS • Kinesis • IoT Core • 10M+ events/day • Sub-100ms latency',
-    impact:
-      'Reduced infrastructure costs 40% while scaling to handle 3x traffic growth',
-    technologies: ['AWS', 'Kinesis', 'IoT Core', 'Lambda', 'DynamoDB'],
-    gradient: 'from-purple-500 to-cyan-500',
+      'Quick discovery call to understand your project needs and explore how we can work together',
+    price: 'FREE',
+    icon: <FaCalendarAlt />,
+    isHighlighted: true,
   },
   {
-    title: 'Real-Time Visual Systems',
+    id: 'advisory',
+    title: 'Technical Advisory Call',
     description:
-      'TouchDesigner • Kinect/MIDI • R3F • WebGL • Live performances',
-    impact:
-      'Created immersive experiences for 500+ person events with 99.9% uptime',
-    technologies: ['TouchDesigner', 'Three.js', 'Kinect', 'MIDI', 'WebGL'],
-    gradient: 'from-cyan-500 to-emerald-500',
+      'Strategic guidance on technology decisions, architecture review, or problem-solving session',
+    price: '$150/hr',
+    icon: <FaLightbulb />,
   },
   {
-    title: 'Product Strategy & Execution',
+    id: 'code-review',
+    title: 'Code Review & Optimization',
     description:
-      'Sprint planning • Roadmap design • MVP scoping • Team leadership',
-    impact:
-      'Led 3 product launches, reduced time-to-market by 30% through agile processes',
-    technologies: ['Agile', 'Scrum', 'Notion', 'Figma', 'Analytics'],
-    gradient: 'from-emerald-500 to-teal-500',
+      'Comprehensive review of your existing codebase with optimization recommendations and security analysis',
+    price: '$200-500',
+    icon: <FaSearchengin />,
+  },
+  {
+    id: 'mvp',
+    title: 'MVP Development',
+    description:
+      'End-to-end development of your minimum viable product using modern tech stack',
+    price: '$3,000-8,000',
+    icon: <FaRocket />,
+  },
+  {
+    id: 'fullstack',
+    title: 'Full-Stack Web Application',
+    description:
+      'Complete web application development with frontend, backend, database, and deployment',
+    price: '$8,000-25,000',
+    icon: <FaGlobe />,
+  },
+  {
+    id: 'interactive',
+    title: 'Real-Time Interactive Systems',
+    description:
+      'Custom interactive installations, real-time visual systems, and IoT integrations',
+    price: '$10,000-30,000',
+    icon: <FaBolt />,
   },
 ]
 
 export default function Services() {
+  const handleServiceSelect = (serviceId: string) => {
+    // TODO: Implement Calendly integration for consultation
+    // TODO: Implement quote request for other services
+    console.log(`Selected service: ${serviceId}`)
+  }
+
   return (
     <PageSection
       id='services'
@@ -40,145 +77,72 @@ export default function Services() {
       title=''
       subtitle=''
     >
-      {/* Custom Services Header with Complete Gradients */}
-      <div className='text-center mb-6 flex-shrink-0'>
+      {/* Services Header */}
+      <div className='text-center mb-12 flex-shrink-0'>
         <h2
           className='text-4xl md:text-5xl font-bold mb-4'
           style={{ fontFamily: 'Orbitron, sans-serif' }}
         >
-          <span className='text-white'>Complete Engineering Services</span>
+          <span className='text-white'>Professional Services</span>
           <br />
           <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
-            Web, AI, & Hardware
+            From Consultation to Delivery
           </span>
         </h2>
+        <p className='text-lg text-zinc-400 max-w-2xl mx-auto'>
+          Transform your ideas into reality with expert development services.
+          Start with a free consultation to discuss your project needs.
+        </p>
       </div>
-      {/* Ultra Compact Layout */}
-      <div className='max-w-5xl mx-auto space-y-2'>
-        {services.map((service, index) => (
-          <motion.div
-            key={service.title}
-            className='group relative'
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-          >
-            {/* Service Row - Ultra Compact */}
+
+      {/* Service Cards Grid */}
+      <div className='max-w-7xl mx-auto'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {services.map((service, index) => (
             <motion.div
-              className='group relative bg-black/30 backdrop-blur-md border border-white/20 rounded-lg p-3 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer overflow-hidden'
-              whileHover={{
-                scale: 1.01,
-                y: -2,
-                borderColor: 'rgba(255, 255, 255, 0.4)',
-                boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
-                transition: { duration: 0.3, ease: 'easeOut' },
-              }}
+              key={service.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              {/* Enhanced depth effects */}
-              <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-              <div className='absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
-              <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
-              <div className='relative z-10'>
-                <div className='flex items-start gap-3'>
-                  {/* Icon - Smaller */}
-                  <div
-                    className={`flex-shrink-0 w-2 h-2 bg-gradient-to-r ${service.gradient} rounded-full mt-1.5`}
-                  ></div>
-
-                  <div className='flex-1 min-w-0'>
-                    {/* Title & Description - Compact */}
-                    <div className='mb-2'>
-                      <h3 className='text-base font-bold text-white group-hover:text-purple-100 transition-colors mb-1'>
-                        {service.title}
-                      </h3>
-                      <p className='text-xs text-zinc-300 leading-relaxed mb-1'>
-                        {service.description}
-                      </p>
-                      {/* Impact - Inline */}
-                      <p className='text-xs text-emerald-400'>
-                        {service.impact}
-                      </p>
-                    </div>
-
-                    {/* Technologies - Inline */}
-                    <div className='flex flex-wrap gap-1'>
-                      {service.technologies.map(tech => (
-                        <span
-                          key={tech}
-                          className='px-1.5 py-0.5 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-zinc-300'
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Arrow - Smaller */}
-                  <motion.div
-                    className='flex-shrink-0 opacity-0 group-hover:opacity-100 text-cyan-400'
-                    whileHover={{ x: 2 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <svg
-                      className='w-3 h-3'
-                      fill='none'
-                      stroke='currentColor'
-                      viewBox='0 0 24 24'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth={2}
-                        d='M17 8l4 4m0 0l-4 4m4-4H3'
-                      />
-                    </svg>
-                  </motion.div>
-                </div>
-              </div>
+              <ServiceCard
+                title={service.title}
+                description={service.description}
+                price={service.price}
+                icon={service.icon}
+                isHighlighted={service.isHighlighted}
+                onSelect={() => handleServiceSelect(service.id)}
+              />
             </motion.div>
-          </motion.div>
-        ))}
+          ))}
+        </div>
 
-        {/* Bottom CTA - Compact */}
+        {/* Bottom CTA Section */}
         <motion.div
-          className='group mt-3 p-3 bg-black/30 backdrop-blur-md rounded-lg border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden'
-          whileHover={{
-            scale: 1.01,
-            y: -1,
-            borderColor: 'rgba(255, 255, 255, 0.4)',
-            boxShadow: '0 15px 30px rgba(0, 0, 0, 0.3)',
-            transition: { duration: 0.3, ease: 'easeOut' },
-          }}
+          className='mt-16 text-center'
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
         >
-          {/* Enhanced depth effects */}
-          <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-          <div className='absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
-          <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
-          <div className='relative z-10 flex items-center justify-between'>
-            <div className='text-xs text-zinc-300'>
-              <span className='text-white font-medium'>
-                Ready to build something extraordinary?
-              </span>
-              <span className='text-zinc-400 ml-2'>
-                Let's turn your vision into scalable reality.
-              </span>
-            </div>
-            <div className='flex gap-1'>
-              <div className='w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse'></div>
-              <div
-                className='w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse'
-                style={{ animationDelay: '0.5s' }}
-              ></div>
-              <div
-                className='w-1.5 h-1.5 bg-teal-400 rounded-full animate-pulse'
-                style={{ animationDelay: '1s' }}
-              ></div>
-            </div>
+          <div className='bg-black/30 backdrop-blur-md border border-white/20 rounded-lg p-8 max-w-2xl mx-auto'>
+            <h3 className='text-2xl font-bold text-white mb-4'>
+              Ready to Get Started?
+            </h3>
+            <p className='text-zinc-300 mb-6'>
+              Every project begins with understanding your unique needs. Book a
+              free 15-minute consultation to discuss your vision and get a
+              custom quote.
+            </p>
+            <motion.button
+              className='bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300'
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => handleServiceSelect('consultation')}
+            >
+              Schedule Free Consultation
+            </motion.button>
           </div>
         </motion.div>
       </div>
