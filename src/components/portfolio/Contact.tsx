@@ -125,10 +125,10 @@ export default function ContactFooter() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className='relative z-10'>
-                {/* 2x2 Grid Layout */}
-                <div className='grid grid-cols-2 gap-6 mb-8'>
-                  {/* Left Column */}
-                  <div className='space-y-6'>
+                {/* Form Fields in Row Layout */}
+                <div className='space-y-6 mb-8'>
+                  {/* Name and Email Row */}
+                  <div className='grid grid-cols-2 gap-6'>
                     {/* First Name */}
                     <div>
                       <label className='text-zinc-300 text-base font-medium block mb-3'>
@@ -145,25 +145,6 @@ export default function ContactFooter() {
                       />
                     </div>
 
-                    {/* Subject */}
-                    <div>
-                      <label className='text-zinc-300 text-base font-medium block mb-3'>
-                        Subject
-                      </label>
-                      <input
-                        type='text'
-                        name='subject'
-                        value={formData.subject}
-                        onChange={handleChange}
-                        required
-                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
-                        placeholder='Brief description of your inquiry'
-                      />
-                    </div>
-                  </div>
-
-                  {/* Right Column */}
-                  <div className='space-y-6'>
                     {/* Email Address */}
                     <div>
                       <label className='text-zinc-300 text-base font-medium block mb-3'>
@@ -177,6 +158,25 @@ export default function ContactFooter() {
                         required
                         className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
                         placeholder='your@company.com'
+                      />
+                    </div>
+                  </div>
+
+                  {/* Subject and Service Row */}
+                  <div className='grid grid-cols-2 gap-6'>
+                    {/* Subject */}
+                    <div>
+                      <label className='text-zinc-300 text-base font-medium block mb-3'>
+                        Subject
+                      </label>
+                      <input
+                        type='text'
+                        name='subject'
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
+                        placeholder='Brief description of your inquiry'
                       />
                     </div>
 
