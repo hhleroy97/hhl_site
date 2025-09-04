@@ -367,7 +367,7 @@ export default function SkillsTools() {
       cardVariant='floating'
     >
       <div className='w-full px-4'>
-        {/* Search Bar - Full Width */}
+        {/* Top Bar - Search Only */}
         <motion.div
           className='mb-4'
           initial={{ opacity: 0, y: 20 }}
@@ -375,7 +375,8 @@ export default function SkillsTools() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className='relative w-full'>
+          {/* Search Bar */}
+          <div className='relative'>
             <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
               <svg
                 className='h-4 w-4 text-zinc-400'
@@ -401,39 +402,31 @@ export default function SkillsTools() {
           </div>
         </motion.div>
 
-        {/* All Skills Button - Top Left */}
-        <motion.div
-          className='mb-4 flex justify-start'
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          <motion.button
-            onClick={() => setActiveCategory('all')}
-            className={`px-3 py-2 rounded-md transition-all duration-300 text-xs flex items-center gap-2 whitespace-nowrap ${
-              activeCategory === 'all'
-                ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
-                : 'bg-black/30 border border-white/20 text-zinc-300 hover:bg-white/10'
-            }`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            🔍 All Skills ({totalSkills})
-          </motion.button>
-        </motion.div>
-
         {/* Main Content Layout */}
         <div className='flex gap-4'>
           {/* Category Sidebar */}
           <motion.div
-            className='flex flex-col justify-between min-w-fit bg-black/20 backdrop-blur-md rounded-lg border border-white/20 p-3'
+            className='flex flex-col gap-2 min-w-fit bg-black/20 backdrop-blur-md rounded-lg border border-white/20 p-3'
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            style={{ minHeight: '20rem' }}
+            style={{ minHeight: '24rem' }}
           >
+            {/* All Skills Button */}
+            <motion.button
+              onClick={() => setActiveCategory('all')}
+              className={`px-3 py-2 rounded-md transition-all duration-300 text-xs flex items-center gap-2 whitespace-nowrap ${
+                activeCategory === 'all'
+                  ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
+                  : 'bg-black/30 border border-white/20 text-zinc-300 hover:bg-white/10'
+              }`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              🔍 All Skills ({totalSkills})
+            </motion.button>
+
             {skillCategories.map(category => {
               const categorySkillCount = category.skills.length
               return (
