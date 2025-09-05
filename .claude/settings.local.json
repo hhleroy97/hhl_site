@@ -39,7 +39,8 @@
       "Bash(pkill:*)",
       "Bash(gh run list:*)",
       "Bash(gh pr view:*)",
-      "Bash(gh pr merge:*)"
+      "Bash(gh pr merge:*)",
+      "Bash(git rebase:*)"
     ],
     "defaultMode": "acceptEdits",
     "additionalDirectories": ["/home/hartley/.ssh"]
