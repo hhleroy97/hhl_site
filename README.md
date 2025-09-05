@@ -2,6 +2,10 @@
 
 > ENGINEER • BUILDER • CREATIVE TECHNOLOGIST
 
+[![Deploy to GitHub Pages](https://github.com/hhleroy97/hhl_site/actions/workflows/deploy.yml/badge.svg)](https://github.com/hhleroy97/hhl_site/actions/workflows/deploy.yml)
+[![Development Build](https://github.com/hhleroy97/hhl_site/actions/workflows/dev.yml/badge.svg)](https://github.com/hhleroy97/hhl_site/actions/workflows/dev.yml)
+[![Live Site](https://img.shields.io/badge/Live%20Site-hhleroy97.github.io%2Fhhl__site-brightgreen)](https://hhleroy97.github.io/hhl_site/)
+
 A modern, high-performance portfolio website built with React, TypeScript, and cutting-edge web technologies. Features a professional cyberpunk-inspired design with accessibility-first approach, smooth animations, and excellent user experience across all devices.
 
 ## 🚀 Quick Start
@@ -186,16 +190,45 @@ src/
 - [x] Modern CSS with Tailwind
 - [x] Component-driven architecture
 
-## 🌐 Deployment
+## 🌐 Deployment & CI/CD
 
-The site is configured for deployment to GitHub Pages via GitHub Actions. Pushes to the `main` branch automatically trigger a build and deployment.
+### Automated Deployment
+
+The site uses a professional CI/CD pipeline with GitHub Actions:
+
+- **Production**: Deployed to [GitHub Pages](https://hhleroy97.github.io/hhl_site/) on pushes to `main` branch
+- **Development**: Continuous integration testing on `dev` branch and pull requests
+
+### Branch Strategy
+
+- `main` - Production branch (protected, auto-deploys to GitHub Pages)
+- `dev` - Development branch (protected, CI testing)
+- Feature branches - Merge into `dev` first, then `dev` → `main`
+
+### Workflow Details
+
+**Development Workflow** (`.github/workflows/dev.yml`):
+
+- Triggers on push/PR to `dev` branch
+- Runs on Node.js 18.x and 20.x matrices
+- Executes: lint → type-check → test → build
+- Uploads build artifacts for 7 days
+- Posts PR status comments
+
+**Production Workflow** (`.github/workflows/deploy.yml`):
+
+- Triggers on push to `main` branch
+- Full CI pipeline: lint → type-check → test → build → deploy
+- Automatic GitHub Pages deployment
+- Creates versioned releases
+- Zero-downtime deployment
 
 ### Manual Deployment
 
 ```bash
 npm run build
 npm run preview  # Test locally first
-# Deploy dist/ folder to your hosting provider
+# Automatic deployment via GitHub Actions on push to main
 ```
 
 ## 📄 License
