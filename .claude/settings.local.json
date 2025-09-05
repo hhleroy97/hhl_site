@@ -34,7 +34,9 @@
       "WebSearch",
       "Bash(gh pr create:*)",
       "Bash(git pull:*)",
-      "WebFetch(domain:www.vertex42.com)"
+      "WebFetch(domain:www.vertex42.com)",
+      "Bash(npm run test:*)",
+      "Bash(pkill:*)"
     ],
     "defaultMode": "acceptEdits",
     "additionalDirectories": ["/home/hartley/.ssh"]
