@@ -36,7 +36,10 @@
       "Bash(git pull:*)",
       "WebFetch(domain:www.vertex42.com)",
       "Bash(npm run test:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr merge:*)"
     ],
     "defaultMode": "acceptEdits",
     "additionalDirectories": ["/home/hartley/.ssh"]
