@@ -35,16 +35,16 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
       {/* Top content container */}
       <div
-        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto pt-4 sm:pt-6 md:pt-8 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto pt-2 sm:pt-3 md:pt-4 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
-          className={`text-left overflow-visible mb-4 sm:mb-6 md:mb-8 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
+          className={`text-left overflow-visible mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
           <div className='inline-block text-left'>
             {/* Greeting - Improved typography and spacing */}
             <motion.div
-              className={`w-full text-left mb-3 sm:mb-4 md:mb-6 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
+              className={`w-full text-left mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -53,7 +53,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                 easing: [0.25, 0.46, 0.45, 0.94],
               }}
             >
-              <div className='text-xl sm:text-2xl md:text-3xl lg:text-4xl text-zinc-300 font-semibold tracking-wide'>
+              <div className='text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-300 font-semibold tracking-wide'>
                 Hi, I'm ...
               </div>
             </motion.div>
@@ -75,7 +75,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                 <span
                   style={{
                     lineHeight: '0.85',
-                    fontSize: 'clamp(5.5rem, 10vw, 9rem)',
+                    fontSize: 'clamp(3.5rem, 8vw, 6rem)',
                     fontFamily: 'Orbitron, sans-serif',
                     letterSpacing: '-0.02em',
                     background:
@@ -93,7 +93,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                 <span
                   style={{
                     lineHeight: '0.85',
-                    fontSize: 'clamp(5.5rem, 10vw, 9rem)',
+                    fontSize: 'clamp(3.5rem, 8vw, 6rem)',
                     fontFamily: 'Orbitron, sans-serif',
                     letterSpacing: '-0.02em',
                     background:
@@ -145,7 +145,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
         {/* Enhanced Role/Title - Harmonized colors */}
         <motion.div
-          className={`text-left mb-6 sm:mb-8 md:mb-12 ${showBorders ? 'border-4 border-purple-500' : ''}`}
+          className={`text-left mb-3 sm:mb-4 md:mb-6 ${showBorders ? 'border-4 border-purple-500' : ''}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -154,7 +154,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             easing: [0.25, 0.46, 0.45, 0.94],
           }}
         >
-          <p className='text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light leading-relaxed'>
+          <p className='text-sm sm:text-base md:text-lg lg:text-xl text-zinc-200 font-light leading-relaxed'>
             <span
               className='font-bold'
               style={{
@@ -176,7 +176,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
       {/* Center content container - Interactive elements and 3D visuals */}
       <div
-        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible -mt-8 sm:-mt-12 md:-mt-16 mb-16 sm:mb-24 md:mb-32 ${showBorders ? 'border-4 border-green-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible -mt-4 sm:-mt-6 md:-mt-8 mb-8 sm:mb-12 md:mb-16 ${showBorders ? 'border-4 border-green-500' : ''}`}
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div
