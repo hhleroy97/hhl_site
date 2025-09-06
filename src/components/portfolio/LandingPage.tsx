@@ -71,7 +71,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
               }}
             >
               {/* Clean gradient name text - responsive layout */}
-              <div className='font-black tracking-tighter relative z-50 text-center sm:text-left flex flex-col sm:flex-row items-center sm:items-start'>
+              <div className='font-black tracking-tighter relative z-50 text-center sm:text-left flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start'>
                 <span
                   style={{
                     lineHeight: '0.85',
@@ -84,7 +84,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                     WebkitBackgroundClip: 'text',
                     color: 'transparent',
                   }}
-                  className='inline-block'
+                  className='block sm:inline-block'
                 >
                   <span style={{ fontSize: '1.1em' }}>H</span>
                   <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
@@ -102,7 +102,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                     WebkitBackgroundClip: 'text',
                     color: 'transparent',
                   }}
-                  className='inline-block'
+                  className='block sm:inline-block'
                 >
                   <span style={{ fontSize: '1.1em' }}>L</span>
                   <span style={{ fontSize: '0.8em' }}>E</span>
