@@ -38,7 +38,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
-          className={`text-left overflow-visible mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
+          className={`text-left overflow-visible mb-2 sm:mb-3 md:mb-4 fixed top-0 left-0 right-0 z-30 sm:relative sm:z-auto p-4 sm:p-0 bg-black/10 backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-none ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
           <div className='w-full sm:inline-block text-left'>
             {/* Greeting - Improved typography and spacing */}
