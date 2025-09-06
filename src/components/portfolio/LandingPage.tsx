@@ -75,7 +75,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                 <span
                   style={{
                     lineHeight: '0.85',
-                    fontSize: 'clamp(3.5rem, 8vw, 6rem)',
+                    fontSize: 'clamp(2.8rem, 7vw, 5rem)',
                     fontFamily: 'Orbitron, sans-serif',
                     letterSpacing: '-0.02em',
                     background:
@@ -93,7 +93,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                 <span
                   style={{
                     lineHeight: '0.85',
-                    fontSize: 'clamp(3.5rem, 8vw, 6rem)',
+                    fontSize: 'clamp(2.8rem, 7vw, 5rem)',
                     fontFamily: 'Orbitron, sans-serif',
                     letterSpacing: '-0.02em',
                     background:
@@ -145,7 +145,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
         {/* Enhanced Role/Title - Harmonized colors */}
         <motion.div
-          className={`text-left mb-3 sm:mb-4 md:mb-6 ${showBorders ? 'border-4 border-purple-500' : ''}`}
+          className={`text-left mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-purple-500' : ''}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -176,7 +176,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
       {/* Center content container - Interactive elements and 3D visuals */}
       <div
-        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible -mt-4 sm:-mt-6 md:-mt-8 mb-8 sm:mb-12 md:mb-16 ${showBorders ? 'border-4 border-green-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible -mt-2 sm:-mt-3 md:-mt-4 mb-4 sm:mb-6 md:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div
