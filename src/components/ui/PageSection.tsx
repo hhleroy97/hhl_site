@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { ReactNode } from 'react'
 import TechCard from './TechCard'
 import { useCardVariant } from '../../context/CardVariantContext'
@@ -47,7 +46,7 @@ export default function PageSection({
   return (
     <section
       id={id}
-      className={`min-h-screen relative overflow-visible md:overflow-hidden flex items-start md:items-center ${className}`}
+      className={`min-h-[100svh] md:min-h-screen relative overflow-hidden flex items-stretch md:items-center bg-black md:bg-transparent ${className}`}
     >
       {/* Glossy background effects */}
       <div
@@ -61,22 +60,17 @@ export default function PageSection({
       />
 
       <div
-        className={`container-custom relative z-10 w-full pt-4 sm:pt-6 md:pt-8 ${isHomePage ? 'pb-4 sm:pb-6 md:pb-8' : 'pb-8 sm:pb-16 md:pb-24'}`}
+        className={`relative z-10 w-full pt-0 sm:pt-0 md:pt-8 px-0 max-w-none md:max-w-[90vw] md:mx-auto md:px-4 ${isHomePage ? 'pb-0 sm:pb-0 md:pb-8' : 'pb-0 sm:pb-0 md:pb-24'}`}
       >
         {/* Complete section wrapped in TechCard */}
-        <motion.div
-          className='h-full'
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
+        <div className='h-full'>
           <TechCard
             title={tagline}
             variant={selectedVariant}
             color={taglineColor}
             flipMobileCorners={flipMobileCorners}
-            className='h-auto min-h-[78svh] md:h-[85svh] flex flex-col'
+            rounded={false}
+            className='w-full min-h-[100svh] md:min-h-0 md:h-[85svh] flex flex-col rounded-none md:rounded-2xl'
           >
             {/* Section header */}
             <div className='text-center mb-4 sm:mb-5 md:mb-6 flex-shrink-0'>
@@ -233,7 +227,7 @@ export default function PageSection({
               {children}
             </div>
           </TechCard>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import DataPipeline from '../../3d/DataPipeline'
 
 interface InteractiveElementsProps {
@@ -30,20 +31,25 @@ export default function InteractiveElements({
   showBoundingBox = false,
   showOriginMarker = false,
 }: InteractiveElementsProps) {
+  const [, setCurrentTransform] = useState({
+    rotationX: rotationX,
+    rotationY: rotationY,
+    rotationZ: rotationZ,
+    positionX: positionX,
+    positionY: positionY,
+    positionZ: positionZ,
+  })
+
   return (
-    <motion.div
-      className={`flex flex-col gap-6 w-full h-full ${showBorders ? 'border-4 border-cyan-400' : ''}`}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        delay: 0.8,
-        duration: 0.8,
-        easing: [0.25, 0.46, 0.45, 0.94],
-      }}
+    <div
+      className={`flex flex-col gap-6 w-full h-full p-2 -m-2 ${showBorders ? 'border-4 border-cyan-400' : ''}`}
     >
       {/* Desktop: Enhanced Social Icon Sub-container */}
-      <div
-        className={`hidden sm:flex gap-4 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+      <motion.div
+        className={`hidden sm:flex gap-4 pt-2 -mt-2 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
       >
         <a
           href='https://github.com/hhleroy97'
@@ -102,73 +108,61 @@ export default function InteractiveElements({
             Email
           </span>
         </a>
-      </div>
+      </motion.div>
 
       {/* Mobile: 3D Visualization */}
-      <motion.div
-        className={`block sm:hidden h-64 -mt-8 translate-x-4 ${showBorders ? 'border-4 border-purple-500' : ''}`}
-        initial={{ opacity: 0, scale: 0.8, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{
-          delay: 0.5,
-          duration: 1,
-          easing: [0.25, 0.46, 0.45, 0.94],
-        }}
+      <div
+        className={`block sm:hidden h-64 -mt-16 px-4 ${showBorders ? 'border-4 border-purple-500' : ''}`}
       >
-        <DataPipeline
-          className='w-full h-full'
-          layerSpacing={layerDistance}
-          positionShift={positionShift}
-          verticalShift={verticalShift}
-          cinematicMode={false}
-          interactive={true}
-          rotationX={rotationX}
-          rotationY={rotationY}
-          rotationZ={rotationZ}
-          positionX={positionX}
-          positionY={positionY}
-          positionZ={positionZ}
-          showBoundingBox={showBoundingBox}
-          showOriginMarker={showOriginMarker}
-          enableMouseParallax={true}
-        />
-      </motion.div>
+        <div className='w-full max-w-sm mx-auto h-full'>
+          <DataPipeline
+            className='w-full h-full'
+            layerSpacing={layerDistance}
+            positionShift={positionShift}
+            verticalShift={verticalShift}
+            cinematicMode={false}
+            interactive={true}
+            rotationX={rotationX}
+            rotationY={rotationY}
+            rotationZ={rotationZ}
+            positionX={positionX}
+            positionY={positionY}
+            positionZ={positionZ}
+            showBoundingBox={showBoundingBox}
+            showOriginMarker={showOriginMarker}
+            enableMouseParallax={true}
+            onTransformChange={setCurrentTransform}
+          />
+        </div>
+      </div>
 
       {/* Desktop: Enhanced Resume-Based Achievements */}
       <motion.div
         className={`hidden sm:block ${showBorders ? 'border-4 border-purple-500' : ''}`}
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
           duration: 0.8,
-          delay: 0.6,
-          easing: [0.25, 0.46, 0.45, 0.94],
+          delay: 0.5,
+          ease: 'easeOut',
         }}
       >
-        {/* Enhanced Achievement Card - Compact */}
+        {/* Enhanced Achievement Card - Compact (no hover on desktop) */}
         <motion.div
-          className={`group relative p-6 md:p-8 bg-black/30 backdrop-blur-md border border-white/20 
-              transition-all duration-300 cursor-pointer overflow-hidden shadow-xl hover:shadow-2xl ${showBorders ? 'border-4 border-red-500' : ''}`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          className={`relative p-6 md:p-8 bg-black/30 backdrop-blur-md border border-white/20 
+              transition-all duration-300 overflow-hidden shadow-xl ${showBorders ? 'border-4 border-red-500' : ''}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{
-            duration: 0.6,
-            delay: 0.8,
-            easing: [0.25, 0.46, 0.45, 0.94],
+            duration: 0.7,
+            delay: 0.5,
+            ease: 'easeOut',
           }}
-          whileHover={{
-            scale: 1.02,
-            y: -4,
-            borderColor: 'rgba(255, 255, 255, 0.4)',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
-            transition: { duration: 0.3, ease: 'easeOut' },
-          }}
-          whileTap={{ scale: 0.98 }}
         >
           {/* Enhanced depth effects */}
           <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-          <div className='absolute -top-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
-          <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+          <div className='absolute -top-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl pointer-events-none transition-all duration-500' />
+          <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent transition-all duration-300' />
 
           <div className='relative z-10'>
             <div className='text-2xl font-semibold text-white mb-4 tracking-wide'>
@@ -176,36 +170,36 @@ export default function InteractiveElements({
             </div>
 
             <ul className='space-y-3 text-base md:text-lg text-zinc-300 leading-relaxed'>
-              <li className='flex items-start gap-3 group/item'>
-                <span className='text-purple-400 font-bold text-lg group-hover/item:text-purple-300 transition-colors flex-shrink-0'>
+              <li className='flex items-start gap-3'>
+                <span className='text-purple-400 font-bold text-lg transition-colors flex-shrink-0'>
                   •
                 </span>
-                <span className='group-hover/item:text-white transition-colors'>
+                <span className='transition-colors'>
                   Led $500K AWS-funded migration; ended vendor lock-in.
                 </span>
               </li>
-              <li className='flex items-start gap-3 group/item'>
-                <span className='text-purple-400 font-bold text-lg group-hover/item:text-purple-300 transition-colors flex-shrink-0'>
+              <li className='flex items-start gap-3'>
+                <span className='text-purple-400 font-bold text-lg transition-colors flex-shrink-0'>
                   •
                 </span>
-                <span className='group-hover/item:text-white transition-colors'>
+                <span className='transition-colors'>
                   Built real-time telemetry and over-the-air update pipeline for
                   robotic fleet.
                 </span>
               </li>
-              <li className='flex items-start gap-3 group/item'>
-                <span className='text-purple-400 font-bold text-lg group-hover/item:text-purple-300 transition-colors flex-shrink-0'>
+              <li className='flex items-start gap-3'>
+                <span className='text-purple-400 font-bold text-lg transition-colors flex-shrink-0'>
                   •
                 </span>
-                <span className='group-hover/item:text-white transition-colors'>
+                <span className='transition-colors'>
                   Led a 6-engineer international dev team.
                 </span>
               </li>
-              <li className='flex items-start gap-3 group/item'>
-                <span className='text-purple-400 font-bold text-lg group-hover/item:text-purple-300 transition-colors flex-shrink-0'>
+              <li className='flex items-start gap-3'>
+                <span className='text-purple-400 font-bold text-lg transition-colors flex-shrink-0'>
                   •
                 </span>
-                <span className='group-hover/item:text-white transition-colors'>
+                <span className='transition-colors'>
                   Programmed batteryless smart-lock firmware.
                 </span>
               </li>
@@ -215,8 +209,8 @@ export default function InteractiveElements({
       </motion.div>
 
       {/* Mobile: Inline container for buttons under 3D visualization (scrolls with content) */}
-      <div className='block sm:hidden -mt-12'>
-        <div className='flex flex-col gap-2'>
+      <div className='block sm:hidden -mt-8 px-4'>
+        <div className='flex flex-col gap-2 w-full max-w-sm mx-auto'>
           {/* Social buttons */}
           <div
             className={`flex gap-2 ${showBorders ? 'border-4 border-blue-500' : ''}`}
@@ -225,7 +219,7 @@ export default function InteractiveElements({
               href='https://github.com/hhleroy97'
               target='_blank'
               rel='noopener noreferrer'
-              className={`flex items-center justify-center gap-3 flex-1 h-12 rounded-tl-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-purple-400/15 hover:border-purple-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-yellow-400' : ''}`}
+              className={`flex items-center justify-center gap-3 flex-1 h-12 rounded-tl-xl bg-black/30 backdrop-blur-md border border-white/20 sm:hover:bg-purple-400/15 sm:hover:border-purple-400/40 sm:transition-all sm:duration-300 shadow-xl sm:hover:shadow-2xl sm:hover:shadow-purple-500/20 pointer-events-auto sm:transform sm:hover:scale-105 sm:hover:-translate-y-1 ${showBorders ? 'border-4 border-yellow-400' : ''}`}
               aria-label='GitHub profile'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
             >
@@ -241,7 +235,7 @@ export default function InteractiveElements({
               href='https://linkedin.com/in/hartley-leroy'
               target='_blank'
               rel='noopener noreferrer'
-              className={`flex items-center justify-center gap-3 flex-1 h-12 bg-black/30 backdrop-blur-md border border-white/20 hover:bg-cyan-400/15 hover:border-cyan-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-magenta-400' : ''}`}
+              className={`flex items-center justify-center gap-3 flex-1 h-12 bg-black/30 backdrop-blur-md border border-white/20 sm:hover:bg-cyan-400/15 sm:hover:border-cyan-400/40 sm:transition-all sm:duration-300 shadow-xl sm:hover:shadow-2xl sm:hover:shadow-cyan-500/20 pointer-events-auto sm:transform sm:hover:scale-105 sm:hover:-translate-y-1 ${showBorders ? 'border-4 border-magenta-400' : ''}`}
               aria-label='LinkedIn profile'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
             >
@@ -251,7 +245,7 @@ export default function InteractiveElements({
             </a>
             <a
               href='mailto:hartley.leroy1997@gmail.com'
-              className={`flex items-center justify-center gap-3 flex-1 h-12 rounded-tr-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-teal-400/15 hover:border-teal-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-orange-400' : ''}`}
+              className={`flex items-center justify-center gap-3 flex-1 h-12 rounded-tr-xl bg-black/30 backdrop-blur-md border border-white/20 sm:hover:bg-teal-400/15 sm:hover:border-teal-400/40 sm:transition-all sm:duration-300 shadow-xl sm:hover:shadow-2xl sm:hover:shadow-teal-500/20 pointer-events-auto sm:transform sm:hover:scale-105 sm:hover:-translate-y-1 ${showBorders ? 'border-4 border-orange-400' : ''}`}
               aria-label='Email contact'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
             >
@@ -275,7 +269,7 @@ export default function InteractiveElements({
           <div className='flex flex-col gap-2'>
             <a
               href='#contact'
-              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-[#7BC6FF] font-semibold hover:bg-[#7BC6FF]/15 hover:border-[#7BC6FF]/40 hover:text-[#7BC6FF] transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
+              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-[#7BC6FF] font-semibold sm:hover:bg-[#7BC6FF]/15 sm:hover:border-[#7BC6FF]/40 sm:hover:text-[#7BC6FF] sm:transition-all sm:duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl sm:hover:shadow-2xl sm:hover:shadow-cyan-500/20 sm:transform sm:hover:scale-105 sm:hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
               onClick={() => {
                 window.location.hash = 'contact'
               }}
@@ -283,7 +277,7 @@ export default function InteractiveElements({
               Get in Touch
             </a>
             <button
-              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-[#7BC6FF] font-semibold rounded-b-xl hover:bg-[#7BC6FF]/15 hover:border-[#7BC6FF]/40 hover:text-[#7BC6FF] transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
+              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-[#7BC6FF] font-semibold rounded-b-xl sm:hover:bg-[#7BC6FF]/15 sm:hover:border-[#7BC6FF]/40 sm:hover:text-[#7BC6FF] sm:transition-all sm:duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl sm:hover:shadow-2xl sm:hover:shadow-cyan-500/20 sm:transform sm:hover:scale-105 sm:hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
               onClick={() => {
                 const go = () => {
                   window.location.hash = 'about'
@@ -306,12 +300,12 @@ export default function InteractiveElements({
       {/* Enhanced Action buttons */}
       <motion.div
         className={`hidden sm:flex flex-col gap-3 sm:gap-4 ${showBorders ? 'border-4 border-green-500' : ''}`}
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
-          delay: 1,
+          delay: 0.7,
           duration: 0.8,
-          easing: [0.25, 0.46, 0.45, 0.94],
+          ease: 'easeOut',
         }}
       >
         {/* Desktop: Get in Touch and View Experience buttons side by side */}
@@ -332,6 +326,6 @@ export default function InteractiveElements({
           </a>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   )
 }
