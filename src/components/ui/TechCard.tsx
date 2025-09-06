@@ -114,9 +114,10 @@ export default function TechCard({
         />
         <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent' />
 
-        {/* Floating Tag Header */}
+        {/* Floating Tag Header - sticky on mobile, absolute on md+ */}
         <motion.div
-          className={`absolute top-0 z-10 px-8 py-4 bg-gradient-to-r ${colors.accent} rounded-br-none rounded-bl-none md:rounded-b-lg shadow-lg flex items-center justify-center left-0 right-0 w-full md:w-auto md:right-auto md:left-auto ${desktopPosForFloating}`}
+          className={`sticky top-0 md:absolute z-20 px-8 py-4 bg-gradient-to-r ${colors.accent} rounded-br-none rounded-bl-none md:rounded-b-lg shadow-lg flex items-center justify-center w-full max-w-full md:w-auto md:right-auto md:left-auto border-b border-white/10 md:border-b-0 ${desktopPosForFloating}`}
+          style={{ top: 'env(safe-area-inset-top, 0px)' }}
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}

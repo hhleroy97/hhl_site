@@ -47,7 +47,7 @@ export default function PageSection({
   return (
     <section
       id={id}
-      className={`min-h-screen relative overflow-hidden flex items-start md:items-center ${className}`}
+      className={`min-h-screen relative overflow-visible md:overflow-hidden flex items-start md:items-center ${className}`}
     >
       {/* Glossy background effects */}
       <div
