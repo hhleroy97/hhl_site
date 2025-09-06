@@ -43,7 +43,7 @@ export default function InteractiveElements({
     >
       {/* Mobile: 3D Visualization */}
       <motion.div
-        className={`block sm:hidden h-64 overflow-hidden ${showBorders ? 'border-4 border-purple-500' : ''}`}
+        className={`block sm:hidden fixed top-0 left-0 right-0 h-64 z-40 overflow-hidden ${showBorders ? 'border-4 border-purple-500' : ''}`}
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{
