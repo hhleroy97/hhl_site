@@ -39,16 +39,46 @@ export default function SlideshowPortfolio() {
         setDirection(newDirection)
         setIsTransitioning(true)
 
-        // Immediate section change - no progressive animation
-        setCurrentSection(index)
+        // First: scroll down to trigger Chrome UI hiding (mobile only)
+        if (
+          /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          )
+        ) {
+          // Smooth scroll down 100vh then animate to new section
+          const startY = window.scrollY
+          const targetY = startY + window.innerHeight
 
-        // Update URL hash
-        window.history.pushState(null, '', `#${sections[index].id}`)
+          window.scrollTo({
+            top: targetY,
+            behavior: 'smooth',
+          })
 
-        // Extended transition state to match navigation color morphing duration
-        setTimeout(() => {
-          setIsTransitioning(false)
-        }, 200)
+          // After scroll completes, change section and scroll back
+          setTimeout(() => {
+            setCurrentSection(index)
+            window.history.pushState(null, '', `#${sections[index].id}`)
+
+            // Scroll back to top smoothly
+            setTimeout(() => {
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+              })
+
+              setTimeout(() => {
+                setIsTransitioning(false)
+              }, 200)
+            }, 100)
+          }, 500) // Wait for initial scroll to complete
+        } else {
+          // Desktop: immediate section change
+          setCurrentSection(index)
+          window.history.pushState(null, '', `#${sections[index].id}`)
+          setTimeout(() => {
+            setIsTransitioning(false)
+          }, 200)
+        }
       }
     },
     [currentSection, isTransitioning]

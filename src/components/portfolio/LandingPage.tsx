@@ -271,66 +271,23 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             {/* Main text */}
             <motion.button
               onClick={() => {
-                // Force Chrome mobile UI to hide before navigation
-                const forceUIHideAndNavigate = () => {
-                  // Use global UI hiding function if available (for mobile)
-                  if (
-                    window.forceChromeMobileUIHide &&
-                    /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-                      navigator.userAgent
-                    )
-                  ) {
-                    // Additional strategy: Create temporary tall content to force scroll
-                    const tempDiv = document.createElement('div')
-                    tempDiv.style.height = '300vh'
-                    tempDiv.style.position = 'absolute'
-                    tempDiv.style.top = '100vh'
-                    tempDiv.style.width = '1px'
-                    tempDiv.style.background = 'transparent'
-                    tempDiv.style.pointerEvents = 'none'
-                    document.body.appendChild(tempDiv)
-
-                    // Scroll down then up to trigger UI
-                    setTimeout(() => window.scrollTo(0, window.innerHeight), 10)
-                    setTimeout(() => window.scrollTo(0, 0), 50)
-
-                    // Use global UI hiding function
-                    setTimeout(() => {
-                      window.forceChromeMobileUIHide()
-
-                      // Clean up temp element
-                      setTimeout(() => {
-                        if (tempDiv.parentNode) {
-                          tempDiv.parentNode.removeChild(tempDiv)
-                        }
-                      }, 100)
-                    }, 100)
-
-                    // Navigate after UI hiding sequence completes
-                    setTimeout(() => {
-                      if (onNextSection) {
-                        window.location.hash = 'about'
-                      } else {
-                        const element = document.getElementById('experience')
-                        if (element) {
-                          element.scrollIntoView({ behavior: 'smooth' })
-                        }
-                      }
-                    }, 400) // Wait longer for all UI hide attempts to complete
-                  } else {
-                    // Desktop - immediate navigation
-                    if (onNextSection) {
-                      window.location.hash = 'about'
-                    } else {
-                      const element = document.getElementById('experience')
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' })
-                      }
-                    }
+                // Simple approach: just navigate with smooth scrolling
+                // The natural scroll motion should trigger Chrome UI hiding
+                if (onNextSection) {
+                  // Use section navigation which includes smooth scrolling
+                  onNextSection()
+                } else {
+                  // Fallback: scroll to next section smoothly
+                  const nextElement =
+                    document.getElementById('about') ||
+                    document.getElementById('experience')
+                  if (nextElement) {
+                    nextElement.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                    })
                   }
                 }
-
-                forceUIHideAndNavigate()
               }}
               className='text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-zinc-500 hover:text-purple-400 px-2 sm:px-4 transition-colors duration-300 cursor-pointer uppercase relative group'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
