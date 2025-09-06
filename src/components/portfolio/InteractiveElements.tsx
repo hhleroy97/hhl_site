@@ -194,7 +194,7 @@ export default function InteractiveElements({
               element.scrollIntoView({ behavior: 'smooth' })
             }
           }}
-          className={`block sm:hidden w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold rounded-xl hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-base tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
+          className={`block sm:hidden w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
           style={{ fontFamily: 'Orbitron, sans-serif' }}
         >
           Continue to site
