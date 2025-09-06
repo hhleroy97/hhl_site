@@ -189,7 +189,19 @@ export default function InteractiveElements({
             className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
             style={{ fontFamily: 'Orbitron, sans-serif' }}
           >
-            Continue to site
+            <div className='w-6 h-6 flex items-center justify-center'>
+              <svg
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                className='w-full h-full'
+              >
+                <path d='M12 2L2 7l10 5 10-5-10-5z' />
+                <path d='M2 17l10 5 10-5' />
+                <path d='M2 12l10 5 10-5' />
+              </svg>
+            </div>
           </button>
         </div>
 
