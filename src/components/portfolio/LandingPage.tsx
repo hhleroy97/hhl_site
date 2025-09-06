@@ -154,23 +154,39 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             easing: [0.25, 0.46, 0.45, 0.94],
           }}
         >
-          <p className='text-sm sm:text-base md:text-lg lg:text-xl text-zinc-200 font-light leading-relaxed'>
-            <span
-              className='font-bold'
-              style={{
-                background: 'linear-gradient(18deg, #B06AF7 0%, #7BC6FF 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-              }}
-            >
-              Cloud & Creative Engineer
-            </span>
-            <span className='text-zinc-400 mx-3'>—</span>
-            <span className='text-zinc-300'>
+          <div className='text-sm sm:text-base md:text-lg lg:text-xl text-zinc-200 font-light leading-relaxed'>
+            <div className='mb-2'>
+              <span
+                className='font-bold'
+                style={{
+                  background:
+                    'linear-gradient(18deg, #B06AF7 0%, #7BC6FF 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                }}
+              >
+                Cloud & Creative
+              </span>
+            </div>
+            <div className='mb-2'>
+              <span
+                className='font-bold'
+                style={{
+                  background:
+                    'linear-gradient(18deg, #B06AF7 0%, #7BC6FF 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                }}
+              >
+                Engineer
+              </span>
+            </div>
+            <div className='text-zinc-300'>
               Crafting end-to-end systems from edge to interface.
-            </span>
-          </p>
+            </div>
+          </div>
         </motion.div>
       </div>
 
