@@ -32,7 +32,7 @@ export default function InteractiveElements({
 }: InteractiveElementsProps) {
   return (
     <motion.div
-      className={`flex flex-col gap-6 w-full h-full ${showBorders ? 'border-4 border-cyan-400' : ''}`}
+      className={`flex flex-col gap-6 w-full h-full p-2 -m-2 ${showBorders ? 'border-4 border-cyan-400' : ''}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -43,7 +43,7 @@ export default function InteractiveElements({
     >
       {/* Desktop: Enhanced Social Icon Sub-container */}
       <div
-        className={`hidden sm:flex gap-4 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+        className={`hidden sm:flex gap-4 pt-2 -mt-2 ${showBorders ? 'border-4 border-blue-500' : ''}`}
       >
         <a
           href='https://github.com/hhleroy97'
@@ -145,10 +145,10 @@ export default function InteractiveElements({
           easing: [0.25, 0.46, 0.45, 0.94],
         }}
       >
-        {/* Enhanced Achievement Card - Compact */}
+        {/* Enhanced Achievement Card - Compact (no hover on desktop) */}
         <motion.div
-          className={`group relative p-6 md:p-8 bg-black/30 backdrop-blur-md border border-white/20 
-              transition-all duration-300 cursor-pointer overflow-hidden shadow-xl hover:shadow-2xl ${showBorders ? 'border-4 border-red-500' : ''}`}
+          className={`relative p-6 md:p-8 bg-black/30 backdrop-blur-md border border-white/20 
+              transition-all duration-300 overflow-hidden shadow-xl ${showBorders ? 'border-4 border-red-500' : ''}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -156,19 +156,11 @@ export default function InteractiveElements({
             delay: 0.8,
             easing: [0.25, 0.46, 0.45, 0.94],
           }}
-          whileHover={{
-            scale: 1.02,
-            y: -4,
-            borderColor: 'rgba(255, 255, 255, 0.4)',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
-            transition: { duration: 0.3, ease: 'easeOut' },
-          }}
-          whileTap={{ scale: 0.98 }}
         >
           {/* Enhanced depth effects */}
           <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-          <div className='absolute -top-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl pointer-events-none group-hover:bg-white/15 transition-all duration-500' />
-          <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:via-white/70 transition-all duration-300' />
+          <div className='absolute -top-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl pointer-events-none transition-all duration-500' />
+          <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent transition-all duration-300' />
 
           <div className='relative z-10'>
             <div className='text-2xl font-semibold text-white mb-4 tracking-wide'>
@@ -176,36 +168,36 @@ export default function InteractiveElements({
             </div>
 
             <ul className='space-y-3 text-base md:text-lg text-zinc-300 leading-relaxed'>
-              <li className='flex items-start gap-3 group/item'>
-                <span className='text-purple-400 font-bold text-lg group-hover/item:text-purple-300 transition-colors flex-shrink-0'>
+              <li className='flex items-start gap-3'>
+                <span className='text-purple-400 font-bold text-lg transition-colors flex-shrink-0'>
                   •
                 </span>
-                <span className='group-hover/item:text-white transition-colors'>
+                <span className='transition-colors'>
                   Led $500K AWS-funded migration; ended vendor lock-in.
                 </span>
               </li>
-              <li className='flex items-start gap-3 group/item'>
-                <span className='text-purple-400 font-bold text-lg group-hover/item:text-purple-300 transition-colors flex-shrink-0'>
+              <li className='flex items-start gap-3'>
+                <span className='text-purple-400 font-bold text-lg transition-colors flex-shrink-0'>
                   •
                 </span>
-                <span className='group-hover/item:text-white transition-colors'>
+                <span className='transition-colors'>
                   Built real-time telemetry and over-the-air update pipeline for
                   robotic fleet.
                 </span>
               </li>
-              <li className='flex items-start gap-3 group/item'>
-                <span className='text-purple-400 font-bold text-lg group-hover/item:text-purple-300 transition-colors flex-shrink-0'>
+              <li className='flex items-start gap-3'>
+                <span className='text-purple-400 font-bold text-lg transition-colors flex-shrink-0'>
                   •
                 </span>
-                <span className='group-hover/item:text-white transition-colors'>
+                <span className='transition-colors'>
                   Led a 6-engineer international dev team.
                 </span>
               </li>
-              <li className='flex items-start gap-3 group/item'>
-                <span className='text-purple-400 font-bold text-lg group-hover/item:text-purple-300 transition-colors flex-shrink-0'>
+              <li className='flex items-start gap-3'>
+                <span className='text-purple-400 font-bold text-lg transition-colors flex-shrink-0'>
                   •
                 </span>
-                <span className='group-hover/item:text-white transition-colors'>
+                <span className='transition-colors'>
                   Programmed batteryless smart-lock firmware.
                 </span>
               </li>
