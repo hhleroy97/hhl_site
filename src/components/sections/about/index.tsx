@@ -21,17 +21,16 @@ export default function NewAbout() {
       cardVariant='floating'
       flipMobileCorners={false}
     >
-      {/* Mobile-only Creative Technologist heading below About title */}
-      <div className='md:hidden text-center pb-4'>
-        <h3
-          className='text-xl font-bold text-white'
-          style={{ fontFamily: 'Orbitron, sans-serif' }}
-        >
-          The Creative Technologist
-        </h3>
-      </div>
-
       <div className='w-full max-w-[95vw] mx-auto px-2 sm:px-4'>
+        {/* Mobile-only Creative Technologist heading after taglines */}
+        <div className='md:hidden text-center pb-4'>
+          <h3
+            className='text-xl font-bold text-white'
+            style={{ fontFamily: 'Orbitron, sans-serif' }}
+          >
+            The Creative Technologist
+          </h3>
+        </div>
         {/* Main Content Grid */}
         <div className='grid lg:grid-cols-[3fr,1fr] gap-6 sm:gap-8 md:gap-12 items-start relative'>
           {/* Left Column - Story & Philosophy */}
