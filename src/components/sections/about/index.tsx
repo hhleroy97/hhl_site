@@ -22,17 +22,7 @@ export default function NewAbout() {
       flipMobileCorners={false}
     >
       <div className='w-full max-w-[95vw] mx-auto px-2 sm:px-4'>
-        {/* Mobile-only Creative Technologist heading before taglines */}
-        <div className='md:hidden text-center pb-4'>
-          <h3
-            className='text-xl font-bold text-white mb-4'
-            style={{ fontFamily: 'Orbitron, sans-serif' }}
-          >
-            The Creative Technologist
-          </h3>
-        </div>
-
-        {/* Mobile-only Profile Picture under taglines */}
+        {/* Mobile-only Profile Picture first */}
         <div className='md:hidden flex justify-center pb-4'>
           <div className='relative w-64'>
             <div className='w-64 h-64 rounded-t-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-3 shadow-xl relative overflow-hidden'>
@@ -82,7 +72,17 @@ export default function NewAbout() {
           </div>
         </div>
 
-        {/* Mobile-only taglines after profile picture */}
+        {/* Mobile-only Creative Technologist heading after profile picture */}
+        <div className='md:hidden text-center pb-4'>
+          <h3
+            className='text-xl font-bold text-white'
+            style={{ fontFamily: 'Orbitron, sans-serif' }}
+          >
+            The Creative Technologist
+          </h3>
+        </div>
+
+        {/* Mobile-only taglines after Creative Technologist */}
         <div className='md:hidden text-center pb-4'>
           <h2
             className='text-sm font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
