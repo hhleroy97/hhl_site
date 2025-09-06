@@ -75,7 +75,7 @@ export default function PageSection({
             {/* Section header */}
             <div className='text-center mb-4 sm:mb-5 md:mb-6 flex-shrink-0'>
               <h2
-                className='text-lg sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
+                className='text-base sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
               >
                 {title
