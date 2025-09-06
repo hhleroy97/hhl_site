@@ -170,6 +170,30 @@
           }, 800);
         }
         
+        // Global function for immediate UI hiding (callable from React components)
+        window.forceChromeMobileUIHide = function() {
+          // Immediate aggressive scroll sequence
+          const immediateScrollSequence = [
+            { delay: 0, y: 2 },
+            { delay: 25, y: 15 },
+            { delay: 50, y: 0 },
+            { delay: 75, y: 25 },
+            { delay: 100, y: 0 },
+            { delay: 125, y: 10 },
+            { delay: 150, y: 0 }
+          ];
+          
+          immediateScrollSequence.forEach(({ delay, y }) => {
+            setTimeout(() => window.scrollTo(0, y), delay);
+          });
+          
+          // Force viewport recalculation
+          setTimeout(() => {
+            setViewportHeight();
+            window.dispatchEvent(new Event('resize'));
+          }, 200);
+        };
+        
         // Initialize on load
         document.addEventListener('DOMContentLoaded', () => {
           forceScrollableContent();

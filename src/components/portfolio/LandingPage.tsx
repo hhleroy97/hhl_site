@@ -3,6 +3,13 @@ import { useState } from 'react'
 import DataPipeline from '../3d/DataPipeline'
 import InteractiveElements from './InteractiveElements'
 
+// Type declaration for global mobile UI hide function
+declare global {
+  interface Window {
+    forceChromeMobileUIHide?: () => void
+  }
+}
+
 interface LandingPageProps {
   onNextSection?: () => void
 }
@@ -264,15 +271,42 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             {/* Main text */}
             <motion.button
               onClick={() => {
-                if (onNextSection) {
-                  // Use hash routing instead
-                  window.location.hash = 'about'
-                } else {
-                  const element = document.getElementById('experience')
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' })
+                // Force Chrome mobile UI to hide before navigation
+                const forceUIHideAndNavigate = () => {
+                  // Use global UI hiding function if available (for mobile)
+                  if (
+                    window.forceChromeMobileUIHide &&
+                    /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+                      navigator.userAgent
+                    )
+                  ) {
+                    window.forceChromeMobileUIHide()
+
+                    // Navigate after UI hiding sequence completes
+                    setTimeout(() => {
+                      if (onNextSection) {
+                        window.location.hash = 'about'
+                      } else {
+                        const element = document.getElementById('experience')
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' })
+                        }
+                      }
+                    }, 250) // Wait for UI hide sequence to complete
+                  } else {
+                    // Desktop - immediate navigation
+                    if (onNextSection) {
+                      window.location.hash = 'about'
+                    } else {
+                      const element = document.getElementById('experience')
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' })
+                      }
+                    }
                   }
                 }
+
+                forceUIHideAndNavigate()
               }}
               className='text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-zinc-500 hover:text-purple-400 px-2 sm:px-4 transition-colors duration-300 cursor-pointer uppercase relative group'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
