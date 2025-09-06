@@ -247,7 +247,7 @@ export default function NewAbout() {
           >
             {/* Profile Photo - Desktop only */}
             <div className='hidden lg:block relative w-64 sm:w-72'>
-              <div className='w-64 sm:w-72 h-64 sm:h-72 rounded-t-2xl lg:rounded-tl-2xl lg:rounded-tr-2xl lg:rounded-bl-2xl lg:rounded-br-none bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-3 sm:p-4 shadow-xl relative overflow-hidden'>
+              <div className='w-64 sm:w-72 h-64 sm:h-72 rounded-t-2xl lg:rounded-tl-2xl lg:rounded-tr-2xl lg:rounded-bl-none lg:rounded-br-none bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-3 sm:p-4 shadow-xl relative overflow-hidden'>
                 {/* Animated gradient background */}
                 <div
                   className='absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/5 to-emerald-500/10 animate-pulse'
