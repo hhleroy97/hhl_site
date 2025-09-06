@@ -168,7 +168,7 @@ export default function Navigation({
   const [prevCurrentSection, setPrevCurrentSection] = useState<number | null>(
     null
   )
-  const yOffset = -70
+  const yOffset = -4.375 // -70px converted to rem (70/16 = 4.375rem)
   const arcLength = 0
 
   // Track section changes and trigger color morphing
@@ -314,7 +314,7 @@ export default function Navigation({
       onAnimationComplete={() => setIsNavReady(true)}
     >
       {/* Glassmorphism container */}
-      <div className='max-w-[72vw] mx-auto px-3 md:px-4 relative'>
+      <div className='max-w-[90vw] sm:max-w-[80vw] md:max-w-[72vw] mx-auto px-3 md:px-4 relative'>
         {/* Glassmorphism background */}
         <div className='absolute inset-0 bg-gradient-to-bl from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-t-full border-t border-l border-r border-white/20 shadow-xl' />
 
@@ -393,7 +393,7 @@ export default function Navigation({
             {/* Center Semi-Circle Navigation */}
             <div
               className={`absolute left-1/2 transform -translate-x-1/2`}
-              style={{ top: `${yOffset}px` }}
+              style={{ top: `${yOffset}rem` }}
             >
               <div className='relative w-32 h-32 bg-gradient-to-bl from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
                 <div
@@ -661,7 +661,7 @@ export default function Navigation({
             {/* Mobile Center Semi-Circle Navigation */}
             <div
               className={`md:hidden absolute left-1/2 transform -translate-x-1/2`}
-              style={{ top: `${yOffset}px` }}
+              style={{ top: `${yOffset}rem` }}
             >
               <div className='relative w-20 h-20 bg-gradient-to-bl from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
                 <div
