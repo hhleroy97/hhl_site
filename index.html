@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💙</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     
     <!-- Enhanced SEO Meta Tags -->
     <title>Hartley L. Personal Site</title>
@@ -130,7 +130,7 @@
     
     <!-- Mobile browser UI optimization -->
     <script>
-      // Mobile browser UI auto-hide optimization
+      // Mobile browser UI optimization for proper Chrome collapse behavior
       if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         // Set CSS custom property for dynamic viewport height
         function setViewportHeight() {
@@ -147,54 +147,20 @@
           setTimeout(setViewportHeight, 100);
         });
         
-        // Ensure scroll events are not prevented
-        document.body.style.touchAction = 'pan-y';
+        // Add theme-color for better status bar integration
+        const metaTheme = document.createElement('meta');
+        metaTheme.name = 'theme-color';
+        metaTheme.content = '#09090B';
+        document.head.appendChild(metaTheme);
         
-        // Enhanced mobile UI auto-hide on first interaction
-        let hasInteracted = false;
-        function forceUIHide() {
-          if (hasInteracted) return;
-          hasInteracted = true;
-          
-          // Strategy 1: Immediate scroll tricks
-          window.scrollTo(0, 1);
-          setTimeout(() => window.scrollTo(0, 0), 0);
-          
-          // Strategy 2: Multiple scroll attempts
-          const scrollAttempts = [10, 50, 100, 200];
-          scrollAttempts.forEach((delay, index) => {
-            setTimeout(() => {
-              window.scrollTo(0, index % 2 ? 1 : 0);
-            }, delay);
-          });
-          
-          // Strategy 3: Add theme-color for status bar
-          const metaTheme = document.createElement('meta');
-          metaTheme.name = 'theme-color';
-          metaTheme.content = '#09090B';
-          document.head.appendChild(metaTheme);
-          
-          // Strategy 4: Trigger resize event to encourage UI recalculation
-          setTimeout(() => {
-            window.dispatchEvent(new Event('resize'));
-          }, 300);
-          
-          // Strategy 5: Force body scroll
-          document.body.style.height = '101vh';
-          setTimeout(() => {
-            document.body.style.height = '100vh';
-          }, 500);
-          
-          // Clean up event listeners
-          document.removeEventListener('touchstart', forceUIHide);
-          document.removeEventListener('scroll', forceUIHide);
-          document.removeEventListener('click', forceUIHide);
-        }
-        
-        // Trigger on first interaction
-        document.addEventListener('touchstart', forceUIHide, { once: true, passive: true });
-        document.addEventListener('scroll', forceUIHide, { once: true, passive: true });
-        document.addEventListener('click', forceUIHide, { once: true });
+        // Ensure the page is taller than viewport to enable natural scrolling
+        // This is key for Chrome UI collapse behavior
+        document.addEventListener('DOMContentLoaded', () => {
+          // Add minimal content to ensure page can scroll
+          if (document.body.scrollHeight <= window.innerHeight) {
+            document.body.style.minHeight = 'calc(100vh + 1px)';
+          }
+        });
       }
     </script>
   </body>
