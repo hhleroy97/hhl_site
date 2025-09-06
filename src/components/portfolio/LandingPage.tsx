@@ -23,7 +23,6 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
   const [overlayOffsetY] = useState(-3.5)
   const [showOverlayText] = useState(false)
   const [showOriginMarker] = useState(false)
-  const [nameTagOffsetX] = useState(-15)
 
   return (
     <section
@@ -62,7 +61,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             <motion.div
               className={`text-center sm:text-left relative w-full sm:inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
               initial={{ opacity: 0, y: 30, x: 0 }}
-              animate={{ opacity: 1, y: 0, x: nameTagOffsetX }}
+              animate={{ opacity: 1, y: 0, x: 0 }}
               transition={{
                 delay: 0.2,
                 duration: 0.8,
