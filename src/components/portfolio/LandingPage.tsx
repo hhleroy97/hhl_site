@@ -41,7 +41,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
         <div
           className={`text-left overflow-visible mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
-          <div className='inline-block text-left'>
+          <div className='w-full sm:inline-block text-left'>
             {/* Greeting - Improved typography and spacing */}
             <motion.div
               className={`w-full text-center sm:text-left mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
@@ -60,7 +60,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
             {/* Name section - Enhanced visual impact */}
             <motion.div
-              className={`text-center sm:text-left relative inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
+              className={`text-center sm:text-left relative w-full sm:inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
               initial={{ opacity: 0, y: 30, x: 0 }}
               animate={{ opacity: 1, y: 0, x: nameTagOffsetX }}
               transition={{
