@@ -38,7 +38,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
-          className={`text-left overflow-visible mb-2 sm:mb-3 md:mb-4 fixed top-0 left-0 right-0 z-30 sm:relative sm:z-auto p-4 sm:p-0 bg-black/10 backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-none ${showBorders ? 'border-4 border-emerald-500' : ''}`}
+          className={`text-left overflow-visible mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
           <div className='w-full sm:inline-block text-left'>
             {/* Greeting - Improved typography and spacing */}
@@ -187,7 +187,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div
-          className={`grid grid-cols-1 lg:grid-cols-2 w-full gap-4 sm:gap-6 lg:gap-16 items-center ${showBorders ? 'border-4 border-orange-500' : ''}`}
+          className={`grid grid-cols-1 lg:grid-cols-2 w-full gap-8 sm:gap-12 lg:gap-20 items-center justify-items-center ${showBorders ? 'border-4 border-orange-500' : ''}`}
         >
           <div className='w-full'>
             <InteractiveElements
