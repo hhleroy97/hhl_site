@@ -16,7 +16,7 @@ export default function NewAbout() {
       id='about'
       tagline='About'
       taglineColor='cyan'
-      title='The human behind the systems where'
+      title='The man behind the systems where'
       subtitle='creativity meets computation'
       cardVariant='floating'
       flipMobileCorners={false}
