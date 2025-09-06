@@ -35,7 +35,7 @@ export default function PageSection({
   return (
     <section
       id={id}
-      className={`min-h-screen relative overflow-hidden flex items-start md:items-center ${className}`}
+      className={`min-h-0 md:min-h-screen relative overflow-hidden flex items-start md:items-center ${className}`}
     >
       {/* Glossy background effects */}
       {showBackground && (
@@ -63,8 +63,8 @@ export default function PageSection({
             color={taglineColor}
             className='h-auto min-h-[78svh] md:h-[85svh] flex flex-col'
           >
-            {/* Section header */}
-            <div className='text-center mb-4 sm:mb-5 md:mb-6 flex-shrink-0'>
+            {/* Section header (hidden on mobile to present clean card-only look) */}
+            <div className='hidden sm:block text-center mb-4 sm:mb-5 md:mb-6 flex-shrink-0'>
               <h2
                 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}

@@ -113,7 +113,7 @@ export default function TechCard({
         </motion.div>
 
         {/* Content */}
-        <div className='relative z-10 p-8 pt-20 flex-1 flex flex-col'>
+        <div className='relative z-10 p-4 sm:p-8 pt-16 sm:pt-20 flex-1 flex flex-col'>
           {children}
         </div>
       </motion.div>
