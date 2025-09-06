@@ -275,7 +275,7 @@ export default function InteractiveElements({
           <div className='flex flex-col gap-2'>
             <a
               href='#contact'
-              className={`w-full h-12 px-4 bg-gradient-to-r from-purple-500 from-10% via-cyan-500 via-50% to-cyan-500 to-90% text-white font-semibold hover:shadow-xl hover:shadow-purple-500/30 transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center border border-white/20 text-lg tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
+              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-[#7BC6FF] font-semibold hover:bg-[#7BC6FF]/15 hover:border-[#7BC6FF]/40 hover:text-[#7BC6FF] transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
               onClick={() => {
                 window.location.hash = 'contact'
               }}
@@ -283,7 +283,7 @@ export default function InteractiveElements({
               Get in Touch
             </a>
             <button
-              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold rounded-b-xl hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
+              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-[#7BC6FF] font-semibold rounded-b-xl hover:bg-[#7BC6FF]/15 hover:border-[#7BC6FF]/40 hover:text-[#7BC6FF] transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
               onClick={() => {
                 const go = () => {
                   window.location.hash = 'about'
