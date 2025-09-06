@@ -32,7 +32,7 @@ export default function InteractiveElements({
 }: InteractiveElementsProps) {
   return (
     <motion.div
-      className={`flex flex-col gap-6 w-full h-full ${showBorders ? 'border-4 border-cyan-400' : ''}`}
+      className={`flex flex-col gap-6 w-full h-full overflow-hidden ${showBorders ? 'border-4 border-cyan-400' : ''}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
