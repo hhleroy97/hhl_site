@@ -102,7 +102,7 @@ export default function TechCard({
   if (variant === 'floating') {
     return (
       <div
-        className={`relative bg-black/30 backdrop-blur-md border ${colors.border} ${cornerClass} shadow-2xl ${colors.glow} overflow-hidden ${className}`}
+        className={`relative bg-black/30 backdrop-blur-md border-2 md:border ${colors.border} border-b-0 md:border-b ${cornerClass} shadow-2xl ${colors.glow} overflow-hidden ${className}`}
       >
         {/* Enhanced depth effects */}
         <div
@@ -135,7 +135,7 @@ export default function TechCard({
         </div>
 
         {/* Content */}
-        <div className='relative z-10 p-8 pt-20 flex-1 flex flex-col'>
+        <div className='relative z-10 p-8 pt-10 flex-1 flex flex-col'>
           {children}
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function TechCard({
   if (variant === 'rotated') {
     return (
       <div
-        className={`relative bg-black/30 backdrop-blur-md border ${colors.border} ${cornerClass} shadow-2xl ${colors.glow} overflow-hidden ${className}`}
+        className={`relative bg-black/30 backdrop-blur-md border-2 md:border ${colors.border} border-b-0 md:border-b ${cornerClass} shadow-2xl ${colors.glow} overflow-hidden ${className}`}
       >
         {/* Enhanced depth effects */}
         <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
@@ -174,7 +174,7 @@ export default function TechCard({
         </div>
 
         {/* Content */}
-        <div className='relative z-10 p-8 pt-20 pl-12 flex-1 flex flex-col text-white'>
+        <div className='relative z-10 p-8 pt-10 pl-12 flex-1 flex flex-col text-white'>
           {children}
         </div>
       </div>
@@ -185,7 +185,7 @@ export default function TechCard({
   if (variant === 'background') {
     return (
       <div
-        className={`relative bg-black/30 backdrop-blur-md border ${colors.border} ${cornerClass} shadow-2xl ${colors.glow} overflow-hidden ${className}`}
+        className={`relative bg-black/30 backdrop-blur-md border-2 md:border ${colors.border} border-b-0 md:border-b ${cornerClass} shadow-2xl ${colors.glow} overflow-hidden ${className}`}
       >
         {/* Enhanced depth effects */}
         <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
@@ -203,7 +203,7 @@ export default function TechCard({
         </div>
 
         {/* Content with header overlay */}
-        <div className='relative z-10 p-8 pt-20 flex-1 flex flex-col'>
+        <div className='relative z-10 p-8 pt-10 flex-1 flex flex-col'>
           <h3
             className={`text-2xl font-black ${colors.text} mb-4 tracking-wide uppercase flex-shrink-0 ${centerOnMobile ? 'text-center' : 'text-left'} ${textAlignClasses}`}
             style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: '900' }}
@@ -220,7 +220,7 @@ export default function TechCard({
   if (variant === 'cutcorner') {
     return (
       <div
-        className={`relative bg-black/30 backdrop-blur-md border ${colors.border} shadow-2xl ${colors.glow} overflow-hidden ${className}`}
+        className={`relative bg-black/30 backdrop-blur-md border-2 md:border ${colors.border} border-b-0 md:border-b shadow-2xl ${colors.glow} overflow-hidden ${className}`}
         style={{
           clipPath:
             'polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 2rem 100%, 0 calc(100% - 2rem))',
@@ -243,7 +243,7 @@ export default function TechCard({
         </div>
 
         {/* Content */}
-        <div className='relative z-10 p-8 pt-20 flex-1 flex flex-col'>
+        <div className='relative z-10 p-8 pt-10 flex-1 flex flex-col'>
           {children}
         </div>
       </div>
