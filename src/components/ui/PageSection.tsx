@@ -13,6 +13,8 @@ interface PageSectionProps {
   className?: string
   cardVariant?: 'floating' | 'rotated' | 'background' | 'cutcorner'
   isHomePage?: boolean
+  /** When false, suppresses the per-section background so a parent can provide a unified BG */
+  showBackground?: boolean
 }
 
 export default function PageSection({
@@ -25,6 +27,7 @@ export default function PageSection({
   className = '',
   cardVariant,
   isHomePage = false,
+  showBackground = true,
 }: PageSectionProps) {
   const { variant } = useCardVariant()
   const selectedVariant = cardVariant || variant
@@ -35,9 +38,13 @@ export default function PageSection({
       className={`min-h-screen relative overflow-hidden flex items-start md:items-center ${className}`}
     >
       {/* Glossy background effects */}
-      <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
-      <div className='absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent' />
-      <div className='absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent' />
+      {showBackground && (
+        <>
+          <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
+          <div className='absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent' />
+          <div className='absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent' />
+        </>
+      )}
 
       <div
         className={`container-custom relative z-10 w-full pt-4 sm:pt-6 md:pt-8 ${isHomePage ? 'pb-4 sm:pb-6 md:pb-8' : 'pb-8 sm:pb-16 md:pb-24'}`}

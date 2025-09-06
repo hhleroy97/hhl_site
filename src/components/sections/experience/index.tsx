@@ -187,6 +187,7 @@ export default function WorkExperienceTimelineHorizontal() {
       title='Building systems that scale'
       subtitle='and offerings that inspire'
       cardVariant='floating'
+      showBackground={false}
     >
       <div className='max-w-full mx-auto px-1 sm:px-2 h-full flex flex-col justify-center'>
         {/* Main Container - Centered Timeline with Job Cards */}

@@ -19,6 +19,7 @@ export default function NewAbout() {
       title='The human behind the systems where'
       subtitle='creativity meets computation'
       cardVariant='floating'
+      showBackground={false}
     >
       <div className='w-full max-w-[95vw] mx-auto px-2 sm:px-4'>
         {/* Main Content Grid */}
