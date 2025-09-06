@@ -1,11 +1,34 @@
 import { motion } from 'framer-motion'
+import DataPipeline from '../3d/DataPipeline'
 
 interface InteractiveElementsProps {
   showBorders?: boolean
+  layerDistance?: number
+  positionShift?: number
+  verticalShift?: number
+  rotationX?: number
+  rotationY?: number
+  rotationZ?: number
+  positionX?: number
+  positionY?: number
+  positionZ?: number
+  showBoundingBox?: boolean
+  showOriginMarker?: boolean
 }
 
 export default function InteractiveElements({
   showBorders = false,
+  layerDistance = 3.6,
+  positionShift = 0,
+  verticalShift = 0,
+  rotationX = -8,
+  rotationY = -3,
+  rotationZ = 0,
+  positionX = -1.4,
+  positionY = 2,
+  positionZ = -16.5,
+  showBoundingBox = false,
+  showOriginMarker = false,
 }: InteractiveElementsProps) {
   return (
     <motion.div
@@ -81,9 +104,39 @@ export default function InteractiveElements({
         </a>
       </div>
 
-      {/* Enhanced Resume-Based Achievements */}
+      {/* Mobile: 3D Visualization */}
       <motion.div
-        className={`${showBorders ? 'border-4 border-purple-500' : ''}`}
+        className={`block sm:hidden h-64 ${showBorders ? 'border-4 border-purple-500' : ''}`}
+        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          delay: 0.5,
+          duration: 1,
+          easing: [0.25, 0.46, 0.45, 0.94],
+        }}
+      >
+        <DataPipeline
+          className='w-full h-full'
+          layerSpacing={layerDistance}
+          positionShift={positionShift}
+          verticalShift={verticalShift}
+          cinematicMode={false}
+          interactive={true}
+          rotationX={rotationX}
+          rotationY={rotationY}
+          rotationZ={rotationZ}
+          positionX={positionX}
+          positionY={positionY}
+          positionZ={positionZ}
+          showBoundingBox={showBoundingBox}
+          showOriginMarker={showOriginMarker}
+          enableMouseParallax={true}
+        />
+      </motion.div>
+
+      {/* Desktop: Enhanced Resume-Based Achievements */}
+      <motion.div
+        className={`hidden sm:block ${showBorders ? 'border-4 border-purple-500' : ''}`}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{

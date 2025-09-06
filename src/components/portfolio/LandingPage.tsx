@@ -190,7 +190,20 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
           className={`grid grid-cols-1 lg:grid-cols-2 w-full gap-4 sm:gap-6 lg:gap-16 items-center ${showBorders ? 'border-4 border-orange-500' : ''}`}
         >
           <div className='w-full'>
-            <InteractiveElements showBorders={showBorders} />
+            <InteractiveElements
+              showBorders={showBorders}
+              layerDistance={layerDistance}
+              positionShift={positionShift}
+              verticalShift={verticalShift}
+              rotationX={rotationX}
+              rotationY={rotationY}
+              rotationZ={rotationZ}
+              positionX={positionX}
+              positionY={positionY}
+              positionZ={positionZ}
+              showBoundingBox={showBoundingBox}
+              showOriginMarker={showOriginMarker}
+            />
           </div>
           {/* Enhanced Neural Network Visualization */}
           <motion.div
