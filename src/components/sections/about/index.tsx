@@ -186,13 +186,13 @@ export default function NewAbout() {
                 <div className='md:hidden'>
                   {/* Top row - 3 icons */}
                   <div className='flex justify-center gap-4 mb-2'>
-                    <div className='flex items-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
+                    <div className='flex items-center justify-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
                       <Music className='w-8 h-8 text-purple-400 group-hover:scale-110 group-hover:text-purple-300 transition-all duration-300' />
                     </div>
-                    <div className='flex items-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
+                    <div className='flex items-center justify-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
                       <Gamepad2 className='w-8 h-8 text-cyan-400 group-hover:scale-110 group-hover:text-cyan-300 transition-all duration-300' />
                     </div>
-                    <div className='flex items-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
+                    <div className='flex items-center justify-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
                       <img
                         src={pickleballImage}
                         alt='Pickleball'
@@ -207,7 +207,7 @@ export default function NewAbout() {
 
                   {/* Bottom row - 2 icons offset */}
                   <div className='flex justify-center gap-4'>
-                    <div className='flex items-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16 ml-8'>
+                    <div className='flex items-center justify-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16 ml-8'>
                       <img
                         src={hikeImage}
                         alt='Hiking'
@@ -218,7 +218,7 @@ export default function NewAbout() {
                         }}
                       />
                     </div>
-                    <div className='flex items-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
+                    <div className='flex items-center justify-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
                       <img
                         src={snowboardImage}
                         alt='Snowboarding'
