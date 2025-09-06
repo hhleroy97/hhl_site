@@ -179,10 +179,7 @@ export default function InteractiveElements({
             className={`w-full h-12 px-4 bg-gradient-to-r from-purple-500 from-10% via-cyan-500 via-50% to-cyan-500 to-90% text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-purple-500/30 transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center border border-white/20 text-lg tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
             style={{ fontFamily: 'Orbitron, sans-serif' }}
           >
-            <div className='flex flex-col leading-tight'>
-              <span>Get in</span>
-              <span>Touch</span>
-            </div>
+            Get in Touch
           </a>
           <button
             onClick={() => {
