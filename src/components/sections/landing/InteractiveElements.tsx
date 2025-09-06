@@ -45,8 +45,11 @@ export default function InteractiveElements({
       className={`flex flex-col gap-6 w-full h-full p-2 -m-2 ${showBorders ? 'border-4 border-cyan-400' : ''}`}
     >
       {/* Desktop: Enhanced Social Icon Sub-container */}
-      <div
+      <motion.div
         className={`hidden sm:flex gap-4 pt-2 -mt-2 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
       >
         <a
           href='https://github.com/hhleroy97'
@@ -105,7 +108,7 @@ export default function InteractiveElements({
             Email
           </span>
         </a>
-      </div>
+      </motion.div>
 
       {/* Mobile: 3D Visualization */}
       <div
@@ -148,11 +151,11 @@ export default function InteractiveElements({
         <motion.div
           className={`relative p-6 md:p-8 bg-black/30 backdrop-blur-md border border-white/20 
               transition-all duration-300 overflow-hidden shadow-xl ${showBorders ? 'border-4 border-red-500' : ''}`}
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{
             duration: 0.7,
-            delay: 0.6,
+            delay: 0.5,
             ease: 'easeOut',
           }}
         >
