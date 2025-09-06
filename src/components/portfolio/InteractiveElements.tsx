@@ -32,7 +32,7 @@ export default function InteractiveElements({
 }: InteractiveElementsProps) {
   return (
     <motion.div
-      className={`flex flex-col gap-6 w-full h-full overflow-hidden ${showBorders ? 'border-4 border-cyan-400' : ''}`}
+      className={`flex flex-col gap-6 w-full h-full ${showBorders ? 'border-4 border-cyan-400' : ''}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -43,7 +43,7 @@ export default function InteractiveElements({
     >
       {/* Mobile: 3D Visualization */}
       <motion.div
-        className={`block sm:hidden fixed top-40 left-0 right-0 h-64 z-40 overflow-hidden ${showBorders ? 'border-4 border-purple-500' : ''}`}
+        className={`block sm:hidden h-64 -mt-16 ${showBorders ? 'border-4 border-purple-500' : ''}`}
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{
