@@ -37,7 +37,7 @@ export default function JobCard({
     >
       {/* Company Logo Node */}
       <motion.div
-        className='w-24 h-24 rounded-full bg-white backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-2xl mb-8 shadow-xl relative z-10 transition-transform duration-300'
+        className='w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-white backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-lg sm:text-xl md:text-2xl mb-4 sm:mb-6 md:mb-8 shadow-xl relative z-10 transition-transform duration-300'
         whileHover={{ scale: 1.15 }}
         whileTap={{ scale: 0.95 }}
         style={{
@@ -58,11 +58,11 @@ export default function JobCard({
             <img
               src={logo}
               alt={`${company} logo`}
-              className='w-16 h-16 object-contain'
+              className='w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain'
               style={{ pointerEvents: 'none' }}
             />
           ) : (
-            <span className='text-2xl'>{logo}</span>
+            <span className='text-lg sm:text-xl md:text-2xl'>{logo}</span>
           )}
         </div>
       </motion.div>
@@ -70,7 +70,7 @@ export default function JobCard({
       {/* Job Details */}
       <div className='text-center w-full px-1'>
         <h3
-          className='text-sm font-bold mb-2 transition-colors duration-300 leading-tight whitespace-nowrap'
+          className='text-xs sm:text-sm font-bold mb-1 sm:mb-2 transition-colors duration-300 leading-tight whitespace-nowrap'
           style={{ color: isHovered ? '#22d3ee' : '#ffffff' }}
         >
           {company}
