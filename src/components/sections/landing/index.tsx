@@ -29,8 +29,8 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       id='hero'
       className={`relative min-h-screen flex flex-col ${showBorders ? 'border-4 border-white' : ''}`}
     >
-      {/* Enhanced Background with subtle gradient */}
-      <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
+      {/* Enhanced Background: gradient on md+, solid black on mobile to match stack */}
+      <div className='absolute inset-0 bg-black md:bg-gradient-to-br md:from-zinc-950 md:via-zinc-900 md:to-black' />
 
       {/* Top content container */}
       <div
