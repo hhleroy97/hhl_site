@@ -12,6 +12,10 @@
   html {
     @apply bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white font-sans antialiased;
     scroll-behavior: smooth;
+    /* Help mobile browsers with viewport handling */
+    height: 100%;
+    height: 100dvh; /* Dynamic viewport height for mobile */
+    overflow-x: hidden;
   }
 
   body {
@@ -27,6 +31,12 @@
       rgb(39, 39, 42),
       rgb(0, 0, 0)
     );
+    /* Help mobile browsers with viewport handling */
+    height: 100%;
+    height: 100dvh; /* Dynamic viewport height for mobile */
+    overflow-x: hidden;
+    /* Allow browser UI to hide/show properly */
+    -webkit-overflow-scrolling: touch;
   }
 
   /* Custom scrollbar */
