@@ -187,7 +187,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div
-          className={`grid grid-cols-1 lg:grid-cols-2 w-full -gap-4 sm:gap-4 lg:gap-6 items-center justify-items-center ${showBorders ? 'border-4 border-orange-500' : ''}`}
+          className={`grid grid-cols-1 lg:grid-cols-2 w-full gap-0 sm:gap-4 lg:gap-6 items-center justify-items-center ${showBorders ? 'border-4 border-orange-500' : ''}`}
         >
           <div className='w-full'>
             <InteractiveElements
