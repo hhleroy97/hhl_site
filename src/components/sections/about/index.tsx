@@ -180,63 +180,114 @@ export default function NewAbout() {
                 Beyond Code
               </h3>
 
-              {/* Hobbies Grid */}
-              <div className='grid grid-cols-5 md:grid-cols-5 gap-4 justify-start'>
-                <div className='flex flex-col md:flex-col items-center group p-3 rounded-full md:rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square md:aspect-auto'>
-                  <Music className='w-8 h-8 mb-0 md:mb-2 text-purple-400 group-hover:scale-110 group-hover:text-purple-300 transition-all duration-300' />
-                  <span className='hidden md:block text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
+              {/* Hobbies Grid - Olympic rings layout on mobile */}
+              <div className='md:grid md:grid-cols-5 md:gap-4 md:justify-start'>
+                {/* Mobile: Olympic rings layout */}
+                <div className='md:hidden'>
+                  {/* Top row - 3 icons */}
+                  <div className='flex justify-center gap-4 mb-2'>
+                    <div className='flex items-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
+                      <Music className='w-8 h-8 text-purple-400 group-hover:scale-110 group-hover:text-purple-300 transition-all duration-300' />
+                    </div>
+                    <div className='flex items-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
+                      <Gamepad2 className='w-8 h-8 text-cyan-400 group-hover:scale-110 group-hover:text-cyan-300 transition-all duration-300' />
+                    </div>
+                    <div className='flex items-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
+                      <img
+                        src={pickleballImage}
+                        alt='Pickleball'
+                        className='w-8 h-8 group-hover:scale-110 transition-all duration-300'
+                        style={{
+                          filter:
+                            'brightness(0) saturate(100%) invert(67%) sepia(32%) saturate(1292%) hue-rotate(124deg) brightness(91%) contrast(85%)',
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Bottom row - 2 icons offset */}
+                  <div className='flex justify-center gap-4'>
+                    <div className='flex items-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16 ml-8'>
+                      <img
+                        src={hikeImage}
+                        alt='Hiking'
+                        className='w-8 h-8 group-hover:scale-110 transition-all duration-300'
+                        style={{
+                          filter:
+                            'brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(606%) hue-rotate(359deg) brightness(99%) contrast(88%)',
+                        }}
+                      />
+                    </div>
+                    <div className='flex items-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
+                      <img
+                        src={snowboardImage}
+                        alt='Snowboarding'
+                        className='w-8 h-8 group-hover:scale-110 transition-all duration-300'
+                        style={{
+                          filter:
+                            'brightness(0) saturate(100%) invert(59%) sepia(92%) saturate(1686%) hue-rotate(182deg) brightness(97%) contrast(94%)',
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Desktop: Original grid layout */}
+                <div className='hidden md:flex md:flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
+                  <Music className='w-8 h-8 mb-2 text-purple-400 group-hover:scale-110 group-hover:text-purple-300 transition-all duration-300' />
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Music Production
                   </span>
                 </div>
 
-                <div className='flex flex-col md:flex-col items-center group p-3 rounded-full md:rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square md:aspect-auto'>
-                  <Gamepad2 className='w-8 h-8 mb-0 md:mb-2 text-cyan-400 group-hover:scale-110 group-hover:text-cyan-300 transition-all duration-300' />
-                  <span className='hidden md:block text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
+                <div className='hidden md:flex md:flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
+                  <Gamepad2 className='w-8 h-8 mb-2 text-cyan-400 group-hover:scale-110 group-hover:text-cyan-300 transition-all duration-300' />
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Video Games
                   </span>
                 </div>
 
-                <div className='flex flex-col md:flex-col items-center group p-3 rounded-full md:rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square md:aspect-auto'>
+                <div className='hidden md:flex md:flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <img
                     src={pickleballImage}
                     alt='Pickleball'
-                    className='w-8 h-8 mb-0 md:mb-2 group-hover:scale-110 transition-all duration-300'
+                    className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
                     style={{
                       filter:
                         'brightness(0) saturate(100%) invert(67%) sepia(32%) saturate(1292%) hue-rotate(124deg) brightness(91%) contrast(85%)',
                     }}
                   />
-                  <span className='hidden md:block text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Pickleball
                   </span>
                 </div>
 
-                <div className='flex flex-col md:flex-col items-center group p-3 rounded-full md:rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square md:aspect-auto'>
+                <div className='hidden md:flex md:flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <img
                     src={hikeImage}
                     alt='Hiking'
-                    className='w-8 h-8 mb-0 md:mb-2 group-hover:scale-110 transition-all duration-300'
+                    className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
                     style={{
                       filter:
                         'brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(606%) hue-rotate(359deg) brightness(99%) contrast(88%)',
                     }}
                   />
-                  <span className='hidden md:block text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Hiking
                   </span>
                 </div>
 
-                <div className='flex flex-col md:flex-col items-center group p-3 rounded-full md:rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square md:aspect-auto'>
+                <div className='hidden md:flex md:flex-col items-center group p-3 rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300'>
                   <img
                     src={snowboardImage}
                     alt='Snowboarding'
-                    className='w-8 h-8 mb-0 md:mb-2 group-hover:scale-110 transition-all duration-300'
+                    className='w-8 h-8 mb-2 group-hover:scale-110 transition-all duration-300'
                     style={{
                       filter:
                         'brightness(0) saturate(100%) invert(59%) sepia(92%) saturate(1686%) hue-rotate(182deg) brightness(97%) contrast(94%)',
                     }}
                   />
-                  <span className='hidden md:block text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
+                  <span className='text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors text-center'>
                     Snowboarding
                   </span>
                 </div>
