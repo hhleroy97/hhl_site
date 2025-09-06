@@ -114,7 +114,7 @@ export default function ContactFooter() {
         className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
       >
         <div className='max-w-7xl mx-auto w-full px-4'>
-          <div className='relative bg-gradient-to-br from-white/[0.08] via-black/50 to-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/20 p-6 shadow-2xl overflow-hidden min-h-[500px] flex items-center'>
+          <div className='relative bg-gradient-to-br from-white/[0.08] via-black/50 to-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/20 p-6 shadow-2xl overflow-hidden min-h-[24rem] sm:min-h-[28rem] md:min-h-[31.25rem] flex items-center'>
             {/* Glassmorphism effects */}
             <div className='absolute inset-0 bg-gradient-to-br from-emerald-500/[0.03] via-transparent to-teal-500/[0.03] pointer-events-none' />
             <div className='absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl pointer-events-none' />
