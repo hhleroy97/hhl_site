@@ -166,21 +166,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                   color: 'transparent',
                 }}
               >
-                Cloud & Creative
-              </span>
-            </div>
-            <div className='mb-2'>
-              <span
-                className='font-bold'
-                style={{
-                  background:
-                    'linear-gradient(18deg, #B06AF7 0%, #7BC6FF 100%)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  color: 'transparent',
-                }}
-              >
-                Engineer
+                Cloud & Creative Engineer
               </span>
             </div>
             <div className='text-zinc-300'>
