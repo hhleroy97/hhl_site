@@ -54,7 +54,7 @@ export default function PageSection({
             title={tagline}
             variant={selectedVariant}
             color={taglineColor}
-            className='min-h-[80vh] flex flex-col'
+            className='h-[85vh] flex flex-col'
           >
             {/* Section header */}
             <div className='text-center mb-6 flex-shrink-0'>
