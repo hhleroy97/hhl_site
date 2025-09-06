@@ -73,7 +73,7 @@ export default function TechCard({
 
   const desktopPosForFloating =
     titleAlign === 'left'
-      ? 'md:left-16 md:translate-x-0 md:right-auto'
+      ? 'md:left-24 md:translate-x-0 md:right-auto'
       : titleAlign === 'center'
         ? 'md:left-1/2 md:-translate-x-1/2'
         : 'md:right-12 md:left-auto md:translate-x-0'
