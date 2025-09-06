@@ -22,6 +22,91 @@ export default function NewAbout() {
       flipMobileCorners={false}
     >
       <div className='w-full max-w-[95vw] mx-auto px-2 sm:px-4'>
+        {/* Mobile-only Profile Picture under taglines */}
+        <div className='md:hidden flex justify-center pb-4'>
+          <div className='relative w-64'>
+            <div className='w-64 h-64 rounded-t-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-3 shadow-xl relative overflow-hidden'>
+              {/* Animated gradient background */}
+              <div
+                className='absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/5 to-emerald-500/10 rounded-xl animate-pulse'
+                style={{ animationDuration: '4s' }}
+              />
+              <div className='absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent rounded-xl' />
+
+              <div className='relative w-full h-full overflow-hidden rounded-xl'>
+                <div
+                  className='relative w-full h-full'
+                  style={{
+                    transform: `translate(${positionX}px, ${positionY}px) scale(${scale / 100})`,
+                    transformOrigin: 'center',
+                  }}
+                >
+                  <img
+                    src={profileImage}
+                    alt='Hartley LeRoy - Creative Technologist'
+                    className='w-full h-full object-contain'
+                    loading='lazy'
+                  />
+                </div>
+                {/* Enhanced gradient overlay */}
+                <div className='absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-xl' />
+                <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 rounded-xl' />
+              </div>
+            </div>
+
+            {/* Profile Info */}
+            <div className='w-64 text-center p-2 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl'>
+              <h3
+                className='text-lg font-semibold text-white mb-1'
+                style={{ fontFamily: 'Orbitron, sans-serif' }}
+              >
+                Hartley LeRoy
+              </h3>
+
+              {/* Enhanced Location */}
+              <div className='flex items-center justify-center gap-1 text-zinc-400 text-xs'>
+                <MapPin className='w-3 h-3 text-cyan-400' />
+                <span>Charlotte, NC</span>
+              </div>
+            </div>
+
+            {/* Work Status */}
+            <div className='w-64 p-3 pb-4 rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
+              <div>
+                <div className='text-center mb-3'>
+                  <p className='text-sm font-medium text-white mb-1'>
+                    Open to opportunities
+                  </p>
+                  <p className='text-xs text-zinc-400'>
+                    Available for new projects
+                  </p>
+                </div>
+
+                {/* Status Pills */}
+                <div className='flex gap-2 justify-center mb-4'>
+                  <div className='px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-400/20 text-emerald-300 text-xs font-medium'>
+                    Freelance
+                  </div>
+                  <div className='px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-400/20 text-purple-300 text-xs font-medium'>
+                    Full-time
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Button */}
+              <div className='mt-2 -mx-3 -mb-6'>
+                <a
+                  href='#contact'
+                  className='block w-full px-4 py-3 rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold text-lg text-center transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
+                  Get In Touch
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Mobile-only Creative Technologist heading after taglines */}
         <div className='md:hidden text-center pb-4'>
           <h3
@@ -167,7 +252,7 @@ export default function NewAbout() {
 
           {/* Right Column - Professional Profile */}
           <motion.div
-            className='flex flex-col items-center justify-start sticky top-8'
+            className='hidden lg:flex flex-col items-center justify-start sticky top-8'
             style={{ height: 'fit-content' }}
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
