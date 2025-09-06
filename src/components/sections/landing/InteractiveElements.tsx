@@ -216,7 +216,7 @@ export default function InteractiveElements({
 
       {/* Mobile: Bottom container for all buttons (follows mobile browser footer) */}
       <div
-        className='block sm:hidden fixed bottom-0 left-0 right-0 z-40 p-4 bg-black/30 backdrop-blur-md border-t border-white/20 rounded-none shadow-xl w-full'
+        className='block sm:hidden fixed bottom-0 left-0 right-0 z-[100] p-4 bg-black/30 backdrop-blur-md border-t border-white/20 rounded-none shadow-xl w-full pointer-events-auto'
         style={{
           paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 8px)',
         }}
