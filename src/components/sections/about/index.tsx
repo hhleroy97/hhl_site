@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Music, Gamepad2, MapPin } from 'lucide-react'
-import PageSection from '../ui/PageSection'
+import PageSection from '../../ui/PageSection'
 import profileImage from '../../assets/prof-pic-no-bg.png'
 import pickleballImage from '../../assets/pickleball.png'
 import hikeImage from '../../assets/hike.png'

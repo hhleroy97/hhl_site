@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
-import PageSection from '../ui/PageSection'
+import PageSection from '../../ui/PageSection'
 
 const services = [
   { id: 'consultation', name: 'Free 15-Minute Consultation', price: 'FREE' },
