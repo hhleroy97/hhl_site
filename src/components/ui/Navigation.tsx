@@ -600,24 +600,17 @@ export default function Navigation({
 
             {/* Mobile Center Navigation */}
             <div className='md:hidden flex items-center justify-center'>
-              {/* Single centered navigation button */}
+              {/* Single centered up button */}
               <motion.button
-                onClick={currentSection === 0 ? onNextSection : onPrevSection}
+                onClick={onPrevSection}
                 className='bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-4 py-2 transition-all duration-200 group flex items-center justify-center text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {currentSection === 0 ? (
-                  <ChevronDown
-                    {...getDynamicTextColor()}
-                    className='w-5 h-5 transition-all duration-200 group-hover:scale-110'
-                  />
-                ) : (
-                  <ChevronUp
-                    {...getDynamicTextColor()}
-                    className='w-5 h-5 transition-all duration-200 group-hover:scale-110'
-                  />
-                )}
+                <ChevronUp
+                  {...getDynamicTextColor()}
+                  className='w-5 h-5 transition-all duration-200 group-hover:scale-110'
+                />
               </motion.button>
             </div>
           </div>
