@@ -2,12 +2,12 @@ import { useState } from 'react'
 import PageSection from '../../ui/PageSection'
 import JobCard from './JobCard'
 import JobView from './JobView'
-import fdaLogo from '../../assets/fda-logo.png'
-import softhreadLogo from '../../assets/Softhread_Logo.jpg'
-import delphiLogo from '../../assets/DELPHI-DIGITAL-MASTER-LOGO.jpg'
-import firstTurnLogo from '../../assets/first_turn_innovations_llc_logo.jpg'
-import kissLogo from '../../assets/kiss_logo.png'
-import lucidBotsLogo from '../../assets/lucid-bots-logo.png'
+import fdaLogo from '../../../assets/fda-logo.png'
+import softhreadLogo from '../../../assets/Softhread_Logo.jpg'
+import delphiLogo from '../../../assets/DELPHI-DIGITAL-MASTER-LOGO.jpg'
+import firstTurnLogo from '../../../assets/first_turn_innovations_llc_logo.jpg'
+import kissLogo from '../../../assets/kiss_logo.png'
+import lucidBotsLogo from '../../../assets/lucid-bots-logo.png'
 
 const experiences = [
   {
