@@ -387,7 +387,7 @@ export default function Navigation({
             </div>
 
             {/* Center Inline Navigation */}
-            <div className='flex items-center justify-center'>
+            <div className='hidden md:flex items-center justify-center'>
               {/* Horizontal Pill with Up/Down buttons */}
               <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-1 sm:px-2 py-1 sm:py-2 flex items-center'>
                 {/* Conditional rendering based on current section */}
