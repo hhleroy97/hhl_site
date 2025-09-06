@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import DataPipeline from '../../3d/DataPipeline'
 
 interface InteractiveElementsProps {
@@ -30,6 +31,15 @@ export default function InteractiveElements({
   showBoundingBox = false,
   showOriginMarker = false,
 }: InteractiveElementsProps) {
+  const [, setCurrentTransform] = useState({
+    rotationX: rotationX,
+    rotationY: rotationY,
+    rotationZ: rotationZ,
+    positionX: positionX,
+    positionY: positionY,
+    positionZ: positionZ,
+  })
+
   return (
     <motion.div
       className={`flex flex-col gap-6 w-full h-full p-2 -m-2 ${showBorders ? 'border-4 border-cyan-400' : ''}`}
@@ -106,7 +116,7 @@ export default function InteractiveElements({
 
       {/* Mobile: 3D Visualization */}
       <motion.div
-        className={`block sm:hidden h-64 -mt-8 translate-x-4 ${showBorders ? 'border-4 border-purple-500' : ''}`}
+        className={`block sm:hidden h-64 -mt-16 px-4 ${showBorders ? 'border-4 border-purple-500' : ''}`}
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{
@@ -115,23 +125,26 @@ export default function InteractiveElements({
           easing: [0.25, 0.46, 0.45, 0.94],
         }}
       >
-        <DataPipeline
-          className='w-full h-full'
-          layerSpacing={layerDistance}
-          positionShift={positionShift}
-          verticalShift={verticalShift}
-          cinematicMode={false}
-          interactive={true}
-          rotationX={rotationX}
-          rotationY={rotationY}
-          rotationZ={rotationZ}
-          positionX={positionX}
-          positionY={positionY}
-          positionZ={positionZ}
-          showBoundingBox={showBoundingBox}
-          showOriginMarker={showOriginMarker}
-          enableMouseParallax={true}
-        />
+        <div className='w-full max-w-sm mx-auto h-full'>
+          <DataPipeline
+            className='w-full h-full'
+            layerSpacing={layerDistance}
+            positionShift={positionShift}
+            verticalShift={verticalShift}
+            cinematicMode={false}
+            interactive={true}
+            rotationX={rotationX}
+            rotationY={rotationY}
+            rotationZ={rotationZ}
+            positionX={positionX}
+            positionY={positionY}
+            positionZ={positionZ}
+            showBoundingBox={showBoundingBox}
+            showOriginMarker={showOriginMarker}
+            enableMouseParallax={true}
+            onTransformChange={setCurrentTransform}
+          />
+        </div>
       </motion.div>
 
       {/* Desktop: Enhanced Resume-Based Achievements */}
@@ -207,8 +220,8 @@ export default function InteractiveElements({
       </motion.div>
 
       {/* Mobile: Inline container for buttons under 3D visualization (scrolls with content) */}
-      <div className='block sm:hidden -mt-12'>
-        <div className='flex flex-col gap-2'>
+      <div className='block sm:hidden -mt-8 px-4'>
+        <div className='flex flex-col gap-2 w-full max-w-sm mx-auto'>
           {/* Social buttons */}
           <div
             className={`flex gap-2 ${showBorders ? 'border-4 border-blue-500' : ''}`}

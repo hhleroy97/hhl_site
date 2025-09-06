@@ -19,6 +19,14 @@ interface DataPipelineProps {
   showBoundingBox?: boolean
   showOriginMarker?: boolean
   enableMouseParallax?: boolean
+  onTransformChange?: (transform: {
+    rotationX: number
+    rotationY: number
+    rotationZ: number
+    positionX: number
+    positionY: number
+    positionZ: number
+  }) => void
 }
 
 const DataPipeline: React.FC<DataPipelineProps> = ({
@@ -38,6 +46,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
   showBoundingBox = false,
   showOriginMarker = true,
   enableMouseParallax = true,
+  onTransformChange,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [cameraXOffset] = useState(0)
@@ -191,6 +200,27 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
 
       // Apply external position offset
       neuralNetworkGroup.position.set(positionX, positionY, positionZ)
+
+      // Call transform change callback with current values
+      if (onTransformChange) {
+        const currentRotX = THREE.MathUtils.radToDeg(
+          neuralNetworkGroup.rotation.x
+        )
+        const currentRotY = THREE.MathUtils.radToDeg(
+          neuralNetworkGroup.rotation.y
+        )
+        const currentRotZ = THREE.MathUtils.radToDeg(
+          neuralNetworkGroup.rotation.z
+        )
+        onTransformChange({
+          rotationX: currentRotX,
+          rotationY: currentRotY,
+          rotationZ: currentRotZ,
+          positionX: neuralNetworkGroup.position.x,
+          positionY: neuralNetworkGroup.position.y,
+          positionZ: neuralNetworkGroup.position.z,
+        })
+      }
     }
 
     // Network spans from -1.75 to 3 layerSpacing units, so center is at 0.625
@@ -1276,6 +1306,10 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     positionX,
     positionY,
     positionZ,
+    enableMouseParallax,
+    onTransformChange,
+    showBoundingBox,
+    showOriginMarker,
     // mousePosition.x,
     // mousePosition.y,
   ])
