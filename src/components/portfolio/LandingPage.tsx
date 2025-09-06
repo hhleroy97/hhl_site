@@ -35,7 +35,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
       {/* Top content container */}
       <div
-        className={`relative z-20 pointer-events-none w-[85%] max-w-7xl mx-auto pt-8 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto pt-4 sm:pt-6 md:pt-8 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
@@ -176,11 +176,11 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
       {/* Center content container - Interactive elements and 3D visuals */}
       <div
-        className={`relative z-20 pointer-events-none w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible -mt-16 mb-32 ${showBorders ? 'border-4 border-green-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible -mt-8 sm:-mt-12 md:-mt-16 mb-16 sm:mb-24 md:mb-32 ${showBorders ? 'border-4 border-green-500' : ''}`}
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div
-          className={`grid grid-cols-1 lg:grid-cols-2 w-full gap-6 lg:gap-16 items-center ${showBorders ? 'border-4 border-orange-500' : ''}`}
+          className={`grid grid-cols-1 lg:grid-cols-2 w-full gap-4 sm:gap-6 lg:gap-16 items-center ${showBorders ? 'border-4 border-orange-500' : ''}`}
         >
           <div className='w-full'>
             <InteractiveElements showBorders={showBorders} />
@@ -228,7 +228,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       />
 
       {/* Enhanced Navigation Area at bottom */}
-      <div className='fixed bottom-0 left-0 right-0 z-[80] flex flex-col items-center pointer-events-auto'>
+      <div className='fixed bottom-0 left-0 right-0 z-[80] flex flex-col items-center pointer-events-auto px-4 sm:px-6 md:px-8'>
         {/* Call-to-action text with side arrows */}
         <motion.div
           className='mb-4 text-center'
@@ -254,7 +254,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                   }
                 }
               }}
-              className='text-lg md:text-xl font-semibold text-zinc-500 hover:text-purple-400 px-4 transition-colors duration-300 cursor-pointer uppercase relative group'
+              className='text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-zinc-500 hover:text-purple-400 px-2 sm:px-4 transition-colors duration-300 cursor-pointer uppercase relative group'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
             >
               {/* Enhanced bottom glow effect */}
