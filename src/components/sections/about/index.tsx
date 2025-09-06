@@ -299,7 +299,7 @@ export default function NewAbout() {
               <div className='mt-2 lg:-mx-3 lg:-mb-6'>
                 <a
                   href='#contact'
-                  className='block w-full px-4 py-3 rounded-2xl lg:rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold text-lg text-center transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
+                  className='block w-full px-4 py-3 rounded-2xl lg:rounded-t-none lg:rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold text-lg text-center transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
                   style={{ fontFamily: 'Orbitron, sans-serif' }}
                 >
                   Get In Touch
