@@ -219,13 +219,13 @@ export default function InteractiveElements({
         <div className='flex flex-col gap-3'>
           {/* Social buttons */}
           <div
-            className={`flex justify-evenly items-center w-full ${showBorders ? 'border-4 border-blue-500' : ''}`}
+            className={`flex gap-4 ${showBorders ? 'border-4 border-blue-500' : ''}`}
           >
             <a
               href='https://github.com/hhleroy97'
               target='_blank'
               rel='noopener noreferrer'
-              className={`flex items-center justify-center w-12 h-12 rounded-full bg-black/30 backdrop-blur-md border border-white/20 hover:bg-purple-400/15 hover:border-purple-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-yellow-400' : ''}`}
+              className={`flex items-center justify-center gap-3 flex-1 h-12 rounded-tl-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-purple-400/15 hover:border-purple-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-yellow-400' : ''}`}
               aria-label='GitHub profile'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
             >
@@ -241,7 +241,7 @@ export default function InteractiveElements({
               href='https://linkedin.com/in/hartley-leroy'
               target='_blank'
               rel='noopener noreferrer'
-              className={`flex items-center justify-center w-12 h-12 rounded-full bg-black/30 backdrop-blur-md border border-white/20 hover:bg-cyan-400/15 hover:border-cyan-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-magenta-400' : ''}`}
+              className={`flex items-center justify-center gap-3 flex-1 h-12 bg-black/30 backdrop-blur-md border border-white/20 hover:bg-cyan-400/15 hover:border-cyan-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-magenta-400' : ''}`}
               aria-label='LinkedIn profile'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
             >
@@ -251,7 +251,7 @@ export default function InteractiveElements({
             </a>
             <a
               href='mailto:hartley.leroy1997@gmail.com'
-              className={`flex items-center justify-center w-12 h-12 rounded-full bg-black/30 backdrop-blur-md border border-white/20 hover:bg-teal-400/15 hover:border-teal-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-orange-400' : ''}`}
+              className={`flex items-center justify-center gap-3 flex-1 h-12 rounded-tr-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-teal-400/15 hover:border-teal-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-orange-400' : ''}`}
               aria-label='Email contact'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
             >
@@ -283,7 +283,7 @@ export default function InteractiveElements({
               Get in Touch
             </a>
             <button
-              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
+              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold rounded-b-xl hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
               onClick={() => {
                 const go = () => {
                   window.location.hash = 'about'
