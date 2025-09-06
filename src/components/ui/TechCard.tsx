@@ -14,6 +14,11 @@ interface TechCardProps {
   titleAlign?: 'left' | 'center' | 'right'
   /** Center the title on small/mobile viewports. Default: true */
   centerOnMobile?: boolean
+  /**
+   * On mobile only, invert diagonal background highlights/corners to alternate
+   * visual rhythm in stacked view. Desktop/tablet remain unchanged.
+   */
+  flipMobileCorners?: boolean
 }
 
 export default function TechCard({
@@ -24,6 +29,7 @@ export default function TechCard({
   className = '',
   titleAlign = 'left',
   centerOnMobile = false,
+  flipMobileCorners = false,
 }: TechCardProps) {
   const colorStyles = {
     purple: {
@@ -92,8 +98,20 @@ export default function TechCard({
         transition={{ duration: 0.6 }}
       >
         {/* Enhanced depth effects */}
-        <div className='absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/[0.03] pointer-events-none' />
-        <div className='absolute -top-32 -right-32 w-64 h-64 bg-white/8 rounded-full blur-3xl pointer-events-none' />
+        <div
+          className={`absolute inset-0 pointer-events-none ${
+            flipMobileCorners
+              ? 'bg-gradient-to-bl md:bg-gradient-to-br'
+              : 'bg-gradient-to-br'
+          } from-white/[0.03] via-transparent to-black/[0.03]`}
+        />
+        <div
+          className={`absolute -top-32 w-64 h-64 bg-white/8 rounded-full blur-3xl pointer-events-none ${
+            flipMobileCorners
+              ? '-left-32 md:left-auto md:-right-32'
+              : '-right-32'
+          }`}
+        />
         <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent' />
 
         {/* Floating Tag Header */}
@@ -113,7 +131,7 @@ export default function TechCard({
         </motion.div>
 
         {/* Content */}
-        <div className='relative z-10 p-4 sm:p-8 pt-16 sm:pt-20 flex-1 flex flex-col'>
+        <div className='relative z-10 p-8 pt-20 flex-1 flex flex-col'>
           {children}
         </div>
       </motion.div>
