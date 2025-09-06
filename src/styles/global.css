@@ -372,25 +372,49 @@
     }
   }
 
-  /* Mobile browser optimizations for proper Chrome UI collapse */
+  /* Aggressive mobile browser optimizations for Chrome UI collapse */
   @media screen and (max-width: 768px) {
-    html,
+    html {
+      /* Force scrollable content */
+      min-height: calc(100vh + 100px);
+      min-height: calc(100svh + 100px);
+      min-height: calc(100dvh + 100px);
+      /* Ensure touch scrolling works properly */
+      -webkit-overflow-scrolling: touch;
+      overflow-scrolling: touch;
+      /* Disable overscroll bounce that might interfere */
+      overscroll-behavior: none;
+    }
+
     body {
-      /* Use min-height instead of height to allow natural scrolling */
-      min-height: 100%;
-      min-height: 100svh; /* Small viewport height - excludes UI */
-      min-height: 100dvh; /* Dynamic viewport height - modern browsers */
+      /* Force content to be taller than viewport */
+      min-height: calc(100vh + 100px);
+      min-height: calc(100svh + 100px);
+      min-height: calc(100dvh + 100px);
       /* Enable smooth momentum scrolling */
       -webkit-overflow-scrolling: touch;
+      /* Disable rubber band scrolling */
+      overscroll-behavior-y: none;
+      /* Force repaint to trigger UI recalculation */
+      transform: translateZ(0);
     }
 
     /* Main container should allow content to extend beyond viewport */
     .h-screen {
-      min-height: 100vh;
-      min-height: 100svh; /* Small viewport height */
-      min-height: 100dvh; /* Dynamic viewport height */
+      min-height: calc(100vh + 50px);
+      min-height: calc(100svh + 50px);
+      min-height: calc(100dvh + 50px);
       /* Remove fixed height that prevents scrolling */
       height: auto;
+      /* Ensure content can scroll */
+      overflow-y: auto;
+    }
+
+    /* Force all sections to be scrollable */
+    section {
+      min-height: calc(100vh + 10px);
+      min-height: calc(100svh + 10px);
+      min-height: calc(100dvh + 10px);
     }
 
     /* Prevent zoom on form focus */

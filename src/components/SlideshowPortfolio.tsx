@@ -260,10 +260,23 @@ export default function SlideshowPortfolio() {
             style={{ pointerEvents: 'auto' }}
           >
             <div
-              className='h-screen overflow-y-auto pb-24'
-              style={{ pointerEvents: 'auto' }}
+              className='min-h-screen overflow-y-auto pb-24'
+              style={{
+                pointerEvents: 'auto',
+                minHeight: 'calc(100vh + 100px)', // Force scrollable content
+                paddingBottom: '100px', // Extra space for Chrome UI
+              }}
             >
               <CurrentComponent {...componentProps} />
+              {/* Invisible spacer to ensure scrollable content */}
+              <div
+                style={{
+                  height: '100px',
+                  background: 'transparent',
+                  pointerEvents: 'none',
+                }}
+                aria-hidden='true'
+              />
             </div>
           </motion.div>
         </AnimatePresence>

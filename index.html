@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💙</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
     
     <!-- Enhanced SEO Meta Tags -->
     <title>Hartley L. Personal Site</title>
@@ -130,37 +130,84 @@
     
     <!-- Mobile browser UI optimization -->
     <script>
-      // Mobile browser UI optimization for proper Chrome collapse behavior
+      // Aggressive Chrome mobile UI auto-hide implementation
       if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        
+        // Force scroll area to ensure UI can collapse
+        function forceScrollableContent() {
+          document.body.style.minHeight = 'calc(100vh + 100px)';
+          document.documentElement.style.minHeight = 'calc(100vh + 100px)';
+        }
+        
         // Set CSS custom property for dynamic viewport height
         function setViewportHeight() {
           const vh = window.innerHeight * 0.01;
           document.documentElement.style.setProperty('--vh', `${vh}px`);
         }
         
-        // Set initial viewport height
-        setViewportHeight();
+        // Aggressive scroll-based UI hiding
+        function forceUIHide() {
+          // Strategy 1: Multiple scroll attempts at different timings
+          const scrollSequence = [
+            { delay: 0, y: 1 },
+            { delay: 50, y: 0 },
+            { delay: 100, y: 10 },
+            { delay: 150, y: 0 },
+            { delay: 200, y: 20 },
+            { delay: 300, y: 0 },
+            { delay: 500, y: 1 },
+            { delay: 600, y: 0 }
+          ];
+          
+          scrollSequence.forEach(({ delay, y }) => {
+            setTimeout(() => window.scrollTo(0, y), delay);
+          });
+          
+          // Strategy 2: Trigger resize events to force recalculation
+          setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+            setViewportHeight();
+          }, 800);
+        }
         
-        // Update on resize (includes address bar hide/show)
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+          forceScrollableContent();
+          setViewportHeight();
+          
+          // Add theme-color for status bar
+          const metaTheme = document.createElement('meta');
+          metaTheme.name = 'theme-color';
+          metaTheme.content = '#09090B';
+          document.head.appendChild(metaTheme);
+          
+          // Force UI hide after short delay
+          setTimeout(forceUIHide, 100);
+        });
+        
+        // Update on resize and orientation change
         window.addEventListener('resize', setViewportHeight);
         window.addEventListener('orientationchange', () => {
-          setTimeout(setViewportHeight, 100);
+          setTimeout(() => {
+            setViewportHeight();
+            forceUIHide();
+          }, 200);
         });
         
-        // Add theme-color for better status bar integration
-        const metaTheme = document.createElement('meta');
-        metaTheme.name = 'theme-color';
-        metaTheme.content = '#09090B';
-        document.head.appendChild(metaTheme);
+        // Force UI hide on first user interaction
+        let hasInteracted = false;
+        function onFirstInteraction() {
+          if (hasInteracted) return;
+          hasInteracted = true;
+          forceUIHide();
+          
+          // Clean up listeners
+          document.removeEventListener('touchstart', onFirstInteraction);
+          document.removeEventListener('scroll', onFirstInteraction);
+        }
         
-        // Ensure the page is taller than viewport to enable natural scrolling
-        // This is key for Chrome UI collapse behavior
-        document.addEventListener('DOMContentLoaded', () => {
-          // Add minimal content to ensure page can scroll
-          if (document.body.scrollHeight <= window.innerHeight) {
-            document.body.style.minHeight = 'calc(100vh + 1px)';
-          }
-        });
+        document.addEventListener('touchstart', onFirstInteraction, { once: true, passive: true });
+        document.addEventListener('scroll', onFirstInteraction, { once: true, passive: true });
       }
     </script>
   </body>
