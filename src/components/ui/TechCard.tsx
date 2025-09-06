@@ -23,7 +23,7 @@ export default function TechCard({
   color = 'cyan',
   className = '',
   titleAlign = 'left',
-  centerOnMobile = true,
+  centerOnMobile = false,
 }: TechCardProps) {
   const colorStyles = {
     purple: {
@@ -58,9 +58,11 @@ export default function TechCard({
 
   const colors = colorStyles[color]
 
+  // Mobile position: by default flush to the top-left (no horizontal gap).
+  // If centerOnMobile is true, center horizontally on small viewports.
   const mobileCenterPos = centerOnMobile
     ? 'left-1/2 -translate-x-1/2'
-    : 'left-12 translate-x-0'
+    : 'left-0 translate-x-0'
 
   const desktopPosForFloating =
     titleAlign === 'left'
