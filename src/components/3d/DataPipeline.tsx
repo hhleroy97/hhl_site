@@ -122,6 +122,22 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
     controls.enablePan = false
     controls.enableRotate = false
 
+    // Allow vertical page scrolling on touch devices while interacting with the canvas
+    try {
+      if (
+        typeof window !== 'undefined' &&
+        typeof window.matchMedia === 'function'
+      ) {
+        const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches
+        if (isCoarsePointer) {
+          renderer.domElement.style.touchAction = 'pan-y'
+          container.style.touchAction = 'pan-y'
+        }
+      }
+    } catch {
+      void 0
+    }
+
     if (cinematicMode) {
       controls.target.set(-4 + positionShift, verticalShift, 0) // Match camera look-at target - fixed reference
     } else {
@@ -871,9 +887,80 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       mousePositionRef.current = { x, y }
     }
 
+    // Touch parallax support on mobile/tablets
+    const getIsScrollLocked = () => {
+      try {
+        const { overflow, position } = document.body.style
+        return overflow === 'hidden' || position === 'fixed'
+      } catch {
+        return false
+      }
+    }
+
+    const applyTouchActionForState = () => {
+      try {
+        const locked = getIsScrollLocked()
+        if (renderer?.domElement) {
+          renderer.domElement.style.touchAction = locked ? 'none' : 'pan-y'
+        }
+        if (container) {
+          container.style.touchAction = locked ? 'none' : 'pan-y'
+        }
+      } catch {
+        void 0
+      }
+    }
+
+    const handleParallaxTouchStart = (event: TouchEvent) => {
+      if (!enableMouseParallax) return
+      if (event.touches && event.touches.length > 0) {
+        const t = event.touches[0]
+        const x = (t.clientX / window.innerWidth) * 2 - 1
+        const y = -(t.clientY / window.innerHeight) * 2 + 1
+        mousePositionRef.current = { x, y }
+      }
+      // Update touch-action based on lock state at interaction start
+      applyTouchActionForState()
+    }
+
+    const handleParallaxTouchMove = (event: TouchEvent) => {
+      if (!enableMouseParallax) return
+      if (event.touches && event.touches.length > 0) {
+        const t = event.touches[0]
+        const x = (t.clientX / window.innerWidth) * 2 - 1
+        const y = -(t.clientY / window.innerHeight) * 2 + 1
+        mousePositionRef.current = { x, y }
+      }
+      // Only block scrolling if the landing page has scroll locked
+      if (getIsScrollLocked()) {
+        event.preventDefault()
+      }
+    }
+
     // Add mouse parallax listener to entire window for smooth tracking
     if (enableMouseParallax) {
       window.addEventListener('mousemove', handleParallaxMouseMove)
+    }
+
+    // Add touch listeners on container for coarse pointers
+    try {
+      const isCoarsePointer =
+        typeof window !== 'undefined' &&
+        typeof window.matchMedia === 'function' &&
+        window.matchMedia('(pointer: coarse)').matches
+      if (isCoarsePointer && enableMouseParallax) {
+        container.addEventListener('touchstart', handleParallaxTouchStart, {
+          passive: true,
+        })
+        // Need passive: false so we can conditionally preventDefault when locked
+        container.addEventListener('touchmove', handleParallaxTouchMove, {
+          passive: false,
+        })
+        // Sync touch-action to current lock state on mount
+        applyTouchActionForState()
+      }
+    } catch {
+      void 0
     }
 
     // Animation loop
@@ -959,7 +1046,7 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
 
         // Debug: log occasionally to verify it's running
         if (Math.random() < 0.01) {
-          console.log(
+          console.warn(
             'Camera drift - X:',
             driftX.toFixed(3),
             'Y:',
@@ -1142,6 +1229,12 @@ const DataPipeline: React.FC<DataPipelineProps> = ({
       }
       if (enableMouseParallax) {
         window.removeEventListener('mousemove', handleParallaxMouseMove)
+      }
+      try {
+        container.removeEventListener('touchstart', handleParallaxTouchStart)
+        container.removeEventListener('touchmove', handleParallaxTouchMove)
+      } catch {
+        void 0
       }
       window.removeEventListener('resize', handleResize)
 
