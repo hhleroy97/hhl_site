@@ -166,8 +166,6 @@ export default function Navigation({
   const [prevCurrentSection, setPrevCurrentSection] = useState<number | null>(
     null
   )
-  // Responsive yOffset based on viewport height
-  const yOffset = -3.5 // Reduced from -4.375rem for better compatibility across screen heights
 
   // Track section changes and trigger color morphing
   useEffect(() => {
@@ -388,13 +386,8 @@ export default function Navigation({
               })}
             </div>
 
-            {/* Center Semi-Circle Navigation */}
-            <div
-              className={`absolute left-1/2 transform -translate-x-1/2`}
-              style={{
-                top: `max(${yOffset}rem, -4.5vh)`, // Responsive to viewport height
-              }}
-            >
+            {/* Center Inline Navigation */}
+            <div className='flex items-center justify-center'>
               {/* Horizontal Pill with Up/Down buttons */}
               <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-1 py-1 flex items-center gap-1'>
                 {/* Up arrow button */}
@@ -617,13 +610,8 @@ export default function Navigation({
               </motion.button>
             </div>
 
-            {/* Mobile Center Semi-Circle Navigation */}
-            <div
-              className={`md:hidden absolute left-1/2 transform -translate-x-1/2`}
-              style={{
-                top: `max(${yOffset}rem, -4vh)`, // Responsive to viewport height for mobile
-              }}
-            >
+            {/* Mobile Center Navigation */}
+            <div className='md:hidden flex items-center justify-center'>
               {/* Horizontal Pill with Up/Down buttons (Mobile) */}
               <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-0.5 py-0.5 flex items-center gap-0.5'>
                 {/* Up arrow button */}
