@@ -273,7 +273,7 @@ export default function NewAbout() {
             </div>
 
             {/* Work Status - Both mobile and desktop */}
-            <div className='w-full max-w-64 lg:w-72 p-3 pb-4 rounded-2xl lg:rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
+            <div className='w-full max-w-64 lg:w-64 xl:w-72 p-3 pb-4 rounded-2xl lg:rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
               <div>
                 <div className='text-center mb-3'>
                   <p className='text-sm font-medium text-white mb-1'>
