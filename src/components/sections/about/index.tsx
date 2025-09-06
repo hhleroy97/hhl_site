@@ -92,13 +92,8 @@ export default function NewAbout() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            {/* Mobile-only divider and taglines before biography */}
+            {/* Mobile-only taglines and divider before biography */}
             <div className='md:hidden'>
-              {/* Small line divider */}
-              <div className='flex justify-center py-6'>
-                <div className='w-16 h-0.5 bg-gradient-to-r from-transparent via-zinc-600 to-transparent'></div>
-              </div>
-
               {/* Taglines */}
               <div className='text-center pb-6'>
                 <h2
@@ -117,6 +112,11 @@ export default function NewAbout() {
                     </span>
                   </span>
                 </h2>
+              </div>
+
+              {/* Small line divider */}
+              <div className='flex justify-center py-6'>
+                <div className='w-16 h-0.5 bg-gradient-to-r from-transparent via-zinc-600 to-transparent'></div>
               </div>
             </div>
 
