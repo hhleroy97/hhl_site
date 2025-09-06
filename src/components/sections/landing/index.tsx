@@ -3,11 +3,7 @@ import { useState } from 'react'
 import DataPipeline from '../../3d/DataPipeline'
 import InteractiveElements from './InteractiveElements'
 
-interface LandingPageProps {
-  onNextSection?: () => void
-}
-
-export default function LandingPage({ onNextSection }: LandingPageProps) {
+export default function LandingPage() {
   const [layerDistance] = useState(3.6)
   const [positionShift] = useState(0)
   const [verticalShift] = useState(0)
@@ -29,8 +25,8 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       id='hero'
       className={`relative min-h-screen flex flex-col ${showBorders ? 'border-4 border-white' : ''}`}
     >
-      {/* Enhanced Background: gradient on md+, solid black on mobile to match stack */}
-      <div className='absolute inset-0 bg-black md:bg-gradient-to-br md:from-zinc-950 md:via-zinc-900 md:to-black' />
+      {/* Enhanced Background with subtle gradient */}
+      <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
 
       {/* Top content container */}
       <div
@@ -38,7 +34,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
-          className={`text-left overflow-visible mt-16 sm:mt-12 md:mt-16 mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
+          className={`text-left overflow-visible mt-4 sm:mt-12 md:mt-16 mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
           <div className='w-full sm:inline-block text-left'>
             {/* Greeting - Improved typography and spacing */}
@@ -264,15 +260,8 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             {/* Main text */}
             <motion.button
               onClick={() => {
-                if (onNextSection) {
-                  // Use hash routing instead
-                  window.location.hash = 'about'
-                } else {
-                  const element = document.getElementById('experience')
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' })
-                  }
-                }
+                // Unify on mobile behavior: jump to #about (MobileStack) even on desktop
+                window.location.hash = 'about'
               }}
               className='text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-zinc-500 hover:text-purple-400 px-2 sm:px-4 transition-colors duration-300 cursor-pointer uppercase relative group'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
