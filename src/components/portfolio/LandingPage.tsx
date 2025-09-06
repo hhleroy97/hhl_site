@@ -70,8 +70,8 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                 easing: [0.25, 0.46, 0.45, 0.94],
               }}
             >
-              {/* Clean gradient name text */}
-              <div className='font-black tracking-tighter relative z-50 text-left flex'>
+              {/* Clean gradient name text - responsive layout */}
+              <div className='font-black tracking-tighter relative z-50 text-left flex flex-col sm:flex-row'>
                 <span
                   style={{
                     lineHeight: '0.85',
@@ -89,7 +89,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                   <span style={{ fontSize: '1.1em' }}>H</span>
                   <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
                 </span>
-                <span className='mr-4'></span>
+                <span className='mr-4 hidden sm:inline'></span>
                 <span
                   style={{
                     lineHeight: '0.85',
