@@ -561,6 +561,7 @@ export default function SkillsTools() {
       subtitle='and interactivity—wired together'
       className='bg-gradient-to-b from-zinc-900/60 to-zinc-900/90'
       cardVariant='floating'
+      showBackground={false}
     >
       <div className='w-full px-2 sm:px-4'>
         {/* Top Bar - Search Only */}

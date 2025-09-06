@@ -108,6 +108,7 @@ export default function ContactFooter() {
       taglineColor='emerald'
       title='Ready to bring your idea into reality?'
       cardVariant='floating'
+      showBackground={false}
     >
       <div className='w-full px-2 sm:px-4'>
         <div className='max-w-4xl mx-auto w-full'>
