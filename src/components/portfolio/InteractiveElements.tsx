@@ -189,9 +189,19 @@ export default function InteractiveElements({
         {/* Mobile-only Continue to site button */}
         <button
           onClick={() => {
+            // Try multiple methods to find and scroll to experience section
             const element = document.getElementById('experience')
             if (element) {
-              element.scrollIntoView({ behavior: 'smooth' })
+              element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            } else {
+              // Fallback: try to scroll to about section if experience not found
+              const aboutElement = document.getElementById('about')
+              if (aboutElement) {
+                aboutElement.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                })
+              }
             }
           }}
           className={`block sm:hidden w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}

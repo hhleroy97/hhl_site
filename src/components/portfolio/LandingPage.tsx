@@ -183,7 +183,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
       {/* Center content container - Interactive elements and 3D visuals */}
       <div
-        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible -mt-2 sm:-mt-3 md:-mt-4 mb-4 sm:mb-6 md:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
+        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible -mt-2 sm:-mt-3 md:-mt-4 mb-4 sm:mb-6 md:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div
