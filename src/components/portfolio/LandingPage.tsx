@@ -27,7 +27,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
   return (
     <section
       id='hero'
-      className={`relative min-h-screen overflow-hidden flex flex-col justify-between ${showBorders ? 'border-4 border-white' : ''}`}
+      className={`relative min-h-screen flex flex-col ${showBorders ? 'border-4 border-white' : ''}`}
     >
       {/* Enhanced Background with subtle gradient */}
       <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
@@ -183,7 +183,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
       {/* Center content container - Interactive elements and 3D visuals */}
       <div
-        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible mt-4 sm:mt-6 md:mt-8 mb-4 sm:mb-6 md:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
+        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible mt-4 sm:mt-6 md:mt-8 mb-24 sm:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div

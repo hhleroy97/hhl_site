@@ -214,8 +214,8 @@ export default function InteractiveElements({
         </motion.div>
       </motion.div>
 
-      {/* Mobile: Fixed bottom container for all buttons */}
-      <div className='block sm:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-black/20 backdrop-blur-md border-t border-white/10'>
+      {/* Mobile: Bottom container for all buttons */}
+      <div className='block sm:hidden p-4 bg-black/30 backdrop-blur-md border border-white/20 rounded-lg shadow-xl'>
         <div className='flex flex-col gap-3'>
           {/* Social buttons */}
           <div
