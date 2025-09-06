@@ -85,7 +85,7 @@ export default function NewAbout() {
         {/* Mobile-only taglines after profile picture */}
         <div className='md:hidden text-center pb-4'>
           <h2
-            className='text-base font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
+            className='text-sm font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
             style={{ fontFamily: 'Orbitron, sans-serif' }}
           >
             The man behind the systems where
