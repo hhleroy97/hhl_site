@@ -102,19 +102,16 @@ export default function ContactFooter() {
   }
 
   return (
-    <>
-      {/* Top-screen alert for email copied */}
-
-      <PageSection
-        id='contact'
-        tagline='Contact'
-        taglineColor='emerald'
-        title=''
-        subtitle='Ready to bring your idea into reality?'
-        className='bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'
-      >
-        <div className='max-w-7xl mx-auto w-full px-4'>
-          <div className='relative bg-gradient-to-br from-white/[0.08] via-black/50 to-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/20 p-6 shadow-2xl overflow-hidden flex items-center'>
+    <PageSection
+      id='contact'
+      tagline='Contact'
+      taglineColor='emerald'
+      title='Ready to bring your idea into reality?'
+      cardVariant='floating'
+    >
+      <div className='w-full px-4'>
+        <div className='max-w-4xl mx-auto w-full'>
+          <div className='relative bg-gradient-to-br from-white/[0.08] via-black/50 to-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/20 p-4 shadow-2xl overflow-hidden min-h-fit'>
             {/* Glassmorphism effects */}
             <div className='absolute inset-0 bg-gradient-to-br from-emerald-500/[0.03] via-transparent to-teal-500/[0.03] pointer-events-none' />
             <div className='absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl pointer-events-none' />
@@ -204,9 +201,9 @@ export default function ContactFooter() {
             ) : (
               <form onSubmit={handleSubmit} className='relative z-10 w-full'>
                 {/* Form Fields in Row Layout */}
-                <div className='space-y-5 mb-6'>
+                <div className='space-y-4 mb-4'>
                   {/* Name and Email Row */}
-                  <div className='grid grid-cols-2 gap-6'>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                     {/* First Name */}
                     <div>
                       <label className='text-zinc-300 text-base font-medium block mb-3'>
@@ -241,7 +238,7 @@ export default function ContactFooter() {
                   </div>
 
                   {/* Subject and Service Row */}
-                  <div className='grid grid-cols-2 gap-6'>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                     {/* Subject */}
                     <div>
                       <label className='text-zinc-300 text-base font-medium block mb-3'>
@@ -309,7 +306,7 @@ export default function ContactFooter() {
                 </div>
 
                 {/* Message Field - Full Width Below */}
-                <div className='mb-6'>
+                <div className='mb-4'>
                   <label className='text-zinc-300 text-base font-medium block mb-3'>
                     Message
                   </label>
@@ -318,14 +315,14 @@ export default function ContactFooter() {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={6}
+                    rows={4}
                     className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 resize-none focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
                     placeholder='Tell me about your project, timeline, and any specific requirements...'
                   />
                 </div>
 
                 {/* Submit Button */}
-                <div className='pt-4'>
+                <div className='pt-2'>
                   <button
                     type='submit'
                     disabled={isSubmitting}
@@ -345,7 +342,7 @@ export default function ContactFooter() {
             )}
           </div>
         </div>
-      </PageSection>
-    </>
+      </div>
+    </PageSection>
   )
 }
