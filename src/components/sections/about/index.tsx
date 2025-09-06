@@ -257,7 +257,7 @@ export default function NewAbout() {
             </div>
 
             {/* Profile Info - Desktop only */}
-            <div className='hidden lg:block w-64 sm:w-72 text-center p-2 sm:p-3 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl'>
+            <div className='hidden lg:block w-64 sm:w-72 text-center p-2 sm:p-3 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl rounded-none'>
               <h3
                 className='text-lg sm:text-xl font-semibold text-white mb-1'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
@@ -273,7 +273,7 @@ export default function NewAbout() {
             </div>
 
             {/* Work Status - Both mobile and desktop */}
-            <div className='w-64 sm:w-72 p-3 pb-4 rounded-2xl lg:rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
+            <div className='w-64 sm:w-72 p-3 pb-4 rounded-2xl lg:rounded-t-none lg:rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
               <div>
                 <div className='text-center mb-3'>
                   <p className='text-sm font-medium text-white mb-1'>
