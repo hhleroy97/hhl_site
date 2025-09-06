@@ -172,26 +172,143 @@
         
         // Global function for immediate UI hiding (callable from React components)
         window.forceChromeMobileUIHide = function() {
-          // Immediate aggressive scroll sequence
-          const immediateScrollSequence = [
-            { delay: 0, y: 2 },
-            { delay: 25, y: 15 },
-            { delay: 50, y: 0 },
-            { delay: 75, y: 25 },
-            { delay: 100, y: 0 },
-            { delay: 125, y: 10 },
-            { delay: 150, y: 0 }
+          // Strategy 1: Force full screen mode request
+          try {
+            if (document.documentElement.requestFullscreen) {
+              document.documentElement.requestFullscreen();
+              setTimeout(() => {
+                if (document.exitFullscreen) {
+                  document.exitFullscreen();
+                }
+              }, 100);
+            }
+          } catch (e) {
+            console.log('Fullscreen attempt failed:', e);
+          }
+          
+          // Strategy 2: Aggressive viewport manipulation
+          const originalViewport = document.querySelector('meta[name=viewport]');
+          if (originalViewport) {
+            const tempViewport = document.createElement('meta');
+            tempViewport.name = 'viewport';
+            tempViewport.content = 'width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=no';
+            document.head.appendChild(tempViewport);
+            originalViewport.remove();
+            
+            setTimeout(() => {
+              tempViewport.remove();
+              document.head.appendChild(originalViewport);
+            }, 200);
+          }
+          
+          // Strategy 3: Force body height changes to trigger reflow
+          const originalBodyStyle = document.body.style.cssText;
+          document.body.style.height = '200vh';
+          document.body.style.overflow = 'hidden';
+          
+          setTimeout(() => {
+            document.body.style.cssText = originalBodyStyle;
+            document.body.style.minHeight = 'calc(100vh + 100px)';
+          }, 50);
+          
+          // Strategy 4: Aggressive scroll sequence
+          const scrollSequence = [
+            { delay: 0, y: 5 },
+            { delay: 10, y: 50 },
+            { delay: 20, y: 0 },
+            { delay: 30, y: 100 },
+            { delay: 40, y: 0 },
+            { delay: 50, y: 25 },
+            { delay: 60, y: 0 }
           ];
           
-          immediateScrollSequence.forEach(({ delay, y }) => {
-            setTimeout(() => window.scrollTo(0, y), delay);
+          scrollSequence.forEach(({ delay, y }) => {
+            setTimeout(() => {
+              window.scrollTo({ top: y, behavior: 'instant' });
+            }, delay);
           });
           
-          // Force viewport recalculation
+          // Strategy 5: Force multiple resize events
           setTimeout(() => {
-            setViewportHeight();
-            window.dispatchEvent(new Event('resize'));
+            for (let i = 0; i < 5; i++) {
+              setTimeout(() => {
+                setViewportHeight();
+                window.dispatchEvent(new Event('resize'));
+                window.dispatchEvent(new Event('orientationchange'));
+              }, i * 20);
+            }
+          }, 100);
+          
+          // Strategy 6: Touch event simulation (may trigger UI hide)
+          setTimeout(() => {
+            try {
+              const touchStart = new TouchEvent('touchstart', {
+                bubbles: true,
+                cancelable: true,
+                touches: [{
+                  identifier: 0,
+                  target: document.body,
+                  clientX: window.innerWidth / 2,
+                  clientY: window.innerHeight - 10,
+                  pageX: window.innerWidth / 2,
+                  pageY: window.innerHeight - 10,
+                  screenX: window.innerWidth / 2,
+                  screenY: window.innerHeight - 10
+                }]
+              });
+              
+              const touchEnd = new TouchEvent('touchend', {
+                bubbles: true,
+                cancelable: true,
+                changedTouches: [{
+                  identifier: 0,
+                  target: document.body,
+                  clientX: window.innerWidth / 2,
+                  clientY: 10,
+                  pageX: window.innerWidth / 2,
+                  pageY: 10,
+                  screenX: window.innerWidth / 2,
+                  screenY: 10
+                }]
+              });
+              
+              document.body.dispatchEvent(touchStart);
+              setTimeout(() => document.body.dispatchEvent(touchEnd), 50);
+            } catch (e) {
+              console.log('Touch simulation failed:', e);
+            }
+          }, 150);
+          
+          // Strategy 7: Force CSS reflow by hiding/showing elements
+          setTimeout(() => {
+            const root = document.getElementById('root');
+            if (root) {
+              root.style.display = 'none';
+              setTimeout(() => {
+                root.style.display = '';
+                // Force layout recalculation
+                root.offsetHeight;
+              }, 10);
+            }
           }, 200);
+          
+          // Strategy 8: Simulate address bar interaction
+          setTimeout(() => {
+            // Change page title to trigger browser UI update
+            const originalTitle = document.title;
+            document.title = 'Hiding UI...';
+            setTimeout(() => {
+              document.title = originalTitle;
+            }, 100);
+            
+            // Try to blur and focus window
+            try {
+              window.blur();
+              setTimeout(() => window.focus(), 50);
+            } catch (e) {
+              console.log('Window blur/focus failed:', e);
+            }
+          }, 250);
         };
         
         // Initialize on load

@@ -280,7 +280,31 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                       navigator.userAgent
                     )
                   ) {
-                    window.forceChromeMobileUIHide()
+                    // Additional strategy: Create temporary tall content to force scroll
+                    const tempDiv = document.createElement('div')
+                    tempDiv.style.height = '300vh'
+                    tempDiv.style.position = 'absolute'
+                    tempDiv.style.top = '100vh'
+                    tempDiv.style.width = '1px'
+                    tempDiv.style.background = 'transparent'
+                    tempDiv.style.pointerEvents = 'none'
+                    document.body.appendChild(tempDiv)
+
+                    // Scroll down then up to trigger UI
+                    setTimeout(() => window.scrollTo(0, window.innerHeight), 10)
+                    setTimeout(() => window.scrollTo(0, 0), 50)
+
+                    // Use global UI hiding function
+                    setTimeout(() => {
+                      window.forceChromeMobileUIHide()
+
+                      // Clean up temp element
+                      setTimeout(() => {
+                        if (tempDiv.parentNode) {
+                          tempDiv.parentNode.removeChild(tempDiv)
+                        }
+                      }, 100)
+                    }, 100)
 
                     // Navigate after UI hiding sequence completes
                     setTimeout(() => {
@@ -292,7 +316,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                           element.scrollIntoView({ behavior: 'smooth' })
                         }
                       }
-                    }, 250) // Wait for UI hide sequence to complete
+                    }, 400) // Wait longer for all UI hide attempts to complete
                   } else {
                     // Desktop - immediate navigation
                     if (onNextSection) {
