@@ -34,7 +34,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
       {/* Top content container */}
       <div
-        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto pt-2 sm:pt-3 md:pt-4 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto pt-2 sm:pt-3 md:pt-4 overflow-visible pb-24 sm:pb-0 ${showBorders ? 'border-4 border-cyan-500' : ''}`}
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
