@@ -174,7 +174,7 @@ export default function NewAbout() {
             {/* Hobbies and Interests */}
             <div className='space-y-3 mt-12'>
               <h3
-                className='text-2xl font-bold text-white mb-6'
+                className='text-2xl font-bold text-white mb-6 text-center md:text-left'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
               >
                 Beyond Code
