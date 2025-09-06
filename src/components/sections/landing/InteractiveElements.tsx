@@ -219,7 +219,7 @@ export default function InteractiveElements({
         <div className='flex flex-col gap-3'>
           {/* Social buttons */}
           <div
-            className={`flex gap-3 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+            className={`flex justify-evenly items-center w-full ${showBorders ? 'border-4 border-blue-500' : ''}`}
           >
             <a
               href='https://github.com/hhleroy97'
