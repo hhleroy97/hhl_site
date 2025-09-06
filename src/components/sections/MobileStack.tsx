@@ -7,7 +7,7 @@ import Landing from './landing'
 
 export default function MobileStack() {
   return (
-    <main className='block md:hidden w-full relative min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black'>
+    <main className='block md:hidden w-full relative min-h-screen bg-black'>
       {/* Each section keeps its id for hash anchors; suppress per-section BG */}
       <Landing />
       <About />
