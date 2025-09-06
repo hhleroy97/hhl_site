@@ -45,11 +45,14 @@
   /* Additional mobile browser UI fixes */
   @media (max-width: 768px) {
     body {
-      /* Prevent pull-to-refresh and other mobile browser behaviors */
-      overscroll-behavior-y: none;
+      /* Allow natural scrolling for browser UI management */
+      overscroll-behavior-y: auto;
       -webkit-overflow-scrolling: touch;
       /* Allow browser UI to hide */
       position: relative;
+      /* Ensure proper scrolling behavior */
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     /* Ensure fixed elements don't interfere with browser UI */
@@ -57,6 +60,14 @@
       position: fixed !important;
       /* Use safe area insets for mobile */
       bottom: env(safe-area-inset-bottom, 0);
+    }
+
+    /* Allow natural scroll behavior for main container */
+    .min-h-screen {
+      min-height: 100vh;
+      min-height: 100dvh;
+      /* Allow scrolling */
+      overflow-y: auto;
     }
   }
 

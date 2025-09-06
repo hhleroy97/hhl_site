@@ -172,7 +172,7 @@ export default function SlideshowPortfolio() {
     : {}
 
   return (
-    <div className='relative h-screen overflow-hidden bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white'>
+    <div className='relative min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white'>
       {/* Navigation - Hidden on landing page */}
       {currentSection !== 0 && (
         <Navigation
