@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💙</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
     
     <!-- Enhanced SEO Meta Tags -->
     <title>Hartley L. Personal Site</title>
@@ -127,5 +127,56 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Mobile browser UI optimization -->
+    <script>
+      // Mobile browser UI auto-hide optimization
+      if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        // Set CSS custom property for dynamic viewport height
+        function updateViewportHeight() {
+          const vh = window.innerHeight * 0.01;
+          document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        // Set initial viewport height
+        updateViewportHeight();
+        
+        // Update on resize and orientation change
+        let resizeTimeout;
+        function handleResize() {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(updateViewportHeight, 100);
+        }
+        
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('orientationchange', handleResize);
+        
+        // Force scroll to trigger browser UI behavior
+        let scrollTimer;
+        window.addEventListener('scroll', function() {
+          // Clear any existing timer
+          clearTimeout(scrollTimer);
+          
+          // Set a timer to trigger after scroll ends
+          scrollTimer = setTimeout(function() {
+            // Small scroll nudge to ensure browser UI responds properly
+            if (window.scrollY === 0) {
+              window.scrollTo(0, 1);
+              setTimeout(() => window.scrollTo(0, 0), 0);
+            }
+          }, 150);
+        }, { passive: true });
+        
+        // Prevent zoom on double tap while allowing scrolling
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+          const now = Date.now();
+          if (now - lastTouchEnd <= 300) {
+            e.preventDefault();
+          }
+          lastTouchEnd = now;
+        }, false);
+      }
+    </script>
   </body>
 </html>
