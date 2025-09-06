@@ -7,6 +7,13 @@ interface TechCardProps {
   variant?: 'floating' | 'rotated' | 'background' | 'cutcorner'
   color?: 'purple' | 'cyan' | 'teal' | 'emerald'
   className?: string
+  /**
+   * Controls title alignment on desktop/tablet (md+). On mobile (sm) the title
+   * will center by default for better balance unless centerOnMobile is false.
+   */
+  titleAlign?: 'left' | 'center' | 'right'
+  /** Center the title on small/mobile viewports. Default: true */
+  centerOnMobile?: boolean
 }
 
 export default function TechCard({
@@ -15,6 +22,8 @@ export default function TechCard({
   variant = 'floating',
   color = 'cyan',
   className = '',
+  titleAlign = 'left',
+  centerOnMobile = false,
 }: TechCardProps) {
   const colorStyles = {
     purple: {
@@ -49,6 +58,29 @@ export default function TechCard({
 
   const colors = colorStyles[color]
 
+  // Mobile: title bubble spans full width; text is centered by default.
+
+  const desktopPosForFloating =
+    titleAlign === 'left'
+      ? 'md:left-12 md:translate-x-0 md:right-auto'
+      : titleAlign === 'center'
+        ? 'md:left-1/2 md:-translate-x-1/2'
+        : 'md:right-12 md:left-auto md:translate-x-0'
+
+  const textAlignClasses =
+    titleAlign === 'left'
+      ? 'md:text-left'
+      : titleAlign === 'center'
+        ? 'md:text-center'
+        : 'md:text-right'
+
+  const headerJustifyCutCorner =
+    titleAlign === 'left'
+      ? 'md:justify-start'
+      : titleAlign === 'center'
+        ? 'md:justify-center'
+        : 'md:justify-end'
+
   // Floating Tag Style Header
   if (variant === 'floating') {
     return (
@@ -66,14 +98,14 @@ export default function TechCard({
 
         {/* Floating Tag Header */}
         <motion.div
-          className={`absolute top-0 left-12 z-10 px-8 py-4 bg-gradient-to-r ${colors.accent} rounded-b-lg shadow-lg flex items-center justify-center`}
+          className={`absolute top-0 z-10 px-8 py-4 bg-gradient-to-r ${colors.accent} rounded-br-none rounded-bl-none md:rounded-b-lg shadow-lg flex items-center justify-center left-0 right-0 w-full md:w-auto md:right-auto md:left-auto ${desktopPosForFloating}`}
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
           <span
-            className='text-zinc-900 font-black text-2xl tracking-wider uppercase'
+            className={`text-zinc-900 font-black text-2xl tracking-wider uppercase text-center ${textAlignClasses}`}
             style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: '900' }}
           >
             {title}
@@ -166,7 +198,7 @@ export default function TechCard({
         {/* Content with header overlay */}
         <div className='relative z-10 p-8 pt-20 flex-1 flex flex-col'>
           <motion.h3
-            className={`text-2xl font-black ${colors.text} mb-4 tracking-wide uppercase flex-shrink-0`}
+            className={`text-2xl font-black ${colors.text} mb-4 tracking-wide uppercase flex-shrink-0 ${centerOnMobile ? 'text-center' : 'text-left'} ${textAlignClasses}`}
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -201,14 +233,14 @@ export default function TechCard({
         <div className='absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent' />
         {/* Header Block */}
         <motion.div
-          className={`absolute top-0 left-0 right-16 h-16 bg-gradient-to-r ${colors.accent} flex items-center px-6`}
+          className={`absolute top-0 left-0 right-16 h-16 bg-gradient-to-r ${colors.accent} flex items-center px-6 ${centerOnMobile ? 'justify-center' : 'justify-start'} ${headerJustifyCutCorner}`}
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
           <span
-            className='text-zinc-900 font-black text-xl tracking-widest uppercase'
+            className={`text-zinc-900 font-black text-xl tracking-widest uppercase ${centerOnMobile ? 'text-center' : 'text-left'} ${textAlignClasses}`}
             style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: '900' }}
           >
             {title}

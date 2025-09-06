@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import DataPipeline from '../3d/DataPipeline'
+import DataPipeline from '../../3d/DataPipeline'
 
 interface InteractiveElementsProps {
   showBorders?: boolean
