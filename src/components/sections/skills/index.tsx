@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import PageSection from '../ui/PageSection'
+import PageSection from '../../ui/PageSection'
 // Technology-specific icons from react-icons
 import {
   SiVuedotjs,

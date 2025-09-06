@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import DataPipeline from '../3d/DataPipeline'
-import InteractiveElements from '../ui/InteractiveElements'
+import DataPipeline from '../../3d/DataPipeline'
+import InteractiveElements from './InteractiveElements'
 
 interface LandingPageProps {
   onNextSection?: () => void
