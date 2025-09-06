@@ -169,7 +169,8 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
               </span>
             </div>
             <div className='text-zinc-300'>
-              Crafting end-to-end systems from edge to interface.
+              <div>Crafting end-to-end systems</div>
+              <div>from edge to interface.</div>
             </div>
           </div>
         </motion.div>
