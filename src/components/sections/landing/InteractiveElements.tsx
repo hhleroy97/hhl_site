@@ -285,12 +285,16 @@ export default function InteractiveElements({
             <button
               className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
               onClick={() => {
-                // On mobile: navigate to a dedicated stack route/anchor to unlock scroll
-                if (window.matchMedia('(max-width: 767px)').matches) {
+                const go = () => {
                   window.location.hash = 'about'
-                } else {
-                  window.location.hash = 'about'
+                  // Ensure in-page scroll after hash change
+                  setTimeout(() => {
+                    const el = document.getElementById('about')
+                    if (el)
+                      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }, 50)
                 }
+                go()
               }}
             >
               Continue to site
