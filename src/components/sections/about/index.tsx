@@ -22,6 +22,26 @@ export default function NewAbout() {
       flipMobileCorners={false}
     >
       <div className='w-full max-w-[95vw] mx-auto px-2 sm:px-4'>
+        {/* Mobile-only Creative Technologist heading before taglines */}
+        <div className='md:hidden text-center pb-4'>
+          <h3
+            className='text-xl font-bold text-white mb-4'
+            style={{ fontFamily: 'Orbitron, sans-serif' }}
+          >
+            The Creative Technologist
+          </h3>
+
+          {/* Mobile-only taglines after Creative Technologist */}
+          <h2
+            className='text-base font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
+            style={{ fontFamily: 'Orbitron, sans-serif' }}
+          >
+            The man behind the systems where
+            <br />
+            <span className='text-zinc-300'>creativity meets computation</span>
+          </h2>
+        </div>
+
         {/* Mobile-only Profile Picture under taglines */}
         <div className='md:hidden flex justify-center pb-4'>
           <div className='relative w-64'>
@@ -72,15 +92,6 @@ export default function NewAbout() {
           </div>
         </div>
 
-        {/* Mobile-only Creative Technologist heading after taglines */}
-        <div className='md:hidden text-center pb-4'>
-          <h3
-            className='text-xl font-bold text-white'
-            style={{ fontFamily: 'Orbitron, sans-serif' }}
-          >
-            The Creative Technologist
-          </h3>
-        </div>
         {/* Main Content Grid */}
         <div className='grid lg:grid-cols-[3fr,1fr] gap-6 sm:gap-8 md:gap-12 items-start relative'>
           {/* Left Column - Story & Philosophy */}
