@@ -116,97 +116,94 @@ export default function SlideshowPortfolio() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [nextSection, prevSection, navigateToSection])
 
-  // Touch navigation for mobile section transitions (all sections)
+  // Enhanced touch navigation for natural document scrolling
   useEffect(() => {
     let touchStartY = 0
     let touchEndY = 0
-    let isScrollAtTop = false
-    let isScrollAtBottom = false
+    let scrollTimeout: NodeJS.Timeout
 
     const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.changedTouches[0].screenY
-
-      // Check scroll position at start of touch
-      const container = document.documentElement || document.body
-      isScrollAtTop = container.scrollTop <= 10
-      isScrollAtBottom =
-        container.scrollHeight - container.scrollTop <=
-        container.clientHeight + 50
+      touchStartY = e.changedTouches[0].clientY
     }
 
     const handleTouchEnd = (e: TouchEvent) => {
-      touchEndY = e.changedTouches[0].screenY
+      touchEndY = e.changedTouches[0].clientY
       const deltaY = touchStartY - touchEndY
 
-      // Swipe down (negative deltaY) at top of page -> go to previous section
-      if (deltaY < -50 && isScrollAtTop && currentSection > 0) {
-        prevSection()
-      }
-      // Swipe up (positive deltaY) at bottom of page -> go to next section
-      else if (
-        deltaY > 50 &&
-        isScrollAtBottom &&
-        currentSection < sections.length - 1
-      ) {
-        nextSection()
+      // Only navigate on significant swipes
+      if (Math.abs(deltaY) > 80) {
+        clearTimeout(scrollTimeout)
+        scrollTimeout = setTimeout(() => {
+          const isAtTop = window.scrollY <= 50
+          const isAtBottom =
+            window.scrollY + window.innerHeight >=
+            document.body.scrollHeight - 50
+
+          // Swipe up at bottom -> next section
+          if (
+            deltaY > 0 &&
+            isAtBottom &&
+            currentSection < sections.length - 1
+          ) {
+            nextSection()
+          }
+          // Swipe down at top -> previous section
+          else if (deltaY < 0 && isAtTop && currentSection > 0) {
+            prevSection()
+          }
+        }, 100)
       }
     }
 
-    window.addEventListener('touchstart', handleTouchStart)
-    window.addEventListener('touchend', handleTouchEnd)
+    document.addEventListener('touchstart', handleTouchStart, { passive: true })
+    document.addEventListener('touchend', handleTouchEnd, { passive: true })
 
     return () => {
-      window.removeEventListener('touchstart', handleTouchStart)
-      window.removeEventListener('touchend', handleTouchEnd)
+      document.removeEventListener('touchstart', handleTouchStart)
+      document.removeEventListener('touchend', handleTouchEnd)
+      clearTimeout(scrollTimeout)
     }
   }, [currentSection, nextSection, prevSection])
 
-  // Wheel navigation with scroll boundary detection (all sections)
+  // Natural wheel navigation that respects Chrome UI collapse
   useEffect(() => {
     let isScrolling = false
-    let scrollAccumulator = 0
-    const scrollThreshold = 100
-    const cooldownTime = 1500
+    let scrollTimeout: NodeJS.Timeout
 
     const handleWheel = (e: WheelEvent) => {
       if (isScrolling || isTransitioning) return
 
-      const container = document.documentElement || document.body
-      const isAtTop = container.scrollTop <= 10
+      // Allow natural scrolling - only intervene at true boundaries
+      const isAtTop = window.scrollY <= 20
       const isAtBottom =
-        container.scrollHeight - container.scrollTop <=
-        container.clientHeight + 50
+        window.scrollY + window.innerHeight >= document.body.scrollHeight - 20
 
-      // Only prevent default and navigate sections if we're at scroll boundaries
-      const shouldNavigate =
-        (e.deltaY > 0 && isAtBottom) || (e.deltaY < 0 && isAtTop)
+      // Only navigate sections at true document boundaries
+      if ((e.deltaY > 0 && isAtBottom) || (e.deltaY < 0 && isAtTop)) {
+        e.preventDefault()
 
-      if (!shouldNavigate) {
-        // Allow natural scrolling within the section
-        return
-      }
+        clearTimeout(scrollTimeout)
+        scrollTimeout = setTimeout(() => {
+          isScrolling = true
 
-      e.preventDefault()
-      scrollAccumulator += Math.abs(e.deltaY)
+          if (e.deltaY > 0 && currentSection < sections.length - 1) {
+            nextSection()
+          } else if (e.deltaY < 0 && currentSection > 0) {
+            prevSection()
+          }
 
-      if (scrollAccumulator >= scrollThreshold) {
-        isScrolling = true
-        scrollAccumulator = 0
-
-        if (e.deltaY > 0 && currentSection < sections.length - 1) {
-          nextSection()
-        } else if (e.deltaY < 0 && currentSection > 0) {
-          prevSection()
-        }
-
-        setTimeout(() => {
-          isScrolling = false
-        }, cooldownTime)
+          setTimeout(() => {
+            isScrolling = false
+          }, 800)
+        }, 150)
       }
     }
 
     window.addEventListener('wheel', handleWheel, { passive: false })
-    return () => window.removeEventListener('wheel', handleWheel)
+    return () => {
+      window.removeEventListener('wheel', handleWheel)
+      clearTimeout(scrollTimeout)
+    }
   }, [nextSection, prevSection, isTransitioning, currentSection])
 
   const slideVariants = {
@@ -231,7 +228,7 @@ export default function SlideshowPortfolio() {
     : {}
 
   return (
-    <div className='relative h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white overflow-y-auto'>
+    <div className='relative min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white'>
       {/* Navigation - Hidden on landing page */}
       {currentSection !== 0 && (
         <Navigation
