@@ -40,7 +40,7 @@ export default function PageSection({
       <div className='absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent' />
 
       <div
-        className={`container-custom relative z-10 w-full pt-8 ${isHomePage ? 'pb-8' : 'pb-32'}`}
+        className={`container-custom relative z-10 w-full pt-4 sm:pt-6 md:pt-8 ${isHomePage ? 'pb-4 sm:pb-6 md:pb-8' : 'pb-16 sm:pb-24 md:pb-32'}`}
       >
         {/* Complete section wrapped in TechCard */}
         <motion.div
@@ -54,12 +54,12 @@ export default function PageSection({
             title={tagline}
             variant={selectedVariant}
             color={taglineColor}
-            className='h-[85vh] flex flex-col'
+            className='h-[90vh] sm:h-[88vh] md:h-[85vh] flex flex-col'
           >
             {/* Section header */}
-            <div className='text-center mb-6 flex-shrink-0'>
+            <div className='text-center mb-4 sm:mb-5 md:mb-6 flex-shrink-0'>
               <h2
-                className='text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
+                className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
               >
                 {title
