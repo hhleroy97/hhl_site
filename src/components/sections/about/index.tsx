@@ -82,26 +82,6 @@ export default function NewAbout() {
           </div>
         </div>
 
-        {/* Mobile-only taglines after profile picture */}
-        <div className='md:hidden text-center pb-4'>
-          <h2
-            className='text-sm font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
-            style={{ fontFamily: 'Orbitron, sans-serif' }}
-          >
-            The man behind the systems where
-            <br />
-            <span className='text-zinc-300'>
-              <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
-                creativity
-              </span>{' '}
-              meets{' '}
-              <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>
-                computation
-              </span>
-            </span>
-          </h2>
-        </div>
-
         {/* Main Content Grid */}
         <div className='grid lg:grid-cols-[3fr,1fr] gap-6 sm:gap-8 md:gap-12 items-start relative'>
           {/* Left Column - Story & Philosophy */}
@@ -328,6 +308,34 @@ export default function NewAbout() {
               </div>
             </div>
           </motion.div>
+        </div>
+
+        {/* Mobile-only divider and taglines after main content */}
+        <div className='md:hidden'>
+          {/* Small line divider */}
+          <div className='flex justify-center py-6'>
+            <div className='w-16 h-0.5 bg-gradient-to-r from-transparent via-zinc-600 to-transparent'></div>
+          </div>
+
+          {/* Taglines */}
+          <div className='text-center pb-4'>
+            <h2
+              className='text-sm font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
+              style={{ fontFamily: 'Orbitron, sans-serif' }}
+            >
+              The man behind the systems where
+              <br />
+              <span className='text-zinc-300'>
+                <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
+                  creativity
+                </span>{' '}
+                meets{' '}
+                <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>
+                  computation
+                </span>
+              </span>
+            </h2>
+          </div>
         </div>
       </div>
     </PageSection>
