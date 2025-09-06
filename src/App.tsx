@@ -20,6 +20,17 @@ export default function App() {
         document.body.style.overflow = ''
         document.body.style.position = ''
         document.body.style.width = ''
+        // After unlocking on mobile, ensure we scroll to the hash target
+        if (isMobile && hash) {
+          const id = hash.replace(/^#/, '')
+          // Delay to allow layout to settle after unlocking
+          setTimeout(() => {
+            const el = document.getElementById(id)
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+          }, 50)
+        }
       }
     }
     applyLock()
