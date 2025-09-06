@@ -235,7 +235,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       />
 
       {/* Enhanced Navigation Area at bottom */}
-      <div className='fixed bottom-0 left-0 right-0 z-[80] flex flex-col items-center pointer-events-auto px-4 sm:px-6 md:px-8'>
+      <div className='hidden sm:flex fixed bottom-0 left-0 right-0 z-[80] flex-col items-center pointer-events-auto px-4 sm:px-6 md:px-8'>
         {/* Call-to-action text with side arrows */}
         <motion.div
           className='mb-4 text-center'

@@ -186,6 +186,19 @@ export default function InteractiveElements({
         >
           View Experience
         </a>
+        {/* Mobile-only Continue to site button */}
+        <button
+          onClick={() => {
+            const element = document.getElementById('experience')
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' })
+            }
+          }}
+          className={`block sm:hidden w-full h-12 px-4 bg-zinc-800/50 backdrop-blur-md border border-white/20 text-zinc-300 font-semibold rounded-xl hover:bg-zinc-700/50 hover:border-zinc-400/40 hover:text-white transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-zinc-500/20 transform hover:scale-105 hover:-translate-y-1 text-base tracking-wide ${showBorders ? 'border-4 border-gray-500' : ''}`}
+          style={{ fontFamily: 'Orbitron, sans-serif' }}
+        >
+          Continue to site
+        </button>
       </motion.div>
     </motion.div>
   )
