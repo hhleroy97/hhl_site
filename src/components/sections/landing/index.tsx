@@ -23,14 +23,14 @@ export default function LandingPage() {
   return (
     <section
       id='hero'
-      className={`relative min-h-screen flex flex-col ${showBorders ? 'border-4 border-white' : ''}`}
+      className={`relative min-h-screen flex flex-col overflow-hidden ${showBorders ? 'border-4 border-white' : ''}`}
     >
       {/* Enhanced Background with subtle gradient */}
       <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
 
       {/* Top content container */}
       <div
-        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto pt-1 sm:pt-2 md:pt-4 overflow-visible pb-2 sm:pb-0 ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto pt-1 sm:pt-2 md:pt-4 overflow-visible sm:overflow-hidden pb-2 sm:pb-0 ${showBorders ? 'border-4 border-cyan-500' : ''}`}
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
@@ -89,7 +89,7 @@ export default function LandingPage() {
                   className='hidden sm:inline-block'
                   style={{
                     lineHeight: '0.85',
-                    fontSize: 'clamp(3.8rem, 7vw, 6rem)',
+                    fontSize: 'clamp(5rem, 9vw, 9rem)',
                     fontFamily: 'Orbitron, sans-serif',
                     letterSpacing: '-0.02em',
                     background:
@@ -105,6 +105,7 @@ export default function LandingPage() {
                 <span className='mr-4 hidden sm:inline'></span>
                 {/* Last name - mobile and desktop both blue→teal */}
                 <span
+                  className='block sm:hidden'
                   style={{
                     lineHeight: '0.85',
                     fontSize: 'clamp(3.8rem, 7vw, 6rem)',
@@ -116,7 +117,25 @@ export default function LandingPage() {
                     WebkitBackgroundClip: 'text',
                     color: 'transparent',
                   }}
-                  className='block sm:inline-block'
+                >
+                  <span style={{ fontSize: '1.1em' }}>L</span>
+                  <span style={{ fontSize: '0.8em' }}>E</span>
+                  <span style={{ fontSize: '1.1em' }}>R</span>
+                  <span style={{ fontSize: '0.8em' }}>OY</span>
+                </span>
+                <span
+                  className='hidden sm:inline-block'
+                  style={{
+                    lineHeight: '0.85',
+                    fontSize: 'clamp(5rem, 9vw, 9rem)',
+                    fontFamily: 'Orbitron, sans-serif',
+                    letterSpacing: '-0.02em',
+                    background:
+                      'linear-gradient(18deg, #6AD5FF 0%, #28E1B1 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                  }}
                 >
                   <span style={{ fontSize: '1.1em' }}>L</span>
                   <span style={{ fontSize: '0.8em' }}>E</span>
@@ -200,7 +219,7 @@ export default function LandingPage() {
 
       {/* Center content container - Interactive elements and 3D visuals */}
       <div
-        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible mt-1 sm:mt-6 md:mt-8 mb-24 sm:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
+        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible sm:overflow-hidden mt-1 sm:mt-6 md:mt-8 mb-24 sm:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div

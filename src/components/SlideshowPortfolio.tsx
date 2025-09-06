@@ -260,7 +260,7 @@ export default function SlideshowPortfolio() {
             style={{ pointerEvents: 'auto' }}
           >
             <div
-              className='h-screen overflow-y-auto pb-24'
+              className='h-screen overflow-hidden pb-24'
               style={{ pointerEvents: 'auto' }}
             >
               <CurrentComponent {...componentProps} />
