@@ -39,12 +39,12 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
-          className={`text-left overflow-visible mb-8 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
+          className={`text-left overflow-visible mb-4 sm:mb-6 md:mb-8 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
           <div className='inline-block text-left'>
             {/* Greeting - Improved typography and spacing */}
             <motion.div
-              className={`w-full text-left mb-6 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
+              className={`w-full text-left mb-3 sm:mb-4 md:mb-6 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -53,7 +53,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                 easing: [0.25, 0.46, 0.45, 0.94],
               }}
             >
-              <div className='text-3xl md:text-4xl text-zinc-300 font-semibold tracking-wide'>
+              <div className='text-xl sm:text-2xl md:text-3xl lg:text-4xl text-zinc-300 font-semibold tracking-wide'>
                 Hi, I'm ...
               </div>
             </motion.div>
@@ -145,7 +145,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
         {/* Enhanced Role/Title - Harmonized colors */}
         <motion.div
-          className={`text-left mb-12 ${showBorders ? 'border-4 border-purple-500' : ''}`}
+          className={`text-left mb-6 sm:mb-8 md:mb-12 ${showBorders ? 'border-4 border-purple-500' : ''}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -154,7 +154,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             easing: [0.25, 0.46, 0.45, 0.94],
           }}
         >
-          <p className='text-2xl md:text-3xl text-zinc-200 font-light leading-relaxed'>
+          <p className='text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light leading-relaxed'>
             <span
               className='font-bold'
               style={{
