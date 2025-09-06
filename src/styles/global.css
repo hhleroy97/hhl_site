@@ -422,25 +422,38 @@
       padding-bottom: env(safe-area-inset-bottom, 2rem);
     }
 
-    /* Ensure content appears above Chrome mobile footer */
+    /* Ensure content appears above Chrome mobile footer - AGGRESSIVE SPACING */
     .mobile-bottom-spacing {
-      padding-bottom: 4rem; /* Fallback for older browsers */
-      padding-bottom: max(4rem, calc(env(safe-area-inset-bottom) + 3rem));
-      margin-bottom: 2rem; /* Additional space to avoid Chrome footer */
+      padding-bottom: 8rem; /* Much more aggressive fallback */
+      padding-bottom: max(8rem, calc(env(safe-area-inset-bottom) + 6rem));
+      margin-bottom: 4rem; /* Additional space to avoid Chrome footer */
+      /* Force content to be positioned well above browser UI */
+      transform: translateY(-2rem);
     }
 
     /* Specific positioning adjustments for mobile Chrome */
     @media screen and (max-height: 700px) {
       .mobile-bottom-spacing {
-        padding-bottom: max(3rem, calc(env(safe-area-inset-bottom) + 2rem));
-        margin-bottom: 3rem;
+        padding-bottom: max(6rem, calc(env(safe-area-inset-bottom) + 4rem));
+        margin-bottom: 5rem;
+        transform: translateY(-3rem);
       }
     }
 
     @media screen and (max-height: 600px) {
       .mobile-bottom-spacing {
-        padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1rem));
-        margin-bottom: 4rem; /* More space on smaller screens */
+        padding-bottom: max(5rem, calc(env(safe-area-inset-bottom) + 3rem));
+        margin-bottom: 6rem; /* Even more space on smaller screens */
+        transform: translateY(-4rem);
+      }
+    }
+
+    /* Very aggressive spacing for devices with persistent browser UI */
+    @media screen and (max-height: 500px) {
+      .mobile-bottom-spacing {
+        padding-bottom: 4rem;
+        margin-bottom: 8rem; /* Massive bottom margin for tiny screens */
+        transform: translateY(-5rem);
       }
     }
 
