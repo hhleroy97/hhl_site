@@ -250,12 +250,12 @@ export default function NewAbout() {
               <div className='w-64 sm:w-72 h-64 sm:h-72 rounded-t-2xl lg:rounded-tl-2xl lg:rounded-tr-2xl lg:rounded-bl-2xl lg:rounded-br-none bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-3 sm:p-4 shadow-xl relative overflow-hidden'>
                 {/* Animated gradient background */}
                 <div
-                  className='absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/5 to-emerald-500/10 rounded-xl animate-pulse'
+                  className='absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/5 to-emerald-500/10 animate-pulse'
                   style={{ animationDuration: '4s' }}
                 />
-                <div className='absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent rounded-xl' />
+                <div className='absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent' />
 
-                <div className='relative w-full h-full overflow-hidden rounded-xl'>
+                <div className='relative w-full h-full overflow-hidden'>
                   <div
                     className='relative w-full h-full'
                     style={{
@@ -271,8 +271,8 @@ export default function NewAbout() {
                     />
                   </div>
                   {/* Enhanced gradient overlay */}
-                  <div className='absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-xl' />
-                  <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 rounded-xl' />
+                  <div className='absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent' />
+                  <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5' />
                 </div>
               </div>
             </div>
