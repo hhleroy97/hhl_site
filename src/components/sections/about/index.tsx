@@ -30,16 +30,6 @@ export default function NewAbout() {
           >
             The Creative Technologist
           </h3>
-
-          {/* Mobile-only taglines after Creative Technologist */}
-          <h2
-            className='text-base font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
-            style={{ fontFamily: 'Orbitron, sans-serif' }}
-          >
-            The man behind the systems where
-            <br />
-            <span className='text-zinc-300'>creativity meets computation</span>
-          </h2>
         </div>
 
         {/* Mobile-only Profile Picture under taglines */}
@@ -90,6 +80,26 @@ export default function NewAbout() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Mobile-only taglines after profile picture */}
+        <div className='md:hidden text-center pb-4'>
+          <h2
+            className='text-base font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
+            style={{ fontFamily: 'Orbitron, sans-serif' }}
+          >
+            The man behind the systems where
+            <br />
+            <span className='text-zinc-300'>
+              <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
+                creativity
+              </span>{' '}
+              meets{' '}
+              <span className='bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent'>
+                computation
+              </span>
+            </span>
+          </h2>
         </div>
 
         {/* Main Content Grid */}
