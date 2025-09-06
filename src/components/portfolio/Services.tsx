@@ -89,54 +89,44 @@ export default function Services() {
       id='services'
       tagline='Services'
       taglineColor='cyan'
-      title=''
-      subtitle=''
+      title='Professional Services'
+      subtitle='From Consultation to Delivery'
+      cardVariant='floating'
     >
-      {/* Services Header */}
-      <div className='text-center mb-6 flex-shrink-0 -mt-6'>
-        <h2
-          className='text-4xl md:text-5xl font-bold mb-3'
-          style={{ fontFamily: 'Orbitron, sans-serif' }}
-        >
-          <span className='text-white'>Professional Services</span>
-          <br />
-          <span className='bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent'>
-            From Consultation to Delivery
-          </span>
-        </h2>
-        <p className='text-base text-zinc-400 max-w-2xl mx-auto'>
+      <div className='w-full px-4'>
+        <p className='text-base text-zinc-400 max-w-2xl mx-auto text-center mb-8'>
           Transform your ideas into reality with expert development services.
           Start with a free consultation to discuss your project needs.
         </p>
-      </div>
 
-      {/* Service Cards - Full Width Row */}
-      <div className='w-full'>
-        <div className='flex flex-col md:flex-row gap-2 md:gap-1 h-auto'>
-          {services.map((service, index) => (
-            <motion.div
-              key={service.id}
-              className='flex-1 min-w-0'
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.8,
-                delay: index * 0.15,
-                ease: 'easeOut',
-              }}
-            >
-              <ServiceCard
-                title={service.title}
-                description={service.description}
-                price={service.price}
-                icon={service.icon}
-                isHighlighted={service.isHighlighted}
-                onSelect={() => handleServiceSelect(service.id)}
-                serviceId={service.id}
-              />
-            </motion.div>
-          ))}
+        {/* Service Cards - Responsive Grid */}
+        <div className='w-full max-w-7xl mx-auto'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-16 lg:gap-12 xl:gap-8'>
+            {services.map((service, index) => (
+              <motion.div
+                key={service.id}
+                className='h-full'
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.1,
+                  ease: 'easeOut',
+                }}
+              >
+                <ServiceCard
+                  title={service.title}
+                  description={service.description}
+                  price={service.price}
+                  icon={service.icon}
+                  isHighlighted={service.isHighlighted}
+                  onSelect={() => handleServiceSelect(service.id)}
+                  serviceId={service.id}
+                />
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </PageSection>
