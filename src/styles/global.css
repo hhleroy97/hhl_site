@@ -37,6 +37,27 @@
     overflow-x: hidden;
     /* Allow browser UI to hide/show properly */
     -webkit-overflow-scrolling: touch;
+    /* Force mobile browser UI to hide on scroll */
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Additional mobile browser UI fixes */
+  @media (max-width: 768px) {
+    body {
+      /* Prevent pull-to-refresh and other mobile browser behaviors */
+      overscroll-behavior-y: none;
+      -webkit-overflow-scrolling: touch;
+      /* Allow browser UI to hide */
+      position: relative;
+    }
+
+    /* Ensure fixed elements don't interfere with browser UI */
+    .fixed {
+      position: fixed !important;
+      /* Use safe area insets for mobile */
+      bottom: env(safe-area-inset-bottom, 0);
+    }
   }
 
   /* Custom scrollbar */
