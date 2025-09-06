@@ -102,7 +102,7 @@ export default function TechCard({
 
         {/* Floating Tag Header */}
         <motion.div
-          className={`absolute top-0 z-10 px-8 py-4 bg-gradient-to-r ${colors.accent} rounded-b-lg shadow-lg flex items-center justify-center transform ${mobileCenterPos} ${desktopPosForFloating}`}
+          className={`absolute top-0 z-10 px-8 py-4 bg-gradient-to-r ${colors.accent} rounded-br-lg rounded-bl-none md:rounded-b-lg shadow-lg flex items-center justify-center transform ${mobileCenterPos} ${desktopPosForFloating}`}
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
