@@ -310,12 +310,12 @@ export default function Navigation({
       onAnimationComplete={() => setIsNavReady(true)}
     >
       {/* Glassmorphism container */}
-      <div className='max-w-[90vw] sm:max-w-[80vw] md:max-w-[72vw] mx-auto px-3 md:px-4 relative'>
+      <div className='max-w-[95vw] sm:max-w-[90vw] md:max-w-[80vw] lg:max-w-[72vw] mx-auto px-2 sm:px-3 md:px-4 relative'>
         {/* Glassmorphism background */}
         <div className='absolute inset-0 bg-gradient-to-bl from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-t-full border-t border-l border-r border-white/20 shadow-xl' />
 
         {/* Content */}
-        <div className='relative py-4'>
+        <div className='relative py-3 sm:py-4'>
           <div className='flex justify-between items-center w-full'>
             {/* Left Navigation Items */}
             <div className='hidden md:flex items-center justify-evenly w-[calc(50%-4rem)] space-x-4'>
@@ -389,7 +389,7 @@ export default function Navigation({
             {/* Center Inline Navigation */}
             <div className='flex items-center justify-center'>
               {/* Horizontal Pill with Up/Down buttons */}
-              <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-2 py-2 flex items-center'>
+              <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-1 sm:px-2 py-1 sm:py-2 flex items-center'>
                 {/* Conditional rendering based on current section */}
                 {currentSection === 0 ? (
                   // First section - only down button spans full width
@@ -413,17 +413,17 @@ export default function Navigation({
                       >
                         <ChevronDown
                           {...getDynamicTextColor()}
-                          className='w-6 h-6 transition-all duration-200 group-hover:scale-110'
+                          className='w-5 h-5 sm:w-6 sm:h-6 transition-all duration-200 group-hover:scale-110'
                         />
                       </motion.button>
                     </motion.div>
                     {/* Visual separator elements for consistent appearance */}
                     <div className='flex-1 px-4 py-2 pointer-events-none opacity-0'>
-                      <ChevronUp className='w-6 h-6' />
+                      <ChevronUp className='w-5 h-5 sm:w-6 sm:h-6' />
                     </div>
                     <div className='w-px h-8 bg-white/10 flex-shrink-0 pointer-events-none opacity-0' />
                     <div className='flex-1 px-4 py-2 pointer-events-none opacity-0'>
-                      <ChevronDown className='w-6 h-6' />
+                      <ChevronDown className='w-5 h-5 sm:w-6 sm:h-6' />
                     </div>
                   </>
                 ) : currentSection === (sections?.length || 1) - 1 ? (
@@ -454,11 +454,11 @@ export default function Navigation({
                     </motion.div>
                     {/* Visual separator elements for consistent appearance */}
                     <div className='flex-1 px-4 py-2 pointer-events-none opacity-0'>
-                      <ChevronUp className='w-6 h-6' />
+                      <ChevronUp className='w-5 h-5 sm:w-6 sm:h-6' />
                     </div>
                     <div className='w-px h-8 bg-white/10 flex-shrink-0 pointer-events-none opacity-0' />
                     <div className='flex-1 px-4 py-2 pointer-events-none opacity-0'>
-                      <ChevronDown className='w-6 h-6' />
+                      <ChevronDown className='w-5 h-5 sm:w-6 sm:h-6' />
                     </div>
                   </>
                 ) : (
