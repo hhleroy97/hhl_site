@@ -118,11 +118,11 @@ export default function ContactFooter() {
             <div className='absolute -bottom-32 -left-32 w-64 h-64 bg-gradient-to-tr from-teal-500/10 to-emerald-500/10 rounded-full blur-3xl pointer-events-none' />
 
             {submitStatus === 'success' ? (
-              <div className='relative z-10 text-center w-full py-8'>
-                <div className='mb-6'>
-                  <div className='w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4'>
+              <div className='relative z-10 text-center w-full py-6 sm:py-8'>
+                <div className='mb-4 sm:mb-6'>
+                  <div className='w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4'>
                     <svg
-                      className='w-8 h-8 text-white'
+                      className='w-6 h-6 sm:w-8 sm:h-8 text-white'
                       fill='none'
                       stroke='currentColor'
                       viewBox='0 0 24 24'
@@ -135,10 +135,10 @@ export default function ContactFooter() {
                       />
                     </svg>
                   </div>
-                  <h3 className='text-2xl font-semibold text-white mb-2'>
+                  <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2'>
                     Message Sent Successfully!
                   </h3>
-                  <p className='text-zinc-300 text-lg'>
+                  <p className='text-zinc-300 text-sm sm:text-base md:text-lg'>
                     Thank you for reaching out! I'll review your request and get
                     back to you within 24 hours with next steps.
                   </p>
@@ -154,7 +154,7 @@ export default function ContactFooter() {
                       message: '',
                     })
                   }}
-                  className='inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl text-white font-medium transition-all duration-300'
+                  className='inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl text-white font-medium transition-all duration-300 text-sm sm:text-base'
                 >
                   Send Another Message
                 </button>
