@@ -316,7 +316,7 @@ export default function Navigation({
 
         {/* Content */}
         <div className='relative py-3 sm:py-4'>
-          <div className='flex justify-between items-center w-full'>
+          <div className='flex justify-center md:justify-between items-center w-full'>
             {/* Left Navigation Items */}
             <div className='hidden md:flex items-center justify-evenly w-[calc(50%-4rem)] space-x-4'>
               {/* Home Button */}
