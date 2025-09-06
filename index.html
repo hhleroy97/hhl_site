@@ -149,6 +149,46 @@
         
         // Ensure scroll events are not prevented
         document.body.style.touchAction = 'pan-y';
+        
+        // Force UI hide on first user interaction
+        let hasInteracted = false;
+        function forceUIHide() {
+          if (hasInteracted) return;
+          hasInteracted = true;
+          
+          // Multiple strategies to force browser UI to hide
+          // Strategy 1: Scroll to force UI hide
+          window.scrollTo(0, 1);
+          setTimeout(() => window.scrollTo(0, 0), 0);
+          
+          // Strategy 2: Request fullscreen if supported
+          if (document.documentElement.requestFullscreen) {
+            // Only on explicit user gesture like button click
+            // document.documentElement.requestFullscreen().catch(() => {});
+          }
+          
+          // Strategy 3: Use window.scrollTo with smooth behavior
+          setTimeout(() => {
+            window.scrollTo({ top: 1, behavior: 'smooth' });
+            setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+          }, 50);
+          
+          // Strategy 4: Add meta theme-color to help with status bar
+          const metaTheme = document.createElement('meta');
+          metaTheme.name = 'theme-color';
+          metaTheme.content = '#09090B';
+          document.head.appendChild(metaTheme);
+          
+          // Clean up event listeners
+          document.removeEventListener('touchstart', forceUIHide);
+          document.removeEventListener('scroll', forceUIHide);
+          document.removeEventListener('click', forceUIHide);
+        }
+        
+        // Trigger on first interaction
+        document.addEventListener('touchstart', forceUIHide, { once: true, passive: true });
+        document.addEventListener('scroll', forceUIHide, { once: true, passive: true });
+        document.addEventListener('click', forceUIHide, { once: true });
       }
     </script>
   </body>
