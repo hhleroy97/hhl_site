@@ -20,12 +20,12 @@ export default function NewAbout() {
       subtitle='creativity meets computation'
       cardVariant='floating'
     >
-      <div className='w-full max-w-[95vw] mx-auto px-4'>
+      <div className='w-full max-w-[95vw] mx-auto px-2 sm:px-4'>
         {/* Main Content Grid */}
-        <div className='grid lg:grid-cols-[3fr,1fr] gap-12 items-start relative'>
+        <div className='grid lg:grid-cols-[3fr,1fr] gap-6 sm:gap-8 md:gap-12 items-start relative'>
           {/* Left Column - Story & Philosophy */}
           <motion.div
-            className='space-y-6'
+            className='space-y-4 sm:space-y-5 md:space-y-6'
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -34,14 +34,14 @@ export default function NewAbout() {
             {/* Core Identity */}
             <div className='space-y-3'>
               <h3
-                className='text-2xl font-bold text-white mb-6'
+                className='text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-5 md:mb-6'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
               >
                 The Creative Technologist
               </h3>
 
               <div className='prose prose-invert prose-lg max-w-none'>
-                <p className='text-lg text-zinc-300 leading-relaxed mb-6'>
+                <p className='text-base sm:text-lg text-zinc-300 leading-relaxed mb-4 sm:mb-5 md:mb-6'>
                   I'm a{' '}
                   <span className='text-cyan-400 font-semibold'>
                     software developer
@@ -57,7 +57,7 @@ export default function NewAbout() {
                   work blends engineering rigor with creative problem-solving.
                 </p>
 
-                <p className='text-lg text-zinc-300 leading-relaxed mb-6'>
+                <p className='text-base sm:text-lg text-zinc-300 leading-relaxed mb-4 sm:mb-5 md:mb-6'>
                   I love making complexity approachable, whether that means
                   developing real-time data pipelines for connecting edge
                   devices to the cloud, optimizing infrastructure for cost and
@@ -165,8 +165,8 @@ export default function NewAbout() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Profile Photo */}
-            <div className='relative w-72'>
-              <div className='w-72 h-72 rounded-t-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-4 shadow-xl relative overflow-hidden'>
+            <div className='relative w-64 sm:w-72'>
+              <div className='w-64 sm:w-72 h-64 sm:h-72 rounded-t-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-3 sm:p-4 shadow-xl relative overflow-hidden'>
                 {/* Animated gradient background */}
                 <div
                   className='absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/5 to-emerald-500/10 rounded-xl animate-pulse'
@@ -197,17 +197,17 @@ export default function NewAbout() {
             </div>
 
             {/* Profile Info */}
-            <div className='w-72 text-center p-3 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl'>
+            <div className='w-64 sm:w-72 text-center p-2 sm:p-3 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl'>
               <h3
-                className='text-xl font-semibold text-white mb-1'
+                className='text-lg sm:text-xl font-semibold text-white mb-1'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
               >
                 Hartley LeRoy
               </h3>
 
               {/* Enhanced Location */}
-              <div className='flex items-center justify-center gap-2 text-zinc-400 text-sm'>
-                <MapPin className='w-4 h-4 text-cyan-400' />
+              <div className='flex items-center justify-center gap-1 sm:gap-2 text-zinc-400 text-xs sm:text-sm'>
+                <MapPin className='w-3 h-3 sm:w-4 sm:h-4 text-cyan-400' />
                 <span>Charlotte, NC</span>
               </div>
             </div>

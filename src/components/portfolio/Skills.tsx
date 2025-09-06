@@ -562,20 +562,20 @@ export default function SkillsTools() {
       className='bg-gradient-to-b from-zinc-900/60 to-zinc-900/90'
       cardVariant='floating'
     >
-      <div className='w-full px-4'>
+      <div className='w-full px-2 sm:px-4'>
         {/* Top Bar - Search Only */}
         <motion.div
-          className='mb-4 flex justify-center'
+          className='mb-3 sm:mb-4 flex justify-center'
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           {/* Search Bar */}
-          <div className='relative max-w-md w-full'>
-            <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none'>
+          <div className='relative max-w-sm sm:max-w-md w-full'>
+            <div className='absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none'>
               <svg
-                className='h-4 w-4 text-zinc-400'
+                className='h-3 w-3 sm:h-4 sm:w-4 text-zinc-400'
                 fill='none'
                 stroke='currentColor'
                 viewBox='0 0 24 24'
@@ -600,14 +600,14 @@ export default function SkillsTools() {
                   setActiveCategory('all')
                 }
               }}
-              className='w-full pl-10 pr-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-zinc-400 focus:border-cyan-400 focus:bg-white/15 hover:bg-white/15 transition-all duration-300 text-sm focus:outline-none'
+              className='w-full pl-8 sm:pl-10 pr-3 sm:pr-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-zinc-400 focus:border-cyan-400 focus:bg-white/15 hover:bg-white/15 transition-all duration-300 text-xs sm:text-sm focus:outline-none'
             />
           </div>
         </motion.div>
 
         {/* Category Tabs */}
         <motion.div
-          className='flex gap-1'
+          className='flex gap-1 overflow-x-auto pb-2'
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -616,7 +616,7 @@ export default function SkillsTools() {
           {/* All Skills Tab */}
           <motion.button
             onClick={() => setActiveCategory('all')}
-            className={`flex-1 px-4 py-3 transition-all duration-300 text-sm font-medium flex items-center justify-center gap-2 whitespace-nowrap ${
+            className={`flex-1 px-2 sm:px-4 py-2 sm:py-3 transition-all duration-300 text-xs sm:text-sm font-medium flex items-center justify-center gap-1 sm:gap-2 whitespace-nowrap ${
               activeCategory === 'all'
                 ? 'bg-black/30 text-white rounded-t-lg backdrop-blur-md border border-white/20 border-b-0'
                 : 'bg-white/5 text-zinc-300 hover:bg-white/10 rounded-t-lg border border-white/10 border-b-0 hover:border-white/20'
@@ -637,7 +637,7 @@ export default function SkillsTools() {
               <motion.button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex-1 px-4 py-3 transition-all duration-300 flex items-center justify-center gap-2 text-sm font-medium whitespace-nowrap ${
+                className={`flex-1 px-2 sm:px-4 py-2 sm:py-3 transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium whitespace-nowrap ${
                   activeCategory === category.id
                     ? 'bg-black/30 text-white rounded-t-lg backdrop-blur-md border border-white/20 border-b-0'
                     : 'bg-white/5 text-zinc-300 hover:bg-white/10 rounded-t-lg border border-white/10 border-b-0 hover:border-white/20'
@@ -695,7 +695,7 @@ export default function SkillsTools() {
                   </div>
                 ) : (
                   <div
-                    className='grid grid-cols-8 grid-rows-3 gap-3'
+                    className='grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 sm:gap-3'
                     style={{ height: 'fit-content' }}
                   >
                     {Array.from({ length: 24 }, (_, index) => {
@@ -705,7 +705,7 @@ export default function SkillsTools() {
                         return (
                           <motion.div
                             key={skill.name}
-                            className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center h-full'
+                            className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-2 sm:p-3 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center h-full'
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{
@@ -715,15 +715,15 @@ export default function SkillsTools() {
                             whileHover={{ scale: 1.02 }}
                           >
                             {/* Centered icon */}
-                            <div className='mb-3'>
+                            <div className='mb-2 sm:mb-3'>
                               <IconWrapper
                                 IconComponent={skill.IconComponent}
-                                size={36}
+                                size={24}
                               />
                             </div>
 
                             {/* Centered skill name */}
-                            <h4 className='text-sm font-semibold text-white leading-tight'>
+                            <h4 className='text-xs sm:text-sm font-semibold text-white leading-tight'>
                               {skill.name}
                             </h4>
                           </motion.div>

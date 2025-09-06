@@ -22,11 +22,11 @@ export default function ServiceCard({
 }: ServiceCardProps) {
   return (
     <motion.div
-      className={`group relative h-full min-h-[380px] ${
+      className={`group relative h-full min-h-[320px] sm:min-h-[360px] md:min-h-[380px] ${
         isHighlighted
           ? 'bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border-2 border-purple-400/60'
           : 'bg-black/30 border border-white/20'
-      } backdrop-blur-md rounded-lg p-4 transition-all duration-300 shadow-xl hover:shadow-2xl overflow-visible hover:scale-[1.02] hover:-translate-y-1`}
+      } backdrop-blur-md rounded-lg p-3 sm:p-4 transition-all duration-300 shadow-xl hover:shadow-2xl overflow-visible hover:scale-[1.02] hover:-translate-y-1`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -51,7 +51,7 @@ export default function ServiceCard({
         {/* Title Section */}
         <div className='flex items-center justify-center mb-6'>
           <h3
-            className={`text-base md:text-lg font-bold text-center leading-tight ${
+            className={`text-sm sm:text-base md:text-lg font-bold text-center leading-tight ${
               isHighlighted
                 ? 'text-white group-hover:text-purple-100'
                 : 'text-white group-hover:text-cyan-100'
@@ -65,11 +65,11 @@ export default function ServiceCard({
         <div className='flex flex-col flex-grow justify-center items-center mb-6 space-y-4'>
           {/* Icon - Fixed position */}
           <div
-            className={`flex items-center justify-center w-12 h-12 rounded-lg ${
+            className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg ${
               isHighlighted
                 ? 'bg-gradient-to-r from-purple-500 to-cyan-500'
                 : 'bg-gradient-to-r from-purple-500/60 to-cyan-500/60'
-            } text-white text-xl flex-shrink-0`}
+            } text-white text-lg sm:text-xl flex-shrink-0`}
           >
             <div className='flex items-center justify-center w-full h-full'>
               {icon}
@@ -77,7 +77,7 @@ export default function ServiceCard({
           </div>
 
           {/* Description */}
-          <p className='text-sm text-zinc-300 leading-relaxed text-center px-2 flex-grow flex items-center hyphens-auto'>
+          <p className='text-xs sm:text-sm text-zinc-300 leading-relaxed text-center px-1 sm:px-2 flex-grow flex items-center hyphens-auto'>
             {description}
           </p>
         </div>
@@ -90,7 +90,9 @@ export default function ServiceCard({
               isHighlighted ? 'text-purple-200' : 'text-cyan-400'
             }`}
           >
-            <div className='text-base md:text-lg font-bold'>{price}</div>
+            <div className='text-sm sm:text-base md:text-lg font-bold'>
+              {price}
+            </div>
             {price === 'FREE' && (
               <div className='text-xs text-emerald-400 font-medium'>
                 Limited Time
