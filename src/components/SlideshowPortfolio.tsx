@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navigation from './ui/Navigation'
-import LandingPage from './portfolio/LandingPage'
-import Services from './portfolio/Services'
-import Experience from './portfolio/Experience'
-import About from './portfolio/About'
-import Skills from './portfolio/Skills'
-import Contact from './portfolio/Contact'
+import LandingPage from './sections/LandingPage'
+import Services from './sections/Services'
+import Experience from './sections/Experience'
+import About from './sections/About'
+import Skills from './sections/Skills'
+import Contact from './sections/Contact'
 
 const sections = [
   {
