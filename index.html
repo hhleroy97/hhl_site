@@ -150,34 +150,40 @@
         // Ensure scroll events are not prevented
         document.body.style.touchAction = 'pan-y';
         
-        // Force UI hide on first user interaction
+        // Enhanced mobile UI auto-hide on first interaction
         let hasInteracted = false;
         function forceUIHide() {
           if (hasInteracted) return;
           hasInteracted = true;
           
-          // Multiple strategies to force browser UI to hide
-          // Strategy 1: Scroll to force UI hide
+          // Strategy 1: Immediate scroll tricks
           window.scrollTo(0, 1);
           setTimeout(() => window.scrollTo(0, 0), 0);
           
-          // Strategy 2: Request fullscreen if supported
-          if (document.documentElement.requestFullscreen) {
-            // Only on explicit user gesture like button click
-            // document.documentElement.requestFullscreen().catch(() => {});
-          }
+          // Strategy 2: Multiple scroll attempts
+          const scrollAttempts = [10, 50, 100, 200];
+          scrollAttempts.forEach((delay, index) => {
+            setTimeout(() => {
+              window.scrollTo(0, index % 2 ? 1 : 0);
+            }, delay);
+          });
           
-          // Strategy 3: Use window.scrollTo with smooth behavior
-          setTimeout(() => {
-            window.scrollTo({ top: 1, behavior: 'smooth' });
-            setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
-          }, 50);
-          
-          // Strategy 4: Add meta theme-color to help with status bar
+          // Strategy 3: Add theme-color for status bar
           const metaTheme = document.createElement('meta');
           metaTheme.name = 'theme-color';
           metaTheme.content = '#09090B';
           document.head.appendChild(metaTheme);
+          
+          // Strategy 4: Trigger resize event to encourage UI recalculation
+          setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+          }, 300);
+          
+          // Strategy 5: Force body scroll
+          document.body.style.height = '101vh';
+          setTimeout(() => {
+            document.body.style.height = '100vh';
+          }, 500);
           
           // Clean up event listeners
           document.removeEventListener('touchstart', forceUIHide);
