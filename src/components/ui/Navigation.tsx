@@ -389,12 +389,12 @@ export default function Navigation({
             {/* Center Inline Navigation */}
             <div className='flex items-center justify-center'>
               {/* Horizontal Pill with Up/Down buttons */}
-              <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-1 py-1 flex items-center gap-1'>
+              <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-2 py-2 flex items-center gap-2'>
                 {/* Up arrow button */}
                 <motion.button
                   onClick={onPrevSection}
                   disabled={currentSection === 0 || !isNavReady}
-                  className={`px-3 py-2 rounded-full transition-all duration-200 group flex items-center justify-center ${
+                  className={`px-4 py-2 rounded-full transition-all duration-200 group flex items-center justify-center ${
                     currentSection === 0 || !isNavReady
                       ? 'opacity-50 cursor-not-allowed text-zinc-500'
                       : 'text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
@@ -408,12 +408,12 @@ export default function Navigation({
                 >
                   <ChevronUp
                     {...getDynamicTextColor()}
-                    className='w-4 h-4 transition-all duration-200 group-hover:scale-110'
+                    className='w-5 h-5 transition-all duration-200 group-hover:scale-110'
                   />
                 </motion.button>
 
                 {/* Vertical separator line */}
-                <div className='w-px h-6 bg-white/10' />
+                <div className='w-px h-8 bg-white/10' />
 
                 {/* Down arrow button */}
                 <motion.button
@@ -422,7 +422,7 @@ export default function Navigation({
                     currentSection === (sections?.length || 1) - 1 ||
                     !isNavReady
                   }
-                  className={`px-3 py-2 rounded-full transition-all duration-200 group flex items-center justify-center ${
+                  className={`px-4 py-2 rounded-full transition-all duration-200 group flex items-center justify-center ${
                     currentSection === (sections?.length || 1) - 1 ||
                     !isNavReady
                       ? 'opacity-50 cursor-not-allowed text-zinc-500'
@@ -441,7 +441,7 @@ export default function Navigation({
                 >
                   <ChevronDown
                     {...getDynamicTextColor()}
-                    className='w-4 h-4 transition-all duration-200 group-hover:scale-110'
+                    className='w-5 h-5 transition-all duration-200 group-hover:scale-110'
                   />
                 </motion.button>
               </div>
@@ -613,12 +613,12 @@ export default function Navigation({
             {/* Mobile Center Navigation */}
             <div className='md:hidden flex items-center justify-center'>
               {/* Horizontal Pill with Up/Down buttons (Mobile) */}
-              <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-0.5 py-0.5 flex items-center gap-0.5'>
+              <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-1 py-1 flex items-center gap-1'>
                 {/* Up arrow button */}
                 <motion.button
                   onClick={onPrevSection}
                   disabled={currentSection === 0}
-                  className={`px-2 py-1.5 rounded-full transition-all duration-200 group flex items-center justify-center ${
+                  className={`px-3 py-1.5 rounded-full transition-all duration-200 group flex items-center justify-center ${
                     currentSection === 0
                       ? 'opacity-50 cursor-not-allowed text-zinc-500'
                       : 'text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
@@ -628,18 +628,18 @@ export default function Navigation({
                 >
                   <ChevronUp
                     {...getDynamicTextColor()}
-                    className='w-3 h-3 transition-all duration-200 group-hover:scale-110'
+                    className='w-4 h-4 transition-all duration-200 group-hover:scale-110'
                   />
                 </motion.button>
 
                 {/* Vertical separator line */}
-                <div className='w-px h-5 bg-white/10' />
+                <div className='w-px h-6 bg-white/10' />
 
                 {/* Down arrow button */}
                 <motion.button
                   onClick={onNextSection}
                   disabled={currentSection === (sections?.length || 1) - 1}
-                  className={`px-2 py-1.5 rounded-full transition-all duration-200 group flex items-center justify-center ${
+                  className={`px-3 py-1.5 rounded-full transition-all duration-200 group flex items-center justify-center ${
                     currentSection === (sections?.length || 1) - 1
                       ? 'opacity-50 cursor-not-allowed text-zinc-500'
                       : 'text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
@@ -657,7 +657,7 @@ export default function Navigation({
                 >
                   <ChevronDown
                     {...getDynamicTextColor()}
-                    className='w-3 h-3 transition-all duration-200 group-hover:scale-110'
+                    className='w-4 h-4 transition-all duration-200 group-hover:scale-110'
                   />
                 </motion.button>
               </div>
