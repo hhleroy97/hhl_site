@@ -22,11 +22,11 @@ export default function ServiceCard({
 }: ServiceCardProps) {
   return (
     <motion.div
-      className={`group relative h-full mx-2 ${
+      className={`group relative h-full min-h-[380px] ${
         isHighlighted
           ? 'bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border-2 border-purple-400/60'
           : 'bg-black/30 border border-white/20'
-      } backdrop-blur-md rounded-lg p-3 md:p-4 transition-all duration-300 shadow-xl hover:shadow-2xl overflow-visible`}
+      } backdrop-blur-md rounded-lg p-4 transition-all duration-300 shadow-xl hover:shadow-2xl overflow-visible hover:scale-[1.02] hover:-translate-y-1`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -49,9 +49,9 @@ export default function ServiceCard({
 
       <div className='relative z-10 flex flex-col h-full'>
         {/* Title Section */}
-        <div className='flex items-center justify-center mb-3'>
+        <div className='flex items-center justify-center mb-6'>
           <h3
-            className={`text-base md:text-lg font-bold text-center ${
+            className={`text-base md:text-lg font-bold text-center leading-tight ${
               isHighlighted
                 ? 'text-white group-hover:text-purple-100'
                 : 'text-white group-hover:text-cyan-100'
@@ -62,7 +62,7 @@ export default function ServiceCard({
         </div>
 
         {/* Icon and Description Container - Takes remaining space */}
-        <div className='flex flex-col flex-grow justify-center items-center mb-3 space-y-4'>
+        <div className='flex flex-col flex-grow justify-center items-center mb-6 space-y-4'>
           {/* Icon - Fixed position */}
           <div
             className={`flex items-center justify-center w-12 h-12 rounded-lg ${
@@ -77,13 +77,13 @@ export default function ServiceCard({
           </div>
 
           {/* Description */}
-          <p className='text-xs md:text-sm text-zinc-300 leading-snug text-center px-2 flex-grow flex items-center'>
+          <p className='text-sm text-zinc-300 leading-relaxed text-center px-2 flex-grow flex items-center hyphens-auto'>
             {description}
           </p>
         </div>
 
         {/* Pricing and CTA Section - Fixed at bottom */}
-        <div className='flex flex-col items-center space-y-2 mt-auto'>
+        <div className='flex flex-col items-center space-y-4 mt-auto'>
           {/* Pricing */}
           <div
             className={`text-center ${
@@ -100,7 +100,7 @@ export default function ServiceCard({
 
           {/* CTA Button */}
           <motion.button
-            className={`w-full py-2 px-3 rounded-lg font-medium text-xs md:text-sm transition-all duration-300 ${
+            className={`w-full py-3 px-3 rounded-lg font-medium text-sm transition-all duration-300 ${
               isHighlighted
                 ? 'bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-white'
                 : 'bg-white/10 hover:bg-white/20 text-white border border-white/30 hover:border-white/50'
@@ -113,7 +113,7 @@ export default function ServiceCard({
             }}
           >
             {price === 'FREE'
-              ? 'Schedule Free Call'
+              ? 'Schedule Call'
               : serviceId === 'advisory'
                 ? 'Request Call'
                 : 'Get Quote'}
