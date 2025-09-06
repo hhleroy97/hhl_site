@@ -13,6 +13,8 @@ interface PageSectionProps {
   className?: string
   cardVariant?: 'floating' | 'rotated' | 'background' | 'cutcorner'
   isHomePage?: boolean
+  /** Alternates corner highlight on mobile view only */
+  flipMobileCorners?: boolean
 }
 
 export default function PageSection({
@@ -25,22 +27,41 @@ export default function PageSection({
   className = '',
   cardVariant,
   isHomePage = false,
+  flipMobileCorners = false,
 }: PageSectionProps) {
   const { variant } = useCardVariant()
   const selectedVariant = cardVariant || variant
 
+  const bgGradientClass = flipMobileCorners
+    ? 'bg-gradient-to-tl md:bg-gradient-to-br'
+    : 'bg-gradient-to-br'
+
+  const firstLineClass = flipMobileCorners
+    ? 'md:left-1/4 md:right-auto right-1/4'
+    : 'left-1/4'
+
+  const secondLineClass = flipMobileCorners
+    ? 'md:right-1/3 md:left-auto left-1/3'
+    : 'right-1/3'
+
   return (
     <section
       id={id}
-      className={`min-h-screen relative overflow-hidden flex items-center ${className}`}
+      className={`min-h-screen relative overflow-visible md:overflow-hidden flex items-start md:items-center ${className}`}
     >
       {/* Glossy background effects */}
-      <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
-      <div className='absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent' />
-      <div className='absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent' />
+      <div
+        className={`absolute inset-0 ${bgGradientClass} from-zinc-950 via-zinc-900 to-black`}
+      />
+      <div
+        className={`absolute top-0 ${firstLineClass} w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent`}
+      />
+      <div
+        className={`absolute top-0 ${secondLineClass} w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent`}
+      />
 
       <div
-        className={`container-custom relative z-10 w-full pt-4 sm:pt-6 md:pt-8 ${isHomePage ? 'pb-4 sm:pb-6 md:pb-8' : 'pb-16 sm:pb-24 md:pb-32'}`}
+        className={`container-custom relative z-10 w-full pt-4 sm:pt-6 md:pt-8 ${isHomePage ? 'pb-4 sm:pb-6 md:pb-8' : 'pb-8 sm:pb-16 md:pb-24'}`}
       >
         {/* Complete section wrapped in TechCard */}
         <motion.div
@@ -54,7 +75,8 @@ export default function PageSection({
             title={tagline}
             variant={selectedVariant}
             color={taglineColor}
-            className='h-[90vh] sm:h-[88vh] md:h-[85vh] flex flex-col'
+            flipMobileCorners={flipMobileCorners}
+            className='h-auto min-h-[78svh] md:h-[85svh] flex flex-col'
           >
             {/* Section header */}
             <div className='text-center mb-4 sm:mb-5 md:mb-6 flex-shrink-0'>
