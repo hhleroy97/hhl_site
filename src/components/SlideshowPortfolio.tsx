@@ -116,31 +116,38 @@ export default function SlideshowPortfolio() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [nextSection, prevSection, navigateToSection])
 
-  // Touch navigation for mobile section transitions
+  // Touch navigation for mobile section transitions (all sections)
   useEffect(() => {
-    if (currentSection !== 0) return // Only active on landing page
-
     let touchStartY = 0
     let touchEndY = 0
+    let isScrollAtTop = false
     let isScrollAtBottom = false
 
     const handleTouchStart = (e: TouchEvent) => {
       touchStartY = e.changedTouches[0].screenY
+
+      // Check scroll position at start of touch
+      const container = document.documentElement || document.body
+      isScrollAtTop = container.scrollTop <= 10
+      isScrollAtBottom =
+        container.scrollHeight - container.scrollTop <=
+        container.clientHeight + 50
     }
 
     const handleTouchEnd = (e: TouchEvent) => {
       touchEndY = e.changedTouches[0].screenY
-
-      // Check if we're at the bottom of the landing page
-      const container = document.documentElement || document.body
-      isScrollAtBottom =
-        container.scrollHeight - container.scrollTop <=
-        container.clientHeight + 50
-
       const deltaY = touchStartY - touchEndY
 
-      // If scrolling down and we're at the bottom, go to next section
-      if (deltaY > 50 && isScrollAtBottom && currentSection === 0) {
+      // Swipe down (negative deltaY) at top of page -> go to previous section
+      if (deltaY < -50 && isScrollAtTop && currentSection > 0) {
+        prevSection()
+      }
+      // Swipe up (positive deltaY) at bottom of page -> go to next section
+      else if (
+        deltaY > 50 &&
+        isScrollAtBottom &&
+        currentSection < sections.length - 1
+      ) {
         nextSection()
       }
     }
@@ -152,9 +159,9 @@ export default function SlideshowPortfolio() {
       window.removeEventListener('touchstart', handleTouchStart)
       window.removeEventListener('touchend', handleTouchEnd)
     }
-  }, [currentSection, nextSection])
+  }, [currentSection, nextSection, prevSection])
 
-  // Wheel navigation with improved sensitivity control
+  // Wheel navigation with scroll boundary detection (all sections)
   useEffect(() => {
     let isScrolling = false
     let scrollAccumulator = 0
@@ -162,22 +169,33 @@ export default function SlideshowPortfolio() {
     const cooldownTime = 1500
 
     const handleWheel = (e: WheelEvent) => {
-      // Allow natural scrolling on landing page (mobile and desktop)
-      if (currentSection === 0) return
-
       if (isScrolling || isTransitioning) return
 
-      e.preventDefault()
+      const container = document.documentElement || document.body
+      const isAtTop = container.scrollTop <= 10
+      const isAtBottom =
+        container.scrollHeight - container.scrollTop <=
+        container.clientHeight + 50
 
+      // Only prevent default and navigate sections if we're at scroll boundaries
+      const shouldNavigate =
+        (e.deltaY > 0 && isAtBottom) || (e.deltaY < 0 && isAtTop)
+
+      if (!shouldNavigate) {
+        // Allow natural scrolling within the section
+        return
+      }
+
+      e.preventDefault()
       scrollAccumulator += Math.abs(e.deltaY)
 
       if (scrollAccumulator >= scrollThreshold) {
         isScrolling = true
         scrollAccumulator = 0
 
-        if (e.deltaY > 0) {
+        if (e.deltaY > 0 && currentSection < sections.length - 1) {
           nextSection()
-        } else {
+        } else if (e.deltaY < 0 && currentSection > 0) {
           prevSection()
         }
 
@@ -213,7 +231,7 @@ export default function SlideshowPortfolio() {
     : {}
 
   return (
-    <div className='relative h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white overflow-y-auto sm:overflow-hidden'>
+    <div className='relative h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white overflow-y-auto'>
       {/* Navigation - Hidden on landing page */}
       {currentSection !== 0 && (
         <Navigation
