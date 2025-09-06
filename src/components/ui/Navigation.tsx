@@ -600,114 +600,25 @@ export default function Navigation({
 
             {/* Mobile Center Navigation */}
             <div className='md:hidden flex items-center justify-center'>
-              {/* Horizontal Pill with Up/Down buttons (Mobile) */}
-              <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-1 py-1 flex items-center'>
-                {/* Conditional rendering based on current section */}
+              {/* Single centered navigation button */}
+              <motion.button
+                onClick={currentSection === 0 ? onNextSection : onPrevSection}
+                className='bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-4 py-2 transition-all duration-200 group flex items-center justify-center text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 {currentSection === 0 ? (
-                  // First section - only down button spans full width
-                  <>
-                    <motion.div
-                      className='absolute inset-0 rounded-full overflow-hidden'
-                      initial={{ right: '50%', width: '50%' }}
-                      animate={{ right: '0%', width: '100%' }}
-                      transition={{ duration: 0.2, ease: 'easeInOut' }}
-                    >
-                      <motion.button
-                        onClick={onNextSection}
-                        className='w-full h-full rounded-full transition-all duration-200 group flex items-center justify-center text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <ChevronDown
-                          {...getDynamicTextColor()}
-                          className='w-5 h-5 transition-all duration-200 group-hover:scale-110'
-                        />
-                      </motion.button>
-                    </motion.div>
-                    {/* Visual separator elements for consistent appearance */}
-                    <div className='flex-1 px-3 py-1.5 pointer-events-none opacity-0'>
-                      <ChevronUp className='w-5 h-5' />
-                    </div>
-                    <div className='w-px h-6 bg-white/10 flex-shrink-0 pointer-events-none opacity-0' />
-                    <div className='flex-1 px-3 py-1.5 pointer-events-none opacity-0'>
-                      <ChevronDown className='w-5 h-5' />
-                    </div>
-                  </>
-                ) : currentSection === (sections?.length || 1) - 1 ? (
-                  // Last section - only up button spans full width
-                  <>
-                    <motion.div
-                      className='absolute inset-0 rounded-full overflow-hidden'
-                      initial={{ left: '0%', width: '50%' }}
-                      animate={{ left: '0%', width: '100%' }}
-                      transition={{ duration: 0.2, ease: 'easeInOut' }}
-                    >
-                      <motion.button
-                        onClick={onPrevSection}
-                        className='w-full h-full rounded-full transition-all duration-200 group flex items-center justify-center text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <ChevronUp
-                          {...getDynamicTextColor()}
-                          className='w-5 h-5 transition-all duration-200 group-hover:scale-110'
-                        />
-                      </motion.button>
-                    </motion.div>
-                    {/* Visual separator elements for consistent appearance */}
-                    <div className='flex-1 px-3 py-1.5 pointer-events-none opacity-0'>
-                      <ChevronUp className='w-5 h-5' />
-                    </div>
-                    <div className='w-px h-6 bg-white/10 flex-shrink-0 pointer-events-none opacity-0' />
-                    <div className='flex-1 px-3 py-1.5 pointer-events-none opacity-0'>
-                      <ChevronDown className='w-5 h-5' />
-                    </div>
-                  </>
+                  <ChevronDown
+                    {...getDynamicTextColor()}
+                    className='w-5 h-5 transition-all duration-200 group-hover:scale-110'
+                  />
                 ) : (
-                  // Middle sections - show both buttons with reverse morphing animation
-                  <>
-                    {/* Up arrow button with exit animation */}
-                    <motion.button
-                      onClick={onPrevSection}
-                      className='px-3 py-1.5 rounded-l-full flex-1 transition-all duration-200 group flex items-center justify-center text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
-                      initial={{ width: '100%', left: '0%' }}
-                      animate={{ width: '50%', left: '0%' }}
-                      transition={{ duration: 0.2, ease: 'easeInOut' }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <ChevronUp
-                        {...getDynamicTextColor()}
-                        className='w-5 h-5 transition-all duration-200 group-hover:scale-110'
-                      />
-                    </motion.button>
-
-                    {/* Vertical separator line with fade in */}
-                    <motion.div
-                      className='w-px h-6 bg-white/10 flex-shrink-0'
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.2, delay: 0.1 }}
-                    />
-
-                    {/* Down arrow button with exit animation */}
-                    <motion.button
-                      onClick={onNextSection}
-                      className='px-3 py-1.5 rounded-r-full flex-1 transition-all duration-200 group flex items-center justify-center text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
-                      initial={{ width: '100%', right: '0%' }}
-                      animate={{ width: '50%', right: '0%' }}
-                      transition={{ duration: 0.2, ease: 'easeInOut' }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <ChevronDown
-                        {...getDynamicTextColor()}
-                        className='w-5 h-5 transition-all duration-200 group-hover:scale-110'
-                      />
-                    </motion.button>
-                  </>
+                  <ChevronUp
+                    {...getDynamicTextColor()}
+                    className='w-5 h-5 transition-all duration-200 group-hover:scale-110'
+                  />
                 )}
-              </div>
+              </motion.button>
             </div>
           </div>
         </div>
