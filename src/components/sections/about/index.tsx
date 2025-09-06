@@ -115,7 +115,7 @@ export default function NewAbout() {
               </div>
 
               {/* Small line divider */}
-              <div className='flex justify-center py-6'>
+              <div className='flex justify-center py-3'>
                 <div className='w-16 h-0.5 bg-gradient-to-r from-transparent via-zinc-600 to-transparent'></div>
               </div>
             </div>
