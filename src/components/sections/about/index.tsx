@@ -35,7 +35,7 @@ export default function NewAbout() {
         {/* Mobile-only Profile Picture after Creative Technologist */}
         <div className='md:hidden flex justify-center pb-4'>
           <div className='relative w-64'>
-            <div className='w-64 h-64 rounded-t-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-3 shadow-xl relative overflow-hidden'>
+            <div className='w-64 h-64 rounded-tl-2xl rounded-tr-2xl rounded-bl-none rounded-br-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-3 shadow-xl relative overflow-hidden'>
               {/* Animated gradient background */}
               <div
                 className='absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/5 to-emerald-500/10 rounded-xl animate-pulse'
@@ -65,7 +65,7 @@ export default function NewAbout() {
             </div>
 
             {/* Profile Info */}
-            <div className='w-64 text-center p-2 pb-4 rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-b border-white/20 shadow-xl'>
+            <div className='w-64 text-center p-2 pb-4 rounded-bl-none rounded-br-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-b border-white/20 shadow-xl'>
               <h3
                 className='text-lg font-semibold text-white mb-1'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
