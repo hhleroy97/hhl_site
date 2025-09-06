@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import DataPipeline from '../3d/DataPipeline'
+import DataPipeline from '../../3d/DataPipeline'
 import InteractiveElements from './InteractiveElements'
 
 interface LandingPageProps {

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import PageSection from '../ui/PageSection'
+import PageSection from '../../ui/PageSection'
 import ServiceCard from './ServiceCard'
 import {
   FaCalendarAlt,
