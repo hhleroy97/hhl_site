@@ -16,7 +16,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
   const [rotationY] = useState(-3)
   const [rotationZ] = useState(0)
   const [positionX] = useState(-1.4)
-  const [positionY] = useState(8)
+  const [positionY] = useState(2)
   const [positionZ] = useState(-16.5)
   const [showBoundingBox] = useState(false)
   const [overlayOffsetX] = useState(-7)
