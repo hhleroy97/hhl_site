@@ -188,13 +188,13 @@ export default function WorkExperienceTimelineHorizontal() {
       subtitle='and offerings that inspire'
       cardVariant='floating'
     >
-      <div className='max-w-full mx-auto px-2 h-full flex flex-col justify-center'>
+      <div className='max-w-full mx-auto px-1 sm:px-2 h-full flex flex-col justify-center'>
         {/* Main Container - Centered Timeline with Job Cards */}
-        <div className='flex flex-col items-center justify-center space-y-8'>
+        <div className='flex flex-col items-center justify-center space-y-4 sm:space-y-6 md:space-y-8'>
           {/* Timeline Container - Centered */}
           <div className='relative w-full'>
             {/* Main Timeline Line - Extended to 2026 with arrow */}
-            <div className='relative h-px bg-gradient-to-r from-cyan-400/30 via-cyan-400/60 to-cyan-400/40 mx-4'>
+            <div className='relative h-px bg-gradient-to-r from-cyan-400/30 via-cyan-400/60 to-cyan-400/40 mx-2 sm:mx-4'>
               {/* Extended line for 2026 */}
               <div className='absolute right-0 top-0 w-16 h-px bg-gradient-to-r from-cyan-400/60 to-cyan-400/30'></div>
 
@@ -207,7 +207,7 @@ export default function WorkExperienceTimelineHorizontal() {
                 <div className='relative'>
                   <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
                   <span
-                    className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
                     style={{ fontFamily: 'Orbitron, sans-serif' }}
                   >
                     2020
@@ -216,7 +216,7 @@ export default function WorkExperienceTimelineHorizontal() {
                 <div className='relative'>
                   <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
                   <span
-                    className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
                     style={{ fontFamily: 'Orbitron, sans-serif' }}
                   >
                     2021
@@ -225,7 +225,7 @@ export default function WorkExperienceTimelineHorizontal() {
                 <div className='relative'>
                   <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
                   <span
-                    className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
                     style={{ fontFamily: 'Orbitron, sans-serif' }}
                   >
                     2022
@@ -234,7 +234,7 @@ export default function WorkExperienceTimelineHorizontal() {
                 <div className='relative'>
                   <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
                   <span
-                    className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
                     style={{ fontFamily: 'Orbitron, sans-serif' }}
                   >
                     2023
@@ -243,7 +243,7 @@ export default function WorkExperienceTimelineHorizontal() {
                 <div className='relative'>
                   <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
                   <span
-                    className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
                     style={{ fontFamily: 'Orbitron, sans-serif' }}
                   >
                     2024
@@ -252,7 +252,7 @@ export default function WorkExperienceTimelineHorizontal() {
                 <div className='relative'>
                   <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
                   <span
-                    className='absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm text-white font-bold'
+                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
                     style={{ fontFamily: 'Orbitron, sans-serif' }}
                   >
                     2025
@@ -273,11 +273,11 @@ export default function WorkExperienceTimelineHorizontal() {
           </div>
 
           {/* Job Cards Grid - Centered below Timeline */}
-          <div className='group/cards grid grid-cols-6 gap-6 px-4 w-full'>
+          <div className='group/cards grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4 w-full'>
             {experiences.map((exp, index) => (
               <div key={`${exp.company}-${index}`} className='relative'>
                 {/* Connecting line from timeline to job card */}
-                <div className='absolute left-1/2 -top-16 w-px h-14 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
+                <div className='absolute left-1/2 -top-12 sm:-top-16 w-px h-10 sm:h-14 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
 
                 <JobCard
                   logo={exp.logo}
@@ -302,12 +302,16 @@ export default function WorkExperienceTimelineHorizontal() {
 
           {/* Click hint - Centered */}
           <div
-            className='text-center text-white text-xl font-bold flex items-center justify-center gap-2'
+            className='text-center text-white text-sm sm:text-base md:text-xl font-bold flex items-center justify-center gap-1 sm:gap-2'
             style={{ fontFamily: 'Orbitron, sans-serif' }}
           >
-            <span className='text-3xl text-white'>[</span>
+            <span className='text-xl sm:text-2xl md:text-3xl text-white'>
+              [
+            </span>
             <span>Click on any company to learn more</span>
-            <span className='text-3xl text-white'>]</span>
+            <span className='text-xl sm:text-2xl md:text-3xl text-white'>
+              ]
+            </span>
           </div>
         </div>
       </div>
