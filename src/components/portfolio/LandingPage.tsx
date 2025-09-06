@@ -176,7 +176,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
       {/* Center content container - Interactive elements and 3D visuals */}
       <div
-        className={`relative z-20 pointer-events-none w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible -mt-16 ${showBorders ? 'border-4 border-green-500' : ''}`}
+        className={`relative z-20 pointer-events-none w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible -mt-16 mb-32 ${showBorders ? 'border-4 border-green-500' : ''}`}
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div
@@ -228,7 +228,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       />
 
       {/* Enhanced Navigation Area at bottom */}
-      <div className='relative z-[80] flex flex-col items-center pointer-events-auto pb-8'>
+      <div className='fixed bottom-0 left-0 right-0 z-[80] flex flex-col items-center pointer-events-auto'>
         {/* Call-to-action text with side arrows */}
         <motion.div
           className='mb-4 text-center'
@@ -281,9 +281,6 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             </motion.button>
           </div>
         </motion.div>
-
-        {/* Spacing to replace the removed dots */}
-        <div className='mb-4'></div>
       </div>
     </section>
   )
