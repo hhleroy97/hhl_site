@@ -41,15 +41,8 @@ export default function InteractiveElements({
   })
 
   return (
-    <motion.div
+    <div
       className={`flex flex-col gap-6 w-full h-full p-2 -m-2 ${showBorders ? 'border-4 border-cyan-400' : ''}`}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        delay: 0.8,
-        duration: 0.8,
-        easing: [0.25, 0.46, 0.45, 0.94],
-      }}
     >
       {/* Desktop: Enhanced Social Icon Sub-container */}
       <div
@@ -115,15 +108,8 @@ export default function InteractiveElements({
       </div>
 
       {/* Mobile: 3D Visualization */}
-      <motion.div
+      <div
         className={`block sm:hidden h-64 -mt-16 px-4 ${showBorders ? 'border-4 border-purple-500' : ''}`}
-        initial={{ opacity: 0, scale: 0.8, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{
-          delay: 0.5,
-          duration: 1,
-          easing: [0.25, 0.46, 0.45, 0.94],
-        }}
       >
         <div className='w-full max-w-sm mx-auto h-full'>
           <DataPipeline
@@ -145,29 +131,29 @@ export default function InteractiveElements({
             onTransformChange={setCurrentTransform}
           />
         </div>
-      </motion.div>
+      </div>
 
       {/* Desktop: Enhanced Resume-Based Achievements */}
       <motion.div
         className={`hidden sm:block ${showBorders ? 'border-4 border-purple-500' : ''}`}
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
           duration: 0.8,
-          delay: 0.6,
-          easing: [0.25, 0.46, 0.45, 0.94],
+          delay: 0.5,
+          ease: 'easeOut',
         }}
       >
         {/* Enhanced Achievement Card - Compact (no hover on desktop) */}
         <motion.div
           className={`relative p-6 md:p-8 bg-black/30 backdrop-blur-md border border-white/20 
               transition-all duration-300 overflow-hidden shadow-xl ${showBorders ? 'border-4 border-red-500' : ''}`}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            duration: 0.6,
-            delay: 0.8,
-            easing: [0.25, 0.46, 0.45, 0.94],
+            duration: 0.7,
+            delay: 0.6,
+            ease: 'easeOut',
           }}
         >
           {/* Enhanced depth effects */}
@@ -230,7 +216,7 @@ export default function InteractiveElements({
               href='https://github.com/hhleroy97'
               target='_blank'
               rel='noopener noreferrer'
-              className={`flex items-center justify-center gap-3 flex-1 h-12 rounded-tl-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-purple-400/15 hover:border-purple-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-yellow-400' : ''}`}
+              className={`flex items-center justify-center gap-3 flex-1 h-12 rounded-tl-xl bg-black/30 backdrop-blur-md border border-white/20 sm:hover:bg-purple-400/15 sm:hover:border-purple-400/40 sm:transition-all sm:duration-300 shadow-xl sm:hover:shadow-2xl sm:hover:shadow-purple-500/20 pointer-events-auto sm:transform sm:hover:scale-105 sm:hover:-translate-y-1 ${showBorders ? 'border-4 border-yellow-400' : ''}`}
               aria-label='GitHub profile'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
             >
@@ -246,7 +232,7 @@ export default function InteractiveElements({
               href='https://linkedin.com/in/hartley-leroy'
               target='_blank'
               rel='noopener noreferrer'
-              className={`flex items-center justify-center gap-3 flex-1 h-12 bg-black/30 backdrop-blur-md border border-white/20 hover:bg-cyan-400/15 hover:border-cyan-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-magenta-400' : ''}`}
+              className={`flex items-center justify-center gap-3 flex-1 h-12 bg-black/30 backdrop-blur-md border border-white/20 sm:hover:bg-cyan-400/15 sm:hover:border-cyan-400/40 sm:transition-all sm:duration-300 shadow-xl sm:hover:shadow-2xl sm:hover:shadow-cyan-500/20 pointer-events-auto sm:transform sm:hover:scale-105 sm:hover:-translate-y-1 ${showBorders ? 'border-4 border-magenta-400' : ''}`}
               aria-label='LinkedIn profile'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
             >
@@ -256,7 +242,7 @@ export default function InteractiveElements({
             </a>
             <a
               href='mailto:hartley.leroy1997@gmail.com'
-              className={`flex items-center justify-center gap-3 flex-1 h-12 rounded-tr-xl bg-black/30 backdrop-blur-md border border-white/20 hover:bg-teal-400/15 hover:border-teal-400/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 pointer-events-auto transform hover:scale-105 hover:-translate-y-1 ${showBorders ? 'border-4 border-orange-400' : ''}`}
+              className={`flex items-center justify-center gap-3 flex-1 h-12 rounded-tr-xl bg-black/30 backdrop-blur-md border border-white/20 sm:hover:bg-teal-400/15 sm:hover:border-teal-400/40 sm:transition-all sm:duration-300 shadow-xl sm:hover:shadow-2xl sm:hover:shadow-teal-500/20 pointer-events-auto sm:transform sm:hover:scale-105 sm:hover:-translate-y-1 ${showBorders ? 'border-4 border-orange-400' : ''}`}
               aria-label='Email contact'
               style={{ fontFamily: 'Orbitron, sans-serif' }}
             >
@@ -280,7 +266,7 @@ export default function InteractiveElements({
           <div className='flex flex-col gap-2'>
             <a
               href='#contact'
-              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-[#7BC6FF] font-semibold hover:bg-[#7BC6FF]/15 hover:border-[#7BC6FF]/40 hover:text-[#7BC6FF] transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
+              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-[#7BC6FF] font-semibold sm:hover:bg-[#7BC6FF]/15 sm:hover:border-[#7BC6FF]/40 sm:hover:text-[#7BC6FF] sm:transition-all sm:duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl sm:hover:shadow-2xl sm:hover:shadow-cyan-500/20 sm:transform sm:hover:scale-105 sm:hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
               onClick={() => {
                 window.location.hash = 'contact'
               }}
@@ -288,7 +274,7 @@ export default function InteractiveElements({
               Get in Touch
             </a>
             <button
-              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-[#7BC6FF] font-semibold rounded-b-xl hover:bg-[#7BC6FF]/15 hover:border-[#7BC6FF]/40 hover:text-[#7BC6FF] transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
+              className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-[#7BC6FF] font-semibold rounded-b-xl sm:hover:bg-[#7BC6FF]/15 sm:hover:border-[#7BC6FF]/40 sm:hover:text-[#7BC6FF] sm:transition-all sm:duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl sm:hover:shadow-2xl sm:hover:shadow-cyan-500/20 sm:transform sm:hover:scale-105 sm:hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
               onClick={() => {
                 const go = () => {
                   window.location.hash = 'about'
@@ -311,12 +297,12 @@ export default function InteractiveElements({
       {/* Enhanced Action buttons */}
       <motion.div
         className={`hidden sm:flex flex-col gap-3 sm:gap-4 ${showBorders ? 'border-4 border-green-500' : ''}`}
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
-          delay: 1,
+          delay: 0.7,
           duration: 0.8,
-          easing: [0.25, 0.46, 0.45, 0.94],
+          ease: 'easeOut',
         }}
       >
         {/* Desktop: Get in Touch and View Experience buttons side by side */}
@@ -337,6 +323,6 @@ export default function InteractiveElements({
           </a>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   )
 }
