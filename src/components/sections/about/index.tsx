@@ -361,7 +361,7 @@ export default function NewAbout() {
             </div>
 
             {/* Work Status - Both mobile and desktop */}
-            <div className='w-64 sm:w-72 p-3 pb-4 rounded-t-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 border-b-0 shadow-xl'>
+            <div className='w-64 sm:w-72 p-3 pb-4 rounded-t-2xl lg:rounded-t-none bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 border-b-0 shadow-xl'>
               <div className='text-center mb-3'>
                 <p className='text-sm font-medium text-white mb-1'>
                   Open to opportunities
