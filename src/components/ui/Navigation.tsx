@@ -168,7 +168,6 @@ export default function Navigation({
   )
   // Responsive yOffset based on viewport height
   const yOffset = -3.5 // Reduced from -4.375rem for better compatibility across screen heights
-  const arcLength = 0
 
   // Track section changes and trigger color morphing
   useEffect(() => {
@@ -396,77 +395,62 @@ export default function Navigation({
                 top: `max(${yOffset}rem, -4.5vh)`, // Responsive to viewport height
               }}
             >
-              <div className='relative w-32 h-32 bg-gradient-to-bl from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
-                <div
-                  className='absolute inset-0 rounded-full'
-                  style={{
-                    background: `conic-gradient(from 0deg, rgba(255,255,255,0.2) 0deg, rgba(255,255,255,0.2) ${(arcLength / 100) * 180}deg, transparent ${(arcLength / 100) * 180}deg, transparent 360deg)`,
-                    mask: 'radial-gradient(circle, transparent 15px, black 16px)',
-                    WebkitMask:
-                      'radial-gradient(circle, transparent 15px, black 16px)',
-                  }}
-                />
-                <div className='relative flex flex-col'>
-                  {/* Unified Pill Navigation - Up/Down buttons */}
-                  <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full p-1 flex flex-col'>
-                    {/* Up arrow button */}
-                    <motion.button
-                      onClick={onPrevSection}
-                      disabled={currentSection === 0 || !isNavReady}
-                      className={`px-3 py-1.5 rounded-full transition-all duration-200 group flex items-center justify-center ${
-                        currentSection === 0 || !isNavReady
-                          ? 'opacity-50 cursor-not-allowed text-zinc-500'
-                          : 'text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
-                      }`}
-                      whileHover={
-                        currentSection > 0 && isNavReady ? { scale: 1.02 } : {}
-                      }
-                      whileTap={
-                        currentSection > 0 && isNavReady ? { scale: 0.98 } : {}
-                      }
-                    >
-                      <ChevronUp
-                        {...getDynamicTextColor()}
-                        className='w-4 h-4 transition-all duration-200 group-hover:scale-110'
-                      />
-                    </motion.button>
+              {/* Horizontal Pill with Up/Down buttons */}
+              <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-1 py-1 flex items-center gap-1'>
+                {/* Up arrow button */}
+                <motion.button
+                  onClick={onPrevSection}
+                  disabled={currentSection === 0 || !isNavReady}
+                  className={`px-3 py-2 rounded-full transition-all duration-200 group flex items-center justify-center ${
+                    currentSection === 0 || !isNavReady
+                      ? 'opacity-50 cursor-not-allowed text-zinc-500'
+                      : 'text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
+                  }`}
+                  whileHover={
+                    currentSection > 0 && isNavReady ? { scale: 1.02 } : {}
+                  }
+                  whileTap={
+                    currentSection > 0 && isNavReady ? { scale: 0.98 } : {}
+                  }
+                >
+                  <ChevronUp
+                    {...getDynamicTextColor()}
+                    className='w-4 h-4 transition-all duration-200 group-hover:scale-110'
+                  />
+                </motion.button>
 
-                    {/* Separator line */}
-                    <div className='w-full h-px bg-white/10 my-0.5' />
+                {/* Vertical separator line */}
+                <div className='w-px h-6 bg-white/10' />
 
-                    {/* Down arrow button */}
-                    <motion.button
-                      onClick={onNextSection}
-                      disabled={
-                        currentSection === (sections?.length || 1) - 1 ||
-                        !isNavReady
-                      }
-                      className={`px-3 py-1.5 rounded-full transition-all duration-200 group flex items-center justify-center ${
-                        currentSection === (sections?.length || 1) - 1 ||
-                        !isNavReady
-                          ? 'opacity-50 cursor-not-allowed text-zinc-500'
-                          : 'text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
-                      }`}
-                      whileHover={
-                        currentSection < (sections?.length || 1) - 1 &&
-                        isNavReady
-                          ? { scale: 1.02 }
-                          : {}
-                      }
-                      whileTap={
-                        currentSection < (sections?.length || 1) - 1 &&
-                        isNavReady
-                          ? { scale: 0.98 }
-                          : {}
-                      }
-                    >
-                      <ChevronDown
-                        {...getDynamicTextColor()}
-                        className='w-4 h-4 transition-all duration-200 group-hover:scale-110'
-                      />
-                    </motion.button>
-                  </div>
-                </div>
+                {/* Down arrow button */}
+                <motion.button
+                  onClick={onNextSection}
+                  disabled={
+                    currentSection === (sections?.length || 1) - 1 ||
+                    !isNavReady
+                  }
+                  className={`px-3 py-2 rounded-full transition-all duration-200 group flex items-center justify-center ${
+                    currentSection === (sections?.length || 1) - 1 ||
+                    !isNavReady
+                      ? 'opacity-50 cursor-not-allowed text-zinc-500'
+                      : 'text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
+                  }`}
+                  whileHover={
+                    currentSection < (sections?.length || 1) - 1 && isNavReady
+                      ? { scale: 1.02 }
+                      : {}
+                  }
+                  whileTap={
+                    currentSection < (sections?.length || 1) - 1 && isNavReady
+                      ? { scale: 0.98 }
+                      : {}
+                  }
+                >
+                  <ChevronDown
+                    {...getDynamicTextColor()}
+                    className='w-4 h-4 transition-all duration-200 group-hover:scale-110'
+                  />
+                </motion.button>
               </div>
             </div>
 
@@ -640,67 +624,54 @@ export default function Navigation({
                 top: `max(${yOffset}rem, -4vh)`, // Responsive to viewport height for mobile
               }}
             >
-              <div className='relative w-20 h-20 bg-gradient-to-bl from-white/10 via-white/5 to-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-xl'>
-                <div
-                  className='absolute inset-0 rounded-full'
-                  style={{
-                    background: `conic-gradient(from 0deg, rgba(255,255,255,0.2) 0deg, rgba(255,255,255,0.2) ${arcLength}deg, transparent ${arcLength}deg, transparent 360deg)`,
-                    mask: 'radial-gradient(circle, transparent 9px, black 10px)',
-                    WebkitMask:
-                      'radial-gradient(circle, transparent 9px, black 10px)',
-                  }}
-                />
-                <div className='relative flex flex-col'>
-                  {/* Unified Pill Navigation - Up/Down buttons (Mobile) */}
-                  <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full p-0.5 flex flex-col'>
-                    {/* Up arrow button */}
-                    <motion.button
-                      onClick={onPrevSection}
-                      disabled={currentSection === 0}
-                      className={`px-2 py-1 rounded-full transition-all duration-200 group flex items-center justify-center ${
-                        currentSection === 0
-                          ? 'opacity-50 cursor-not-allowed text-zinc-500'
-                          : 'text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
-                      }`}
-                      whileHover={currentSection > 0 ? { scale: 1.02 } : {}}
-                      whileTap={currentSection > 0 ? { scale: 0.98 } : {}}
-                    >
-                      <ChevronUp
-                        {...getDynamicTextColor()}
-                        className='w-3 h-3 transition-all duration-200 group-hover:scale-110'
-                      />
-                    </motion.button>
+              {/* Horizontal Pill with Up/Down buttons (Mobile) */}
+              <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-0.5 py-0.5 flex items-center gap-0.5'>
+                {/* Up arrow button */}
+                <motion.button
+                  onClick={onPrevSection}
+                  disabled={currentSection === 0}
+                  className={`px-2 py-1.5 rounded-full transition-all duration-200 group flex items-center justify-center ${
+                    currentSection === 0
+                      ? 'opacity-50 cursor-not-allowed text-zinc-500'
+                      : 'text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
+                  }`}
+                  whileHover={currentSection > 0 ? { scale: 1.02 } : {}}
+                  whileTap={currentSection > 0 ? { scale: 0.98 } : {}}
+                >
+                  <ChevronUp
+                    {...getDynamicTextColor()}
+                    className='w-3 h-3 transition-all duration-200 group-hover:scale-110'
+                  />
+                </motion.button>
 
-                    {/* Separator line */}
-                    <div className='w-full h-px bg-white/10 my-0.5' />
+                {/* Vertical separator line */}
+                <div className='w-px h-5 bg-white/10' />
 
-                    {/* Down arrow button */}
-                    <motion.button
-                      onClick={onNextSection}
-                      disabled={currentSection === (sections?.length || 1) - 1}
-                      className={`px-2 py-1 rounded-full transition-all duration-200 group flex items-center justify-center ${
-                        currentSection === (sections?.length || 1) - 1
-                          ? 'opacity-50 cursor-not-allowed text-zinc-500'
-                          : 'text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
-                      }`}
-                      whileHover={
-                        currentSection < (sections?.length || 1) - 1
-                          ? { scale: 1.02 }
-                          : {}
-                      }
-                      whileTap={
-                        currentSection < (sections?.length || 1) - 1
-                          ? { scale: 0.98 }
-                          : {}
-                      }
-                    >
-                      <ChevronDown
-                        {...getDynamicTextColor()}
-                        className='w-3 h-3 transition-all duration-200 group-hover:scale-110'
-                      />
-                    </motion.button>
-                  </div>
-                </div>
+                {/* Down arrow button */}
+                <motion.button
+                  onClick={onNextSection}
+                  disabled={currentSection === (sections?.length || 1) - 1}
+                  className={`px-2 py-1.5 rounded-full transition-all duration-200 group flex items-center justify-center ${
+                    currentSection === (sections?.length || 1) - 1
+                      ? 'opacity-50 cursor-not-allowed text-zinc-500'
+                      : 'text-zinc-300 hover:text-white hover:bg-black/30 cursor-pointer'
+                  }`}
+                  whileHover={
+                    currentSection < (sections?.length || 1) - 1
+                      ? { scale: 1.02 }
+                      : {}
+                  }
+                  whileTap={
+                    currentSection < (sections?.length || 1) - 1
+                      ? { scale: 0.98 }
+                      : {}
+                  }
+                >
+                  <ChevronDown
+                    {...getDynamicTextColor()}
+                    className='w-3 h-3 transition-all duration-200 group-hover:scale-110'
+                  />
+                </motion.button>
               </div>
             </div>
           </div>
