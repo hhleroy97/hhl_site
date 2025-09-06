@@ -112,7 +112,7 @@ export default function Services() {
 
       {/* Service Cards - Full Width Row */}
       <div className='w-full'>
-        <div className='flex flex-col md:flex-row gap-2 md:gap-1 h-auto min-h-[28rem] sm:min-h-[30rem] md:min-h-[32rem]'>
+        <div className='flex flex-col md:flex-row gap-2 md:gap-1 h-auto'>
           {services.map((service, index) => (
             <motion.div
               key={service.id}
