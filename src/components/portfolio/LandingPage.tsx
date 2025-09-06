@@ -255,7 +255,14 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
       />
 
       {/* Enhanced Navigation Area at bottom */}
-      <div className='hidden sm:flex relative z-[80] flex-col items-center pointer-events-auto px-4 sm:px-6 md:px-8 pb-8'>
+      <div
+        className='flex relative z-[80] flex-col items-center pointer-events-auto px-4 sm:px-6 md:px-8 mobile-bottom-spacing'
+        style={{
+          // Use viewport units that account for mobile UI
+          marginBottom: 'clamp(2rem, 8vh, 6rem)', // Responsive spacing based on viewport
+          paddingBottom: 'max(1rem, env(safe-area-inset-bottom, 1rem))',
+        }}
+      >
         {/* Call-to-action text with side arrows */}
         <motion.div
           className='mb-4 text-center'

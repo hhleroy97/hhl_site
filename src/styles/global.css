@@ -417,6 +417,33 @@
       min-height: calc(100dvh + 10px);
     }
 
+    /* Mobile safe area and Chrome footer handling */
+    .pb-safe-area-bottom {
+      padding-bottom: env(safe-area-inset-bottom, 2rem);
+    }
+
+    /* Ensure content appears above Chrome mobile footer */
+    .mobile-bottom-spacing {
+      padding-bottom: 4rem; /* Fallback for older browsers */
+      padding-bottom: max(4rem, calc(env(safe-area-inset-bottom) + 3rem));
+      margin-bottom: 2rem; /* Additional space to avoid Chrome footer */
+    }
+
+    /* Specific positioning adjustments for mobile Chrome */
+    @media screen and (max-height: 700px) {
+      .mobile-bottom-spacing {
+        padding-bottom: max(3rem, calc(env(safe-area-inset-bottom) + 2rem));
+        margin-bottom: 3rem;
+      }
+    }
+
+    @media screen and (max-height: 600px) {
+      .mobile-bottom-spacing {
+        padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1rem));
+        margin-bottom: 4rem; /* More space on smaller screens */
+      }
+    }
+
     /* Prevent zoom on form focus */
     input,
     select,
