@@ -44,7 +44,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
           <div className='inline-block text-left'>
             {/* Greeting - Improved typography and spacing */}
             <motion.div
-              className={`w-full text-left mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
+              className={`w-full text-center sm:text-left mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -60,7 +60,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
             {/* Name section - Enhanced visual impact */}
             <motion.div
-              className={`text-left relative inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
+              className={`text-center sm:text-left relative inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
               initial={{ opacity: 0, y: 30, x: 0 }}
               animate={{ opacity: 1, y: 0, x: nameTagOffsetX }}
               transition={{
@@ -71,7 +71,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
               }}
             >
               {/* Clean gradient name text - responsive layout */}
-              <div className='font-black tracking-tighter relative z-50 text-left flex flex-col sm:flex-row'>
+              <div className='font-black tracking-tighter relative z-50 text-center sm:text-left flex flex-col sm:flex-row items-center sm:items-start'>
                 <span
                   style={{
                     lineHeight: '0.85',
@@ -145,7 +145,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
 
         {/* Enhanced Role/Title - Harmonized colors */}
         <motion.div
-          className={`text-left mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-purple-500' : ''}`}
+          className={`text-center sm:text-left mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-purple-500' : ''}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
