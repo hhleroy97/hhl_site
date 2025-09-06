@@ -30,11 +30,11 @@ export default function LandingPage() {
 
       {/* Top content container */}
       <div
-        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto pt-2 sm:pt-3 md:pt-4 overflow-visible pb-6 sm:pb-0 ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto pt-1 sm:pt-2 md:pt-4 overflow-visible pb-2 sm:pb-0 ${showBorders ? 'border-4 border-cyan-500' : ''}`}
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
-          className={`text-left overflow-visible mt-4 sm:mt-12 md:mt-16 mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
+          className={`text-left overflow-visible mt-2 sm:mt-12 md:mt-16 mb-1 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
           <div className='w-full sm:inline-block text-left'>
             {/* Greeting - Improved typography and spacing */}

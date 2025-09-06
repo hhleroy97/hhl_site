@@ -215,8 +215,8 @@ export default function InteractiveElements({
       </motion.div>
 
       {/* Mobile: Inline container for buttons under 3D visualization (scrolls with content) */}
-      <div className='block sm:hidden -mt-4'>
-        <div className='flex flex-col gap-2'>
+      <div className='block sm:hidden -mt-6'>
+        <div className='flex flex-col gap-1'>
           {/* Social buttons */}
           <div
             className={`flex gap-4 ${showBorders ? 'border-4 border-blue-500' : ''}`}
