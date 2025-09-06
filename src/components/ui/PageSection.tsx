@@ -13,8 +13,8 @@ interface PageSectionProps {
   className?: string
   cardVariant?: 'floating' | 'rotated' | 'background' | 'cutcorner'
   isHomePage?: boolean
-  /** When false, suppresses the per-section background so a parent can provide a unified BG */
-  showBackground?: boolean
+  /** Alternates corner highlight on mobile view only */
+  flipMobileCorners?: boolean
 }
 
 export default function PageSection({
@@ -27,24 +27,38 @@ export default function PageSection({
   className = '',
   cardVariant,
   isHomePage = false,
-  showBackground = true,
+  flipMobileCorners = false,
 }: PageSectionProps) {
   const { variant } = useCardVariant()
   const selectedVariant = cardVariant || variant
 
+  const bgGradientClass = flipMobileCorners
+    ? 'bg-gradient-to-tl md:bg-gradient-to-br'
+    : 'bg-gradient-to-br'
+
+  const firstLineClass = flipMobileCorners
+    ? 'md:left-1/4 md:right-auto right-1/4'
+    : 'left-1/4'
+
+  const secondLineClass = flipMobileCorners
+    ? 'md:right-1/3 md:left-auto left-1/3'
+    : 'right-1/3'
+
   return (
     <section
       id={id}
-      className={`min-h-0 md:min-h-screen relative overflow-hidden flex items-start md:items-center ${className}`}
+      className={`min-h-screen relative overflow-hidden flex items-start md:items-center ${className}`}
     >
       {/* Glossy background effects */}
-      {showBackground && (
-        <>
-          <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
-          <div className='absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent' />
-          <div className='absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent' />
-        </>
-      )}
+      <div
+        className={`absolute inset-0 ${bgGradientClass} from-zinc-950 via-zinc-900 to-black`}
+      />
+      <div
+        className={`absolute top-0 ${firstLineClass} w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent`}
+      />
+      <div
+        className={`absolute top-0 ${secondLineClass} w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent`}
+      />
 
       <div
         className={`container-custom relative z-10 w-full pt-4 sm:pt-6 md:pt-8 ${isHomePage ? 'pb-4 sm:pb-6 md:pb-8' : 'pb-8 sm:pb-16 md:pb-24'}`}
@@ -61,10 +75,11 @@ export default function PageSection({
             title={tagline}
             variant={selectedVariant}
             color={taglineColor}
+            flipMobileCorners={flipMobileCorners}
             className='h-auto min-h-[78svh] md:h-[85svh] flex flex-col'
           >
-            {/* Section header (hidden on mobile to present clean card-only look) */}
-            <div className='hidden sm:block text-center mb-4 sm:mb-5 md:mb-6 flex-shrink-0'>
+            {/* Section header */}
+            <div className='text-center mb-4 sm:mb-5 md:mb-6 flex-shrink-0'>
               <h2
                 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}

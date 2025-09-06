@@ -34,12 +34,12 @@ export default function LandingPage() {
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
-          className={`text-left overflow-visible mt-2 sm:mt-12 md:mt-16 mb-1 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
+          className={`text-left overflow-visible mt-2 sm:mt-6 md:mt-8 mb-1 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
           <div className='w-full sm:inline-block text-left'>
             {/* Greeting - Improved typography and spacing */}
             <motion.div
-              className={`w-full text-center sm:text-left mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
+              className={`w-full text-center sm:text-left mb-1 sm:mb-1 md:mb-2 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -67,10 +67,29 @@ export default function LandingPage() {
             >
               {/* Clean gradient name text - responsive layout */}
               <div className='font-black tracking-tighter relative z-50 text-center sm:text-left flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start'>
+                {/* First name - mobile uses blue gradient, desktop uses original purple→blue */}
                 <span
+                  className='block sm:hidden'
                   style={{
                     lineHeight: '0.85',
-                    fontSize: 'clamp(2.8rem, 7vw, 5rem)',
+                    fontSize: 'clamp(3.8rem, 7vw, 6rem)',
+                    fontFamily: 'Orbitron, sans-serif',
+                    letterSpacing: '-0.02em',
+                    background:
+                      'linear-gradient(18deg, #6AD5FF 0%, #28E1B1 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                  }}
+                >
+                  <span style={{ fontSize: '1.1em' }}>H</span>
+                  <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
+                </span>
+                <span
+                  className='hidden sm:inline-block'
+                  style={{
+                    lineHeight: '0.85',
+                    fontSize: 'clamp(3.8rem, 7vw, 6rem)',
                     fontFamily: 'Orbitron, sans-serif',
                     letterSpacing: '-0.02em',
                     background:
@@ -79,16 +98,16 @@ export default function LandingPage() {
                     WebkitBackgroundClip: 'text',
                     color: 'transparent',
                   }}
-                  className='block sm:inline-block'
                 >
                   <span style={{ fontSize: '1.1em' }}>H</span>
                   <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
                 </span>
                 <span className='mr-4 hidden sm:inline'></span>
+                {/* Last name - mobile and desktop both blue→teal */}
                 <span
                   style={{
                     lineHeight: '0.85',
-                    fontSize: 'clamp(2.8rem, 7vw, 5rem)',
+                    fontSize: 'clamp(3.8rem, 7vw, 6rem)',
                     fontFamily: 'Orbitron, sans-serif',
                     letterSpacing: '-0.02em',
                     background:
@@ -149,8 +168,9 @@ export default function LandingPage() {
             easing: [0.25, 0.46, 0.45, 0.94],
           }}
         >
-          <div className='text-sm sm:text-base md:text-lg lg:text-xl text-zinc-200 font-light leading-relaxed'>
-            <div className='mb-2'>
+          <div className='text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light leading-relaxed'>
+            <div className='mb-2 flex items-center justify-center sm:justify-start gap-2'>
+              <span className='text-white sm:hidden'>—</span>
               <span
                 className='font-bold'
                 style={{
@@ -163,9 +183,10 @@ export default function LandingPage() {
               >
                 Cloud & Creative Engineer
               </span>
+              <span className='text-white sm:hidden'>—</span>
             </div>
             <div className='text-zinc-300'>
-              <div className='block sm:hidden'>
+              <div className='block sm:hidden text-base'>
                 <div>Crafting end-to-end systems</div>
                 <div>from edge to interface.</div>
               </div>
@@ -179,7 +200,7 @@ export default function LandingPage() {
 
       {/* Center content container - Interactive elements and 3D visuals */}
       <div
-        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible mt-4 sm:mt-6 md:mt-8 mb-24 sm:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
+        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible mt-1 sm:mt-6 md:mt-8 mb-24 sm:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div
@@ -203,7 +224,7 @@ export default function LandingPage() {
           </div>
           {/* Enhanced Neural Network Visualization */}
           <motion.div
-            className={`w-full h-full pointer-events-auto -mt-16 sm:-mt-12 md:-mt-16 ${showBorders ? 'border-4 border-lime-500' : ''}`}
+            className={`hidden sm:block w-full h-full pointer-events-auto sm:-mt-12 md:-mt-16 ${showBorders ? 'border-4 border-lime-500' : ''}`}
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{

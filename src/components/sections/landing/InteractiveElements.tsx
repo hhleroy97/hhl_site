@@ -106,7 +106,7 @@ export default function InteractiveElements({
 
       {/* Mobile: 3D Visualization */}
       <motion.div
-        className={`block sm:hidden h-64 -mt-16 ${showBorders ? 'border-4 border-purple-500' : ''}`}
+        className={`block sm:hidden h-64 -mt-8 translate-x-4 ${showBorders ? 'border-4 border-purple-500' : ''}`}
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{
@@ -215,11 +215,11 @@ export default function InteractiveElements({
       </motion.div>
 
       {/* Mobile: Inline container for buttons under 3D visualization (scrolls with content) */}
-      <div className='block sm:hidden -mt-6'>
+      <div className='block sm:hidden -mt-12'>
         <div className='flex flex-col gap-2'>
           {/* Social buttons */}
           <div
-            className={`flex gap-4 ${showBorders ? 'border-4 border-blue-500' : ''}`}
+            className={`flex gap-2 ${showBorders ? 'border-4 border-blue-500' : ''}`}
           >
             <a
               href='https://github.com/hhleroy97'

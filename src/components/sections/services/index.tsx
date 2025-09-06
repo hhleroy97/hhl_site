@@ -92,9 +92,9 @@ export default function Services() {
       title='Professional Services'
       subtitle='From Consultation to Delivery'
       cardVariant='floating'
-      showBackground={false}
+      flipMobileCorners={true}
     >
-      <div className='w-full px-2 sm:px-4 bg-black sm:bg-transparent'>
+      <div className='w-full px-2 sm:px-4'>
         <p className='text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto text-center mb-6 sm:mb-8'>
           Transform your ideas into reality with expert development services.
           Start with a free consultation to discuss your project needs.
