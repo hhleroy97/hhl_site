@@ -176,7 +176,7 @@ export default function InteractiveElements({
         <div className='flex flex-col sm:hidden gap-3'>
           <a
             href='#contact'
-            className={`w-full h-12 px-4 bg-gradient-to-r from-purple-500 from-10% via-cyan-500 via-50% to-cyan-500 to-90% text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-purple-500/30 transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center border border-white/20 text-lg tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
+            className={`w-full h-12 px-4 bg-gradient-to-r from-purple-500 from-10% via-cyan-500 via-50% to-cyan-500 to-90% text-white font-semibold hover:shadow-xl hover:shadow-purple-500/30 transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center border border-white/20 text-lg tracking-wide ${showBorders ? 'border-4 border-blue-500' : ''}`}
             style={{ fontFamily: 'Orbitron, sans-serif' }}
           >
             Get in Touch
@@ -186,7 +186,7 @@ export default function InteractiveElements({
               // Use hash-based navigation like the original Continue to site button
               window.location.hash = 'about'
             }}
-            className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold rounded-xl hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
+            className={`w-full h-12 px-4 bg-black/30 backdrop-blur-md border border-white/20 text-teal-400 font-semibold hover:bg-teal-400/15 hover:border-teal-400/40 hover:text-teal-300 transition-all duration-300 pointer-events-auto text-center flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-teal-500/20 transform hover:scale-105 hover:-translate-y-1 text-lg tracking-wide ${showBorders ? 'border-4 border-purple-500' : ''}`}
             style={{ fontFamily: 'Orbitron, sans-serif' }}
           >
             Continue to site
