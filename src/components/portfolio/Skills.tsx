@@ -671,7 +671,7 @@ export default function SkillsTools() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              style={{ minHeight: '32rem' }}
+              style={{ height: 'fit-content' }}
             >
               {/* Skills Grid */}
               <div className='p-4 flex-1 flex flex-col'>
@@ -696,7 +696,7 @@ export default function SkillsTools() {
                 ) : (
                   <div
                     className='grid grid-cols-8 grid-rows-3 gap-3'
-                    style={{ minHeight: '28rem' }}
+                    style={{ height: 'fit-content' }}
                   >
                     {Array.from({ length: 24 }, (_, index) => {
                       const skill = paginatedSkills[index]
