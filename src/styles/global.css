@@ -371,4 +371,25 @@
       opacity: 0;
     }
   }
+
+  /* Mobile browser optimizations */
+  @media screen and (max-width: 768px) {
+    body {
+      /* Enable smooth momentum scrolling */
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Dynamic viewport height for main container */
+    .h-screen {
+      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
+    }
+
+    /* Prevent zoom on form focus */
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+  }
 }
