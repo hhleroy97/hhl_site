@@ -55,7 +55,7 @@ export default function NewAbout() {
             </div>
 
             {/* Profile Info */}
-            <div className='w-64 text-center p-2 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl'>
+            <div className='w-64 text-center p-2 pb-4 rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-b border-white/20 shadow-xl'>
               <h3
                 className='text-lg font-semibold text-white mb-1'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
@@ -67,41 +67,6 @@ export default function NewAbout() {
               <div className='flex items-center justify-center gap-1 text-zinc-400 text-xs'>
                 <MapPin className='w-3 h-3 text-cyan-400' />
                 <span>Charlotte, NC</span>
-              </div>
-            </div>
-
-            {/* Work Status */}
-            <div className='w-64 p-3 pb-4 rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
-              <div>
-                <div className='text-center mb-3'>
-                  <p className='text-sm font-medium text-white mb-1'>
-                    Open to opportunities
-                  </p>
-                  <p className='text-xs text-zinc-400'>
-                    Available for new projects
-                  </p>
-                </div>
-
-                {/* Status Pills */}
-                <div className='flex gap-2 justify-center mb-4'>
-                  <div className='px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-400/20 text-emerald-300 text-xs font-medium'>
-                    Freelance
-                  </div>
-                  <div className='px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-400/20 text-purple-300 text-xs font-medium'>
-                    Full-time
-                  </div>
-                </div>
-              </div>
-
-              {/* Contact Button */}
-              <div className='mt-2 -mx-3 -mb-6'>
-                <a
-                  href='#contact'
-                  className='block w-full px-4 py-3 rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold text-lg text-center transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
-                  style={{ fontFamily: 'Orbitron, sans-serif' }}
-                >
-                  Get In Touch
-                </a>
               </div>
             </div>
           </div>
@@ -252,15 +217,15 @@ export default function NewAbout() {
 
           {/* Right Column - Professional Profile */}
           <motion.div
-            className='hidden lg:flex flex-col items-center justify-start sticky top-8'
+            className='flex flex-col items-center justify-start sticky top-8 lg:sticky'
             style={{ height: 'fit-content' }}
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {/* Profile Photo */}
-            <div className='relative w-64 sm:w-72'>
+            {/* Profile Photo - Desktop only */}
+            <div className='hidden lg:block relative w-64 sm:w-72'>
               <div className='w-64 sm:w-72 h-64 sm:h-72 rounded-t-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 p-3 sm:p-4 shadow-xl relative overflow-hidden'>
                 {/* Animated gradient background */}
                 <div
@@ -291,8 +256,8 @@ export default function NewAbout() {
               </div>
             </div>
 
-            {/* Profile Info */}
-            <div className='w-64 sm:w-72 text-center p-2 sm:p-3 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl'>
+            {/* Profile Info - Desktop only */}
+            <div className='hidden lg:block w-64 sm:w-72 text-center p-2 sm:p-3 bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border-x border-white/20 shadow-xl'>
               <h3
                 className='text-lg sm:text-xl font-semibold text-white mb-1'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
@@ -307,8 +272,8 @@ export default function NewAbout() {
               </div>
             </div>
 
-            {/* Work Status */}
-            <div className='w-72 p-3 pb-4 rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
+            {/* Work Status - Both mobile and desktop */}
+            <div className='w-full max-w-64 lg:w-72 p-3 pb-4 rounded-2xl lg:rounded-b-2xl bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between'>
               <div>
                 <div className='text-center mb-3'>
                   <p className='text-sm font-medium text-white mb-1'>
@@ -331,10 +296,10 @@ export default function NewAbout() {
               </div>
 
               {/* Contact Button */}
-              <div className='mt-2 -mx-3 -mb-6'>
+              <div className='mt-2 lg:-mx-3 lg:-mb-6'>
                 <a
                   href='#contact'
-                  className='block w-full px-4 py-3 rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold text-lg text-center transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
+                  className='block w-full px-4 py-3 rounded-2xl lg:rounded-b-2xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold text-lg text-center transition-all duration-300 hover:from-cyan-400 hover:to-purple-400 hover:shadow-lg hover:shadow-cyan-400/25'
                   style={{ fontFamily: 'Orbitron, sans-serif' }}
                 >
                   Get In Touch
