@@ -11,8 +11,8 @@ export default function LandingPage() {
   const [rotationX] = useState(-12)
   const [rotationY] = useState(-8)
   const [rotationZ] = useState(0)
-  const [positionX] = useState(-2.2)
-  const [positionY] = useState(2.2)
+  const [positionX] = useState(-2.4)
+  const [positionY] = useState(2)
   const [positionZ] = useState(-13.5)
   const [showBoundingBox] = useState(false)
   const [overlayOffsetX] = useState(-7)
@@ -38,32 +38,17 @@ export default function LandingPage() {
         >
           <div className='w-full sm:inline-block text-left'>
             {/* Greeting - Improved typography and spacing */}
-            <motion.div
+            <div
               className={`w-full text-center sm:text-left mb-1 sm:mb-1 md:mb-2 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.1,
-                duration: 0.8,
-                easing: [0.25, 0.46, 0.45, 0.94],
-              }}
             >
               <div className='text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-300 font-semibold tracking-wide'>
                 Hi, I'm ...
               </div>
-            </motion.div>
+            </div>
 
             {/* Name section - Enhanced visual impact */}
-            <motion.div
+            <div
               className={`text-center sm:text-left relative w-full sm:inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
-              initial={{ opacity: 0, y: 30, x: 0 }}
-              animate={{ opacity: 1, y: 0, x: 0 }}
-              transition={{
-                delay: 0.2,
-                duration: 0.8,
-                x: { duration: 0.1 },
-                easing: [0.25, 0.46, 0.45, 0.94],
-              }}
             >
               {/* Clean gradient name text - responsive layout */}
               <div className='font-black tracking-tighter relative z-50 text-center sm:text-left flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start'>
@@ -172,20 +157,13 @@ export default function LandingPage() {
                   </span>
                 </div>
               )}
-            </motion.div>
+            </div>
           </div>
         </div>
 
         {/* Enhanced Role/Title - Harmonized colors */}
-        <motion.div
+        <div
           className={`text-center sm:text-left mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-purple-500' : ''}`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 0.3,
-            duration: 0.8,
-            easing: [0.25, 0.46, 0.45, 0.94],
-          }}
         >
           <div className='text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light leading-relaxed'>
             <div className='mb-2 flex items-center justify-center sm:justify-start gap-2'>
@@ -219,7 +197,7 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Center content container - Interactive elements and 3D visuals */}

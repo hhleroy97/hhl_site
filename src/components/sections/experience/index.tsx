@@ -191,7 +191,7 @@ export default function WorkExperienceTimelineHorizontal() {
     >
       <div className='max-w-full mx-auto px-1 sm:px-2 h-full flex flex-col justify-center'>
         {/* Main Container - Centered Timeline with Job Cards */}
-        <div className='flex flex-col items-center justify-center space-y-4 sm:space-y-6 md:space-y-8'>
+        <div className='flex flex-col items-center justify-center'>
           {/* Timeline Container - Centered */}
           <div className='relative w-full'>
             {/* Main Timeline Line - Extended to 2026 with arrow */}
@@ -274,11 +274,11 @@ export default function WorkExperienceTimelineHorizontal() {
           </div>
 
           {/* Job Cards Grid - Centered below Timeline */}
-          <div className='group/cards grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4 w-full'>
+          <div className='group/cards grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4 w-full mt-12 sm:mt-16 md:mt-20'>
             {experiences.map((exp, index) => (
               <div key={`${exp.company}-${index}`} className='relative'>
                 {/* Connecting line from timeline to job card */}
-                <div className='absolute left-1/2 -top-12 sm:-top-16 w-px h-10 sm:h-14 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
+                <div className='absolute left-1/2 -top-12 sm:-top-16 md:-top-20 w-px h-12 sm:h-16 md:h-20 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
 
                 <JobCard
                   logo={exp.logo}
