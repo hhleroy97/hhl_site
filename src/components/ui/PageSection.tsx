@@ -60,7 +60,7 @@ export default function PageSection({
       />
 
       <div
-        className={`relative z-10 w-full pt-0 sm:pt-0 md:pt-8 px-0 max-w-none md:max-w-[90vw] md:mx-auto md:px-4 ${isHomePage ? 'pb-0 sm:pb-0 md:pb-8' : 'pb-0 sm:pb-0 md:pb-24'}`}
+        className={`relative z-10 w-full pt-0 sm:pt-0 md:pt-2 px-0 max-w-none md:max-w-[90vw] md:mx-auto md:px-4 ${isHomePage ? 'pb-0 sm:pb-0 md:pb-2' : 'pb-0 sm:pb-0 md:pb-24'}`}
       >
         {/* Complete section wrapped in TechCard */}
         <div className='h-full'>
