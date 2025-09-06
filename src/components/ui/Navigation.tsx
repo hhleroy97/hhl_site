@@ -593,92 +593,9 @@ export default function Navigation({
               </motion.button>
             </div>
 
-            {/* Mobile Navigation */}
-            <div className='md:hidden flex items-center justify-around w-full space-x-1'>
-              {/* Mobile Home Button */}
-              <motion.button
-                onClick={() => {
-                  if (isSlideshow) {
-                    window.location.hash = 'hero'
-                  } else {
-                    window.scrollTo({ top: 0, behavior: 'smooth' })
-                  }
-                }}
-                className='relative flex flex-col items-center p-2 rounded-xl text-zinc-300 hover:text-white hover:bg-white/10 transition-all duration-200'
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span
-                  className='text-xs font-bold'
-                  style={{ fontFamily: 'Orbitron, sans-serif' }}
-                >
-                  Home
-                </span>
-              </motion.button>
-
-              {navItems.map((item, index) => {
-                const active = isActive(item.id, index)
-
-                const gradient = item.gradient || 'from-cyan-400 to-purple-500'
-
-                return (
-                  <motion.button
-                    key={item.id}
-                    onClick={() => handleNavClick(item.id, index)}
-                    className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
-                      active
-                        ? `bg-gradient-to-r ${gradient} shadow-lg ring-2 ring-white/20 ring-offset-2 ring-offset-black/50`
-                        : 'text-zinc-300 hover:text-white hover:bg-white/10'
-                    }`}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {active ? (
-                      <span
-                        className='text-xs font-bold text-black'
-                        style={{ fontFamily: 'Orbitron, sans-serif' }}
-                      >
-                        {item.label}
-                      </span>
-                    ) : (
-                      <span
-                        className='text-xs font-bold'
-                        style={{ fontFamily: 'Orbitron, sans-serif' }}
-                      >
-                        {item.label}
-                      </span>
-                    )}
-                  </motion.button>
-                )
-              })}
-
-              {/* Mobile Contact CTA */}
-              <motion.button
-                onClick={() => handleNavClick('contact', 4)}
-                className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
-                  isActive('contact', 4)
-                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 shadow-lg shadow-emerald-400/25 ring-2 ring-emerald-400/50 ring-offset-2 ring-offset-black/50'
-                    : 'text-zinc-300 hover:text-white hover:bg-white/10'
-                }`}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {isActive('contact', 4) ? (
-                  <span
-                    className='text-xs font-bold text-black'
-                    style={{ fontFamily: 'Orbitron, sans-serif' }}
-                  >
-                    Contact
-                  </span>
-                ) : (
-                  <span
-                    className='text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent'
-                    style={{ fontFamily: 'Orbitron, sans-serif' }}
-                  >
-                    Contact
-                  </span>
-                )}
-              </motion.button>
+            {/* Mobile Navigation - Hidden on mobile, only show up/down buttons */}
+            <div className='md:hidden hidden'>
+              {/* All navigation items hidden on mobile */}
             </div>
 
             {/* Mobile Center Navigation */}
