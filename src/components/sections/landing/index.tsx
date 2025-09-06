@@ -203,13 +203,18 @@ export default function LandingPage() {
                 Cloud & Creative Engineer
               </span>
               <span className='text-white sm:hidden'>—</span>
+              {/* Desktop-only right em dash and inline tagline */}
+              <span className='hidden sm:inline text-white'>—</span>
+              <span className='hidden sm:inline text-zinc-300 ml-2'>
+                Crafting end-to-end systems from edge to interface.
+              </span>
             </div>
             <div className='text-zinc-300'>
               <div className='block sm:hidden text-base'>
                 <div>Crafting end-to-end systems</div>
                 <div>from edge to interface.</div>
               </div>
-              <div className='hidden sm:block'>
+              <div className='hidden'>
                 Crafting end-to-end systems from edge to interface.
               </div>
             </div>
@@ -219,7 +224,7 @@ export default function LandingPage() {
 
       {/* Center content container - Interactive elements and 3D visuals */}
       <div
-        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible sm:overflow-hidden mt-1 sm:mt-6 md:mt-8 mb-24 sm:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
+        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible mt-1 sm:mt-6 md:mt-8 mb-24 sm:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div
@@ -284,7 +289,7 @@ export default function LandingPage() {
       />
 
       {/* Enhanced Navigation Area at bottom */}
-      <div className='hidden sm:flex relative z-[80] flex-col items-center pointer-events-auto px-4 sm:px-6 md:px-8 pb-8'>
+      <div className='hidden sm:flex relative z-[80] flex-col items-center pointer-events-auto px-4 sm:px-6 md:px-8 pb-8 sm:mt-6 md:mt-10'>
         {/* Call-to-action text with side arrows */}
         <motion.div
           className='mb-4 text-center'
