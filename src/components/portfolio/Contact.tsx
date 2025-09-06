@@ -109,20 +109,20 @@ export default function ContactFooter() {
       title='Ready to bring your idea into reality?'
       cardVariant='floating'
     >
-      <div className='w-full px-4'>
+      <div className='w-full px-2 sm:px-4'>
         <div className='max-w-4xl mx-auto w-full'>
-          <div className='relative bg-gradient-to-br from-white/[0.08] via-black/50 to-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/20 p-4 shadow-2xl overflow-hidden min-h-fit'>
+          <div className='relative bg-gradient-to-br from-white/[0.08] via-black/50 to-white/[0.03] backdrop-blur-2xl rounded-2xl sm:rounded-3xl border border-white/20 p-3 sm:p-4 shadow-2xl overflow-hidden min-h-fit'>
             {/* Glassmorphism effects */}
             <div className='absolute inset-0 bg-gradient-to-br from-emerald-500/[0.03] via-transparent to-teal-500/[0.03] pointer-events-none' />
             <div className='absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl pointer-events-none' />
             <div className='absolute -bottom-32 -left-32 w-64 h-64 bg-gradient-to-tr from-teal-500/10 to-emerald-500/10 rounded-full blur-3xl pointer-events-none' />
 
             {submitStatus === 'success' ? (
-              <div className='relative z-10 text-center w-full py-8'>
-                <div className='mb-6'>
-                  <div className='w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4'>
+              <div className='relative z-10 text-center w-full py-6 sm:py-8'>
+                <div className='mb-4 sm:mb-6'>
+                  <div className='w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4'>
                     <svg
-                      className='w-8 h-8 text-white'
+                      className='w-6 h-6 sm:w-8 sm:h-8 text-white'
                       fill='none'
                       stroke='currentColor'
                       viewBox='0 0 24 24'
@@ -135,10 +135,10 @@ export default function ContactFooter() {
                       />
                     </svg>
                   </div>
-                  <h3 className='text-2xl font-semibold text-white mb-2'>
+                  <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2'>
                     Message Sent Successfully!
                   </h3>
-                  <p className='text-zinc-300 text-lg'>
+                  <p className='text-zinc-300 text-sm sm:text-base md:text-lg'>
                     Thank you for reaching out! I'll review your request and get
                     back to you within 24 hours with next steps.
                   </p>
@@ -154,7 +154,7 @@ export default function ContactFooter() {
                       message: '',
                     })
                   }}
-                  className='inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl text-white font-medium transition-all duration-300'
+                  className='inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl text-white font-medium transition-all duration-300 text-sm sm:text-base'
                 >
                   Send Another Message
                 </button>
@@ -201,9 +201,9 @@ export default function ContactFooter() {
             ) : (
               <form onSubmit={handleSubmit} className='relative z-10 w-full'>
                 {/* Form Fields in Row Layout */}
-                <div className='space-y-4 mb-4'>
+                <div className='space-y-3 sm:space-y-4 mb-3 sm:mb-4'>
                   {/* Name and Email Row */}
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4'>
                     {/* First Name */}
                     <div>
                       <label className='text-zinc-300 text-base font-medium block mb-3'>
@@ -238,7 +238,7 @@ export default function ContactFooter() {
                   </div>
 
                   {/* Subject and Service Row */}
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4'>
                     {/* Subject */}
                     <div>
                       <label className='text-zinc-300 text-base font-medium block mb-3'>
@@ -306,7 +306,7 @@ export default function ContactFooter() {
                 </div>
 
                 {/* Message Field - Full Width Below */}
-                <div className='mb-4'>
+                <div className='mb-3 sm:mb-4'>
                   <label className='text-zinc-300 text-base font-medium block mb-3'>
                     Message
                   </label>
@@ -322,11 +322,11 @@ export default function ContactFooter() {
                 </div>
 
                 {/* Submit Button */}
-                <div className='pt-2'>
+                <div className='pt-1 sm:pt-2'>
                   <button
                     type='submit'
                     disabled={isSubmitting}
-                    className='w-full py-4 px-8 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 text-lg'
+                    className='w-full py-3 sm:py-4 px-6 sm:px-8 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 text-base sm:text-lg'
                   >
                     {isSubmitting ? (
                       <div className='flex items-center justify-center gap-3'>

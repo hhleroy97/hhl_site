@@ -93,15 +93,15 @@ export default function Services() {
       subtitle='From Consultation to Delivery'
       cardVariant='floating'
     >
-      <div className='w-full px-4'>
-        <p className='text-base text-zinc-400 max-w-2xl mx-auto text-center mb-8'>
+      <div className='w-full px-2 sm:px-4'>
+        <p className='text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto text-center mb-6 sm:mb-8'>
           Transform your ideas into reality with expert development services.
           Start with a free consultation to discuss your project needs.
         </p>
 
         {/* Service Cards - Responsive Grid */}
         <div className='w-full max-w-7xl mx-auto'>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-16 lg:gap-12 xl:gap-8'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8 sm:gap-12 md:gap-16 lg:gap-12 xl:gap-8'>
             {services.map((service, index) => (
               <motion.div
                 key={service.id}
