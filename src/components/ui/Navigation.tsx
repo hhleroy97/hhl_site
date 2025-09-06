@@ -387,9 +387,9 @@ export default function Navigation({
             </div>
 
             {/* Center Inline Navigation */}
-            <div className='flex items-center justify-center'>
+            <div className='flex items-center justify-center w-full md:w-auto'>
               {/* Horizontal Pill with Up/Down buttons */}
-              <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-1 sm:px-2 py-1 sm:py-2 flex items-center'>
+              <div className='relative bg-black/20 backdrop-blur-sm border-2 border-white/20 rounded-full px-1 sm:px-2 py-1 sm:py-2 flex items-center w-full md:w-auto'>
                 {/* Conditional rendering based on current section */}
                 {currentSection === 0 ? (
                   // First section - only down button spans full width
