@@ -29,8 +29,9 @@ jobs:
         git checkout main
         git pull origin main
         git checkout dev
-        git rebase main
-        git push origin dev --force-with-lease
+        git pull origin dev
+        git merge main --no-ff -m "Sync dev with main after production deployment"
+        git push origin dev
         
     - name: Sync Success
       run: |
