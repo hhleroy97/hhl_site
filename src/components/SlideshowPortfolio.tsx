@@ -116,6 +116,44 @@ export default function SlideshowPortfolio() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [nextSection, prevSection, navigateToSection])
 
+  // Touch navigation for mobile section transitions
+  useEffect(() => {
+    if (currentSection !== 0) return // Only active on landing page
+
+    let touchStartY = 0
+    let touchEndY = 0
+    let isScrollAtBottom = false
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.changedTouches[0].screenY
+    }
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      touchEndY = e.changedTouches[0].screenY
+
+      // Check if we're at the bottom of the landing page
+      const container = document.documentElement || document.body
+      isScrollAtBottom =
+        container.scrollHeight - container.scrollTop <=
+        container.clientHeight + 50
+
+      const deltaY = touchStartY - touchEndY
+
+      // If scrolling down and we're at the bottom, go to next section
+      if (deltaY > 50 && isScrollAtBottom && currentSection === 0) {
+        nextSection()
+      }
+    }
+
+    window.addEventListener('touchstart', handleTouchStart)
+    window.addEventListener('touchend', handleTouchEnd)
+
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchend', handleTouchEnd)
+    }
+  }, [currentSection, nextSection])
+
   // Wheel navigation with improved sensitivity control
   useEffect(() => {
     let isScrolling = false
@@ -124,6 +162,9 @@ export default function SlideshowPortfolio() {
     const cooldownTime = 1500
 
     const handleWheel = (e: WheelEvent) => {
+      // Allow natural scrolling on landing page (mobile and desktop)
+      if (currentSection === 0) return
+
       if (isScrolling || isTransitioning) return
 
       e.preventDefault()
@@ -148,7 +189,7 @@ export default function SlideshowPortfolio() {
 
     window.addEventListener('wheel', handleWheel, { passive: false })
     return () => window.removeEventListener('wheel', handleWheel)
-  }, [nextSection, prevSection, isTransitioning])
+  }, [nextSection, prevSection, isTransitioning, currentSection])
 
   const slideVariants = {
     enter: (direction: number) => ({
