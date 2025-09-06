@@ -205,9 +205,9 @@ export default function NewAbout() {
                     </div>
                   </div>
 
-                  {/* Bottom row - 2 icons offset */}
+                  {/* Bottom row - 2 icons centered */}
                   <div className='flex justify-center gap-4'>
-                    <div className='flex items-center justify-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16 ml-8'>
+                    <div className='flex items-center justify-center group p-3 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-black/20 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/30 transition-all duration-300 aspect-square w-16 h-16'>
                       <img
                         src={hikeImage}
                         alt='Hiking'
