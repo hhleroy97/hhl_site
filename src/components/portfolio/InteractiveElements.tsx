@@ -104,6 +104,36 @@ export default function InteractiveElements({
         </a>
       </div>
 
+      {/* Mobile: 3D Visualization */}
+      <motion.div
+        className={`block sm:hidden h-64 ${showBorders ? 'border-4 border-purple-500' : ''}`}
+        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          delay: 0.5,
+          duration: 1,
+          easing: [0.25, 0.46, 0.45, 0.94],
+        }}
+      >
+        <DataPipeline
+          className='w-full h-full'
+          layerSpacing={layerDistance}
+          positionShift={positionShift}
+          verticalShift={verticalShift}
+          cinematicMode={false}
+          interactive={true}
+          rotationX={rotationX}
+          rotationY={rotationY}
+          rotationZ={rotationZ}
+          positionX={positionX}
+          positionY={positionY}
+          positionZ={positionZ}
+          showBoundingBox={showBoundingBox}
+          showOriginMarker={showOriginMarker}
+          enableMouseParallax={true}
+        />
+      </motion.div>
+
       {/* Desktop: Enhanced Resume-Based Achievements */}
       <motion.div
         className={`hidden sm:block ${showBorders ? 'border-4 border-purple-500' : ''}`}
@@ -233,36 +263,6 @@ export default function InteractiveElements({
             View Experience
           </a>
         </div>
-      </motion.div>
-
-      {/* Mobile: 3D Visualization */}
-      <motion.div
-        className={`block sm:hidden h-64 ${showBorders ? 'border-4 border-purple-500' : ''}`}
-        initial={{ opacity: 0, scale: 0.8, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{
-          delay: 0.5,
-          duration: 1,
-          easing: [0.25, 0.46, 0.45, 0.94],
-        }}
-      >
-        <DataPipeline
-          className='w-full h-full'
-          layerSpacing={layerDistance}
-          positionShift={positionShift}
-          verticalShift={verticalShift}
-          cinematicMode={false}
-          interactive={true}
-          rotationX={rotationX}
-          rotationY={rotationY}
-          rotationZ={rotationZ}
-          positionX={positionX}
-          positionY={positionY}
-          positionZ={positionZ}
-          showBoundingBox={showBoundingBox}
-          showOriginMarker={showOriginMarker}
-          enableMouseParallax={true}
-        />
       </motion.div>
     </motion.div>
   )
