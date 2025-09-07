@@ -3,6 +3,7 @@ import PageSection from '../../ui/PageSection'
 import JobCard from './JobCard'
 import MobileJobCard from './MobileJobCard'
 import JobView from './JobView'
+import MobileJobView from './MobileJobView'
 import fdaLogo from '../../../assets/fda-logo.png'
 import softhreadLogo from '../../../assets/Softhread_Logo.jpg'
 import delphiLogo from '../../../assets/DELPHI-DIGITAL-MASTER-LOGO.jpg'
@@ -241,9 +242,9 @@ export default function WorkExperienceTimelineHorizontal() {
           </div>
 
           {/* Desktop Horizontal Timeline */}
-          <div className='hidden sm:block'>
+          <div className='hidden sm:block h-full flex items-center justify-center'>
             {/* Main Container - Centered Timeline with Job Cards */}
-            <div className='flex flex-col items-center justify-center'>
+            <div className='flex flex-col items-center justify-center w-full'>
               {/* Timeline Container - Centered */}
               <div className='relative w-full'>
                 {/* Main Timeline Line - Extended to 2026 with arrow */}
@@ -326,11 +327,11 @@ export default function WorkExperienceTimelineHorizontal() {
               </div>
 
               {/* Job Cards Grid - Centered below Timeline */}
-              <div className='group/cards grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4 w-full mt-12 sm:mt-16 md:mt-20'>
+              <div className='group/cards grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4 w-full mt-8 sm:mt-12 md:mt-16'>
                 {experiences.map((exp, index) => (
                   <div key={`${exp.company}-${index}`} className='relative'>
                     {/* Connecting line from timeline to job card */}
-                    <div className='absolute left-1/2 -top-12 sm:-top-16 md:-top-20 w-px h-12 sm:h-16 md:h-20 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
+                    <div className='absolute left-1/2 -top-8 sm:-top-12 md:-top-16 w-px h-8 sm:h-12 md:h-16 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
 
                     <JobCard
                       logo={exp.logo}
@@ -355,7 +356,7 @@ export default function WorkExperienceTimelineHorizontal() {
 
               {/* Click hint - Centered */}
               <div
-                className='text-center text-white text-sm sm:text-base md:text-xl font-bold flex items-center justify-center gap-1 sm:gap-2 mt-4 sm:mt-36'
+                className='text-center text-white text-sm sm:text-base md:text-xl font-bold flex items-center justify-center gap-1 sm:gap-2 mt-6 sm:mt-8'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
               >
                 <span className='text-xl sm:text-2xl md:text-3xl text-white'>
@@ -372,12 +373,29 @@ export default function WorkExperienceTimelineHorizontal() {
       </PageSection>
 
       {/* Job View Modal - Outside PageSection for full-screen */}
-      <JobView
-        isOpen={selectedIndex !== null}
-        onClose={closeExpanded}
-        experience={selectedIndex !== null ? experiences[selectedIndex] : null}
-        clickedPosition={clickedCardPosition}
-      />
+      {/* Mobile Modal */}
+      <div className='block sm:hidden'>
+        <MobileJobView
+          isOpen={selectedIndex !== null}
+          onClose={closeExpanded}
+          experience={
+            selectedIndex !== null ? experiences[selectedIndex] : null
+          }
+          clickedPosition={clickedCardPosition}
+        />
+      </div>
+
+      {/* Desktop Modal */}
+      <div className='hidden sm:block'>
+        <JobView
+          isOpen={selectedIndex !== null}
+          onClose={closeExpanded}
+          experience={
+            selectedIndex !== null ? experiences[selectedIndex] : null
+          }
+          clickedPosition={clickedCardPosition}
+        />
+      </div>
     </>
   )
 }
