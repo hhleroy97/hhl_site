@@ -140,7 +140,7 @@ const experiences = [
   },
   {
     company: 'Lucid Bots',
-    title: 'Software Engineer - Fleet Management',
+    title: 'Software Engineer',
     timeframe: 'Sep 2024 - Jul 2025',
     location: 'Charlotte, NC, USA',
     workType: 'Hybrid',
@@ -196,7 +196,7 @@ export default function WorkExperienceTimelineHorizontal() {
       <div className='max-w-full mx-auto px-1 sm:px-2 h-full flex flex-col justify-center'>
         {/* Mobile Experience Cards */}
         <div className='block sm:hidden'>
-          <div className='max-w-sm mx-auto px-4'>
+          <div className='max-w-md mx-auto px-2'>
             {/* Click hint for mobile - moved up under tagline */}
             <div
               className='text-center text-white text-xs font-bold flex items-center justify-center gap-1 mb-8'
@@ -217,7 +217,6 @@ export default function WorkExperienceTimelineHorizontal() {
                     title={exp.title}
                     timeframe={exp.timeframe}
                     location={exp.location}
-                    workType={exp.workType}
                     industry={exp.industry}
                     index={index}
                     onClick={event => {
