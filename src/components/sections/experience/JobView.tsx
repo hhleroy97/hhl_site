@@ -139,18 +139,19 @@ export default function JobView({
                   >
                     {experience.company}
                   </h2>
+                  <p className='text-sm sm:text-base text-zinc-400 mb-2'>
+                    {experience.industry}
+                  </p>
                   <p className='text-lg sm:text-xl text-cyan-400 font-semibold'>
                     {experience.title}
                   </p>
                 </div>
 
-                {/* Date, location, industry - centered under header */}
+                {/* Date, location - centered under header */}
                 <div className='flex flex-col sm:flex-row sm:items-center justify-center gap-1 sm:gap-4 text-zinc-400 text-sm sm:text-base text-center'>
                   <span className='font-medium'>{experience.timeframe}</span>
                   <span className='hidden sm:inline'>•</span>
                   <span>{experience.location}</span>
-                  <span className='hidden sm:inline'>•</span>
-                  <span>{experience.industry}</span>
                 </div>
               </div>
 
