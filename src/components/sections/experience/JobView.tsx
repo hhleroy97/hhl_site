@@ -43,6 +43,12 @@ export default function JobView({
     setIsClosing(true)
   }
 
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      handleClose()
+    }
+  }
+
   return (
     <AnimatePresence
       onExitComplete={() => {
@@ -54,11 +60,11 @@ export default function JobView({
     >
       {isOpen && !isClosing && (
         <motion.div
-          className='fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-md'
+          className='fixed inset-0 z-50 flex items-start sm:items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-md'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={handleClose}
+          onClick={handleBackdropClick}
         >
           <motion.div
             className='bg-black/90 backdrop-blur-md rounded-none sm:rounded-3xl border-0 sm:border sm:border-white/20 p-4 sm:p-8 max-w-6xl w-full sm:w-[90vw] h-full sm:h-auto sm:max-h-[85vh] shadow-2xl overflow-y-auto sm:overflow-y-auto overflow-x-hidden'
