@@ -267,7 +267,7 @@ export default function LandingPage() {
       />
 
       {/* Enhanced Navigation Area at bottom */}
-      <div className='hidden sm:flex relative z-[80] flex-col items-center pointer-events-auto px-4 sm:px-6 md:px-8 pb-8 sm:mt-6 md:mt-10'>
+      <div className='hidden sm:flex relative z-[80] flex-col items-center pointer-events-auto px-4 sm:px-6 md:px-8 pb-8'>
         {/* Call-to-action text with side arrows */}
         <motion.div
           className='mb-4 text-center'
