@@ -25,19 +25,11 @@ export default function JobView({
   isOpen,
   onClose,
   experience,
-  clickedPosition,
+  clickedPosition: _clickedPosition,
 }: JobViewProps) {
   const [isClosing, setIsClosing] = useState(false)
 
   if (!experience) return null
-
-  // Calculate center of screen for fallback
-  const centerX = window.innerWidth / 2
-  const centerY = window.innerHeight / 2
-
-  // Use clicked position or center as fallback
-  const startX = clickedPosition?.x || centerX
-  const startY = clickedPosition?.y || centerY
 
   const handleClose = () => {
     setIsClosing(true)
@@ -61,24 +53,18 @@ export default function JobView({
           onClick={handleClose}
         >
           <motion.div
-            className='bg-black/90 backdrop-blur-md rounded-3xl border border-white/20 p-8 max-w-6xl w-[90vw] shadow-2xl'
+            className='bg-black/90 backdrop-blur-md rounded-3xl border border-white/20 p-8 max-w-6xl w-[90vw] max-h-[90vh] shadow-2xl overflow-y-auto'
             initial={{
-              scale: 0,
+              scale: 0.8,
               opacity: 0,
-              x: startX - centerX,
-              y: startY - centerY,
             }}
             animate={{
               scale: 1,
               opacity: 1,
-              x: 0,
-              y: 0,
             }}
             exit={{
-              scale: 0,
+              scale: 0.8,
               opacity: 0,
-              x: startX - centerX,
-              y: startY - centerY,
             }}
             transition={{
               type: 'spring',
