@@ -114,7 +114,7 @@ export default function JobView({
             <div className='relative z-10'>
               {/* Header Container */}
               <div className='mb-4 sm:mb-6'>
-                <div className='flex flex-col items-center text-center mb-4'>
+                <div className='flex flex-col items-center text-center mb-2'>
                   <div className='w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-2xl shadow-xl relative flex-shrink-0 mb-4'>
                     <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full opacity-20'></div>
                     <div className='relative z-10 flex items-center justify-center'>
