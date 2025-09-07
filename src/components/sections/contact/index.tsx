@@ -13,7 +13,9 @@ const services = [
     name: 'Real-Time Interactive Systems',
     price: '$9,999+',
   },
-]
+  { id: 'fulltime', name: 'Full Time Position', price: 'Negotiable' },
+  { id: 'freelance', name: 'Freelance Position', price: 'Project-based' },
+].sort((a, b) => a.name.localeCompare(b.name))
 
 export default function ContactFooter() {
   const [formData, setFormData] = useState({
@@ -240,24 +242,8 @@ export default function ContactFooter() {
 
                   {/* Subject and Service Row */}
                   <div className='grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4'>
-                    {/* Subject */}
-                    <div>
-                      <label className='text-zinc-300 text-base font-medium block mb-3'>
-                        Subject
-                      </label>
-                      <input
-                        type='text'
-                        name='subject'
-                        value={formData.subject}
-                        onChange={handleChange}
-                        required
-                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
-                        placeholder='Brief description of your inquiry'
-                      />
-                    </div>
-
-                    {/* Service of Interest */}
-                    <div>
+                    {/* Service of Interest - First on mobile, second on desktop */}
+                    <div className='order-1 md:order-2'>
                       <label className='text-zinc-300 text-base font-medium block mb-3'>
                         Service of Interest
                       </label>
@@ -303,6 +289,22 @@ export default function ContactFooter() {
                         </div>
                       </div>
                     </div>
+
+                    {/* Subject - Second on mobile, first on desktop */}
+                    <div className='order-2 md:order-1'>
+                      <label className='text-zinc-300 text-base font-medium block mb-3'>
+                        Subject
+                      </label>
+                      <input
+                        type='text'
+                        name='subject'
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
+                        placeholder='Brief description of your inquiry'
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -316,7 +318,7 @@ export default function ContactFooter() {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={4}
+                    rows={8}
                     className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 resize-none focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
                     placeholder='Tell me about your project, timeline, and any specific requirements...'
                   />
