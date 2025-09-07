@@ -123,11 +123,11 @@ export default function ServiceCard({
           <div className='flex flex-col flex-grow justify-center items-center space-y-3'>
             {/* Small Icon */}
             <div
-              className={`flex items-center justify-center w-8 h-8 rounded-lg ${
+              className={`flex items-center justify-center w-16 h-16 rounded-lg ${
                 isHighlighted
                   ? 'bg-gradient-to-r from-purple-500 to-cyan-500'
                   : 'bg-gradient-to-r from-purple-500/60 to-cyan-500/60'
-              } text-white text-sm flex-shrink-0`}
+              } text-white text-2xl flex-shrink-0`}
             >
               <div className='flex items-center justify-center w-full h-full'>
                 {icon}
