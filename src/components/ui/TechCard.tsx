@@ -127,7 +127,7 @@ export default function TechCard({
           style={{ top: 'env(safe-area-inset-top, 0px)' }}
         >
           <span
-            className={`text-zinc-900 font-black text-2xl tracking-wider uppercase text-center ${textAlignClasses}`}
+            className={`text-zinc-900 font-black text-2xl tracking-wider uppercase text-center ${textAlignClasses} pl-2 sm:pl-3 md:pl-4`}
             style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: '900' }}
           >
             {title}
