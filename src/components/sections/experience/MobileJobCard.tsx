@@ -28,7 +28,7 @@ export default function MobileJobCard({
 
   return (
     <motion.div
-      className='w-full bg-black/30 backdrop-blur-sm border border-white/20 rounded-lg p-4 cursor-pointer transition-all duration-300 hover:bg-black/40 hover:border-white/30'
+      className='w-full bg-black/30 backdrop-blur-sm border border-white/20 rounded-lg cursor-pointer transition-all duration-300 hover:bg-black/40 hover:border-white/30 relative'
       initial={{ opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
@@ -44,19 +44,19 @@ export default function MobileJobCard({
         transition: 'transform 0.1s ease-in-out',
       }}
     >
-      <div className='relative'>
-        {/* Timeframe pill in top right - floating above content */}
-        <div className='absolute top-1 right-1 z-20'>
-          <div className='bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-md border border-cyan-400/30 rounded-full px-1.5 py-0.5 shadow-lg'>
-            <span
-              className='text-xs text-cyan-300 font-bold leading-none'
-              style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '0.5rem' }}
-            >
-              {timeframe}
-            </span>
-          </div>
+      {/* Timeframe pill in top right - floating above card */}
+      <div className='absolute top-1 right-1 z-20'>
+        <div className='bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-md border border-cyan-400/30 rounded-full px-1 py-0.5 shadow-lg flex items-center justify-center min-w-0'>
+          <span
+            className='text-xs text-cyan-300 font-bold leading-none text-center'
+            style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '0.5rem' }}
+          >
+            {timeframe}
+          </span>
         </div>
+      </div>
 
+      <div className='p-4'>
         <div className='flex flex-col gap-2'>
           {/* Company header row - icon and name */}
           <div className='flex items-center gap-3'>
