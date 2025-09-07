@@ -22,7 +22,7 @@ export default function ServiceCard({
 }: ServiceCardProps) {
   return (
     <motion.div
-      className={`group relative h-full min-h-[200px] sm:min-h-[320px] ${
+      className={`group relative h-full min-h-[200px] sm:min-h-[400px] ${
         isHighlighted
           ? 'bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border-2 border-purple-400/60'
           : 'bg-black/30 border border-white/20'
