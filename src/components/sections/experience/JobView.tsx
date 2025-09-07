@@ -54,14 +54,14 @@ export default function JobView({
     >
       {isOpen && !isClosing && (
         <motion.div
-          className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md'
+          className='fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-md'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleClose}
         >
           <motion.div
-            className='bg-black/90 backdrop-blur-md rounded-3xl border border-white/20 p-8 max-w-6xl w-[90vw] shadow-2xl'
+            className='bg-black/90 backdrop-blur-md rounded-none sm:rounded-3xl border-0 sm:border sm:border-white/20 p-4 sm:p-8 max-w-6xl w-full sm:w-[90vw] h-full sm:h-auto shadow-2xl overflow-y-auto sm:overflow-visible overflow-x-hidden'
             initial={{
               scale: 0,
               opacity: 0,
@@ -105,7 +105,7 @@ export default function JobView({
             {/* Close Button */}
             <button
               onClick={handleClose}
-              className='absolute top-6 right-6 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-300 z-20'
+              className='absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-300 z-20'
               style={{ pointerEvents: 'auto' }}
             >
               <X className='w-5 h-5 text-white' />
@@ -113,8 +113,8 @@ export default function JobView({
 
             <div className='relative z-10'>
               {/* Header */}
-              <div className='flex items-start gap-6 mb-8'>
-                <div className='w-24 h-24 rounded-full bg-white backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-2xl shadow-xl relative'>
+              <div className='flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6 sm:mb-8 text-center sm:text-left'>
+                <div className='w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-2xl shadow-xl relative'>
                   <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full opacity-20'></div>
                   <div className='relative z-10 flex items-center justify-center'>
                     {typeof experience.logo === 'string' &&
@@ -125,7 +125,7 @@ export default function JobView({
                       <img
                         src={experience.logo}
                         alt={`${experience.company} logo`}
-                        className='w-16 h-16 object-contain'
+                        className='w-12 h-12 sm:w-16 sm:h-16 object-contain'
                       />
                     ) : (
                       <span className='text-2xl'>{experience.logo}</span>
@@ -133,41 +133,41 @@ export default function JobView({
                   </div>
                 </div>
                 <div className='flex-1'>
-                  <h2 className='text-3xl font-bold text-white mb-2'>
+                  <h2 className='text-2xl sm:text-3xl font-bold text-white mb-2'>
                     {experience.company}
                   </h2>
-                  <p className='text-xl text-cyan-400 font-semibold mb-2'>
+                  <p className='text-lg sm:text-xl text-cyan-400 font-semibold mb-2'>
                     {experience.title}
                   </p>
-                  <div className='flex items-center gap-4 text-zinc-400'>
+                  <div className='flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-zinc-400 text-sm sm:text-base'>
                     <span className='font-medium'>{experience.timeframe}</span>
-                    <span>•</span>
+                    <span className='hidden sm:inline'>•</span>
                     <span>{experience.location}</span>
-                    <span>•</span>
+                    <span className='hidden sm:inline'>•</span>
                     <span>{experience.workType}</span>
                   </div>
                 </div>
               </div>
 
               {/* Description */}
-              <div className='mb-8'>
-                <p className='text-zinc-300 leading-relaxed text-lg'>
+              <div className='mb-6 sm:mb-8'>
+                <p className='text-zinc-300 leading-relaxed text-base sm:text-lg'>
                   {experience.description}
                 </p>
               </div>
 
               {/* Key Contributions */}
-              <div className='mb-8'>
-                <h3 className='text-white font-bold mb-4 text-xl'>
+              <div className='mb-6 sm:mb-8'>
+                <h3 className='text-white font-bold mb-3 sm:mb-4 text-lg sm:text-xl'>
                   Key Contributions
                 </h3>
-                <ul className='space-y-3'>
+                <ul className='space-y-2 sm:space-y-3'>
                   {experience.keyContributions.map((contribution, i) => (
-                    <li key={i} className='flex items-start gap-3'>
+                    <li key={i} className='flex items-start gap-2 sm:gap-3'>
                       <div
                         className={`w-2 h-2 bg-gradient-to-r ${experience.color} rounded-full mt-2 flex-shrink-0`}
                       ></div>
-                      <span className='text-zinc-300 leading-relaxed'>
+                      <span className='text-zinc-300 leading-relaxed text-sm sm:text-base'>
                         {contribution}
                       </span>
                     </li>
@@ -177,14 +177,14 @@ export default function JobView({
 
               {/* Technologies */}
               <div>
-                <h3 className='text-white font-bold mb-4 text-xl'>
+                <h3 className='text-white font-bold mb-3 sm:mb-4 text-lg sm:text-xl'>
                   Technologies & Skills
                 </h3>
-                <div className='flex flex-wrap gap-3'>
+                <div className='flex flex-wrap gap-2 sm:gap-3'>
                   {experience.technologies.map(tech => (
                     <span
                       key={tech}
-                      className='px-4 py-2 bg-white/10 border border-white/20 rounded-xl font-medium text-zinc-300'
+                      className='px-3 py-1.5 sm:px-4 sm:py-2 bg-white/10 border border-white/20 rounded-lg sm:rounded-xl font-medium text-zinc-300 text-xs sm:text-sm'
                     >
                       {tech}
                     </span>

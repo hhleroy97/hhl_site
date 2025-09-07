@@ -54,7 +54,7 @@ export default function MobileJobCard({
         </div>
       </div>
 
-      <div className='p-4 pt-8'>
+      <div className='px-4 pt-8 pb-8'>
         <div className='flex flex-col gap-2'>
           {/* Company header row - icon and name with details */}
           <div className='flex items-center gap-3'>
