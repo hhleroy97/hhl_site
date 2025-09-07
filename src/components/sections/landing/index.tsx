@@ -1,23 +1,19 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import DataPipeline from '../3d/DataPipeline'
+import DataPipeline from '../../3d/DataPipeline'
 import InteractiveElements from './InteractiveElements'
 
-interface LandingPageProps {
-  onNextSection?: () => void
-}
-
-export default function LandingPage({ onNextSection }: LandingPageProps) {
+export default function LandingPage() {
   const [layerDistance] = useState(3.6)
   const [positionShift] = useState(0)
   const [verticalShift] = useState(0)
   const [showBorders] = useState(false)
-  const [rotationX] = useState(-8)
-  const [rotationY] = useState(-3)
+  const [rotationX] = useState(-12)
+  const [rotationY] = useState(-8)
   const [rotationZ] = useState(0)
-  const [positionX] = useState(-1.4)
+  const [positionX] = useState(-2.4)
   const [positionY] = useState(2)
-  const [positionZ] = useState(-16.5)
+  const [positionZ] = useState(-13.5)
   const [showBoundingBox] = useState(false)
   const [overlayOffsetX] = useState(-7)
   const [overlayOffsetY] = useState(-3.5)
@@ -27,72 +23,41 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
   return (
     <section
       id='hero'
-      className={`relative min-h-screen flex flex-col ${showBorders ? 'border-4 border-white' : ''}`}
+      className={`relative min-h-screen flex flex-col overflow-hidden ${showBorders ? 'border-4 border-white' : ''}`}
     >
       {/* Enhanced Background with subtle gradient */}
       <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
 
       {/* Top content container */}
       <div
-        className={`relative z-20 pointer-events-none w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto pt-2 sm:pt-3 md:pt-4 overflow-visible ${showBorders ? 'border-4 border-cyan-500' : ''}`}
+        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto pt-1 sm:pt-2 md:pt-4 overflow-visible sm:overflow-hidden pb-2 sm:pb-0 ${showBorders ? 'border-4 border-cyan-500' : ''}`}
       >
         {/* Greeting and Name container - Enhanced spacing */}
         <div
-          className={`text-left overflow-visible mt-16 sm:mt-12 md:mt-16 mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
+          className={`text-left overflow-visible mt-2 sm:mt-6 md:mt-8 mb-1 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-emerald-500' : ''}`}
         >
           <div className='w-full sm:inline-block text-left'>
             {/* Greeting - Improved typography and spacing */}
-            <motion.div
-              className={`w-full text-center sm:text-left mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.1,
-                duration: 0.8,
-                easing: [0.25, 0.46, 0.45, 0.94],
-              }}
+            <div
+              className={`w-full text-center sm:text-left mb-1 sm:mb-1 md:mb-2 ${showBorders ? 'border-4 border-indigo-500' : ''}`}
             >
               <div className='text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-300 font-semibold tracking-wide'>
                 Hi, I'm ...
               </div>
-            </motion.div>
+            </div>
 
             {/* Name section - Enhanced visual impact */}
-            <motion.div
+            <div
               className={`text-center sm:text-left relative w-full sm:inline-block overflow-visible ${showBorders ? 'border-4 border-purple-500' : ''}`}
-              initial={{ opacity: 0, y: 30, x: 0 }}
-              animate={{ opacity: 1, y: 0, x: 0 }}
-              transition={{
-                delay: 0.2,
-                duration: 0.8,
-                x: { duration: 0.1 },
-                easing: [0.25, 0.46, 0.45, 0.94],
-              }}
             >
               {/* Clean gradient name text - responsive layout */}
               <div className='font-black tracking-tighter relative z-50 text-center sm:text-left flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start'>
+                {/* First name - mobile uses blue gradient, desktop uses original purple→blue */}
                 <span
+                  className='block sm:hidden'
                   style={{
                     lineHeight: '0.85',
-                    fontSize: 'clamp(2.8rem, 7vw, 5rem)',
-                    fontFamily: 'Orbitron, sans-serif',
-                    letterSpacing: '-0.02em',
-                    background:
-                      'linear-gradient(18deg, #B06AF7 0%, #7BC6FF 100%)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    color: 'transparent',
-                  }}
-                  className='block sm:inline-block'
-                >
-                  <span style={{ fontSize: '1.1em' }}>H</span>
-                  <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
-                </span>
-                <span className='mr-4 hidden sm:inline'></span>
-                <span
-                  style={{
-                    lineHeight: '0.85',
-                    fontSize: 'clamp(2.8rem, 7vw, 5rem)',
+                    fontSize: 'clamp(3.8rem, 7vw, 6rem)',
                     fontFamily: 'Orbitron, sans-serif',
                     letterSpacing: '-0.02em',
                     background:
@@ -101,7 +66,61 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                     WebkitBackgroundClip: 'text',
                     color: 'transparent',
                   }}
-                  className='block sm:inline-block'
+                >
+                  <span style={{ fontSize: '1.1em' }}>H</span>
+                  <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
+                </span>
+                <span
+                  className='hidden sm:inline-block'
+                  style={{
+                    lineHeight: '0.85',
+                    fontSize: 'clamp(5rem, 9vw, 9rem)',
+                    fontFamily: 'Orbitron, sans-serif',
+                    letterSpacing: '-0.02em',
+                    background:
+                      'linear-gradient(18deg, #B06AF7 0%, #7BC6FF 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                  }}
+                >
+                  <span style={{ fontSize: '1.1em' }}>H</span>
+                  <span style={{ fontSize: '0.8em' }}>ARTLEY</span>
+                </span>
+                <span className='mr-4 hidden sm:inline'></span>
+                {/* Last name - mobile and desktop both blue→teal */}
+                <span
+                  className='block sm:hidden'
+                  style={{
+                    lineHeight: '0.85',
+                    fontSize: 'clamp(3.8rem, 7vw, 6rem)',
+                    fontFamily: 'Orbitron, sans-serif',
+                    letterSpacing: '-0.02em',
+                    background:
+                      'linear-gradient(18deg, #6AD5FF 0%, #28E1B1 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                  }}
+                >
+                  <span style={{ fontSize: '1.1em' }}>L</span>
+                  <span style={{ fontSize: '0.8em' }}>E</span>
+                  <span style={{ fontSize: '1.1em' }}>R</span>
+                  <span style={{ fontSize: '0.8em' }}>OY</span>
+                </span>
+                <span
+                  className='hidden sm:inline-block'
+                  style={{
+                    lineHeight: '0.85',
+                    fontSize: 'clamp(5rem, 9vw, 9rem)',
+                    fontFamily: 'Orbitron, sans-serif',
+                    letterSpacing: '-0.02em',
+                    background:
+                      'linear-gradient(18deg, #6AD5FF 0%, #28E1B1 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                  }}
                 >
                   <span style={{ fontSize: '1.1em' }}>L</span>
                   <span style={{ fontSize: '0.8em' }}>E</span>
@@ -138,23 +157,17 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
                   </span>
                 </div>
               )}
-            </motion.div>
+            </div>
           </div>
         </div>
 
         {/* Enhanced Role/Title - Harmonized colors */}
-        <motion.div
+        <div
           className={`text-center sm:text-left mb-2 sm:mb-3 md:mb-4 ${showBorders ? 'border-4 border-purple-500' : ''}`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 0.3,
-            duration: 0.8,
-            easing: [0.25, 0.46, 0.45, 0.94],
-          }}
         >
-          <div className='text-sm sm:text-base md:text-lg lg:text-xl text-zinc-200 font-light leading-relaxed'>
-            <div className='mb-2'>
+          <div className='text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light leading-relaxed'>
+            <div className='mb-2 flex items-center justify-center sm:justify-start gap-2'>
+              <span className='text-white sm:hidden'>—</span>
               <span
                 className='font-bold'
                 style={{
@@ -167,23 +180,29 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
               >
                 Cloud & Creative Engineer
               </span>
+              <span className='text-white sm:hidden'>—</span>
+              {/* Desktop-only right em dash and inline tagline */}
+              <span className='hidden sm:inline text-white'>—</span>
+              <span className='hidden sm:inline text-zinc-300 ml-2'>
+                Crafting end-to-end systems from edge to interface.
+              </span>
             </div>
             <div className='text-zinc-300'>
-              <div className='block sm:hidden'>
+              <div className='block sm:hidden text-base'>
                 <div>Crafting end-to-end systems</div>
                 <div>from edge to interface.</div>
               </div>
-              <div className='hidden sm:block'>
+              <div className='hidden'>
                 Crafting end-to-end systems from edge to interface.
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Center content container - Interactive elements and 3D visuals */}
       <div
-        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible mt-4 sm:mt-6 md:mt-8 mb-24 sm:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
+        className={`relative z-20 w-[95%] sm:w-[90%] md:w-[85%] max-w-7xl mx-auto flex-1 flex items-center justify-center overflow-visible mt-1 sm:mt-6 md:mt-8 mb-24 sm:mb-8 ${showBorders ? 'border-4 border-green-500' : ''}`}
       >
         {/* Interactive Elements - Enhanced two column layout with better spacing */}
         <div
@@ -207,7 +226,7 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
           </div>
           {/* Enhanced Neural Network Visualization */}
           <motion.div
-            className={`w-full h-full pointer-events-auto -mt-16 sm:-mt-12 md:-mt-16 ${showBorders ? 'border-4 border-lime-500' : ''}`}
+            className={`hidden sm:block w-full h-full pointer-events-auto sm:-mt-12 md:-mt-16 ${showBorders ? 'border-4 border-lime-500' : ''}`}
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{
@@ -264,15 +283,8 @@ export default function LandingPage({ onNextSection }: LandingPageProps) {
             {/* Main text */}
             <motion.button
               onClick={() => {
-                if (onNextSection) {
-                  // Use hash routing instead
-                  window.location.hash = 'about'
-                } else {
-                  const element = document.getElementById('experience')
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' })
-                  }
-                }
+                // Unify on mobile behavior: jump to #about (MobileStack) even on desktop
+                window.location.hash = 'about'
               }}
               className='text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-zinc-500 hover:text-purple-400 px-2 sm:px-4 transition-colors duration-300 cursor-pointer uppercase relative group'
               style={{ fontFamily: 'Orbitron, sans-serif' }}

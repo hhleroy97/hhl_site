@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
-import PageSection from '../ui/PageSection'
+import PageSection from '../../ui/PageSection'
 
 const services = [
   { id: 'consultation', name: 'Free 15-Minute Consultation', price: 'FREE' },
@@ -108,6 +108,7 @@ export default function ContactFooter() {
       taglineColor='emerald'
       title='Ready to bring your idea into reality?'
       cardVariant='floating'
+      flipMobileCorners={true}
     >
       <div className='w-full px-2 sm:px-4'>
         <div className='max-w-4xl mx-auto w-full'>

@@ -107,7 +107,7 @@
 @layer components {
   /* Container utility */
   .container-custom {
-    @apply max-w-[90vw] mx-auto px-3 md:px-4;
+    @apply max-w-[95vw] md:max-w-[90vw] mx-auto px-3 md:px-4;
   }
 
   /* Button styles - new design system */

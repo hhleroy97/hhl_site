@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { ReactNode } from 'react'
 import TechCard from './TechCard'
 import { useCardVariant } from '../../context/CardVariantContext'
@@ -13,6 +12,8 @@ interface PageSectionProps {
   className?: string
   cardVariant?: 'floating' | 'rotated' | 'background' | 'cutcorner'
   isHomePage?: boolean
+  /** Alternates corner highlight on mobile view only */
+  flipMobileCorners?: boolean
 }
 
 export default function PageSection({
@@ -25,41 +26,58 @@ export default function PageSection({
   className = '',
   cardVariant,
   isHomePage = false,
+  flipMobileCorners = false,
 }: PageSectionProps) {
   const { variant } = useCardVariant()
   const selectedVariant = cardVariant || variant
 
+  const bgGradientClass = flipMobileCorners
+    ? 'bg-gradient-to-tl md:bg-gradient-to-br'
+    : 'bg-gradient-to-br'
+
+  const firstLineClass = flipMobileCorners
+    ? 'md:left-1/4 md:right-auto right-1/4'
+    : 'left-1/4'
+
+  const secondLineClass = flipMobileCorners
+    ? 'md:right-1/3 md:left-auto left-1/3'
+    : 'right-1/3'
+
   return (
     <section
       id={id}
-      className={`min-h-screen relative overflow-hidden flex items-center ${className}`}
+      className={`min-h-[100svh] md:min-h-screen relative overflow-hidden flex items-stretch md:items-center bg-black md:bg-transparent ${className}`}
     >
       {/* Glossy background effects */}
-      <div className='absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black' />
-      <div className='absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent' />
-      <div className='absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent' />
+      <div
+        className={`absolute inset-0 ${bgGradientClass} from-zinc-950 via-zinc-900 to-black`}
+      />
+      <div
+        className={`absolute top-0 ${firstLineClass} w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent`}
+      />
+      <div
+        className={`absolute top-0 ${secondLineClass} w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent`}
+      />
 
       <div
-        className={`container-custom relative z-10 w-full pt-4 sm:pt-6 md:pt-8 ${isHomePage ? 'pb-4 sm:pb-6 md:pb-8' : 'pb-16 sm:pb-24 md:pb-32'}`}
+        className={`relative z-10 w-full pt-0 sm:pt-0 md:pt-2 px-0 max-w-none md:max-w-[90vw] md:mx-auto md:px-4 ${isHomePage ? 'pb-0 sm:pb-0 md:pb-2' : 'pb-0 sm:pb-0 md:pb-24'}`}
       >
         {/* Complete section wrapped in TechCard */}
-        <motion.div
-          className='h-full'
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
+        <div className='h-full'>
           <TechCard
             title={tagline}
             variant={selectedVariant}
             color={taglineColor}
-            className='h-[90vh] sm:h-[88vh] md:h-[85vh] flex flex-col'
+            flipMobileCorners={flipMobileCorners}
+            rounded={false}
+            className='w-full min-h-[100svh] md:min-h-0 md:h-[85svh] flex flex-col rounded-none md:rounded-2xl'
           >
             {/* Section header */}
-            <div className='text-center mb-4 sm:mb-5 md:mb-6 flex-shrink-0'>
+            <div
+              className={`text-center mb-4 sm:mb-5 md:mb-6 flex-shrink-0 ${id === 'about' ? 'hidden md:block' : ''}`}
+            >
               <h2
-                className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
+                className='text-base sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent'
                 style={{ fontFamily: 'Orbitron, sans-serif' }}
               >
                 {title
@@ -211,7 +229,7 @@ export default function PageSection({
               {children}
             </div>
           </TechCard>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
