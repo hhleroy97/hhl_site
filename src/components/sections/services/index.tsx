@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import PageSection from '../ui/PageSection'
+import PageSection from '../../ui/PageSection'
 import ServiceCard from './ServiceCard'
 import {
   FaCalendarAlt,
@@ -92,6 +92,7 @@ export default function Services() {
       title='Professional Services'
       subtitle='From Consultation to Delivery'
       cardVariant='floating'
+      flipMobileCorners={true}
     >
       <div className='w-full px-2 sm:px-4'>
         <p className='text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto text-center mb-6 sm:mb-8'>

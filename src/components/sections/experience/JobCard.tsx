@@ -75,7 +75,7 @@ export default function JobCard({
         >
           {company}
         </h3>
-        <p className='text-xs text-zinc-300 leading-tight mb-1 font-medium'>
+        <p className='text-xs text-zinc-300 leading-tight mb-1 font-medium pl-2 sm:pl-3 md:pl-4'>
           {title}
         </p>
         <div className='w-16 h-px bg-zinc-500/50 mx-auto mb-1'></div>

@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navigation from './ui/Navigation'
-import LandingPage from './portfolio/LandingPage'
-import Services from './portfolio/Services'
-import Experience from './portfolio/Experience'
-import About from './portfolio/About'
-import Skills from './portfolio/Skills'
-import Contact from './portfolio/Contact'
+import LandingPage from './sections/landing'
+import Services from './sections/services'
+import Experience from './sections/experience'
+import About from './sections/about'
+import Skills from './sections/skills'
+import Contact from './sections/contact'
 
 const sections = [
   {
@@ -260,7 +260,7 @@ export default function SlideshowPortfolio() {
             style={{ pointerEvents: 'auto' }}
           >
             <div
-              className='h-screen overflow-y-auto pb-24'
+              className='h-screen overflow-hidden pb-24'
               style={{ pointerEvents: 'auto' }}
             >
               <CurrentComponent {...componentProps} />
