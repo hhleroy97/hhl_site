@@ -170,7 +170,12 @@ const experiences = [
 ]
 
 export default function WorkExperienceTimelineHorizontal() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+  const [mobileSelectedIndex, setMobileSelectedIndex] = useState<number | null>(
+    null
+  )
+  const [desktopSelectedIndex, setDesktopSelectedIndex] = useState<
+    number | null
+  >(null)
   const [clickedCardPosition, setClickedCardPosition] = useState<{
     x: number
     y: number
@@ -179,8 +184,13 @@ export default function WorkExperienceTimelineHorizontal() {
   // Reverse experiences for mobile (most recent first)
   const mobileExperiences = [...experiences].reverse()
 
-  const closeExpanded = () => {
-    setSelectedIndex(null)
+  const closeMobileExpanded = () => {
+    setMobileSelectedIndex(null)
+    setClickedCardPosition(null)
+  }
+
+  const closeDesktopExpanded = () => {
+    setDesktopSelectedIndex(null)
     setClickedCardPosition(null)
   }
 
@@ -232,7 +242,7 @@ export default function WorkExperienceTimelineHorizontal() {
                           e =>
                             e.company === exp.company && e.title === exp.title
                         )
-                        setSelectedIndex(originalIndex)
+                        setMobileSelectedIndex(originalIndex)
                       }}
                     />
                   </div>
@@ -347,7 +357,7 @@ export default function WorkExperienceTimelineHorizontal() {
                           x: rect.left + rect.width / 2,
                           y: rect.top + rect.height / 2,
                         })
-                        setSelectedIndex(index)
+                        setDesktopSelectedIndex(index)
                       }}
                     />
                   </div>
@@ -374,28 +384,26 @@ export default function WorkExperienceTimelineHorizontal() {
 
       {/* Job View Modal - Outside PageSection for full-screen */}
       {/* Mobile Modal */}
-      <div className='block sm:hidden'>
-        <MobileJobView
-          isOpen={selectedIndex !== null}
-          onClose={closeExpanded}
-          experience={
-            selectedIndex !== null ? experiences[selectedIndex] : null
-          }
-          clickedPosition={clickedCardPosition}
-        />
-      </div>
+      <MobileJobView
+        isOpen={mobileSelectedIndex !== null}
+        onClose={closeMobileExpanded}
+        experience={
+          mobileSelectedIndex !== null ? experiences[mobileSelectedIndex] : null
+        }
+        clickedPosition={clickedCardPosition}
+      />
 
       {/* Desktop Modal */}
-      <div className='hidden sm:block'>
-        <JobView
-          isOpen={selectedIndex !== null}
-          onClose={closeExpanded}
-          experience={
-            selectedIndex !== null ? experiences[selectedIndex] : null
-          }
-          clickedPosition={clickedCardPosition}
-        />
-      </div>
+      <JobView
+        isOpen={desktopSelectedIndex !== null}
+        onClose={closeDesktopExpanded}
+        experience={
+          desktopSelectedIndex !== null
+            ? experiences[desktopSelectedIndex]
+            : null
+        }
+        clickedPosition={clickedCardPosition}
+      />
     </>
   )
 }
