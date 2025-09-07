@@ -111,7 +111,7 @@ export default function JobView({
               <X className='w-5 h-5 text-white' />
             </button>
 
-            <div className='relative z-10 mt-12 sm:mt-0'>
+            <div className='relative z-10'>
               {/* Header Container */}
               <div className='mb-4 sm:mb-6'>
                 <div className='flex flex-col items-center text-center mb-4'>
@@ -144,8 +144,8 @@ export default function JobView({
                   </p>
                 </div>
 
-                {/* Date, location, industry - left aligned under header */}
-                <div className='flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-zinc-400 text-sm sm:text-base'>
+                {/* Date, location, industry - centered under header */}
+                <div className='flex flex-col sm:flex-row sm:items-center justify-center gap-1 sm:gap-4 text-zinc-400 text-sm sm:text-base text-center'>
                   <span className='font-medium'>{experience.timeframe}</span>
                   <span className='hidden sm:inline'>•</span>
                   <span>{experience.location}</span>
