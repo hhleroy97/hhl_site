@@ -242,7 +242,7 @@ export default function WorkExperienceTimelineHorizontal() {
           </div>
 
           {/* Desktop Horizontal Timeline */}
-          <div className='hidden sm:block h-full flex items-center justify-center'>
+          <div className='hidden sm:block h-full flex items-center justify-center pt-16 sm:pt-20 md:pt-24'>
             {/* Main Container - Centered Timeline with Job Cards */}
             <div className='flex flex-col items-center justify-center w-full'>
               {/* Timeline Container - Centered */}

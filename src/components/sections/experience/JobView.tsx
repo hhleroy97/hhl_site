@@ -61,7 +61,7 @@ export default function JobView({
           onClick={handleClose}
         >
           <motion.div
-            className='bg-black/90 backdrop-blur-md rounded-3xl border border-white/20 p-8 max-w-6xl w-[90vw] max-h-[85vh] shadow-2xl overflow-y-auto overflow-x-hidden'
+            className='bg-black/90 backdrop-blur-md rounded-3xl border border-white/20 p-8 max-w-6xl w-[90vw] shadow-2xl'
             initial={{
               scale: 0,
               opacity: 0,
@@ -112,60 +112,53 @@ export default function JobView({
             </button>
 
             <div className='relative z-10'>
-              {/* Header Container */}
-              <div className='mb-6'>
-                <div className='flex items-center gap-4'>
-                  <div className='w-24 h-24 rounded-full bg-white backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-2xl shadow-xl relative flex-shrink-0'>
-                    <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full opacity-20'></div>
-                    <div className='relative z-10 flex items-center justify-center'>
-                      {typeof experience.logo === 'string' &&
-                      (experience.logo.startsWith('/') ||
-                        experience.logo.startsWith('data:') ||
-                        experience.logo.includes('.') ||
-                        experience.logo.startsWith('blob:')) ? (
-                        <img
-                          src={experience.logo}
-                          alt={`${experience.company} logo`}
-                          className='w-16 h-16 object-contain'
-                        />
-                      ) : (
-                        <span className='text-2xl'>{experience.logo}</span>
-                      )}
-                    </div>
-                  </div>
-                  <div className='flex-1'>
-                    <h2
-                      className='text-3xl font-bold text-white mb-2'
-                      style={{ fontFamily: 'Orbitron, sans-serif' }}
-                    >
-                      {experience.company}
-                    </h2>
-                    <p className='text-xl text-cyan-400 font-semibold'>
-                      {experience.title}
-                    </p>
+              {/* Header */}
+              <div className='flex items-start gap-6 mb-8'>
+                <div className='w-24 h-24 rounded-full bg-white backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-2xl shadow-xl relative'>
+                  <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full opacity-20'></div>
+                  <div className='relative z-10 flex items-center justify-center'>
+                    {typeof experience.logo === 'string' &&
+                    (experience.logo.startsWith('/') ||
+                      experience.logo.startsWith('data:') ||
+                      experience.logo.includes('.') ||
+                      experience.logo.startsWith('blob:')) ? (
+                      <img
+                        src={experience.logo}
+                        alt={`${experience.company} logo`}
+                        className='w-16 h-16 object-contain'
+                      />
+                    ) : (
+                      <span className='text-2xl'>{experience.logo}</span>
+                    )}
                   </div>
                 </div>
-
-                {/* Date, location, industry - left aligned under header */}
-                <div className='flex items-center gap-4 text-zinc-400 text-base mt-4'>
-                  <span className='font-medium'>{experience.timeframe}</span>
-                  <span>•</span>
-                  <span>{experience.location}</span>
-                  <span>•</span>
-                  <span>{experience.industry}</span>
+                <div className='flex-1'>
+                  <h2 className='text-3xl font-bold text-white mb-2'>
+                    {experience.company}
+                  </h2>
+                  <p className='text-xl text-cyan-400 font-semibold mb-2'>
+                    {experience.title}
+                  </p>
+                  <div className='flex items-center gap-4 text-zinc-400'>
+                    <span className='font-medium'>{experience.timeframe}</span>
+                    <span>•</span>
+                    <span>{experience.location}</span>
+                    <span>•</span>
+                    <span>{experience.workType}</span>
+                  </div>
                 </div>
               </div>
 
               {/* Description */}
-              <div className='mb-6'>
+              <div className='mb-8'>
                 <p className='text-zinc-300 leading-relaxed text-lg'>
                   {experience.description}
                 </p>
               </div>
 
               {/* Key Contributions */}
-              <div className='mb-6'>
-                <h3 className='text-white font-bold mb-3 text-xl'>
+              <div className='mb-8'>
+                <h3 className='text-white font-bold mb-4 text-xl'>
                   Key Contributions
                 </h3>
                 <ul className='space-y-3'>
@@ -174,7 +167,7 @@ export default function JobView({
                       <div
                         className={`w-2 h-2 bg-gradient-to-r ${experience.color} rounded-full mt-2 flex-shrink-0`}
                       ></div>
-                      <span className='text-zinc-300 leading-relaxed text-base'>
+                      <span className='text-zinc-300 leading-relaxed'>
                         {contribution}
                       </span>
                     </li>
@@ -184,14 +177,14 @@ export default function JobView({
 
               {/* Technologies */}
               <div>
-                <h3 className='text-white font-bold mb-3 text-xl'>
+                <h3 className='text-white font-bold mb-4 text-xl'>
                   Technologies & Skills
                 </h3>
                 <div className='flex flex-wrap gap-3'>
                   {experience.technologies.map(tech => (
                     <span
                       key={tech}
-                      className='px-4 py-2 bg-white/10 border border-white/20 rounded-xl font-medium text-zinc-300 text-sm'
+                      className='px-4 py-2 bg-white/10 border border-white/20 rounded-xl font-medium text-zinc-300'
                     >
                       {tech}
                     </span>
