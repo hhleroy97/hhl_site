@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import PageSection from '../../ui/PageSection'
 import JobCard from './JobCard'
+import MobileJobCard from './MobileJobCard'
 import JobView from './JobView'
 import fdaLogo from '../../../assets/fda-logo.png'
 import softhreadLogo from '../../../assets/Softhread_Logo.jpg'
@@ -174,6 +175,9 @@ export default function WorkExperienceTimelineHorizontal() {
     y: number
   } | null>(null)
 
+  // Reverse experiences for mobile (most recent first)
+  const mobileExperiences = [...experiences].reverse()
+
   const closeExpanded = () => {
     setSelectedIndex(null)
     setClickedCardPosition(null)
@@ -190,129 +194,177 @@ export default function WorkExperienceTimelineHorizontal() {
       flipMobileCorners={true}
     >
       <div className='max-w-full mx-auto px-1 sm:px-2 h-full flex flex-col justify-center'>
-        {/* Main Container - Centered Timeline with Job Cards */}
-        <div className='flex flex-col items-center justify-center'>
-          {/* Timeline Container - Centered */}
-          <div className='relative w-full'>
-            {/* Main Timeline Line - Extended to 2026 with arrow */}
-            <div className='relative h-px bg-gradient-to-r from-cyan-400/30 via-cyan-400/60 to-cyan-400/40 mx-2 sm:mx-4'>
-              {/* Extended line for 2026 */}
-              <div className='absolute right-0 top-0 w-16 h-px bg-gradient-to-r from-cyan-400/60 to-cyan-400/30'></div>
+        {/* Mobile Experience Cards */}
+        <div className='block sm:hidden'>
+          <div className='max-w-sm mx-auto px-4'>
+            {/* Click hint for mobile - moved up under tagline */}
+            <div
+              className='text-center text-white text-xs font-bold flex items-center justify-center gap-1 mb-8'
+              style={{ fontFamily: 'Orbitron, sans-serif' }}
+            >
+              <span className='text-base text-white'>[</span>
+              <span>Tap to learn more</span>
+              <span className='text-base text-white'>]</span>
+            </div>
 
-              {/* Arrow pointing right at the very end - aligned with line */}
-              <div className='absolute right-0 top-1/2 transform translate-x-full -translate-y-1/2 w-0 h-0 border-l-[10px] border-l-cyan-400/60 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent'></div>
-
-              {/* Year markers with dots - centered on line */}
-              <div className='absolute left-0 right-16 top-1/2 transform -translate-y-1/2 flex justify-between items-center'>
-                {/* Year marker dots */}
-                <div className='relative'>
-                  <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                  <span
-                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
-                    style={{ fontFamily: 'Orbitron, sans-serif' }}
-                  >
-                    2020
-                  </span>
+            {/* Mobile Experience Items - No Timeline */}
+            <div className='space-y-4 pb-8'>
+              {mobileExperiences.map((exp, index) => (
+                <div key={`mobile-${exp.company}-${index}`}>
+                  <MobileJobCard
+                    logo={exp.logo}
+                    company={exp.company}
+                    title={exp.title}
+                    timeframe={exp.timeframe}
+                    location={exp.location}
+                    workType={exp.workType}
+                    industry={exp.industry}
+                    index={index}
+                    onClick={event => {
+                      const rect = event.currentTarget.getBoundingClientRect()
+                      setClickedCardPosition({
+                        x: rect.left + rect.width / 2,
+                        y: rect.top + rect.height / 2,
+                      })
+                      // Find original index in the non-reversed array
+                      const originalIndex = experiences.findIndex(
+                        e => e.company === exp.company && e.title === exp.title
+                      )
+                      setSelectedIndex(originalIndex)
+                    }}
+                  />
                 </div>
-                <div className='relative'>
-                  <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                  <span
-                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
-                    style={{ fontFamily: 'Orbitron, sans-serif' }}
-                  >
-                    2021
-                  </span>
-                </div>
-                <div className='relative'>
-                  <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                  <span
-                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
-                    style={{ fontFamily: 'Orbitron, sans-serif' }}
-                  >
-                    2022
-                  </span>
-                </div>
-                <div className='relative'>
-                  <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                  <span
-                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
-                    style={{ fontFamily: 'Orbitron, sans-serif' }}
-                  >
-                    2023
-                  </span>
-                </div>
-                <div className='relative'>
-                  <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                  <span
-                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
-                    style={{ fontFamily: 'Orbitron, sans-serif' }}
-                  >
-                    2024
-                  </span>
-                </div>
-                <div className='relative'>
-                  <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
-                  <span
-                    className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
-                    style={{ fontFamily: 'Orbitron, sans-serif' }}
-                  >
-                    2025
-                  </span>
-                </div>
-              </div>
-
-              {/* Experience dots positioned along the line */}
-              <div className='absolute left-0 right-16 top-1/2 transform -translate-y-1/2 flex justify-between items-center'>
-                {experiences.map((_, index) => (
-                  <div
-                    key={`exp-dot-${index}`}
-                    className='w-3 h-3 bg-cyan-400 rounded-full border-2 border-black/50 shadow-lg'
-                  ></div>
-                ))}
-              </div>
+              ))}
             </div>
           </div>
+        </div>
 
-          {/* Job Cards Grid - Centered below Timeline */}
-          <div className='group/cards grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4 w-full mt-12 sm:mt-16 md:mt-20'>
-            {experiences.map((exp, index) => (
-              <div key={`${exp.company}-${index}`} className='relative'>
-                {/* Connecting line from timeline to job card */}
-                <div className='absolute left-1/2 -top-12 sm:-top-16 md:-top-20 w-px h-12 sm:h-16 md:h-20 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
+        {/* Desktop Horizontal Timeline */}
+        <div className='hidden sm:block'>
+          {/* Main Container - Centered Timeline with Job Cards */}
+          <div className='flex flex-col items-center justify-center'>
+            {/* Timeline Container - Centered */}
+            <div className='relative w-full'>
+              {/* Main Timeline Line - Extended to 2026 with arrow */}
+              <div className='relative h-px bg-gradient-to-r from-cyan-400/30 via-cyan-400/60 to-cyan-400/40 mx-2 sm:mx-4'>
+                {/* Extended line for 2026 */}
+                <div className='absolute right-0 top-0 w-16 h-px bg-gradient-to-r from-cyan-400/60 to-cyan-400/30'></div>
 
-                <JobCard
-                  logo={exp.logo}
-                  company={exp.company}
-                  title={exp.title}
-                  location={exp.location}
-                  workType={exp.workType}
-                  industry={exp.industry}
-                  index={index}
-                  onClick={event => {
-                    const rect = event.currentTarget.getBoundingClientRect()
-                    setClickedCardPosition({
-                      x: rect.left + rect.width / 2,
-                      y: rect.top + rect.height / 2,
-                    })
-                    setSelectedIndex(index)
-                  }}
-                />
+                {/* Arrow pointing right at the very end - aligned with line */}
+                <div className='absolute right-0 top-1/2 transform translate-x-full -translate-y-1/2 w-0 h-0 border-l-[10px] border-l-cyan-400/60 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent'></div>
+
+                {/* Year markers with dots - centered on line */}
+                <div className='absolute left-0 right-16 top-1/2 transform -translate-y-1/2 flex justify-between items-center'>
+                  {/* Year marker dots */}
+                  <div className='relative'>
+                    <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                    <span
+                      className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
+                      style={{ fontFamily: 'Orbitron, sans-serif' }}
+                    >
+                      2020
+                    </span>
+                  </div>
+                  <div className='relative'>
+                    <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                    <span
+                      className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
+                      style={{ fontFamily: 'Orbitron, sans-serif' }}
+                    >
+                      2021
+                    </span>
+                  </div>
+                  <div className='relative'>
+                    <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                    <span
+                      className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
+                      style={{ fontFamily: 'Orbitron, sans-serif' }}
+                    >
+                      2022
+                    </span>
+                  </div>
+                  <div className='relative'>
+                    <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                    <span
+                      className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
+                      style={{ fontFamily: 'Orbitron, sans-serif' }}
+                    >
+                      2023
+                    </span>
+                  </div>
+                  <div className='relative'>
+                    <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                    <span
+                      className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
+                      style={{ fontFamily: 'Orbitron, sans-serif' }}
+                    >
+                      2024
+                    </span>
+                  </div>
+                  <div className='relative'>
+                    <div className='w-2 h-2 bg-cyan-400 rounded-full border border-black/50 shadow-lg'></div>
+                    <span
+                      className='absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm text-white font-bold'
+                      style={{ fontFamily: 'Orbitron, sans-serif' }}
+                    >
+                      2025
+                    </span>
+                  </div>
+                </div>
+
+                {/* Experience dots positioned along the line */}
+                <div className='absolute left-0 right-16 top-1/2 transform -translate-y-1/2 flex justify-between items-center'>
+                  {experiences.map((_, index) => (
+                    <div
+                      key={`exp-dot-${index}`}
+                      className='w-3 h-3 bg-cyan-400 rounded-full border-2 border-black/50 shadow-lg'
+                    ></div>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
 
-          {/* Click hint - Centered */}
-          <div
-            className='text-center text-white text-sm sm:text-base md:text-xl font-bold flex items-center justify-center gap-1 sm:gap-2'
-            style={{ fontFamily: 'Orbitron, sans-serif' }}
-          >
-            <span className='text-xl sm:text-2xl md:text-3xl text-white'>
-              [
-            </span>
-            <span>Click on any company to learn more</span>
-            <span className='text-xl sm:text-2xl md:text-3xl text-white'>
-              ]
-            </span>
+            {/* Job Cards Grid - Centered below Timeline */}
+            <div className='group/cards grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4 w-full mt-12 sm:mt-16 md:mt-20'>
+              {experiences.map((exp, index) => (
+                <div key={`${exp.company}-${index}`} className='relative'>
+                  {/* Connecting line from timeline to job card */}
+                  <div className='absolute left-1/2 -top-12 sm:-top-16 md:-top-20 w-px h-12 sm:h-16 md:h-20 bg-gradient-to-b from-cyan-400/60 to-cyan-400/20 transform -translate-x-1/2'></div>
+
+                  <JobCard
+                    logo={exp.logo}
+                    company={exp.company}
+                    title={exp.title}
+                    location={exp.location}
+                    workType={exp.workType}
+                    industry={exp.industry}
+                    index={index}
+                    onClick={event => {
+                      const rect = event.currentTarget.getBoundingClientRect()
+                      setClickedCardPosition({
+                        x: rect.left + rect.width / 2,
+                        y: rect.top + rect.height / 2,
+                      })
+                      setSelectedIndex(index)
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Click hint - Centered */}
+            <div
+              className='text-center text-white text-sm sm:text-base md:text-xl font-bold flex items-center justify-center gap-1 sm:gap-2 mt-4 sm:mt-36'
+              style={{ fontFamily: 'Orbitron, sans-serif' }}
+            >
+              <span className='text-xl sm:text-2xl md:text-3xl text-white'>
+                [
+              </span>
+              <span>Click on any company to learn more</span>
+              <span className='text-xl sm:text-2xl md:text-3xl text-white'>
+                ]
+              </span>
+            </div>
           </div>
         </div>
       </div>
