@@ -111,54 +111,59 @@ export default function JobView({
               <X className='w-5 h-5 text-white' />
             </button>
 
-            <div className='relative z-10'>
-              {/* Header */}
-              <div className='flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6 sm:mb-8 text-center sm:text-left'>
-                <div className='w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-2xl shadow-xl relative'>
-                  <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full opacity-20'></div>
-                  <div className='relative z-10 flex items-center justify-center'>
-                    {typeof experience.logo === 'string' &&
-                    (experience.logo.startsWith('/') ||
-                      experience.logo.startsWith('data:') ||
-                      experience.logo.includes('.') ||
-                      experience.logo.startsWith('blob:')) ? (
-                      <img
-                        src={experience.logo}
-                        alt={`${experience.company} logo`}
-                        className='w-12 h-12 sm:w-16 sm:h-16 object-contain'
-                      />
-                    ) : (
-                      <span className='text-2xl'>{experience.logo}</span>
-                    )}
+            <div className='relative z-10 mt-12 sm:mt-0'>
+              {/* Header Container */}
+              <div className='mb-4 sm:mb-6'>
+                <div className='flex flex-col items-center text-center mb-4'>
+                  <div className='w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white backdrop-blur-md border-2 border-white/30 flex items-center justify-center text-2xl shadow-xl relative flex-shrink-0 mb-4'>
+                    <div className='absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full opacity-20'></div>
+                    <div className='relative z-10 flex items-center justify-center'>
+                      {typeof experience.logo === 'string' &&
+                      (experience.logo.startsWith('/') ||
+                        experience.logo.startsWith('data:') ||
+                        experience.logo.includes('.') ||
+                        experience.logo.startsWith('blob:')) ? (
+                        <img
+                          src={experience.logo}
+                          alt={`${experience.company} logo`}
+                          className='w-12 h-12 sm:w-16 sm:h-16 object-contain'
+                        />
+                      ) : (
+                        <span className='text-2xl'>{experience.logo}</span>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className='flex-1'>
-                  <h2 className='text-2xl sm:text-3xl font-bold text-white mb-2'>
+                  <h2
+                    className='text-2xl sm:text-3xl font-bold text-white mb-2'
+                    style={{ fontFamily: 'Orbitron, sans-serif' }}
+                  >
                     {experience.company}
                   </h2>
-                  <p className='text-lg sm:text-xl text-cyan-400 font-semibold mb-2'>
+                  <p className='text-lg sm:text-xl text-cyan-400 font-semibold'>
                     {experience.title}
                   </p>
-                  <div className='flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-zinc-400 text-sm sm:text-base'>
-                    <span className='font-medium'>{experience.timeframe}</span>
-                    <span className='hidden sm:inline'>•</span>
-                    <span>{experience.location}</span>
-                    <span className='hidden sm:inline'>•</span>
-                    <span>{experience.workType}</span>
-                  </div>
+                </div>
+
+                {/* Date, location, industry - left aligned under header */}
+                <div className='flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-zinc-400 text-sm sm:text-base'>
+                  <span className='font-medium'>{experience.timeframe}</span>
+                  <span className='hidden sm:inline'>•</span>
+                  <span>{experience.location}</span>
+                  <span className='hidden sm:inline'>•</span>
+                  <span>{experience.industry}</span>
                 </div>
               </div>
 
               {/* Description */}
-              <div className='mb-6 sm:mb-8'>
+              <div className='mb-4 sm:mb-6'>
                 <p className='text-zinc-300 leading-relaxed text-base sm:text-lg'>
                   {experience.description}
                 </p>
               </div>
 
               {/* Key Contributions */}
-              <div className='mb-6 sm:mb-8'>
-                <h3 className='text-white font-bold mb-3 sm:mb-4 text-lg sm:text-xl'>
+              <div className='mb-4 sm:mb-6'>
+                <h3 className='text-white font-bold mb-2 sm:mb-3 text-lg sm:text-xl'>
                   Key Contributions
                 </h3>
                 <ul className='space-y-2 sm:space-y-3'>
@@ -177,7 +182,7 @@ export default function JobView({
 
               {/* Technologies */}
               <div>
-                <h3 className='text-white font-bold mb-3 sm:mb-4 text-lg sm:text-xl'>
+                <h3 className='text-white font-bold mb-2 sm:mb-3 text-lg sm:text-xl'>
                   Technologies & Skills
                 </h3>
                 <div className='flex flex-wrap gap-2 sm:gap-3'>
