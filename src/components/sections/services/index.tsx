@@ -206,36 +206,67 @@ export default function Services() {
           </div>
         </div>
 
-        {/* Service Cards - Original SlimCard Desktop Layout */}
+        {/* Service Cards - Desktop and Mobile with Toggle */}
         <div className='w-full max-w-7xl mx-auto'>
-          {/* Desktop: Original slim card grid layout */}
+          {/* Desktop: Toggle-based slim card grid layout */}
           <div className='hidden sm:block'>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8 sm:gap-12 md:gap-16 lg:gap-12 xl:gap-8'>
-              {quickServices.map((service, index) => (
-                <motion.div
-                  key={service.id}
-                  className='h-full'
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.8,
-                    delay: index * 0.1,
-                    ease: 'easeOut',
-                  }}
-                >
-                  <ServiceCard
-                    title={service.title}
-                    description={service.description}
-                    price={service.price}
-                    icon={service.icon}
-                    isHighlighted={service.isHighlighted}
-                    onSelect={() => handleServiceSelect(service.id)}
-                    serviceId={service.id}
-                  />
-                </motion.div>
-              ))}
-            </div>
+            {serviceType === 'longterm' ? (
+              /* Long-term: Centered layout for 2 services */
+              <div className='flex justify-center gap-8'>
+                {currentServices.map((service, index) => (
+                  <motion.div
+                    key={service.id}
+                    className='h-full'
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.8,
+                      delay: index * 0.1,
+                      ease: 'easeOut',
+                    }}
+                  >
+                    <ServiceCard
+                      title={service.title}
+                      description={service.description}
+                      price={service.price}
+                      icon={service.icon}
+                      isHighlighted={service.isHighlighted}
+                      onSelect={() => handleServiceSelect(service.id)}
+                      serviceId={service.id}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              /* Quick: Grid layout for 6 services */
+              <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8 sm:gap-12 md:gap-16 lg:gap-12 xl:gap-8'>
+                {currentServices.map((service, index) => (
+                  <motion.div
+                    key={service.id}
+                    className='h-full'
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.8,
+                      delay: index * 0.1,
+                      ease: 'easeOut',
+                    }}
+                  >
+                    <ServiceCard
+                      title={service.title}
+                      description={service.description}
+                      price={service.price}
+                      icon={service.icon}
+                      isHighlighted={service.isHighlighted}
+                      onSelect={() => handleServiceSelect(service.id)}
+                      serviceId={service.id}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Mobile: Toggle-based layout */}
