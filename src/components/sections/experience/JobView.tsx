@@ -46,14 +46,14 @@ export default function JobView({
     >
       {isOpen && !isClosing && (
         <motion.div
-          className='fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/80 backdrop-blur-md'
+          className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleClose}
         >
           <motion.div
-            className='bg-black/90 backdrop-blur-md rounded-3xl border border-white/20 p-6 w-full max-w-4xl max-h-full shadow-2xl overflow-y-auto overflow-x-hidden'
+            className='bg-black/90 backdrop-blur-md rounded-3xl border border-white/20 p-8 w-full max-w-5xl min-h-[80vh] max-h-[90vh] shadow-2xl overflow-y-auto overflow-x-hidden'
             initial={{
               scale: 0.8,
               opacity: 0,
