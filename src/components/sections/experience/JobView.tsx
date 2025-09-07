@@ -61,7 +61,7 @@ export default function JobView({
           onClick={handleClose}
         >
           <motion.div
-            className='bg-black/90 backdrop-blur-md rounded-none sm:rounded-3xl border-0 sm:border sm:border-white/20 p-4 sm:p-8 max-w-6xl w-full sm:w-[90vw] h-full sm:h-auto shadow-2xl overflow-y-auto sm:overflow-visible overflow-x-hidden'
+            className='bg-black/90 backdrop-blur-md rounded-none sm:rounded-3xl border-0 sm:border sm:border-white/20 p-4 sm:p-8 max-w-6xl w-full sm:w-[90vw] h-full sm:h-auto sm:max-h-[85vh] shadow-2xl overflow-y-auto sm:overflow-y-auto overflow-x-hidden'
             initial={{
               scale: 0,
               opacity: 0,
