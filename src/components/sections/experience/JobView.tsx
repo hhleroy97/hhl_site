@@ -111,7 +111,7 @@ export default function JobView({
               <X className='w-5 h-5 text-white' />
             </button>
 
-            <div className='relative z-10'>
+            <div className='relative z-10 pt-4 sm:pt-0'>
               {/* Header Container */}
               <div className='mb-4 sm:mb-6'>
                 <div className='flex flex-col items-center text-center mb-2'>
