@@ -211,12 +211,12 @@ export default function Services() {
           {/* Desktop: Toggle-based slim card grid layout */}
           <div className='hidden sm:block'>
             {serviceType === 'longterm' ? (
-              /* Long-term: Centered layout for 2 services */
-              <div className='flex justify-center gap-8'>
+              /* Long-term: Centered layout for 2 services with constrained width */
+              <div className='flex justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-12 xl:gap-8'>
                 {currentServices.map((service, index) => (
                   <motion.div
                     key={service.id}
-                    className='h-full'
+                    className='h-full w-full max-w-[200px] sm:max-w-[240px] md:max-w-[280px] lg:max-w-[220px] xl:max-w-[180px]'
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
