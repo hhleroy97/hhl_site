@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && npm run replace-env-vars",
+    "build": "tsc && vite build",
     "build:no-replace": "tsc && vite build",
     "replace-env-vars": "node scripts/replace-env-vars.js",
     "preview": "vite preview",
