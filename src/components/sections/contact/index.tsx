@@ -96,11 +96,15 @@ export default function ContactFooter() {
       console.error('Failed to send email:', error)
 
       // Log detailed error information for debugging
-      console.error('Error details:', {
-        message: error.message,
-        name: error.name,
-        stack: error.stack,
-      })
+      if (error instanceof Error) {
+        console.error('Error details:', {
+          message: error.message,
+          name: error.name,
+          stack: error.stack,
+        })
+      } else {
+        console.error('Unknown error type:', error)
+      }
 
       setSubmitStatus('error')
 
