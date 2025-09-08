@@ -13,8 +13,8 @@ const services = [
     name: 'Real-Time Interactive Systems',
     price: '$9,999+',
   },
-  { id: 'fulltime', name: 'Full Time Position', price: 'Negotiable' },
-  { id: 'freelance', name: 'Freelance Position', price: 'Project-based' },
+  { id: 'freelance', name: 'Freelance Contract', price: 'Negotiable' },
+  { id: 'fulltime', name: 'Full-Time Employment', price: 'Negotiable' },
 ].sort((a, b) => a.name.localeCompare(b.name))
 
 export default function ContactFooter() {
@@ -30,12 +30,34 @@ export default function ContactFooter() {
     'idle' | 'success' | 'error'
   >('idle')
 
-  // Pre-populate service selection from URL parameters
+  // Pre-populate service selection from URL parameters and listen for changes
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const serviceParam = urlParams.get('service')
-    if (serviceParam && services.find(s => s.id === serviceParam)) {
-      setFormData(prev => ({ ...prev, service: serviceParam }))
+    const updateServiceFromURL = () => {
+      const urlParams = new URLSearchParams(window.location.search)
+      const serviceParam = urlParams.get('service')
+      if (serviceParam && services.find(s => s.id === serviceParam)) {
+        setFormData(prev => ({ ...prev, service: serviceParam }))
+      }
+    }
+
+    // Update on initial load
+    updateServiceFromURL()
+
+    // Listen for URL changes (including hash changes and popstate)
+    const handleURLChange = () => {
+      updateServiceFromURL()
+    }
+
+    window.addEventListener('popstate', handleURLChange)
+    window.addEventListener('hashchange', handleURLChange)
+
+    // Also check periodically for URL parameter changes
+    const interval = setInterval(updateServiceFromURL, 500)
+
+    return () => {
+      window.removeEventListener('popstate', handleURLChange)
+      window.removeEventListener('hashchange', handleURLChange)
+      clearInterval(interval)
     }
   }, [])
 
