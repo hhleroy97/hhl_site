@@ -13,9 +13,7 @@ const services = [
     name: 'Real-Time Interactive Systems',
     price: '$9,999+',
   },
-  { id: 'freelance', name: 'Freelance Contract', price: 'Negotiable' },
-  { id: 'fulltime', name: 'Full-Time Employment', price: 'Negotiable' },
-].sort((a, b) => a.name.localeCompare(b.name))
+]
 
 export default function ContactFooter() {
   const [formData, setFormData] = useState({
@@ -30,34 +28,12 @@ export default function ContactFooter() {
     'idle' | 'success' | 'error'
   >('idle')
 
-  // Pre-populate service selection from URL parameters and listen for changes
+  // Pre-populate service selection from URL parameters
   useEffect(() => {
-    const updateServiceFromURL = () => {
-      const urlParams = new URLSearchParams(window.location.search)
-      const serviceParam = urlParams.get('service')
-      if (serviceParam && services.find(s => s.id === serviceParam)) {
-        setFormData(prev => ({ ...prev, service: serviceParam }))
-      }
-    }
-
-    // Update on initial load
-    updateServiceFromURL()
-
-    // Listen for URL changes (including hash changes and popstate)
-    const handleURLChange = () => {
-      updateServiceFromURL()
-    }
-
-    window.addEventListener('popstate', handleURLChange)
-    window.addEventListener('hashchange', handleURLChange)
-
-    // Also check periodically for URL parameter changes
-    const interval = setInterval(updateServiceFromURL, 500)
-
-    return () => {
-      window.removeEventListener('popstate', handleURLChange)
-      window.removeEventListener('hashchange', handleURLChange)
-      clearInterval(interval)
+    const urlParams = new URLSearchParams(window.location.search)
+    const serviceParam = urlParams.get('service')
+    if (serviceParam && services.find(s => s.id === serviceParam)) {
+      setFormData(prev => ({ ...prev, service: serviceParam }))
     }
   }, [])
 
@@ -264,8 +240,24 @@ export default function ContactFooter() {
 
                   {/* Subject and Service Row */}
                   <div className='grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4'>
-                    {/* Service of Interest - First on mobile, second on desktop */}
-                    <div className='order-1 md:order-2'>
+                    {/* Subject */}
+                    <div>
+                      <label className='text-zinc-300 text-base font-medium block mb-3'>
+                        Subject
+                      </label>
+                      <input
+                        type='text'
+                        name='subject'
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
+                        placeholder='Brief description of your inquiry'
+                      />
+                    </div>
+
+                    {/* Service of Interest */}
+                    <div>
                       <label className='text-zinc-300 text-base font-medium block mb-3'>
                         Service of Interest
                       </label>
@@ -311,22 +303,6 @@ export default function ContactFooter() {
                         </div>
                       </div>
                     </div>
-
-                    {/* Subject - Second on mobile, first on desktop */}
-                    <div className='order-2 md:order-1'>
-                      <label className='text-zinc-300 text-base font-medium block mb-3'>
-                        Subject
-                      </label>
-                      <input
-                        type='text'
-                        name='subject'
-                        value={formData.subject}
-                        onChange={handleChange}
-                        required
-                        className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
-                        placeholder='Brief description of your inquiry'
-                      />
-                    </div>
                   </div>
                 </div>
 
@@ -340,7 +316,7 @@ export default function ContactFooter() {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={8}
+                    rows={4}
                     className='w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-zinc-400 resize-none focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20 focus:bg-black/60 transition-all duration-300 hover:border-white/30'
                     placeholder='Tell me about your project, timeline, and any specific requirements...'
                   />
