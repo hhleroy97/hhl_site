@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import path from 'path'
 
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/hhl_site/' : '/',
+  base: '/',
   plugins: [
     react(),
     VitePWA({
@@ -18,8 +18,8 @@ export default defineConfig({
         background_color: '#000000',
         display: 'standalone',
         orientation: 'portrait',
-        scope: process.env.NODE_ENV === 'production' ? '/hhl_site/' : '/',
-        start_url: process.env.NODE_ENV === 'production' ? '/hhl_site/' : '/',
+        scope: '/',
+        start_url: '/',
         icons: [
           {
             src: 'pwa-192x192.png',
