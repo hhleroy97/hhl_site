@@ -47,9 +47,22 @@ export default function ContactFooter() {
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
+      // Debug logging (will be removed in production build)
+      console.log('EmailJS Config Check:', {
+        serviceId: serviceId ? '✓ Present' : '✗ Missing',
+        templateId: templateId ? '✓ Present' : '✗ Missing',
+        publicKey: publicKey ? '✓ Present' : '✗ Missing',
+        env: import.meta.env.MODE,
+      })
+
       if (!serviceId || !templateId || !publicKey) {
+        const missingVars = []
+        if (!serviceId) missingVars.push('VITE_EMAILJS_SERVICE_ID')
+        if (!templateId) missingVars.push('VITE_EMAILJS_TEMPLATE_ID')
+        if (!publicKey) missingVars.push('VITE_EMAILJS_PUBLIC_KEY')
+
         throw new Error(
-          'EmailJS configuration missing. Please check your environment variables.'
+          `EmailJS configuration missing: ${missingVars.join(', ')}. Please check your GitHub Repository Secrets.`
         )
       }
 
@@ -81,10 +94,18 @@ export default function ContactFooter() {
       setTimeout(() => setSubmitStatus('idle'), 5000)
     } catch (error) {
       console.error('Failed to send email:', error)
+
+      // Log detailed error information for debugging
+      console.error('Error details:', {
+        message: error.message,
+        name: error.name,
+        stack: error.stack,
+      })
+
       setSubmitStatus('error')
 
-      // Reset error message after 5 seconds
-      setTimeout(() => setSubmitStatus('idle'), 5000)
+      // Reset error message after 8 seconds (longer to read error)
+      setTimeout(() => setSubmitStatus('idle'), 8000)
     } finally {
       setIsSubmitting(false)
     }
