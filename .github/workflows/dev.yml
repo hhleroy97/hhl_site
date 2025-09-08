@@ -1,5 +1,8 @@
 name: Development Build & Test
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [ dev ]
