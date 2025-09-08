@@ -128,7 +128,7 @@
     <script>
       // Only load GA if tracking ID is provided
       const GA_TRACKING_ID = '%VITE_GA_TRACKING_ID%';
-      if (GA_TRACKING_ID && GA_TRACKING_ID !== '%VITE_GA_TRACKING_ID%') {
+      if (GA_TRACKING_ID && GA_TRACKING_ID !== '%VITE_GA_TRACKING_ID%' && GA_TRACKING_ID !== '' && GA_TRACKING_ID.startsWith('G-')) {
         // Load gtag script
         const script = document.createElement('script');
         script.async = true;
