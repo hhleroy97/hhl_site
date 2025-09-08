@@ -73,10 +73,10 @@ export default function TechCard({
 
   const desktopPosForFloating =
     titleAlign === 'left'
-      ? 'md:left-12 md:translate-x-0 md:right-auto'
+      ? 'md:left-24 md:translate-x-0 md:right-auto'
       : titleAlign === 'center'
         ? 'md:left-1/2 md:-translate-x-1/2'
-        : 'md:right-8 md:left-auto md:translate-x-0'
+        : 'md:right-12 md:left-auto md:translate-x-0'
 
   const textAlignClasses =
     titleAlign === 'left'
@@ -123,7 +123,7 @@ export default function TechCard({
 
         {/* Floating Tag Header - sticky on mobile, absolute on md+ */}
         <div
-          className={`sticky top-0 md:absolute z-20 px-8 py-4 bg-gradient-to-r ${colors.accent} rounded-br-none rounded-bl-none md:rounded-b-lg shadow-lg flex items-center justify-center w-full max-w-full md:w-auto md:right-auto md:left-auto border-b border-white/10 md:border-b-0 md:top-8 ${desktopPosForFloating}`}
+          className={`sticky top-0 md:absolute z-20 px-8 py-4 bg-gradient-to-r ${colors.accent} rounded-br-none rounded-bl-none md:rounded-b-lg shadow-lg flex items-center justify-center w-full max-w-full md:w-auto md:right-auto md:left-auto border-b border-white/10 md:border-b-0 ${desktopPosForFloating}`}
           style={{ top: 'env(safe-area-inset-top, 0px)' }}
         >
           <span
