@@ -124,27 +124,14 @@
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     
-    <!-- Google Analytics GA4 -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6M2RMCX0LQ"></script>
     <script>
-      // Only load GA if tracking ID is provided
-      const GA_TRACKING_ID = '%VITE_GA_TRACKING_ID%';
-      if (GA_TRACKING_ID && GA_TRACKING_ID !== '%VITE_GA_TRACKING_ID%' && GA_TRACKING_ID !== '' && GA_TRACKING_ID.startsWith('G-')) {
-        // Load gtag script
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
-        document.head.appendChild(script);
-        
-        // Initialize gtag
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', GA_TRACKING_ID, {
-          page_title: 'Hartley H. LeRoy - Personal Site',
-          page_location: window.location.href,
-          send_page_view: true
-        });
-      }
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6M2RMCX0LQ');
     </script>
   </head>
   <body>
