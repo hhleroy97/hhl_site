@@ -79,13 +79,8 @@
     @apply backdrop-blur-md bg-white/5 ring-1 ring-white/10 rounded-2xl;
   }
 
-  /* LCP optimization - preload hero font */
-  @font-face {
-    font-family: 'Inter';
-    font-display: swap;
-    src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2')
-      format('woff2');
-  }
+  /* LCP optimization - Inter font is loaded via Google Fonts in index.html */
+  /* Removed duplicate @font-face to prevent 404 errors */
 
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
