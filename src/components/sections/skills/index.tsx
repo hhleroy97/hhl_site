@@ -192,18 +192,20 @@ export default function SkillsTools() {
   const IconWrapper = ({
     IconComponent,
     size,
+    color,
   }: {
     IconComponent: React.ElementType
     size: number
+    color?: string
   }) => {
-    const color = getTechColor(IconComponent)
+    const iconColor = color || getTechColor(IconComponent)
 
     return (
       <div
         style={{ width: size, height: size }}
         className='flex items-center justify-center'
       >
-        <IconComponent size={size} style={{ color }} />
+        <IconComponent size={size} style={{ color: iconColor }} />
       </div>
     )
   }
@@ -484,7 +486,7 @@ export default function SkillsTools() {
                 onClick={() => setActiveCategory(category.id)}
                 className={`${
                   activeCategory === category.id
-                    ? 'bg-white/15 text-white border-white/30'
+                    ? 'bg-white/15 text-blue-400 border-white/30'
                     : 'bg-white/5 text-zinc-300 hover:bg-white/10 border-white/20'
                 } border rounded-full px-3 py-2 text-xs sm:text-sm font-medium flex items-center gap-2 transition-all`}
                 whileHover={{ scale: 1.02 }}
@@ -494,7 +496,11 @@ export default function SkillsTools() {
                   fontWeight: 'bold',
                 }}
               >
-                <IconWrapper IconComponent={category.IconComponent} size={14} />
+                <IconWrapper
+                  IconComponent={category.IconComponent}
+                  size={14}
+                  color={activeCategory === category.id ? '#60a5fa' : undefined}
+                />
                 <span>{category.title}</span>
               </motion.button>
             ))}
@@ -506,7 +512,7 @@ export default function SkillsTools() {
                 onClick={() => setActiveCategory(category.id)}
                 className={`${
                   activeCategory === category.id
-                    ? 'bg-white/15 text-white border-white/30'
+                    ? 'bg-white/15 text-blue-400 border-white/30'
                     : 'bg-white/5 text-zinc-300 hover:bg-white/10 border-white/20'
                 } border rounded-full px-3 py-2 text-xs sm:text-sm font-medium flex items-center gap-2 transition-all`}
                 whileHover={{ scale: 1.02 }}
@@ -516,7 +522,11 @@ export default function SkillsTools() {
                   fontWeight: 'bold',
                 }}
               >
-                <IconWrapper IconComponent={category.IconComponent} size={14} />
+                <IconWrapper
+                  IconComponent={category.IconComponent}
+                  size={14}
+                  color={activeCategory === category.id ? '#60a5fa' : undefined}
+                />
                 <span>{category.title}</span>
               </motion.button>
             ))}
