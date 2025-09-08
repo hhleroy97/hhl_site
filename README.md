@@ -54,7 +54,7 @@ src/
 └── main.tsx           # Application entry point
 
 docs/                   # Documentation and resume files
-scripts/                # Build and deployment scripts
+scripts/                # Build, deployment, and security scripts
 public/                 # Static assets and PWA manifest
 ```
 
@@ -120,10 +120,11 @@ public/                 # Static assets and PWA manifest
 
 ### Development Tools
 
-- **Git Hooks:** Pre-commit linting and formatting with Husky
-- **Environment Variables:** Custom script for build-time variable replacement
+- **Git Hooks:** Pre-commit linting, formatting, and secret scanning with Husky
+- **Environment Variables:** Secure handling with GitHub Secrets for production
 - **Path Aliases:** Configured for clean imports (@components, @utils, etc.)
 - **TypeScript:** Strict mode with comprehensive type checking
+- **Security Scanning:** Automated secret detection in pre-commit hooks
 
 ## Deployment and CI/CD
 

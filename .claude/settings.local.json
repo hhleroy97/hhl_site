@@ -43,7 +43,9 @@
       "Bash(git rebase:*)",
       "Bash(npm run replace-env-vars:*)",
       "Bash(git rm:*)",
-      "Bash(git filter-branch:*)"
+      "Bash(git filter-branch:*)",
+      "Bash(git remote add:*)",
+      "Bash(chmod:*)"
     ],
     "defaultMode": "acceptEdits",
     "additionalDirectories": ["/home/hartley/.ssh"]

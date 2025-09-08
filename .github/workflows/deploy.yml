@@ -61,6 +61,21 @@ jobs:
       run: npm run build
       env:
         NODE_ENV: production
+        VITE_SITE_URL: https://hartleyleroy.dev
+        VITE_SITE_NAME: "Hartley H. Leroy"
+        VITE_SITE_DESCRIPTION: "ENGINEER - BUILDER - CREATIVE TECHNOLOGIST"
+        VITE_EMAILJS_SERVICE_ID: ${{ secrets.VITE_EMAILJS_SERVICE_ID }}
+        VITE_EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_TEMPLATE_ID }}
+        VITE_EMAILJS_PUBLIC_KEY: ${{ secrets.VITE_EMAILJS_PUBLIC_KEY }}
+        VITE_GA_TRACKING_ID: ${{ secrets.VITE_GA_TRACKING_ID }}
+        VITE_HOTJAR_ID: ${{ secrets.VITE_HOTJAR_ID }}
+        VITE_GITHUB_URL: https://github.com/hartleyhleroy
+        VITE_LINKEDIN_URL: https://linkedin.com/in/hartleyhleroy
+        VITE_EMAIL: contact@hartleyleroy.dev
+        VITE_ENABLE_ANIMATIONS: true
+        VITE_ENABLE_CYBERPUNK_MODE: true
+        VITE_ENABLE_CONTACT_FORM: true
+        VITE_ENABLE_ANALYTICS: true
         
     - name: Setup Pages
       uses: actions/configure-pages@v4
