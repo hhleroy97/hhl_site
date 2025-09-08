@@ -193,17 +193,19 @@ export default function SkillsTools() {
     IconComponent,
     size,
     color,
+    className = '',
   }: {
     IconComponent: React.ElementType
     size: number
     color?: string
+    className?: string
   }) => {
     const iconColor = color || getTechColor(IconComponent)
 
     return (
       <div
         style={{ width: size, height: size }}
-        className='flex items-center justify-center'
+        className={`flex items-center justify-center ${className}`}
       >
         <IconComponent size={size} style={{ color: iconColor }} />
       </div>
@@ -402,9 +404,6 @@ export default function SkillsTools() {
 
   // No mobile accordion state required
 
-  // Animation delay: simple sequential for responsiveness
-  const getAnimationDelay = (index: number) => index * 0.05
-
   // No counts needed
 
   return (
@@ -419,12 +418,84 @@ export default function SkillsTools() {
       flipMobileCorners={false}
     >
       <div className='w-full h-full px-2 sm:px-4 flex flex-col'>
+        {/* Mobile-only dropdown navigation */}
+        <div className='block md:hidden mb-4'>
+          <div className='relative'>
+            {/* Active category display with icon */}
+            <div className='flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-3 text-white text-sm font-medium'>
+              <IconWrapper
+                IconComponent={
+                  skillCategories.find(cat => cat.id === activeCategory)
+                    ?.IconComponent || Database
+                }
+                size={14}
+                color='#60a5fa'
+              />
+              <span
+                style={{
+                  fontFamily: 'Orbitron, sans-serif',
+                  fontWeight: 'bold',
+                }}
+              >
+                {skillCategories.find(cat => cat.id === activeCategory)?.id ===
+                'software-systems'
+                  ? 'Software Development'
+                  : skillCategories.find(cat => cat.id === activeCategory)
+                        ?.id === 'product-project'
+                    ? 'Project Management'
+                    : skillCategories.find(cat => cat.id === activeCategory)
+                        ?.title}
+              </span>
+            </div>
+
+            {/* Hidden select overlay */}
+            <select
+              value={activeCategory}
+              onChange={e => setActiveCategory(e.target.value)}
+              className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'
+            >
+              {skillCategories.map(category => (
+                <option
+                  key={category.id}
+                  value={category.id}
+                  className='bg-zinc-900 text-white'
+                >
+                  {category.id === 'software-systems'
+                    ? 'Software Development'
+                    : category.id === 'product-project'
+                      ? 'Project Management'
+                      : category.title}
+                </option>
+              ))}
+            </select>
+
+            {/* Custom dropdown arrow */}
+            <div className='absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white'>
+              <svg
+                width='12'
+                height='12'
+                viewBox='0 0 12 12'
+                fill='currentColor'
+              >
+                <path
+                  d='M3 4.5L6 7.5L9 4.5'
+                  stroke='currentColor'
+                  strokeWidth='1.5'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  fill='none'
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+
         {/* No search bar */}
 
         {/* Bottom buttons are rendered after the grid */}
 
         {/* Skills Table */}
-        <div className='w-[55%] h-[1000%] mx-auto'>
+        <div className='w-[95%] md:w-[55%] h-[1000%] mx-auto'>
           <AnimatePresence mode='wait'>
             <div
               className={`rounded-lg p-4 bg-gradient-to-r ${activeAccent} bg-black/30 backdrop-blur-md overflow-hidden flex flex-col`}
@@ -447,26 +518,28 @@ export default function SkillsTools() {
                   </motion.div>
                 </div>
               ) : (
-                <div className='grid grid-cols-2 md:grid-cols-4 gap-0 sm:gap-1 w-[100%] h-[100%] mx-auto'>
-                  {filteredSkills.map((skill, index) => (
+                <div className='grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-1 w-[100%] h-[100%] mx-auto'>
+                  {filteredSkills.map(skill => (
                     <motion.div
                       key={skill.name}
-                      className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 sm:p-4 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center aspect-square w-full'
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{
-                        duration: 0.3,
-                        delay: getAnimationDelay(index),
-                      }}
-                      whileHover={{ scale: 1.02 }}
+                      className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-2 md:p-4 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center aspect-square w-full'
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      <div className='mb-3 sm:mb-4'>
+                      <div className='mb-1 md:mb-4'>
+                        <IconWrapper
+                          IconComponent={skill.IconComponent}
+                          size={38}
+                          className='md:hidden'
+                        />
                         <IconWrapper
                           IconComponent={skill.IconComponent}
                           size={72}
+                          className='hidden md:block'
                         />
                       </div>
-                      <h4 className='text-xs sm:text-sm font-semibold text-white leading-tight'>
+                      <h4 className='text-sm md:text-sm font-semibold text-white leading-tight'>
                         {skill.name}
                       </h4>
                     </motion.div>
@@ -477,8 +550,8 @@ export default function SkillsTools() {
           </AnimatePresence>
         </div>
 
-        {/* Bottom category buttons: 3 on first row, 2 centered on second */}
-        <div className='mt-4 space-y-2'>
+        {/* Bottom category buttons: 3 on first row, 2 centered on second - Desktop only */}
+        <div className='mt-4 space-y-2 hidden md:block'>
           <div className='flex justify-center gap-2'>
             {skillCategories.slice(0, 3).map(category => (
               <motion.button
