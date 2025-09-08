@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && npm run replace-env-vars",
+    "build:no-replace": "tsc && vite build",
+    "replace-env-vars": "node scripts/replace-env-vars.js",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx,js,jsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx,js,jsx --fix",
