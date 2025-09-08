@@ -73,7 +73,7 @@ export default function TechCard({
 
   const desktopPosForFloating =
     titleAlign === 'left'
-      ? 'md:left-32 md:translate-x-0 md:right-auto'
+      ? 'md:left-28 md:translate-x-0 md:right-auto'
       : titleAlign === 'center'
         ? 'md:left-1/2 md:-translate-x-1/2'
         : 'md:right-12 md:left-auto md:translate-x-0'
@@ -155,7 +155,7 @@ export default function TechCard({
 
         {/* Rotated Header - positioned as a side tab */}
         <div
-          className='absolute left-8 top-12 z-10'
+          className='absolute left-6 top-12 z-10'
           style={{
             transformOrigin: 'center center',
             transform: 'rotate(-90deg)',
@@ -174,7 +174,7 @@ export default function TechCard({
         </div>
 
         {/* Content */}
-        <div className='relative z-10 p-8 pt-10 pl-16 flex-1 flex flex-col text-white'>
+        <div className='relative z-10 p-8 pt-10 pl-14 flex-1 flex flex-col text-white'>
           {children}
         </div>
       </div>
