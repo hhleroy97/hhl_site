@@ -1,14 +1,14 @@
 # Hartley H. Leroy - Portfolio Website
 
-> ENGINEER • BUILDER • CREATIVE TECHNOLOGIST
+> ENGINEER - BUILDER - CREATIVE TECHNOLOGIST
 
 [![Deploy to GitHub Pages](https://github.com/hhleroy97/hhl_site/actions/workflows/deploy.yml/badge.svg)](https://github.com/hhleroy97/hhl_site/actions/workflows/deploy.yml)
 [![Development Build](https://github.com/hhleroy97/hhl_site/actions/workflows/dev.yml/badge.svg)](https://github.com/hhleroy97/hhl_site/actions/workflows/dev.yml)
-[![Live Site](https://img.shields.io/badge/Live%20Site-hhleroy97.github.io%2Fhhl__site-brightgreen)](https://hhleroy97.github.io/hhl_site/)
+[![Live Site](https://img.shields.io/badge/Live%20Site-hartleyleroy.dev-brightgreen)](https://hartleyleroy.dev/)
 
-A modern, high-performance portfolio website built with React, TypeScript, and cutting-edge web technologies. Features a professional cyberpunk-inspired design with accessibility-first approach, smooth animations, and excellent user experience across all devices.
+A modern, high-performance portfolio website built with React, TypeScript, and advanced web technologies. Features a cyberpunk-inspired design with accessibility-first approach, smooth animations, and optimal user experience across all devices.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Install dependencies
@@ -24,135 +24,75 @@ npm run build
 npm run preview
 ```
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Framework:** React 18 + TypeScript
 - **Build Tool:** Vite
 - **Styling:** Tailwind CSS + Sass
+- **3D Graphics:** Three.js + React Three Fiber
 - **Animations:** Framer Motion
 - **Routing:** React Router DOM
+- **Email Service:** EmailJS
 - **Linting:** ESLint + Prettier
 - **Testing:** Vitest
 - **CI/CD:** GitHub Actions
 - **PWA:** Vite PWA Plugin
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
-├── components/          # Reusable UI components
-├── pages/              # Page components
-├── styles/             # Global styles and variables
+├── components/
+│   ├── ui/             # Reusable UI components
+│   ├── sections/       # Page section components
+│   └── 3d/             # Three.js components
+├── context/            # React context providers
+├── hooks/              # Custom React hooks
+├── styles/             # Global styles and utilities
 ├── assets/             # Images, fonts, and static assets
 ├── utils/              # Utility functions and helpers
-├── types/              # TypeScript type definitions
 └── main.tsx           # Application entry point
+
+docs/                   # Documentation and resume files
+scripts/                # Build, deployment, and security scripts
+public/                 # Static assets and PWA manifest
 ```
 
-## ✨ Recent UI/UX & Design Best Practices Implementation
+## Features
 
-### 🎯 Accessibility Enhancements
+### Design and User Experience
 
-- **ARIA Labels & Semantic HTML**: Comprehensive ARIA labeling and semantic structure
-- **Focus Management**: Professional focus rings and keyboard navigation support
-- **Screen Reader Support**: Skip links and proper screen reader compatibility
-- **Color Contrast**: Enhanced color contrast ratios for better readability
-- **Touch Targets**: Minimum 44px touch targets for mobile accessibility
+- **Accessibility**: WCAG-compliant with comprehensive ARIA labeling, keyboard navigation, and screen reader support
+- **Responsive Design**: Mobile-first approach with fluid layouts and adaptive components
+- **Performance**: Lazy loading, code splitting, and optimized asset delivery
+- **Animations**: Smooth transitions with reduced motion support and professional easing curves
 
-### 📱 Responsive Design Excellence
+### Technical Implementation
 
-- **Mobile-First Approach**: Optimized for all screen sizes with fluid layouts
-- **Breakpoint System**: Professional breakpoint management with custom hooks
-- **Touch Optimization**: Enhanced touch interactions and gesture support
-- **Flexible Typography**: Responsive typography scales with viewport size
-- **Adaptive Components**: Components that adapt behavior based on screen size
+- **Component Architecture**: Modular design system with reusable UI components
+- **State Management**: React Context for global state and component communication
+- **3D Graphics**: Interactive Three.js visualizations integrated with React
+- **Error Handling**: Comprehensive error boundaries and graceful degradation
+- **SEO Optimization**: Enhanced meta tags, structured data, and social media optimization
 
-### ⚡ Performance Optimizations
+## Design System
 
-- **Lazy Loading**: Intelligent image and component lazy loading
-- **Code Splitting**: Route-based and component-based code splitting
-- **Performance Monitoring**: Built-in performance metrics tracking
-- **Reduced Motion Support**: Respects user's motion preferences
-- **Resource Optimization**: Optimized fonts, images, and asset loading
+### Color Palette
 
-### 🎨 Design System Consistency
-
-- **Component Library**: Comprehensive design system with consistent spacing
-- **Typography Scale**: Professional typography hierarchy and scales
-- **Color System**: Enhanced color palette with semantic color usage
-- **Spacing System**: Consistent spacing patterns throughout the application
-- **Icon System**: Unified icon usage with Lucide React
-
-### 🎭 Micro-Interactions & Animations
-
-- **Smooth Transitions**: Professional easing curves and timing
-- **Hover States**: Subtle and meaningful hover interactions
-- **Loading States**: Elegant loading animations and skeleton screens
-- **Page Transitions**: Smooth page and view transitions
-- **Interactive Feedback**: Immediate visual feedback for all interactions
-
-### 🛡️ Error Handling & Resilience
-
-- **Error Boundaries**: Comprehensive error boundary implementation
-- **Graceful Degradation**: Fallbacks for failed components/resources
-- **Loading States**: Professional loading indicators throughout
-- **Network Resilience**: Proper handling of network failures
-- **User Feedback**: Clear error messages and recovery options
-
-### 🔍 SEO & Discoverability
-
-- **Enhanced Meta Tags**: Comprehensive meta tags for social sharing
-- **Structured Data**: Rich schema.org markup for better search results
-- **Open Graph**: Optimized social media sharing previews
-- **Canonical URLs**: Proper URL canonicalization
-- **Sitemap & Robots**: SEO-optimized configuration
-
-### Professional Design System
-
-- **Enhanced Color Palette:** Improved accessibility with better contrast ratios and semantic color usage
-- **Typography Scale:** Professional font hierarchy with optimized line heights and letter spacing
-- **Consistent Spacing:** Systematic spacing scale for better visual rhythm
-- **Component Library:** Reusable card styles, button variants, and focus states
-
-### Accessibility Enhancements
-
-- **WCAG Compliance:** Proper contrast ratios and focus indicators
-- **Semantic HTML:** Screen reader friendly markup and ARIA labels
-- **Keyboard Navigation:** Full keyboard accessibility support
-- **Touch Targets:** Minimum 44px touch targets for mobile devices
-
-### Mobile-First Optimizations
-
-- **Responsive Design:** Optimized layouts for all screen sizes
-- **Performance:** Reduced animations and effects on mobile for better performance
-- **Touch Experience:** Improved button sizes and interaction patterns
-- **Typography:** Mobile-optimized font sizes and line heights
-
-### Interaction Design
-
-- **Micro-animations:** Subtle, purposeful animations that enhance UX
-- **Loading States:** Professional loading indicators with proper ARIA support
-- **Hover States:** Consistent and accessible hover effects
-- **Transitions:** Smooth, eased transitions using professional timing curves
-
-## 🎨 Design System
-
-### Colors
-
-- **Primary:** Cyberpunk neon cyan (`#00ffff`)
-- **Accent:** Hot pink (`#ff00ff`), Electric purple (`#8000ff`)
+- **Primary:** Cyberpunk neon cyan (#00ffff)
+- **Accent:** Hot pink (#ff00ff), Electric purple (#8000ff)
 - **Background:** Deep blacks with gradient overlays
 - **Typography:** JetBrains Mono, Orbitron, Inter
 
-### Animations
+### Visual Effects
 
-- Glitch effects for dramatic reveals
+- Glitch effects and dramatic reveals
 - Parallax backgrounds
 - Typewriter text animations
 - Neon glow transitions
 - Scanline overlays
 
-## 🚀 Performance Features
+## Performance Features
 
 - **Code Splitting:** Automatic chunking for optimal loading
 - **Tree Shaking:** Dead code elimination
@@ -160,85 +100,57 @@ src/
 - **PWA Ready:** Service worker and app manifest
 - **SEO Optimized:** Meta tags, structured data, sitemap
 
-## 🧪 Development
+## Development
 
 ### Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
+- `npm run build:no-replace` - Build without environment variable replacement
+- `npm run replace-env-vars` - Replace environment variables in built files
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Fix ESLint issues
 - `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
 - `npm run type-check` - Run TypeScript checks
 - `npm run test` - Run tests
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:ui` - Run tests with UI interface
 
-### Git Hooks
+### Development Tools
 
-- **Pre-commit:** Runs linting and formatting automatically
-- **Conventional Commits:** Enforced commit message format
+- **Git Hooks:** Pre-commit linting, formatting, and secret scanning with Husky
+- **Environment Variables:** Secure handling with GitHub Secrets for production
+- **Path Aliases:** Configured for clean imports (@components, @utils, etc.)
+- **TypeScript:** Strict mode with comprehensive type checking
+- **Security Scanning:** Automated secret detection in pre-commit hooks
 
-## 🎯 Features
-
-- [x] Responsive design (mobile-first)
-- [x] Dark mode (cyberpunk theme)
-- [x] Smooth animations with reduced motion support
-- [x] SEO optimization
-- [x] PWA capabilities
-- [x] Performance monitoring
-- [x] TypeScript strict mode
-- [x] Modern CSS with Tailwind
-- [x] Component-driven architecture
-
-## 🌐 Deployment & CI/CD
+## Deployment and CI/CD
 
 ### Automated Deployment
 
-The site uses a professional CI/CD pipeline with GitHub Actions:
+The site uses GitHub Actions for continuous integration and deployment:
 
-- **Production**: Deployed to [GitHub Pages](https://hhleroy97.github.io/hhl_site/) on pushes to `main` branch
-- **Development**: Continuous integration testing on `dev` branch and pull requests
+- **Production**: Deployed to [hartleyleroy.dev](https://hartleyleroy.dev/) on pushes to `main` branch
+- **Development**: CI testing on `dev` branch and pull requests
 
 ### Branch Strategy
 
-- `main` - Production branch (protected, auto-deploys to GitHub Pages)
+- `main` - Production branch (protected, auto-deploys)
 - `dev` - Development branch (protected, CI testing)
-- Feature branches - Merge into `dev` first, then `dev` → `main`
+- Feature branches merge into `dev`, then `dev` merges into `main`
 
-### Workflow Details
+### Workflows
 
-**Development Workflow** (`.github/workflows/dev.yml`):
+- **Development** (`.github/workflows/dev.yml`): Tests on Node.js 18.x and 20.x, uploads build artifacts
+- **Production** (`.github/workflows/deploy.yml`): Full CI pipeline with automatic deployment
+- **Sync** (`.github/workflows/sync-dev.yml`): Syncs dev with main after successful deployments
 
-- Triggers on push/PR to `dev` branch
-- Runs on Node.js 18.x and 20.x matrices
-- Executes: lint → type-check → test → build
-- Uploads build artifacts for 7 days
-- Posts PR status comments
-
-**Production Workflow** (`.github/workflows/deploy.yml`):
-
-- Triggers on push to `main` branch
-- Full CI pipeline: lint → type-check → test → build → deploy
-- Automatic GitHub Pages deployment
-- Creates versioned releases
-- Zero-downtime deployment
-
-### Manual Deployment
-
-```bash
-npm run build
-npm run preview  # Test locally first
-# Automatic deployment via GitHub Actions on push to main
-```
-
-## 📄 License
+## License
 
 MIT © Hartley H. Leroy
 
 ---
 
-## 🎨 Design Previews
-
-Check out the cyberpunk hero section preview at: `docs/cyberpunk_hero_preview.html`
-
-Built with ❤️ and ⚡ by Hartley H. Leroy
+Built by Hartley H. Leroy

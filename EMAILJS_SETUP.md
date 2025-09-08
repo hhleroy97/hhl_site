@@ -46,18 +46,29 @@ This project uses EmailJS to handle contact form submissions. Follow these steps
 
 ## 5. Update Environment Variables
 
+### For Local Development
+
 1. Copy the example environment file:
 
    ```bash
-   cp .env.example .env
+   cp .env.example .env.local
    ```
 
-2. Update your `.env` file with your EmailJS credentials:
+2. Update your `.env.local` file with your EmailJS credentials:
    ```
    VITE_EMAILJS_SERVICE_ID=your_service_id_here
    VITE_EMAILJS_TEMPLATE_ID=your_template_id_here
    VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
    ```
+
+### For Production Deployment
+
+1. Go to your GitHub repository
+2. Navigate to **Settings → Secrets and variables → Actions**
+3. Add these repository secrets:
+   - `VITE_EMAILJS_SERVICE_ID`: Your service ID
+   - `VITE_EMAILJS_TEMPLATE_ID`: Your template ID
+   - `VITE_EMAILJS_PUBLIC_KEY`: Your public key
 
 ## 6. Test the Contact Form
 
@@ -92,6 +103,9 @@ The contact form sends these variables to your EmailJS template:
 
 ## Security Notes
 
-- Never commit your `.env` file to version control
-- Keep your EmailJS credentials secure
+- **NEVER** commit `.env` or `.env.local` files to version control
+- Use GitHub Repository Secrets for production credentials
+- Keep your EmailJS credentials secure and rotate them regularly
 - Consider setting up email allowlists in EmailJS dashboard for production
+- The `.env.local` file is automatically ignored by git and safe for local development
+- Only use the `.env.example` file as a template (safe to commit)
