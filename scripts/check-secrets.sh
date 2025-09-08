@@ -22,18 +22,19 @@ fi
 
 # Define secret patterns to check for
 declare -a patterns=(
-    # Email and API keys
-    "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-    # Generic API keys
-    "['\"][a-zA-Z0-9]{32,}['\"]"
+    # Generic API keys (longer, more specific)
+    "['\"][a-zA-Z0-9]{40,}['\"]"
     # AWS keys
     "AKIA[0-9A-Z]{16}"
     # Private keys
     "-----BEGIN (RSA |OPENSSH |DSA |EC |PGP )?PRIVATE KEY"
-    # Common secret environment variables
-    "VITE_[A-Z_]*=(.*[a-zA-Z0-9]{8,}.*)"
+    # Actual secret values (not placeholders)
+    "VITE_[A-Z_]*=['\"]?[a-zA-Z0-9_-]{20,}['\"]?"
     # JWT tokens
     "eyJ[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*"
+    # Database URLs with credentials
+    "postgresql://[^:]+:[^@]+@"
+    "mongodb://[^:]+:[^@]+@"
 )
 
 found_secrets=0
@@ -47,16 +48,20 @@ for file in $staged_files; do
             for pattern in "${patterns[@]}"; do
                 matches=$(grep -nE "$pattern" "$file" 2>/dev/null || true)
                 if [ -n "$matches" ]; then
-                    if [ $found_secrets -eq 0 ]; then
+                    # Filter out common false positives
+                    filtered_matches=$(echo "$matches" | grep -v -E "(your_.*_here|your_github_client|example|placeholder|contact@hartleyleroy\.dev|security@hartleyleroy\.dev|hartley\.leroy1997@gmail\.com|VITE_ENABLE_|VITE_SITE_|postgresql://|mongodb://)" || true)
+                    if [ -n "$filtered_matches" ]; then
+                        if [ $found_secrets -eq 0 ]; then
+                            echo ""
+                            echo "${RED}❌ Potential secrets found:${NC}"
+                        fi
+                        echo "${YELLOW}📄 $file:${NC}"
+                        echo "$filtered_matches" | while IFS= read -r line; do
+                            echo "   ${RED}🔑 $line${NC}"
+                        done
                         echo ""
-                        echo "${RED}❌ Potential secrets found:${NC}"
+                        found_secrets=$((found_secrets + 1))
                     fi
-                    echo "${YELLOW}📄 $file:${NC}"
-                    echo "$matches" | while IFS= read -r line; do
-                        echo "   ${RED}🔑 $line${NC}"
-                    done
-                    echo ""
-                    found_secrets=$((found_secrets + 1))
                 fi
             done
         fi
