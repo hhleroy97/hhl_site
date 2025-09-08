@@ -416,71 +416,61 @@ export default function SkillsTools() {
       cardVariant='floating'
       flipMobileCorners={false}
     >
-      <div className='w-full px-2 sm:px-4'>
+      <div className='w-full h-full px-2 sm:px-4 flex flex-col'>
         {/* No search bar */}
 
         {/* Bottom buttons are rendered after the grid */}
 
         {/* Skills Table */}
-        <div className='w-full'>
+        <div className='w-[55%] h-[1000%] mx-auto'>
           <AnimatePresence mode='wait'>
             <div
-              className={`rounded-lg p-[1px] bg-gradient-to-r ${activeAccent} block w-fit mx-auto`}
+              className={`rounded-lg p-4 bg-gradient-to-r ${activeAccent} bg-black/30 backdrop-blur-md overflow-hidden flex flex-col`}
+              style={{ height: 'fit-content' }}
             >
-              <div
-                className='bg-black/30 backdrop-blur-md rounded-lg overflow-hidden flex flex-col'
-                style={{ height: 'fit-content' }}
-              >
-                {/* Skills Grid */}
-                <div className='p-4 flex-1 flex flex-col'>
-                  {filteredSkills.length === 0 ? (
-                    <div className='flex-1 flex items-center justify-center'>
-                      <motion.div
-                        className='text-center'
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        <h3 className='text-lg font-semibold text-white mb-1'>
-                          {'No skills found'}
-                        </h3>
-                        <p className='text-zinc-400 text-sm'>
-                          {'Try selecting a different category'}
-                        </p>
-                      </motion.div>
-                    </div>
-                  ) : (
-                    <>
-                      {/* Single category grid: 2 columns on mobile, 4 on md+ */}
-                      <div className='grid grid-cols-2 md:grid-cols-4 gap-0 sm:gap-1 w-fit max-w-[950px] sm:max-w-[1125px] md:max-w-[1400px] mx-auto'>
-                        {filteredSkills.map((skill, index) => (
-                          <motion.div
-                            key={skill.name}
-                            className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 sm:p-4 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center aspect-square w-full'
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{
-                              duration: 0.3,
-                              delay: getAnimationDelay(index),
-                            }}
-                            whileHover={{ scale: 1.02 }}
-                          >
-                            <div className='mb-3 sm:mb-4'>
-                              <IconWrapper
-                                IconComponent={skill.IconComponent}
-                                size={72}
-                              />
-                            </div>
-                            <h4 className='text-xs sm:text-sm font-semibold text-white leading-tight'>
-                              {skill.name}
-                            </h4>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </>
-                  )}
+              {filteredSkills.length === 0 ? (
+                <div className='flex-1 flex items-center justify-center'>
+                  <motion.div
+                    className='text-center'
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <h3 className='text-lg font-semibold text-white mb-1'>
+                      {'No skills found'}
+                    </h3>
+                    <p className='text-zinc-400 text-sm'>
+                      {'Try selecting a different category'}
+                    </p>
+                  </motion.div>
                 </div>
-              </div>
+              ) : (
+                <div className='grid grid-cols-2 md:grid-cols-4 gap-0 sm:gap-1 w-[100%] h-[100%] mx-auto'>
+                  {filteredSkills.map((skill, index) => (
+                    <motion.div
+                      key={skill.name}
+                      className='bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-3 sm:p-4 hover:bg-white/15 hover:border-white/30 transition-all duration-200 flex flex-col items-center justify-center text-center aspect-square w-full'
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: getAnimationDelay(index),
+                      }}
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <div className='mb-3 sm:mb-4'>
+                        <IconWrapper
+                          IconComponent={skill.IconComponent}
+                          size={72}
+                        />
+                      </div>
+                      <h4 className='text-xs sm:text-sm font-semibold text-white leading-tight'>
+                        {skill.name}
+                      </h4>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
             </div>
           </AnimatePresence>
         </div>
