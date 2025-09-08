@@ -41,7 +41,9 @@
       "Bash(gh pr view:*)",
       "Bash(gh pr merge:*)",
       "Bash(git rebase:*)",
-      "Bash(npm run replace-env-vars:*)"
+      "Bash(npm run replace-env-vars:*)",
+      "Bash(git rm:*)",
+      "Bash(git filter-branch:*)"
     ],
     "defaultMode": "acceptEdits",
     "additionalDirectories": ["/home/hartley/.ssh"]
