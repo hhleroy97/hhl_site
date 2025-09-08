@@ -1,3 +1,7 @@
 #!/usr/bin/env sh
 
+# Check for secrets before running linting
+./scripts/check-secrets.sh
+
+# Run lint-staged if secret check passes
 npx lint-staged
