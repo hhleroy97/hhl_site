@@ -8,6 +8,8 @@
 
 A modern, high-performance portfolio website built with React, TypeScript, and advanced web technologies. Features a cyberpunk-inspired design with accessibility-first approach, smooth animations, and optimal user experience across all devices.
 
+This site was built with Next.js and Tailwind CSS.
+
 ## Quick Start
 
 ```bash
