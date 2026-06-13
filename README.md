@@ -147,6 +147,10 @@ The site uses GitHub Actions for continuous integration and deployment:
 - **Production** (`.github/workflows/deploy.yml`): Full CI pipeline with automatic deployment
 - **Sync** (`.github/workflows/sync-dev.yml`): Syncs dev with main after successful deployments
 
+## Gate 3 validation
+
+This site is Hartley H. LeRoy's personal portfolio website, built with React, TypeScript, and Vite, showcasing his work as a creative technologist specializing in robotics fleet management, data pipelines, and real-time visuals. It features a cyberpunk-inspired design with 3D graphics, smooth animations, and a fully accessible, responsive layout optimized for performance across all devices.
+
 ## License
 
 MIT © Hartley H. Leroy
